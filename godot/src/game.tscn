@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=11 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="Texture2D" uid="uid://nmfjn8pxfscm" path="res://assets/Desk.png" id="1_sxnpx"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" path="res://src/DocSpawner.gd" id="4_macw6"]
 [ext_resource type="Theme" uid="uid://cc3eosudxc436" path="res://theme/game.tres" id="5_oolev"]
 [ext_resource type="Texture2D" uid="uid://mgxmnunxgvxi" path="res://assets/Progress_Front.png" id="7_8fqhj"]
+[ext_resource type="Script" path="res://src/base-system/AutoProgressbar.gd" id="9_ul3fx"]
+[ext_resource type="Script" path="res://src/base-system/ExtendedTimer.gd" id="10_sr2sn"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ptsas")
@@ -58,6 +60,7 @@ fill_mode = 3
 texture_under = ExtResource("2_s1wqh")
 texture_over = ExtResource("7_8fqhj")
 texture_progress = ExtResource("3_6o0s1")
+script = ExtResource("9_ul3fx")
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/HUD"]
 layout_mode = 1
@@ -79,9 +82,22 @@ text = "__cleared__"
 layout_mode = 2
 text = "__cleared__"
 
+[node name="Gameover" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 autostart = true
+
+[node name="OverloadTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+script = ExtResource("10_sr2sn")
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

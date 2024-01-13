@@ -27,7 +27,8 @@ func move_to(pos, with_rotation = true):
 	tween.tween_property(self, "global_position", pos, 1.0)
 	
 	if with_rotation:
-		var rot_offset = PI/14 if word.contains(" ") else PI/8
+		var is_long_word = word.contains(" ") or word.length() >= 10
+		var rot_offset = PI/14 if is_long_word else PI/8
 		var random_rot = randf_range(-rot_offset, rot_offset)
 		tween.tween_property(self, "global_rotation", random_rot, 1.0)
 
