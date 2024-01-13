@@ -15,6 +15,8 @@ func _ready():
 	label.text = word
 	label.position += Vector2.DOWN * 50
 	
+	label.label_settings = label.label_settings.duplicate()
+	
 	typed_label.text = word
 	typed_label.position = label.position
 	typed_label.visible_characters = 0
@@ -25,7 +27,7 @@ func move_to(pos, with_rotation = true):
 	tween.tween_property(self, "global_position", pos, 1.0)
 	
 	if with_rotation:
-		var rot_offset = PI/8
+		var rot_offset = PI/14 if word.contains(" ") else PI/8
 		var random_rot = randf_range(-rot_offset, rot_offset)
 		tween.tween_property(self, "global_rotation", random_rot, 1.0)
 
@@ -37,8 +39,6 @@ func handle_key(key: String):
 	var is_space = next_word_char == " "
 	if is_space: # there should only at most be one space
 		next_word_char = word[typed.length() + 1]
-		
-	_logger.debug("Next char for document: %s" % next_word_char)
 	
 	if next_word_char.to_lower() == key.to_lower():
 		if is_space:
@@ -50,6 +50,9 @@ func handle_key(key: String):
 		if typed.to_lower() == word.to_lower():
 			finished.emit()
 
+func highlight():
+	var setting = label.label_settings as LabelSettings
+	setting.outline_size = 5
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()

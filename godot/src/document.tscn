@@ -2,12 +2,8 @@
 
 [ext_resource type="Script" path="res://src/document.gd" id="1_q4ht6"]
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/Document.png" id="1_qjb0l"]
+[ext_resource type="LabelSettings" uid="uid://248dp7egxlkj" path="res://theme/document.tres" id="3_bt7jg"]
 [ext_resource type="FontFile" uid="uid://cne0gem8cyqla" path="res://theme/ARCADECLASSIC.TTF" id="3_jdbgt"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_tp8tn"]
-font = ExtResource("3_jdbgt")
-font_size = 20
-font_color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0dh0e"]
 font = ExtResource("3_jdbgt")
@@ -33,7 +29,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 text = "__TEST WITH SPACE__"
-label_settings = SubResource("LabelSettings_tp8tn")
+label_settings = ExtResource("3_bt7jg")
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
@@ -56,7 +52,9 @@ label_settings = SubResource("LabelSettings_0dh0e")
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
+visible_characters = 0
 visible_characters_behavior = 1
+visible_ratio = 0.0
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
