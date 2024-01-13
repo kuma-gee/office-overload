@@ -1,6 +1,10 @@
 class_name EffectRoot
 extends Node
 
+@export var trans := Tween.TRANS_CUBIC
+@export var ease := Tween.EASE_IN
+@export var duration := 1.0
+
 var tw := TweenCreator.new(self)
 var effects: Array[Effect] = []
 
@@ -9,6 +13,9 @@ func add_effect(n: Effect):
 	
 func do_effect():
 	var finish_cb = []
+	tw.ease = ease
+	tw.trans = trans
+	tw.default_duration = duration
 	if tw.new_tween(func(): _do_callbacks(finish_cb)):
 		for eff in effects:
 			var cb = eff.apply(tw)

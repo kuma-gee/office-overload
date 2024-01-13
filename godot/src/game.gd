@@ -13,12 +13,14 @@ extends Node2D
 @onready var open_label = $CanvasLayer/HUD/MarginContainer2/VBoxContainer/Open
 @onready var overload_timer = $OverloadTimer
 @onready var gameover = $CanvasLayer/Gameover
+@onready var gameover_effect = $GameoverEffect
 
 @onready var time_multiplier := 1.0 - time_increase
 @onready var time := start_time
 
 var documents = []
 var cleared := 0
+var is_gameover = false
 
 func _ready():
 	_spawn()
@@ -34,8 +36,10 @@ func _ready():
 	#overload_timer.stopped.connect(func():
 		#overload_progress.modulate = Color.WHITE
 	#)
-	overload_timer.timeout.connect(func(): 
+	overload_timer.timeout.connect(func():
+		is_gameover = true
 		spawn_timer.stop()
+		gameover_effect.do_effect()
 		gameover.show()
 	)
 
@@ -46,9 +50,9 @@ func _update_cleared():
 	cleared_label.text = "Finished: %s" % cleared
 
 func _process(delta):
-	var max_documents = 10
-	var workload = min(documents.size() / max_documents, 100)
-	overload_progress.multiplier =  max(workload, 0.3)
+	var max_documents = 1 # TODO: revert to 10
+	var workload = min(documents.size() / max_documents, 10)
+	overload_progress.multiplier =  max(workload, 0.2)
 
 func _spawn():
 	var doc = doc_spawner.spawn_document()
@@ -79,9 +83,15 @@ func _on_spawn_timer_timeout():
 	_spawn()
 
 func _unhandled_input(event: InputEvent):
+	if is_gameover: return
+	
 	if event is InputEventKey and event.is_pressed() and not documents.is_empty():
 		var text = event.as_text()
 		if text.length() != 1:
 			return
 		
 		documents[0].handle_key(text)
+
+
+func _on_restart_pressed():
+	get_tree().reload_current_scene()

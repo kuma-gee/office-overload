@@ -1,20 +1,28 @@
-$text-color: Color(0.9, 0.75, 1, 0.7);
-$hover-color: Color(1, 1, 1, 1);
+$text-color: Color(0.207843, 0.207843, 0.25098, 1);
+$hover-color: Color(0.929412, 0.894118, 0.854902, 1);
 
 body {
-  // font-family: url(jackeyfont.ttf);
-  font-size: 8;
+  font-family: url(ARCADECLASSIC.TTF);
+  font-size: 10;
 }
 
-Button {
-  background: none;
+Label {
+  color: #{$text-color}
+}
+
+Button,
+Button:pressed
+{
+  background: #{$hover-color};
   color: #{$text-color};
-  padding: 2;
+  border-width: 1;
+  border-color: #{$text-color}
 }
 
 Button:hover,
-Button:pressed,
 Button:focus {
-  background: none;
+  background: #{$text-color};
   color: #{$hover-color};
+  border-width: 1;
+  border-color: #{$text-color}
 }

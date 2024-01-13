@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=15 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="Texture2D" uid="uid://nmfjn8pxfscm" path="res://assets/Desk.png" id="1_sxnpx"]
@@ -6,10 +6,19 @@
 [ext_resource type="Texture2D" uid="uid://h14bp6b8w6i8" path="res://assets/Progress_Under.png" id="2_s1wqh"]
 [ext_resource type="Texture2D" uid="uid://df8a7xriw1acm" path="res://assets/Progress_Fill.png" id="3_6o0s1"]
 [ext_resource type="Script" path="res://src/DocSpawner.gd" id="4_macw6"]
-[ext_resource type="Theme" uid="uid://cc3eosudxc436" path="res://theme/game.tres" id="5_oolev"]
 [ext_resource type="Texture2D" uid="uid://mgxmnunxgvxi" path="res://assets/Progress_Front.png" id="7_8fqhj"]
 [ext_resource type="Script" path="res://src/base-system/AutoProgressbar.gd" id="9_ul3fx"]
+[ext_resource type="Theme" uid="uid://rgdi3aximxh8" path="res://theme/theme.tres" id="10_am0oy"]
+[ext_resource type="FontFile" uid="uid://cne0gem8cyqla" path="res://theme/ARCADECLASSIC.TTF" id="10_dy886"]
 [ext_resource type="Script" path="res://src/base-system/ExtendedTimer.gd" id="10_sr2sn"]
+[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="11_165lo"]
+[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="14_3sqip"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7y313"]
+font = ExtResource("10_dy886")
+font_size = 32
+font_color = Color(0.207843, 0.207843, 0.25098, 1)
+outline_size = 15
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ptsas")
@@ -33,7 +42,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("5_oolev")
+theme = ExtResource("10_am0oy")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD"]
 layout_mode = 1
@@ -89,6 +98,30 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("10_am0oy")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Gameover"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Gameover/CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/Gameover/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "YOU ARE FIRED!"
+label_settings = SubResource("LabelSettings_7y313")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Restart" type="Button" parent="CanvasLayer/Gameover/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Search another job"
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -100,4 +133,15 @@ wait_time = 3.0
 one_shot = true
 script = ExtResource("10_sr2sn")
 
+[node name="GameoverEffect" type="Node" parent="."]
+script = ExtResource("11_165lo")
+trans = 10
+ease = 1
+duration = 0.75
+
+[node name="Slide" type="Node" parent="GameoverEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("14_3sqip")
+node = NodePath("../../CanvasLayer/Gameover/CenterContainer")
+
+[connection signal="pressed" from="CanvasLayer/Gameover/CenterContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
