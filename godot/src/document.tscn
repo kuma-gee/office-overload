@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://d4l3bh8sq5hjr"]
+
+[ext_resource type="Script" path="res://src/document.gd" id="1_q4ht6"]
+[ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/Document.png" id="1_qjb0l"]
+[ext_resource type="FontFile" uid="uid://cne0gem8cyqla" path="res://theme/ARCADECLASSIC.TTF" id="3_jdbgt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tp8tn"]
+font = ExtResource("3_jdbgt")
+font_size = 20
+font_color = Color(0.207843, 0.207843, 0.25098, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0dh0e"]
+font = ExtResource("3_jdbgt")
+font_size = 20
+
+[node name="Document" type="Node2D"]
+script = ExtResource("1_q4ht6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_qjb0l")
+
+[node name="Word" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -15.0
+offset_right = 50.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "__TEST WITH SPACE__"
+label_settings = SubResource("LabelSettings_tp8tn")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Typed" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -15.0
+offset_right = 50.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "__TEST WITH SPACE__"
+label_settings = SubResource("LabelSettings_0dh0e")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+visible_characters_behavior = 1
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

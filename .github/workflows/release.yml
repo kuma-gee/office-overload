@@ -14,7 +14,7 @@ jobs:
       matrix:
         channel: [win, linux, web, macOS]
     env:
-      GAME: ##VAR_GAME_NAME
+      GAME: office-overload
       CHANNEL: ${{matrix.channel}}
       GODOT_VERSION: 4.1
     steps:
