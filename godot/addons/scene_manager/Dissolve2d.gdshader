@@ -1,21 +1,3 @@
-//shader_type canvas_item;
-//render_mode unshaded;
-//
-//uniform float cutoff : hint_range(0.0, 1.0);
-//uniform float smooth_size : hint_range(0.0, 1.0);
-//uniform sampler2D mask : source_color;
-//uniform bool inverted = false;
-//
-//
-//void fragment() {
-//	float value = texture(mask, UV).r;
-//	if (inverted) {
-//		value = 1.0 - value;
-//	}
-//	float alpha = smoothstep(cutoff, cutoff + smooth_size, value * (1.0 - smooth_size) + smooth_size);
-//	COLOR = vec4(COLOR.rgb, alpha);
-//}
-
 shader_type canvas_item;
 
 uniform sampler2D dissolve_texture;

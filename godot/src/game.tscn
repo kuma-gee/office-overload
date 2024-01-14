@@ -1,37 +1,23 @@
-[gd_scene load_steps=15 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=16 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="Texture2D" uid="uid://nmfjn8pxfscm" path="res://assets/Desk.png" id="1_sxnpx"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
 [ext_resource type="Texture2D" uid="uid://h14bp6b8w6i8" path="res://assets/Progress_Under.png" id="2_s1wqh"]
+[ext_resource type="PackedScene" uid="uid://dffjinparflk0" path="res://src/ui/day.tscn" id="3_4j615"]
 [ext_resource type="Texture2D" uid="uid://df8a7xriw1acm" path="res://assets/Progress_Fill.png" id="3_6o0s1"]
 [ext_resource type="Script" path="res://src/DocSpawner.gd" id="4_macw6"]
 [ext_resource type="Texture2D" uid="uid://mgxmnunxgvxi" path="res://assets/Progress_Front.png" id="7_8fqhj"]
+[ext_resource type="Script" path="res://src/WorkTime.gd" id="7_ruuy4"]
+[ext_resource type="PackedScene" uid="uid://dw4ed4dspm22v" path="res://src/ui/gameover.tscn" id="8_lpofg"]
+[ext_resource type="PackedScene" uid="uid://kdu7e637eapn" path="res://src/ui/end.tscn" id="9_dbvje"]
 [ext_resource type="Script" path="res://src/base-system/AutoProgressbar.gd" id="9_ul3fx"]
 [ext_resource type="Theme" uid="uid://rgdi3aximxh8" path="res://theme/theme.tres" id="10_am0oy"]
-[ext_resource type="FontFile" uid="uid://cne0gem8cyqla" path="res://theme/ARCADECLASSIC.TTF" id="10_dy886"]
 [ext_resource type="Script" path="res://src/base-system/ExtendedTimer.gd" id="10_sr2sn"]
-[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="11_165lo"]
-[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="14_3sqip"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_7y313"]
-font = ExtResource("10_dy886")
-font_size = 32
-font_color = Color(0.207843, 0.207843, 0.25098, 1)
-outline_size = 15
+[ext_resource type="Script" path="res://src/DocumentStack.gd" id="12_n73rb"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ptsas")
-
-[node name="Desk" type="Sprite2D" parent="."]
-texture = ExtResource("1_sxnpx")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="DocSpawner" type="Marker2D" parent="."]
-position = Vector2(-200, 18)
-script = ExtResource("4_macw6")
-document_scene = ExtResource("2_35x6g")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -42,7 +28,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("10_am0oy")
+
+[node name="Day" parent="CanvasLayer/HUD" instance=ExtResource("3_4j615")]
+layout_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD"]
 layout_mode = 1
@@ -72,12 +62,13 @@ texture_progress = ExtResource("3_6o0s1")
 script = ExtResource("9_ul3fx")
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/HUD"]
+visible = false
 layout_mode = 1
-offset_right = 40.0
+offset_right = 69.0
 offset_bottom = 40.0
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/MarginContainer2"]
 layout_mode = 2
@@ -91,57 +82,56 @@ text = "__cleared__"
 layout_mode = 2
 text = "__cleared__"
 
-[node name="Gameover" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("10_am0oy")
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Gameover"]
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/HUD"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -31.0
+offset_bottom = 19.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Gameover/CenterContainer"]
+[node name="WorkTime" type="Label" parent="CanvasLayer/HUD/MarginContainer3"]
 layout_mode = 2
-alignment = 1
+text = "08:00"
+horizontal_alignment = 2
+script = ExtResource("7_ruuy4")
 
-[node name="Label" type="Label" parent="CanvasLayer/Gameover/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "YOU ARE FIRED!"
-label_settings = SubResource("LabelSettings_7y313")
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="Gameover" parent="CanvasLayer" instance=ExtResource("8_lpofg")]
+visible = false
 
-[node name="Restart" type="Button" parent="CanvasLayer/Gameover/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Search another job"
+[node name="End" parent="CanvasLayer" instance=ExtResource("9_dbvje")]
+visible = false
+
+[node name="Desk" type="Sprite2D" parent="."]
+texture = ExtResource("1_sxnpx")
+
+[node name="DocumentStack" type="Node2D" parent="."]
+position = Vector2(133, -44)
+scale = Vector2(1, 1)
+script = ExtResource("12_n73rb")
+stack_count = 5
+max_stacks = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="DocSpawner" type="Marker2D" parent="."]
+position = Vector2(-200, 18)
+script = ExtResource("4_macw6")
+document_scene = ExtResource("2_35x6g")
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
-autostart = true
 
 [node name="OverloadTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
 script = ExtResource("10_sr2sn")
 
-[node name="GameoverEffect" type="Node" parent="."]
-script = ExtResource("11_165lo")
-trans = 10
-ease = 1
-duration = 0.75
-
-[node name="Slide" type="Node" parent="GameoverEffect" node_paths=PackedStringArray("node")]
-script = ExtResource("14_3sqip")
-node = NodePath("../../CanvasLayer/Gameover/CenterContainer")
-
-[connection signal="pressed" from="CanvasLayer/Gameover/CenterContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="finished" from="CanvasLayer/HUD/Day" to="." method="_on_day_finished"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

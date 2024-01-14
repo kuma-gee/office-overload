@@ -1,9 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://d4l3bh8sq5hjr"]
+[gd_scene load_steps=8 format=3 uid="uid://d4l3bh8sq5hjr"]
 
 [ext_resource type="Script" path="res://src/document.gd" id="1_q4ht6"]
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/Document.png" id="1_qjb0l"]
+[ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="2_i3de4"]
 [ext_resource type="LabelSettings" uid="uid://248dp7egxlkj" path="res://theme/document.tres" id="3_bt7jg"]
 [ext_resource type="FontFile" uid="uid://cne0gem8cyqla" path="res://theme/ARCADECLASSIC.TTF" id="3_jdbgt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pxbm0"]
+shader = ExtResource("2_i3de4")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/enable = false
 
 [sub_resource type="LabelSettings" id="LabelSettings_0dh0e"]
 font = ExtResource("3_jdbgt")
@@ -13,6 +23,7 @@ font_size = 20
 script = ExtResource("1_q4ht6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_pxbm0")
 texture = ExtResource("1_qjb0l")
 
 [node name="Word" type="Label" parent="."]
@@ -57,5 +68,13 @@ visible_characters_behavior = 1
 visible_ratio = 0.0
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -41.0
+offset_top = -55.0
+offset_right = 41.0
+offset_bottom = 56.0
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

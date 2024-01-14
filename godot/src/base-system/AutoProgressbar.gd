@@ -8,11 +8,17 @@ signal filled()
 @export var base := 0.9782 # sqrt(max_increase + min_increase, 100)
 
 var multiplier := 1.0
+var running := false
 
 func _ready():
 	value = 0.0
 
+func start():
+	running = true
+
 func _process(delta):
+	if not running: return
+	
 	var was_full = is_full()
 	var increase = pow(base, value) - max_increase
 	value += clamp(increase, min_increase, max_increase) * multiplier
@@ -29,4 +35,3 @@ func reduce(amount: float):
 	value -= amount
 	if value < 0:
 		value = 0
-

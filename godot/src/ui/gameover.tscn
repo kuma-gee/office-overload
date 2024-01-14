@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://dw4ed4dspm22v"]
+
+[ext_resource type="Theme" uid="uid://rgdi3aximxh8" path="res://theme/theme.tres" id="1_t4bof"]
+[ext_resource type="Script" path="res://src/ui/gameover.gd" id="2_biwr8"]
+[ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_s2nja"]
+[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_ekemn"]
+[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_dkoqc"]
+
+[node name="Gameover" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_t4bof")
+script = ExtResource("2_biwr8")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "YOU ARE FIRED!"
+label_settings = ExtResource("2_s2nja")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Finished" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "FINISHED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Open" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "OPEN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Days" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "DAYS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Restart" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Search another job"
+
+[node name="GameoverEffect" type="Node" parent="."]
+script = ExtResource("4_ekemn")
+trans = 10
+ease = 1
+duration = 0.75
+
+[node name="Slide" type="Node" parent="GameoverEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("5_dkoqc")
+node = NodePath("../../CenterContainer")
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]

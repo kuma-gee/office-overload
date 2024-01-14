@@ -1,65 +1,119 @@
 extends Marker2D
 
-const WORDS = [
+const EASY = [
+	"chair",
+	"phone",
+	"mouse",
+	"plant",
+	"light",
+	"pen",
+	"table",
+	"lamp",
 	"desk",
+	"drawer",
+	"email",
+	"break",
+	"coffee",
+	"task",
+	"report",
+	"file",
+	"copier",
+	"printer",
+	"folder",
+	"boss",
+	"intern",
+	"commute",
+	"client",
+	"office",
+	"stress",
+]
+const MEDIUM = [
+	"manager",
+	"document",
+	"notebook",
 	"computer",
 	"meeting",
 	"project",
 	"deadline",
-	"email",
 	"colleague",
-	"manager",
-	"office",
 	"workspace",
 	"overtime",
-	"presentation",
-	"task",
-	"report",
 	"conference",
-	"break",
-	"coffee",
-	"copier",
-	"printer",
-	"document",
-	"file",
-	"folder",
 	"teamwork",
-	"collaboration",
 	"workplace",
 	"promotion",
-	"commute",
-	"client",
 	"business",
 	"employee",
-	"boss",
-	"intern",
-	"laptop",
-	"meeting room",
-	"office supplies",
-	"salary",
 	"benefits",
 	"vacation",
 	"deadline",
-	"stress",
 	"workload",
-	"office culture",
+	"overload",
+]
+const HARD = [
+	"presentation",
+	"collaboration",
+	"meeting room",
+	"office supplies",
 	"telecommute",
+	"office culture",
 	"office politics",
 	"worklife balance",
 	"office space",
 	"company policy",
-	"overload",
+	"productivity",
+	"motivation",
+	"negotiation",
+	"organization",
+	"professional",
 ]
+
+enum Mode {
+	EASY,
+	MEDIUM,
+	HARD,
+}
 
 @export var document_scene: PackedScene
 @export var center_offset := 50
 
+var mode = Mode.EASY
+var words := []
 var last_words := []
 
+func _ready():
+	add_easy()
+
+func add_easy():
+	words.append_array(EASY)
+	mode = Mode.EASY
+	
+func add_medium():
+	_remove_less_than(6)
+	words.append_array(MEDIUM)
+	mode = Mode.MEDIUM
+
+func add_hard():
+	_remove_less_than(9)
+	words.append_array(HARD)
+	mode = Mode.HARD
+
+func _remove_less_than(char_count: int):
+	for w in words:
+		if w.length() < char_count:
+			words.erase(w)
+
+func _get_rotation():
+	match mode:
+		Mode.EASY: return PI/12
+		Mode.MEDIUM: return PI/8
+		Mode.HARD: return PI/6
+	return PI
+
 func spawn_document():
-	var word = WORDS.pick_random()
+	var word = words.pick_random()
 	while word in last_words:
-		word = WORDS.pick_random()
+		word = words.pick_random()
 	
 	var doc = document_scene.instantiate()
 	doc.word = word
@@ -69,7 +123,7 @@ func spawn_document():
 	var target = global_position + Vector2.RIGHT * randi_range(x - center_offset, x + center_offset)
 	add_child(doc)
 	move_child(doc, 0)
-	doc.move_to(target, true)
+	doc.move_to(target, true, _get_rotation())
 	
 	if last_words.size() > 5:
 		last_words.pop_front()

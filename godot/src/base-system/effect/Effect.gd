@@ -16,3 +16,6 @@ func apply(tw: TweenCreator):
 	
 func reverse(tw: TweenCreator):
 	pass
+
+func stop(tw: TweenCreator):
+	pass

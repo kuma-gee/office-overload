@@ -6,12 +6,17 @@ var default_duration := 0.5
 var block = true
 var trans = Tween.TRANS_CUBIC
 var ease = Tween.EASE_IN_OUT
+var loop = false
 
 static func create(n):
 	return TweenCreator.new(n)
 
 func _init(n: Node):
 	node = n
+
+func kill():
+	if tw:
+		tw.kill()
 
 func new_tween(on_finish = null):
 	if tw and tw.is_running():
@@ -24,6 +29,8 @@ func new_tween(on_finish = null):
 	tw.set_parallel()
 	tw.set_trans(trans)
 	tw.set_ease(ease)
+	if loop:
+		tw.set_loops()
 	if on_finish:
 		tw.finished.connect(on_finish)
 	return true

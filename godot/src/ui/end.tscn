@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://kdu7e637eapn"]
+
+[ext_resource type="Theme" uid="uid://rgdi3aximxh8" path="res://theme/theme.tres" id="1_80w1y"]
+[ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_ox4yy"]
+[ext_resource type="Script" path="res://src/ui/end.gd" id="2_oxc1v"]
+[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_j7irx"]
+[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_d7wj0"]
+
+[node name="End" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_80w1y")
+script = ExtResource("2_oxc1v")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "daily report"
+label_settings = ExtResource("2_ox4yy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="FinishedTasks" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "FINISHED_TASKS"
+horizontal_alignment = 1
+
+[node name="Overtime" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "OVERTIME"
+horizontal_alignment = 1
+
+[node name="Next" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Next day"
+
+[node name="EndEffect" type="Node" parent="."]
+script = ExtResource("4_j7irx")
+
+[node name="Slide2" type="Node" parent="EndEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("5_d7wj0")
+node = NodePath("../../CenterContainer")
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Next" to="." method="_on_next_pressed"]

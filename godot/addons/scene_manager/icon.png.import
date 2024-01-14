@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rsoffqre6fak"
-path="res://.godot/imported/vertical.png-37f4ca33f8cca9af32709aa8a09e4ceb.ctex"
+uid="uid://b7x3qxooitt0l"
+path="res://.godot/imported/icon.png-1ae74eb651b355b4baf5d77f5493a2f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scene-manager/shader_patterns/vertical.png"
-dest_files=["res://.godot/imported/vertical.png-37f4ca33f8cca9af32709aa8a09e4ceb.ctex"]
+source_file="res://addons/scene_manager/icon.png"
+dest_files=["res://.godot/imported/icon.png-1ae74eb651b355b4baf5d77f5493a2f8.ctex"]
 
 [params]
 
