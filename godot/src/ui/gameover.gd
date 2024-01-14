@@ -15,6 +15,7 @@ func fired(finished_tasks: int, open_tasks: int):
 	
 	gameover_effect.do_effect()
 	show()
+	get_tree().paused = true
 
 func fired_next_day(open_tasks: int):
 	finished.text = "Didn't finish tasks until next day"
@@ -23,6 +24,7 @@ func fired_next_day(open_tasks: int):
 	
 	gameover_effect.do_effect()
 	show()
+	get_tree().paused = true
 	
 
 func _on_restart_pressed():

@@ -13,6 +13,7 @@ func day_ended(finished: int, overtime_in_hours: float):
 	
 	end_effect.do_effect()
 	show()
+	get_tree().paused = true
 
 
 func _on_next_pressed():

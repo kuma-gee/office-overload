@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://kdu7e637eapn"]
+[gd_scene load_steps=7 format=3 uid="uid://kdu7e637eapn"]
 
 [ext_resource type="Theme" uid="uid://rgdi3aximxh8" path="res://theme/theme.tres" id="1_80w1y"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_ox4yy"]
 [ext_resource type="Script" path="res://src/ui/end.gd" id="2_oxc1v"]
+[ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="4_0mkg1"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_j7irx"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_d7wj0"]
 
 [node name="End" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,11 +42,13 @@ theme_override_constants/separation = 5
 [node name="FinishedTasks" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "FINISHED_TASKS"
+label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
 [node name="Overtime" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "OVERTIME"
+label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
 [node name="Next" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
@@ -53,6 +57,9 @@ text = "Next day"
 
 [node name="EndEffect" type="Node" parent="."]
 script = ExtResource("4_j7irx")
+trans = 10
+ease = 1
+duration = 0.8
 
 [node name="Slide2" type="Node" parent="EndEffect" node_paths=PackedStringArray("node")]
 script = ExtResource("5_d7wj0")

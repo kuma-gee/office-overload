@@ -20,6 +20,7 @@ font = ExtResource("3_jdbgt")
 font_size = 20
 
 [node name="Document" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_q4ht6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
