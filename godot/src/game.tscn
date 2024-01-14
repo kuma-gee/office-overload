@@ -93,8 +93,6 @@ texture = ExtResource("1_sxnpx")
 position = Vector2(133, -44)
 scale = Vector2(1, 1)
 script = ExtResource("12_n73rb")
-stack_count = 5
-max_stacks = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
