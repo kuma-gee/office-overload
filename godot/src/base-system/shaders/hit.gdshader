@@ -6,7 +6,7 @@ uniform vec4 hit_color : source_color = vec4(1.0);
 
 void fragment() {
 	COLOR = texture(TEXTURE, UV);
-	if (enable) {
-		COLOR = hit_color;
+	if (enable && COLOR.r < 0.5) { // right now only used for darker colors, so it's fine
+		COLOR.rgb = hit_color.rgb;
 	}
 }

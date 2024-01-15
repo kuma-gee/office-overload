@@ -16,16 +16,21 @@ extends Node2D
 @onready var document_stack = $DocumentStack
 
 @onready var time_multiplier := 1.0 - time_increase
-@onready var time := start_time
+@onready var time: float = _get_start_time()
 
 var documents = []
 
+func _get_start_time():
+	var day_percent = (GameManager.day - 1) / 4 # Day 5 will start with lowest time
+	var time_diff = start_time - max_time
+	var actual_diff = time_diff * day_percent
+	return start_time - actual_diff
+
 func _ready():
 	overload_progress.filled.connect(func(): overload_timer.start())
-	overload_timer.timeout.connect(func():
-		gameover.fired(get_finished(), get_uncompleted())
-	)
-
+	overload_timer.started.connect(func(): overload_progress.start_blink())
+	overload_timer.stopped.connect(func(): overload_progress.stop_blink())
+	overload_timer.timeout.connect(func(): gameover.fired(get_finished(), get_uncompleted()))
 	work_time.next_work_day.connect(func(): gameover.fired_next_day(get_uncompleted()))
 	spawn_timer.timeout.connect(func(): _spawn())
 

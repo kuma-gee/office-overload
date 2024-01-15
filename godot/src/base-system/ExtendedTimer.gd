@@ -10,7 +10,6 @@ func _process(delta):
 	if is_stopped():
 		if was_running:
 			stopped.emit()
-		return
 	elif not was_running:
 		started.emit()
 	
