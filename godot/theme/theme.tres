@@ -1,8 +1,8 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://rgdi3aximxh8"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://7qw6fd3hy4kc"]
 
-[ext_resource type="FontFile" uid="uid://cne0gem8cyqla" path="res://theme/ARCADECLASSIC.TTF" id="1_i8ht0"]
+[ext_resource type="FontFile" uid="uid://cne0gem8cyqla" path="res://theme/ARCADECLASSIC.TTF" id="1_cutkv"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_45njt"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w345n"]
 bg_color = Color(0.207843, 0.207843, 0.25098, 1)
 border_width_left = 1
 border_width_top = 1
@@ -10,7 +10,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.207843, 0.207843, 0.25098, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_22rfp"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5gegd"]
 bg_color = Color(0.207843, 0.207843, 0.25098, 1)
 border_width_left = 1
 border_width_top = 1
@@ -18,7 +18,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.207843, 0.207843, 0.25098, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hvllm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ysua"]
 bg_color = Color(0.929412, 0.894118, 0.854902, 1)
 border_width_left = 1
 border_width_top = 1
@@ -26,7 +26,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.207843, 0.207843, 0.25098, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jl1xk"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_egfol"]
 bg_color = Color(0.929412, 0.894118, 0.854902, 1)
 border_width_left = 1
 border_width_top = 1
@@ -35,14 +35,16 @@ border_width_bottom = 1
 border_color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [resource]
-default_font = ExtResource("1_i8ht0")
+default_font = ExtResource("1_cutkv")
 default_font_size = 10
 Button/colors/font_color = Color(0.207843, 0.207843, 0.25098, 1)
 Button/colors/font_color_focus = Color(0.929412, 0.894118, 0.854902, 1)
 Button/colors/font_color_hover = Color(0.929412, 0.894118, 0.854902, 1)
 Button/colors/font_color_pressed = Color(0.207843, 0.207843, 0.25098, 1)
-Button/styles/focus = SubResource("StyleBoxFlat_45njt")
-Button/styles/hover = SubResource("StyleBoxFlat_22rfp")
-Button/styles/normal = SubResource("StyleBoxFlat_hvllm")
-Button/styles/pressed = SubResource("StyleBoxFlat_jl1xk")
+Button/styles/focus = SubResource("StyleBoxFlat_w345n")
+Button/styles/hover = SubResource("StyleBoxFlat_5gegd")
+Button/styles/normal = SubResource("StyleBoxFlat_1ysua")
+Button/styles/pressed = SubResource("StyleBoxFlat_egfol")
 Label/colors/font_color = Color(0.207843, 0.207843, 0.25098, 1)
+RichTextLabel/colors/default_color = Color(0.207843, 0.207843, 0.25098, 1)
+RichTextLabel/colors/font_outline_color = Color(1, 1, 1, 1)

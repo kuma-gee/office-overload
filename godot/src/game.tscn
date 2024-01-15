@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dw4ed4dspm22v" path="res://src/ui/gameover.tscn" id="8_lpofg"]
 [ext_resource type="PackedScene" uid="uid://kdu7e637eapn" path="res://src/ui/end.tscn" id="9_dbvje"]
 [ext_resource type="Script" path="res://src/base-system/AutoProgressbar.gd" id="9_ul3fx"]
-[ext_resource type="Theme" uid="uid://rgdi3aximxh8" path="res://theme/theme.tres" id="10_am0oy"]
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="10_am0oy"]
 [ext_resource type="Script" path="res://src/base-system/ExtendedTimer.gd" id="10_sr2sn"]
 [ext_resource type="Script" path="res://src/DocumentStack.gd" id="12_n73rb"]
 
@@ -91,7 +91,6 @@ texture = ExtResource("1_sxnpx")
 
 [node name="DocumentStack" type="Node2D" parent="."]
 position = Vector2(133, -44)
-scale = Vector2(1, 1)
 script = ExtResource("12_n73rb")
 
 [node name="Camera2D" type="Camera2D" parent="."]

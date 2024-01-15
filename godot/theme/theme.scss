@@ -1,5 +1,6 @@
 $text-color: Color(0.207843, 0.207843, 0.25098, 1);
 $hover-color: Color(0.929412, 0.894118, 0.854902, 1);
+$highlight: Color(1, 1, 1, 1);
 
 body {
   font-family: url(ARCADECLASSIC.TTF);
@@ -8,6 +9,11 @@ body {
 
 Label {
   color: #{$text-color}
+}
+
+RichTextLabel {
+  --colors-default-color: #{$text-color};
+  --colors-font-outline-color: #{$highlight};
 }
 
 Button,

@@ -85,23 +85,29 @@ func _ready():
 	add_easy()
 
 func add_easy():
-	words.append_array(EASY)
+	words.append_array(_normalize(EASY))
 	mode = Mode.EASY
 	
 func add_medium():
 	_remove_less_than(6)
-	words.append_array(MEDIUM)
+	words.append_array(_normalize(MEDIUM))
 	mode = Mode.MEDIUM
 
 func add_hard():
 	_remove_less_than(9)
-	words.append_array(HARD)
+	words.append_array(_normalize(HARD))
 	mode = Mode.HARD
 
 func _remove_less_than(char_count: int):
 	for w in words:
 		if w.length() < char_count:
 			words.erase(w)
+
+func _normalize(words: Array):
+	var result = []
+	for w in words:
+		result.append(w.replace(" ", "").to_lower())
+	return result
 
 func _get_rotation():
 	match mode:

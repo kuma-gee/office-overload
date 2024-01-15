@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://src/document.gd" id="1_q4ht6"]
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/Document.png" id="1_qjb0l"]
 [ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="2_i3de4"]
-[ext_resource type="LabelSettings" uid="uid://248dp7egxlkj" path="res://theme/document.tres" id="3_bt7jg"]
-[ext_resource type="FontFile" uid="uid://cne0gem8cyqla" path="res://theme/ARCADECLASSIC.TTF" id="3_jdbgt"]
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="4_jpwde"]
+[ext_resource type="RichTextEffect" uid="uid://d0psnm1eyw40x" path="res://src/ui/typed_effect.tres" id="5_vb0un"]
+[ext_resource type="AudioStream" uid="uid://dvhvaybnaahrv" path="res://assets/sound/keyboard.wav" id="8_vhja1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pxbm0"]
 shader = ExtResource("2_i3de4")
@@ -15,10 +16,6 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/enable = false
 
-[sub_resource type="LabelSettings" id="LabelSettings_0dh0e"]
-font = ExtResource("3_jdbgt")
-font_size = 20
-
 [node name="Document" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_q4ht6")
@@ -27,46 +24,28 @@ script = ExtResource("1_q4ht6")
 material = SubResource("ShaderMaterial_pxbm0")
 texture = ExtResource("1_qjb0l")
 
-[node name="Word" type="Label" parent="."]
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -15.0
-offset_right = 50.0
-offset_bottom = 15.0
+offset_left = -21.0
+offset_top = -11.0
+offset_right = 21.0
+offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-text = "__TEST WITH SPACE__"
-label_settings = ExtResource("3_bt7jg")
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
-
-[node name="Typed" type="Label" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -15.0
-offset_right = 50.0
-offset_bottom = 15.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-text = "__TEST WITH SPACE__"
-label_settings = SubResource("LabelSettings_0dh0e")
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
-visible_characters = 0
-visible_characters_behavior = 1
-visible_ratio = 0.0
+theme = ExtResource("4_jpwde")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "__test__"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
+custom_effects = [ExtResource("5_vb0un")]
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
@@ -77,5 +56,8 @@ offset_left = -41.0
 offset_top = -55.0
 offset_right = 41.0
 offset_bottom = 56.0
+
+[node name="TypeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_vhja1")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
