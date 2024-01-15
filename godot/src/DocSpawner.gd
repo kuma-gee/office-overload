@@ -129,7 +129,7 @@ func spawn_document():
 	var target = global_position + Vector2.RIGHT * randi_range(x - center_offset, x + center_offset)
 	add_child(doc)
 	move_child(doc, 0)
-	doc.move_to(target, true, _get_rotation())
+	doc.move_to(target, _get_rotation(), true)
 	
 	if last_words.size() > 5:
 		last_words.pop_front()
