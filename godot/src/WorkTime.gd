@@ -3,9 +3,10 @@ extends Label
 signal started()
 signal day_ended()
 signal next_work_day()
+signal time_changed()
 
 @export var start_hour = 8
-@export var end_hour = 17;
+@export var end_hour = 17
 @export var hour_in_seconds := 10
 
 @export var day_end_sound: AudioStreamPlayer
@@ -49,7 +50,6 @@ func _start_timer():
 		if hour > end_hour:
 			if overtime_sound:
 				overtime_sound.play()
-		
 		_start_timer()
 	)
 
@@ -67,6 +67,9 @@ func _set_hour(h: int):
 		if actual_h >= start_hour:
 			next_work_day.emit()
 		text += _hour_string(actual_h)
+	
+		
+	time_changed.emit(hour)
 
 func _hour_string(hour: int):
 	return "%s:00" % [hour if hour > 9 else "0" + str(hour)]

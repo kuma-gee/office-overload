@@ -8,18 +8,25 @@ extends Node2D
 
 @onready var doc_spawner = $DocSpawner
 @onready var spawn_timer = $SpawnTimer
-@onready var overload_progress = $CanvasLayer/HUD/MarginContainer/OverloadProgress
+@onready var document_stack = $DocumentStack
 @onready var overload_timer = $OverloadTimer
+
+@onready var overload_progress = $CanvasLayer/HUD/MarginContainer/OverloadProgress
+@onready var burst_particles = $CanvasLayer/HUD/MarginContainer/OverloadProgress/BurstParticles
+@onready var work_time = $CanvasLayer/HUD/MarginContainer3/WorkTime
+@onready var canvas_modulate = $CanvasModulate
+@onready var point_light_2d = $PointLight2D
+
 @onready var end = $CanvasLayer/End
 @onready var gameover = $CanvasLayer/Gameover
-@onready var work_time = $CanvasLayer/HUD/MarginContainer3/WorkTime
-@onready var document_stack = $DocumentStack
+
 @onready var bgm = $BGM
 
 @onready var time_multiplier := 1.0 - time_increase
 @onready var time: float = _get_start_time()
 
 var documents = []
+var light = 1.0
 
 func _get_start_time():
 	var day_percent = (GameManager.day - 1) / 4 # Day 5 will start with lowest time
@@ -32,11 +39,33 @@ func _ready():
 	overload_timer.started.connect(func(): overload_progress.start_blink())
 	overload_timer.stopped.connect(func(): overload_progress.stop_blink())
 	overload_timer.timeout.connect(func():
+		burst_particles.emitting = true
 		gameover.fired(get_finished(), get_uncompleted())
 		bgm.stop()
 	)
-	work_time.next_work_day.connect(func(): gameover.fired_next_day(get_uncompleted()))
+	work_time.next_work_day.connect(func():
+		gameover.fired_next_day(get_uncompleted())
+		bgm.stop()
+	)
+	work_time.day_ended.connect(func(): point_light_2d.enabled = true)
+	work_time.time_changed.connect(func(time):
+		if not is_end_of_day():
+			return
+		
+		if time > 24 + 2:
+			light = min(light + 0.16, 1)
+		else:
+			light = max(light - 0.1, 0.2)
+		
+		canvas_modulate.color = Color(light, light, light, 1)
+		
+		if light >= 1:
+			point_light_2d.enabled = false
+	)
 	spawn_timer.timeout.connect(func(): _spawn())
+
+	canvas_modulate.color = Color.WHITE
+	point_light_2d.enabled = false
 
 func _on_day_finished():
 	_start_game()
