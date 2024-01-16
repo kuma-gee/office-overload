@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=22 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="Texture2D" uid="uid://nmfjn8pxfscm" path="res://assets/Desk.png" id="1_sxnpx"]
@@ -16,6 +16,10 @@
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="10_am0oy"]
 [ext_resource type="Script" path="res://src/base-system/ExtendedTimer.gd" id="10_sr2sn"]
 [ext_resource type="Script" path="res://src/DocumentStack.gd" id="12_n73rb"]
+[ext_resource type="AudioStream" uid="uid://dykrksjnisr7f" path="res://assets/sound/柱時計の鐘.mp3" id="12_y1afc"]
+[ext_resource type="Script" path="res://src/ManualLoopAudio.gd" id="18_f0kcb"]
+[ext_resource type="AudioStream" uid="uid://c7v06ebe8oxvt" path="res://assets/sound/Godot_Wild_65.wav" id="19_65l1j"]
+[ext_resource type="AudioStream" uid="uid://bpxm5pscsli23" path="res://assets/sound/鳩時計1.mp3" id="19_mkiih"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kfp76"]
 shader = ExtResource("4_tfr35")
@@ -82,11 +86,21 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="WorkTime" type="Label" parent="CanvasLayer/HUD/MarginContainer3"]
+[node name="WorkTime" type="Label" parent="CanvasLayer/HUD/MarginContainer3" node_paths=PackedStringArray("day_end_sound", "overtime_sound")]
 layout_mode = 2
 text = "08:00"
 horizontal_alignment = 2
 script = ExtResource("7_ruuy4")
+day_end_sound = NodePath("End")
+overtime_sound = NodePath("Overtime")
+
+[node name="End" type="AudioStreamPlayer" parent="CanvasLayer/HUD/MarginContainer3/WorkTime"]
+stream = ExtResource("19_mkiih")
+volume_db = -10.0
+
+[node name="Overtime" type="AudioStreamPlayer" parent="CanvasLayer/HUD/MarginContainer3/WorkTime"]
+stream = ExtResource("12_y1afc")
+volume_db = -10.0
 
 [node name="Gameover" parent="CanvasLayer" instance=ExtResource("8_lpofg")]
 visible = false
@@ -116,6 +130,11 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 script = ExtResource("10_sr2sn")
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_65l1j")
+volume_db = -15.0
+script = ExtResource("18_f0kcb")
 
 [connection signal="finished" from="CanvasLayer/HUD/Day" to="." method="_on_day_finished"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

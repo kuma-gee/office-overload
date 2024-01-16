@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dffjinparflk0"]
+[gd_scene load_steps=6 format=3 uid="uid://dffjinparflk0"]
 
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="1_ho3e7"]
 [ext_resource type="Script" path="res://src/ui/day.gd" id="1_ilfqg"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="3_1tsnh"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="4_0nvsa"]
+[ext_resource type="AudioStream" uid="uid://dskcudu4jbs6x" path="res://assets/sound/目覚まし時計のアラーム.mp3" id="5_k8sob"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -36,3 +37,8 @@ grow_vertical = 2
 layout_mode = 2
 text = "Day"
 label_settings = ExtResource("1_ho3e7")
+
+[node name="Start" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_k8sob")
+volume_db = -15.0
+autoplay = true

@@ -1,0 +1,162 @@
+[gd_scene load_steps=10 format=3 uid="uid://ctlncowdl0sbn"]
+
+[ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="1_3ujy4"]
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
+[ext_resource type="Texture2D" uid="uid://da2p5kphaw5k5" path="res://assets/Cover_Image.png" id="2_2ttii"]
+[ext_resource type="Script" path="res://start.gd" id="2_508sk"]
+[ext_resource type="Texture2D" uid="uid://cjlwhavnsncw5" path="res://assets/Title.png" id="3_r3iy1"]
+[ext_resource type="Texture2D" uid="uid://bos2vgtns1o67" path="res://assets/Cover_Document.png" id="4_ojas5"]
+[ext_resource type="PackedScene" uid="uid://b2810ucbuyoj7" path="res://src/ui/to_do_item.tscn" id="5_lfa71"]
+[ext_resource type="Script" path="res://src/base-system/menu/FocusButton.gd" id="6_qrxhq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gorx4"]
+shader = ExtResource("1_3ujy4")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/enable = true
+
+[node name="start" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qu80e")
+script = ExtResource("2_508sk")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_2ttii")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -144.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+material = SubResource("ShaderMaterial_gorx4")
+use_parent_material = true
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+texture = ExtResource("3_r3iy1")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = -2.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3"]
+layout_mode = 2
+
+[node name="Start" type="Button" parent="MarginContainer3/VBoxContainer"]
+layout_mode = 2
+text = "Start Work"
+script = ExtResource("6_qrxhq")
+
+[node name="Settings" type="Button" parent="MarginContainer3/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Adjust Work"
+script = ExtResource("6_qrxhq")
+
+[node name="Exit" type="Button" parent="MarginContainer3/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Quit Job"
+script = ExtResource("6_qrxhq")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -101.0
+offset_top = -124.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("4_ojas5")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "TODO"
+horizontal_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="MarginContainer2/MarginContainer/VBoxContainer/Label"]
+position = Vector2(1, 1)
+points = PackedVector2Array(-1, 10, 69, 10)
+width = 1.0
+default_color = Color(0.207843, 0.207843, 0.25098, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Start" parent="MarginContainer2/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("5_lfa71")]
+layout_mode = 2
+
+[node name="Settings" parent="MarginContainer2/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("5_lfa71")]
+layout_mode = 2
+
+[node name="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/VBoxContainer/Settings/HBoxContainer" index="1"]
+text = "Adjust Work"
+
+[node name="Exit" parent="MarginContainer2/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("5_lfa71")]
+layout_mode = 2
+disabled = true
+
+[node name="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/VBoxContainer/Exit/HBoxContainer" index="1"]
+text = "Quit Job"
+
+[connection signal="pressed" from="MarginContainer3/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MarginContainer3/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+
+[editable path="MarginContainer2/MarginContainer/VBoxContainer/VBoxContainer/Settings"]
+[editable path="MarginContainer2/MarginContainer/VBoxContainer/VBoxContainer/Exit"]

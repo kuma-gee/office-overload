@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2810ucbuyoj7"]
+
+[ext_resource type="Texture2D" uid="uid://c7yf1847emsi8" path="res://assets/Cover_Unchecked.png" id="1_e4dyv"]
+
+[node name="ToDoItem" type="TextureButton"]
+custom_minimum_size = Vector2(0, 15)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_e4dyv")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Start Work"
+
+[node name="Line2D" type="Line2D" parent="HBoxContainer/Label"]
+position = Vector2(35.5, 0)
+points = PackedVector2Array(-47, 16, 47, 16)
+width = 1.0
+default_color = Color(0.207843, 0.207843, 0.25098, 1)

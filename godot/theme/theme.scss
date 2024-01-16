@@ -2,13 +2,15 @@ $text-color: Color(0.207843, 0.207843, 0.25098, 1);
 $hover-color: Color(0.929412, 0.894118, 0.854902, 1);
 $highlight: Color(1, 1, 1, 1);
 
+$disabled-color: Color(0.729412, 0.694118, 0.654902, 1);
+
 body {
   font-family: url(ARCADECLASSIC.TTF);
   font-size: 10;
 }
 
 Label {
-  color: #{$text-color}
+  color: #{$text-color};
 }
 
 RichTextLabel {
@@ -17,18 +19,26 @@ RichTextLabel {
 }
 
 Button,
-Button:pressed
-{
+Button:pressed {
   background: #{$hover-color};
   color: #{$text-color};
-  border-width: 1;
-  border-color: #{$text-color}
 }
 
 Button:hover,
 Button:focus {
   background: #{$text-color};
   color: #{$hover-color};
+}
+
+Button:disabled {
+  background: #{$disabled-color};
+}
+
+Button,
+Button:pressed Button:hover,
+Button:focus,
+Button:disabled {
   border-width: 1;
-  border-color: #{$text-color}
+  border-color: #{$text-color};
+  padding: 4;
 }
