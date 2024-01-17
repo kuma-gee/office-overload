@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=30 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="Texture2D" uid="uid://nmfjn8pxfscm" path="res://assets/Desk.png" id="1_sxnpx"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" path="res://src/ManualLoopAudio.gd" id="18_f0kcb"]
 [ext_resource type="AudioStream" uid="uid://c7v06ebe8oxvt" path="res://assets/sound/Godot_Wild_65.wav" id="19_65l1j"]
 [ext_resource type="AudioStream" uid="uid://bpxm5pscsli23" path="res://assets/sound/鳩時計1.mp3" id="19_mkiih"]
+[ext_resource type="Script" path="res://src/BlinkText.gd" id="20_0ygyh"]
 
 [sub_resource type="Curve" id="Curve_m11kp"]
 _data = [Vector2(0, 0.701099), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -41,7 +42,7 @@ shader_parameter/hit_color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("work_time")]
 script = ExtResource("1_ptsas")
-work_time = NodePath("Desk/Clock/WorkTime")
+work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -178,38 +179,62 @@ position = Vector2(88, -74)
 texture = ExtResource("13_dyrwf")
 hframes = 2
 script = ExtResource("14_stuan")
-worktime = NodePath("WorkTime")
+worktime = NodePath("HBoxContainer/WorkTime")
 
-[node name="WorkTime" type="Label" parent="Desk/Clock" node_paths=PackedStringArray("day_end_sound", "overtime_sound")]
+[node name="HBoxContainer" type="HBoxContainer" parent="Desk/Clock"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -30.5
-offset_top = -12.5
+offset_top = -11.5
 offset_right = -5.5
-offset_bottom = 0.5
+offset_bottom = -0.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("10_am0oy")
+theme_override_constants/separation = 0
+
+[node name="WorkTime" type="Label" parent="Desk/Clock/HBoxContainer" node_paths=PackedStringArray("day_end_sound", "overtime_sound")]
+layout_mode = 2
+theme = ExtResource("10_am0oy")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "08:00"
+text = "08"
 horizontal_alignment = 1
 script = ExtResource("7_ruuy4")
 hour_in_seconds = 1
 day_end_sound = NodePath("End")
 overtime_sound = NodePath("Overtime")
 
-[node name="End" type="AudioStreamPlayer" parent="Desk/Clock/WorkTime"]
+[node name="End" type="AudioStreamPlayer" parent="Desk/Clock/HBoxContainer/WorkTime"]
 process_mode = 3
 stream = ExtResource("19_mkiih")
 volume_db = -10.0
 
-[node name="Overtime" type="AudioStreamPlayer" parent="Desk/Clock/WorkTime"]
+[node name="Overtime" type="AudioStreamPlayer" parent="Desk/Clock/HBoxContainer/WorkTime"]
 process_mode = 3
 stream = ExtResource("12_y1afc")
 volume_db = -10.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Desk/Clock/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = -2
+
+[node name="Colon" type="Label" parent="Desk/Clock/HBoxContainer/MarginContainer" node_paths=PackedStringArray("blink_timer")]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = ":"
+script = ExtResource("20_0ygyh")
+blink_timer = NodePath("BlinkTimer")
+
+[node name="BlinkTimer" type="Timer" parent="Desk/Clock/HBoxContainer/MarginContainer/Colon"]
+one_shot = true
+
+[node name="Minutes" type="Label" parent="Desk/Clock/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "00"
 
 [node name="DocumentStack" type="Node2D" parent="."]
 position = Vector2(133, -44)

@@ -71,4 +71,4 @@ func _set_hour(h: int):
 	time_changed.emit(hour)
 
 func _hour_string(hour: int):
-	return "%s:00" % [hour if hour > 9 else "0" + str(hour)]
+	return "%s" % [hour if hour > 9 else "0" + str(hour)]
