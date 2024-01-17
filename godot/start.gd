@@ -10,7 +10,7 @@ func _ready():
 		exit.disabled = false
 
 func _on_start_pressed():
-	SceneManager.change_scene("res://src/game.tscn")
+	GameManager.start()
 
 
 func _on_exit_pressed():

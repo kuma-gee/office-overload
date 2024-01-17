@@ -32,9 +32,7 @@ func _get_start_time():
 	var day_percent = (GameManager.day - 1.0) / 4.0 # Day 5 will start with lowest time
 	var time_diff = start_time - min_time
 	var actual_diff = time_diff * day_percent
-	var time = start_time - actual_diff
-	print(time)
-	return time
+	return start_time - actual_diff
 
 func _ready():
 	overload_progress.filled.connect(func(): overload_timer.start())
@@ -46,7 +44,7 @@ func _ready():
 		bgm.stop()
 	)
 	work_time.next_work_day.connect(func():
-		gameover.fired_next_day(get_uncompleted())
+		gameover.fired(get_finished(), get_uncompleted(), true)
 		bgm.stop()
 	)
 	work_time.day_ended.connect(func():
@@ -152,9 +150,7 @@ func _set_pitch():
 	
 	if documents.size() > 20:
 		bgm.next_pitch = 1.4
-	
-	print(time, " - ", bgm.pitch_scale)
-	
+
 
 func _unhandled_input(event: InputEvent):
 	if event is InputEventKey and event.is_pressed() and not documents.is_empty():

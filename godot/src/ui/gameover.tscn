@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_ekemn"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_dkoqc"]
 
-[node name="Gameover" type="Control"]
+[node name="Gameover" type="Control" node_paths=PackedStringArray("restart")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -17,6 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_t4bof")
 script = ExtResource("2_biwr8")
+restart = NodePath("CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/Restart")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -42,6 +43,13 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 5
 
+[node name="UnfinishedNextDay" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Didn't finish tasks until next day"
+label_settings = ExtResource("4_0brsx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Finished" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "FINISHED"
@@ -63,7 +71,15 @@ label_settings = ExtResource("4_0brsx")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Restart" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Back" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = " < "
+
+[node name="Restart" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Search another job"
 
@@ -77,4 +93,5 @@ duration = 0.75
 script = ExtResource("5_dkoqc")
 node = NodePath("../../CenterContainer")
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/Restart" to="." method="_on_restart_pressed"]
