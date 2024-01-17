@@ -29,6 +29,10 @@ func _ready():
 
 func start():
 	running = true
+	
+func stop():
+	running = false
+	stop_blink()
 
 func _process(delta):
 	if not running: return

@@ -9,14 +9,11 @@ func _ready():
 	hide()
 
 func day_ended(finished: int, overtime_in_hours: float):
-	GameManager.finished_day(finished, overtime_in_hours)
-	
 	finished_tasks.text = "Finished %s tasks" % finished
 	overtime.text = "%s hours of overtime" % overtime_in_hours
 	
 	end_effect.do_effect()
 	show()
-	get_tree().paused = true
 	next.grab_focus()
 
 func _on_next_pressed():

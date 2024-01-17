@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dw4ed4dspm22v"]
+[gd_scene load_steps=6 format=3 uid="uid://dw4ed4dspm22v"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_t4bof"]
 [ext_resource type="Script" path="res://src/ui/gameover.gd" id="2_biwr8"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_s2nja"]
-[ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="4_0brsx"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_ekemn"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_dkoqc"]
 
@@ -43,33 +42,29 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="UnfinishedNextDay" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Didn't finish tasks until next day"
-label_settings = ExtResource("4_0brsx")
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Finished" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 text = "FINISHED"
-label_settings = ExtResource("4_0brsx")
 horizontal_alignment = 1
-vertical_alignment = 1
+
+[node name="Overtime" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 5
+text = "OVERTIME"
+horizontal_alignment = 1
 
 [node name="Open" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 text = "OPEN"
-label_settings = ExtResource("4_0brsx")
 horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Days" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 text = "DAYS"
-label_settings = ExtResource("4_0brsx")
 horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2

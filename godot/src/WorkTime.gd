@@ -14,7 +14,6 @@ signal time_changed()
 
 @onready var hour = start_hour : set = _set_hour
 
-var timer: SceneTreeTimer
 var stopped = false
 var ended = false
 
@@ -32,11 +31,10 @@ func start():
 	ended = false
 
 func stop():
-	timer.stop()
 	stopped = true
 
 func _start_timer():
-	timer = get_tree().create_timer(hour_in_seconds)
+	var timer = get_tree().create_timer(hour_in_seconds)
 	timer.timeout.connect(func():
 		if stopped or get_tree().paused: return
 		

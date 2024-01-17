@@ -16,6 +16,7 @@ Label {
 RichTextLabel {
   --colors-default-color: #{$text-color};
   --colors-font-outline-color: #{$highlight};
+  --font-sizes-normal-font-size: #{$highlight};
 }
 
 Button,

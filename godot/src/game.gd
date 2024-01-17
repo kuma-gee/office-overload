@@ -25,6 +25,7 @@ extends Node2D
 @onready var time_multiplier := 1.0 - time_increase
 @onready var time: float = _get_start_time()
 
+var is_gameover = false
 var documents = []
 var light = 1.0
 
@@ -35,18 +36,23 @@ func _get_start_time():
 	return start_time - actual_diff
 
 func _ready():
+	GameManager.round_ended.connect(func():
+		is_gameover = true
+		overload_progress.stop()
+		overload_timer.stop()
+		work_time.stop()
+		spawn_timer.stop()
+		bgm.stop()
+	)
+	
 	overload_progress.filled.connect(func(): overload_timer.start())
 	overload_timer.started.connect(func(): overload_progress.start_blink())
 	overload_timer.stopped.connect(func(): overload_progress.stop_blink())
 	overload_timer.timeout.connect(func():
 		burst_particles.emitting = true
-		gameover.fired(get_finished(), get_uncompleted())
-		bgm.stop()
+		_lost()
 	)
-	work_time.next_work_day.connect(func():
-		gameover.fired(get_finished(), get_uncompleted(), true)
-		bgm.stop()
-	)
+	work_time.next_work_day.connect(func(): _lost(true))
 	work_time.day_ended.connect(func():
 		if documents.is_empty():
 			_finished()
@@ -97,11 +103,18 @@ func _process(delta):
 	overload_progress.multiplier =  max(workload, 0.5)
 
 func _finished():
+	_save_progress()
 	end.day_ended(get_finished(), work_time.get_overtime())
-	bgm.stop()
+
+func _lost(end_of_day = false):
+	_save_progress()
+	gameover.fired(get_finished(), get_uncompleted(), end_of_day)
+
+func _save_progress():
+	GameManager.finished_day(get_finished(), work_time.get_overtime())
 
 func _spawn():
-	if is_end_of_day():
+	if is_end_of_day() or is_gameover:
 		bgm.next_pitch = 1.0
 		return
 	
@@ -153,7 +166,7 @@ func _set_pitch():
 
 
 func _unhandled_input(event: InputEvent):
-	if event is InputEventKey and event.is_pressed() and not documents.is_empty():
+	if not is_gameover and event is InputEventKey and event.is_pressed() and not documents.is_empty():
 		var text = event.as_text()
 		if text.length() != 1:
 			return

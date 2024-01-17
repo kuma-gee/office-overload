@@ -1,5 +1,7 @@
 extends Node
 
+signal round_ended()
+
 var day := 0
 var completed := 0
 var total_overtime := 0
@@ -13,16 +15,13 @@ func start():
 
 func next_day():
 	start()
-	get_tree().paused = false
 
 func restart():
 	_reset()
 	SceneManager.change_scene("res://src/game.tscn")
-	get_tree().paused = false
 
 func back_to_menu(reset = true):
 	SceneManager.change_scene("res://start.tscn")
-	get_tree().paused = false
 	if reset:
 		_reset()
 
@@ -34,3 +33,4 @@ func _reset():
 func finished_day(tasks: int, overtime: int):
 	completed += tasks
 	total_overtime += overtime
+	round_ended.emit()
