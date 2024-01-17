@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=31 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="Texture2D" uid="uid://nmfjn8pxfscm" path="res://assets/Desk.png" id="1_sxnpx"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://b3m7b3wyx4tpw" path="res://assets/Clock.png" id="13_dyrwf"]
 [ext_resource type="Script" path="res://src/Clock.gd" id="14_stuan"]
 [ext_resource type="Texture2D" uid="uid://c7y3y52oh6sbg" path="res://assets/MonitorLight.png" id="14_uyjhq"]
+[ext_resource type="Texture2D" uid="uid://bikrg3yecci4h" path="res://assets/ClockLight.png" id="17_b6uxm"]
 [ext_resource type="Script" path="res://src/ManualLoopAudio.gd" id="18_f0kcb"]
 [ext_resource type="AudioStream" uid="uid://c7v06ebe8oxvt" path="res://assets/sound/Godot_Wild_65.wav" id="19_65l1j"]
 [ext_resource type="AudioStream" uid="uid://bpxm5pscsli23" path="res://assets/sound/鳩時計1.mp3" id="19_mkiih"]
@@ -76,6 +77,7 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="ProgressBroken" type="TextureRect" parent="CanvasLayer/HUD/MarginContainer"]
+visible = false
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -157,7 +159,7 @@ visible = false
 visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.235294, 0.235294, 0.235294, 1)
+color = Color(0.2, 0.2, 0.2, 1)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -187.0
@@ -181,7 +183,29 @@ hframes = 2
 script = ExtResource("14_stuan")
 worktime = NodePath("HBoxContainer/WorkTime")
 
+[node name="ClockLight1" type="PointLight2D" parent="Desk/Clock"]
+position = Vector2(-10.5, 2.25806)
+blend_mode = 2
+texture = ExtResource("17_b6uxm")
+
+[node name="ClockLight2" type="PointLight2D" parent="Desk/Clock"]
+position = Vector2(-4.5, 2.2)
+blend_mode = 2
+texture = ExtResource("17_b6uxm")
+
+[node name="ClockLight3" type="PointLight2D" parent="Desk/Clock"]
+position = Vector2(3.5, 2.25806)
+blend_mode = 2
+texture = ExtResource("17_b6uxm")
+
+[node name="ClockLight4" type="PointLight2D" parent="Desk/Clock"]
+position = Vector2(9, 2.25806)
+blend_mode = 2
+texture = ExtResource("17_b6uxm")
+
 [node name="HBoxContainer" type="HBoxContainer" parent="Desk/Clock"]
+light_mask = 2
+visibility_layer = 2
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

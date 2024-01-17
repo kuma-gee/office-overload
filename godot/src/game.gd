@@ -17,7 +17,13 @@ extends Node2D
 @onready var progress_broken = $CanvasLayer/HUD/MarginContainer/ProgressBroken
 
 @onready var canvas_modulate = $CanvasModulate
+@onready var clock_light_1 = $Desk/Clock/ClockLight1
+@onready var clock_light_2 = $Desk/Clock/ClockLight2
+@onready var clock_light_3 = $Desk/Clock/ClockLight3
+@onready var clock_light_4 = $Desk/Clock/ClockLight4
 @onready var point_light_2d = $PointLight2D
+@onready var lights = [clock_light_1, clock_light_2, clock_light_3, clock_light_4, point_light_2d]
+
 
 @onready var end = $CanvasLayer/End
 @onready var gameover = $CanvasLayer/Gameover
@@ -26,6 +32,7 @@ extends Node2D
 
 @onready var time_multiplier := 1.0 - time_increase
 @onready var time: float = _get_start_time()
+
 
 var is_gameover = false
 var documents = []
@@ -60,7 +67,7 @@ func _ready():
 		if documents.is_empty():
 			_finished()
 		
-		point_light_2d.enabled = true
+		_set_lights(true)
 	)
 	work_time.time_changed.connect(func(time):
 		if not is_end_of_day():
@@ -74,12 +81,21 @@ func _ready():
 		canvas_modulate.color = Color(light, light, light, 1)
 		
 		if light >= 1:
-			point_light_2d.enabled = false
+			_set_lights(false)
+			
+		if light >= 0.3:
+			overload_progress.brighten()
+		else:
+			overload_progress.darken()
 	)
 	spawn_timer.timeout.connect(func(): _spawn())
 
 	canvas_modulate.color = Color.WHITE
-	point_light_2d.enabled = false
+	_set_lights(false)
+
+func _set_lights(enabled: bool):
+	for l in lights:
+		l.enabled = enabled
 
 func _on_day_finished():
 	_start_game()

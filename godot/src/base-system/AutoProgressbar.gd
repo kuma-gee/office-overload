@@ -16,6 +16,7 @@ signal filled()
 @export var original_color := Color('353540')
 @export var blink_color := Color.WHITE
 
+@export var color = original_color
 var multiplier := 1.0
 var running := false
 
@@ -36,6 +37,16 @@ func start():
 func stop():
 	running = false
 	stop_blink()
+	
+func darken():
+	if color != Color.BLACK:
+		color = Color.BLACK
+		_set_blink_color(color)
+
+func brighten():
+	if color != original_color:
+		color = original_color
+		_set_blink_color(color)
 
 func _process(delta):
 	if not running: return
@@ -71,13 +82,12 @@ func stop_blink():
 	base_blink_time = -1
 	rotation_strength = 0
 	rotation = 0
-	material.set_shader_parameter("enable", false)
 
 func _blink(duration := 0.3):
 	rotation_strength = 0.5
 	noise_i = 0
 	var tw = create_tween()
-	tw.tween_method(_set_blink_color, blink_color, original_color, duration).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	tw.tween_method(_set_blink_color, blink_color, color, duration).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	await tw.finished
 	
 	var next_time_multiplier = (blink_timer_reference.time_left / blink_timer_reference.wait_time)
