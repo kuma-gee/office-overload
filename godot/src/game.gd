@@ -6,6 +6,8 @@ extends Node2D
 
 @export var overload_reduce := 20.0
 
+@export var work_time: WorkTime
+
 @onready var doc_spawner = $DocSpawner
 @onready var spawn_timer = $SpawnTimer
 @onready var document_stack = $DocumentStack
@@ -13,7 +15,7 @@ extends Node2D
 
 @onready var overload_progress = $CanvasLayer/HUD/MarginContainer/OverloadProgress
 @onready var burst_particles = $CanvasLayer/HUD/MarginContainer/OverloadProgress/BurstParticles
-@onready var work_time = $CanvasLayer/HUD/MarginContainer3/WorkTime
+
 @onready var canvas_modulate = $CanvasModulate
 @onready var point_light_2d = $PointLight2D
 

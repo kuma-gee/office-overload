@@ -1,3 +1,4 @@
+class_name WorkTime
 extends Label
 
 signal started()
@@ -55,8 +56,8 @@ func _set_hour(h: int):
 	hour = h
 	
 	text = ""
-	if ended:
-		text = "(+ %s) " % _hour_string(get_overtime())
+	#if ended:
+		#text = "(+ %s) " % _hour_string(get_overtime())
 	
 	if hour < 24:
 		text += _hour_string(h)
