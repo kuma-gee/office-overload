@@ -29,10 +29,12 @@ var documents = []
 var light = 1.0
 
 func _get_start_time():
-	var day_percent = (GameManager.day - 1) / 4 # Day 5 will start with lowest time
+	var day_percent = (GameManager.day - 1.0) / 4.0 # Day 5 will start with lowest time
 	var time_diff = start_time - min_time
 	var actual_diff = time_diff * day_percent
-	return start_time - actual_diff
+	var time = start_time - actual_diff
+	print(time)
+	return time
 
 func _ready():
 	overload_progress.filled.connect(func(): overload_timer.start())
@@ -47,7 +49,12 @@ func _ready():
 		gameover.fired_next_day(get_uncompleted())
 		bgm.stop()
 	)
-	work_time.day_ended.connect(func(): point_light_2d.enabled = true)
+	work_time.day_ended.connect(func():
+		if documents.is_empty():
+			_finished()
+		
+		point_light_2d.enabled = true
+	)
 	work_time.time_changed.connect(func(time):
 		if not is_end_of_day():
 			return
@@ -82,13 +89,18 @@ func is_end_of_day():
 func _start_game():
 	work_time.start()
 	overload_progress.start()
-	bgm.play()
+	_set_pitch()
+	bgm.do_play()
 	_spawn()
 
 func _process(delta):
 	var max_documents = 10
 	var workload = documents.size() / max_documents
 	overload_progress.multiplier =  max(workload, 0.5)
+
+func _finished():
+	end.day_ended(get_finished(), work_time.get_overtime())
+	bgm.stop()
 
 func _spawn():
 	if is_end_of_day():
@@ -99,6 +111,7 @@ func _spawn():
 	doc.finished.connect(func():
 		doc.move_to(Vector2(-doc_spawner.global_position.x, doc_spawner.global_position.y))
 		documents.erase(doc)
+		
 		if documents.size() > 0:
 			documents[0].highlight()
 		
@@ -112,8 +125,7 @@ func _spawn():
 			doc_spawner.add_medium()
 			
 		if is_end_of_day() and documents.is_empty():
-			end.day_ended(get_finished(), work_time.get_overtime())
-			bgm.stop()
+			_finished()
 	)
 	
 	if documents.is_empty():
@@ -122,19 +134,27 @@ func _spawn():
 	documents.append(doc)
 	
 	time = max(time * time_multiplier, min_time)
-	
-	if time < 1.5:
-		bgm.next_pitch = 1.1
-	elif time <= 1.3:
-		bgm.next_pitch = 1.3
-	elif time <= 1.0:
-		bgm.next_pitch = 1.4
+	_set_pitch()
 	
 	if documents.size() > 20:
 		time = start_time
+		
+		
+	spawn_timer.start(time)
+
+func _set_pitch():
+	if time <= 1.0:
+		bgm.next_pitch = 1.4
+	elif time <= 1.3:
+		bgm.next_pitch = 1.3
+	elif time <= 1.5:
+		bgm.next_pitch = 1.1
+	
+	if documents.size() > 20:
 		bgm.next_pitch = 1.4
 	
-	spawn_timer.start(time)
+	print(time, " - ", bgm.pitch_scale)
+	
 
 func _unhandled_input(event: InputEvent):
 	if event is InputEventKey and event.is_pressed() and not documents.is_empty():

@@ -121,7 +121,7 @@ layout_mode = 2
 text = "08:00"
 horizontal_alignment = 2
 script = ExtResource("7_ruuy4")
-hour_in_seconds = 1
+hour_in_seconds = 8
 day_end_sound = NodePath("End")
 overtime_sound = NodePath("Overtime")
 
