@@ -251,6 +251,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = ":"
 script = ExtResource("20_0ygyh")
 blink_timer = NodePath("BlinkTimer")
+blink_duration = 0.5
 
 [node name="BlinkTimer" type="Timer" parent="Desk/Clock/HBoxContainer/MarginContainer/Colon"]
 one_shot = true

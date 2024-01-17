@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dw4ed4dspm22v"]
+[gd_scene load_steps=7 format=3 uid="uid://dw4ed4dspm22v"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_t4bof"]
 [ext_resource type="Script" path="res://src/ui/gameover.gd" id="2_biwr8"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_s2nja"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_ekemn"]
+[ext_resource type="Script" path="res://src/base-system/menu/FocusButton.gd" id="4_xm8qx"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_dkoqc"]
 
 [node name="Gameover" type="Control" node_paths=PackedStringArray("restart")]
@@ -73,10 +74,12 @@ size_flags_horizontal = 4
 [node name="Back" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = " < "
+script = ExtResource("4_xm8qx")
 
 [node name="Restart" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Search another job"
+script = ExtResource("4_xm8qx")
 
 [node name="GameoverEffect" type="Node" parent="."]
 script = ExtResource("4_ekemn")
