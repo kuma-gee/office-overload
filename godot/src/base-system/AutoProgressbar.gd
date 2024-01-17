@@ -13,6 +13,9 @@ signal filled()
 @export var rotation_decay := 10.0
 @onready var noise = FastNoiseLite.new()
 
+@export var original_color := Color('353540')
+@export var blink_color := Color.WHITE
+
 var multiplier := 1.0
 var running := false
 
@@ -70,12 +73,12 @@ func stop_blink():
 	rotation = 0
 	material.set_shader_parameter("enable", false)
 
-func _blink(duration := 0.2):
+func _blink(duration := 0.3):
 	rotation_strength = 0.5
 	noise_i = 0
-	material.set_shader_parameter("enable", true)
-	await get_tree().create_timer(duration).timeout
-	material.set_shader_parameter("enable", false)
+	var tw = create_tween()
+	tw.tween_method(_set_blink_color, blink_color, original_color, duration).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	await tw.finished
 	
 	var next_time_multiplier = (blink_timer_reference.time_left / blink_timer_reference.wait_time)
 	next_time_multiplier *= next_time_multiplier
@@ -84,3 +87,6 @@ func _blink(duration := 0.2):
 		if base_blink_time > 0:
 			_blink()
 	)
+
+func _set_blink_color(c: Color):
+	material.set_shader_parameter("hit_color", c)

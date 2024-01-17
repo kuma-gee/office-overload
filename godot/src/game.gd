@@ -14,7 +14,7 @@ extends Node2D
 @onready var overload_timer = $OverloadTimer
 
 @onready var overload_progress = $CanvasLayer/HUD/MarginContainer/OverloadProgress
-@onready var burst_particles = $CanvasLayer/HUD/MarginContainer/OverloadProgress/BurstParticles
+@onready var progress_broken = $CanvasLayer/HUD/MarginContainer/ProgressBroken
 
 @onready var canvas_modulate = $CanvasModulate
 @onready var point_light_2d = $PointLight2D
@@ -51,7 +51,8 @@ func _ready():
 	overload_timer.started.connect(func(): overload_progress.start_blink())
 	overload_timer.stopped.connect(func(): overload_progress.stop_blink())
 	overload_timer.timeout.connect(func():
-		burst_particles.emitting = true
+		progress_broken.play()
+		overload_progress.hide()
 		_lost()
 	)
 	work_time.next_work_day.connect(func(): _lost(true))

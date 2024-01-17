@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=29 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="Texture2D" uid="uid://nmfjn8pxfscm" path="res://assets/Desk.png" id="1_sxnpx"]
@@ -6,8 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://h14bp6b8w6i8" path="res://assets/Progress_Under.png" id="2_s1wqh"]
 [ext_resource type="PackedScene" uid="uid://dffjinparflk0" path="res://src/ui/day.tscn" id="3_4j615"]
 [ext_resource type="Texture2D" uid="uid://df8a7xriw1acm" path="res://assets/Progress_Fill.png" id="3_6o0s1"]
+[ext_resource type="Texture2D" uid="uid://cwn1qhivlbajn" path="res://assets/ProgressBreak.png" id="4_21eo4"]
 [ext_resource type="Script" path="res://src/DocSpawner.gd" id="4_macw6"]
 [ext_resource type="Shader" path="res://src/base-system/shaders/hit.gdshader" id="4_tfr35"]
+[ext_resource type="Script" path="res://src/ProgressBroken.gd" id="5_b1x4w"]
 [ext_resource type="Texture2D" uid="uid://mgxmnunxgvxi" path="res://assets/Progress_Front.png" id="7_8fqhj"]
 [ext_resource type="Script" path="res://src/WorkTime.gd" id="7_ruuy4"]
 [ext_resource type="PackedScene" uid="uid://dw4ed4dspm22v" path="res://src/ui/gameover.tscn" id="8_lpofg"]
@@ -24,18 +26,18 @@
 [ext_resource type="AudioStream" uid="uid://c7v06ebe8oxvt" path="res://assets/sound/Godot_Wild_65.wav" id="19_65l1j"]
 [ext_resource type="AudioStream" uid="uid://bpxm5pscsli23" path="res://assets/sound/鳩時計1.mp3" id="19_mkiih"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kfp76"]
-shader = ExtResource("4_tfr35")
-shader_parameter/enable = false
-shader_parameter/hit_color = Color(1, 1, 1, 1)
-
 [sub_resource type="Curve" id="Curve_m11kp"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.481319), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.701099), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_vka2m"]
 interpolation_mode = 2
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kfp76"]
+shader = ExtResource("4_tfr35")
+shader_parameter/enable = true
+shader_parameter/hit_color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("work_time")]
 script = ExtResource("1_ptsas")
@@ -72,6 +74,55 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
+[node name="ProgressBroken" type="TextureRect" parent="CanvasLayer/HUD/MarginContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("4_21eo4")
+expand_mode = 3
+stretch_mode = 4
+script = ExtResource("5_b1x4w")
+
+[node name="BurstParticles" type="CPUParticles2D" parent="CanvasLayer/HUD/MarginContainer/ProgressBroken"]
+process_mode = 3
+position = Vector2(9, 42)
+emitting = false
+amount = 16
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.8
+emission_shape = 3
+emission_rect_extents = Vector2(4, 2)
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+damping_min = 60.0
+damping_max = 80.0
+scale_amount_min = 6.0
+scale_amount_max = 8.0
+scale_amount_curve = SubResource("Curve_m11kp")
+color_ramp = SubResource("Gradient_vka2m")
+
+[node name="ShardParticles" type="CPUParticles2D" parent="CanvasLayer/HUD/MarginContainer/ProgressBroken"]
+position = Vector2(9.24707, 42)
+emitting = false
+amount = 12
+lifetime = 100.0
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(5, 2)
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 30.0
+damping_min = 50.0
+damping_max = 50.0
+color = Color(0.207843, 0.207843, 0.25098, 1)
+
 [node name="OverloadProgress" type="TextureProgressBar" parent="CanvasLayer/HUD/MarginContainer" node_paths=PackedStringArray("blink_timer_reference")]
 material = SubResource("ShaderMaterial_kfp76")
 layout_mode = 2
@@ -84,27 +135,6 @@ texture_over = ExtResource("7_8fqhj")
 texture_progress = ExtResource("3_6o0s1")
 script = ExtResource("9_ul3fx")
 blink_timer_reference = NodePath("../../../../OverloadTimer")
-
-[node name="BurstParticles" type="CPUParticles2D" parent="CanvasLayer/HUD/MarginContainer/OverloadProgress"]
-process_mode = 3
-z_index = -1
-position = Vector2(4, 2)
-emitting = false
-amount = 12
-lifetime = 0.8
-one_shot = true
-explosiveness = 0.8
-direction = Vector2(0, -1)
-spread = 90.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 30.0
-initial_velocity_max = 50.0
-damping_min = 60.0
-damping_max = 80.0
-scale_amount_min = 3.0
-scale_amount_max = 4.0
-scale_amount_curve = SubResource("Curve_m11kp")
-color_ramp = SubResource("Gradient_vka2m")
 
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/HUD"]
 layout_mode = 1
