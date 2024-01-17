@@ -5,7 +5,7 @@
 # github-cli
 # butler
 
-GAME="office-overload"
+GAME="office-overloaded"
 VERSION="$1"
 
 # win, linux, web, macOS, android
