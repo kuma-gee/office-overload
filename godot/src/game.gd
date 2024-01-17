@@ -24,7 +24,6 @@ extends Node2D
 @onready var point_light_2d = $PointLight2D
 @onready var lights = [clock_light_1, clock_light_2, clock_light_3, clock_light_4, point_light_2d]
 
-
 @onready var end = $CanvasLayer/End
 @onready var gameover = $CanvasLayer/Gameover
 
@@ -32,7 +31,6 @@ extends Node2D
 
 @onready var time_multiplier := 1.0 - time_increase
 @onready var time: float = _get_start_time()
-
 
 var is_gameover = false
 var documents = []
@@ -134,7 +132,6 @@ func _save_progress():
 
 func _spawn():
 	if is_end_of_day() or is_gameover:
-		bgm.next_pitch = 1.0
 		return
 	
 	var doc = doc_spawner.spawn_document()

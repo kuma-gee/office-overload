@@ -77,23 +77,34 @@ enum Mode {
 @export var document_scene: PackedScene
 @export var center_offset := 50
 
-var mode = Mode.EASY
+var mode = -1
 var words := []
 var last_words := []
 
 func _ready():
-	add_easy()
+	if GameManager.day >= 5:
+		add_hard()
+	elif GameManager.day > 2:
+		add_medium()
+	else:
+		add_easy()
 
 func add_easy():
+	if mode >= Mode.EASY: return
+	
 	words.append_array(_normalize(EASY))
 	mode = Mode.EASY
 	
 func add_medium():
+	if mode >= Mode.MEDIUM: return
+	
 	_remove_less_than(6)
 	words.append_array(_normalize(MEDIUM))
 	mode = Mode.MEDIUM
 
 func add_hard():
+	if mode >= Mode.HARD: return
+	
 	_remove_less_than(9)
 	words.append_array(_normalize(HARD))
 	mode = Mode.HARD

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=11 format=3 uid="uid://ctlncowdl0sbn"]
 
 [ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="1_3ujy4"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bos2vgtns1o67" path="res://assets/Cover_Document.png" id="4_ojas5"]
 [ext_resource type="PackedScene" uid="uid://b2810ucbuyoj7" path="res://src/ui/to_do_item.tscn" id="5_lfa71"]
 [ext_resource type="Script" path="res://src/base-system/menu/FocusButton.gd" id="6_qrxhq"]
+[ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="9_8ah5n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gorx4"]
 shader = ExtResource("1_3ujy4")
@@ -154,6 +155,20 @@ disabled = true
 
 [node name="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/VBoxContainer/Exit/HBoxContainer" index="1"]
 text = "Quit Job"
+
+[node name="MarginContainer4" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Day" type="Label" parent="MarginContainer4"]
+layout_mode = 2
+text = "DAY"
+label_settings = ExtResource("9_8ah5n")
 
 [connection signal="pressed" from="MarginContainer3/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MarginContainer3/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
