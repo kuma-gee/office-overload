@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=36 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="Texture2D" uid="uid://nmfjn8pxfscm" path="res://assets/Desk.png" id="1_sxnpx"]
@@ -27,6 +27,8 @@
 [ext_resource type="Script" path="res://src/ManualLoopAudio.gd" id="18_f0kcb"]
 [ext_resource type="AudioStream" uid="uid://bpxm5pscsli23" path="res://assets/sound/鳩時計1.mp3" id="19_mkiih"]
 [ext_resource type="Script" path="res://src/BlinkText.gd" id="20_0ygyh"]
+[ext_resource type="Curve" uid="uid://c5dolop3rdetn" path="res://src/dust_damp.tres" id="24_ecpli"]
+[ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/Document.png" id="24_g7dws"]
 [ext_resource type="AudioStream" uid="uid://jkj1xii6w8s4" path="res://assets/sound/Godot_Wild_65.mp3" id="26_rpntm"]
 
 [sub_resource type="Curve" id="Curve_m11kp"]
@@ -41,6 +43,16 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 shader = ExtResource("4_tfr35")
 shader_parameter/enable = true
 shader_parameter/hit_color = Color(0.207843, 0.207843, 0.25098, 1)
+
+[sub_resource type="Curve" id="Curve_bp2je"]
+max_value = 5.0
+_data = [Vector2(0, 2.36264), 0.0, 0.0, 0, 0, Vector2(1, 5), -1.99979, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ar5ax"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.629214, 1)
+colors = PackedColorArray(1, 1, 1, 0.596078, 0.853488, 0.853488, 0.853488, 0)
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("work_time")]
 script = ExtResource("1_ptsas")
@@ -165,6 +177,7 @@ visible = false
 visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.2, 0.2, 0.2, 1)
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -270,6 +283,99 @@ text = "00"
 [node name="DocumentStack" type="Node2D" parent="."]
 position = Vector2(133, -44)
 script = ExtResource("12_n73rb")
+stack_count = 5
+max_stacks = 10
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="DocumentStack"]
+visible = false
+position = Vector2(-10, 0)
+emitting = false
+amount = 2
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(5, 15)
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 40.0
+damping_min = 90.0
+damping_max = 90.0
+damping_curve = ExtResource("24_ecpli")
+scale_amount_curve = SubResource("Curve_bp2je")
+color_ramp = SubResource("Gradient_ar5ax")
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="DocumentStack"]
+visible = false
+position = Vector2(10, 0)
+scale = Vector2(-1, 1)
+emitting = false
+amount = 2
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(5, 15)
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 40.0
+damping_min = 90.0
+damping_max = 90.0
+damping_curve = ExtResource("24_ecpli")
+scale_amount_curve = SubResource("Curve_bp2je")
+color_ramp = SubResource("Gradient_ar5ax")
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="DocumentStack"]
+visible = false
+position = Vector2(0, -15)
+emitting = false
+amount = 2
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(7, 5)
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 40.0
+damping_min = 90.0
+damping_max = 90.0
+damping_curve = ExtResource("24_ecpli")
+scale_amount_curve = SubResource("Curve_bp2je")
+color_ramp = SubResource("Gradient_ar5ax")
+
+[node name="CPUParticles2D4" type="CPUParticles2D" parent="DocumentStack"]
+visible = false
+position = Vector2(0, 15)
+scale = Vector2(1, -1)
+emitting = false
+amount = 2
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(7, 5)
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 40.0
+damping_min = 90.0
+damping_max = 90.0
+damping_curve = ExtResource("24_ecpli")
+scale_amount_curve = SubResource("Curve_bp2je")
+color_ramp = SubResource("Gradient_ar5ax")
+
+[node name="Sprite2D" type="Sprite2D" parent="DocumentStack"]
+visible = false
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
