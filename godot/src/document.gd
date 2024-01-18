@@ -8,6 +8,7 @@ signal finished()
 @onready var control = $Control
 @onready var paper_move_out = $PaperMoveOut
 @onready var paper_move_in = $PaperMoveIn
+@onready var paper_sort = $PaperSort
 
 var typed := ""
 var word := ""
@@ -34,10 +35,11 @@ func _ready():
 			sprite.material.set_shader_parameter("enable", false)
 	)
 	control.gui_input.connect(func(ev: InputEvent):
-		if ev is InputEventMouseButton and ev.button_index == MOUSE_BUTTON_LEFT and highlighted:
+		if ev is InputEventMouseButton and ev.button_index == MOUSE_BUTTON_LEFT and highlighted and abs(global_rotation) > 0.001:
 			create_tween().tween_property(self, "global_rotation", 0, 1.0) \
 			.set_ease(Tween.EASE_OUT) \
 			.set_trans(Tween.TRANS_CUBIC)
+			paper_sort.play()
 	)
 	
 func move_to(pos, rot_offset = PI/15, move_in = false):
