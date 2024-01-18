@@ -5,9 +5,9 @@
 [ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="2_i3de4"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="4_jpwde"]
 [ext_resource type="RichTextEffect" uid="uid://d0psnm1eyw40x" path="res://src/ui/typed_effect.tres" id="5_vb0un"]
-[ext_resource type="AudioStream" uid="uid://b5opcrn4bwf3k" path="res://assets/sound/paper.wav" id="7_nk17s"]
-[ext_resource type="AudioStream" uid="uid://be4634bl6ksbo" path="res://assets/sound/paper-flip.wav" id="8_2l2n8"]
-[ext_resource type="AudioStream" uid="uid://dvhvaybnaahrv" path="res://assets/sound/keyboard.wav" id="8_vhja1"]
+[ext_resource type="AudioStream" uid="uid://b73fxq2acr5ft" path="res://assets/sound/keyboard.mp3" id="6_4n547"]
+[ext_resource type="AudioStream" uid="uid://c8rl1qr4vjn25" path="res://assets/sound/paper.mp3" id="7_1wga7"]
+[ext_resource type="AudioStream" uid="uid://d3oql1wjpr4ip" path="res://assets/sound/paper-flip.mp3" id="8_hnjsk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pxbm0"]
 shader = ExtResource("2_i3de4")
@@ -61,14 +61,14 @@ offset_bottom = 56.0
 
 [node name="TypeSound" type="AudioStreamPlayer" parent="."]
 process_mode = 3
-stream = ExtResource("8_vhja1")
+stream = ExtResource("6_4n547")
 
 [node name="PaperMoveIn" type="AudioStreamPlayer" parent="."]
 process_mode = 3
-stream = ExtResource("7_nk17s")
+stream = ExtResource("7_1wga7")
 
 [node name="PaperMoveOut" type="AudioStreamPlayer" parent="."]
 process_mode = 3
-stream = ExtResource("8_2l2n8")
+stream = ExtResource("8_hnjsk")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

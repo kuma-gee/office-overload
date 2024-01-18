@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=32 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="Texture2D" uid="uid://nmfjn8pxfscm" path="res://assets/Desk.png" id="1_sxnpx"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://src/DocSpawner.gd" id="4_macw6"]
 [ext_resource type="Shader" path="res://src/base-system/shaders/hit.gdshader" id="4_tfr35"]
 [ext_resource type="Script" path="res://src/ProgressBroken.gd" id="5_b1x4w"]
+[ext_resource type="AudioStream" uid="uid://wbinc813ks6f" path="res://assets/sound/ガラスが割れる3.mp3" id="6_g6nin"]
 [ext_resource type="Texture2D" uid="uid://mgxmnunxgvxi" path="res://assets/Progress_Front.png" id="7_8fqhj"]
 [ext_resource type="Script" path="res://src/WorkTime.gd" id="7_ruuy4"]
 [ext_resource type="PackedScene" uid="uid://dw4ed4dspm22v" path="res://src/ui/gameover.tscn" id="8_lpofg"]
@@ -24,9 +25,9 @@
 [ext_resource type="Texture2D" uid="uid://c7y3y52oh6sbg" path="res://assets/MonitorLight.png" id="14_uyjhq"]
 [ext_resource type="Texture2D" uid="uid://bikrg3yecci4h" path="res://assets/ClockLight.png" id="17_b6uxm"]
 [ext_resource type="Script" path="res://src/ManualLoopAudio.gd" id="18_f0kcb"]
-[ext_resource type="AudioStream" uid="uid://c7v06ebe8oxvt" path="res://assets/sound/Godot_Wild_65.wav" id="19_65l1j"]
 [ext_resource type="AudioStream" uid="uid://bpxm5pscsli23" path="res://assets/sound/鳩時計1.mp3" id="19_mkiih"]
 [ext_resource type="Script" path="res://src/BlinkText.gd" id="20_0ygyh"]
+[ext_resource type="AudioStream" uid="uid://jkj1xii6w8s4" path="res://assets/sound/Godot_Wild_65.mp3" id="26_rpntm"]
 
 [sub_resource type="Curve" id="Curve_m11kp"]
 _data = [Vector2(0, 0.701099), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -125,6 +126,11 @@ initial_velocity_max = 30.0
 damping_min = 50.0
 damping_max = 50.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
+
+[node name="BreakSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/MarginContainer/ProgressBroken"]
+stream = ExtResource("6_g6nin")
+volume_db = -10.0
+pitch_scale = 0.6
 
 [node name="OverloadProgress" type="TextureProgressBar" parent="CanvasLayer/HUD/MarginContainer" node_paths=PackedStringArray("blink_timer_reference")]
 material = SubResource("ShaderMaterial_kfp76")
@@ -283,7 +289,7 @@ script = ExtResource("10_sr2sn")
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 process_mode = 3
-stream = ExtResource("19_65l1j")
+stream = ExtResource("26_rpntm")
 volume_db = -15.0
 script = ExtResource("18_f0kcb")
 

@@ -6,6 +6,7 @@
 [node name="Cover" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(9, 11)
