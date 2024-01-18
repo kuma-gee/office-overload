@@ -22,7 +22,7 @@ func _ready():
 	_set_hour(start_hour)
 
 func get_overtime():
-	return hour - end_hour
+	return max(hour - end_hour, 0)
 
 func start():
 	started.emit()

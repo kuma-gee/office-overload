@@ -8,6 +8,7 @@ var total_overtime := 0
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	_reset()
 
 func start():
 	day += 1
@@ -26,7 +27,7 @@ func back_to_menu(reset = true):
 		_reset()
 
 func _reset():
-	day = 0
+	day = 1
 	completed = 0
 	total_overtime = 0
 

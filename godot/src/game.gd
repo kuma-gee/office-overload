@@ -89,6 +89,7 @@ func _ready():
 	spawn_timer.timeout.connect(func(): _spawn())
 
 	canvas_modulate.color = Color.WHITE
+	canvas_modulate.show()
 	_set_lights(false)
 
 func _set_lights(enabled: bool):

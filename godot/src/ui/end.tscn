@@ -58,6 +58,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="Back" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = " < "
 script = ExtResource("5_5c1fu")
