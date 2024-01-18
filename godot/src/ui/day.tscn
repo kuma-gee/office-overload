@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dffjinparflk0"]
+[gd_scene load_steps=7 format=3 uid="uid://dffjinparflk0"]
 
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_hcfjt"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="1_ho3e7"]
 [ext_resource type="Script" path="res://src/ui/day.gd" id="1_ilfqg"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="3_1tsnh"]
@@ -13,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_hcfjt")
 script = ExtResource("1_ilfqg")
 
 [node name="EffectRoot" type="Node" parent="."]

@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=7 format=3 uid="uid://7qw6fd3hy4kc"]
 
-[ext_resource type="FontFile" uid="uid://cne0gem8cyqla" path="res://theme/ARCADECLASSIC.TTF" id="1_5dikl"]
+[ext_resource type="FontFile" uid="uid://b1rtxlfrxj7kh" path="res://theme/upheavtt.ttf" id="1_awq77"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k038n"]
 content_margin_left = 4.0
@@ -45,7 +45,7 @@ border_color = Color(0.207843, 0.207843, 0.25098, 1)
 bg_color = Color(0.929412, 0.894118, 0.854902, 1)
 
 [resource]
-default_font = ExtResource("1_5dikl")
+default_font = ExtResource("1_awq77")
 default_font_size = 10
 Button/colors/font_color = Color(0.207843, 0.207843, 0.25098, 1)
 Button/colors/font_color_focus = Color(0.929412, 0.894118, 0.854902, 1)

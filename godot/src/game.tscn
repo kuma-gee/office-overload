@@ -141,8 +141,6 @@ color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="BreakSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/MarginContainer/ProgressBroken"]
 stream = ExtResource("6_g6nin")
-volume_db = -10.0
-pitch_scale = 0.6
 
 [node name="OverloadProgress" type="TextureProgressBar" parent="CanvasLayer/HUD/MarginContainer" node_paths=PackedStringArray("blink_timer_reference")]
 material = SubResource("ShaderMaterial_kfp76")
@@ -237,6 +235,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("10_am0oy")
 theme_override_constants/separation = 0
+alignment = 1
 
 [node name="WorkTime" type="Label" parent="Desk/Clock/HBoxContainer" node_paths=PackedStringArray("day_end_sound", "overtime_sound")]
 layout_mode = 2
@@ -245,7 +244,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "08"
 horizontal_alignment = 1
 script = ExtResource("7_ruuy4")
-hour_in_seconds = 3
+hour_in_seconds = 8
 day_end_sound = NodePath("End")
 overtime_sound = NodePath("Overtime")
 
@@ -261,7 +260,7 @@ volume_db = -10.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Desk/Clock/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = -2
+theme_override_constants/margin_top = 0
 
 [node name="Colon" type="Label" parent="Desk/Clock/HBoxContainer/MarginContainer" node_paths=PackedStringArray("blink_timer")]
 layout_mode = 2

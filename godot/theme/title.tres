@@ -1,9 +1,6 @@
-[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://tpgtuioqqmmp"]
-
-[ext_resource type="FontFile" uid="uid://cne0gem8cyqla" path="res://theme/ARCADECLASSIC.TTF" id="1_7l7fh"]
+[gd_resource type="LabelSettings" format=3 uid="uid://tpgtuioqqmmp"]
 
 [resource]
-font = ExtResource("1_7l7fh")
 font_size = 32
 font_color = Color(0.207843, 0.207843, 0.25098, 1)
 outline_size = 15

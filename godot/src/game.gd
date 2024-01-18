@@ -40,6 +40,11 @@ func _get_start_time():
 	var day_percent = (GameManager.day - 1.0) / 4.0 # Day 5 will start with lowest time
 	var time_diff = start_time - min_time
 	var actual_diff = time_diff * day_percent
+	
+	# make it more challenging
+	if GameManager.day > 5:
+		return 0.75
+	
 	return start_time - actual_diff
 
 func _ready():
@@ -116,7 +121,7 @@ func _start_game():
 	_spawn()
 
 func _process(delta):
-	var max_documents = 10
+	var max_documents = 5
 	var workload = documents.size() / max_documents
 	overload_progress.multiplier =  max(workload, 0.5)
 
@@ -165,7 +170,7 @@ func _spawn():
 	_set_pitch()
 	
 	if documents.size() > 20:
-		time = start_time
+		time = start_time * 0.75
 		
 		
 	spawn_timer.start(time)
