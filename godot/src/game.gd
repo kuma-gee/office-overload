@@ -215,7 +215,15 @@ func _set_bgm_stream():
 
 func _unhandled_input(event: InputEvent):
 	if not is_gameover and event is InputEventKey and event.is_pressed() and not documents.is_empty():
-		var text = event.as_text()
+		var key = event as InputEventKey
+		
+		# we don't care about modifiers
+		key.shift_pressed = false
+		key.ctrl_pressed = false
+		key.alt_pressed = false
+		key.meta_pressed = false
+		
+		var text = key.as_text()
 		if text.length() != 1:
 			return
 		
