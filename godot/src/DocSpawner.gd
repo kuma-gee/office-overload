@@ -84,7 +84,7 @@ var last_words := []
 func _ready():
 	if GameManager.day >= 5:
 		add_hard()
-	elif GameManager.day > 2:
+	elif GameManager.day >= 3:
 		add_medium()
 	else:
 		add_easy()

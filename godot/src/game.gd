@@ -178,9 +178,9 @@ func _spawn_document(show_tutorial = false):
 		document_stack.add_document()
 		overload_timer.stop() 
 		
-		if get_finished() == 30:
+		if get_finished() == 20:
 			doc_spawner.add_hard()
-		elif get_finished() == 15:
+		elif get_finished() == 10:
 			doc_spawner.add_medium()
 			
 		if is_end_of_day() and documents.is_empty():
@@ -200,9 +200,9 @@ func _spawn_document(show_tutorial = false):
 	documents.append(doc)
 
 func _set_bgm_stream():
-	if time <= 1.0:
+	if time <= 1.1:
 		bgm.next_stream = fastest
-	elif time <= 1.2:
+	elif time <= 1.3:
 		bgm.next_stream = faster
 	elif time <= 1.5:
 		bgm.next_stream = fast
