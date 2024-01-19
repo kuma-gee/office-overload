@@ -2,7 +2,7 @@ extends Node2D
 
 @export var start_time := 2.0
 @export var min_time := 1.0
-@export var time_increase := 0.02
+@export var time_increase := 0.01
 
 @export var overload_reduce := 20.0
 
@@ -35,22 +35,21 @@ extends Node2D
 @onready var gameover = $CanvasLayer/Gameover
 
 @onready var bgm = $BGM
-@onready var time: float = _get_start_time()
+@onready var time: float = _get_start_time(GameManager.day)
+@onready var day_min_time: float = _get_start_time(GameManager.day + 1)
 
 var is_gameover = false
 var documents = []
 var light = 1.0
 
-func _get_start_time():
-	var day_percent = (GameManager.day - 1.0) / 2.0 # Day 3 will start with lowest time
+func _get_start_time(day):
+	var max_day = 5
+	var day_percent = (day - 1.0) / (max_day - 1) # max day will start with lowest time
 	var time_diff = start_time - min_time
 	var actual_diff = time_diff * day_percent
 	
-	# make it more challenging
-	if GameManager.day > 3:
-		min_time = 0.75
-	
-	return start_time - actual_diff
+	var t = start_time - actual_diff
+	return max(t, 0.75)
 
 func _set_environment():
 	if GameManager.day <= 1:
@@ -161,12 +160,8 @@ func _spawn():
 		return
 	
 	_spawn_document()
-	time = max(time * (1.0 - time_increase * GameManager.day), min_time)
+	time = max(time * (1.0 - time_increase), day_min_time)
 	_set_bgm_stream()
-	
-	# might be too easy
-	#if documents.size() > 20:
-		#time = start_time * 0.75
 		
 	spawn_timer.start(time)
 
