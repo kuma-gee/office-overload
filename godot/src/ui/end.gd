@@ -3,13 +3,16 @@ extends Control
 @onready var end_effect = $EndEffect
 @onready var finished_tasks = $CenterContainer/VBoxContainer/VBoxContainer/FinishedTasks
 @onready var overtime = $CenterContainer/VBoxContainer/VBoxContainer/Overtime
-@export var next: Button
 @onready var audio_stream_player = $AudioStreamPlayer
+@onready var title = $CenterContainer/VBoxContainer/Title
+
+@export var next: Button
 
 func _ready():
 	hide()
 
 func day_ended(finished: int, overtime_in_hours: float):
+	title.text = "Day %s report" % GameManager.day
 	finished_tasks.text = "Finished %s tasks" % finished
 	overtime.text = "%s hours of overtime" % overtime_in_hours
 	
