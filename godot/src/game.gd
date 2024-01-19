@@ -20,6 +20,7 @@ extends Node2D
 
 @onready var overload_progress = $CanvasLayer/HUD/MarginContainer/OverloadProgress
 @onready var progress_broken = $CanvasLayer/HUD/MarginContainer/ProgressBroken
+@onready var animation_player = $AnimationPlayer
 
 @onready var canvas_modulate = $CanvasModulate
 @onready var clock_light_1 = $Desk/Clock/ClockLight1
@@ -40,17 +41,24 @@ var documents = []
 var light = 1.0
 
 func _get_start_time():
-	var day_percent = (GameManager.day - 1.0) / 3.0 # Day 5 will start with lowest time
+	var day_percent = (GameManager.day - 1.0) / 2.0 # Day 3 will start with lowest time
 	var time_diff = start_time - min_time
 	var actual_diff = time_diff * day_percent
 	
 	# make it more challenging
-	if GameManager.day > 4:
+	if GameManager.day > 3:
 		min_time = 0.75
 	
 	return start_time - actual_diff
 
 func _ready():
+	if GameManager.day <= 1:
+		animation_player.play("normal")
+	elif GameManager.day == 2:
+		animation_player.play("messy")
+	else:
+		animation_player.play("littered")
+	
 	GameManager.round_ended.connect(func():
 		is_gameover = true
 		overload_progress.stop()

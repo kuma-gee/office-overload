@@ -1,7 +1,6 @@
-[gd_scene load_steps=39 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=47 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
-[ext_resource type="Texture2D" uid="uid://nmfjn8pxfscm" path="res://assets/Desk.png" id="1_sxnpx"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
 [ext_resource type="Texture2D" uid="uid://h14bp6b8w6i8" path="res://assets/Progress_Under.png" id="2_s1wqh"]
 [ext_resource type="PackedScene" uid="uid://dffjinparflk0" path="res://src/ui/day.tscn" id="3_4j615"]
@@ -29,9 +28,13 @@
 [ext_resource type="Texture2D" uid="uid://bikrg3yecci4h" path="res://assets/ClockLight.png" id="17_b6uxm"]
 [ext_resource type="Script" path="res://src/ManualLoopAudio.gd" id="18_f0kcb"]
 [ext_resource type="AudioStream" uid="uid://bpxm5pscsli23" path="res://assets/sound/鳩時計1.mp3" id="19_mkiih"]
+[ext_resource type="Texture2D" uid="uid://sy6r1qjyud55" path="res://assets/Desk_Static.png" id="19_wvt8k"]
 [ext_resource type="Script" path="res://src/BlinkText.gd" id="20_0ygyh"]
+[ext_resource type="Texture2D" uid="uid://r6b75n40gyxy" path="res://assets/Desk_Computer.png" id="21_tywuk"]
 [ext_resource type="Curve" uid="uid://c5dolop3rdetn" path="res://src/dust_damp.tres" id="24_ecpli"]
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/Document.png" id="24_g7dws"]
+[ext_resource type="Texture2D" uid="uid://fhvvkmwkvr5c" path="res://assets/Desk_Plant.png" id="27_1a3yr"]
+[ext_resource type="Texture2D" uid="uid://ctoyv3g7nvrwf" path="res://assets/Desk_Coffee.png" id="28_i6mjb"]
 [ext_resource type="AudioStream" uid="uid://1hhl6xijlq3d" path="res://assets/sound/GW65_-_tempo_220.wav" id="29_nb6ut"]
 
 [sub_resource type="Curve" id="Curve_m11kp"]
@@ -46,6 +49,208 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 shader = ExtResource("4_tfr35")
 shader_parameter/enable = true
 shader_parameter/hit_color = Color(0.207843, 0.207843, 0.25098, 1)
+
+[sub_resource type="Animation" id="Animation_ijo53"]
+resource_name = "normal"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Plant:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Coffee:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Messy:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Littered:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_mdfl2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Plant:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Coffee:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Messy:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Littered:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_if3j8"]
+resource_name = "messy"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Plant:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Messy:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Coffee:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_qam2k"]
+resource_name = "littered"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Plant:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Littered:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Messy:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Coffee:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vs0lt"]
+_data = {
+"RESET": SubResource("Animation_mdfl2"),
+"littered": SubResource("Animation_qam2k"),
+"messy": SubResource("Animation_if3j8"),
+"normal": SubResource("Animation_ijo53")
+}
 
 [sub_resource type="Curve" id="Curve_bp2je"]
 max_value = 5.0
@@ -196,8 +401,91 @@ position = Vector2(0, -1.43051e-06)
 blend_mode = 2
 texture = ExtResource("14_uyjhq")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Desk")
+libraries = {
+"": SubResource("AnimationLibrary_vs0lt")
+}
+autoplay = "normal"
+
 [node name="Desk" type="Sprite2D" parent="."]
-texture = ExtResource("1_sxnpx")
+texture = ExtResource("19_wvt8k")
+
+[node name="Messy" type="Node2D" parent="Desk"]
+visible = false
+
+[node name="Document" type="Sprite2D" parent="Desk/Messy"]
+position = Vector2(-152, -76)
+rotation = 0.829031
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Document2" type="Sprite2D" parent="Desk/Messy"]
+position = Vector2(-90, -79)
+rotation = 1.65981
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Document3" type="Sprite2D" parent="Desk/Messy"]
+position = Vector2(141, -79)
+rotation = -0.710349
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Coffee2" type="Sprite2D" parent="Desk/Messy"]
+position = Vector2(65, -49)
+texture = ExtResource("28_i6mjb")
+hframes = 2
+frame = 1
+
+[node name="Littered" type="Node2D" parent="Desk"]
+visible = false
+
+[node name="Document5" type="Sprite2D" parent="Desk/Littered"]
+position = Vector2(-126, -83)
+rotation = 2.11359
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Document9" type="Sprite2D" parent="Desk/Littered"]
+position = Vector2(-59, -94)
+rotation = 0.561996
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Document6" type="Sprite2D" parent="Desk/Littered"]
+position = Vector2(-154, -51)
+rotation = -2.77333
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Document8" type="Sprite2D" parent="Desk/Littered"]
+position = Vector2(76, -94)
+rotation = -1.23395
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Document4" type="Sprite2D" parent="Desk/Littered"]
+position = Vector2(48, -82)
+rotation = 0.5044
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Document7" type="Sprite2D" parent="Desk/Littered"]
+position = Vector2(112, -96)
+rotation = 0.959931
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Coffee3" type="Sprite2D" parent="Desk/Littered"]
+position = Vector2(90, -56)
+texture = ExtResource("28_i6mjb")
+hframes = 2
+frame = 1
+
+[node name="Computer" type="Sprite2D" parent="Desk"]
+position = Vector2(0, -80)
+texture = ExtResource("21_tywuk")
 
 [node name="Clock" type="Sprite2D" parent="Desk" node_paths=PackedStringArray("worktime")]
 position = Vector2(88, -74)
@@ -284,6 +572,16 @@ one_shot = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "00"
+
+[node name="Plant" type="Sprite2D" parent="Desk"]
+position = Vector2(-118, -66)
+texture = ExtResource("27_1a3yr")
+hframes = 3
+
+[node name="Coffee" type="Sprite2D" parent="Desk"]
+position = Vector2(82, -29)
+texture = ExtResource("28_i6mjb")
+hframes = 2
 
 [node name="DocumentStack" type="Node2D" parent="."]
 position = Vector2(133, -44)
