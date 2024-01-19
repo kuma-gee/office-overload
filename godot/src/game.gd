@@ -8,6 +8,11 @@ extends Node2D
 
 @export var work_time: WorkTime
 
+@export var normal: AudioStream
+@export var fast: AudioStream
+@export var faster: AudioStream
+@export var fastest: AudioStream
+
 @onready var doc_spawner = $DocSpawner
 @onready var spawn_timer = $SpawnTimer
 @onready var document_stack = $DocumentStack
@@ -28,8 +33,6 @@ extends Node2D
 @onready var gameover = $CanvasLayer/Gameover
 
 @onready var bgm = $BGM
-
-@onready var time_multiplier := 1.0 - time_increase
 @onready var time: float = _get_start_time()
 
 var is_gameover = false
@@ -37,13 +40,13 @@ var documents = []
 var light = 1.0
 
 func _get_start_time():
-	var day_percent = (GameManager.day - 1.0) / 4.0 # Day 5 will start with lowest time
+	var day_percent = (GameManager.day - 1.0) / 3.0 # Day 5 will start with lowest time
 	var time_diff = start_time - min_time
 	var actual_diff = time_diff * day_percent
 	
 	# make it more challenging
-	if GameManager.day > 5:
-		return 0.75
+	if GameManager.day > 4:
+		min_time = 0.75
 	
 	return start_time - actual_diff
 
@@ -166,25 +169,27 @@ func _spawn():
 	
 	documents.append(doc)
 	
-	time = max(time * time_multiplier, min_time)
+	time = max(time * (1.0 - time_increase * GameManager.day), min_time)
 	_set_pitch()
 	
-	if documents.size() > 20:
-		time = start_time * 0.75
-		
+	# might be too easy
+	#if documents.size() > 20:
+		#time = start_time * 0.75
 		
 	spawn_timer.start(time)
 
 func _set_pitch():
 	if time <= 1.0:
-		bgm.next_pitch = 1.4
-	elif time <= 1.3:
-		bgm.next_pitch = 1.3
+		bgm.next_stream = fastest
+	elif time <= 1.2:
+		bgm.next_stream = faster
 	elif time <= 1.5:
-		bgm.next_pitch = 1.1
+		bgm.next_stream = fast
+	else:
+		bgm.next_stream = normal
 	
 	if documents.size() > 20:
-		bgm.next_pitch = 1.4
+		bgm.next_stream = fastest
 
 
 func _unhandled_input(event: InputEvent):
