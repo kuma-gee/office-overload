@@ -456,6 +456,7 @@ color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="BreakSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/MarginContainer/ProgressBroken"]
 stream = ExtResource("6_g6nin")
+volume_db = 5.0
 
 [node name="OverloadProgress" type="TextureProgressBar" parent="CanvasLayer/HUD/MarginContainer" node_paths=PackedStringArray("blink_timer_reference")]
 material = SubResource("ShaderMaterial_kfp76")

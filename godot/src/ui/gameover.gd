@@ -5,6 +5,7 @@ extends Control
 @onready var open = $CenterContainer/VBoxContainer/VBoxContainer/Open
 @onready var days = $CenterContainer/VBoxContainer/VBoxContainer/Days
 @onready var overtime = $CenterContainer/VBoxContainer/VBoxContainer/Overtime
+@onready var audio_stream_player = $AudioStreamPlayer
 
 @export var restart: Button
 
@@ -20,6 +21,7 @@ func fired(finished_tasks: int, open_tasks: int, _next_day = false):
 	open.text = "%s uncompleted tasks" % open_tasks
 	days.text = "Survived %s days" % [GameManager.day - 1]
 	_do_show()
+	audio_stream_player.play()
 
 
 func _do_show():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://kdu7e637eapn"]
+[gd_scene load_steps=9 format=3 uid="uid://kdu7e637eapn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_80w1y"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_ox4yy"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_j7irx"]
 [ext_resource type="Script" path="res://src/base-system/menu/FocusButton.gd" id="5_5c1fu"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_d7wj0"]
+[ext_resource type="AudioStream" uid="uid://e82h4pq7oib4" path="res://assets/sound/金額表示.mp3" id="8_i0k3p"]
 
 [node name="End" type="Control" node_paths=PackedStringArray("next")]
 process_mode = 3
@@ -77,6 +78,10 @@ duration = 0.8
 [node name="Slide2" type="Node" parent="EndEffect" node_paths=PackedStringArray("node")]
 script = ExtResource("5_d7wj0")
 node = NodePath("../../CenterContainer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_i0k3p")
+volume_db = -10.0
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/Next" to="." method="_on_next_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dw4ed4dspm22v"]
+[gd_scene load_steps=8 format=3 uid="uid://dw4ed4dspm22v"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_t4bof"]
 [ext_resource type="Script" path="res://src/ui/gameover.gd" id="2_biwr8"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_ekemn"]
 [ext_resource type="Script" path="res://src/base-system/menu/FocusButton.gd" id="4_xm8qx"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_dkoqc"]
+[ext_resource type="AudioStream" uid="uid://ctlbf2imxt5tn" path="res://assets/sound/呪いの旋律.mp3" id="7_fg57t"]
 
 [node name="Gameover" type="Control" node_paths=PackedStringArray("restart")]
 process_mode = 3
@@ -91,6 +92,11 @@ duration = 0.75
 [node name="Slide" type="Node" parent="GameoverEffect" node_paths=PackedStringArray("node")]
 script = ExtResource("5_dkoqc")
 node = NodePath("../../CenterContainer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_fg57t")
+volume_db = -10.0
+pitch_scale = 1.2
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/Restart" to="." method="_on_restart_pressed"]
