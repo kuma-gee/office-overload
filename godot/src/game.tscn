@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=51 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -36,6 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://fhvvkmwkvr5c" path="res://assets/Desk_Plant.png" id="27_1a3yr"]
 [ext_resource type="Texture2D" uid="uid://ctoyv3g7nvrwf" path="res://assets/Desk_Coffee.png" id="28_i6mjb"]
 [ext_resource type="AudioStream" uid="uid://1hhl6xijlq3d" path="res://assets/sound/GW65_-_tempo_220.wav" id="29_nb6ut"]
+[ext_resource type="Texture2D" uid="uid://c7bni1sdaaaqn" path="res://assets/Desk_Keyboard.png" id="31_x6efq"]
 
 [sub_resource type="Curve" id="Curve_m11kp"]
 _data = [Vector2(0, 0.701099), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -152,6 +153,30 @@ tracks/3/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Keyboard:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../BGM:volume_db")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-30.0]
+}
 
 [sub_resource type="Animation" id="Animation_if3j8"]
 resource_name = "messy"
@@ -244,12 +269,90 @@ tracks/3/keys = {
 "values": [1]
 }
 
+[sub_resource type="Animation" id="Animation_5s4dq"]
+resource_name = "tutorial"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Keyboard:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_c5ajb"]
+resource_name = "start_bgm"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../BGM:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-30.0, -15.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BGM")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"do_play"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_c62e5"]
+resource_name = "stop_bgm"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../BGM:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-15.0, -40.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BGM")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vs0lt"]
 _data = {
 "RESET": SubResource("Animation_mdfl2"),
 "littered": SubResource("Animation_qam2k"),
 "messy": SubResource("Animation_if3j8"),
-"normal": SubResource("Animation_ijo53")
+"normal": SubResource("Animation_ijo53"),
+"start_bgm": SubResource("Animation_c5ajb"),
+"stop_bgm": SubResource("Animation_c62e5"),
+"tutorial": SubResource("Animation_5s4dq")
 }
 
 [sub_resource type="Curve" id="Curve_bp2je"]
@@ -583,6 +686,11 @@ position = Vector2(82, -29)
 texture = ExtResource("28_i6mjb")
 hframes = 2
 
+[node name="Keyboard" type="Sprite2D" parent="Desk"]
+position = Vector2(0, -29)
+texture = ExtResource("31_x6efq")
+hframes = 2
+
 [node name="DocumentStack" type="Node2D" parent="."]
 position = Vector2(133, -44)
 script = ExtResource("12_n73rb")
@@ -699,7 +807,7 @@ script = ExtResource("10_sr2sn")
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("29_nb6ut")
-volume_db = -15.0
+volume_db = -30.0
 script = ExtResource("18_f0kcb")
 
 [connection signal="finished" from="CanvasLayer/HUD/Day" to="." method="_on_day_finished"]

@@ -51,6 +51,7 @@ shortcut_keys_enabled = false
 custom_effects = [ExtResource("5_vb0un")]
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(2.5, 3.2)
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

@@ -11,7 +11,9 @@ func _process_custom_fx(char_fx):
 
 	var until = char_fx.env.get("until", 0)
 	if idx < until:
-		char_fx.color = Color.WHITE
+		var colored = char_fx.env.get("colored", true)
+		if colored:
+			char_fx.color = Color.WHITE
 
 		var offset = (until - idx - 1) * 6
 		var original_y = _get_offset(char_fx.elapsed_time, 1)

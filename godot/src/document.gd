@@ -13,12 +13,15 @@ signal finished()
 var typed := ""
 var word := ""
 var target_position := Vector2.ZERO
-var highlighted = false
+var highlighted := false
 
 var _logger = Logger.new("Document")
 
 func _update_word():
 	rich_text_label.text = "[center][typed until=%s]%s[/typed][/center]" % [typed.length(), word]
+
+func show_tutorial():
+	rich_text_label.text = "[center][typed until=1 colored=false]%s[/typed][/center]" % word
 
 func _ready():
 	_update_word()

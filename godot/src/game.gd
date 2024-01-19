@@ -17,6 +17,7 @@ extends Node2D
 @onready var spawn_timer = $SpawnTimer
 @onready var document_stack = $DocumentStack
 @onready var overload_timer = $OverloadTimer
+@onready var keyboard = $Desk/Keyboard
 
 @onready var overload_progress = $CanvasLayer/HUD/MarginContainer/OverloadProgress
 @onready var progress_broken = $CanvasLayer/HUD/MarginContainer/ProgressBroken
@@ -51,13 +52,16 @@ func _get_start_time():
 	
 	return start_time - actual_diff
 
-func _ready():
+func _set_environment():
 	if GameManager.day <= 1:
 		animation_player.play("normal")
 	elif GameManager.day == 2:
 		animation_player.play("messy")
 	else:
 		animation_player.play("littered")
+
+func _ready():
+	_set_environment()
 	
 	GameManager.round_ended.connect(func():
 		is_gameover = true
@@ -65,7 +69,7 @@ func _ready():
 		overload_timer.stop()
 		work_time.stop()
 		spawn_timer.stop()
-		bgm.stop()
+		animation_player.play("stop_bgm")
 	)
 	
 	overload_progress.filled.connect(func(): overload_timer.start())
@@ -113,7 +117,19 @@ func _set_lights(enabled: bool):
 		l.enabled = enabled
 
 func _on_day_finished():
-	_start_game()
+	_set_bgm_stream()
+	
+	if GameManager.day > 1:
+		_start_game()
+	else:
+		_spawn_document(true)
+		animation_player.play("tutorial")
+
+func _start_game():
+	work_time.start()
+	overload_progress.start()
+	animation_player.play("start_bgm")
+	_spawn()
 	
 func get_finished():
 	return document_stack.total
@@ -124,15 +140,8 @@ func get_uncompleted():
 func is_end_of_day():
 	return work_time.ended
 
-func _start_game():
-	work_time.start()
-	overload_progress.start()
-	_set_pitch()
-	bgm.do_play()
-	_spawn()
-
-func _process(delta):
-	var max_documents = 5
+func _process(_delta):
+	var max_documents = 5.0
 	var workload = documents.size() / max_documents
 	overload_progress.multiplier =  max(workload, 0.5)
 
@@ -151,6 +160,17 @@ func _spawn():
 	if is_end_of_day() or is_gameover:
 		return
 	
+	_spawn_document()
+	time = max(time * (1.0 - time_increase * GameManager.day), min_time)
+	_set_bgm_stream()
+	
+	# might be too easy
+	#if documents.size() > 20:
+		#time = start_time * 0.75
+		
+	spawn_timer.start(time)
+
+func _spawn_document(show_tutorial = false):
 	var doc = doc_spawner.spawn_document()
 	doc.finished.connect(func():
 		doc.move_to(Vector2(-doc_spawner.global_position.x, doc_spawner.global_position.y))
@@ -170,23 +190,21 @@ func _spawn():
 			
 		if is_end_of_day() and documents.is_empty():
 			_finished()
+			
+		if show_tutorial:
+			keyboard.frame = 0
+			_start_game()
 	)
 	
+	if show_tutorial:
+		doc.show_tutorial()
+
 	if documents.is_empty():
 		doc.highlight()
-	
-	documents.append(doc)
-	
-	time = max(time * (1.0 - time_increase * GameManager.day), min_time)
-	_set_pitch()
-	
-	# might be too easy
-	#if documents.size() > 20:
-		#time = start_time * 0.75
 		
-	spawn_timer.start(time)
+	documents.append(doc)
 
-func _set_pitch():
+func _set_bgm_stream():
 	if time <= 1.0:
 		bgm.next_stream = fastest
 	elif time <= 1.2:
