@@ -1,5 +1,7 @@
+class_name Document
 extends Node2D
 
+signal started()
 signal finished()
 
 @onready var sprite = $Sprite2D
@@ -63,6 +65,9 @@ func handle_key(key: String):
 	
 	var next_word_char = word[typed.length()]
 	if next_word_char == key.to_lower():
+		if typed.length() <= 0:
+			started.emit()
+		
 		typed += key.to_lower()
 		_update_word()
 		type_sound.play()

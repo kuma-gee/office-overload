@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=52 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -37,6 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://ctoyv3g7nvrwf" path="res://assets/Desk_Coffee.png" id="28_i6mjb"]
 [ext_resource type="AudioStream" uid="uid://1hhl6xijlq3d" path="res://assets/sound/GW65_-_tempo_220.wav" id="29_nb6ut"]
 [ext_resource type="Texture2D" uid="uid://c7bni1sdaaaqn" path="res://assets/Desk_Keyboard.png" id="31_x6efq"]
+[ext_resource type="Script" path="res://src/WPMCalculator.gd" id="38_g4vp6"]
 
 [sub_resource type="Curve" id="Curve_m11kp"]
 _data = [Vector2(0, 0.701099), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -804,6 +805,9 @@ one_shot = true
 wait_time = 2.5
 one_shot = true
 script = ExtResource("10_sr2sn")
+
+[node name="WPMCalculator" type="Node" parent="."]
+script = ExtResource("38_g4vp6")
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 process_mode = 3

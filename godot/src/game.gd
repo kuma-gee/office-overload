@@ -33,6 +33,7 @@ extends Node2D
 
 @onready var end = $CanvasLayer/End
 @onready var gameover = $CanvasLayer/Gameover
+@onready var wpm_calculator = $WPMCalculator
 
 @onready var bgm = $BGM
 @onready var time: float = _get_start_time(GameManager.day)
@@ -166,8 +167,11 @@ func _spawn():
 	spawn_timer.start(time)
 
 func _spawn_document(show_tutorial = false):
-	var doc = doc_spawner.spawn_document()
+	var doc = doc_spawner.spawn_document() as Document
+	doc.started.connect(func(): wpm_calculator.start_type())
 	doc.finished.connect(func():
+		wpm_calculator.finish_type(doc.word)
+		
 		doc.move_to(Vector2(-doc_spawner.global_position.x, doc_spawner.global_position.y))
 		documents.erase(doc)
 		
