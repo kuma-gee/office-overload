@@ -11,7 +11,7 @@ func _ready():
 	typing_label.type_finish.connect(func(): finished.emit())
 
 func handle_key(key: String):
-	typing_label.type(key)
+	typing_label.handle_key(key)
 
 func set_typed(player_typed: String):
 	typing_label.set_typed(player_typed)

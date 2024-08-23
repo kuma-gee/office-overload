@@ -4,6 +4,7 @@ extends Node
 signal finished(typed_word)
 
 @export var key_reader: KeyReader
+@export var type_sound: AudioStreamPlayer
 
 var current_nodes := []
 var typed := ""
@@ -30,6 +31,8 @@ func handle_key(key: String):
 		return
 	
 	typed = word
+	if type_sound:
+		type_sound.play()
 	_update_typed()
 
 func _update_typed():

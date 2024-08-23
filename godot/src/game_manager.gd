@@ -2,6 +2,15 @@ extends Node
 
 signal round_ended()
 
+enum Level {
+	INTERN,
+	JUNIOR,
+	SENIOR,
+	MANAGEMENT,
+}
+
+@onready var wpm_calculator = $WPMCalculator
+
 var day := 0
 var completed := 0
 var total_overtime := 0
@@ -35,3 +44,12 @@ func finished_day(tasks: int, overtime: int):
 	completed += tasks
 	total_overtime += overtime
 	round_ended.emit()
+
+func start_type():
+	wpm_calculator.start_type()
+
+func finish_type(word: String):
+	wpm_calculator.finish_type(word)
+
+func get_wpm():
+	return wpm_calculator.get_average_wpm()

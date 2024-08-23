@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://src/ui/TypedWord.gd" id="3_dhe6d"]
 [ext_resource type="AudioStream" uid="uid://b73fxq2acr5ft" path="res://assets/sound/keyboard.mp3" id="4_jvek6"]
 
-[node name="TypingLabel" type="RichTextLabel"]
+[node name="TypingLabel" type="RichTextLabel" node_paths=PackedStringArray("type_sound")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -29,6 +29,7 @@ shortcut_keys_enabled = false
 custom_effects = [ExtResource("2_ggsoe")]
 script = ExtResource("3_dhe6d")
 typed_color = Color(0.929412, 0.894118, 0.854902, 1)
+type_sound = NodePath("TypeSound")
 
 [node name="TypeSound" type="AudioStreamPlayer" parent="."]
 process_mode = 3

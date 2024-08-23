@@ -123,9 +123,9 @@ func _normalize(words: Array):
 func _get_rotation():
 	match mode:
 		Mode.EASY: return PI/12
-		Mode.MEDIUM: return PI/10
-		Mode.HARD: return PI/8
-	return PI
+		#Mode.MEDIUM: return PI/10
+		#Mode.HARD: return PI/8
+	return PI/12
 
 func spawn_document():
 	var word = words.pick_random()

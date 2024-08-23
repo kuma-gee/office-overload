@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="4_0nvsa"]
 [ext_resource type="AudioStream" uid="uid://dskcudu4jbs6x" path="res://assets/sound/目覚まし時計のアラーム.mp3" id="5_k8sob"]
 
-[node name="Control" type="Control"]
+[node name="Day" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

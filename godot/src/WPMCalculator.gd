@@ -34,7 +34,7 @@ func finish_type(word: String):
 		wpms.append(wpm)
 		
 	cancel_type()
-	print("Current WPM: %s" % wpm)
+	print("WPM Current: %s, Average: %s" % [wpm, get_average_wpm()])
 
 func _process(delta):
 	if time < 0: return

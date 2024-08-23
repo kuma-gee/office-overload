@@ -23,9 +23,9 @@ driver/mix_rate=48000
 [autoload]
 
 Env="*res://src/env/Env.gd"
-GameManager="*res://src/game_manager.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 SoundManager="*res://src/sound_manager.tscn"
+GameManager="*res://src/game_manager.tscn"
 
 [debug]
 

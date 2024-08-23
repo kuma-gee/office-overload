@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DifficultyResource" load_steps=3 format=3 uid="uid://buerxc1qatc1b"]
+
+[ext_resource type="Script" path="res://src/difficulty/DifficultyResource.gd" id="1_frd3g"]
+[ext_resource type="AudioStream" uid="uid://bqknn6p30rv83" path="res://assets/sound/GW65_-_tempo_280.wav" id="1_vmdws"]
+
+[resource]
+script = ExtResource("1_frd3g")
+level = 3
+min_documents = 1.5
+max_documents = 2.5
+distractions = 0.0
+average_wpm = 90
+bgm = ExtResource("1_vmdws")

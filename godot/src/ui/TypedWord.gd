@@ -9,6 +9,7 @@ signal type_start()
 @export var text_color := Color.BLACK
 @export var highlight_color := Color.WHITE
 @export var typed_color := Color.WHITE
+@export var type_sound: AudioStreamPlayer
 
 @export var highlight_first := false:
 	set(v):
@@ -31,10 +32,7 @@ var typed = "":
 var focused := false:
 	set(v):
 		focused = v
-		if v:
-			add_theme_color_override("font_outline_color", highlight_color)
-		else:
-			remove_theme_color_override("font_outline_color")
+		add_theme_color_override("font_outline_color", highlight_color if v else Color.TRANSPARENT)
 		update_word()
 
 func _ready():
@@ -56,17 +54,15 @@ func _next_char():
 		return null
 	return word[typed.length()]
 
-#func auto_type():
-	#var char = _next_char()
-	#if char:
-		#handle_key(char, false)
-#
 func handle_key(key: String, grab_focus = true):
 	var next_word_char = _next_char()
 	if next_word_char == key.to_lower():
-		if not focused and grab_focus:
+		if typed.length() == 0:
 			type_start.emit()
 			self.focused = true
+		
+		if type_sound:
+			type_sound.play()
 		
 		typed += key.to_lower()
 		typed += " ".repeat(_get_num_of_spaces(typed.length()))

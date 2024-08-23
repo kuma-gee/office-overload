@@ -1,17 +1,7 @@
 extends Node2D
 
-@export var start_time := 2.0
-@export var min_time := 1.0
-@export var time_increase := 0.01
-
 @export var overload_reduce := 20.0
-
 @export var work_time: WorkTime
-
-@export var normal: AudioStream
-@export var fast: AudioStream
-@export var faster: AudioStream
-@export var fastest: AudioStream
 
 @onready var doc_spawner = $DocSpawner
 @onready var spawn_timer = $SpawnTimer
@@ -33,25 +23,15 @@ extends Node2D
 
 @onready var end = $CanvasLayer/End
 @onready var gameover = $CanvasLayer/Gameover
-@onready var wpm_calculator = $WPMCalculator
 @onready var key_reader = $KeyReader
 
 @onready var bgm = $BGM
-@onready var time: float = _get_start_time(GameManager.day)
-@onready var day_min_time: float = _get_start_time(GameManager.day + 1)
+
+@export var difficulty: DifficultyResource
 
 var is_gameover = false
 var documents = []
 var light = 1.0
-
-func _get_start_time(day):
-	var max_day = 5
-	var day_percent = (day - 1.0) / (max_day - 1) # max day will start with lowest time
-	var time_diff = start_time - min_time
-	var actual_diff = time_diff * day_percent
-	
-	var t = start_time - actual_diff
-	return max(t, 0.75)
 
 func _set_environment():
 	if GameManager.day <= 1:
@@ -121,7 +101,7 @@ func _set_lights(enabled: bool):
 		l.enabled = enabled
 
 func _on_day_finished():
-	_set_bgm_stream()
+	bgm.stream = difficulty.bgm
 	
 	if GameManager.day > 1:
 		_start_game()
@@ -165,22 +145,28 @@ func _spawn():
 		return
 	
 	_spawn_document()
-	time = max(time * (1.0 - time_increase), day_min_time)
-	_set_bgm_stream()
-		
-	spawn_timer.start(time)
+	
+	var wpm_diff = 20
+	var wpm = GameManager.get_wpm()
+	
+	# TODO: change based on wpm
+	var t = difficulty.max_documents
+	spawn_timer.start(t)
 
 func _spawn_document(show_tutorial = false):
 	var doc = doc_spawner.spawn_document() as Document
-	doc.started.connect(func(): wpm_calculator.start_type())
+	doc.started.connect(func(): GameManager.start_type())
 	doc.finished.connect(func():
-		wpm_calculator.finish_type(doc.word)
+		GameManager.finish_type(doc.word)
 		
 		doc.move_to(Vector2(-doc_spawner.global_position.x, doc_spawner.global_position.y))
 		documents.erase(doc)
 		
 		if documents.size() > 0:
 			documents[0].highlight()
+		elif not show_tutorial:
+			spawn_timer.stop()
+			_spawn()
 		
 		overload_progress.reduce(overload_reduce)
 		document_stack.add_document()
@@ -206,16 +192,3 @@ func _spawn_document(show_tutorial = false):
 		doc.show_tutorial()
 		
 	documents.append(doc)
-
-func _set_bgm_stream():
-	if time <= 1.1:
-		bgm.next_stream = fastest
-	elif time <= 1.3:
-		bgm.next_stream = faster
-	elif time <= 1.5:
-		bgm.next_stream = fast
-	else:
-		bgm.next_stream = normal
-	
-	if documents.size() > 20:
-		bgm.next_stream = fastest
