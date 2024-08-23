@@ -5,8 +5,10 @@ signal typing()
 signal type_finish()
 signal type_start()
 
+@export var height := 2.0
 @export var text_color := Color.BLACK
 @export var highlight_color := Color.WHITE
+@export var typed_color := Color.WHITE
 
 @export var highlight_first := false:
 	set(v):
@@ -43,10 +45,11 @@ func get_remaining_word():
 	return word.substr(typed.length())
 
 func update_word():
-	if highlight_first and typed.length() == 0:
-		text = "[center][typed until=1 colored=false]%s[/typed][/center]" % word
+	var len = typed.length()
+	if highlight_first and len == 0:
+		text = "[center][typed until=1 height=%s]%s[/typed][/center]" % [height, word]
 	else:
-		text = "[center][typed until=%s]%s[/typed][/center]" % [typed.length(), word]
+		text = "[center][typed until=%s height=%s][color=%s]%s[/color]%s[/typed][/center]" % [len, height, typed_color.to_html(), word.substr(0, len), word.substr(len)]
 
 func _next_char():
 	if typed.length() >= word.length():

@@ -23,7 +23,7 @@ func _ready():
 func handle_key(key: String):
 	var word = typed + key
 	var matches = _get_nodes_starting_with(current_nodes, word)
-	print("Typed: %s, Matches: %s, From: %s" % [word, matches, current_nodes])
+	#print("Typed: %s, Matches: %s, From: %s" % [word, matches, current_nodes])
 
 	if matches.is_empty():
 		cancel()

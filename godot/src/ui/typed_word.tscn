@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bsqd2cat5u4yp"]
 
-[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_pq67v"]
-[ext_resource type="RichTextEffect" uid="uid://d0psnm1eyw40x" path="res://src/ui/typed_effect.tres" id="2_tl37c"]
-[ext_resource type="Script" path="res://src/ui/TypedWord.gd" id="3_hnn5o"]
-[ext_resource type="AudioStream" uid="uid://b73fxq2acr5ft" path="res://assets/sound/keyboard.mp3" id="4_tsry1"]
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_16exh"]
+[ext_resource type="RichTextEffect" uid="uid://d0psnm1eyw40x" path="res://src/ui/typed_effect.tres" id="2_ggsoe"]
+[ext_resource type="Script" path="res://src/ui/TypedWord.gd" id="3_dhe6d"]
+[ext_resource type="AudioStream" uid="uid://b73fxq2acr5ft" path="res://assets/sound/keyboard.mp3" id="4_jvek6"]
 
 [node name="TypingLabel" type="RichTextLabel"]
 anchors_preset = 8
@@ -18,7 +18,7 @@ offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-theme = ExtResource("1_pq67v")
+theme = ExtResource("1_16exh")
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "__test__"
@@ -26,9 +26,10 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 shortcut_keys_enabled = false
-custom_effects = [ExtResource("2_tl37c")]
-script = ExtResource("3_hnn5o")
+custom_effects = [ExtResource("2_ggsoe")]
+script = ExtResource("3_dhe6d")
+typed_color = Color(0.929412, 0.894118, 0.854902, 1)
 
 [node name="TypeSound" type="AudioStreamPlayer" parent="."]
 process_mode = 3
-stream = ExtResource("4_tsry1")
+stream = ExtResource("4_jvek6")
