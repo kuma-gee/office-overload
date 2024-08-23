@@ -7,7 +7,7 @@ signal next_work_day()
 signal time_changed()
 
 @export var start_hour = 8
-@export var end_hour = 17
+@export var end_hour = 16
 @export var hour_in_seconds := 5
 
 @export var day_end_sound: AudioStreamPlayer

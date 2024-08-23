@@ -5,47 +5,42 @@ signal started()
 signal finished()
 
 @onready var sprite = $Sprite2D
-@onready var rich_text_label = $RichTextLabel
-@onready var type_sound = $TypeSound
+@onready var typing_label = $TypingLabel
 @onready var control = $Control
 @onready var paper_move_out = $PaperMoveOut
 @onready var paper_move_in = $PaperMoveIn
 @onready var paper_sort = $PaperSort
 
-var typed := ""
 var word := ""
 var target_position := Vector2.ZERO
-var highlighted := false
-
 var _logger = Logger.new("Document")
 
-func _update_word():
-	rich_text_label.text = "[center][typed until=%s]%s[/typed][/center]" % [typed.length(), word]
-
 func show_tutorial():
-	rich_text_label.text = "[center][typed until=1 colored=false]%s[/typed][/center]" % word
+	typing_label.highlight_first = true
 
 func _ready():
-	_update_word()
-	rich_text_label.position += Vector2.DOWN * 50
+	typing_label.word = word
+	typing_label.type_start.connect(func(): started.emit())
+	typing_label.type_finish.connect(func(): finished.emit())
+	typing_label.position += Vector2.DOWN * 50
 	
 	sprite.material.set_shader_parameter("enable", false)
 	sprite.material = sprite.material.duplicate()
-	control.mouse_entered.connect(func(): 
-		if highlighted:
-			sprite.material.set_shader_parameter("enable", true)
-	)
-	control.mouse_exited.connect(func(): 
-		if highlighted:
-			sprite.material.set_shader_parameter("enable", false)
-	)
-	control.gui_input.connect(func(ev: InputEvent):
-		if ev is InputEventMouseButton and ev.button_index == MOUSE_BUTTON_LEFT and highlighted and abs(global_rotation) > 0.001:
-			create_tween().tween_property(self, "global_rotation", 0, 1.0) \
-			.set_ease(Tween.EASE_OUT) \
-			.set_trans(Tween.TRANS_CUBIC)
-			paper_sort.play()
-	)
+	#control.mouse_entered.connect(func(): 
+		#if highlighted:
+			#sprite.material.set_shader_parameter("enable", true)
+	#)
+	#control.mouse_exited.connect(func(): 
+		#if highlighted:
+			#sprite.material.set_shader_parameter("enable", false)
+	#)
+	#control.gui_input.connect(func(ev: InputEvent):
+		#if ev is InputEventMouseButton and ev.button_index == MOUSE_BUTTON_LEFT and highlighted and abs(global_rotation) > 0.001:
+			#create_tween().tween_property(self, "global_rotation", 0, 1.0) \
+			#.set_ease(Tween.EASE_OUT) \
+			#.set_trans(Tween.TRANS_CUBIC)
+			#paper_sort.play()
+	#)
 	
 func move_to(pos, rot_offset = PI/15, move_in = false):
 	var tween = create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
@@ -60,23 +55,10 @@ func move_to(pos, rot_offset = PI/15, move_in = false):
 		paper_move_out.play()
 
 func handle_key(key: String):
-	if typed.length() == word.length():
-		return
-	
-	var next_word_char = word[typed.length()]
-	if next_word_char == key.to_lower():
-		if typed.length() <= 0:
-			started.emit()
-		
-		typed += key.to_lower()
-		_update_word()
-		type_sound.play()
-		if typed == word:
-			finished.emit()
+	typing_label.handle_key(key)
 
 func highlight():
-	rich_text_label.add_theme_constant_override("outline_size", 5)
-	highlighted = true
+	typing_label.focused = true
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()

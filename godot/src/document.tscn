@@ -1,11 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://d4l3bh8sq5hjr"]
+[gd_scene load_steps=9 format=3 uid="uid://d4l3bh8sq5hjr"]
 
 [ext_resource type="Script" path="res://src/document.gd" id="1_q4ht6"]
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/Document.png" id="1_qjb0l"]
 [ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="2_i3de4"]
-[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="4_jpwde"]
-[ext_resource type="RichTextEffect" uid="uid://d0psnm1eyw40x" path="res://src/ui/typed_effect.tres" id="5_vb0un"]
-[ext_resource type="AudioStream" uid="uid://b73fxq2acr5ft" path="res://assets/sound/keyboard.mp3" id="6_4n547"]
+[ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="4_ctgqt"]
 [ext_resource type="AudioStream" uid="uid://c8rl1qr4vjn25" path="res://assets/sound/paper.mp3" id="7_1wga7"]
 [ext_resource type="AudioStream" uid="uid://d3oql1wjpr4ip" path="res://assets/sound/paper-flip.mp3" id="8_hnjsk"]
 [ext_resource type="AudioStream" uid="uid://ji7etef3kh3s" path="res://assets/sound/紙を広げる2.mp3" id="9_uw5yq"]
@@ -27,28 +25,7 @@ script = ExtResource("1_q4ht6")
 material = SubResource("ShaderMaterial_pxbm0")
 texture = ExtResource("1_qjb0l")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -21.0
-offset_top = -11.0
-offset_right = 21.0
-offset_bottom = 12.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-theme = ExtResource("4_jpwde")
-theme_override_font_sizes/normal_font_size = 20
-bbcode_enabled = true
-text = "__test__"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-shortcut_keys_enabled = false
-custom_effects = [ExtResource("5_vb0un")]
+[node name="TypingLabel" parent="." instance=ExtResource("4_ctgqt")]
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2(2.5, 3.2)
@@ -60,10 +37,6 @@ offset_left = -41.0
 offset_top = -55.0
 offset_right = 41.0
 offset_bottom = 56.0
-
-[node name="TypeSound" type="AudioStreamPlayer" parent="."]
-process_mode = 3
-stream = ExtResource("6_4n547")
 
 [node name="PaperMoveIn" type="AudioStreamPlayer" parent="."]
 process_mode = 3

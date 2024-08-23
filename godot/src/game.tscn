@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=53 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -38,6 +38,7 @@
 [ext_resource type="AudioStream" uid="uid://1hhl6xijlq3d" path="res://assets/sound/GW65_-_tempo_220.wav" id="29_nb6ut"]
 [ext_resource type="Texture2D" uid="uid://c7bni1sdaaaqn" path="res://assets/Desk_Keyboard.png" id="31_x6efq"]
 [ext_resource type="Script" path="res://src/WPMCalculator.gd" id="38_g4vp6"]
+[ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
 
 [sub_resource type="Curve" id="Curve_m11kp"]
 _data = [Vector2(0, 0.701099), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -489,7 +490,6 @@ theme_override_constants/margin_bottom = 3
 visible = false
 
 [node name="End" parent="CanvasLayer" instance=ExtResource("9_dbvje")]
-visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.2, 0.2, 0.2, 1)
@@ -644,7 +644,8 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "08"
 horizontal_alignment = 1
 script = ExtResource("7_ruuy4")
-end_hour = 16
+end_hour = 10
+hour_in_seconds = 2
 day_end_sound = NodePath("End")
 overtime_sound = NodePath("Overtime")
 
@@ -814,6 +815,9 @@ process_mode = 3
 stream = ExtResource("29_nb6ut")
 volume_db = -30.0
 script = ExtResource("18_f0kcb")
+
+[node name="KeyReader" type="Node" parent="."]
+script = ExtResource("39_lfd1g")
 
 [connection signal="finished" from="CanvasLayer/HUD/Day" to="." method="_on_day_finished"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

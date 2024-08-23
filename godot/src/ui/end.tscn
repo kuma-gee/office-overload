@@ -1,16 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://kdu7e637eapn"]
+[gd_scene load_steps=12 format=3 uid="uid://kdu7e637eapn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_80w1y"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_ox4yy"]
 [ext_resource type="Script" path="res://src/ui/end.gd" id="2_oxc1v"]
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="4_0mkg1"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_j7irx"]
-[ext_resource type="Script" path="res://src/base-system/menu/FocusButton.gd" id="5_5c1fu"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_d7wj0"]
+[ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="5_rckpx"]
+[ext_resource type="Script" path="res://src/KeyDelegator.gd" id="5_vwxsb"]
 [ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="8_f3tsx"]
 [ext_resource type="AudioStream" uid="uid://e82h4pq7oib4" path="res://assets/sound/金額表示.mp3" id="8_i0k3p"]
+[ext_resource type="Script" path="res://src/KeyReader.gd" id="11_oaofj"]
 
-[node name="End" type="Control" node_paths=PackedStringArray("next")]
+[node name="End" type="Control" node_paths=PackedStringArray("next_day")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -20,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_80w1y")
 script = ExtResource("2_oxc1v")
-next = NodePath("CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/Next")
+next_day = NodePath("CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/NextDayButton")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -64,20 +66,19 @@ text = "OVERTIME"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("key_reader")]
 layout_mode = 2
 size_flags_horizontal = 4
+script = ExtResource("5_vwxsb")
+key_reader = NodePath("../../../../KeyReader")
 
-[node name="Back" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
-visible = false
+[node name="NextDayButton" parent="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("5_rckpx")]
 layout_mode = 2
-text = " < "
-script = ExtResource("5_5c1fu")
+word = "Next Day"
 
-[node name="Next" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Start Next day"
-script = ExtResource("5_5c1fu")
+[node name="KeyReader" type="Node" parent="."]
+process_mode = 2
+script = ExtResource("11_oaofj")
 
 [node name="EndEffect" type="Node" parent="."]
 script = ExtResource("4_j7irx")
@@ -96,6 +97,3 @@ node = NodePath("../../ColorRect")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_i0k3p")
 volume_db = -10.0
-
-[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/Back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/Next" to="." method="_on_next_pressed"]

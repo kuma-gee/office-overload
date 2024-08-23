@@ -9,16 +9,16 @@ jobs:
   release:
     runs-on: ubuntu-latest
     container:
-      image: barichello/godot-ci:4.1.1
+      image: barichello/godot-ci:4.2.2
     strategy:
       matrix:
         channel: [win, linux, web, macOS]
     env:
       GAME: office-overload
       CHANNEL: ${{matrix.channel}}
-      GODOT_VERSION: 4.1
+      GODOT_VERSION: 4.2
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           lfs: true
       - name: Setup Templates

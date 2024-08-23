@@ -34,6 +34,7 @@ extends Node2D
 @onready var end = $CanvasLayer/End
 @onready var gameover = $CanvasLayer/Gameover
 @onready var wpm_calculator = $WPMCalculator
+@onready var key_reader = $KeyReader
 
 @onready var bgm = $BGM
 @onready var time: float = _get_start_time(GameManager.day)
@@ -61,6 +62,7 @@ func _set_environment():
 		animation_player.play("littered")
 
 func _ready():
+	get_tree().paused = false
 	_set_environment()
 	
 	GameManager.round_ended.connect(func():
@@ -107,6 +109,8 @@ func _ready():
 			overload_progress.darken()
 	)
 	spawn_timer.timeout.connect(func(): _spawn())
+		
+	key_reader.pressed_key.connect(func(key, _s): if not documents.is_empty(): documents[0].handle_key(key))
 
 	canvas_modulate.color = Color.WHITE
 	canvas_modulate.show()
@@ -194,12 +198,12 @@ func _spawn_document(show_tutorial = false):
 			keyboard.frame = 0
 			_start_game()
 	)
-	
-	if show_tutorial:
-		doc.show_tutorial()
 
 	if documents.is_empty():
 		doc.highlight()
+		
+	if show_tutorial:
+		doc.show_tutorial()
 		
 	documents.append(doc)
 
@@ -215,20 +219,3 @@ func _set_bgm_stream():
 	
 	if documents.size() > 20:
 		bgm.next_stream = fastest
-
-
-func _unhandled_input(event: InputEvent):
-	if not is_gameover and event is InputEventKey and event.is_pressed() and not documents.is_empty():
-		var key = event as InputEventKey
-		
-		# we don't care about modifiers
-		key.shift_pressed = false
-		key.ctrl_pressed = false
-		key.alt_pressed = false
-		key.meta_pressed = false
-		
-		var text = key.as_text()
-		if text.length() != 1:
-			return
-		
-		documents[0].handle_key(text)
