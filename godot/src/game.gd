@@ -12,6 +12,7 @@ extends Node2D
 @onready var overload_progress = $CanvasLayer/HUD/MarginContainer/OverloadProgress
 @onready var progress_broken = $CanvasLayer/HUD/MarginContainer/ProgressBroken
 @onready var animation_player = $AnimationPlayer
+@onready var distractions = $CanvasLayer/Distractions
 
 @onready var canvas_modulate = $CanvasModulate
 @onready var clock_light_1 = $Desk/Clock/ClockLight1
@@ -27,8 +28,6 @@ extends Node2D
 
 @onready var bgm = $BGM
 
-@export var difficulty: DifficultyResource
-
 var is_gameover = false
 var documents = []
 var light = 1.0
@@ -42,6 +41,8 @@ func _set_environment():
 		animation_player.play("littered")
 
 func _ready():
+	print("Current Level: %s" % DifficultyResource.Level.keys()[GameManager.difficulty_level])
+	
 	get_tree().paused = false
 	_set_environment()
 	
@@ -101,7 +102,7 @@ func _set_lights(enabled: bool):
 		l.enabled = enabled
 
 func _on_day_finished():
-	bgm.stream = difficulty.bgm
+	bgm.stream = GameManager.difficulty.bgm
 	
 	if GameManager.day > 1:
 		_start_game()
@@ -145,12 +146,11 @@ func _spawn():
 		return
 	
 	_spawn_document()
-	
 	var wpm_diff = 20
 	var wpm = GameManager.get_wpm()
 	
 	# TODO: change based on wpm
-	var t = difficulty.max_documents
+	var t = GameManager.difficulty.min_documents
 	spawn_timer.start(t)
 
 func _spawn_document(show_tutorial = false):
@@ -162,27 +162,29 @@ func _spawn_document(show_tutorial = false):
 		doc.move_to(Vector2(-doc_spawner.global_position.x, doc_spawner.global_position.y))
 		documents.erase(doc)
 		
-		if documents.size() > 0:
-			documents[0].highlight()
-		elif not show_tutorial:
-			spawn_timer.stop()
-			_spawn()
-		
 		overload_progress.reduce(overload_reduce)
 		document_stack.add_document()
 		overload_timer.stop() 
 		
-		if get_finished() == 20:
-			doc_spawner.add_hard()
-		elif get_finished() == 10:
-			doc_spawner.add_medium()
-			
-		if is_end_of_day() and documents.is_empty():
+		if documents.size() > 0:
+			documents[0].highlight()
+		elif is_end_of_day():
 			_finished()
+		else:
+			if randf() > GameManager.difficulty.distractions:
+				distractions.show_distraction()
 			
-		if show_tutorial:
-			keyboard.frame = 0
-			_start_game()
+			if not show_tutorial:
+				spawn_timer.stop()
+				_spawn()
+			else:
+				keyboard.frame = 0
+				_start_game()
+		
+			if get_finished() == 20:
+				doc_spawner.add_hard()
+			elif get_finished() == 10:
+				doc_spawner.add_medium()
 	)
 
 	if documents.is_empty():

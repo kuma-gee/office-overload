@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://src/WPMCalculator.gd" id="2_i64jq"]
 
 [node name="GameManager" type="Node"]
+process_mode = 3
 script = ExtResource("1_qo3ej")
 
 [node name="WPMCalculator" type="Node" parent="."]

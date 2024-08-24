@@ -2,11 +2,11 @@ extends Node
 
 signal round_ended()
 
-enum Level {
-	INTERN,
-	JUNIOR,
-	SENIOR,
-	MANAGEMENT,
+const DIFFICULTIES = {
+	DifficultyResource.Level.INTERN: preload("res://src/difficulty/Intern.tres"),
+	DifficultyResource.Level.JUNIOR: preload("res://src/difficulty/Junior.tres"),
+	DifficultyResource.Level.SENIOR: preload("res://src/difficulty/Senior.tres"),
+	DifficultyResource.Level.MANAGEMENT: preload("res://src/difficulty/Management.tres"),
 }
 
 @onready var wpm_calculator = $WPMCalculator
@@ -15,8 +15,11 @@ var day := 0
 var completed := 0
 var total_overtime := 0
 
+var difficulty_level := DifficultyResource.Level.INTERN
+var difficulty: DifficultyResource
+
 func _ready():
-	process_mode = Node.PROCESS_MODE_ALWAYS
+	difficulty = DIFFICULTIES[difficulty_level]
 	_reset()
 
 func start():
@@ -53,3 +56,12 @@ func finish_type(word: String):
 
 func get_wpm():
 	return wpm_calculator.get_average_wpm()
+
+func can_have_promotion():
+	return get_wpm() > difficulty.average_wpm and difficulty_level in DIFFICULTIES
+
+func take_promotion():
+	var level = difficulty_level + 1
+	if level in DIFFICULTIES:
+		difficulty = DIFFICULTIES[level]
+	next_day()

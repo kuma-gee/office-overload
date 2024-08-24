@@ -1,8 +1,5 @@
-[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://248dp7egxlkj"]
-
-[ext_resource type="FontFile" uid="uid://b1rtxlfrxj7kh" path="res://theme/upheavtt.ttf" id="1_p6gab"]
+[gd_resource type="LabelSettings" format=3 uid="uid://248dp7egxlkj"]
 
 [resource]
-font = ExtResource("1_p6gab")
 font_size = 20
 font_color = Color(0.207843, 0.207843, 0.25098, 1)

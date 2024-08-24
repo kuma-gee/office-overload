@@ -7,8 +7,11 @@ signal finished()
 @export var typing_label: TypedWord
 
 func _ready():
-	typing_label.word = word
+	update()
 	typing_label.type_finish.connect(func(): finished.emit())
+
+func update():
+	typing_label.word = word
 
 func handle_key(key: String):
 	typing_label.handle_key(key)

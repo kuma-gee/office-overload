@@ -1,8 +1,7 @@
-[gd_scene load_steps=50 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=57 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
-[ext_resource type="Resource" uid="uid://cjgomlbhl8ti4" path="res://src/difficulty/Junior.tres" id="2_lrtn6"]
 [ext_resource type="Texture2D" uid="uid://h14bp6b8w6i8" path="res://assets/Progress_Under.png" id="2_s1wqh"]
 [ext_resource type="PackedScene" uid="uid://dffjinparflk0" path="res://src/ui/day.tscn" id="3_4j615"]
 [ext_resource type="Texture2D" uid="uid://df8a7xriw1acm" path="res://assets/Progress_Fill.png" id="3_6o0s1"]
@@ -21,9 +20,15 @@
 [ext_resource type="Script" path="res://src/DocumentStack.gd" id="12_n73rb"]
 [ext_resource type="AudioStream" uid="uid://dykrksjnisr7f" path="res://assets/sound/柱時計の鐘.mp3" id="12_y1afc"]
 [ext_resource type="Texture2D" uid="uid://b3m7b3wyx4tpw" path="res://assets/Clock.png" id="13_dyrwf"]
+[ext_resource type="Script" path="res://src/Distractions.gd" id="14_s1o3m"]
 [ext_resource type="Script" path="res://src/Clock.gd" id="14_stuan"]
 [ext_resource type="Texture2D" uid="uid://c7y3y52oh6sbg" path="res://assets/MonitorLight.png" id="14_uyjhq"]
+[ext_resource type="Script" path="res://src/ui/DistractionWindow.gd" id="15_ffym8"]
+[ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="15_r4fui"]
+[ext_resource type="LabelSettings" uid="uid://bsk404a5n517i" path="res://theme/text_normal.tres" id="16_3sqd2"]
 [ext_resource type="Texture2D" uid="uid://bikrg3yecci4h" path="res://assets/ClockLight.png" id="17_b6uxm"]
+[ext_resource type="Texture2D" uid="uid://fk36xs2n3q4o" path="res://assets/Phone.png" id="18_3w3fn"]
+[ext_resource type="Texture2D" uid="uid://dg4t2u4r7tk5d" path="res://assets/SpeechBubble.png" id="18_51hqv"]
 [ext_resource type="Script" path="res://src/ManualLoopAudio.gd" id="18_f0kcb"]
 [ext_resource type="AudioStream" uid="uid://bpxm5pscsli23" path="res://assets/sound/鳩時計1.mp3" id="19_mkiih"]
 [ext_resource type="Texture2D" uid="uid://sy6r1qjyud55" path="res://assets/Desk_Static.png" id="19_wvt8k"]
@@ -49,6 +54,10 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 shader = ExtResource("4_tfr35")
 shader_parameter/enable = true
 shader_parameter/hit_color = Color(0.207843, 0.207843, 0.25098, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_33ee8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o0ctv"]
 
 [sub_resource type="Animation" id="Animation_mdfl2"]
 length = 0.001
@@ -367,7 +376,6 @@ colors = PackedColorArray(1, 1, 1, 0.596078, 0.853488, 0.853488, 0.853488, 0)
 [node name="Game" type="Node2D" node_paths=PackedStringArray("work_time")]
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
-difficulty = ExtResource("2_lrtn6")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -484,6 +492,162 @@ theme_override_constants/margin_bottom = 3
 visible = false
 
 [node name="End" parent="CanvasLayer" instance=ExtResource("9_dbvje")]
+visible = false
+
+[node name="Distractions" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("10_am0oy")
+script = ExtResource("14_s1o3m")
+
+[node name="Email" type="PanelContainer" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label")]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_top = -1.0
+offset_right = 75.0
+offset_bottom = 39.0
+grow_horizontal = 2
+theme = ExtResource("10_am0oy")
+script = ExtResource("15_ffym8")
+label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/TypingLabel")
+slide_dir = Vector2(0, 50)
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Email"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Email/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/Distractions/Email/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Email"
+label_settings = ExtResource("16_3sqd2")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Distractions/Email/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/Distractions/Email/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Subject:"
+label_settings = ExtResource("16_3sqd2")
+horizontal_alignment = 1
+
+[node name="TypingLabel" parent="CanvasLayer/Distractions/Email/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("15_r4fui")]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 12
+height = 1.0
+
+[node name="Phone" type="PanelContainer" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label")]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -69.0
+offset_top = -49.0
+offset_bottom = 50.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("10_am0oy")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_33ee8")
+script = ExtResource("15_ffym8")
+label = NodePath("MarginContainer/VBoxContainer/TypingLabel")
+type = 1
+slide_dir = Vector2(-100, 0)
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Phone"]
+layout_mode = 2
+texture = ExtResource("18_3w3fn")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Phone"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Phone/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="CanvasLayer/Distractions/Phone/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Phone"
+label_settings = ExtResource("16_3sqd2")
+horizontal_alignment = 1
+
+[node name="TypingLabel" parent="CanvasLayer/Distractions/Phone/MarginContainer/VBoxContainer" node_paths=PackedStringArray("type_sound") instance=ExtResource("15_r4fui")]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 12
+height = 1.0
+type_sound = NodePath("../../../../Email/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel/TypeSound")
+
+[node name="Junior" type="PanelContainer" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label")]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -25.0
+offset_right = 61.0
+offset_bottom = 25.0
+grow_vertical = 2
+theme = ExtResource("10_am0oy")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_o0ctv")
+script = ExtResource("15_ffym8")
+label = NodePath("MarginContainer/VBoxContainer/TypingLabel")
+type = 2
+slide_dir = Vector2(120, 0)
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Junior"]
+layout_mode = 2
+texture = ExtResource("18_51hqv")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Junior"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Junior/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="CanvasLayer/Distractions/Junior/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Junior:"
+label_settings = ExtResource("16_3sqd2")
+horizontal_alignment = 1
+
+[node name="TypingLabel" parent="CanvasLayer/Distractions/Junior/MarginContainer/VBoxContainer" node_paths=PackedStringArray("type_sound") instance=ExtResource("15_r4fui")]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 12
+text = "Clarification"
+height = 1.0
+type_sound = NodePath("../../../../Email/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel/TypeSound")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.2, 0.2, 0.2, 1)
@@ -638,6 +802,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "08"
 horizontal_alignment = 1
 script = ExtResource("7_ruuy4")
+hour_in_seconds = 1
 day_end_sound = NodePath("End")
 overtime_sound = NodePath("Overtime")
 

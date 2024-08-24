@@ -1,7 +1,14 @@
 class_name DifficultyResource
 extends Resource
 
-@export var level := GameManager.Level.JUNIOR
+enum Level {
+	INTERN,
+	JUNIOR,
+	SENIOR,
+	MANAGEMENT,
+}
+
+@export var level := Level.JUNIOR
 @export var min_documents := 1.0
 @export var max_documents := 1.0
 @export var distractions := 0.0

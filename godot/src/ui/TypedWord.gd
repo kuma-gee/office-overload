@@ -98,6 +98,6 @@ func _get_num_of_spaces(from: int):
 func cancel():
 	self.focused = false
 	
-func reset():
-	self.word = word
+func reset(w = word):
+	self.word = w
 	self.focused = false
