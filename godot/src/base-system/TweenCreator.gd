@@ -26,6 +26,8 @@ func new_tween(on_finish = null):
 			tw.kill()
 	
 	tw = node.create_tween()
+	if not tw: return false
+	
 	tw.set_parallel()
 	tw.set_trans(trans)
 	tw.set_ease(ease)
