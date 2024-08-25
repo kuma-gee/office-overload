@@ -28,9 +28,11 @@ autowrap_mode = 0
 shortcut_keys_enabled = false
 custom_effects = [ExtResource("2_ggsoe")]
 script = ExtResource("3_dhe6d")
+text_color = Color(0.207843, 0.207843, 0.25098, 1)
 typed_color = Color(0.929412, 0.894118, 0.854902, 1)
 type_sound = NodePath("TypeSound")
 
 [node name="TypeSound" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("4_jvek6")
+bus = &"SFX"

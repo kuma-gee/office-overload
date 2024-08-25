@@ -1,13 +1,12 @@
-[gd_resource type="Resource" script_class="DifficultyResource" load_steps=3 format=3 uid="uid://bi1rtc24apd57"]
+[gd_resource type="Resource" script_class="DifficultyResource" load_steps=2 format=3 uid="uid://bi1rtc24apd57"]
 
 [ext_resource type="Script" path="res://src/difficulty/DifficultyResource.gd" id="1_7go24"]
-[ext_resource type="AudioStream" uid="uid://c7geodegfdf6n" path="res://assets/sound/GW65_-_tempo_260.wav" id="1_q7xm6"]
 
 [resource]
 script = ExtResource("1_7go24")
 level = 2
-min_documents = 0.8
+min_documents = 1.0
 max_documents = 1.5
-distractions = 0.1
-average_wpm = 80
-bgm = ExtResource("1_q7xm6")
+distractions = 0.5
+average_wpm = 120
+bgm_speed = 1.6

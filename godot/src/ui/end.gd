@@ -7,6 +7,7 @@ extends Control
 @onready var title = $CenterContainer/VBoxContainer/Title
 
 @export var next_day: TypingButton
+@export var break_button: TypingButton
 @export var next_day_container: Control
 @export var promotion_container: Control
 
@@ -16,6 +17,7 @@ func _ready():
 	
 	hide()
 	next_day.finished.connect(func(): GameManager.next_day())
+	break_button.finished.connect(func(): GameManager.back_to_menu())
 
 func day_ended(finished: int, overtime_in_hours: float):
 	get_tree().paused = true
@@ -38,6 +40,8 @@ func _on_back_pressed():
 
 func _on_promotion_yes_finished():
 	GameManager.take_promotion()
+	_on_promotion_no_finished()
 
 func _on_promotion_no_finished():
-	GameManager.next_day()
+	promotion_container.hide()
+	next_day_container.show()

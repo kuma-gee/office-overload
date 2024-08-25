@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="11_oaofj"]
 [ext_resource type="AudioStream" uid="uid://b73fxq2acr5ft" path="res://assets/sound/keyboard.mp3" id="12_o0nl8"]
 
-[node name="End" type="Control" node_paths=PackedStringArray("next_day", "next_day_container", "promotion_container")]
+[node name="End" type="Control" node_paths=PackedStringArray("next_day", "break_button", "next_day_container", "promotion_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -25,6 +25,7 @@ grow_vertical = 2
 theme = ExtResource("1_80w1y")
 script = ExtResource("2_oxc1v")
 next_day = NodePath("CenterContainer/VBoxContainer/VBoxContainer/NextDay/NextDayButton")
+break_button = NodePath("CenterContainer/VBoxContainer/VBoxContainer/NextDay/Break")
 next_day_container = NodePath("CenterContainer/VBoxContainer/VBoxContainer/NextDay")
 promotion_container = NodePath("CenterContainer/VBoxContainer/VBoxContainer/Promotion")
 
@@ -81,6 +82,10 @@ type_sound = NodePath("../../../../TypeSound")
 layout_mode = 2
 word = "Next Day"
 
+[node name="Break" parent="CenterContainer/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+word = "Break"
+
 [node name="Promotion" type="VBoxContainer" parent="CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
@@ -128,10 +133,12 @@ node = NodePath("../../ColorRect")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_i0k3p")
 volume_db = -10.0
+bus = &"SFX"
 
 [node name="TypeSound" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("12_o0nl8")
+bus = &"SFX"
 
 [connection signal="finished" from="CenterContainer/VBoxContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionYes" to="." method="_on_promotion_yes_finished"]
 [connection signal="finished" from="CenterContainer/VBoxContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionNo" to="." method="_on_promotion_no_finished"]

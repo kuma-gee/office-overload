@@ -13,7 +13,7 @@ func _ready():
 	hide()
 
 func fired(finished_tasks: int, open_tasks: int, _next_day = false):
-	finished.text = "total %s finished tasks" % GameManager.completed
+	finished.text = "total %s finished tasks" % GameManager.completed_documents
 	
 	overtime.visible = GameManager.total_overtime > 0
 	overtime.text = "total %s hours overtime" % GameManager.total_overtime

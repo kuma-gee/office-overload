@@ -38,9 +38,9 @@
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/Document.png" id="24_g7dws"]
 [ext_resource type="Texture2D" uid="uid://fhvvkmwkvr5c" path="res://assets/Desk_Plant.png" id="27_1a3yr"]
 [ext_resource type="Texture2D" uid="uid://ctoyv3g7nvrwf" path="res://assets/Desk_Coffee.png" id="28_i6mjb"]
-[ext_resource type="AudioStream" uid="uid://1hhl6xijlq3d" path="res://assets/sound/GW65_-_tempo_220.wav" id="29_nb6ut"]
 [ext_resource type="Texture2D" uid="uid://c7bni1sdaaaqn" path="res://assets/Desk_Keyboard.png" id="31_x6efq"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
+[ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
 
 [sub_resource type="Curve" id="Curve_m11kp"]
 _data = [Vector2(0, 0.701099), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -132,6 +132,18 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [-30.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../BGM:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_qam2k"]
@@ -289,21 +301,19 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-30.0, -15.0]
+"values": [-60.0, -30.0]
 }
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../BGM")
+tracks/1/path = NodePath("../BGM:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"do_play"
-}]
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_c62e5"]
@@ -319,7 +329,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-15.0, -40.0]
+"values": [-30.0, -60.0]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -461,6 +471,7 @@ color = Color(0.207843, 0.207843, 0.25098, 1)
 [node name="BreakSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/MarginContainer/ProgressBroken"]
 stream = ExtResource("6_g6nin")
 volume_db = 5.0
+bus = &"SFX"
 
 [node name="OverloadProgress" type="TextureProgressBar" parent="CanvasLayer/HUD/MarginContainer" node_paths=PackedStringArray("blink_timer_reference")]
 material = SubResource("ShaderMaterial_kfp76")
@@ -802,7 +813,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "08"
 horizontal_alignment = 1
 script = ExtResource("7_ruuy4")
-hour_in_seconds = 1
+hour_in_seconds = 3
 day_end_sound = NodePath("End")
 overtime_sound = NodePath("Overtime")
 
@@ -810,11 +821,13 @@ overtime_sound = NodePath("Overtime")
 process_mode = 3
 stream = ExtResource("19_mkiih")
 volume_db = -10.0
+bus = &"SFX"
 
 [node name="Overtime" type="AudioStreamPlayer" parent="Desk/Clock/HBoxContainer/WorkTime"]
 process_mode = 3
 stream = ExtResource("12_y1afc")
 volume_db = -10.0
+bus = &"SFX"
 
 [node name="MarginContainer" type="MarginContainer" parent="Desk/Clock/HBoxContainer"]
 layout_mode = 2
@@ -965,8 +978,9 @@ one_shot = true
 script = ExtResource("10_sr2sn")
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("29_nb6ut")
+stream = ExtResource("39_xwwgs")
 volume_db = -30.0
+bus = &"BGM"
 script = ExtResource("18_f0kcb")
 
 [node name="KeyReader" type="Node" parent="."]

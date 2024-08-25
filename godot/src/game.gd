@@ -102,7 +102,7 @@ func _set_lights(enabled: bool):
 		l.enabled = enabled
 
 func _on_day_finished():
-	bgm.stream = GameManager.difficulty.bgm
+	bgm.pitch_scale = GameManager.difficulty.bgm_speed
 	
 	if GameManager.day > 1:
 		_start_game()
@@ -171,7 +171,7 @@ func _spawn_document(show_tutorial = false):
 		elif is_end_of_day():
 			_finished()
 		else:
-			if randf() > GameManager.difficulty.distractions:
+			if randf() < GameManager.difficulty.distractions:
 				distractions.show_distraction()
 			
 			if not show_tutorial:

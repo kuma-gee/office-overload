@@ -35,7 +35,6 @@ func add_document():
 	var should_remove = not (total % stack_count == 0 and total <= (max_stacks * stack_count))
 	tw.finished.connect(func(): if should_remove: doc.queue_free())
 	total += 1
-	
 
 func _emit_particles():
 	for p in particles:

@@ -11,16 +11,16 @@ const DIFFICULTIES = {
 
 @onready var wpm_calculator = $WPMCalculator
 
-var day := 0
-var completed := 0
-var total_overtime := 0
+var day := 1
+var completed_documents := 20
+var total_overtime := 10
 
 var difficulty_level := DifficultyResource.Level.INTERN
 var difficulty: DifficultyResource
 
 func _ready():
 	difficulty = DIFFICULTIES[difficulty_level]
-	_reset()
+	#_reset()
 
 func start():
 	day += 1
@@ -30,21 +30,19 @@ func next_day():
 	start()
 
 func restart():
-	_reset()
+	#_reset()
 	SceneManager.change_scene("res://src/game.tscn")
 
 func back_to_menu(reset = true):
 	SceneManager.change_scene("res://start.tscn")
-	if reset:
-		_reset()
 
 func _reset():
-	day = 1
-	completed = 0
+	day = 0
+	completed_documents = 0
 	total_overtime = 0
 
 func finished_day(tasks: int, overtime: int):
-	completed += tasks
+	completed_documents += tasks
 	total_overtime += overtime
 	round_ended.emit()
 
@@ -58,10 +56,9 @@ func get_wpm():
 	return wpm_calculator.get_average_wpm()
 
 func can_have_promotion():
-	return get_wpm() > difficulty.average_wpm and difficulty_level in DIFFICULTIES
-
+	return get_wpm() > difficulty.average_wpm and (difficulty_level + 1) in DIFFICULTIES
+	
 func take_promotion():
-	var level = difficulty_level + 1
-	if level in DIFFICULTIES:
-		difficulty = DIFFICULTIES[level]
-	next_day()
+	difficulty_level += 1
+	if difficulty_level in DIFFICULTIES:
+		difficulty = DIFFICULTIES[difficulty_level]

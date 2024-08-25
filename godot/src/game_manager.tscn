@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bd0x2frrhrxx4"]
+[gd_scene load_steps=5 format=3 uid="uid://bd0x2frrhrxx4"]
 
 [ext_resource type="Script" path="res://src/game_manager.gd" id="1_qo3ej"]
 [ext_resource type="Script" path="res://src/WPMCalculator.gd" id="2_i64jq"]
+[ext_resource type="Script" path="res://src/base-system/save/SaveManager.gd" id="3_q0li8"]
+[ext_resource type="Script" path="res://src/base-system/save/CacheProperties.gd" id="4_dfh4s"]
 
 [node name="GameManager" type="Node"]
 process_mode = 3
@@ -9,3 +11,10 @@ script = ExtResource("1_qo3ej")
 
 [node name="WPMCalculator" type="Node" parent="."]
 script = ExtResource("2_i64jq")
+
+[node name="SaveManager" type="Node" parent="."]
+script = ExtResource("3_q0li8")
+
+[node name="CacheProperties" type="Node" parent="."]
+script = ExtResource("4_dfh4s")
+properties = Array[String](["", "", "", ""])

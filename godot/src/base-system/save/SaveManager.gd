@@ -1,3 +1,4 @@
+class_name SaveManager
 extends Node
 
 const SAVES_FOLDER = "user://saves"

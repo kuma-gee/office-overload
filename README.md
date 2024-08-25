@@ -2,3 +2,10 @@
 
 Theme: Overload
 Gamejam: https://itch.io/jam/godot-wild-jam-65
+
+## Credits
+
+- BGM - [Dova-Syndrome](https://dova-s.jp/)
+    - [Talk with me](https://dova-s.jp/bgm/play21014.html)
+    - [靴下片っぽ行方不明事件](https://dova-s.jp/bgm/play20963.html)
+- SFX - [Soundeffect Lab](https://soundeffect-lab.info/)

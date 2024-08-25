@@ -1,14 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=13 format=3 uid="uid://ctlncowdl0sbn"]
 
 [ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="1_3ujy4"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
 [ext_resource type="Texture2D" uid="uid://da2p5kphaw5k5" path="res://assets/Cover_Image.png" id="2_2ttii"]
 [ext_resource type="Script" path="res://start.gd" id="2_508sk"]
 [ext_resource type="Texture2D" uid="uid://cjlwhavnsncw5" path="res://assets/Title.png" id="3_r3iy1"]
-[ext_resource type="Texture2D" uid="uid://bos2vgtns1o67" path="res://assets/Cover_Document.png" id="4_ojas5"]
-[ext_resource type="PackedScene" uid="uid://b2810ucbuyoj7" path="res://src/ui/to_do_item.tscn" id="5_lfa71"]
-[ext_resource type="Script" path="res://src/base-system/menu/FocusButton.gd" id="6_qrxhq"]
-[ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="9_8ah5n"]
+[ext_resource type="Script" path="res://src/KeyDelegator.gd" id="6_xbbny"]
+[ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="7_2n7ql"]
+[ext_resource type="Script" path="res://src/KeyReader.gd" id="8_2fdes"]
+[ext_resource type="AudioStream" uid="uid://b73fxq2acr5ft" path="res://assets/sound/keyboard.mp3" id="9_eiox7"]
+[ext_resource type="Script" path="res://src/ui/Stats.gd" id="12_fmeio"]
+[ext_resource type="AudioStream" uid="uid://7ix2fpbkls0p" path="res://assets/sound/Talk_with_me.mp3" id="13_gm25t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gorx4"]
 shader = ExtResource("1_3ujy4")
@@ -19,7 +21,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/enable = true
 
-[node name="start" type="Control"]
+[node name="Start" type="Control" node_paths=PackedStringArray("start", "setting", "exit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,8 +30,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_qu80e")
 script = ExtResource("2_508sk")
+start = NodePath("MarginContainer3/VBoxContainer/Start")
+setting = NodePath("MarginContainer3/VBoxContainer/Setting")
+exit = NodePath("MarginContainer3/VBoxContainer/Exit")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,12 +46,13 @@ texture = ExtResource("2_2ttii")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -144.0
-offset_bottom = 40.0
-grow_horizontal = 0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -72.0
+offset_right = 72.0
+offset_bottom = 50.0
+grow_horizontal = 2
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 
@@ -60,118 +67,145 @@ stretch_mode = 5
 
 [node name="MarginContainer3" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -2.0
-offset_top = -2.0
-grow_horizontal = 0
+offset_left = -45.5
+offset_top = -103.0
+offset_right = 45.5
+grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3" node_paths=PackedStringArray("key_reader", "type_sound")]
+layout_mode = 2
+script = ExtResource("6_xbbny")
+key_reader = NodePath("../KeyReader")
+type_sound = NodePath("../KeyReader/TypeSound")
+
+[node name="Start" parent="MarginContainer3/VBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+word = "Start"
+
+[node name="Setting" parent="MarginContainer3/VBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+word = "Adjust"
+
+[node name="Exit" parent="MarginContainer3/VBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+word = "Leave"
+
+[node name="KeyReader" type="Node" parent="MarginContainer3"]
+script = ExtResource("8_2fdes")
+
+[node name="TypeSound" type="AudioStreamPlayer" parent="MarginContainer3/KeyReader"]
+process_mode = 3
+stream = ExtResource("9_eiox7")
+bus = &"SFX"
+
+[node name="Stats" type="Control" parent="." node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_fmeio")
+job_container = NodePath("MarginContainer/VBoxContainer")
+day = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Day")
+level = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Level")
+documents = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Documents")
+skill_container = NodePath("MarginContainer2/VBoxContainer3")
+wpm = NodePath("MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2/WPM")
+accuracy = NodePath("MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2/Accuracy")
+
+[node name="MarginContainer" type="MarginContainer" parent="Stats"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -52.0
+offset_right = 63.0
+grow_vertical = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Stats/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Job" type="Label" parent="Stats/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 5
+text = "Current Job"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Stats/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Start" type="Button" parent="MarginContainer3/VBoxContainer"]
+[node name="Day" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Start Work"
-script = ExtResource("6_qrxhq")
+text = "DAY"
 
-[node name="Settings" type="Button" parent="MarginContainer3/VBoxContainer"]
+[node name="Level" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-disabled = true
-text = "Adjust Work"
-script = ExtResource("6_qrxhq")
+text = "Level"
 
-[node name="Exit" type="Button" parent="MarginContainer3/VBoxContainer"]
+[node name="Documents" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-disabled = true
-text = "Quit Job"
-script = ExtResource("6_qrxhq")
+text = "Documents"
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
-visible = false
+[node name="MarginContainer2" type="MarginContainer" parent="Stats"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -101.0
-offset_top = -124.0
+offset_left = -59.0
+offset_top = -48.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer2"]
-layout_mode = 2
-texture = ExtResource("4_ojas5")
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2"]
-layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/MarginContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="Stats/MarginContainer2"]
 layout_mode = 2
-theme_override_constants/separation = 5
+size_flags_vertical = 8
 
-[node name="Label" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "TODO"
-horizontal_alignment = 1
-
-[node name="Line2D" type="Line2D" parent="MarginContainer2/MarginContainer/VBoxContainer/Label"]
-position = Vector2(1, 1)
-points = PackedVector2Array(-1, 10, 69, 10)
-width = 1.0
-default_color = Color(0.207843, 0.207843, 0.25098, 1)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Stats/MarginContainer2/VBoxContainer3"]
 layout_mode = 2
 
-[node name="Start" parent="MarginContainer2/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("5_lfa71")]
+[node name="Skill" type="Label" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 5
+text = "Skill"
+horizontal_alignment = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2"]
 layout_mode = 2
 
-[node name="Settings" parent="MarginContainer2/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("5_lfa71")]
+[node name="WPM" type="Label" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2"]
 layout_mode = 2
+text = "Words/m"
+horizontal_alignment = 2
 
-[node name="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/VBoxContainer/Settings/HBoxContainer" index="1"]
-text = "Adjust Work"
-
-[node name="Exit" parent="MarginContainer2/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("5_lfa71")]
+[node name="Accuracy" type="Label" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2"]
+visible = false
 layout_mode = 2
-disabled = true
+text = "Accuracy"
+horizontal_alignment = 2
 
-[node name="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/VBoxContainer/Exit/HBoxContainer" index="1"]
-text = "Quit Job"
-
-[node name="MarginContainer4" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="Day" type="Label" parent="MarginContainer4"]
-layout_mode = 2
-text = "DAY"
-label_settings = ExtResource("9_8ah5n")
-
-[connection signal="pressed" from="MarginContainer3/VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="MarginContainer3/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
-
-[editable path="MarginContainer2/MarginContainer/VBoxContainer/VBoxContainer/Settings"]
-[editable path="MarginContainer2/MarginContainer/VBoxContainer/VBoxContainer/Exit"]
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_gm25t")
+volume_db = -35.0
+autoplay = true
+bus = &"BGM"

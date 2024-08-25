@@ -45,9 +45,9 @@ func get_remaining_word():
 func update_word():
 	var len = typed.length()
 	if highlight_first and len == 0:
-		text = "[center][typed until=1 height=%s]%s[/typed][/center]" % [height, word]
+		text = "[center][typed until=1 height=%s][color=%s]%s[/color][/typed][/center]" % [height, text_color.to_html(), word]
 	else:
-		text = "[center][typed until=%s height=%s][color=%s]%s[/color]%s[/typed][/center]" % [len, height, typed_color.to_html(), word.substr(0, len), word.substr(len)]
+		text = "[center][typed until=%s height=%s][color=%s]%s[/color][color=%s]%s[/color][/typed][/center]" % [len, height, typed_color.to_html(), word.substr(0, len), text_color.to_html(), word.substr(len)]
 
 func _next_char():
 	if typed.length() >= word.length():
