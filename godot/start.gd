@@ -3,10 +3,12 @@ extends Control
 @export var start: TypingButton
 @export var setting: TypingButton
 @export var exit: TypingButton
+@export var settings_panel: FocusedDialog
 
 func _ready():
 	get_tree().paused = false
 	start.finished.connect(func(): _on_start_pressed())
+	setting.finished.connect(func(): settings_panel.grab_focus())
 	exit.finished.connect(func(): _on_exit_pressed())
 
 func _on_start_pressed():

@@ -9,7 +9,7 @@ signal type_start()
 @export var text_color := Color.BLACK
 @export var highlight_color := Color.WHITE
 @export var typed_color := Color.WHITE
-@export var type_sound: AudioStreamPlayer
+@export var play_sound := true
 
 @export var highlight_first := false:
 	set(v):
@@ -61,8 +61,8 @@ func handle_key(key: String, grab_focus = true):
 			type_start.emit()
 			self.focused = true
 		
-		if type_sound:
-			type_sound.play()
+		if play_sound:
+			SoundManager.play_type_sound()
 		
 		typed += key.to_lower()
 		typed += " ".repeat(_get_num_of_spaces(typed.length()))

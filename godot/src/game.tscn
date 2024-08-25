@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=58 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -33,6 +33,7 @@
 [ext_resource type="AudioStream" uid="uid://bpxm5pscsli23" path="res://assets/sound/鳩時計1.mp3" id="19_mkiih"]
 [ext_resource type="Texture2D" uid="uid://sy6r1qjyud55" path="res://assets/Desk_Static.png" id="19_wvt8k"]
 [ext_resource type="Script" path="res://src/BlinkText.gd" id="20_0ygyh"]
+[ext_resource type="Script" path="res://src/delegator.gd" id="20_tcix1"]
 [ext_resource type="Texture2D" uid="uid://r6b75n40gyxy" path="res://assets/Desk_Computer.png" id="21_tywuk"]
 [ext_resource type="Curve" uid="uid://c5dolop3rdetn" path="res://src/dust_damp.tres" id="24_ecpli"]
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/Document.png" id="24_g7dws"]
@@ -516,6 +517,10 @@ mouse_filter = 2
 theme = ExtResource("10_am0oy")
 script = ExtResource("14_s1o3m")
 
+[node name="Delegator" type="Node" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("nodes")]
+script = ExtResource("20_tcix1")
+nodes = [NodePath("../Email"), NodePath("../Phone"), NodePath("../Junior")]
+
 [node name="Email" type="PanelContainer" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label")]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 1
@@ -607,11 +612,10 @@ text = "Phone"
 label_settings = ExtResource("16_3sqd2")
 horizontal_alignment = 1
 
-[node name="TypingLabel" parent="CanvasLayer/Distractions/Phone/MarginContainer/VBoxContainer" node_paths=PackedStringArray("type_sound") instance=ExtResource("15_r4fui")]
+[node name="TypingLabel" parent="CanvasLayer/Distractions/Phone/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
 height = 1.0
-type_sound = NodePath("../../../../Email/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel/TypeSound")
 
 [node name="Junior" type="PanelContainer" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label")]
 custom_minimum_size = Vector2(50, 50)
@@ -653,12 +657,11 @@ text = "Junior:"
 label_settings = ExtResource("16_3sqd2")
 horizontal_alignment = 1
 
-[node name="TypingLabel" parent="CanvasLayer/Distractions/Junior/MarginContainer/VBoxContainer" node_paths=PackedStringArray("type_sound") instance=ExtResource("15_r4fui")]
+[node name="TypingLabel" parent="CanvasLayer/Distractions/Junior/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
 text = "Clarification"
 height = 1.0
-type_sound = NodePath("../../../../Email/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel/TypeSound")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.2, 0.2, 0.2, 1)

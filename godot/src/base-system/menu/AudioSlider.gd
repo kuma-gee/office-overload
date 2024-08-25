@@ -2,10 +2,10 @@ class_name AudioSlider
 extends HSlider
 
 @export var bus_name := "Master"
+@export var vol_range = 60
+@export var vol_offset = 30
 
 var master_id
-var vol_range = 60
-var vol_offset = 5
 
 func _ready():
 	master_id = AudioServer.get_bus_index(bus_name)
@@ -27,3 +27,19 @@ func get_volume(percentage: float) -> float:
 func get_volume_percentage():
 	var volume = AudioServer.get_bus_volume_db(master_id)
 	return (volume - vol_offset + vol_range) * 100 / vol_range # Just reversed the equation of #get_volume
+
+func highlight(v: bool):
+	if not v:
+		remove_theme_stylebox_override("slider")
+		remove_theme_stylebox_override("grabber_area")
+		remove_theme_stylebox_override("grabber_area_highlight")
+		return
+	
+	var slider = get_theme_stylebox("slider").duplicate() as StyleBoxFlat
+	slider.border_color = Color.WHITE
+	add_theme_stylebox_override("slider", slider)
+	
+	var grabber = get_theme_stylebox("grabber_area").duplicate() as StyleBoxFlat
+	grabber.border_color = Color.WHITE
+	add_theme_stylebox_override("grabber_area", grabber)
+	add_theme_stylebox_override("grabber_area_highlight", grabber)

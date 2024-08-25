@@ -41,3 +41,6 @@ func slide_out():
 	
 	tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tw.tween_property(self, "global_position", start_pos - slide_dir.normalized() * (size.x if slide_dir.x != 0 else size.y), 0.5)
+
+func get_label():
+	return label

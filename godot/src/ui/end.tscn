@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://kdu7e637eapn"]
+[gd_scene load_steps=13 format=3 uid="uid://kdu7e637eapn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_80w1y"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_ox4yy"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="8_f3tsx"]
 [ext_resource type="AudioStream" uid="uid://e82h4pq7oib4" path="res://assets/sound/金額表示.mp3" id="8_i0k3p"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="11_oaofj"]
-[ext_resource type="AudioStream" uid="uid://b73fxq2acr5ft" path="res://assets/sound/keyboard.mp3" id="12_o0nl8"]
 
 [node name="End" type="Control" node_paths=PackedStringArray("next_day", "break_button", "next_day_container", "promotion_container")]
 process_mode = 3
@@ -71,12 +70,11 @@ text = "OVERTIME"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
-[node name="NextDay" type="HBoxContainer" parent="CenterContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("key_reader", "type_sound")]
+[node name="NextDay" type="HBoxContainer" parent="CenterContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("key_reader")]
 layout_mode = 2
 size_flags_horizontal = 4
 script = ExtResource("5_vwxsb")
 key_reader = NodePath("../../../../KeyReader")
-type_sound = NodePath("../../../../TypeSound")
 
 [node name="NextDayButton" parent="CenterContainer/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
 layout_mode = 2
@@ -97,12 +95,11 @@ text = "Take promotion?"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/VBoxContainer/VBoxContainer/Promotion" node_paths=PackedStringArray("key_reader", "type_sound")]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/VBoxContainer/VBoxContainer/Promotion" node_paths=PackedStringArray("key_reader")]
 layout_mode = 2
 size_flags_horizontal = 4
 script = ExtResource("5_vwxsb")
 key_reader = NodePath("../../../../../KeyReader")
-type_sound = NodePath("../../../../../TypeSound")
 
 [node name="PromotionYes" parent="CenterContainer/VBoxContainer/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
 layout_mode = 2
@@ -133,11 +130,6 @@ node = NodePath("../../ColorRect")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_i0k3p")
 volume_db = -10.0
-bus = &"SFX"
-
-[node name="TypeSound" type="AudioStreamPlayer" parent="."]
-process_mode = 3
-stream = ExtResource("12_o0nl8")
 bus = &"SFX"
 
 [connection signal="finished" from="CenterContainer/VBoxContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionYes" to="." method="_on_promotion_yes_finished"]

@@ -44,6 +44,8 @@ enum Type {
 	JUNIOR,
 }
 
+@onready var delegator = $Delegator
+
 @onready var email = $Email
 @onready var phone = $Phone
 @onready var junior = $Junior
@@ -74,39 +76,10 @@ func _get_random_distraction_word(type: Type):
 
 func _input(event):
 	if not _has_active_distraction(): return
-	
-	if event.is_action_pressed("ui_cancel"):
-		for m in menus:
-			m.label.reset()
-		return
-	
-	var key = KeyReader.get_key_of_event(event)
-	if key:
-		var focusd = _get_focused_label()
-		if focusd:
-			focusd.handle_key(key)
-		else:
-			var first = _get_first_label_starting(key)
-			if first:
-				first.handle_key(key)
-	
-	get_viewport().set_input_as_handled()
+	delegator.handle_event(event)
 
 func _has_active_distraction():
 	for m in menus:
-		if m.get_word() != "":
+		if m.get_label().word != "":
 			return true
 	return false
-
-func _get_first_label_starting(key: String):
-	for m in menus:
-		var word = m.get_word()
-		if word != "" and word.begins_with(key):
-			return m.label
-	return null
-
-func _get_focused_label():
-	for m in menus:
-		if m.get_word() != "" and m.label.focused:
-			return m.label
-	return null

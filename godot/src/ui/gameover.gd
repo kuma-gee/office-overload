@@ -7,10 +7,14 @@ extends Control
 @onready var overtime = $CenterContainer/VBoxContainer/VBoxContainer/Overtime
 @onready var audio_stream_player = $AudioStreamPlayer
 
-@export var restart: Button
+@export var restart: TypingButton
+@export var menu: TypingButton
 
 func _ready():
 	hide()
+	
+	restart.finished.connect(func(): GameManager.restart())
+	menu.finished.connect(func(): GameManager.back_to_menu())
 
 func fired(finished_tasks: int, open_tasks: int, _next_day = false):
 	finished.text = "total %s finished tasks" % GameManager.completed_documents
@@ -28,10 +32,3 @@ func _do_show():
 	gameover_effect.do_effect()
 	show()
 	restart.grab_focus()
-
-func _on_restart_pressed():
-	GameManager.restart()
-
-
-func _on_back_pressed():
-	GameManager.back_to_menu()

@@ -26,21 +26,6 @@ func _ready():
 	
 	sprite.material.set_shader_parameter("enable", false)
 	sprite.material = sprite.material.duplicate()
-	#control.mouse_entered.connect(func(): 
-		#if highlighted:
-			#sprite.material.set_shader_parameter("enable", true)
-	#)
-	#control.mouse_exited.connect(func(): 
-		#if highlighted:
-			#sprite.material.set_shader_parameter("enable", false)
-	#)
-	#control.gui_input.connect(func(ev: InputEvent):
-		#if ev is InputEventMouseButton and ev.button_index == MOUSE_BUTTON_LEFT and highlighted and abs(global_rotation) > 0.001:
-			#create_tween().tween_property(self, "global_rotation", 0, 1.0) \
-			#.set_ease(Tween.EASE_OUT) \
-			#.set_trans(Tween.TRANS_CUBIC)
-			#paper_sort.play()
-	#)
 	
 func move_to(pos, rot_offset = PI/15, move_in = false):
 	var tween = create_tween().set_parallel().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
