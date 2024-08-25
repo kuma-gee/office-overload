@@ -157,17 +157,21 @@ text = "Current Job"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Stats/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Day" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
 text = "DAY"
 
 [node name="Level" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
 text = "Level"
 
 [node name="Documents" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
 text = "Documents"
 
 [node name="MarginContainer2" type="MarginContainer" parent="Stats"]
@@ -201,14 +205,17 @@ horizontal_alignment = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="WPM" type="Label" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
 text = "Words/m"
 horizontal_alignment = 2
 
 [node name="Accuracy" type="Label" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
 text = "Accuracy"
 horizontal_alignment = 2
 
@@ -219,6 +226,7 @@ autoplay = true
 bus = &"BGM"
 
 [node name="Settings" type="Control" parent="." node_paths=PackedStringArray("delegator", "overlay", "sliders")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

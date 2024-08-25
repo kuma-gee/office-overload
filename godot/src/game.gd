@@ -41,10 +41,9 @@ func _set_environment():
 		animation_player.play("littered")
 
 func _ready():
-	print("Current Level: %s" % DifficultyResource.Level.keys()[GameManager.difficulty_level])
-	
 	get_tree().paused = false
 	_set_environment()
+	print("Current Level: %s" % DifficultyResource.Level.keys()[GameManager.difficulty_level])
 	
 	GameManager.round_ended.connect(func():
 		is_gameover = true

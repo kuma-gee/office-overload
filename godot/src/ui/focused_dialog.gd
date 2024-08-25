@@ -20,8 +20,13 @@ var active_slider: TypingSlider:
 
 func _ready():
 	overlay.hide()
-	focus_entered.connect(func(): effect_root.do_effect())
-	focus_exited.connect(func(): effect_root.reverse_effect())
+	focus_entered.connect(func():
+		show()
+		effect_root.do_effect()
+	)
+	focus_exited.connect(func():
+		effect_root.reverse_effect()
+	)
 
 	for s in sliders:
 		s.opened.connect(func(open): active_slider = s if open else null)

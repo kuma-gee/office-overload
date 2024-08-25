@@ -60,6 +60,9 @@ func _close_all():
 
 func show_distraction():
 	var available = menus.filter(func(m): return m.get_word() == "")
+	if GameManager.difficulty_level <= DifficultyResource.Level.JUNIOR:
+		available.erase(Type.JUNIOR)
+	
 	if available.is_empty(): return
 	
 	var distraction = available.pick_random()

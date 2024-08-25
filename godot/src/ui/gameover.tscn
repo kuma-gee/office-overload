@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://dw4ed4dspm22v"]
+[gd_scene load_steps=11 format=3 uid="uid://dw4ed4dspm22v"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_t4bof"]
 [ext_resource type="Script" path="res://src/ui/gameover.gd" id="2_biwr8"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_s2nja"]
+[ext_resource type="Script" path="res://src/KeyDelegator.gd" id="4_46jda"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_ekemn"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="4_vuj6l"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_dkoqc"]
+[ext_resource type="Script" path="res://src/KeyReader.gd" id="6_1wju1"]
 [ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="7_chtch"]
 [ext_resource type="AudioStream" uid="uid://ctlbf2imxt5tn" path="res://assets/sound/呪いの旋律.mp3" id="7_fg57t"]
 
@@ -79,9 +81,11 @@ theme_override_constants/outline_size = 5
 text = "DAYS"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("key_reader")]
 layout_mode = 2
 size_flags_horizontal = 4
+script = ExtResource("4_46jda")
+key_reader = NodePath("../KeyReader")
 
 [node name="Restart" parent="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_vuj6l")]
 layout_mode = 2
@@ -90,6 +94,10 @@ word = "New Job"
 [node name="Menu" parent="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_vuj6l")]
 layout_mode = 2
 word = "Break"
+
+[node name="KeyReader" type="Node" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+process_mode = 2
+script = ExtResource("6_1wju1")
 
 [node name="GameoverEffect" type="Node" parent="."]
 script = ExtResource("4_ekemn")

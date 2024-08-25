@@ -17,6 +17,7 @@ func _ready():
 	menu.finished.connect(func(): GameManager.back_to_menu())
 
 func fired(finished_tasks: int, open_tasks: int, _next_day = false):
+	get_tree().paused = true
 	finished.text = "total %s finished tasks" % GameManager.completed_documents
 	
 	overtime.visible = GameManager.total_overtime > 0
