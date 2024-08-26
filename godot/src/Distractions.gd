@@ -58,6 +58,10 @@ func _close_all():
 	for x in menus:
 		x.hide()
 
+func slide_all_out():
+	for x in menus:
+		x.slide_out()
+
 func show_distraction():
 	var available = menus.filter(func(m): return m.get_word() == "")
 	if GameManager.difficulty_level <= DifficultyResource.Level.JUNIOR:

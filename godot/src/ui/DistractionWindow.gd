@@ -8,14 +8,16 @@ extends PanelContainer
 @onready var start_pos := global_position
 
 var tw: Tween
+var mistakes := 0
 
 func _ready():
 	label.type_start.connect(func(): GameManager.start_type())
 	label.type_finish.connect(func():
-		GameManager.finish_type(label.word)
+		GameManager.finish_type(label.word, mistakes)
 		label.reset("")
 		slide_out()
 	)
+	label.type_wrong.connect(func(): mistakes += 1)
 	
 	hide()
 

@@ -4,6 +4,7 @@ extends RichTextLabel
 signal typing()
 signal type_finish()
 signal type_start()
+signal type_wrong()
 
 @export var height := 2.0
 @export var text_color := Color.BLACK
@@ -71,6 +72,8 @@ func handle_key(key: String, grab_focus = true):
 		if typed == word:
 			type_finish.emit()
 		return true
+	else:
+		type_wrong.emit()
 	
 	return false
 

@@ -11,6 +11,7 @@ signal finished()
 @onready var paper_move_in = $PaperMoveIn
 @onready var paper_sort = $PaperSort
 
+var mistakes := 0
 var word := ""
 var target_position := Vector2.ZERO
 var _logger = Logger.new("Document")
@@ -40,7 +41,8 @@ func move_to(pos, rot_offset = PI/15, move_in = false):
 		paper_move_out.play()
 
 func handle_key(key: String):
-	typing_label.handle_key(key)
+	if not typing_label.handle_key(key):
+		mistakes += 1
 
 func highlight():
 	typing_label.focused = true

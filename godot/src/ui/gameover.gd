@@ -32,4 +32,4 @@ func fired(finished_tasks: int, open_tasks: int, _next_day = false):
 func _do_show():
 	gameover_effect.do_effect()
 	show()
-	restart.grab_focus()
+	# restart.grab_focus()

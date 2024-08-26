@@ -25,4 +25,4 @@ func _update():
 
 	skill_container.visible = GameManager.get_wpm() > 0
 	wpm.text = "%.0f words/m" % GameManager.get_wpm()
-	accuracy.text = "%s accuracy"
+	accuracy.text = "%.0f%% accuracy" % GameManager.get_accuracy()

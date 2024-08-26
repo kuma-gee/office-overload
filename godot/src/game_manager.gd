@@ -11,9 +11,9 @@ const DIFFICULTIES = {
 
 @onready var wpm_calculator = $WPMCalculator
 
-var day := 1
-var completed_documents := 20
-var total_overtime := 10
+var day := 0
+var completed_documents := 0
+var total_overtime := 0
 
 var difficulty_level := DifficultyResource.Level.INTERN
 var difficulty: DifficultyResource
@@ -49,11 +49,17 @@ func finished_day(tasks: int, overtime: int):
 func start_type():
 	wpm_calculator.start_type()
 
-func finish_type(word: String):
-	wpm_calculator.finish_type(word)
+func finish_type(word: String, mistakes: int):
+	wpm_calculator.finish_type(word, mistakes)
 
 func get_wpm():
 	return wpm_calculator.get_average_wpm()
+
+func get_accuracy():
+	return wpm_calculator.get_average_accuracy() * 100
+
+func finish_game():
+	wpm_calculator.calculate_wpm()
 
 func can_have_promotion():
 	return get_wpm() > difficulty.average_wpm and (difficulty_level + 1) in DIFFICULTIES

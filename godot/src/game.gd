@@ -135,6 +135,7 @@ func _finished():
 
 func _lost(end_of_day = false):
 	_save_progress()
+	distractions.slide_all_out()
 	gameover.fired(get_finished(), get_uncompleted(), end_of_day)
 
 func _save_progress():
@@ -156,7 +157,7 @@ func _spawn_document(show_tutorial = false):
 	var doc = doc_spawner.spawn_document() as Document
 	doc.started.connect(func(): GameManager.start_type())
 	doc.finished.connect(func():
-		GameManager.finish_type(doc.word)
+		GameManager.finish_type(doc.word, doc.mistakes)
 		
 		doc.move_to(Vector2(-doc_spawner.global_position.x, doc_spawner.global_position.y))
 		documents.erase(doc)
