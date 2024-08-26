@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=25 format=3 uid="uid://ctlncowdl0sbn"]
 
 [ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="1_3ujy4"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
@@ -8,15 +8,17 @@
 [ext_resource type="Script" path="res://src/KeyDelegator.gd" id="6_xbbny"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="7_2n7ql"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="8_2fdes"]
-[ext_resource type="Script" path="res://src/ui/focused_dialog.gd" id="12_ccon2"]
+[ext_resource type="Script" path="res://src/base-system/menu/Settings.gd" id="11_ybmms"]
 [ext_resource type="Script" path="res://src/ui/Stats.gd" id="12_fmeio"]
 [ext_resource type="Script" path="res://src/base-system/menu/AudioSlider.gd" id="12_qty1o"]
 [ext_resource type="AudioStream" uid="uid://7ix2fpbkls0p" path="res://assets/sound/Talk_with_me.mp3" id="13_gm25t"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="14_hvw1b"]
+[ext_resource type="Script" path="res://src/base-system/menu/AudioSettings.gd" id="15_4lkng"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="15_84nkj"]
 [ext_resource type="Script" path="res://src/delegator.gd" id="16_bh4xx"]
 [ext_resource type="Script" path="res://src/ui/typing_slider.gd" id="16_vbvxj"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="16_w1oiw"]
+[ext_resource type="Script" path="res://src/ui/GameModes.gd" id="19_yyowk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gorx4"]
 shader = ExtResource("1_3ujy4")
@@ -35,7 +37,7 @@ shader_parameter/enable = true
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fhusc"]
 
-[node name="Start" type="Control" node_paths=PackedStringArray("start", "setting", "exit", "settings_panel")]
+[node name="Start" type="Control" node_paths=PackedStringArray("start", "setting", "exit", "settings_panel", "mode_panel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,6 +50,7 @@ start = NodePath("MarginContainer3/VBoxContainer/Start")
 setting = NodePath("MarginContainer3/VBoxContainer/Setting")
 exit = NodePath("MarginContainer3/VBoxContainer/Exit")
 settings_panel = NodePath("Settings")
+mode_panel = NodePath("GameModes")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 visible = false
@@ -225,7 +228,7 @@ volume_db = -35.0
 autoplay = true
 bus = &"BGM"
 
-[node name="Settings" type="Control" parent="." node_paths=PackedStringArray("delegator", "overlay", "sliders")]
+[node name="Settings" type="Control" parent="." node_paths=PackedStringArray("overlay", "sliders", "delegator")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -234,14 +237,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
-script = ExtResource("12_ccon2")
+script = ExtResource("11_ybmms")
+overlay = NodePath("Audio/Overlay")
+sliders = [NodePath("Audio/VBoxContainer/Master/HBoxContainer/MasterSlider"), NodePath("Audio/VBoxContainer/SFX/HBoxContainer/SFXSlider"), NodePath("Audio/VBoxContainer/BGM/HBoxContainer/BGMSlider")]
 delegator = NodePath("Delegator")
-overlay = NodePath("Settings/Overlay")
-sliders = [NodePath("Settings/VBoxContainer/Master/HBoxContainer/MasterSlider"), NodePath("Settings/VBoxContainer/SFX/HBoxContainer/SFXSlider"), NodePath("Settings/VBoxContainer/BGM/HBoxContainer/BGMSlider")]
 
 [node name="Delegator" type="Node" parent="Settings" node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
-nodes = [NodePath("../Settings/VBoxContainer/Master/HBoxContainer/MasterVolume"), NodePath("../Settings/VBoxContainer/SFX/HBoxContainer/SFXVolume"), NodePath("../Settings/VBoxContainer/BGM/HBoxContainer/BGMVolume")]
+nodes = [NodePath("../Audio/VBoxContainer/Master/HBoxContainer/MasterVolume"), NodePath("../Audio/VBoxContainer/SFX/HBoxContainer/SFXVolume"), NodePath("../Audio/VBoxContainer/BGM/HBoxContainer/BGMVolume")]
 
 [node name="EffectRoot" type="Node" parent="Settings"]
 script = ExtResource("14_hvw1b")
@@ -252,7 +255,177 @@ duration = 0.5
 script = ExtResource("15_84nkj")
 node = NodePath("../..")
 
-[node name="Settings" type="PanelContainer" parent="Settings"]
+[node name="Audio" type="PanelContainer" parent="Settings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.5
+offset_top = -72.0
+offset_right = 135.5
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_4lkng")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/Audio"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Settings/Audio/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+label_settings = ExtResource("16_w1oiw")
+horizontal_alignment = 1
+
+[node name="Master" type="PanelContainer" parent="Settings/Audio/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_p60nv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/Audio/VBoxContainer/Master"]
+layout_mode = 2
+
+[node name="MasterVolume" parent="Settings/Audio/VBoxContainer/Master/HBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
+word = "Master"
+
+[node name="MasterSlider" type="HBoxContainer" parent="Settings/Audio/VBoxContainer/Master/HBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+layout_mode = 2
+script = ExtResource("16_vbvxj")
+trigger_button = NodePath("../MasterVolume")
+left = NodePath("Left")
+right = NodePath("Right")
+slider = NodePath("Slider")
+
+[node name="Left" parent="Settings/Audio/VBoxContainer/Master/HBoxContainer/MasterSlider" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
+word = "h"
+
+[node name="Slider" type="HSlider" parent="Settings/Audio/VBoxContainer/Master/HBoxContainer/MasterSlider"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 4
+value = 30.0
+script = ExtResource("12_qty1o")
+
+[node name="Right" parent="Settings/Audio/VBoxContainer/Master/HBoxContainer/MasterSlider" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
+word = "l"
+
+[node name="SFX" type="PanelContainer" parent="Settings/Audio/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_p60nv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/Audio/VBoxContainer/SFX"]
+layout_mode = 2
+
+[node name="SFXVolume" parent="Settings/Audio/VBoxContainer/SFX/HBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
+word = "SFX"
+
+[node name="SFXSlider" type="HBoxContainer" parent="Settings/Audio/VBoxContainer/SFX/HBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+layout_mode = 2
+script = ExtResource("16_vbvxj")
+trigger_button = NodePath("../SFXVolume")
+left = NodePath("Left")
+right = NodePath("Right")
+slider = NodePath("Slider")
+
+[node name="Left" parent="Settings/Audio/VBoxContainer/SFX/HBoxContainer/SFXSlider" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
+word = "h"
+
+[node name="Slider" type="HSlider" parent="Settings/Audio/VBoxContainer/SFX/HBoxContainer/SFXSlider"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 4
+value = 30.0
+script = ExtResource("12_qty1o")
+bus_name = "SFX"
+
+[node name="Right" parent="Settings/Audio/VBoxContainer/SFX/HBoxContainer/SFXSlider" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
+word = "l"
+
+[node name="BGM" type="PanelContainer" parent="Settings/Audio/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_p60nv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/Audio/VBoxContainer/BGM"]
+layout_mode = 2
+
+[node name="BGMVolume" parent="Settings/Audio/VBoxContainer/BGM/HBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
+word = "BGM"
+
+[node name="BGMSlider" type="HBoxContainer" parent="Settings/Audio/VBoxContainer/BGM/HBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+layout_mode = 2
+script = ExtResource("16_vbvxj")
+trigger_button = NodePath("../BGMVolume")
+left = NodePath("Left")
+right = NodePath("Right")
+slider = NodePath("Slider")
+
+[node name="Left" parent="Settings/Audio/VBoxContainer/BGM/HBoxContainer/BGMSlider" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
+word = "h"
+
+[node name="Slider" type="HSlider" parent="Settings/Audio/VBoxContainer/BGM/HBoxContainer/BGMSlider"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 4
+value = 30.0
+script = ExtResource("12_qty1o")
+bus_name = "BGM"
+
+[node name="Right" parent="Settings/Audio/VBoxContainer/BGM/HBoxContainer/BGMSlider" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
+word = "l"
+
+[node name="Overlay" type="ColorRect" parent="Settings/Audio"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.313726)
+
+[node name="GameModes" type="Control" parent="." node_paths=PackedStringArray("work", "crunch", "interview", "delegator")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+script = ExtResource("19_yyowk")
+work = NodePath("Modes/VBoxContainer/MarginContainer/VBoxContainer/WorkTime")
+crunch = NodePath("Modes/VBoxContainer/MarginContainer/VBoxContainer/CrunchTime")
+interview = NodePath("Modes/VBoxContainer/MarginContainer/VBoxContainer/Interview2")
+delegator = NodePath("Delegator")
+
+[node name="Delegator" type="Node" parent="GameModes"]
+script = ExtResource("16_bh4xx")
+
+[node name="EffectRoot" type="Node" parent="GameModes"]
+script = ExtResource("14_hvw1b")
+ease = 1
+duration = 0.5
+
+[node name="Slide" type="Node" parent="GameModes/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("15_84nkj")
+node = NodePath("../..")
+
+[node name="Modes" type="PanelContainer" parent="GameModes"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -266,131 +439,58 @@ offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings/Settings"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameModes/Modes"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Settings/Settings/VBoxContainer"]
+[node name="Label" type="Label" parent="GameModes/Modes/VBoxContainer"]
 layout_mode = 2
-text = "Settings"
+text = "Work Mode"
 label_settings = ExtResource("16_w1oiw")
 horizontal_alignment = 1
 
-[node name="Master" type="PanelContainer" parent="Settings/Settings/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="GameModes/Modes/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_styles/panel = SubResource("StyleBoxEmpty_p60nv")
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/Settings/VBoxContainer/Master"]
+[node name="VBoxContainer" type="GridContainer" parent="GameModes/Modes/VBoxContainer/MarginContainer"]
 layout_mode = 2
+columns = 2
 
-[node name="MasterVolume" parent="Settings/Settings/VBoxContainer/Master/HBoxContainer" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
-word = "Master"
-
-[node name="MasterSlider" type="HBoxContainer" parent="Settings/Settings/VBoxContainer/Master/HBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
-layout_mode = 2
-script = ExtResource("16_vbvxj")
-trigger_button = NodePath("../MasterVolume")
-left = NodePath("Left")
-right = NodePath("Right")
-slider = NodePath("Slider")
-
-[node name="Left" parent="Settings/Settings/VBoxContainer/Master/HBoxContainer/MasterSlider" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
-word = "h"
-
-[node name="Slider" type="HSlider" parent="Settings/Settings/VBoxContainer/Master/HBoxContainer/MasterSlider"]
-custom_minimum_size = Vector2(50, 0)
+[node name="WorkTime" parent="GameModes/Modes/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 size_flags_vertical = 4
-value = 30.0
-script = ExtResource("12_qty1o")
-
-[node name="Right" parent="Settings/Settings/VBoxContainer/Master/HBoxContainer/MasterSlider" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
-word = "l"
-
-[node name="SFX" type="PanelContainer" parent="Settings/Settings/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_styles/panel = SubResource("StyleBoxEmpty_p60nv")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/Settings/VBoxContainer/SFX"]
-layout_mode = 2
-
-[node name="SFXVolume" parent="Settings/Settings/VBoxContainer/SFX/HBoxContainer" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
-word = "SFX"
+word = "Work Time"
 
-[node name="SFXSlider" type="HBoxContainer" parent="Settings/Settings/VBoxContainer/SFX/HBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+[node name="Label" type="Label" parent="GameModes/Modes/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-script = ExtResource("16_vbvxj")
-trigger_button = NodePath("../SFXVolume")
-left = NodePath("Left")
-right = NodePath("Right")
-slider = NodePath("Slider")
+size_flags_horizontal = 3
+text = "A normal work day where you get tasks based on your skill level"
+autowrap_mode = 3
 
-[node name="Left" parent="Settings/Settings/VBoxContainer/SFX/HBoxContainer/SFXSlider" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
-word = "h"
-
-[node name="Slider" type="HSlider" parent="Settings/Settings/VBoxContainer/SFX/HBoxContainer/SFXSlider"]
-custom_minimum_size = Vector2(50, 0)
+[node name="CrunchTime" parent="GameModes/Modes/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 size_flags_vertical = 4
-value = 30.0
-script = ExtResource("12_qty1o")
-bus_name = "SFX"
-
-[node name="Right" parent="Settings/Settings/VBoxContainer/SFX/HBoxContainer/SFXSlider" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
-word = "l"
-
-[node name="BGM" type="PanelContainer" parent="Settings/Settings/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_styles/panel = SubResource("StyleBoxEmpty_p60nv")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/Settings/VBoxContainer/BGM"]
-layout_mode = 2
-
-[node name="BGMVolume" parent="Settings/Settings/VBoxContainer/BGM/HBoxContainer" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
-word = "BGM"
+word = "Crunch Time"
 
-[node name="BGMSlider" type="HBoxContainer" parent="Settings/Settings/VBoxContainer/BGM/HBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+[node name="Label2" type="Label" parent="GameModes/Modes/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-script = ExtResource("16_vbvxj")
-trigger_button = NodePath("../BGMVolume")
-left = NodePath("Left")
-right = NodePath("Right")
-slider = NodePath("Slider")
+size_flags_horizontal = 3
+text = "A endless work day that tests you how long you can survive"
+autowrap_mode = 3
 
-[node name="Left" parent="Settings/Settings/VBoxContainer/BGM/HBoxContainer/BGMSlider" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
-word = "h"
-
-[node name="Slider" type="HSlider" parent="Settings/Settings/VBoxContainer/BGM/HBoxContainer/BGMSlider"]
-custom_minimum_size = Vector2(50, 0)
+[node name="Interview2" parent="GameModes/Modes/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 size_flags_vertical = 4
-value = 30.0
-script = ExtResource("12_qty1o")
-bus_name = "BGM"
+theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
+word = "Interview"
+typing_label = NodePath("../Interview/MarginContainer/TypingLabel")
 
-[node name="Right" parent="Settings/Settings/VBoxContainer/BGM/HBoxContainer/BGMSlider" instance=ExtResource("7_2n7ql")]
+[node name="Label3" type="Label" parent="GameModes/Modes/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
-word = "l"
-
-[node name="Overlay" type="ColorRect" parent="Settings/Settings"]
-layout_mode = 2
-color = Color(0, 0, 0, 0.313726)
+size_flags_horizontal = 3
+text = "A job interview where you test your skills in a limited time "
+autowrap_mode = 3

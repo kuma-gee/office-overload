@@ -11,6 +11,7 @@ signal type_wrong()
 @export var highlight_color := Color.WHITE
 @export var typed_color := Color.WHITE
 @export var play_sound := true
+@export var center := true
 
 @export var highlight_first := false:
 	set(v):
@@ -46,9 +47,13 @@ func get_remaining_word():
 func update_word():
 	var len = typed.length()
 	if highlight_first and len == 0:
-		text = "[center][typed until=1 height=%s][color=%s]%s[/color][/typed][/center]" % [height, text_color.to_html(), word]
+		text = _wrap_center("[typed until=1 height=%s][color=%s]%s[/color][/typed]" % [height, text_color.to_html(), word])
 	else:
-		text = "[center][typed until=%s height=%s][color=%s]%s[/color][color=%s]%s[/color][/typed][/center]" % [len, height, typed_color.to_html(), word.substr(0, len), text_color.to_html(), word.substr(len)]
+		text = _wrap_center("[typed until=%s height=%s][color=%s]%s[/color][color=%s]%s[/color][/typed]" % [len, height, typed_color.to_html(), word.substr(0, len), text_color.to_html(), word.substr(len)])
+
+func _wrap_center(w: String):
+	if not center: return w
+	return "[center]%s[/center]" % w
 
 func _next_char():
 	if typed.length() >= word.length():

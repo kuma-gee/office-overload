@@ -9,20 +9,27 @@ const DIFFICULTIES = {
 	DifficultyResource.Level.MANAGEMENT: preload("res://src/difficulty/Management.tres"),
 }
 
+enum Mode {
+	Work,
+	Crunch,
+	Interview,
+}
+
 @onready var wpm_calculator = $WPMCalculator
 
 var day := 0
 var completed_documents := 0
 var total_overtime := 0
 
+var current_mode: Mode
 var difficulty_level := DifficultyResource.Level.INTERN
 var difficulty: DifficultyResource
 
 func _ready():
 	difficulty = DIFFICULTIES[difficulty_level]
-	#_reset()
 
-func start():
+func start(mode: Mode = current_mode):
+	current_mode = mode
 	day += 1
 	SceneManager.change_scene("res://src/game.tscn") # reload_scene (sometimes?) doesn't work?
 

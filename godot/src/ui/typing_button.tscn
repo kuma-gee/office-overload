@@ -20,6 +20,7 @@ theme_override_constants/margin_bottom = 3
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
 height = 1.0
+center = false
 highlight_first = true
 
 [node name="TextureButton" type="TextureButton" parent="MarginContainer"]

@@ -1,15 +1,36 @@
 class_name Settings
-extends Control
+extends FocusedDialog
 
 const CONFIG_FILE = "user://settings.cfg"
+
+@export var overlay: ColorRect
+@export var sliders: Array[TypingSlider] = []
 
 @onready var _audio := $Audio
 
 var _logger = Logger.new("Settings")
 var _config = ConfigFile.new()
 
+var active_slider: TypingSlider:
+	set(v):
+		if active_slider:
+			active_slider.z_index = 0
+		
+		active_slider = v
+		overlay.visible = v != null
+		
+		if active_slider:
+			active_slider.z_index = 20
+
+
 func _ready():
+	super._ready()
+	overlay.hide()
 	_load_settings()
+
+	for s in sliders:
+		s.opened.connect(func(open): active_slider = s if open else null)
+
 
 func _load_settings():
 	var error = _config.load(CONFIG_FILE)
@@ -28,3 +49,14 @@ func _save_config():
 	_logger.debug("Saving settings")
 	_audio.save_settings(_config)
 	_config.save(CONFIG_FILE)
+
+func _gui_input(event):
+	if active_slider:
+		active_slider.handle_event(event)
+	else:
+		if event.is_action_pressed("ui_cancel") and not delegator.has_focused():
+			get_viewport().gui_release_focus()
+		
+		delegator.handle_event(event)
+
+	get_viewport().set_input_as_handled()
