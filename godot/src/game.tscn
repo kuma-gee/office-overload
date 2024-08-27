@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=60 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -34,6 +34,8 @@
 [ext_resource type="Texture2D" uid="uid://sy6r1qjyud55" path="res://assets/Desk_Static.png" id="19_wvt8k"]
 [ext_resource type="Script" path="res://src/BlinkText.gd" id="20_0ygyh"]
 [ext_resource type="Script" path="res://src/delegator.gd" id="20_tcix1"]
+[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="20_u0r5t"]
+[ext_resource type="Script" path="res://src/base-system/effect/Shake.gd" id="21_os6oe"]
 [ext_resource type="Texture2D" uid="uid://r6b75n40gyxy" path="res://assets/Desk_Computer.png" id="21_tywuk"]
 [ext_resource type="Curve" uid="uid://c5dolop3rdetn" path="res://src/dust_damp.tres" id="24_ecpli"]
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/Document.png" id="24_g7dws"]
@@ -617,6 +619,15 @@ layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
 height = 1.0
 
+[node name="EffectRoot" type="Node" parent="CanvasLayer/Distractions/Phone"]
+script = ExtResource("20_u0r5t")
+duration = 0.5
+loop = true
+
+[node name="Shake" type="Node" parent="CanvasLayer/Distractions/Phone/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("21_os6oe")
+node = NodePath("../..")
+
 [node name="Junior" type="PanelContainer" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label")]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -819,8 +830,6 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "08"
 horizontal_alignment = 1
 script = ExtResource("7_ruuy4")
-end_hour = 12
-hour_in_seconds = 2
 timer = NodePath("Timer")
 day_end_sound = NodePath("End")
 overtime_sound = NodePath("Overtime")

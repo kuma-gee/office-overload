@@ -10,6 +10,8 @@ extends Control
 @export var promotion_container: Control
 
 @export var promotion_text: RichTextLabel
+@export var promotion_text_container: Control
+
 @export var title: Label
 @export var overtime: Label
 @export var finished_tasks: Label

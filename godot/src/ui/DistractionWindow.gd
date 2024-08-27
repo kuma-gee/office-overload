@@ -6,6 +6,7 @@ extends PanelContainer
 @export var slide_dir := Vector2.ZERO
 
 @onready var start_pos := global_position
+@onready var effect_root: EffectRoot = $"../Phone/EffectRoot"
 
 var tw: Tween
 var mistakes := 0
@@ -36,6 +37,7 @@ func slide_in():
 	
 	tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tw.tween_property(self, "global_position", start_pos, 0.5).from(start_pos - slide_dir.normalized() * (size.x if slide_dir.x != 0 else size.y))
+	tw.finished.connect(func(): effect_root.do_effect())
 
 func slide_out():
 	if tw and tw.is_running():

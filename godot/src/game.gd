@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var max_documents_difficulty := 15
+@export var max_documents_difficulty := 10
 @export var overload_reduce := 20.0
 @export var work_time: WorkTime
 
@@ -24,6 +24,7 @@ extends Node2D
 
 var is_gameover = false
 var documents = []
+var distraction_accumulator = 0.0
 
 func _set_environment():
 	if GameManager.day <= 1:
@@ -149,8 +150,13 @@ func _spawn_document(await_start = false):
 		elif is_end_of_day():
 			_finished()
 		else:
-			if randf() < GameManager.difficulty.distractions:
+			var distraction_random = randf() - distraction_accumulator
+			if distraction_random < GameManager.difficulty.distractions:
 				distractions.show_distraction()
+				distraction_accumulator = 0.0
+			else:
+				# Increase distraction chance, otherwise it's too random and can take too long
+				distraction_accumulator = GameManager.difficulty.distractions / 10.
 			
 			if await_start:
 				keyboard.frame = 0
