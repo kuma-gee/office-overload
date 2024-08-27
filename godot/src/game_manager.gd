@@ -21,20 +21,25 @@ var day := 0
 var completed_documents := 0
 var total_overtime := 0
 
-var current_mode: Mode
 var difficulty_level := DifficultyResource.Level.INTERN
 var difficulty: DifficultyResource
+
+var unlocked_modes = [Mode.Work]
+var current_mode: Mode
 
 func _ready():
 	difficulty = DIFFICULTIES[difficulty_level]
 
 func start(mode: Mode = current_mode):
+	if not is_mode_unlocked(mode):
+		return
+	
 	current_mode = mode
 	if is_work_mode():
 		day += 1
 	else:
 		day = 1 # Needed to await start key
-
+	
 	SceneManager.change_scene("res://src/game.tscn") # reload_scene (sometimes?) doesn't work?
 
 func next_day():
@@ -116,3 +121,11 @@ func is_work_mode():
 	
 func is_crunch_mode():
 	return current_mode == Mode.Crunch
+
+func is_mode_unlocked(mode: Mode):
+	if Env.is_demo():
+		return mode == Mode.Work
+	return mode in unlocked_modes
+
+func get_unlocked_modes():
+	return unlocked_modes

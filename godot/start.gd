@@ -8,7 +8,12 @@ extends Control
 
 func _ready():
 	get_tree().paused = false
-	start.finished.connect(func(): mode_panel.grab_focus())
+	start.finished.connect(func():
+		if GameManager.unlocked_modes.size() == 1:
+			GameManager.start(GameManager.unlocked_modes[0])
+		else:
+			mode_panel.grab_focus()
+	)
 	setting.finished.connect(func(): settings_panel.grab_focus())
 	exit.finished.connect(func(): _on_exit_pressed())
 

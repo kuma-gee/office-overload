@@ -46,10 +46,9 @@ func _args_dictionary():
 
 	return arguments
 
-func _get_hash(str: String):
+func _get_hash(s: String):
 	var ctx = HashingContext.new()
 	ctx.start(HashingContext.HASH_SHA256)
-	# ctx.update() # TODO
-
+	ctx.update(s.to_utf8_buffer())
 	var res = ctx.finish()
 	return res.hex_encode()

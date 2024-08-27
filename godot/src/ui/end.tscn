@@ -13,7 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://e82h4pq7oib4" path="res://assets/sound/金額表示.mp3" id="8_i0k3p"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="11_oaofj"]
 
-[node name="End" type="Control" node_paths=PackedStringArray("next_day", "break_button", "next_day_container", "promotion_container")]
+[node name="End" type="Control" node_paths=PackedStringArray("next_day", "break_button", "next_day_container", "promotion_container", "promotion_text")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -25,8 +25,9 @@ theme = ExtResource("1_80w1y")
 script = ExtResource("2_oxc1v")
 next_day = NodePath("CenterContainer/VBoxContainer/VBoxContainer/NextDay/NextDayButton")
 break_button = NodePath("CenterContainer/VBoxContainer/VBoxContainer/NextDay/Break")
-next_day_container = NodePath("CenterContainer/VBoxContainer/VBoxContainer/NextDay")
-promotion_container = NodePath("CenterContainer/VBoxContainer/VBoxContainer/Promotion")
+next_day_container = NodePath("CenterContainer/VBoxContainer/VBoxContainer")
+promotion_container = NodePath("CenterContainer/VBoxContainer/Promotion")
+promotion_text = NodePath("CenterContainer/VBoxContainer/VBoxContainer/PromotionText")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -53,10 +54,50 @@ theme_override_constants/separation = 10
 layout_mode = 2
 text = "daily report"
 label_settings = ExtResource("2_ox4yy")
+horizontal_alignment = 1
+
+[node name="Promotion" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+script = ExtResource("7_k31c7")
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/Promotion"]
+layout_mode = 2
+text = "We have been impressed
+by your performance"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer/Promotion"]
+layout_mode = 2
+text = "Would you like a promotion?"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/VBoxContainer/Promotion" node_paths=PackedStringArray("key_reader")]
+layout_mode = 2
+size_flags_horizontal = 4
+script = ExtResource("5_vwxsb")
+key_reader = NodePath("../../../../KeyReader")
+
+[node name="PromotionYes" parent="CenterContainer/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+word = "Yes"
+
+[node name="PromotionNo" parent="CenterContainer/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+word = "No"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
+
+[node name="PromotionText" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "PROMOTED"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
 
 [node name="FinishedTasks" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -84,31 +125,6 @@ word = "Next Day"
 layout_mode = 2
 word = "Break"
 
-[node name="Promotion" type="VBoxContainer" parent="CenterContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-script = ExtResource("7_k31c7")
-
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer/Promotion"]
-layout_mode = 2
-text = "Take promotion?"
-label_settings = ExtResource("4_0mkg1")
-horizontal_alignment = 1
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/VBoxContainer/VBoxContainer/Promotion" node_paths=PackedStringArray("key_reader")]
-layout_mode = 2
-size_flags_horizontal = 4
-script = ExtResource("5_vwxsb")
-key_reader = NodePath("../../../../../KeyReader")
-
-[node name="PromotionYes" parent="CenterContainer/VBoxContainer/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
-layout_mode = 2
-word = "Yes"
-
-[node name="PromotionNo" parent="CenterContainer/VBoxContainer/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
-layout_mode = 2
-word = "No"
-
 [node name="KeyReader" type="Node" parent="."]
 process_mode = 2
 script = ExtResource("11_oaofj")
@@ -132,5 +148,5 @@ stream = ExtResource("8_i0k3p")
 volume_db = -10.0
 bus = &"SFX"
 
-[connection signal="finished" from="CenterContainer/VBoxContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionYes" to="." method="_on_promotion_yes_finished"]
-[connection signal="finished" from="CenterContainer/VBoxContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionNo" to="." method="_on_promotion_no_finished"]
+[connection signal="finished" from="CenterContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionYes" to="." method="_on_promotion_yes_finished"]
+[connection signal="finished" from="CenterContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionNo" to="." method="_on_promotion_no_finished"]

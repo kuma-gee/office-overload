@@ -13,7 +13,8 @@ func handle_event(event: InputEvent):
 	if key:
 		var focused = _get_focused_label()
 		if focused:
-			focused.handle_key(key)
+			if not focused.handle_key(key):
+				focused.reset()
 		else:
 			var first = _get_first_label_starting(key)
 			if first:
@@ -26,14 +27,14 @@ func has_focused():
 
 func _get_first_label_starting(key: String):
 	for m in nodes:
-		var lbl = m.get_label() as TypedWord
+		var lbl = m.get_label()
 		if lbl and lbl.word != "" and lbl.word.begins_with(key):
 			return lbl
 	return null
 
 func _get_focused_label():
 	for m in nodes:
-		var lbl = m.get_label() as TypedWord
+		var lbl = m.get_label()
 		if lbl and lbl.word != "" and lbl.focused:
 			return lbl
 	return null

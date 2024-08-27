@@ -18,7 +18,7 @@ func _ready():
 
 func fired(finished_tasks: int, open_tasks: int, _next_day = false):
 	get_tree().paused = true
-	finished.text = "total %s finished tasks" % GameManager.completed_documents
+	finished.text = "total %s finished tasks" % finished_tasks
 	
 	overtime.visible = GameManager.total_overtime > 0
 	overtime.text = "total %s hours overtime" % GameManager.total_overtime

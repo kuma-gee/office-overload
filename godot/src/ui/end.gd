@@ -11,9 +11,12 @@ extends Control
 @export var next_day_container: Control
 @export var promotion_container: Control
 
+@export var promotion_text: Label
+
 func _ready():
 	next_day_container.hide()
 	promotion_container.hide()
+	promotion_text.hide()
 	
 	hide()
 	next_day.finished.connect(func(): GameManager.next_day())
@@ -40,6 +43,9 @@ func _on_back_pressed():
 
 func _on_promotion_yes_finished():
 	GameManager.take_promotion()
+	
+	promotion_text.text = "Promoted to %s" % DifficultyResource.Level.keys()[GameManager.difficulty_level]
+	promotion_text.show()
 	_on_promotion_no_finished()
 
 func _on_promotion_no_finished():

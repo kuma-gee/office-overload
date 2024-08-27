@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=27 format=3 uid="uid://ctlncowdl0sbn"]
 
 [ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="1_3ujy4"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" path="res://src/ui/typing_slider.gd" id="16_vbvxj"]
 [ext_resource type="Script" path="res://src/ui/GameModes.gd" id="19_yyowk"]
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="20_lew8u"]
+[ext_resource type="PackedScene" uid="uid://wtd5yqsbnpf0" path="res://src/ui/game_mode.tscn" id="21_npox4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gorx4"]
 shader = ExtResource("1_3ujy4")
@@ -156,6 +157,7 @@ size_flags_vertical = 0
 
 [node name="Job" type="Label" parent="Stats/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
 text = "Current Job"
 
@@ -203,6 +205,7 @@ layout_mode = 2
 
 [node name="Skill" type="Label" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
 text = "Skill"
 horizontal_alignment = 2
@@ -230,6 +233,7 @@ autoplay = true
 bus = &"BGM"
 
 [node name="MenuOverlay" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -413,7 +417,7 @@ word = "l"
 layout_mode = 2
 color = Color(0, 0, 0, 0.313726)
 
-[node name="GameModes" type="Control" parent="." node_paths=PackedStringArray("work", "crunch", "interview", "delegator")]
+[node name="GameModes" type="Control" parent="." node_paths=PackedStringArray("delegator")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -423,13 +427,11 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
 script = ExtResource("19_yyowk")
-work = NodePath("Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/WorkTime")
-crunch = NodePath("Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/CrunchTime")
-interview = NodePath("Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Interview2")
 delegator = NodePath("Delegator")
 
-[node name="Delegator" type="Node" parent="GameModes"]
+[node name="Delegator" type="Node" parent="GameModes" node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
+nodes = [NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode3"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode2")]
 
 [node name="EffectRoot" type="Node" parent="GameModes"]
 script = ExtResource("14_hvw1b")
@@ -480,47 +482,16 @@ theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 5
 
-[node name="VBoxContainer" type="GridContainer" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
-theme_override_constants/v_separation = 10
-columns = 2
 
-[node name="WorkTime" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="GameMode" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
-word = "Work Time"
+mode = 0
 
-[node name="Label" type="Label" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="GameMode3" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 8
-text = "A normal work day where you get tasks based on your skill level"
-autowrap_mode = 3
 
-[node name="CrunchTime" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="GameMode2" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
-word = "Crunch Time"
-
-[node name="Label2" type="Label" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 8
-text = "A endless work day that tests you how long you can survive"
-autowrap_mode = 3
-
-[node name="Interview2" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
-word = "Interview"
-typing_label = NodePath("../Interview/MarginContainer/TypingLabel")
-
-[node name="Label3" type="Label" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 8
-text = "A job interview where you test your skills in a limited time "
-autowrap_mode = 3
+mode = 2
