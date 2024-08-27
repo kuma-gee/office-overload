@@ -64,7 +64,7 @@ func slide_all_out():
 
 func show_distraction():
 	var available = menus.filter(func(m): return m.get_word() == "")
-	if GameManager.difficulty_level <= DifficultyResource.Level.JUNIOR:
+	if not GameManager.is_senior():
 		available.erase(Type.JUNIOR)
 	
 	if available.is_empty(): return

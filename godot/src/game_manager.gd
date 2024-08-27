@@ -68,14 +68,42 @@ func get_accuracy():
 func finish_game():
 	wpm_calculator.calculate_wpm()
 
+### Difficulty
+
 func can_have_promotion():
-	return get_wpm() > difficulty.average_wpm and (difficulty_level + 1) in DIFFICULTIES
+	if is_max_promotion(): return false
+
+	var next = difficulty_level + 1
+	if not next in DIFFICULTIES: return false
+	
+	return get_wpm() > DIFFICULTIES[next].average_wpm
 	
 func take_promotion():
+	if is_max_promotion(): return
+
 	difficulty_level += 1
 	if difficulty_level in DIFFICULTIES:
 		difficulty = DIFFICULTIES[difficulty_level]
 
+func is_max_promotion():
+	if Env.is_demo() and is_senior():
+		return true
+
+	return is_management();
+
+func is_intern():
+	return difficulty_level == DifficultyResource.Level.INTERN
+
+func is_junior():
+	return difficulty_level == DifficultyResource.Level.JUNIOR
+
+func is_senior():
+	return difficulty_level == DifficultyResource.Level.SENIOR
+
+func is_management():
+	return difficulty_level == DifficultyResource.Level.MANAGEMENT
+
+### Modes
 
 func is_interview_mode():
 	return current_mode == Mode.Interview

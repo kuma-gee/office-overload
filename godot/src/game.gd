@@ -25,12 +25,12 @@ var is_gameover = false
 var documents = []
 
 func _set_environment():
-	#if GameManager.day <= 1:
-	animation_player.play("normal")
-	#elif GameManager.day == 2:
-		#animation_player.play("messy")
-	#else:
-		#animation_player.play("littered")
+	if GameManager.day <= 1:
+		animation_player.play("normal")
+	elif GameManager.day == 2:
+		animation_player.play("messy")
+	else:
+		animation_player.play("littered")
 
 func _ready():
 	get_tree().paused = false
@@ -45,20 +45,25 @@ func _ready():
 		animation_player.play("stop_bgm")
 	)
 	
-	overload_progress.filled.connect(func(): overload_timer.start())
-	overload_timer.started.connect(func(): overload_progress.start_blink())
-	overload_timer.stopped.connect(func(): overload_progress.stop_blink())
-	overload_timer.timeout.connect(func():
-		progress_broken.play()
+	if not GameManager.is_intern():
+		overload_progress.filled.connect(func(): overload_timer.start())
+		overload_timer.started.connect(func(): overload_progress.start_blink())
+		overload_timer.stopped.connect(func(): overload_progress.stop_blink())
+		overload_timer.timeout.connect(func():
+			progress_broken.play()
+			overload_progress.hide()
+			_lost()
+		)
+
+		spawn_timer.timeout.connect(func(): _spawn())
+	else:
 		overload_progress.hide()
-		_lost()
-	)
+
 	work_time.next_work_day.connect(func(): _lost(true))
 	work_time.day_ended.connect(func():
 		if documents.is_empty():
 			_finished()
 	)
-	spawn_timer.timeout.connect(func(): _spawn())
 		
 	key_reader.pressed_key.connect(func(key, _s): if not documents.is_empty(): documents[0].handle_key(key))
 
@@ -108,12 +113,14 @@ func _spawn():
 		return
 	
 	_spawn_document()
-	var wpm_diff = 20
-	var wpm = GameManager.get_wpm()
 	
-	# TODO: change based on wpm
-	var t = GameManager.difficulty.min_documents
-	spawn_timer.start(t)
+	if not GameManager.is_intern():
+		var finished = get_finished()
+		var max_docs = 15
+		var p = min(finished / max_docs, 1.0)
+		var t = lerp(GameManager.difficulty.max_documents, GameManager.difficulty.min_documents, p)
+
+		spawn_timer.start(t)
 
 func _spawn_document(show_tutorial = false):
 	var doc = doc_spawner.spawn_document() as Document
@@ -133,8 +140,7 @@ func _spawn_document(show_tutorial = false):
 		elif is_end_of_day():
 			_finished()
 		else:
-			var distraction_level = [DifficultyResource.Level.SENIOR, DifficultyResource.Level.MANAGEMENT]
-			if randf() < GameManager.difficulty.distractions and GameManager.difficulty_level in distraction_level:
+			if randf() < GameManager.difficulty.distractions:
 				distractions.show_distraction()
 			
 			if not show_tutorial:
