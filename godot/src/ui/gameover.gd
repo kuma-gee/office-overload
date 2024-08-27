@@ -28,6 +28,7 @@ func fired(finished_tasks: int, open_tasks: int, _next_day = false):
 	_do_show()
 	audio_stream_player.play()
 
+	GameManager.reset_values()
 
 func _do_show():
 	gameover_effect.do_effect()

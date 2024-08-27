@@ -30,20 +30,23 @@ func _ready():
 
 func start(mode: Mode = current_mode):
 	current_mode = mode
-	day += 1
+	if is_work_mode():
+		day += 1
+	else:
+		day = 1 # Needed to await start key
+
 	SceneManager.change_scene("res://src/game.tscn") # reload_scene (sometimes?) doesn't work?
 
 func next_day():
 	start()
 
 func restart():
-	#_reset()
 	SceneManager.change_scene("res://src/game.tscn")
 
 func back_to_menu(reset = true):
 	SceneManager.change_scene("res://start.tscn")
 
-func _reset():
+func reset_values():
 	day = 0
 	completed_documents = 0
 	total_overtime = 0

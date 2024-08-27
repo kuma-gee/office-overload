@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var max_documents_difficulty := 15
 @export var overload_reduce := 20.0
 @export var work_time: WorkTime
 
@@ -64,6 +65,13 @@ func _ready():
 		if documents.is_empty():
 			_finished()
 	)
+
+	document_stack.document_added.connect(func():
+		if get_finished() == max_documents_difficulty:
+			doc_spawner.add_hard()
+		elif get_finished() == max_documents_difficulty / 2.:
+			doc_spawner.add_medium()
+	)
 		
 	key_reader.pressed_key.connect(func(key, _s): if not documents.is_empty(): documents[0].handle_key(key))
 
@@ -94,7 +102,7 @@ func is_end_of_day():
 func _process(_delta):
 	var max_documents = 5.0
 	var workload = documents.size() / max_documents
-	overload_progress.multiplier =  max(workload, 0.5)
+	overload_progress.multiplier = max(workload, 0.5)
 
 func _finished():
 	_save_progress()
@@ -116,13 +124,12 @@ func _spawn():
 	
 	if not GameManager.is_intern():
 		var finished = get_finished()
-		var max_docs = 15
-		var p = min(finished / max_docs, 1.0)
+		var p = min(finished / max_documents_difficulty, 1.0)
 		var t = lerp(GameManager.difficulty.max_documents, GameManager.difficulty.min_documents, p)
 
 		spawn_timer.start(t)
 
-func _spawn_document(show_tutorial = false):
+func _spawn_document(await_start = false):
 	var doc = doc_spawner.spawn_document() as Document
 	doc.started.connect(func(): GameManager.start_type())
 	doc.finished.connect(func():
@@ -133,7 +140,7 @@ func _spawn_document(show_tutorial = false):
 		
 		overload_progress.reduce(overload_reduce)
 		document_stack.add_document()
-		overload_timer.stop() 
+		overload_timer.stop()
 		
 		if documents.size() > 0:
 			documents[0].highlight()
@@ -143,23 +150,18 @@ func _spawn_document(show_tutorial = false):
 			if randf() < GameManager.difficulty.distractions:
 				distractions.show_distraction()
 			
-			if not show_tutorial:
-				spawn_timer.stop()
-				_spawn()
-			else:
+			if await_start:
 				keyboard.frame = 0
 				_start_game()
-		
-			if get_finished() == 20:
-				doc_spawner.add_hard()
-			elif get_finished() == 10:
-				doc_spawner.add_medium()
+			else:
+				spawn_timer.stop()
+				_spawn()
 	)
 
 	if documents.is_empty():
 		doc.highlight()
 		
-	if show_tutorial:
+	if await_start:
 		doc.show_tutorial()
 		
 	documents.append(doc)

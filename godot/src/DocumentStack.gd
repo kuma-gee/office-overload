@@ -1,5 +1,7 @@
 extends Node2D
 
+signal document_added()
+
 @export var stack_count := 10
 @export var max_stacks := 5
 

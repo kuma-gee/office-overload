@@ -881,7 +881,6 @@ stack_count = 5
 max_stacks = 10
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="DocumentStack"]
-visible = false
 position = Vector2(-10, 0)
 emitting = false
 amount = 2
@@ -902,7 +901,6 @@ scale_amount_curve = SubResource("Curve_bp2je")
 color_ramp = SubResource("Gradient_ar5ax")
 
 [node name="CPUParticles2D2" type="CPUParticles2D" parent="DocumentStack"]
-visible = false
 position = Vector2(10, 0)
 scale = Vector2(-1, 1)
 emitting = false
@@ -924,7 +922,6 @@ scale_amount_curve = SubResource("Curve_bp2je")
 color_ramp = SubResource("Gradient_ar5ax")
 
 [node name="CPUParticles2D3" type="CPUParticles2D" parent="DocumentStack"]
-visible = false
 position = Vector2(0, -15)
 emitting = false
 amount = 2
@@ -945,7 +942,6 @@ scale_amount_curve = SubResource("Curve_bp2je")
 color_ramp = SubResource("Gradient_ar5ax")
 
 [node name="CPUParticles2D4" type="CPUParticles2D" parent="DocumentStack"]
-visible = false
 position = Vector2(0, 15)
 scale = Vector2(1, -1)
 emitting = false
