@@ -8,19 +8,12 @@ extends Node2D
 @onready var document_stack = $DocumentStack
 @onready var overload_timer = $OverloadTimer
 @onready var keyboard = $Desk/Keyboard
+@onready var clock = $Desk/Clock
 
 @onready var overload_progress = $CanvasLayer/HUD/MarginContainer/OverloadProgress
 @onready var progress_broken = $CanvasLayer/HUD/MarginContainer/ProgressBroken
 @onready var animation_player = $AnimationPlayer
 @onready var distractions = $CanvasLayer/Distractions
-
-@onready var canvas_modulate = $CanvasModulate
-@onready var clock_light_1 = $Desk/Clock/ClockLight1
-@onready var clock_light_2 = $Desk/Clock/ClockLight2
-@onready var clock_light_3 = $Desk/Clock/ClockLight3
-@onready var clock_light_4 = $Desk/Clock/ClockLight4
-@onready var point_light_2d = $PointLight2D
-@onready var lights = [clock_light_1, clock_light_2, clock_light_3, clock_light_4, point_light_2d]
 
 @onready var end = $CanvasLayer/End
 @onready var gameover = $CanvasLayer/Gameover
@@ -30,20 +23,18 @@ extends Node2D
 
 var is_gameover = false
 var documents = []
-var light = 1.0
 
 func _set_environment():
-	if GameManager.day <= 1:
-		animation_player.play("normal")
-	elif GameManager.day == 2:
-		animation_player.play("messy")
-	else:
-		animation_player.play("littered")
+	#if GameManager.day <= 1:
+	animation_player.play("normal")
+	#elif GameManager.day == 2:
+		#animation_player.play("messy")
+	#else:
+		#animation_player.play("littered")
 
 func _ready():
 	get_tree().paused = false
 	_set_environment()
-	print("Current Level: %s" % DifficultyResource.Level.keys()[GameManager.difficulty_level])
 	
 	GameManager.round_ended.connect(func():
 		is_gameover = true
@@ -66,39 +57,10 @@ func _ready():
 	work_time.day_ended.connect(func():
 		if documents.is_empty():
 			_finished()
-		
-		_set_lights(true)
-	)
-	work_time.time_changed.connect(func(time):
-		if not is_end_of_day():
-			return
-		
-		if time > 24 + 2:
-			light = min(light + 0.16, 1)
-		else:
-			light = max(light - 0.1, 0.2)
-		
-		canvas_modulate.color = Color(light, light, light, 1)
-		
-		if light >= 1:
-			_set_lights(false)
-			
-		if light >= 0.3:
-			overload_progress.brighten()
-		else:
-			overload_progress.darken()
 	)
 	spawn_timer.timeout.connect(func(): _spawn())
 		
 	key_reader.pressed_key.connect(func(key, _s): if not documents.is_empty(): documents[0].handle_key(key))
-
-	canvas_modulate.color = Color.WHITE
-	canvas_modulate.show()
-	_set_lights(false)
-
-func _set_lights(enabled: bool):
-	for l in lights:
-		l.enabled = enabled
 
 func _on_day_finished():
 	bgm.pitch_scale = GameManager.difficulty.bgm_speed
@@ -171,7 +133,8 @@ func _spawn_document(show_tutorial = false):
 		elif is_end_of_day():
 			_finished()
 		else:
-			if randf() < GameManager.difficulty.distractions:
+			var distraction_level = [DifficultyResource.Level.SENIOR, DifficultyResource.Level.MANAGEMENT]
+			if randf() < GameManager.difficulty.distractions and GameManager.difficulty_level in distraction_level:
 				distractions.show_distraction()
 			
 			if not show_tutorial:

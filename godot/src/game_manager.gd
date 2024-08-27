@@ -75,3 +75,13 @@ func take_promotion():
 	difficulty_level += 1
 	if difficulty_level in DIFFICULTIES:
 		difficulty = DIFFICULTIES[difficulty_level]
+
+
+func is_interview_mode():
+	return current_mode == Mode.Interview
+
+func is_work_mode():
+	return current_mode == Mode.Work
+	
+func is_crunch_mode():
+	return current_mode == Mode.Crunch

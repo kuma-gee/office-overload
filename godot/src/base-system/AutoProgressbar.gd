@@ -1,3 +1,4 @@
+class_name AutoProgressbar
 extends TextureProgressBar
 
 signal filled()

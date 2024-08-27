@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=26 format=3 uid="uid://ctlncowdl0sbn"]
 
 [ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="1_3ujy4"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
@@ -15,10 +15,11 @@
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="14_hvw1b"]
 [ext_resource type="Script" path="res://src/base-system/menu/AudioSettings.gd" id="15_4lkng"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="15_84nkj"]
+[ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="15_b245w"]
 [ext_resource type="Script" path="res://src/delegator.gd" id="16_bh4xx"]
 [ext_resource type="Script" path="res://src/ui/typing_slider.gd" id="16_vbvxj"]
-[ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="16_w1oiw"]
 [ext_resource type="Script" path="res://src/ui/GameModes.gd" id="19_yyowk"]
+[ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="20_lew8u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gorx4"]
 shader = ExtResource("1_3ujy4")
@@ -67,8 +68,8 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -72.0
-offset_right = 72.0
+offset_left = -66.0
+offset_right = 78.0
 offset_bottom = 50.0
 grow_horizontal = 2
 theme_override_constants/margin_top = 10
@@ -228,6 +229,15 @@ volume_db = -35.0
 autoplay = true
 bus = &"BGM"
 
+[node name="MenuOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.482353)
+
 [node name="Settings" type="Control" parent="." node_paths=PackedStringArray("overlay", "sliders", "delegator")]
 visible = false
 layout_mode = 1
@@ -255,6 +265,10 @@ duration = 0.5
 script = ExtResource("15_84nkj")
 node = NodePath("../..")
 
+[node name="Fade" type="Node" parent="Settings/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("15_b245w")
+node = NodePath("../../../MenuOverlay")
+
 [node name="Audio" type="PanelContainer" parent="Settings"]
 layout_mode = 1
 anchors_preset = 8
@@ -276,7 +290,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Settings/Audio/VBoxContainer"]
 layout_mode = 2
 text = "Settings"
-label_settings = ExtResource("16_w1oiw")
+label_settings = ExtResource("20_lew8u")
 horizontal_alignment = 1
 
 [node name="Master" type="PanelContainer" parent="Settings/Audio/VBoxContainer"]
@@ -400,6 +414,7 @@ layout_mode = 2
 color = Color(0, 0, 0, 0.313726)
 
 [node name="GameModes" type="Control" parent="." node_paths=PackedStringArray("work", "crunch", "interview", "delegator")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -408,9 +423,9 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
 script = ExtResource("19_yyowk")
-work = NodePath("Modes/VBoxContainer/MarginContainer/VBoxContainer/WorkTime")
-crunch = NodePath("Modes/VBoxContainer/MarginContainer/VBoxContainer/CrunchTime")
-interview = NodePath("Modes/VBoxContainer/MarginContainer/VBoxContainer/Interview2")
+work = NodePath("Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/WorkTime")
+crunch = NodePath("Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/CrunchTime")
+interview = NodePath("Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Interview2")
 delegator = NodePath("Delegator")
 
 [node name="Delegator" type="Node" parent="GameModes"]
@@ -424,6 +439,10 @@ duration = 0.5
 [node name="Slide" type="Node" parent="GameModes/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("15_84nkj")
 node = NodePath("../..")
+
+[node name="Fade" type="Node" parent="GameModes/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("15_b245w")
+node = NodePath("../../../MenuOverlay")
 
 [node name="Modes" type="PanelContainer" parent="GameModes"]
 layout_mode = 1
@@ -439,58 +458,69 @@ offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameModes/Modes"]
+[node name="MarginContainer" type="MarginContainer" parent="GameModes/Modes"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameModes/Modes/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="GameModes/Modes/VBoxContainer"]
+[node name="Label" type="Label" parent="GameModes/Modes/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Work Mode"
-label_settings = ExtResource("16_w1oiw")
+label_settings = ExtResource("20_lew8u")
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="GameModes/Modes/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="GameModes/Modes/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 5
 
-[node name="VBoxContainer" type="GridContainer" parent="GameModes/Modes/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="GridContainer" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="WorkTime" parent="GameModes/Modes/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="WorkTime" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
 word = "Work Time"
 
-[node name="Label" type="Label" parent="GameModes/Modes/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 8
 text = "A normal work day where you get tasks based on your skill level"
 autowrap_mode = 3
 
-[node name="CrunchTime" parent="GameModes/Modes/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="CrunchTime" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
 word = "Crunch Time"
 
-[node name="Label2" type="Label" parent="GameModes/Modes/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 8
 text = "A endless work day that tests you how long you can survive"
 autowrap_mode = 3
 
-[node name="Interview2" parent="GameModes/Modes/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="Interview2" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
 word = "Interview"
 typing_label = NodePath("../Interview/MarginContainer/TypingLabel")
 
-[node name="Label3" type="Label" parent="GameModes/Modes/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Label3" type="Label" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 8
 text = "A job interview where you test your skills in a limited time "
 autowrap_mode = 3

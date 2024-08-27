@@ -642,14 +642,14 @@ stretch_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Junior"]
 layout_mode = 2
-theme_override_constants/margin_left = 5
+theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 5
+theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Junior/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 12
 
 [node name="Label" type="Label" parent="CanvasLayer/Distractions/Junior/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -764,12 +764,15 @@ frame = 1
 position = Vector2(0, -80)
 texture = ExtResource("21_tywuk")
 
-[node name="Clock" type="Sprite2D" parent="Desk" node_paths=PackedStringArray("worktime")]
+[node name="Clock" type="Sprite2D" parent="Desk" node_paths=PackedStringArray("worktime", "point_light", "canvas_modulate", "overload_progress")]
 position = Vector2(88, -74)
 texture = ExtResource("13_dyrwf")
 hframes = 2
 script = ExtResource("14_stuan")
 worktime = NodePath("HBoxContainer/WorkTime")
+point_light = NodePath("../../PointLight2D")
+canvas_modulate = NodePath("../../CanvasModulate")
+overload_progress = NodePath("../../CanvasLayer/HUD/MarginContainer/OverloadProgress")
 
 [node name="ClockLight1" type="PointLight2D" parent="Desk/Clock"]
 position = Vector2(-10.5, 2.25806)
@@ -809,14 +812,16 @@ theme = ExtResource("10_am0oy")
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="WorkTime" type="Label" parent="Desk/Clock/HBoxContainer" node_paths=PackedStringArray("day_end_sound", "overtime_sound")]
+[node name="WorkTime" type="Label" parent="Desk/Clock/HBoxContainer" node_paths=PackedStringArray("timer", "day_end_sound", "overtime_sound")]
 layout_mode = 2
 theme = ExtResource("10_am0oy")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "08"
 horizontal_alignment = 1
 script = ExtResource("7_ruuy4")
-hour_in_seconds = 3
+end_hour = 12
+hour_in_seconds = 2
+timer = NodePath("Timer")
 day_end_sound = NodePath("End")
 overtime_sound = NodePath("Overtime")
 
@@ -831,6 +836,8 @@ process_mode = 3
 stream = ExtResource("12_y1afc")
 volume_db = -10.0
 bus = &"SFX"
+
+[node name="Timer" type="Timer" parent="Desk/Clock/HBoxContainer/WorkTime"]
 
 [node name="MarginContainer" type="MarginContainer" parent="Desk/Clock/HBoxContainer"]
 layout_mode = 2

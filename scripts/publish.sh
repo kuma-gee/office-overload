@@ -2,14 +2,17 @@
 
 # Deps:
 # conventional-changelog-cli
-# github-cli
-# butler
+# github-cli: for github
+# butler: for itchio
+# steamcmd: for steam
 
 GAME="office-overloaded"
 VERSION="$1"
+PLATFORM="$2"
+STEAM_USER="$3"
 
 # win, linux, web, macOS, android
-CHANNELS=("web" "linux" "win" "macOS")
+CHANNELS=("linux" "win")
 LAST_TAG=$(git describe --tags --abbrev=0)
 CHANGELOG=""
 
@@ -23,6 +26,7 @@ generate_changelog() {
 build_channels() {
     for CHANNEL in "${CHANNELS[@]}"; do
         echo "Building channel $CHANNEL"
+        rm build/$CHANNEL -rf
         ./scripts/build-channel.sh $CHANNEL
     done
 }
@@ -57,14 +61,17 @@ VERSION_REGEX='^v[0-9]+\.[0-9]+\.[0-9]+(-rc[0-9]+)?$'
 if [[ $VERSION =~ $VERSION_REGEX ]]; then
     sh ./scripts/prepare-build.sh $VERSION
     build_channels
-    generate_changelog
+    # generate_changelog
 
-    if [[ $VERSION != *"-rc"* ]]; then
+    if [[ "$PLATFORM" == "steam" ]]; then
+        steamcmd +login $STEAM_USER +run_app_build "$(pwd)/scripts/steam_build.vdf" +quit
+    elif [[ "$PLATFORM" == "steam-demo" ]]; then
+        steamcmd +login $STEAM_USER +run_app_build "$(pwd)/scripts/steam_build_demo.vdf" +quit
+    elif [[ "$PLATFORM" == "itch" ]]; then
         itch_release
+    else
+        github_release
     fi
-
-    github_release
-
 else
     build_channels
     echo "Missing or invalid version. Publish skipped."
