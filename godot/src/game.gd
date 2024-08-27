@@ -44,6 +44,7 @@ func _ready():
 		work_time.stop()
 		spawn_timer.stop()
 		animation_player.play("stop_bgm")
+		key_reader.process_mode = Node.NOTIFICATION_DISABLED
 	)
 	
 	if not GameManager.is_intern():
@@ -85,6 +86,7 @@ func _on_day_finished():
 		animation_player.play("tutorial")
 
 func _start_game():
+	key_reader.process_mode = Node.PROCESS_MODE_ALWAYS
 	work_time.start()
 	overload_progress.start()
 	animation_player.play("start_bgm")
@@ -111,7 +113,7 @@ func _finished():
 func _lost(end_of_day = false):
 	_save_progress()
 	distractions.slide_all_out()
-	gameover.fired(get_finished(), get_uncompleted(), end_of_day)
+	gameover.fired()
 
 func _save_progress():
 	GameManager.finished_day(get_finished(), work_time.get_overtime())

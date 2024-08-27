@@ -73,7 +73,7 @@ offset_left = -66.0
 offset_right = 78.0
 offset_bottom = 50.0
 grow_horizontal = 2
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 10
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer"]
@@ -92,9 +92,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -45.5
-offset_top = -103.0
-offset_right = 45.5
+offset_left = -45.0
+offset_top = -82.0
+offset_right = 46.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_left = 10
@@ -129,6 +129,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("12_fmeio")
 job_container = NodePath("MarginContainer/VBoxContainer")
 day = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Day")
@@ -240,7 +241,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.482353)
+color = Color(0, 0, 0, 0.588235)
 
 [node name="Settings" type="Control" parent="." node_paths=PackedStringArray("overlay", "sliders", "delegator")]
 visible = false
@@ -253,12 +254,12 @@ grow_vertical = 2
 focus_mode = 2
 script = ExtResource("11_ybmms")
 overlay = NodePath("Audio/Overlay")
-sliders = [NodePath("Audio/VBoxContainer/Master/HBoxContainer/MasterSlider"), NodePath("Audio/VBoxContainer/SFX/HBoxContainer/SFXSlider"), NodePath("Audio/VBoxContainer/BGM/HBoxContainer/BGMSlider")]
+sliders = [NodePath("Audio/MarginContainer/VBoxContainer/Master/HBoxContainer/MasterSlider"), NodePath("Audio/MarginContainer/VBoxContainer/SFX/HBoxContainer/SFXSlider"), NodePath("Audio/MarginContainer/VBoxContainer/BGM/HBoxContainer/BGMSlider")]
 delegator = NodePath("Delegator")
 
 [node name="Delegator" type="Node" parent="Settings" node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
-nodes = [NodePath("../Audio/VBoxContainer/Master/HBoxContainer/MasterVolume"), NodePath("../Audio/VBoxContainer/SFX/HBoxContainer/SFXVolume"), NodePath("../Audio/VBoxContainer/BGM/HBoxContainer/BGMVolume")]
+nodes = [NodePath("../Audio/MarginContainer/VBoxContainer/Master/HBoxContainer/MasterVolume"), NodePath("../Audio/MarginContainer/VBoxContainer/SFX/HBoxContainer/SFXVolume"), NodePath("../Audio/MarginContainer/VBoxContainer/BGM/HBoxContainer/BGMVolume")]
 
 [node name="EffectRoot" type="Node" parent="Settings"]
 script = ExtResource("14_hvw1b")
@@ -274,43 +275,51 @@ script = ExtResource("15_b245w")
 node = NodePath("../../../MenuOverlay")
 
 [node name="Audio" type="PanelContainer" parent="Settings"]
+custom_minimum_size = Vector2(240, 150)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -135.5
-offset_top = -72.0
-offset_right = 135.5
-offset_bottom = 72.0
+offset_left = -111.0
+offset_top = -68.0
+offset_right = 112.0
+offset_bottom = 68.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("15_4lkng")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings/Audio"]
+[node name="MarginContainer" type="MarginContainer" parent="Settings/Audio"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/Audio/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Settings/Audio/VBoxContainer"]
+[node name="Label" type="Label" parent="Settings/Audio/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Settings"
 label_settings = ExtResource("20_lew8u")
 horizontal_alignment = 1
 
-[node name="Master" type="PanelContainer" parent="Settings/Audio/VBoxContainer"]
+[node name="Master" type="PanelContainer" parent="Settings/Audio/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_p60nv")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/Audio/VBoxContainer/Master"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/Audio/MarginContainer/VBoxContainer/Master"]
 layout_mode = 2
 
-[node name="MasterVolume" parent="Settings/Audio/VBoxContainer/Master/HBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="MasterVolume" parent="Settings/Audio/MarginContainer/VBoxContainer/Master/HBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
 word = "Master"
 
-[node name="MasterSlider" type="HBoxContainer" parent="Settings/Audio/VBoxContainer/Master/HBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+[node name="MasterSlider" type="HBoxContainer" parent="Settings/Audio/MarginContainer/VBoxContainer/Master/HBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
 layout_mode = 2
 script = ExtResource("16_vbvxj")
 trigger_button = NodePath("../MasterVolume")
@@ -318,37 +327,37 @@ left = NodePath("Left")
 right = NodePath("Right")
 slider = NodePath("Slider")
 
-[node name="Left" parent="Settings/Audio/VBoxContainer/Master/HBoxContainer/MasterSlider" instance=ExtResource("7_2n7ql")]
+[node name="Left" parent="Settings/Audio/MarginContainer/VBoxContainer/Master/HBoxContainer/MasterSlider" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
 word = "h"
 
-[node name="Slider" type="HSlider" parent="Settings/Audio/VBoxContainer/Master/HBoxContainer/MasterSlider"]
+[node name="Slider" type="HSlider" parent="Settings/Audio/MarginContainer/VBoxContainer/Master/HBoxContainer/MasterSlider"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 4
 value = 30.0
 script = ExtResource("12_qty1o")
 
-[node name="Right" parent="Settings/Audio/VBoxContainer/Master/HBoxContainer/MasterSlider" instance=ExtResource("7_2n7ql")]
+[node name="Right" parent="Settings/Audio/MarginContainer/VBoxContainer/Master/HBoxContainer/MasterSlider" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
 word = "l"
 
-[node name="SFX" type="PanelContainer" parent="Settings/Audio/VBoxContainer"]
+[node name="SFX" type="PanelContainer" parent="Settings/Audio/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_p60nv")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/Audio/VBoxContainer/SFX"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/Audio/MarginContainer/VBoxContainer/SFX"]
 layout_mode = 2
 
-[node name="SFXVolume" parent="Settings/Audio/VBoxContainer/SFX/HBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="SFXVolume" parent="Settings/Audio/MarginContainer/VBoxContainer/SFX/HBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
 word = "SFX"
 
-[node name="SFXSlider" type="HBoxContainer" parent="Settings/Audio/VBoxContainer/SFX/HBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+[node name="SFXSlider" type="HBoxContainer" parent="Settings/Audio/MarginContainer/VBoxContainer/SFX/HBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
 layout_mode = 2
 script = ExtResource("16_vbvxj")
 trigger_button = NodePath("../SFXVolume")
@@ -356,12 +365,12 @@ left = NodePath("Left")
 right = NodePath("Right")
 slider = NodePath("Slider")
 
-[node name="Left" parent="Settings/Audio/VBoxContainer/SFX/HBoxContainer/SFXSlider" instance=ExtResource("7_2n7ql")]
+[node name="Left" parent="Settings/Audio/MarginContainer/VBoxContainer/SFX/HBoxContainer/SFXSlider" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
 word = "h"
 
-[node name="Slider" type="HSlider" parent="Settings/Audio/VBoxContainer/SFX/HBoxContainer/SFXSlider"]
+[node name="Slider" type="HSlider" parent="Settings/Audio/MarginContainer/VBoxContainer/SFX/HBoxContainer/SFXSlider"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 4
@@ -369,25 +378,25 @@ value = 30.0
 script = ExtResource("12_qty1o")
 bus_name = "SFX"
 
-[node name="Right" parent="Settings/Audio/VBoxContainer/SFX/HBoxContainer/SFXSlider" instance=ExtResource("7_2n7ql")]
+[node name="Right" parent="Settings/Audio/MarginContainer/VBoxContainer/SFX/HBoxContainer/SFXSlider" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
 word = "l"
 
-[node name="BGM" type="PanelContainer" parent="Settings/Audio/VBoxContainer"]
+[node name="BGM" type="PanelContainer" parent="Settings/Audio/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_p60nv")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/Audio/VBoxContainer/BGM"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/Audio/MarginContainer/VBoxContainer/BGM"]
 layout_mode = 2
 
-[node name="BGMVolume" parent="Settings/Audio/VBoxContainer/BGM/HBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="BGMVolume" parent="Settings/Audio/MarginContainer/VBoxContainer/BGM/HBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
 word = "BGM"
 
-[node name="BGMSlider" type="HBoxContainer" parent="Settings/Audio/VBoxContainer/BGM/HBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+[node name="BGMSlider" type="HBoxContainer" parent="Settings/Audio/MarginContainer/VBoxContainer/BGM/HBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
 layout_mode = 2
 script = ExtResource("16_vbvxj")
 trigger_button = NodePath("../BGMVolume")
@@ -395,12 +404,12 @@ left = NodePath("Left")
 right = NodePath("Right")
 slider = NodePath("Slider")
 
-[node name="Left" parent="Settings/Audio/VBoxContainer/BGM/HBoxContainer/BGMSlider" instance=ExtResource("7_2n7ql")]
+[node name="Left" parent="Settings/Audio/MarginContainer/VBoxContainer/BGM/HBoxContainer/BGMSlider" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
 word = "h"
 
-[node name="Slider" type="HSlider" parent="Settings/Audio/VBoxContainer/BGM/HBoxContainer/BGMSlider"]
+[node name="Slider" type="HSlider" parent="Settings/Audio/MarginContainer/VBoxContainer/BGM/HBoxContainer/BGMSlider"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 4
@@ -408,7 +417,7 @@ value = 30.0
 script = ExtResource("12_qty1o")
 bus_name = "BGM"
 
-[node name="Right" parent="Settings/Audio/VBoxContainer/BGM/HBoxContainer/BGMSlider" instance=ExtResource("7_2n7ql")]
+[node name="Right" parent="Settings/Audio/MarginContainer/VBoxContainer/BGM/HBoxContainer/BGMSlider" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
 word = "l"
@@ -447,25 +456,26 @@ script = ExtResource("15_b245w")
 node = NodePath("../../../MenuOverlay")
 
 [node name="Modes" type="PanelContainer" parent="GameModes"]
+custom_minimum_size = Vector2(240, 150)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -135.5
-offset_top = -72.0
-offset_right = 135.5
-offset_bottom = 72.0
+offset_left = -120.0
+offset_top = -75.0
+offset_right = 120.0
+offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="GameModes/Modes"]
 layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GameModes/Modes/MarginContainer"]
 layout_mode = 2

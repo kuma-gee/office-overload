@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dw4ed4dspm22v"]
+[gd_scene load_steps=13 format=3 uid="uid://dw4ed4dspm22v"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_t4bof"]
 [ext_resource type="Script" path="res://src/ui/gameover.gd" id="2_biwr8"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_s2nja"]
+[ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="3_k17yd"]
 [ext_resource type="Script" path="res://src/KeyDelegator.gd" id="4_46jda"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_ekemn"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="4_vuj6l"]
@@ -11,7 +12,9 @@
 [ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="7_chtch"]
 [ext_resource type="AudioStream" uid="uid://ctlbf2imxt5tn" path="res://assets/sound/呪いの旋律.mp3" id="7_fg57t"]
 
-[node name="Gameover" type="Control" node_paths=PackedStringArray("restart", "menu")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tx0w4"]
+
+[node name="Gameover" type="Control" node_paths=PackedStringArray("restart", "menu", "finished", "days", "overtime")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -21,8 +24,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_t4bof")
 script = ExtResource("2_biwr8")
-restart = NodePath("CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/Restart")
-menu = NodePath("CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer/Menu")
+restart = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Restart")
+menu = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Menu")
+finished = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Finished")
+days = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Days")
+overtime = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Overtime")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -31,7 +37,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.352941)
+color = Color(0, 0, 0, 0.588235)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -41,61 +47,72 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tx0w4")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "YOU ARE FIRED!"
 label_settings = ExtResource("2_s2nja")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 5
 
-[node name="Finished" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="Days" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/outline_size = 5
-text = "FINISHED"
-horizontal_alignment = 1
-
-[node name="Overtime" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/outline_size = 5
-text = "OVERTIME"
-horizontal_alignment = 1
-
-[node name="Open" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/outline_size = 5
-text = "OPEN"
-horizontal_alignment = 1
-
-[node name="Days" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/outline_size = 5
 text = "DAYS"
+label_settings = ExtResource("3_k17yd")
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("key_reader")]
+[node name="Finished" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "FINISHED"
+label_settings = ExtResource("3_k17yd")
+horizontal_alignment = 1
+
+[node name="Overtime" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "OVERTIME"
+label_settings = ExtResource("3_k17yd")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("key_reader")]
 layout_mode = 2
 size_flags_horizontal = 4
 script = ExtResource("4_46jda")
 key_reader = NodePath("../KeyReader")
 
-[node name="Restart" parent="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_vuj6l")]
+[node name="Restart" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_vuj6l")]
 layout_mode = 2
 word = "New Job"
 
-[node name="Menu" parent="CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_vuj6l")]
+[node name="Menu" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_vuj6l")]
 layout_mode = 2
 word = "Break"
 
-[node name="KeyReader" type="Node" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="KeyReader" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 process_mode = 2
 script = ExtResource("6_1wju1")
 

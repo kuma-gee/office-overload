@@ -4,6 +4,5 @@
 
 [resource]
 script = ExtResource("1_uxqlr")
-color = Color(0.929412, 0.894118, 0.854902, 1)
 amplitude = 2.0
 frequency = 8.0

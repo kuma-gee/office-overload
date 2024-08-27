@@ -12,12 +12,12 @@ func _ready():
 	if current_nodes.is_empty():
 		current_nodes = get_children()
 		
-	for node in current_nodes:
-		if node is TypingButton:
-			node.finished.connect(func(): cancel())
+	#for node in current_nodes:
+		#if node is TypingButton:
+			#node.finished.connect(func(): cancel())
 		
 	if key_reader:
-		key_reader.pressed_key.connect(func(key, _s): handle_key(key))
+		key_reader.pressed_key.connect(func(key, _s):handle_key(key))
 		key_reader.pressed_cancel.connect(func(_s): cancel())
 
 func handle_key(key: String):

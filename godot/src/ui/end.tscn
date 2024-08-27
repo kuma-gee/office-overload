@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://kdu7e637eapn"]
+[gd_scene load_steps=15 format=3 uid="uid://kdu7e637eapn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_80w1y"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_ox4yy"]
@@ -8,12 +8,15 @@
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_d7wj0"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="5_rckpx"]
 [ext_resource type="Script" path="res://src/KeyDelegator.gd" id="5_vwxsb"]
+[ext_resource type="RichTextEffect" uid="uid://dm8u83uhdmocq" path="res://src/ui/typed_effect_slow.tres" id="7_aknw8"]
 [ext_resource type="Script" path="res://src/ui/Promotion.gd" id="7_k31c7"]
 [ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="8_f3tsx"]
 [ext_resource type="AudioStream" uid="uid://e82h4pq7oib4" path="res://assets/sound/金額表示.mp3" id="8_i0k3p"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="11_oaofj"]
 
-[node name="End" type="Control" node_paths=PackedStringArray("next_day", "break_button", "next_day_container", "promotion_container", "promotion_text")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yl2xo"]
+
+[node name="End" type="Control" node_paths=PackedStringArray("next_day", "break_button", "next_day_container", "promotion_container", "promotion_text", "title", "overtime", "finished_tasks")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -23,11 +26,14 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_80w1y")
 script = ExtResource("2_oxc1v")
-next_day = NodePath("CenterContainer/VBoxContainer/VBoxContainer/NextDay/NextDayButton")
-break_button = NodePath("CenterContainer/VBoxContainer/VBoxContainer/NextDay/Break")
-next_day_container = NodePath("CenterContainer/VBoxContainer/VBoxContainer")
-promotion_container = NodePath("CenterContainer/VBoxContainer/Promotion")
-promotion_text = NodePath("CenterContainer/VBoxContainer/VBoxContainer/PromotionText")
+next_day = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/NextDay/NextDayButton")
+break_button = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/NextDay/Break")
+next_day_container = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer")
+promotion_container = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion")
+promotion_text = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionText")
+title = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Title")
+overtime = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Overtime")
+finished_tasks = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/FinishedTasks")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -36,7 +42,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.352941)
+color = Color(0, 0, 0, 0.588235)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -46,87 +52,113 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_yl2xo")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "daily report"
 label_settings = ExtResource("2_ox4yy")
 horizontal_alignment = 1
 
-[node name="Promotion" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="Promotion" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 10
 script = ExtResource("7_k31c7")
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/Promotion"]
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion"]
 layout_mode = 2
 text = "We have been impressed
 by your performance"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer/Promotion"]
+[node name="Label2" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion"]
 layout_mode = 2
-text = "Would you like a promotion?"
+text = "Would you like
+a promotion?"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/VBoxContainer/Promotion" node_paths=PackedStringArray("key_reader")]
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion" node_paths=PackedStringArray("key_reader")]
 layout_mode = 2
 size_flags_horizontal = 4
 script = ExtResource("5_vwxsb")
-key_reader = NodePath("../../../../KeyReader")
+key_reader = NodePath("../../../../../../KeyReader")
 
-[node name="PromotionYes" parent="CenterContainer/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
+[node name="PromotionYes" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
 layout_mode = 2
 word = "Yes"
 
-[node name="PromotionNo" parent="CenterContainer/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
+[node name="PromotionNo" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
 layout_mode = 2
 word = "No"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 5
 
-[node name="PromotionText" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="PromotionText" type="RichTextLabel" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+bbcode_enabled = true
 text = "PROMOTED"
-label_settings = ExtResource("4_0mkg1")
-horizontal_alignment = 1
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+custom_effects = [ExtResource("7_aknw8")]
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "FINISHED_TASKS"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
-[node name="Overtime" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="Overtime" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "OVERTIME"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
-[node name="NextDay" type="HBoxContainer" parent="CenterContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("key_reader")]
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("key_reader")]
 layout_mode = 2
 size_flags_horizontal = 4
 script = ExtResource("5_vwxsb")
-key_reader = NodePath("../../../../KeyReader")
+key_reader = NodePath("../../../../../../KeyReader")
 
-[node name="NextDayButton" parent="CenterContainer/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+[node name="NextDayButton" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
 layout_mode = 2
 word = "Next Day"
 
-[node name="Break" parent="CenterContainer/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+[node name="Break" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
 layout_mode = 2
 word = "Break"
 
 [node name="KeyReader" type="Node" parent="."]
-process_mode = 2
 script = ExtResource("11_oaofj")
 
 [node name="EndEffect" type="Node" parent="."]
@@ -148,5 +180,5 @@ stream = ExtResource("8_i0k3p")
 volume_db = -10.0
 bus = &"SFX"
 
-[connection signal="finished" from="CenterContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionYes" to="." method="_on_promotion_yes_finished"]
-[connection signal="finished" from="CenterContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionNo" to="." method="_on_promotion_no_finished"]
+[connection signal="finished" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionYes" to="." method="_on_promotion_yes_finished"]
+[connection signal="finished" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionNo" to="." method="_on_promotion_no_finished"]

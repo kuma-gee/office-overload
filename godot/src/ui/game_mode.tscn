@@ -7,6 +7,11 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v61jy"]
 
 [node name="GameMode" type="MarginContainer" node_paths=PackedStringArray("typing_button", "label", "lock_fg")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_jnoe1")
 typing_button = NodePath("HBoxContainer2/TypingButton")
 label = NodePath("HBoxContainer2/Desc")
@@ -35,9 +40,12 @@ layout_mode = 2
 color = Color(0, 0, 0, 0.784314)
 
 [node name="CenterContainer" type="CenterContainer" parent="LockFG"]
-layout_mode = 2
-offset_right = 253.0
-offset_bottom = 23.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="LockFG/CenterContainer"]
 custom_minimum_size = Vector2(16, 16)

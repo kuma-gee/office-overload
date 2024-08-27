@@ -14,7 +14,10 @@ func _ready():
 		else:
 			mode_panel.grab_focus()
 	)
-	setting.finished.connect(func(): settings_panel.grab_focus())
+	setting.finished.connect(func():
+		settings_panel.grab_focus()
+		setting.reset()
+	)
 	exit.finished.connect(func(): _on_exit_pressed())
 
 func _on_exit_pressed():

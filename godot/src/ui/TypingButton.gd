@@ -5,10 +5,12 @@ signal finished()
 
 @export var word := ""
 @export var typing_label: TypedWord
+@export var button: TextureButton
 
 func _ready():
 	update()
 	typing_label.type_finish.connect(func(): finished.emit())
+	button.pressed.connect(func(): finished.emit())
 
 func update():
 	typing_label.word = word
@@ -24,3 +26,6 @@ func get_word():
 
 func get_label():
 	return typing_label
+
+func reset():
+	return get_label().reset()

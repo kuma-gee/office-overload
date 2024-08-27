@@ -4,21 +4,22 @@
 [ext_resource type="Script" path="res://src/ui/TypingButton.gd" id="1_vmnp8"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="3_w7wv5"]
 
-[node name="TypingButton" type="PanelContainer" node_paths=PackedStringArray("typing_label")]
+[node name="TypingButton" type="PanelContainer" node_paths=PackedStringArray("typing_label", "button")]
 theme = ExtResource("1_jl3i8")
 script = ExtResource("1_vmnp8")
 typing_label = NodePath("MarginContainer/TypingLabel")
+button = NodePath("MarginContainer/TextureButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
+theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
+theme_override_constants/margin_bottom = 0
 
 [node name="TypingLabel" parent="MarginContainer" instance=ExtResource("3_w7wv5")]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/normal_font_size = 10
 height = 1.0
 center = false
 highlight_first = true
