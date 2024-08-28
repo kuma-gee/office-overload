@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qw0b4")
 level = 1
-min_documents = 2.0
+min_documents = 1.5
 max_documents = 3.0
 distractions = 0.0
 average_wpm = 60

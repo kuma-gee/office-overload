@@ -129,3 +129,8 @@ func is_mode_unlocked(mode: Mode):
 
 func get_unlocked_modes():
 	return unlocked_modes
+
+func unlock_mode(mode: Mode):
+	if Env.is_demo(): return
+
+	unlocked_modes.append(mode)

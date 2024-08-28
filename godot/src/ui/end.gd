@@ -42,6 +42,9 @@ func day_ended(finished: int, overtime_in_hours: float):
 	show()
 	audio_stream_player.play()
 
+	if GameManager.day == 8:
+		GameManager.unlock_mode(GameManager.Mode.Crunch)
+
 func _on_back_pressed():
 	GameManager.back_to_menu(false)
 

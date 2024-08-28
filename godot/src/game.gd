@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var max_documents_difficulty := 10
+@export var max_wpm_diff := 30.0
 @export var overload_reduce := 20.0
 @export var work_time: WorkTime
 
@@ -24,12 +24,11 @@ extends Node2D
 
 var is_gameover = false
 var documents = []
-var distraction_accumulator = 0.0
 
 func _set_environment():
-	if GameManager.day <= 1:
+	if GameManager.day <= 1 or GameManager.is_intern():
 		animation_player.play("normal")
-	elif GameManager.day == 2:
+	elif GameManager.day <= 4:
 		animation_player.play("messy")
 	else:
 		animation_player.play("littered")
@@ -45,7 +44,7 @@ func _ready():
 		work_time.stop()
 		spawn_timer.stop()
 		animation_player.play("stop_bgm")
-		key_reader.process_mode = Node.NOTIFICATION_DISABLED
+		key_reader.process_mode = Node.PROCESS_MODE_DISABLED
 	)
 	
 	if not GameManager.is_intern():
@@ -55,23 +54,24 @@ func _ready():
 		overload_timer.timeout.connect(func():
 			progress_broken.play()
 			overload_progress.hide()
-			_lost()
+			_finished(true)
 		)
 
 		spawn_timer.timeout.connect(func(): _spawn())
 	else:
 		overload_progress.hide()
 
-	work_time.next_work_day.connect(func(): _lost(true))
+	work_time.next_work_day.connect(func(): _finished(true))
 	work_time.day_ended.connect(func():
 		if documents.is_empty():
 			_finished()
 	)
 
 	document_stack.document_added.connect(func():
-		if get_finished() == max_documents_difficulty:
+		var p = _get_difficulty_level()
+		if p > 0.7:
 			doc_spawner.add_hard()
-		elif get_finished() == max_documents_difficulty / 2.:
+		elif p > 0.4:
 			doc_spawner.add_medium()
 	)
 		
@@ -92,45 +92,38 @@ func _start_game():
 	overload_progress.start()
 	animation_player.play("start_bgm")
 	_spawn()
-	
-func get_finished():
-	return document_stack.total
-
-func get_uncompleted():
-	return documents.size()
-
-func is_end_of_day():
-	return work_time.ended
 
 func _process(_delta):
 	var max_documents = 5.0
 	var workload = documents.size() / max_documents
 	overload_progress.multiplier = max(workload, 0.5)
 
-func _finished():
-	_save_progress()
-	end.day_ended(get_finished(), work_time.get_overtime())
-
-func _lost(end_of_day = false):
-	_save_progress()
+func _finished(is_gameover = false):
+	GameManager.finished_day(document_stack.total, work_time.get_overtime())
 	distractions.slide_all_out()
-	gameover.fired()
-
-func _save_progress():
-	GameManager.finished_day(get_finished(), work_time.get_overtime())
+	if is_gameover:
+		gameover.fired()
+	else:
+		end.day_ended(document_stack.total, work_time.get_overtime())
 
 func _spawn():
-	if is_end_of_day() or is_gameover:
+	if work_time.ended or is_gameover:
 		return
 	
 	_spawn_document()
 	
 	if not GameManager.is_intern():
-		var finished = get_finished()
-		var p = min(finished / max_documents_difficulty, 1.0)
+		var p = _get_difficulty_level()
 		var t = lerp(GameManager.difficulty.max_documents, GameManager.difficulty.min_documents, p)
 
 		spawn_timer.start(t)
+
+func _get_difficulty_level():
+	var start_wpm = GameManager.difficulty.average_wpm
+	var end_wpm = GameManager.difficulty.average_wpm + max_wpm_diff
+	var wpm_diff = GameManager.get_wpm() - start_wpm
+
+	return clamp(wpm_diff / max_wpm_diff, 0.0, 1.0)
 
 func _spawn_document(await_start = false):
 	var doc = doc_spawner.spawn_document() as Document
@@ -147,16 +140,10 @@ func _spawn_document(await_start = false):
 		
 		if documents.size() > 0:
 			documents[0].highlight()
-		elif is_end_of_day():
+		elif work_time.ended:
 			_finished()
 		else:
-			var distraction_random = randf() - distraction_accumulator
-			if distraction_random < GameManager.difficulty.distractions:
-				distractions.show_distraction()
-				distraction_accumulator = 0.0
-			else:
-				# Increase distraction chance, otherwise it's too random and can take too long
-				distraction_accumulator = GameManager.difficulty.distractions / 10.
+			distractions.maybe_show_distraction()
 			
 			if await_start:
 				keyboard.frame = 0

@@ -51,6 +51,8 @@ enum Type {
 @onready var junior = $Junior
 @onready var menus := [email, phone, junior]
 
+var distraction_accumulator = 0.0
+
 func _ready():
 	_close_all()
 
@@ -61,6 +63,15 @@ func _close_all():
 func slide_all_out():
 	for x in menus:
 		x.slide_out()
+
+func maybe_show_distraction():
+	var distraction_random = randf() - distraction_accumulator
+	if distraction_random < GameManager.difficulty.distractions:
+		distractions.show_distraction()
+		distraction_accumulator = 0.0
+	else:
+		# Increase distraction chance, otherwise it's too random and can take too long
+		distraction_accumulator = GameManager.difficulty.distractions / 10.
 
 func show_distraction():
 	var available = menus.filter(func(m): return m.get_word() == "")

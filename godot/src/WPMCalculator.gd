@@ -45,8 +45,8 @@ func finish_type(word: String, mistakes: int):
 	var acc = correct_chars / float(total_chars)
 	accuracy.append(acc)
 		
+	print("Word %s in %.4fs / %.4fm -> %s" % [word, time, minute, wpm])
 	cancel_type()
-	print("Word %s in %.2fs / %.2fm -> %s" % [word, time, minute, wpm])
 	# print("Current: %s/%s, Average: %s/%s" % [wpm, acc, get_average_wpm(), get_average_accuracy()])
 
 func _process(delta):
