@@ -20,9 +20,9 @@ func _update():
 	
 	job_container.visible = GameManager.day > 0
 	day.text = "Day: %s" % GameManager.day
-	level.text = "Level: %s" % DifficultyResource.Level.keys()[GameManager.difficulty_level]
-	documents.text = "Finished: %s" % GameManager.completed_documents
+	level.text = "Level: %s" % GameManager.get_level_text()
+	documents.text = "Finished Tasks: %s" % GameManager.completed_documents
 
 	skill_container.visible = GameManager.get_wpm() > 0
 	wpm.text = "%.0f words/m" % GameManager.get_wpm()
-	accuracy.text = "%.0f%% accuracy" % GameManager.get_accuracy()
+	accuracy.text = "%.2f%% accuracy" % GameManager.get_accuracy()

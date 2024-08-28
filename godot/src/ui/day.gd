@@ -9,7 +9,7 @@ signal finished()
 
 func _ready():
 	if GameManager.is_work_mode():
-		label.text = "Day %s" % GameManager.day
+		label.text = "Day %s\n%s" % [GameManager.day, GameManager.get_level_text()]
 	elif GameManager.is_crunch_mode():
 		label.text = "Crunch Time"
 	elif GameManager.is_interview_mode():

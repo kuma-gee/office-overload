@@ -111,6 +111,9 @@ func is_senior():
 func is_management():
 	return difficulty_level == DifficultyResource.Level.MANAGEMENT
 
+func get_level_text():
+	return DifficultyResource.Level.keys()[difficulty_level]
+
 ### Modes
 
 func is_interview_mode():

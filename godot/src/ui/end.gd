@@ -52,7 +52,7 @@ func _on_back_pressed():
 func _on_promotion_yes_finished():
 	GameManager.take_promotion()
 	
-	promotion_text.text = "[center][outline_size=5]Promoted to [typed until=20]%s[/typed][/outline_size][/center]" % DifficultyResource.Level.keys()[GameManager.difficulty_level]
+	promotion_text.text = "[center][outline_size=5]Promoted to [typed until=20]%s[/typed][/outline_size][/center]" % GameManager.get_level_text()
 	promotion_text.show()
 	_on_promotion_no_finished()
 
