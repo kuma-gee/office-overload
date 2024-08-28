@@ -6,6 +6,7 @@ signal type_finish()
 signal type_start()
 signal type_wrong()
 
+@export var frequency := 8.0
 @export var height := 2.0
 @export var text_color := Color.BLACK
 @export var highlight_color := Color.WHITE
@@ -14,6 +15,10 @@ signal type_wrong()
 @export var play_sound := true
 @export var center := true
 
+@export var highlight_all := false:
+	set(v):
+		highlight_all = v
+		update_word()
 @export var highlight_first := false:
 	set(v):
 		highlight_first = v
@@ -57,9 +62,14 @@ func update_word():
 	
 	var len = typed.length()
 	if highlight_first and len == 0:
-		text = _wrap_center("[typed until=1 height=%s][color=%s]%s[/color][/typed]" % [height, text_color.to_html(), word])
+		text = _wrap_center(_wrap_typed(1, "[color=%s]%s[/color]" % [text_color.to_html(), word]))
+	elif highlight_all:
+		text = _wrap_center(_wrap_typed(word.length(), "[color=%s]%s[/color]" % [text_color.to_html(), word]))
 	else:
-		text = _wrap_center("[typed until=%s height=%s][color=%s]%s[/color][color=%s]%s[/color][/typed]" % [len, height, typed_color.to_html(), word.substr(0, len), text_color.to_html(), word.substr(len)])
+		text = _wrap_center(_wrap_typed(len, "[color=%s]%s[/color][color=%s]%s[/color]" % [typed_color.to_html(), word.substr(0, len), text_color.to_html(), word.substr(len)]))
+
+func _wrap_typed(until: int, w: String):
+	return "[typed until=%s height=%s frequency=%s]%s[/typed]" % [until, height, frequency, w]
 
 func _wrap_center(w: String):
 	if not center: return w

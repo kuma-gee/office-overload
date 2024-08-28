@@ -36,8 +36,8 @@ curve = SubResource("Curve_5elgx")
 particle_flag_disable_z = true
 direction = Vector3(-1, -1, 0)
 spread = 60.0
-initial_velocity_min = 50.0
-initial_velocity_max = 50.0
+initial_velocity_min = 30.0
+initial_velocity_max = 40.0
 gravity = Vector3(0, 20, 0)
 scale_min = 5.0
 scale_max = 5.0
@@ -63,10 +63,10 @@ promotion_container = NodePath("CenterContainer/PanelContainer/MarginContainer/V
 title = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Title")
 overtime = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Overtime")
 finished_tasks = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/FinishedTasks")
-promotion_text = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/TypingLabel")
+promotion_text = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/TypingLabel")
 promotion_text_container = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer")
-promotion_particle_1 = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/Control2/GPUParticles2D")
-promotion_particle_2 = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/Control3/GPUParticles2D")
+promotion_particle_1 = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2/GPUParticles2D")
+promotion_particle_2 = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control3/GPUParticles2D")
 promotion_sound = NodePath("PromotionSound")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -156,42 +156,48 @@ theme_override_constants/separation = 5
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Control2" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/Control2"]
-position = Vector2(13, 8)
-emitting = false
-amount = 6
-process_material = SubResource("ParticleProcessMaterial_6w7w2")
-lifetime = 0.6
-one_shot = true
-explosiveness = 0.9
-
 [node name="Promotion" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer"]
 layout_mode = 2
 text = "Promoted to"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
-[node name="TypingLabel" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer" instance=ExtResource("8_whfhi")]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer"]
 layout_mode = 2
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/normal_font_size = 10
-highlight_first = true
+theme_override_constants/separation = 0
 
-[node name="Control3" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer"]
+[node name="Control2" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/Control3"]
-position = Vector2(-13, 8)
+[node name="GPUParticles2D" type="GPUParticles2D" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2"]
+position = Vector2(6, 8)
+emitting = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_6w7w2")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.9
+
+[node name="TypingLabel" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer" instance=ExtResource("8_whfhi")]
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/normal_font_size = 10
+frequency = 2.0
+height = 0.5
+highlight_all = true
+
+[node name="Control3" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control3"]
+position = Vector2(-7, 8)
 rotation = 1.5708
 emitting = false
 amount = 6
 process_material = SubResource("ParticleProcessMaterial_6w7w2")
-lifetime = 0.6
+lifetime = 0.5
 one_shot = true
 explosiveness = 0.9
 

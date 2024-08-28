@@ -69,7 +69,8 @@ func _on_back_pressed():
 func _on_promotion_yes_finished():
 	GameManager.take_promotion()
 	
-	promotion_text.text = "[typed until=20 height=1 frequency=4]%s[/typed]" % GameManager.get_level_text()
+	promotion_text.word = GameManager.get_level_text()
+	promotion_text.focused = true
 	promotion_text_container.show()
 	
 	promotion_particle_1.emitting = true
