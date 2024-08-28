@@ -14,10 +14,11 @@ func _process_custom_fx(char_fx):
 	var until = char_fx.env.get("until", 0)
 	if idx < until:
 		var height = char_fx.env.get("height", amplitude)
+		var freq = char_fx.env.get("frequency", frequency)
 		var offset = (until - idx - 1) * 6
-		char_fx.offset.y -= _get_offset(char_fx.elapsed_time, offset, height)
+		char_fx.offset.y -= _get_offset(char_fx.elapsed_time, offset, height, freq)
 
 	return true
 
-func _get_offset(time: float, offset: int, amp = amplitude):
-	return abs(sin(time * frequency + offset * PI * .025)) * amp
+func _get_offset(time: float, offset: int, amp = amplitude, freq = frequency):
+	return abs(sin(time * freq + offset * PI * .025)) * amp

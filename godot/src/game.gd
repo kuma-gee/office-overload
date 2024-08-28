@@ -138,13 +138,14 @@ func _spawn_document(await_start = false):
 		document_stack.add_document()
 		overload_timer.stop()
 		
+		if not work_time.ended:
+			distractions.maybe_show_distraction()
+
 		if documents.size() > 0:
 			documents[0].highlight()
 		elif work_time.ended:
 			_finished()
 		else:
-			distractions.maybe_show_distraction()
-			
 			if await_start:
 				keyboard.frame = 0
 				_start_game()

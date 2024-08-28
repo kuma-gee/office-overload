@@ -3,17 +3,22 @@ extends Control
 signal finished()
 
 @export var display_time := 1.5
+@export var day_label: Label
+@export var level_label: Label
 
 @onready var effect_root = $EffectRoot
-@onready var label = $Day/Label
 
 func _ready():
+	level_label.hide()
+	
 	if GameManager.is_work_mode():
-		label.text = "Day %s\n%s" % [GameManager.day, GameManager.get_level_text()]
+		day_label.text = "Day %s" % GameManager.day
+		level_label.text = "%s" % GameManager.get_level_text()
+		level_label.show()
 	elif GameManager.is_crunch_mode():
-		label.text = "Crunch Time"
+		day_label.text = "Crunch Time"
 	elif GameManager.is_interview_mode():
-		label.text = "Job Interview"
+		day_label.text = "Job Interview"
 
 	_show_animation()
 

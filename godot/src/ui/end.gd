@@ -1,29 +1,33 @@
 extends Control
 
 @onready var end_effect = $EndEffect
-@onready var audio_stream_player = $AudioStreamPlayer
 @onready var key_reader: KeyReader = $KeyReader
 @onready var leader_board_effect: EffectRoot = $LeaderBoardEffect
 
 @export var leader_board: Leaderboard
 @export var next_day: TypingButton
 @export var break_button: TypingButton
+@export var open_sound: AudioStreamPlayer
+
 @export var next_day_container: Control
 @export var promotion_container: Control
-
-@export var promotion_text: RichTextLabel
-@export var promotion_text_container: Control
 
 @export var title: Label
 @export var overtime: Label
 @export var finished_tasks: Label
 
+@export var promotion_text: RichTextLabel
+@export var promotion_text_container: Control
+@export var promotion_particle_1: GPUParticles2D
+@export var promotion_particle_2: GPUParticles2D
+@export var promotion_sound: AudioStreamPlayer
+
 func _ready():
 	next_day_container.hide()
 	promotion_container.hide()
-	promotion_text.hide()
-	key_reader.process_mode = Node.PROCESS_MODE_DISABLED
+	promotion_text_container.hide()
 	
+	key_reader.process_mode = Node.PROCESS_MODE_DISABLED
 	key_reader.pressed_key.connect(func(key, shift):
 		if not shift: return
 		
@@ -32,7 +36,6 @@ func _ready():
 			leader_board.grab_focus()
 	)
 	
-	leader_board.hide()
 	leader_board.close.connect(func():
 		leader_board_effect.reverse_effect()
 		get_viewport().gui_release_focus()
@@ -55,7 +58,7 @@ func day_ended(finished: int, overtime_in_hours: float):
 	
 	end_effect.do_effect()
 	show()
-	audio_stream_player.play()
+	open_sound.play()
 	
 	if GameManager.day == 8:
 		GameManager.unlock_mode(GameManager.Mode.Crunch)
@@ -63,12 +66,16 @@ func day_ended(finished: int, overtime_in_hours: float):
 func _on_back_pressed():
 	GameManager.back_to_menu(false)
 
-
 func _on_promotion_yes_finished():
 	GameManager.take_promotion()
 	
-	promotion_text.text = "[center][outline_size=5]Promoted to [typed until=20]%s[/typed][/outline_size][/center]" % GameManager.get_level_text()
-	promotion_text.show()
+	promotion_text.text = "[typed until=20 height=1 frequency=4]%s[/typed]" % GameManager.get_level_text()
+	promotion_text_container.show()
+	
+	promotion_particle_1.emitting = true
+	promotion_particle_2.emitting = true
+	promotion_sound.play()
+	
 	_on_promotion_no_finished()
 
 func _on_promotion_no_finished():

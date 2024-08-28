@@ -28,14 +28,14 @@ const PHONE = [
 const JUNIOR = [
 	"Guidance",
 	"Advice",
-	"Clarification",
+	"Clarify",
 	"Support",
 	"Mentorship",
 	"Question",
-	"Assistance",
+	"Assist",
 	"Feedback",
-	"Explanation",
-	"Instruction"
+	"Explain",
+	"Instruct"
 ]
 
 enum Type {
@@ -67,7 +67,7 @@ func slide_all_out():
 func maybe_show_distraction():
 	var distraction_random = randf() - distraction_accumulator
 	if distraction_random < GameManager.difficulty.distractions:
-		distractions.show_distraction()
+		show_distraction()
 		distraction_accumulator = 0.0
 	else:
 		# Increase distraction chance, otherwise it's too random and can take too long
@@ -75,8 +75,8 @@ func maybe_show_distraction():
 
 func show_distraction():
 	var available = menus.filter(func(m): return m.get_word() == "")
-	if not GameManager.is_senior():
-		available.erase(junior)
+	#if not GameManager.is_senior():
+		#available.erase(junior)
 	
 	if available.is_empty(): return
 	
@@ -98,6 +98,6 @@ func _input(event):
 
 func _has_active_distraction():
 	for m in menus:
-		if m.get_label().word != "":
+		if m.is_open:
 			return true
 	return false

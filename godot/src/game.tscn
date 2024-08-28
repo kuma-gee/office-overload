@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=64 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -27,18 +27,22 @@
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="15_r4fui"]
 [ext_resource type="LabelSettings" uid="uid://bsk404a5n517i" path="res://theme/text_normal.tres" id="16_3sqd2"]
 [ext_resource type="Texture2D" uid="uid://bikrg3yecci4h" path="res://assets/ClockLight.png" id="17_b6uxm"]
+[ext_resource type="AudioStream" uid="uid://cg3y8tqu354up" path="res://assets/sound/決定ボタンを押す53.mp3" id="17_xms1k"]
 [ext_resource type="Texture2D" uid="uid://fk36xs2n3q4o" path="res://assets/Phone.png" id="18_3w3fn"]
 [ext_resource type="Texture2D" uid="uid://dg4t2u4r7tk5d" path="res://assets/SpeechBubble.png" id="18_51hqv"]
 [ext_resource type="Script" path="res://src/ManualLoopAudio.gd" id="18_f0kcb"]
+[ext_resource type="AudioStream" uid="uid://dc1fhbgjs375l" path="res://assets/sound/携帯電話のバイブレーション1.mp3" id="19_5t58c"]
 [ext_resource type="AudioStream" uid="uid://bpxm5pscsli23" path="res://assets/sound/鳩時計1.mp3" id="19_mkiih"]
 [ext_resource type="Texture2D" uid="uid://sy6r1qjyud55" path="res://assets/Desk_Static.png" id="19_wvt8k"]
 [ext_resource type="Script" path="res://src/BlinkText.gd" id="20_0ygyh"]
+[ext_resource type="AudioStream" uid="uid://bmtpsyxjqkjxv" path="res://assets/sound/携帯電話の着信音1.mp3" id="20_2av8q"]
 [ext_resource type="Script" path="res://src/delegator.gd" id="20_tcix1"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="20_u0r5t"]
 [ext_resource type="Script" path="res://src/base-system/effect/Shake.gd" id="21_os6oe"]
 [ext_resource type="Texture2D" uid="uid://r6b75n40gyxy" path="res://assets/Desk_Computer.png" id="21_tywuk"]
 [ext_resource type="Curve" uid="uid://c5dolop3rdetn" path="res://src/dust_damp.tres" id="24_ecpli"]
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/Document.png" id="24_g7dws"]
+[ext_resource type="AudioStream" uid="uid://dl1bac3viudub" path="res://assets/sound/パパッ.mp3" id="25_k4kvb"]
 [ext_resource type="Texture2D" uid="uid://fhvvkmwkvr5c" path="res://assets/Desk_Plant.png" id="27_1a3yr"]
 [ext_resource type="Texture2D" uid="uid://ctoyv3g7nvrwf" path="res://assets/Desk_Coffee.png" id="28_i6mjb"]
 [ext_resource type="Texture2D" uid="uid://c7bni1sdaaaqn" path="res://assets/Desk_Keyboard.png" id="31_x6efq"]
@@ -521,9 +525,10 @@ script = ExtResource("14_s1o3m")
 
 [node name="Delegator" type="Node" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("nodes")]
 script = ExtResource("20_tcix1")
+reset_on_mistake = false
 nodes = [NodePath("../Email"), NodePath("../Phone"), NodePath("../Junior")]
 
-[node name="Email" type="PanelContainer" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label")]
+[node name="Email" type="PanelContainer" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "sounds")]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 1
 anchors_preset = 5
@@ -536,8 +541,15 @@ offset_bottom = 39.0
 grow_horizontal = 2
 theme = ExtResource("10_am0oy")
 script = ExtResource("15_ffym8")
+tween_trans = 10
 label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/TypingLabel")
 slide_dir = Vector2(0, 50)
+sounds = [NodePath("Notification")]
+
+[node name="Notification" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Email"]
+stream = ExtResource("17_xms1k")
+volume_db = -10.0
+pitch_scale = 0.6
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Email"]
 layout_mode = 2
@@ -571,53 +583,29 @@ layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
 height = 1.0
 
-[node name="Phone" type="PanelContainer" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label")]
-custom_minimum_size = Vector2(20, 80)
+[node name="Phone" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "effect_root", "sounds")]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -71.0
-offset_top = -34.0
-offset_bottom = 36.0
 grow_horizontal = 0
 grow_vertical = 2
-theme = ExtResource("10_am0oy")
-theme_override_styles/panel = SubResource("StyleBoxEmpty_1mklb")
 script = ExtResource("15_ffym8")
-label = NodePath("MarginContainer/VBoxContainer/TypingLabel")
+label = NodePath("Phone/MarginContainer/VBoxContainer/TypingLabel")
 type = 1
+effect_root = NodePath("EffectRoot")
 slide_dir = Vector2(-100, 0)
+sounds = [NodePath("Vibrate"), NodePath("Ring")]
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Phone"]
-layout_mode = 2
-texture = ExtResource("18_3w3fn")
-expand_mode = 5
-stretch_mode = 5
+[node name="Vibrate" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Phone"]
+stream = ExtResource("19_5t58c")
+volume_db = -20.0
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Phone"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Phone/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 15
-
-[node name="Label" type="Label" parent="CanvasLayer/Distractions/Phone/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Phone"
-label_settings = ExtResource("16_3sqd2")
-horizontal_alignment = 1
-
-[node name="TypingLabel" parent="CanvasLayer/Distractions/Phone/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 12
-height = 1.0
+[node name="Ring" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Phone"]
+stream = ExtResource("20_2av8q")
+volume_db = -10.0
 
 [node name="EffectRoot" type="Node" parent="CanvasLayer/Distractions/Phone"]
 script = ExtResource("20_u0r5t")
@@ -626,24 +614,74 @@ loop = true
 
 [node name="Shake" type="Node" parent="CanvasLayer/Distractions/Phone/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("21_os6oe")
-node = NodePath("../..")
+node = NodePath("../../Phone")
 
-[node name="Junior" type="PanelContainer" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label")]
+[node name="Phone" type="PanelContainer" parent="CanvasLayer/Distractions/Phone"]
+custom_minimum_size = Vector2(20, 80)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -71.0
+offset_top = -52.6379
+offset_bottom = 52.6379
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("10_am0oy")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1mklb")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Phone/Phone"]
+layout_mode = 2
+texture = ExtResource("18_3w3fn")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Phone/Phone"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Phone/Phone/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="CanvasLayer/Distractions/Phone/Phone/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Phone"
+label_settings = ExtResource("16_3sqd2")
+horizontal_alignment = 1
+
+[node name="TypingLabel" parent="CanvasLayer/Distractions/Phone/Phone/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 12
+height = 1.0
+
+[node name="Junior" type="PanelContainer" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "sounds")]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -25.0
-offset_right = 61.0
-offset_bottom = 25.0
+offset_top = -30.0
+offset_right = 85.0
+offset_bottom = 30.0
 grow_vertical = 2
 theme = ExtResource("10_am0oy")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_o0ctv")
 script = ExtResource("15_ffym8")
+tween_trans = 10
 label = NodePath("MarginContainer/VBoxContainer/TypingLabel")
 type = 2
 slide_dir = Vector2(120, 0)
+sounds = [NodePath("Popup")]
+
+[node name="Popup" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Junior"]
+stream = ExtResource("25_k4kvb")
+volume_db = -10.0
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Junior"]
 layout_mode = 2
@@ -660,7 +698,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Junior/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="CanvasLayer/Distractions/Junior/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -671,7 +709,6 @@ horizontal_alignment = 1
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Junior/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
-text = "Clarification"
 height = 1.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
@@ -830,6 +867,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "08"
 horizontal_alignment = 1
 script = ExtResource("7_ruuy4")
+hour_in_seconds = 1
 timer = NodePath("Timer")
 day_end_sound = NodePath("End")
 overtime_sound = NodePath("Overtime")

@@ -1,6 +1,7 @@
 class_name Delegator
 extends Node
 
+@export var reset_on_mistake := true
 @export var nodes: Array[Control] = []
 @export var shift_nodes: Array[Control] = []
 
@@ -14,7 +15,7 @@ func handle_event(event: InputEvent):
 	if key:
 		var focused = _get_focused_label()
 		if focused:
-			if not focused.handle_key(key):
+			if not focused.handle_key(key) and reset_on_mistake:
 				focused.reset()
 		else:
 			var first = _get_first_label_starting(key)

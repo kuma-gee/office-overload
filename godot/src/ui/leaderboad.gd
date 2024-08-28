@@ -14,20 +14,20 @@ signal close()
 @onready var delegator: Delegator = $Delegator
 
 const GLOBAL_DATA: Array[Dictionary] = [
-	{"global_rank": 1, "name": "Bob", "score": 131, "accuracy": "99%", "documents": 120, "time": 123},
-	{"global_rank": 2, "name": "Alice", "score": 124, "accuracy": "98%", "documents": 101, "time": 321},
-	{"global_rank": 3, "name": "Charlie", "score": 98, "accuracy": "97%", "documents": 98, "time": 234},
-	{"global_rank": 4, "name": "David", "score": 93, "accuracy": "96%", "documents": 95, "time": 84},
-	{"global_rank": 5, "name": "Eve", "score": 87, "accuracy": "95%", "documents": 70, "time": 12},
-	{"global_rank": 6, "name": "Donald", "score": 79, "accuracy": "90%", "documents": 64, "time": 30},
-	{"global_rank": 7, "name": "Joe", "score": 75, "accuracy": "88%", "documents": 66, "time": 42},
+	{"global_rank": 1, "name": "Bob", "score": 250, "accuracy": "97%", "documents": 120, "time": 52},
+	{"global_rank": 2, "name": "Alice", "score": 201, "accuracy": "99%", "documents": 101, "time": 42},
+	{"global_rank": 3, "name": "Charlie", "score": 180, "accuracy": "94%", "documents": 98, "time": 52},
+	{"global_rank": 4, "name": "David", "score": 165, "accuracy": "98%", "documents": 95, "time": 67},
+	{"global_rank": 5, "name": "Eve", "score": 143, "accuracy": "99%", "documents": 70, "time": 68},
+	{"global_rank": 6, "name": "Donald", "score": 115, "accuracy": "95%", "documents": 64, "time": 52},
+	{"global_rank": 7, "name": "Joe", "score": 99, "accuracy": "88%", "documents": 66, "time": 42},
 ]
 
 const USER_DATA: Array[Dictionary] = [
 	{"global_rank": 59, "name": "Alice", "score": 76, "accuracy": "98%", "documents": 31, "time": 321},
 	{"global_rank": 60, "name": "Charlie", "score": 71, "accuracy": "97%", "documents": 30, "time": 234},
 	{"global_rank": 61, "name": "David", "score": 68, "accuracy": "96%", "documents": 29, "time": 84},
-	{"global_rank": 62, "name": "Eve", "score": 62, "accuracy": "95%", "documents": 28, "time": 12},
+	{"global_rank": 62, "name": "You", "score": 62, "accuracy": "95%", "documents": 28, "time": 12},
 	{"global_rank": 63, "name": "Donald", "score": 54, "accuracy": "90%", "documents": 23, "time": 30},
 	{"global_rank": 64, "name": "Joe", "score": 50, "accuracy": "88%", "documents": 20, "time": 42},
 	{"global_rank": 65, "name": "John", "score": 47, "accuracy": "79%", "documents": 24, "time": 69},
