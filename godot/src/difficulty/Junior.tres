@@ -8,5 +8,5 @@ level = 1
 min_documents = 1.5
 max_documents = 3.0
 distractions = 0.0
-average_wpm = 60
+average_wpm = 50
 bgm_speed = 1.3

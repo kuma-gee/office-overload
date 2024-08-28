@@ -9,6 +9,7 @@ signal type_wrong()
 @export var height := 2.0
 @export var text_color := Color.BLACK
 @export var highlight_color := Color.WHITE
+@export var active_color := Color.WHITE
 @export var typed_color := Color.WHITE
 @export var play_sound := true
 @export var center := true
@@ -37,6 +38,11 @@ var focused := false:
 		add_theme_color_override("font_outline_color", highlight_color if v else Color.TRANSPARENT)
 		update_word()
 
+var active := false:
+	set(v):
+		active = v
+		update_word()
+
 func _ready():
 	self.focused = false
 	add_theme_constant_override("outline_size", 5)
@@ -45,6 +51,10 @@ func get_remaining_word():
 	return word.substr(typed.length())
 
 func update_word():
+	if active:
+		text = "[outline_color=%s][color=%s]%s[/color][/outline_color]" % [highlight_color.to_html(), active_color.to_html(), word]
+		return
+	
 	var len = typed.length()
 	if highlight_first and len == 0:
 		text = _wrap_center("[typed until=1 height=%s][color=%s]%s[/color][/typed]" % [height, text_color.to_html(), word])

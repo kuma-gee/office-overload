@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://kdu7e637eapn"]
+[gd_scene load_steps=17 format=3 uid="uid://kdu7e637eapn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_80w1y"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_ox4yy"]
@@ -14,10 +14,11 @@
 [ext_resource type="AudioStream" uid="uid://e82h4pq7oib4" path="res://assets/sound/金額表示.mp3" id="8_i0k3p"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="8_whfhi"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="11_oaofj"]
+[ext_resource type="PackedScene" uid="uid://cwb2bomvrxmul" path="res://src/ui/leaderboad.tscn" id="15_ym5x3"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yl2xo"]
 
-[node name="End" type="Control" node_paths=PackedStringArray("next_day", "break_button", "next_day_container", "promotion_container", "promotion_text", "title", "overtime", "finished_tasks")]
+[node name="End" type="Control" node_paths=PackedStringArray("leader_board", "next_day", "break_button", "next_day_container", "promotion_container", "promotion_text", "title", "overtime", "finished_tasks")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -27,6 +28,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_80w1y")
 script = ExtResource("2_oxc1v")
+leader_board = NodePath("Control/Leaderboard")
 next_day = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/NextDay/NextDayButton")
 break_button = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/NextDay/Break")
 next_day_container = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer")
@@ -197,6 +199,30 @@ node = NodePath("../../ColorRect")
 stream = ExtResource("8_i0k3p")
 volume_db = -10.0
 bus = &"SFX"
+
+[node name="LeaderBoardEffect" type="Node" parent="."]
+script = ExtResource("4_j7irx")
+ease = 1
+duration = 0.5
+
+[node name="Slide" type="Node" parent="LeaderBoardEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("5_d7wj0")
+node = NodePath("../../Control")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Leaderboard" parent="Control" instance=ExtResource("15_ym5x3")]
+layout_mode = 1
+offset_left = 29.0
+offset_top = 16.0
+offset_right = -29.0
+offset_bottom = -16.0
 
 [connection signal="finished" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionYes" to="." method="_on_promotion_yes_finished"]
 [connection signal="finished" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionNo" to="." method="_on_promotion_no_finished"]

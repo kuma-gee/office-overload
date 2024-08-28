@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwb2bomvrxmul"]
+
+[ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="1_brac4"]
+[ext_resource type="Script" path="res://src/ui/leaderboad.gd" id="1_l151m"]
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_tr223"]
+[ext_resource type="PackedScene" uid="uid://cmu36xk8jw0u8" path="res://src/ui/interview_score.tscn" id="4_tc631"]
+[ext_resource type="Script" path="res://src/delegator.gd" id="5_dsyjy"]
+
+[node name="Leaderboard" type="PanelContainer" node_paths=PackedStringArray("user_button", "friends_button", "global_button", "user_board", "friends_board", "global_board")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+theme = ExtResource("1_tr223")
+script = ExtResource("1_l151m")
+user_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/User")
+friends_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Friends")
+global_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Global")
+user_board = NodePath("MarginContainer/VBoxContainer/UserScore")
+friends_board = NodePath("MarginContainer/VBoxContainer/FriendsScore")
+global_board = NodePath("MarginContainer/VBoxContainer/GlobalScore")
+
+[node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
+script = ExtResource("5_dsyjy")
+nodes = [NodePath("../MarginContainer/VBoxContainer/HBoxContainer/User"), NodePath("../MarginContainer/VBoxContainer/HBoxContainer/Friends"), NodePath("../MarginContainer/VBoxContainer/HBoxContainer/Global")]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="User" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("1_brac4")]
+layout_mode = 2
+word = "User"
+
+[node name="Friends" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("1_brac4")]
+layout_mode = 2
+word = "Friends"
+
+[node name="Global" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("1_brac4")]
+layout_mode = 2
+word = "Global"
+
+[node name="UserScore" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_tc631")]
+layout_mode = 2
+
+[node name="FriendsScore" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_tc631")]
+layout_mode = 2
+
+[node name="GlobalScore" parent="MarginContainer/VBoxContainer" instance=ExtResource("4_tc631")]
+layout_mode = 2

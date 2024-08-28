@@ -17,7 +17,7 @@ func _ready():
 			#node.finished.connect(func(): cancel())
 		
 	if key_reader:
-		key_reader.pressed_key.connect(func(key, _s):handle_key(key))
+		key_reader.pressed_key.connect(func(key, _s): handle_key(key))
 		key_reader.pressed_cancel.connect(func(_s): cancel())
 
 func handle_key(key: String):

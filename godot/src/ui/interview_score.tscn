@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmu36xk8jw0u8"]
+
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_1wirg"]
+[ext_resource type="Script" path="res://src/ui/score_board.gd" id="2_hvdfi"]
+
+[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("container")]
+offset_top = 15.0
+offset_right = 6.0
+offset_bottom = 15.0
+size_flags_vertical = 3
+script = ExtResource("2_hvdfi")
+keys = Array[String](["global_rank", "name", "score", "accuracy", "documents", "time"])
+container = NodePath("InterviewScore")
+
+[node name="InterviewScore" type="GridContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_1wirg")
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 5
+columns = 6
+
+[node name="Rank" type="Label" parent="InterviewScore"]
+layout_mode = 2
+text = "#"
+
+[node name="Name" type="Label" parent="InterviewScore"]
+layout_mode = 2
+text = "Name"
+
+[node name="Wpm" type="Label" parent="InterviewScore"]
+layout_mode = 2
+text = "WPM"
+
+[node name="Accuracy" type="Label" parent="InterviewScore"]
+layout_mode = 2
+text = "Accuracy"
+
+[node name="Documents" type="Label" parent="InterviewScore"]
+layout_mode = 2
+text = "Documents"
+
+[node name="Time" type="Label" parent="InterviewScore"]
+layout_mode = 2
+text = "Time"

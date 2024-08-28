@@ -3,7 +3,9 @@ extends Control
 @onready var end_effect = $EndEffect
 @onready var audio_stream_player = $AudioStreamPlayer
 @onready var key_reader: KeyReader = $KeyReader
+@onready var leader_board_effect: EffectRoot = $LeaderBoardEffect
 
+@export var leader_board: Leaderboard
 @export var next_day: TypingButton
 @export var break_button: TypingButton
 @export var next_day_container: Control
@@ -22,12 +24,25 @@ func _ready():
 	promotion_text.hide()
 	key_reader.process_mode = Node.PROCESS_MODE_DISABLED
 	
+	key_reader.pressed_key.connect(func(key, shift):
+		if not shift: return
+		
+		if key == "l":
+			leader_board_effect.do_effect()
+			leader_board.grab_focus()
+	)
+	
+	leader_board.hide()
+	leader_board.close.connect(func():
+		leader_board_effect.reverse_effect()
+		get_viewport().gui_release_focus()
+	)
+	
 	hide()
 	next_day.finished.connect(func(): GameManager.next_day())
 	break_button.finished.connect(func(): GameManager.back_to_menu())
 
 func day_ended(finished: int, overtime_in_hours: float):
-	#get_tree().paused = true
 	key_reader.process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	title.text = "Day %s report" % GameManager.day
@@ -41,7 +56,7 @@ func day_ended(finished: int, overtime_in_hours: float):
 	end_effect.do_effect()
 	show()
 	audio_stream_player.play()
-
+	
 	if GameManager.day == 8:
 		GameManager.unlock_mode(GameManager.Mode.Crunch)
 

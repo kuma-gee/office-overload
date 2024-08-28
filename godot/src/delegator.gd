@@ -2,6 +2,7 @@ class_name Delegator
 extends Node
 
 @export var nodes: Array[Control] = []
+@export var shift_nodes: Array[Control] = []
 
 func handle_event(event: InputEvent):
 	if event.is_action_pressed("ui_cancel"):
