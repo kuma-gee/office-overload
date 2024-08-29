@@ -15,6 +15,7 @@ script = ExtResource("2_i64jq")
 [node name="SaveManager" type="Node" parent="."]
 script = ExtResource("3_q0li8")
 
-[node name="CacheProperties" type="Node" parent="."]
+[node name="CacheProperties" type="Node" parent="." node_paths=PackedStringArray("node")]
 script = ExtResource("4_dfh4s")
-properties = Array[String](["", "", "", ""])
+properties = Array[String](["day", "completed_documents", "total_overtime", "difficulty_level", "unlocked_modes", "total_completed_words", "average_wpm", "average_accuracy"])
+node = NodePath("..")

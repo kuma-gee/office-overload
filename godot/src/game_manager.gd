@@ -16,19 +16,34 @@ enum Mode {
 }
 
 @onready var wpm_calculator = $WPMCalculator
+@onready var save_manager: SaveManager = $SaveManager
+@onready var cache_properties: CacheProperties = $CacheProperties
 
+### Persisted ###
 var day := 0
 var completed_documents := 0
 var total_overtime := 0
-
 var difficulty_level := DifficultyResource.Level.INTERN
-var difficulty: DifficultyResource
 
 var unlocked_modes = [Mode.Work]
+var total_completed_words := 0
+var average_wpm := 0.0
+var average_accuracy := 0.0
+
+### Dynamic ###
+var difficulty: DifficultyResource
 var current_mode: Mode
 
 func _ready():
+	var data = save_manager.load_from_slot(0)
+	if data:
+		cache_properties.load_data(data)
+	
 	difficulty = DIFFICULTIES[difficulty_level]
+
+func _save_data():
+	var data = cache_properties.save_data()
+	save_manager.save_to_slot(0, data)
 
 func start(mode: Mode = current_mode):
 	if not is_mode_unlocked(mode):
@@ -57,8 +72,21 @@ func reset_values():
 	total_overtime = 0
 
 func finished_day(tasks: int, overtime: int):
+	var wpm = wpm_calculator.get_average_wpm()
+	var acc = wpm_calculator.get_average_accuracy()
+	var current_size = wpm_calculator.get_total_size()
+	var previous_size = total_completed_words
+	
+	average_wpm = ((average_wpm * previous_size) + (wpm * current_size)) / (previous_size + current_size)
+	average_accuracy = ((average_accuracy * previous_size) + (acc * current_size)) / (previous_size + current_size)
+	wpm_calculator.reset()
+	
 	completed_documents += tasks
 	total_overtime += overtime
+	total_completed_words += tasks # For calculating WPM
+	print("New Average WPM %s and Accuracy %s with %s words" % [average_wpm, average_accuracy, total_completed_words])
+	
+	_save_data()
 	round_ended.emit()
 
 func start_type():
@@ -68,13 +96,10 @@ func finish_type(word: String, mistakes: int):
 	wpm_calculator.finish_type(word, mistakes)
 
 func get_wpm():
-	return wpm_calculator.get_average_wpm()
+	return average_wpm
 
 func get_accuracy():
-	return wpm_calculator.get_average_accuracy() * 100
-
-func finish_game():
-	wpm_calculator.calculate_wpm()
+	return average_accuracy * 100
 
 ### Difficulty
 

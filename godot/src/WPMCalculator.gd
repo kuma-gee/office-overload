@@ -12,6 +12,9 @@ func reset():
 	accuracy.clear()
 	time = -1
 
+func get_total_size():
+	return wpms.size()
+
 func get_average_wpm():
 	return _get_average(wpms)
 

@@ -26,6 +26,6 @@ bus = &"SFX"
 [node name="TypeMistakeSound" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("5_q4xm8")
-volume_db = -5.0
+volume_db = -10.0
 bus = &"SFX"
 script = ExtResource("6_sfqjd")
