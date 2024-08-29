@@ -6,6 +6,8 @@ extends Control
 @export var settings_panel: FocusedDialog
 @export var mode_panel: FocusedDialog
 
+@onready var delegator: Delegator = $Delegator
+
 func _ready():
 	get_tree().paused = false
 	start.finished.connect(func():
@@ -24,3 +26,6 @@ func _on_exit_pressed():
 	SceneManager.fade_out()
 	await SceneManager.fade_complete
 	get_tree().quit()
+
+func _unhandled_input(event: InputEvent) -> void:
+	delegator.handle_event(event)

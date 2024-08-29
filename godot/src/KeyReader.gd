@@ -12,7 +12,7 @@ func _unhandled_input(event: InputEvent):
 	var key = get_key_of_event(event)
 	if not key: return
 	
-	print("[%s] Handling input %s" % [get_path(), event])
+	#print("[%s] Handling input %s" % [get_path(), event])
 	pressed_key.emit(key.to_lower(), event.shift_pressed)
 	get_viewport().set_input_as_handled()
 

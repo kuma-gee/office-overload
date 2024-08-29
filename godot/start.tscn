@@ -1,13 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=25 format=3 uid="uid://ctlncowdl0sbn"]
 
 [ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="1_3ujy4"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
 [ext_resource type="Texture2D" uid="uid://da2p5kphaw5k5" path="res://assets/Cover_Image.png" id="2_2ttii"]
 [ext_resource type="Script" path="res://start.gd" id="2_508sk"]
 [ext_resource type="Texture2D" uid="uid://cjlwhavnsncw5" path="res://assets/Title.png" id="3_r3iy1"]
-[ext_resource type="Script" path="res://src/KeyDelegator.gd" id="6_xbbny"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="7_2n7ql"]
-[ext_resource type="Script" path="res://src/KeyReader.gd" id="8_2fdes"]
 [ext_resource type="Script" path="res://src/base-system/menu/Settings.gd" id="11_ybmms"]
 [ext_resource type="Script" path="res://src/ui/Stats.gd" id="12_fmeio"]
 [ext_resource type="Script" path="res://src/base-system/menu/AudioSlider.gd" id="12_qty1o"]
@@ -53,6 +51,11 @@ setting = NodePath("MarginContainer3/VBoxContainer/Setting")
 exit = NodePath("MarginContainer3/VBoxContainer/Exit")
 settings_panel = NodePath("Settings")
 mode_panel = NodePath("GameModes")
+
+[node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
+script = ExtResource("16_bh4xx")
+reset_on_mistake = false
+nodes = [NodePath("../MarginContainer3/VBoxContainer/Start"), NodePath("../MarginContainer3/VBoxContainer/Setting"), NodePath("../MarginContainer3/VBoxContainer/Exit")]
 
 [node name="TextureRect" type="TextureRect" parent="."]
 visible = false
@@ -102,10 +105,8 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3" node_paths=PackedStringArray("key_reader")]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3"]
 layout_mode = 2
-script = ExtResource("6_xbbny")
-key_reader = NodePath("../KeyReader")
 
 [node name="Start" parent="MarginContainer3/VBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
@@ -118,9 +119,6 @@ word = "Adjust"
 [node name="Exit" parent="MarginContainer3/VBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 word = "Leave"
-
-[node name="KeyReader" type="Node" parent="MarginContainer3"]
-script = ExtResource("8_2fdes")
 
 [node name="Stats" type="Control" parent="." node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy")]
 layout_mode = 1

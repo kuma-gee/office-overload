@@ -14,6 +14,9 @@ static func create(n):
 func _init(n: Node):
 	node = n
 
+func is_running():
+	return tw and tw.is_running()
+
 func kill():
 	if tw:
 		tw.kill()

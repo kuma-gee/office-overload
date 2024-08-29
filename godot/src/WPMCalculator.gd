@@ -55,7 +55,7 @@ func finish_type(word: String, mistakes: int):
 		
 	#print("Word %s in %.4fs / %.4fm -> %s" % [word, time, minute, wpm])
 	cancel_type()
-	print("Current: %s/%s, Average: %s/%s" % [wpm, acc, get_average_wpm(), get_average_accuracy()])
+	#print("Current: %s/%s, Average: %s/%s" % [wpm, acc, get_average_wpm(), get_average_accuracy()])
 
 func _process(delta):
 	if time < 0: return

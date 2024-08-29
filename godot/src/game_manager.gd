@@ -70,6 +70,7 @@ func reset_values():
 	day = 0
 	completed_documents = 0
 	total_overtime = 0
+	_save_data()
 
 func finished_day(tasks: int, overtime: int):
 	var wpm = wpm_calculator.get_average_wpm()

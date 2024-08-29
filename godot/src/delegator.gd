@@ -12,17 +12,20 @@ func handle_event(event: InputEvent):
 		return
 
 	var key = KeyReader.get_key_of_event(event)
+	var handled = false
 	if key:
 		var focused = _get_focused_label()
 		if focused:
-			if not focused.handle_key(key) and reset_on_mistake:
+			handled = focused.handle_key(key)
+			if not handled and reset_on_mistake:
 				focused.reset()
 		else:
 			var first = _get_first_label_starting(key)
 			if first:
-				first.handle_key(key)
+				handled = first.handle_key(key)
 
 	get_viewport().set_input_as_handled()
+	return handled
 
 func has_focused():
 	return _get_focused_label() != null

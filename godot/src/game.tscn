@@ -523,6 +523,22 @@ mouse_filter = 2
 theme = ExtResource("10_am0oy")
 script = ExtResource("14_s1o3m")
 
+[node name="ShakeEffect" type="Node" parent="CanvasLayer/Distractions"]
+script = ExtResource("20_u0r5t")
+duration = 0.5
+
+[node name="Shake" type="Node" parent="CanvasLayer/Distractions/ShakeEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("21_os6oe")
+node = NodePath("../../Junior")
+
+[node name="Shake2" type="Node" parent="CanvasLayer/Distractions/ShakeEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("21_os6oe")
+node = NodePath("../../Phone")
+
+[node name="Shake3" type="Node" parent="CanvasLayer/Distractions/ShakeEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("21_os6oe")
+node = NodePath("../../Email")
+
 [node name="Delegator" type="Node" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("nodes")]
 script = ExtResource("20_tcix1")
 reset_on_mistake = false

@@ -45,6 +45,7 @@ enum Type {
 }
 
 @onready var delegator = $Delegator
+@onready var shake_effect: EffectRoot = $ShakeEffect
 
 @onready var email = $Email
 @onready var phone = $Phone
@@ -94,7 +95,8 @@ func _get_random_distraction_word(type: Type):
 
 func _input(event):
 	if not _has_active_distraction(): return
-	delegator.handle_event(event)
+	if not delegator.handle_event(event):
+		shake_effect.do_effect(false)
 
 func _has_active_distraction():
 	for m in menus:
