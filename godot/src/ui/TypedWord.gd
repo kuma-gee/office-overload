@@ -6,6 +6,7 @@ signal type_finish()
 signal type_start()
 signal type_wrong()
 
+@export var shake_amount := 20
 @export var frequency := 8.0
 @export var height := 2.0
 @export var text_color := Color.BLACK
@@ -14,6 +15,9 @@ signal type_wrong()
 @export var typed_color := Color.WHITE
 @export var play_sound := true
 @export var center := true
+@export var enable_mistake_effect := true
+
+@onready var shake_timer: Timer = $ShakeTimer
 
 @export var highlight_all := false:
 	set(v):
@@ -48,9 +52,24 @@ var active := false:
 		active = v
 		update_word()
 
+var current_shake := 0.0:
+	set(v):
+		current_shake = v
+		if current_shake > 0:
+			$ShakeTimer.start()
+		else:
+			$ShakeTimer.stop()
+		update_word()
+
 func _ready():
 	self.focused = false
 	add_theme_constant_override("outline_size", 5)
+	shake_timer.timeout.connect(func(): self.current_shake = 0)
+
+func play_mistake_effect():
+	self.current_shake = shake_amount
+	update_word()
+	SoundManager.play_type_mistake()
 
 func get_remaining_word():
 	return word.substr(typed.length())
@@ -62,11 +81,14 @@ func update_word():
 	
 	var len = typed.length()
 	if highlight_first and len == 0:
-		text = _wrap_center(_wrap_typed(1, "[color=%s]%s[/color]" % [text_color.to_html(), word]))
+		text = _wrap_center(_wrap_typed(1, _wrap_word(0)))
 	elif highlight_all:
-		text = _wrap_center(_wrap_typed(word.length(), "[color=%s]%s[/color]" % [text_color.to_html(), word]))
+		text = _wrap_center(_wrap_typed(word.length(), _wrap_word(0)))
 	else:
-		text = _wrap_center(_wrap_typed(len, "[color=%s]%s[/color][color=%s]%s[/color]" % [typed_color.to_html(), word.substr(0, len), text_color.to_html(), word.substr(len)]))
+		text = _wrap_center(_wrap_typed(len, _wrap_word(len)))
+
+func _wrap_word(len: int):
+	return "[color=%s]%s[/color][color=%s][shake rate=%s level=%s]%s[/shake]%s[/color]" % [typed_color.to_html(), word.substr(0, len), text_color.to_html(), current_shake, 10 if current_shake > 0 else 0, word.substr(len, 1), word.substr(len + 1)]
 
 func _wrap_typed(until: int, w: String):
 	return "[typed until=%s height=%s frequency=%s]%s[/typed]" % [until, height, frequency, w]
@@ -98,6 +120,8 @@ func handle_key(key: String, grab_focus = true):
 			type_finish.emit()
 		return true
 	else:
+		if enable_mistake_effect:
+			play_mistake_effect()
 		type_wrong.emit()
 	
 	return false

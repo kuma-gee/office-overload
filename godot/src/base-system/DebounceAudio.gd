@@ -1,3 +1,4 @@
+class_name DebounceAudio
 extends AudioStreamPlayer
 
 var timer: Timer

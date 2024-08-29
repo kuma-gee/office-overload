@@ -7,6 +7,11 @@ var time := -1.0
 var wpms = []
 var accuracy = []
 
+func reset():
+	wpms.clear()
+	accuracy.clear()
+	time = -1
+
 func get_average_wpm():
 	return _get_average(wpms)
 

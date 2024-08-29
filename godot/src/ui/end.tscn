@@ -36,9 +36,9 @@ curve = SubResource("Curve_5elgx")
 particle_flag_disable_z = true
 direction = Vector3(-1, -1, 0)
 spread = 60.0
-initial_velocity_min = 30.0
-initial_velocity_max = 40.0
-gravity = Vector3(0, 20, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 10, 0)
 scale_min = 5.0
 scale_max = 5.0
 scale_curve = SubResource("CurveTexture_a2xch")
@@ -175,7 +175,7 @@ position = Vector2(6, 8)
 emitting = false
 amount = 6
 process_material = SubResource("ParticleProcessMaterial_6w7w2")
-lifetime = 0.5
+lifetime = 0.8
 one_shot = true
 explosiveness = 0.9
 
@@ -197,7 +197,7 @@ rotation = 1.5708
 emitting = false
 amount = 6
 process_material = SubResource("ParticleProcessMaterial_6w7w2")
-lifetime = 0.5
+lifetime = 0.8
 one_shot = true
 explosiveness = 0.9
 
@@ -281,7 +281,7 @@ offset_bottom = -16.0
 [node name="PromotionSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_2lrec")
 volume_db = -10.0
-pitch_scale = 0.9
+pitch_scale = 0.8
 
 [connection signal="finished" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionYes" to="." method="_on_promotion_yes_finished"]
 [connection signal="finished" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionNo" to="." method="_on_promotion_no_finished"]
