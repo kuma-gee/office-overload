@@ -82,15 +82,19 @@ var words := []
 var last_words := []
 
 func _ready():
-	if GameManager.is_intern():
-		add_easy()
-	else:
-		if GameManager.day >= 5:
-			add_hard()
-		elif GameManager.day >= 3 or not GameManager.is_junior():
-			add_medium()
-		else:
+	if GameManager.is_work_mode():
+		if GameManager.is_intern():
 			add_easy()
+		else:
+			if GameManager.day >= 5:
+				add_hard()
+			elif GameManager.day >= 3 or not GameManager.is_junior():
+				add_medium()
+			else:
+				add_easy()
+	elif GameManager.is_interview_mode():
+		add_easy()
+		add_medium()
 
 func add_easy():
 	if mode >= Mode.EASY: return

@@ -4,6 +4,9 @@ extends Node2D
 @export var overload_reduce := 20.0
 @export var work_time: WorkTime
 
+@export_category("Interview")
+@export var min_documents := 2
+
 @onready var doc_spawner = $DocSpawner
 @onready var spawn_timer = $SpawnTimer
 @onready var document_stack = $DocumentStack
@@ -47,7 +50,7 @@ func _ready():
 		key_reader.process_mode = Node.PROCESS_MODE_DISABLED
 	)
 	
-	if not GameManager.is_intern():
+	if not GameManager.is_intern() or GameManager.is_crunch_mode():
 		overload_progress.filled.connect(func(): overload_timer.start())
 		overload_timer.started.connect(func(): overload_progress.start_blink())
 		overload_timer.stopped.connect(func(): overload_progress.stop_blink())
@@ -68,11 +71,12 @@ func _ready():
 	)
 
 	document_stack.document_added.connect(func():
-		var p = _get_difficulty_level()
-		if p > 0.7:
-			doc_spawner.add_hard()
-		elif p > 0.4:
-			doc_spawner.add_medium()
+		if GameManager.is_work_mode():
+			var p = _get_difficulty_level()
+			if p > 0.7:
+				doc_spawner.add_hard()
+			elif p > 0.4:
+				doc_spawner.add_medium()
 	)
 		
 	key_reader.pressed_key.connect(func(key, _s): if not documents.is_empty(): documents[0].handle_key(key))
@@ -80,7 +84,7 @@ func _ready():
 func _on_day_finished():
 	bgm.pitch_scale = GameManager.difficulty.bgm_speed
 	
-	if GameManager.day > 1:
+	if GameManager.day > 1 and GameManager.is_work_mode():
 		_start_game()
 	else:
 		_spawn_document(true)
@@ -99,24 +103,31 @@ func _process(_delta):
 	overload_progress.multiplier = max(workload, 0.5)
 
 func _finished(is_gameover = false):
-	GameManager.finished_day(document_stack.total, work_time.get_overtime())
-	distractions.slide_all_out()
-	if is_gameover:
-		gameover.fired()
-	else:
-		end.day_ended(document_stack.total, work_time.get_overtime())
-
+	if GameManager.is_work_mode():
+		GameManager.finished_day(document_stack.total, work_time.get_overtime())
+		distractions.slide_all_out()
+		if is_gameover:
+			gameover.fired()
+		else:
+			end.day_ended(document_stack.total, work_time.get_overtime())
+	elif GameManager.is_interview_mode():
+		GameManager.finished_interview(document_stack.total, work_time.timed_mode_seconds)
+		end.interview_ended(document_stack.total)
+			
 func _spawn():
 	if work_time.ended or is_gameover:
 		return
 	
 	_spawn_document()
 	
-	if not GameManager.is_intern():
-		var p = _get_difficulty_level()
-		var t = lerp(GameManager.difficulty.max_documents, GameManager.difficulty.min_documents, p)
+	if GameManager.is_work_mode():
+		if not GameManager.is_intern():
+			var p = _get_difficulty_level()
+			var t = lerp(GameManager.difficulty.max_documents, GameManager.difficulty.min_documents, p)
 
-		spawn_timer.start(t)
+			spawn_timer.start(t)
+	elif documents.size() < min_documents:
+		_spawn()
 
 func _get_difficulty_level():
 	var start_wpm = GameManager.difficulty.average_wpm
@@ -138,11 +149,14 @@ func _spawn_document(await_start = false):
 		document_stack.add_document()
 		overload_timer.stop()
 		
-		if not work_time.ended:
+		if not work_time.ended and GameManager.is_work_mode():
 			distractions.maybe_show_distraction()
 
 		if documents.size() > 0:
 			documents[0].highlight()
+			
+			if GameManager.is_interview_mode() and documents.size() < min_documents:
+				_spawn()
 		elif work_time.ended:
 			_finished()
 		else:

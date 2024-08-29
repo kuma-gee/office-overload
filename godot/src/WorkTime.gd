@@ -53,10 +53,10 @@ func _start_timer():
 	
 	if stopped or get_tree().paused: return
 
-	if GameManager.current_mode == GameManager.Mode.Interview:
+	if GameManager.is_interview_mode():
 		self.hour -= 1
 		
-		if hour == 0:
+		if hour <= 0:
 			next_work_day.emit()
 	else:
 		self.hour += 1
@@ -65,7 +65,9 @@ func _start_timer():
 			day_ended.emit()
 			if day_end_sound:
 				day_end_sound.play()
-			ended = true
+			
+			if GameManager.is_work_mode():
+				ended = true
 		
 		if hour > end_hour:
 			if overtime_sound:

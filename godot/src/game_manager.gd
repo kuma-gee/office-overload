@@ -30,6 +30,9 @@ var total_completed_words := 0
 var average_wpm := 0.0
 var average_accuracy := 0.0
 
+var last_interview_wpm := 0.0
+var last_interview_accuracy := 0.0
+
 ### Dynamic ###
 var difficulty: DifficultyResource
 var current_mode: Mode
@@ -52,13 +55,9 @@ func start(mode: Mode = current_mode):
 	current_mode = mode
 	if is_work_mode():
 		day += 1
-	else:
-		day = 1 # Needed to await start key
 	
+	wpm_calculator.reset()
 	SceneManager.change_scene("res://src/game.tscn") # reload_scene (sometimes?) doesn't work?
-
-func next_day():
-	start()
 
 func restart():
 	SceneManager.change_scene("res://src/game.tscn")
@@ -88,6 +87,11 @@ func finished_day(tasks: int, overtime: int):
 	print("New Average WPM %s and Accuracy %s with %s words" % [average_wpm, average_accuracy, total_completed_words])
 	
 	_save_data()
+	round_ended.emit()
+
+func finished_interview(tasks: int, time_in_sec: int):
+	last_interview_wpm = wpm_calculator.get_average_wpm()
+	last_interview_accuracy = wpm_calculator.get_average_accuracy()
 	round_ended.emit()
 
 func start_type():
@@ -160,6 +164,10 @@ func get_unlocked_modes():
 	return unlocked_modes
 
 func unlock_mode(mode: Mode):
-	if Env.is_demo(): return
+	if Env.is_demo():
+		print("Cannot unlock new modes in demo")
+		return
 
 	unlocked_modes.append(mode)
+	print("Unlocked Mode %s" % Mode.keys()[mode])
+	_save_data()

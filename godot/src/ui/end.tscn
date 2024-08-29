@@ -7,12 +7,12 @@
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_j7irx"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_d7wj0"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="5_rckpx"]
-[ext_resource type="Script" path="res://src/KeyDelegator.gd" id="5_vwxsb"]
 [ext_resource type="Script" path="res://src/ui/Promotion.gd" id="7_k31c7"]
+[ext_resource type="Script" path="res://src/delegator.gd" id="7_ls5ot"]
+[ext_resource type="Script" path="res://src/ui/break_button.gd" id="7_mgfnm"]
 [ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="8_f3tsx"]
 [ext_resource type="AudioStream" uid="uid://e82h4pq7oib4" path="res://assets/sound/金額表示.mp3" id="8_i0k3p"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="8_whfhi"]
-[ext_resource type="Script" path="res://src/KeyReader.gd" id="11_oaofj"]
 [ext_resource type="PackedScene" uid="uid://cwb2bomvrxmul" path="res://src/ui/leaderboad.tscn" id="15_ym5x3"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yl2xo"]
@@ -43,7 +43,7 @@ scale_max = 5.0
 scale_curve = SubResource("CurveTexture_a2xch")
 alpha_curve = SubResource("CurveTexture_r3tfy")
 
-[node name="End" type="Control" node_paths=PackedStringArray("leader_board", "next_day", "break_button", "open_sound", "next_day_container", "promotion_container", "title", "overtime", "finished_tasks", "promotion_text", "promotion_text_container", "promotion_particle_1", "promotion_particle_2", "promotion_sound")]
+[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "leader_board", "interview_finished", "interview_wpm", "interview_accuracy", "interview_delegator", "next_day", "next_day_container", "promotion_container", "title", "overtime", "finished_tasks", "day_delegator", "promotion_text", "promotion_text_container", "promotion_particle_1", "promotion_particle_2", "promotion_sound", "promotion_delegator", "work_container", "interview_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -53,20 +53,27 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_80w1y")
 script = ExtResource("2_oxc1v")
-leader_board = NodePath("Control/Leaderboard")
-next_day = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/NextDay/NextDayButton")
-break_button = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/NextDay/Break")
 open_sound = NodePath("OpenSound")
-next_day_container = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer")
-promotion_container = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion")
-title = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Title")
-overtime = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Overtime")
-finished_tasks = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/FinishedTasks")
-promotion_text = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/TypingLabel")
-promotion_text_container = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer")
-promotion_particle_1 = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2/GPUParticles2D")
-promotion_particle_2 = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control3/GPUParticles2D")
+leader_board = NodePath("Control/Leaderboard")
+interview_finished = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/FinishedTasks")
+interview_wpm = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/WPM")
+interview_accuracy = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/Accuracy")
+interview_delegator = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/InterviewDelegator")
+next_day = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay/NextDayButton")
+next_day_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer")
+promotion_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/Promotion")
+title = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/Title")
+overtime = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Overtime")
+finished_tasks = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/FinishedTasks")
+day_delegator = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/DayDelegator")
+promotion_text = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/TypingLabel")
+promotion_text_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer")
+promotion_particle_1 = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2/GPUParticles2D")
+promotion_particle_2 = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control3/GPUParticles2D")
 promotion_sound = NodePath("PromotionSound")
+promotion_delegator = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/PromotionDelegator")
+work_container = NodePath("CenterContainer/PanelContainer/Work")
+interview_container = NodePath("CenterContainer/PanelContainer/Interview")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -90,86 +97,153 @@ custom_minimum_size = Vector2(200, 150)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_yl2xo")
 
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+[node name="Interview" type="MarginContainer" parent="CenterContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Interview"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="CenterContainer/PanelContainer/Interview/VBoxContainer"]
+layout_mode = 2
+text = "result"
+label_settings = ExtResource("2_ox4yy")
+horizontal_alignment = 1
+
+[node name="InterviewDelegator" type="Node" parent="CenterContainer/PanelContainer/Interview/VBoxContainer" node_paths=PackedStringArray("nodes")]
+script = ExtResource("7_ls5ot")
+nodes = [NodePath("../VBoxContainer/NextDay/Upload"), NodePath("../VBoxContainer/NextDay/Break")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Interview/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "FINISHED_TASKS"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="WPM" type="Label" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "FINISHED_TASKS"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Accuracy" type="Label" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "FINISHED_TASKS"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Upload" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+word = "Upload"
+
+[node name="Break" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+script = ExtResource("7_mgfnm")
+
+[node name="Work" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer"]
 layout_mode = 2
 text = "daily report"
 label_settings = ExtResource("2_ox4yy")
 horizontal_alignment = 1
 
-[node name="Promotion" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PromotionDelegator" type="Node" parent="CenterContainer/PanelContainer/Work/VBoxContainer" node_paths=PackedStringArray("nodes")]
+script = ExtResource("7_ls5ot")
+nodes = [NodePath("../Promotion/HBoxContainer2/PromotionYes"), NodePath("../Promotion/HBoxContainer2/PromotionNo")]
+
+[node name="Promotion" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 script = ExtResource("7_k31c7")
 
-[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion"]
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion"]
 layout_mode = 2
 text = "We have been impressed
 by your performance"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion"]
+[node name="Label2" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion"]
 layout_mode = 2
 text = "Would you like
 a promotion?"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
-[node name="Control" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion"]
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion" node_paths=PackedStringArray("key_reader")]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion"]
 layout_mode = 2
 size_flags_horizontal = 4
-script = ExtResource("5_vwxsb")
-key_reader = NodePath("../../../../../../KeyReader")
 
-[node name="PromotionYes" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
+[node name="PromotionYes" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
 layout_mode = 2
 word = "Yes"
 
-[node name="PromotionNo" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
+[node name="PromotionNo" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
 layout_mode = 2
 word = "No"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 5
 
-[node name="PromotionTextContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="DayDelegator" type="Node" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("nodes")]
+script = ExtResource("7_ls5ot")
+nodes = [NodePath("../NextDay/NextDayButton"), NodePath("../NextDay/Break")]
+
+[node name="PromotionTextContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Promotion" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer"]
+[node name="Promotion" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer"]
 layout_mode = 2
 text = "Promoted to"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Control2" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer"]
+[node name="Control2" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2"]
 position = Vector2(6, 8)
 emitting = false
 amount = 6
@@ -178,7 +252,7 @@ lifetime = 0.8
 one_shot = true
 explosiveness = 0.9
 
-[node name="TypingLabel" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer" instance=ExtResource("8_whfhi")]
+[node name="TypingLabel" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer" instance=ExtResource("8_whfhi")]
 layout_mode = 2
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/normal_font_size = 10
@@ -186,11 +260,11 @@ frequency = 2.0
 height = 0.5
 highlight_all = true
 
-[node name="Control3" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer"]
+[node name="Control3" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control3"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control3"]
 position = Vector2(-7, 8)
 rotation = 1.5708
 emitting = false
@@ -200,38 +274,34 @@ lifetime = 0.8
 one_shot = true
 explosiveness = 0.9
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "FINISHED_TASKS"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
-[node name="Overtime" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Overtime" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "OVERTIME"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
-[node name="Control" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("key_reader")]
+[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-script = ExtResource("5_vwxsb")
-key_reader = NodePath("../../../../../../KeyReader")
 
-[node name="NextDayButton" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+[node name="NextDayButton" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
 layout_mode = 2
 word = "Next Day"
 
-[node name="Break" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+[node name="Break" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
 layout_mode = 2
+script = ExtResource("7_mgfnm")
 word = "Break"
-
-[node name="KeyReader" type="Node" parent="."]
-script = ExtResource("11_oaofj")
 
 [node name="EndEffect" type="Node" parent="."]
 script = ExtResource("4_j7irx")
@@ -281,5 +351,5 @@ offset_top = 16.0
 offset_right = -29.0
 offset_bottom = -16.0
 
-[connection signal="finished" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionYes" to="." method="_on_promotion_yes_finished"]
-[connection signal="finished" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Promotion/HBoxContainer2/PromotionNo" to="." method="_on_promotion_no_finished"]
+[connection signal="finished" from="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion/HBoxContainer2/PromotionYes" to="." method="_on_promotion_yes_finished"]
+[connection signal="finished" from="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion/HBoxContainer2/PromotionNo" to="." method="_on_promotion_no_finished"]
