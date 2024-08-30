@@ -676,7 +676,23 @@ layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
 height = 1.0
 
-[node name="Junior" type="PanelContainer" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "sounds")]
+[node name="Junior" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "sounds")]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2
+script = ExtResource("15_ffym8")
+label = NodePath("Junior/MarginContainer/VBoxContainer/TypingLabel")
+type = 2
+slide_dir = Vector2(100, 0)
+sounds = [NodePath("Popup")]
+
+[node name="Popup" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Junior"]
+stream = ExtResource("25_k4kvb")
+volume_db = -10.0
+
+[node name="Junior" type="PanelContainer" parent="CanvasLayer/Distractions/Junior"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
 anchors_preset = 4
@@ -688,41 +704,31 @@ offset_bottom = 30.0
 grow_vertical = 2
 theme = ExtResource("10_am0oy")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_o0ctv")
-script = ExtResource("15_ffym8")
-tween_trans = 10
-label = NodePath("MarginContainer/VBoxContainer/TypingLabel")
-type = 2
-slide_dir = Vector2(120, 0)
-sounds = [NodePath("Popup")]
 
-[node name="Popup" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Junior"]
-stream = ExtResource("25_k4kvb")
-volume_db = -10.0
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Junior"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Junior/Junior"]
 layout_mode = 2
 texture = ExtResource("18_51hqv")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Junior"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Junior/Junior"]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Junior/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="CanvasLayer/Distractions/Junior/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Junior:"
 label_settings = ExtResource("16_3sqd2")
 horizontal_alignment = 1
 
-[node name="TypingLabel" parent="CanvasLayer/Distractions/Junior/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
+[node name="TypingLabel" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
 height = 1.0
@@ -883,7 +889,6 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "08"
 horizontal_alignment = 1
 script = ExtResource("7_ruuy4")
-hour_in_seconds = 1
 timer = NodePath("Timer")
 day_end_sound = NodePath("End")
 overtime_sound = NodePath("Overtime")

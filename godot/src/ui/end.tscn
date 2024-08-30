@@ -43,7 +43,7 @@ scale_max = 5.0
 scale_curve = SubResource("CurveTexture_a2xch")
 alpha_curve = SubResource("CurveTexture_r3tfy")
 
-[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "leader_board", "interview_finished", "interview_wpm", "interview_accuracy", "interview_delegator", "next_day", "next_day_container", "promotion_container", "title", "overtime", "finished_tasks", "day_delegator", "promotion_text", "promotion_text_container", "promotion_particle_1", "promotion_particle_2", "promotion_sound", "promotion_delegator", "work_container", "interview_container")]
+[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "leader_board", "leader_board_container", "interview_finished", "interview_wpm", "interview_delegator", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_delegator", "next_day", "next_day_container", "promotion_container", "title", "overtime", "finished_tasks", "day_delegator", "promotion_text", "promotion_text_container", "promotion_particle_1", "promotion_particle_2", "promotion_sound", "promotion_delegator", "work_container", "interview_container", "crunch_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -54,11 +54,15 @@ grow_vertical = 2
 theme = ExtResource("1_80w1y")
 script = ExtResource("2_oxc1v")
 open_sound = NodePath("OpenSound")
-leader_board = NodePath("Control/Leaderboard")
+leader_board = NodePath("LeaderboardContainer/Leaderboard")
+leader_board_container = NodePath("LeaderboardContainer")
 interview_finished = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/FinishedTasks")
 interview_wpm = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/WPM")
-interview_accuracy = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/Accuracy")
 interview_delegator = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/InterviewDelegator")
+crunch_tasks = NodePath("CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/Tasks")
+crunch_time = NodePath("CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/Time")
+crunch_wpm = NodePath("CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/WPM")
+crunch_delegator = NodePath("CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/CrunchDelegator")
 next_day = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay/NextDayButton")
 next_day_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer")
 promotion_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/Promotion")
@@ -74,6 +78,7 @@ promotion_sound = NodePath("PromotionSound")
 promotion_delegator = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/PromotionDelegator")
 work_container = NodePath("CenterContainer/PanelContainer/Work")
 interview_container = NodePath("CenterContainer/PanelContainer/Interview")
+crunch_container = NodePath("CenterContainer/PanelContainer/Crunch")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -98,6 +103,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_yl2xo")
 
 [node name="Interview" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -130,12 +136,6 @@ label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
 [node name="WPM" type="Label" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "FINISHED_TASKS"
-label_settings = ExtResource("4_0mkg1")
-horizontal_alignment = 1
-
-[node name="Accuracy" type="Label" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "FINISHED_TASKS"
 label_settings = ExtResource("4_0mkg1")
@@ -303,6 +303,67 @@ layout_mode = 2
 script = ExtResource("7_mgfnm")
 word = "Break"
 
+[node name="Crunch" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer"]
+layout_mode = 2
+text = "Burned out"
+label_settings = ExtResource("2_ox4yy")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+
+[node name="CrunchDelegator" type="Node" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("nodes")]
+script = ExtResource("7_ls5ot")
+nodes = [NodePath("../NextDay/Upload"), NodePath("../NextDay/Break")]
+
+[node name="Tasks" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "FINISHED_TASKS"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Time" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "OVERTIME"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="WPM" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "OVERTIME"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Upload" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+word = "Next Day"
+
+[node name="Break" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+script = ExtResource("7_mgfnm")
+word = "Break"
+
 [node name="EndEffect" type="Node" parent="."]
 script = ExtResource("4_j7irx")
 trans = 10
@@ -333,18 +394,19 @@ duration = 0.5
 
 [node name="Slide" type="Node" parent="LeaderBoardEffect" node_paths=PackedStringArray("node")]
 script = ExtResource("5_d7wj0")
-node = NodePath("../../Control")
+node = NodePath("../../LeaderboardContainer")
 
-[node name="Control" type="Control" parent="."]
-visible = false
+[node name="LeaderboardContainer" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="Leaderboard" parent="Control" instance=ExtResource("15_ym5x3")]
+[node name="Leaderboard" parent="LeaderboardContainer" instance=ExtResource("15_ym5x3")]
+visible = false
 layout_mode = 1
 offset_left = 29.0
 offset_top = 16.0

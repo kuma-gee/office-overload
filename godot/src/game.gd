@@ -151,7 +151,7 @@ func _spawn():
 
 func _crunch_mode_spawn_time(doc_count: int = document_stack.total):
 	var x = max(doc_count, 1)
-	return max(crunch_start_spawn_time - (log(x) / log(10)) * 1.5, crunch_min_spawn_time)
+	return max(crunch_start_spawn_time - (log(x) / log(10)) * 1.8, crunch_min_spawn_time)
 
 func _get_difficulty_level():
 	var start_wpm = GameManager.difficulty.average_wpm

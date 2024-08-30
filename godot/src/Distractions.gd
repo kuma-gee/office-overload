@@ -50,11 +50,12 @@ enum Type {
 @onready var email = $Email
 @onready var phone = $Phone
 @onready var junior = $Junior
-@onready var menus := [email, phone, junior]
+@onready var menus: Array[Control] = [email, phone, junior]
 
 var distraction_accumulator = 0.0
 
 func _ready():
+	delegator.nodes = menus
 	_close_all()
 
 func _close_all():
@@ -76,8 +77,8 @@ func maybe_show_distraction():
 
 func show_distraction():
 	var available = menus.filter(func(m): return m.get_word() == "")
-	#if not GameManager.is_senior():
-		#available.erase(junior)
+	if not GameManager.is_senior():
+		available.erase(junior)
 	
 	if available.is_empty(): return
 	
@@ -95,7 +96,9 @@ func _get_random_distraction_word(type: Type):
 
 func _input(event):
 	if not _has_active_distraction(): return
-	if not delegator.handle_event(event):
+	
+	var handled = delegator.handle_event(event)
+	if event is InputEventKey and not delegator.has_focused() and not handled:
 		shake_effect.do_effect(false)
 
 func _has_active_distraction():

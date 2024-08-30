@@ -25,14 +25,17 @@ var completed_documents := 0
 var total_overtime := 0
 var difficulty_level := DifficultyResource.Level.INTERN
 
-var unlocked_modes = [Mode.Work]
 var total_completed_words := 0
 var average_wpm := 0.0
 var average_accuracy := 0.0
 
+var unlocked_modes = [Mode.Work]
+
 var last_interview_wpm := 0.0
 var last_interview_accuracy := 0.0
 
+var last_crunch_tasks := 0
+var last_crunch_time := 0.0
 var last_crunch_wpm := 0.0
 var last_crunch_accuracy := 0.0
 
@@ -54,11 +57,11 @@ func _save_data():
 func start(mode: Mode = current_mode):
 	if not is_mode_unlocked(mode):
 		return
-	
+		
+	current_mode = mode
 	if Env.is_demo():
 		current_mode = Mode.Work
 	
-	current_mode = mode
 	if is_work_mode():
 		day += 1
 	
@@ -75,6 +78,11 @@ func reset_values():
 	day = 0
 	completed_documents = 0
 	total_overtime = 0
+	difficulty_level = DifficultyResource.Level.INTERN
+	
+	average_wpm = 0.0
+	average_accuracy = 0.0
+	total_completed_words = 0
 	_save_data()
 
 func finished_day(tasks: int, overtime: int):
@@ -107,6 +115,9 @@ func finished_crunch(tasks: int):
 	last_crunch_wpm = wpm_calculator.get_average_wpm()
 	last_crunch_accuracy = wpm_calculator.get_average_accuracy()
 	wpm_calculator.reset()
+	
+	last_crunch_tasks = tasks
+	last_crunch_time = 0.0
 	
 	_save_data()
 	round_ended.emit()

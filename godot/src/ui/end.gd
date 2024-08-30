@@ -5,12 +5,18 @@ extends Control
 
 @export var open_sound: AudioStreamPlayer
 @export var leader_board: Leaderboard
+@export var leader_board_container: Control
 
 @export_category("Interview Mode")
 @export var interview_finished: Label
 @export var interview_wpm: Label
-@export var interview_accuracy: Label
 @export var interview_delegator: Delegator
+
+@export_category("Crunch Mode")
+@export var crunch_tasks: Label
+@export var crunch_time: Label
+@export var crunch_wpm: Label
+@export var crunch_delegator: Delegator
 
 @export_category("Work Mode")
 @export var next_day: TypingButton
@@ -32,23 +38,16 @@ extends Control
 @export_category("Mode Container")
 @export var work_container: Control
 @export var interview_container: Control
+@export var crunch_container: Control
 
 func _ready():
 	work_container.hide()
 	interview_container.hide()
+	crunch_container.hide()
 	
 	next_day_container.hide()
 	promotion_container.hide()
 	promotion_text_container.hide()
-	
-	#key_reader.process_mode = Node.PROCESS_MODE_DISABLED
-	#key_reader.pressed_key.connect(func(key, shift):
-		#if not shift: return
-		#
-		#if key == "l":
-			#leader_board_effect.do_effect()
-			#leader_board.grab_focus()
-	#)
 	
 	leader_board.close.connect(func():
 		leader_board_effect.reverse_effect()
@@ -73,17 +72,19 @@ func day_ended(finished: int, overtime_in_hours: float):
 
 func interview_ended(finished: int):
 	interview_finished.text = "Finished %s documents" % finished
-	interview_wpm.text = "%.0f WPM" % GameManager.last_interview_wpm
-	interview_accuracy.text = "%.2f%% Accuracy" % [GameManager.last_interview_accuracy * 100]
+	interview_wpm.text = "%.0f WPM / %.2f%%" % [GameManager.last_interview_wpm, GameManager.last_interview_accuracy * 100]
+
 	_do_open(interview_container)
 
 func crunch_ended(finished: int, hours: int):
-	_do_open(null)
+	crunch_tasks.text = "Finished %s documents" % finished
+	crunch_time.text = "Worked for %s hours" % hours
+	crunch_wpm.text = "%.0f WPM / %.2f%%" % [GameManager.last_crunch_wpm, GameManager.last_crunch_accuracy * 100]
+	
+	_do_open(crunch_container)
 
 func _do_open(container: Control):
 	container.show()
-	#key_reader.process_mode = Node.PROCESS_MODE_ALWAYS
-	
 	end_effect.do_effect()
 	show()
 	open_sound.play()
@@ -109,6 +110,16 @@ func _on_promotion_no_finished():
 	next_day_container.show()
 
 func _unhandled_input(event: InputEvent) -> void:
+	#var key = KeyReader.get_key_of_event(event)
+	#if key:
+		#print(key, ", ", event)
+		#var key_ev = event as InputEventKey
+		#if key_ev.shift_pressed and key == "l":
+			#leader_board_effect.do_effect()
+			#leader_board.grab_focus()
+		#
+		#return
+	
 	if work_container.visible:
 		if promotion_container.visible:
 			promotion_delegator.handle_event(event)
@@ -116,3 +127,5 @@ func _unhandled_input(event: InputEvent) -> void:
 			day_delegator.handle_event(event)
 	elif interview_container.visible:
 		interview_delegator.handle_event(event)
+	elif crunch_container.visible:
+		crunch_delegator.handle_event(event)
