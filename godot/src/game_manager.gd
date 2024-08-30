@@ -69,7 +69,7 @@ func start(mode: Mode = current_mode):
 	SceneManager.change_scene("res://src/game.tscn") # reload_scene (sometimes?) doesn't work?
 
 func restart():
-	SceneManager.change_scene("res://src/game.tscn")
+	start()
 
 func back_to_menu(reset = true):
 	SceneManager.change_scene("res://start.tscn")

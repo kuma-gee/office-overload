@@ -16,11 +16,11 @@ func save_data():
 	for prop in properties:
 		data[prop] = node.get(prop)
 
-	logger.debug("Save for %s: %s" % [node.get_path(), str(data)])
+	#logger.debug("Save for %s: %s" % [node.get_path(), str(data)])
 	return data
 
 
 func load_data(data: Dictionary):
-	logger.debug("Load for %s: %s" % [node.get_path(), str(data)])
+	#logger.debug("Load for %s: %s" % [node.get_path(), str(data)])
 	for prop in data:
 		node.set(prop, data[prop])

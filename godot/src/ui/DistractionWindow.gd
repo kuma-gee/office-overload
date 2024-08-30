@@ -27,6 +27,7 @@ func _ready():
 func set_word(w: String):
 	label.word = w
 	label.highlight_first = true
+	label.focused = true
 	slide_in()
 	show()
 
@@ -47,6 +48,9 @@ func slide_in():
 func slide_out():
 	if tw and tw.is_running():
 		tw.kill()
+	
+	if effect_root:
+		effect_root.stop()
 	
 	tw = create_tween().set_ease(Tween.EASE_IN).set_trans(tween_trans)
 	tw.tween_property(self, "global_position", get_hide_position(), 0.5)

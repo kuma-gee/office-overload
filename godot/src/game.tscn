@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=66 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -44,6 +44,7 @@
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/Document.png" id="24_g7dws"]
 [ext_resource type="AudioStream" uid="uid://dl1bac3viudub" path="res://assets/sound/パパッ.mp3" id="25_k4kvb"]
 [ext_resource type="Texture2D" uid="uid://fhvvkmwkvr5c" path="res://assets/Desk_Plant.png" id="27_1a3yr"]
+[ext_resource type="Script" path="res://src/report.gd" id="27_q3o08"]
 [ext_resource type="Texture2D" uid="uid://ctoyv3g7nvrwf" path="res://assets/Desk_Coffee.png" id="28_i6mjb"]
 [ext_resource type="Texture2D" uid="uid://c7bni1sdaaaqn" path="res://assets/Desk_Keyboard.png" id="31_x6efq"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
@@ -369,12 +370,40 @@ tracks/0/keys = {
 "values": [0, 1]
 }
 
+[sub_resource type="Animation" id="Animation_0rw6j"]
+resource_name = "silent_bgm"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../BGM:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BGM:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-40.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vs0lt"]
 _data = {
 "RESET": SubResource("Animation_mdfl2"),
 "littered": SubResource("Animation_qam2k"),
 "messy": SubResource("Animation_if3j8"),
 "normal": SubResource("Animation_ijo53"),
+"silent_bgm": SubResource("Animation_0rw6j"),
 "start_bgm": SubResource("Animation_c5ajb"),
 "stop_bgm": SubResource("Animation_c62e5"),
 "tutorial": SubResource("Animation_5s4dq")
@@ -733,6 +762,54 @@ layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
 height = 1.0
 
+[node name="Report" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("10_am0oy")
+script = ExtResource("27_q3o08")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Report"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.0
+offset_top = -80.0
+offset_right = 61.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Report/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Report/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/Report/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "REPORT"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Report/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TypingLabel" parent="CanvasLayer/Report/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2" instance=ExtResource("15_r4fui")]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 10
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.2, 0.2, 0.2, 1)
 
@@ -886,7 +963,7 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("10_am0oy")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "08"
+text = "09"
 horizontal_alignment = 1
 script = ExtResource("7_ruuy4")
 timer = NodePath("Timer")

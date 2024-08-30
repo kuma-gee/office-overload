@@ -8,7 +8,7 @@ signal time_changed()
 
 @export var start_hour = 9
 @export var end_hour = 17
-@export var hour_in_seconds := 5
+@export var hour_in_seconds := 4
 
 @export var timed_mode_seconds := 30
 
@@ -76,13 +76,10 @@ func _set_hour(h: int):
 	text = ""
 	
 	var actual_h = hour % 24
-	if hour < 24:
-		text += _hour_string(h)
-	else:
-		if actual_h >= start_hour and hour > 24 and GameManager.is_work_mode():
-			next_work_day.emit()
-		
-		text += _hour_string(actual_h)
+	if actual_h >= start_hour and hour > 24 and GameManager.is_work_mode():
+		next_work_day.emit()
+	
+	text += _hour_string(actual_h)
 	
 	time_changed.emit(actual_h)
 	

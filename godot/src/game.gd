@@ -97,6 +97,7 @@ func _on_day_finished():
 		_start_game()
 	else:
 		_spawn_document(true)
+		animation_player.play("silent_bgm")
 		animation_player.play("tutorial")
 
 func _start_game():
