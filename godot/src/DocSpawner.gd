@@ -95,6 +95,8 @@ func _ready():
 	elif GameManager.is_interview_mode():
 		add_easy()
 		add_medium()
+	elif GameManager.is_crunch_mode():
+		add_easy()
 
 func add_easy():
 	if mode >= Mode.EASY: return

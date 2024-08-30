@@ -7,6 +7,12 @@ extends Node2D
 @export_category("Interview")
 @export var min_documents := 2
 
+@export_category("Crunch")
+@export var max_bgm_pitch := 2.0
+@export var max_bgm_pitch_time := 0.4
+@export var crunch_start_spawn_time := 4.
+@export var crunch_min_spawn_time := 0.4
+
 @onready var doc_spawner = $DocSpawner
 @onready var spawn_timer = $SpawnTimer
 @onready var document_stack = $DocumentStack
@@ -82,7 +88,10 @@ func _ready():
 	key_reader.pressed_key.connect(func(key, _s): if not documents.is_empty(): documents[0].handle_key(key))
 
 func _on_day_finished():
-	bgm.pitch_scale = GameManager.difficulty.bgm_speed
+	if GameManager.is_work_mode():
+		bgm.pitch_scale = GameManager.difficulty.bgm_speed
+	else:
+		bgm.pitch_scale = 1.0
 	
 	if GameManager.day > 1 and GameManager.is_work_mode():
 		_start_game()
@@ -113,9 +122,12 @@ func _finished(is_gameover = false):
 	elif GameManager.is_interview_mode():
 		GameManager.finished_interview(document_stack.total, work_time.timed_mode_seconds)
 		end.interview_ended(document_stack.total)
+	else:
+		GameManager.finished_crunch(document_stack.total)
+		end.crunch_ended(document_stack.total, work_time.hour)
 			
 func _spawn():
-	if work_time.ended or is_gameover:
+	if (work_time.ended and GameManager.is_work_mode()) or is_gameover:
 		return
 	
 	_spawn_document()
@@ -126,8 +138,20 @@ func _spawn():
 			var t = lerp(GameManager.difficulty.max_documents, GameManager.difficulty.min_documents, p)
 
 			spawn_timer.start(t)
-	elif documents.size() < min_documents:
-		_spawn()
+	elif GameManager.is_interview_mode():
+		if documents.size() < min_documents:
+			_spawn()
+	else:
+		var t = _crunch_mode_spawn_time()
+		spawn_timer.start(t)
+		
+		var pitch = remap(t, crunch_start_spawn_time, max_bgm_pitch_time, 1.0, max_bgm_pitch)
+		bgm.pitch_scale = snappedf(pitch, 0.25) if pitch >= 1.25 else 1.0
+		print(t, " - ", pitch, " -> ", bgm.pitch_scale)
+
+func _crunch_mode_spawn_time(doc_count: int = document_stack.total):
+	var x = max(doc_count, 1)
+	return max(crunch_start_spawn_time - (log(x) / log(10)) * 1.5, crunch_min_spawn_time)
 
 func _get_difficulty_level():
 	var start_wpm = GameManager.difficulty.average_wpm
@@ -157,7 +181,7 @@ func _spawn_document(await_start = false):
 			
 			if GameManager.is_interview_mode() and documents.size() < min_documents:
 				_spawn()
-		elif work_time.ended:
+		elif work_time.ended and GameManager.is_work_mode():
 			_finished()
 		else:
 			if await_start:

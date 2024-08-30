@@ -20,15 +20,14 @@ signal time_changed()
 
 var stopped = false
 var ended = false
-var days := 0
 
 func _ready():
 	_set_start_hour()
-	
+
 func _set_start_hour():
 	match GameManager.current_mode:
 		GameManager.Mode.Crunch:
-			_set_hour(0)
+			_set_hour(start_hour)
 		GameManager.Mode.Interview:
 			_set_hour(timed_mode_seconds / hour_in_seconds)
 		GameManager.Mode.Work:
@@ -61,35 +60,41 @@ func _start_timer():
 	else:
 		self.hour += 1
 		
-		if hour == end_hour:
-			day_ended.emit()
-			if day_end_sound:
-				day_end_sound.play()
-			
-			if GameManager.is_work_mode():
-				ended = true
-		
-		if hour > end_hour:
-			if overtime_sound:
-				overtime_sound.play()
+		if is_day_ended() and overtime_sound and GameManager.is_work_mode():
+			overtime_sound.play()
 		
 	_start_timer()
 
+func is_day_ended():
+	var h = hour % 24
+	return h >= end_hour and h <= 24 or h >= 0 and h < start_hour
+
 func _set_hour(h: int):
+	if hour == h: return
+	
 	hour = h
 	text = ""
 	
+	var actual_h = hour % 24
 	if hour < 24:
 		text += _hour_string(h)
 	else:
-		var actual_h = hour - 24
-		if actual_h >= start_hour:
-			if GameManager.current_mode == GameManager.Mode.Work:
-				next_work_day.emit()
-			days += 1
+		if actual_h >= start_hour and hour > 24 and GameManager.is_work_mode():
+			next_work_day.emit()
+		
 		text += _hour_string(actual_h)
 	
-	time_changed.emit(hour)
+	time_changed.emit(actual_h)
+	
+	if actual_h == end_hour:
+		day_ended.emit()
+		if day_end_sound:
+			day_end_sound.play()
+		ended = true # only for work time mode
+	elif actual_h == start_hour:
+		started.emit()
+		if overtime_sound:
+			overtime_sound.play()
 
 func _hour_string(hour: int):
 	return "%s" % [hour if hour > 9 else "0" + str(hour)]

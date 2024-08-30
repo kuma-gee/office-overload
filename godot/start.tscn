@@ -440,6 +440,7 @@ delegator = NodePath("Delegator")
 
 [node name="Delegator" type="Node" parent="GameModes" node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
+reset_on_mistake = false
 nodes = [NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode3"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode2")]
 
 [node name="EffectRoot" type="Node" parent="GameModes"]

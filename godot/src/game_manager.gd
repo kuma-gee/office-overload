@@ -33,6 +33,9 @@ var average_accuracy := 0.0
 var last_interview_wpm := 0.0
 var last_interview_accuracy := 0.0
 
+var last_crunch_wpm := 0.0
+var last_crunch_accuracy := 0.0
+
 ### Dynamic ###
 var difficulty: DifficultyResource
 var current_mode: Mode
@@ -51,6 +54,9 @@ func _save_data():
 func start(mode: Mode = current_mode):
 	if not is_mode_unlocked(mode):
 		return
+	
+	if Env.is_demo():
+		current_mode = Mode.Work
 	
 	current_mode = mode
 	if is_work_mode():
@@ -92,6 +98,17 @@ func finished_day(tasks: int, overtime: int):
 func finished_interview(tasks: int, time_in_sec: int):
 	last_interview_wpm = wpm_calculator.get_average_wpm()
 	last_interview_accuracy = wpm_calculator.get_average_accuracy()
+	wpm_calculator.reset()
+	
+	_save_data()
+	round_ended.emit()
+
+func finished_crunch(tasks: int):
+	last_crunch_wpm = wpm_calculator.get_average_wpm()
+	last_crunch_accuracy = wpm_calculator.get_average_accuracy()
+	wpm_calculator.reset()
+	
+	_save_data()
 	round_ended.emit()
 
 func start_type():
@@ -161,6 +178,9 @@ func is_mode_unlocked(mode: Mode):
 	return mode in unlocked_modes
 
 func get_unlocked_modes():
+	if Env.is_demo():
+		return [Mode.Work]
+
 	return unlocked_modes
 
 func unlock_mode(mode: Mode):

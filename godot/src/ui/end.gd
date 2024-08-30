@@ -1,7 +1,6 @@
 extends Control
 
 @onready var end_effect = $EndEffect
-@onready var key_reader: KeyReader = $KeyReader
 @onready var leader_board_effect: EffectRoot = $LeaderBoardEffect
 
 @export var open_sound: AudioStreamPlayer
@@ -77,6 +76,9 @@ func interview_ended(finished: int):
 	interview_wpm.text = "%.0f WPM" % GameManager.last_interview_wpm
 	interview_accuracy.text = "%.2f%% Accuracy" % [GameManager.last_interview_accuracy * 100]
 	_do_open(interview_container)
+
+func crunch_ended(finished: int, hours: int):
+	_do_open(null)
 
 func _do_open(container: Control):
 	container.show()

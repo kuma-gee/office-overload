@@ -11,7 +11,16 @@ extends Sprite2D
 @onready var clock_light_4 = $ClockLight4
 @onready var lights := [clock_light_1, clock_light_2, clock_light_3, clock_light_4, point_light]
 
-var light = 1.0
+var light = 1.0:
+	set(v):
+		light = clamp(v, 0.2, 1)
+		canvas_modulate.color = Color(light, light, light, 1)
+		set_lights(light < 1)
+			
+		if light >= 0.3:
+			overload_progress.brighten()
+		else:
+			overload_progress.darken()
 
 func _ready():
 	canvas_modulate.color = Color.WHITE
@@ -22,23 +31,10 @@ func _ready():
 	worktime.started.connect(func(): _work_frame())
 	worktime.day_ended.connect(func(): _overtime_frame())
 	worktime.time_changed.connect(func(time):
-		if not worktime.ended:
-			return
-		
-		if time > 24 + 2:
-			light = min(light + 0.16, 1)
-		else:
-			light = max(light - 0.1, 0.2)
-		
-		canvas_modulate.color = Color(light, light, light, 1)
-		
-		if light >= 1:
-			set_lights(false)
-			
-		if light >= 0.3:
-			overload_progress.brighten()
-		else:
-			overload_progress.darken()
+		if time >= 2 and time <= worktime.start_hour:
+			light += 0.16
+		elif time >= worktime.end_hour:
+			light -= 0.1
 	)
 
 func _work_frame():
@@ -46,7 +42,6 @@ func _work_frame():
 	
 func _overtime_frame():
 	frame = 1
-	set_lights(true)
 
 func set_lights(enabled: bool):
 	for l in lights:
