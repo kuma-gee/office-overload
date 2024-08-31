@@ -21,14 +21,14 @@
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99435, 0), -3.02564, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_r3tfy"]
+[sub_resource type="CurveTexture" id="CurveTexture_wjj53"]
 curve = SubResource("Curve_30t50")
 
 [sub_resource type="Curve" id="Curve_5elgx"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.14201, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_a2xch"]
+[sub_resource type="CurveTexture" id="CurveTexture_a4gy4"]
 curve = SubResource("Curve_5elgx")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6w7w2"]
@@ -40,8 +40,8 @@ initial_velocity_max = 20.0
 gravity = Vector3(0, 10, 0)
 scale_min = 5.0
 scale_max = 5.0
-scale_curve = SubResource("CurveTexture_a2xch")
-alpha_curve = SubResource("CurveTexture_r3tfy")
+scale_curve = SubResource("CurveTexture_a4gy4")
+alpha_curve = SubResource("CurveTexture_wjj53")
 
 [node name="End" type="Control" node_paths=PackedStringArray("open_sound", "leader_board", "leader_board_container", "interview_finished", "interview_wpm", "interview_delegator", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_delegator", "next_day", "next_day_container", "promotion_container", "title", "overtime", "finished_tasks", "day_delegator", "promotion_text", "promotion_text_container", "promotion_particle_1", "promotion_particle_2", "promotion_sound", "promotion_delegator", "work_container", "interview_container", "crunch_container")]
 process_mode = 3

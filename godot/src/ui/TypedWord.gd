@@ -119,7 +119,7 @@ func handle_key(key: String, grab_focus = true):
 		if typed == word:
 			type_finish.emit()
 		return true
-	else:
+	elif typed != word:
 		if enable_mistake_effect:
 			play_mistake_effect()
 		type_wrong.emit()

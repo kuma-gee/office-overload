@@ -28,6 +28,7 @@ extends Node2D
 @onready var end = $CanvasLayer/End
 @onready var gameover = $CanvasLayer/Gameover
 @onready var key_reader = $KeyReader
+@onready var pause: Pause = $CanvasLayer/Pause
 
 @onready var bgm = $BGM
 
@@ -85,7 +86,14 @@ func _ready():
 				doc_spawner.add_medium()
 	)
 		
-	key_reader.pressed_key.connect(func(key, _s): if not documents.is_empty(): documents[0].handle_key(key))
+	key_reader.pressed_key.connect(func(key, shift):
+		if not documents.is_empty():
+			documents[0].handle_key(key)
+	)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") and not is_gameover:
+		pause.grab_focus()
 
 func _on_day_finished():
 	if GameManager.is_work_mode():
@@ -97,8 +105,8 @@ func _on_day_finished():
 		_start_game()
 	else:
 		_spawn_document(true)
-		animation_player.play("silent_bgm")
-		await animation_player.animation_finished
+		#animation_player.play("silent_bgm")
+		#await animation_player.animation_finished
 		animation_player.play("tutorial")
 
 func _start_game():
@@ -117,6 +125,8 @@ func _process(_delta):
 	overload_progress.multiplier = max(workload, 0.5)
 
 func _finished(is_gameover = false):
+	self.is_gameover = is_gameover
+	
 	if GameManager.is_work_mode():
 		GameManager.finished_day(document_stack.total, work_time.get_overtime())
 		distractions.slide_all_out()
