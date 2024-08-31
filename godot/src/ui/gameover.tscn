@@ -1,16 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://dw4ed4dspm22v"]
+[gd_scene load_steps=14 format=3 uid="uid://dw4ed4dspm22v"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_t4bof"]
 [ext_resource type="Script" path="res://src/ui/gameover.gd" id="2_biwr8"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_s2nja"]
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="3_k17yd"]
-[ext_resource type="Script" path="res://src/KeyDelegator.gd" id="4_46jda"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_ekemn"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="4_vuj6l"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_dkoqc"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="6_1wju1"]
 [ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="7_chtch"]
 [ext_resource type="AudioStream" uid="uid://ctlbf2imxt5tn" path="res://assets/sound/呪いの旋律.mp3" id="7_fg57t"]
+[ext_resource type="Script" path="res://src/ui/break_button.gd" id="8_twfbg"]
+[ext_resource type="Script" path="res://src/delegator.gd" id="12_m587a"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tx0w4"]
 
@@ -29,6 +30,10 @@ menu = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VB
 finished = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Finished")
 days = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Days")
 overtime = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Overtime")
+
+[node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
+script = ExtResource("12_m587a")
+nodes = [NodePath("../CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Restart"), NodePath("../CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Menu")]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -98,11 +103,9 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("key_reader")]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-script = ExtResource("4_46jda")
-key_reader = NodePath("../KeyReader")
 
 [node name="Restart" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_vuj6l")]
 layout_mode = 2
@@ -110,7 +113,7 @@ word = "New Job"
 
 [node name="Menu" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_vuj6l")]
 layout_mode = 2
-word = "Break"
+script = ExtResource("8_twfbg")
 
 [node name="KeyReader" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 process_mode = 2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=67 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://src/base-system/AutoProgressbar.gd" id="9_ul3fx"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="10_am0oy"]
 [ext_resource type="Script" path="res://src/base-system/ExtendedTimer.gd" id="10_sr2sn"]
+[ext_resource type="AudioStream" uid="uid://cbl54cvxxt3ij" path="res://assets/sound/beep.mp3" id="12_6mlls"]
 [ext_resource type="Script" path="res://src/DocumentStack.gd" id="12_n73rb"]
 [ext_resource type="AudioStream" uid="uid://dykrksjnisr7f" path="res://assets/sound/柱時計の鐘.mp3" id="12_y1afc"]
 [ext_resource type="Texture2D" uid="uid://b3m7b3wyx4tpw" path="res://assets/Clock.png" id="13_dyrwf"]
@@ -299,6 +300,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_0rw6j"]
 resource_name = "silent_bgm"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -337,18 +339,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [-60.0, -30.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../BGM:playing")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_c62e5"]
@@ -509,7 +499,7 @@ stream = ExtResource("6_g6nin")
 volume_db = 5.0
 bus = &"SFX"
 
-[node name="OverloadProgress" type="TextureProgressBar" parent="CanvasLayer/HUD/MarginContainer" node_paths=PackedStringArray("blink_timer_reference")]
+[node name="OverloadProgress" type="TextureProgressBar" parent="CanvasLayer/HUD/MarginContainer" node_paths=PackedStringArray("blink_timer_reference", "beep_sound")]
 material = SubResource("ShaderMaterial_kfp76")
 layout_mode = 2
 size_flags_horizontal = 8
@@ -521,6 +511,11 @@ texture_over = ExtResource("7_8fqhj")
 texture_progress = ExtResource("3_6o0s1")
 script = ExtResource("9_ul3fx")
 blink_timer_reference = NodePath("../../../../OverloadTimer")
+beep_sound = NodePath("OverloadSound")
+
+[node name="OverloadSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/MarginContainer/OverloadProgress"]
+stream = ExtResource("12_6mlls")
+volume_db = -15.0
 
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/HUD"]
 layout_mode = 1
@@ -570,7 +565,6 @@ node = NodePath("../../Email")
 
 [node name="Delegator" type="Node" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("nodes")]
 script = ExtResource("20_tcix1")
-reset_on_mistake = false
 nodes = [NodePath("../Email"), NodePath("../Phone"), NodePath("../Junior")]
 
 [node name="Email" type="PanelContainer" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "sounds")]

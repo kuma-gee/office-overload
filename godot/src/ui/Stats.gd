@@ -13,12 +13,13 @@ extends Control
 
 func _ready():
 	visibility_changed.connect(func(): _update())
+	GameManager.job_quited.connect(func(): _update())
 	_update()
 
 func _update():
 	if not visible: return
 	
-	job_container.visible = GameManager.day > 0
+	job_container.visible = GameManager.has_current_job()
 	day.text = "Day: %s" % GameManager.day
 	level.text = "Level: %s" % GameManager.get_level_text()
 	documents.text = "Finished Tasks: %s" % GameManager.completed_documents

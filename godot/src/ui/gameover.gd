@@ -2,6 +2,7 @@ extends Control
 
 @onready var gameover_effect = $GameoverEffect
 @onready var audio_stream_player = $AudioStreamPlayer
+@onready var delegator: Delegator = $Delegator
 
 @export var restart: TypingButton
 @export var menu: TypingButton
@@ -32,3 +33,6 @@ func fired():
 func _do_show():
 	gameover_effect.do_effect()
 	show()
+
+func _unhandled_input(event: InputEvent) -> void:
+	delegator.handle_event(event)

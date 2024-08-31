@@ -11,8 +11,9 @@ extends Control
 func _ready():
 	get_tree().paused = false
 	start.finished.connect(func():
-		if GameManager.unlocked_modes.size() == 1:
-			GameManager.start(GameManager.unlocked_modes[0])
+		var modes = GameManager.get_unlocked_modes()
+		if modes.size() == 1:
+			GameManager.start(modes[0])
 		else:
 			mode_panel.grab_focus()
 	)

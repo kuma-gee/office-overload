@@ -4,6 +4,7 @@ const UNLOCK_HASH = "06da2286fd35308a48d6c0e2f512dc82005f17f2a19cd73b4a5a1c0dc25
 
 var log_level := Logger.Level.DEBUG
 var version := "dev"
+var editor_is_prod := false
 
 var _logger := Logger.new("Env")
 var _live := false
@@ -23,8 +24,11 @@ func _ready():
 	
 	_logger.info("Running version %s on %s: %s" % [version, OS.get_name(), is_demo()])
 
+func is_editor():
+	return OS.is_debug_build()
+
 func is_prod() -> bool:
-	return not OS.is_debug_build()
+	return not is_editor() or editor_is_prod
 
 func is_web() -> bool:
 	return OS.has_feature("web")
@@ -33,7 +37,7 @@ func is_demo() -> bool:
 	return not _live and is_prod()
 
 func is_steam() -> bool:
-	return _enable_steam or not is_prod() # always enable for play testing in editor
+	return _enable_steam or not is_prod()
 
 func _args_dictionary():
 	var arguments = {}

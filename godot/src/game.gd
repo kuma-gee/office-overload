@@ -98,6 +98,7 @@ func _on_day_finished():
 	else:
 		_spawn_document(true)
 		animation_player.play("silent_bgm")
+		await animation_player.animation_finished
 		animation_player.play("tutorial")
 
 func _start_game():
@@ -105,6 +106,9 @@ func _start_game():
 	work_time.start()
 	overload_progress.start()
 	animation_player.play("start_bgm")
+	if not bgm.playing:
+		bgm.play()
+	
 	_spawn()
 
 func _process(_delta):

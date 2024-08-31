@@ -11,6 +11,8 @@ signal filled()
 @export var blink_start_time := 0.5
 @export var blink_timer_reference: Timer
 
+@export var beep_sound: AudioStreamPlayer
+
 @export var rotation_decay := 10.0
 @onready var noise = FastNoiseLite.new()
 
@@ -85,6 +87,9 @@ func stop_blink():
 	rotation = 0
 
 func _blink(duration := 0.3):
+	if not running: return
+	
+	beep_sound.play()
 	rotation_strength = 0.5
 	noise_i = 0
 	var tw = create_tween()
@@ -95,7 +100,7 @@ func _blink(duration := 0.3):
 	next_time_multiplier *= next_time_multiplier
 	var next_time = max(base_blink_time * next_time_multiplier, 0.1)
 	get_tree().create_timer(next_time).timeout.connect(func():
-		if base_blink_time > 0:
+		if base_blink_time > 0 and running:
 			_blink()
 	)
 

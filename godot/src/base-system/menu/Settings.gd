@@ -6,6 +6,8 @@ const CONFIG_FILE = "user://settings.cfg"
 @export var overlay: ColorRect
 @export var sliders: Array[TypingSlider] = []
 
+@export var quit_job_button: TypingButton
+
 @onready var _audio := $Audio
 
 var _logger = Logger.new("Settings")
@@ -27,6 +29,9 @@ func _ready():
 	super._ready()
 	overlay.hide()
 	_load_settings()
+	
+	quit_job_button.visible = GameManager.has_current_job()
+	quit_job_button.finished.connect(func(): GameManager.reset_values())
 
 	for s in sliders:
 		s.opened.connect(func(open): active_slider = s if open else null)

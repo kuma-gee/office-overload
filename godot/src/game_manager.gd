@@ -1,6 +1,7 @@
 extends Node
 
 signal round_ended()
+signal job_quited()
 
 const DIFFICULTIES = {
 	DifficultyResource.Level.INTERN: preload("res://src/difficulty/Intern.tres"),
@@ -83,7 +84,11 @@ func reset_values():
 	average_wpm = 0.0
 	average_accuracy = 0.0
 	total_completed_words = 0
+	job_quited.emit()
 	_save_data()
+
+func has_current_job():
+	return day > 0
 
 func finished_day(tasks: int, overtime: int):
 	var wpm = wpm_calculator.get_average_wpm()
@@ -150,6 +155,8 @@ func take_promotion():
 	difficulty_level += 1
 	if difficulty_level in DIFFICULTIES:
 		difficulty = DIFFICULTIES[difficulty_level]
+	print("Promoted to %s" % DifficultyResource.Level.keys()[difficulty_level])
+	_save_data()
 
 func is_max_promotion():
 	if Env.is_demo() and is_senior():

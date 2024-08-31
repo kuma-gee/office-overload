@@ -1,7 +1,7 @@
 class_name Delegator
 extends Node
 
-@export var reset_on_mistake := true
+@export var reset_on_mistake := false
 @export var nodes: Array[Control] = []
 @export var shift_nodes: Array[Control] = []
 
@@ -33,13 +33,16 @@ func has_focused():
 func _get_first_label_starting(key: String):
 	for m in nodes:
 		var lbl = m.get_label()
-		if lbl and lbl.word != "" and lbl.word.begins_with(key):
+		if _is_valid_node(lbl) and lbl.word.begins_with(key):
 			return lbl
 	return null
 
 func _get_focused_label():
 	for m in nodes:
 		var lbl = m.get_label()
-		if lbl and lbl.word != "" and lbl.focused:
+		if _is_valid_node(lbl) and lbl.focused:
 			return lbl
 	return null
+
+func _is_valid_node(label: TypedWord):
+	return label and label.visible and label.word != ""
