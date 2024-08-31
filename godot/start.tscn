@@ -334,12 +334,13 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
 word = "h"
 
-[node name="Slider" type="HSlider" parent="Settings/Audio/MarginContainer/VBoxContainer/VBoxContainer2/Master/HBoxContainer/MasterSlider"]
+[node name="Slider" type="HSlider" parent="Settings/Audio/MarginContainer/VBoxContainer/VBoxContainer2/Master/HBoxContainer/MasterSlider" node_paths=PackedStringArray("audio")]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 4
 value = 30.0
 script = ExtResource("12_qty1o")
+audio = NodePath("../../../../../../..")
 
 [node name="Right" parent="Settings/Audio/MarginContainer/VBoxContainer/VBoxContainer2/Master/HBoxContainer/MasterSlider" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
@@ -372,12 +373,13 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
 word = "h"
 
-[node name="Slider" type="HSlider" parent="Settings/Audio/MarginContainer/VBoxContainer/VBoxContainer2/SFX/HBoxContainer/SFXSlider"]
+[node name="Slider" type="HSlider" parent="Settings/Audio/MarginContainer/VBoxContainer/VBoxContainer2/SFX/HBoxContainer/SFXSlider" node_paths=PackedStringArray("audio")]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 4
 value = 30.0
 script = ExtResource("12_qty1o")
+audio = NodePath("../../../../../../..")
 bus_name = "SFX"
 
 [node name="Right" parent="Settings/Audio/MarginContainer/VBoxContainer/VBoxContainer2/SFX/HBoxContainer/SFXSlider" instance=ExtResource("7_2n7ql")]
@@ -411,12 +413,13 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
 word = "h"
 
-[node name="Slider" type="HSlider" parent="Settings/Audio/MarginContainer/VBoxContainer/VBoxContainer2/BGM/HBoxContainer/BGMSlider"]
+[node name="Slider" type="HSlider" parent="Settings/Audio/MarginContainer/VBoxContainer/VBoxContainer2/BGM/HBoxContainer/BGMSlider" node_paths=PackedStringArray("audio")]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 4
 value = 30.0
 script = ExtResource("12_qty1o")
+audio = NodePath("../../../../../../..")
 bus_name = "BGM"
 
 [node name="Right" parent="Settings/Audio/MarginContainer/VBoxContainer/VBoxContainer2/BGM/HBoxContainer/BGMSlider" instance=ExtResource("7_2n7ql")]
