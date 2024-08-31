@@ -64,9 +64,13 @@ if [[ $VERSION =~ $VERSION_REGEX ]]; then
     # generate_changelog
 
     if [[ "$PLATFORM" == "steam" ]]; then
-        steamcmd +login $STEAM_USER +run_app_build "$(pwd)/scripts/steam_build.vdf" +quit
+        file="$(pwd)/scripts/steam_build.vdf"
+        sed -i "s/\"Desc\".*\"v.*\"/\"Desc\" \"$VERSION\"/" $file 
+        steamcmd +login $STEAM_USER +run_app_build $file +quit
     elif [[ "$PLATFORM" == "steam-demo" ]]; then
-        steamcmd +login $STEAM_USER +run_app_build "$(pwd)/scripts/steam_build_demo.vdf" +quit
+        file="$(pwd)/scripts/steam_build_demo.vdf"
+        sed -i "s/\"Desc\".*\"v.*\"/\"Desc\" \"$VERSION\"/" $file 
+        steamcmd +login $STEAM_USER +run_app_build $file +quit
     elif [[ "$PLATFORM" == "itch" ]]; then
         itch_release
     else
