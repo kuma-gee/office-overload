@@ -6,9 +6,9 @@ signal day_ended()
 signal next_work_day()
 signal time_changed()
 
-@export var start_hour = 9
-@export var end_hour = 17
-@export var hour_in_seconds := 4
+@export var start_hour = 8
+@export var end_hour = 18
+@export var hour_in_seconds := 3
 
 @export var timed_mode_seconds := 30
 
@@ -22,6 +22,7 @@ var stopped = false
 var ended = false
 
 func _ready():
+	text = _hour_string(start_hour)
 	_set_start_hour()
 
 func _set_start_hour():
@@ -94,4 +95,4 @@ func _set_hour(h: int):
 			overtime_sound.play()
 
 func _hour_string(hour: int):
-	return "%s" % [hour if hour > 9 else "0" + str(hour)]
+	return "%02d" % hour

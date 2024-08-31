@@ -1063,7 +1063,7 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("10_am0oy")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "09"
+text = "asdasd"
 horizontal_alignment = 1
 script = ExtResource("7_ruuy4")
 timer = NodePath("Timer")
@@ -1079,7 +1079,7 @@ bus = &"SFX"
 [node name="Overtime" type="AudioStreamPlayer" parent="Desk/Clock/HBoxContainer/WorkTime"]
 process_mode = 3
 stream = ExtResource("12_y1afc")
-volume_db = -10.0
+volume_db = -20.0
 bus = &"SFX"
 
 [node name="Timer" type="Timer" parent="Desk/Clock/HBoxContainer/WorkTime"]

@@ -14,3 +14,4 @@ enum Level {
 @export var distractions := 0.0
 @export var average_wpm := 50
 @export var bgm_speed := 1.0
+@export var minimum_documents := 1
