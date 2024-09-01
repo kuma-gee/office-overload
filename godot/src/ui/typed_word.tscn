@@ -30,6 +30,7 @@ script = ExtResource("3_dhe6d")
 text_color = Color(0.207843, 0.207843, 0.25098, 1)
 active_color = Color(0.929412, 0.894118, 0.854902, 1)
 typed_color = Color(0.929412, 0.894118, 0.854902, 1)
+untyped_color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="ShakeTimer" type="Timer" parent="."]
 wait_time = 0.2

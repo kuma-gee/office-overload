@@ -24,7 +24,11 @@ enum Mode {
 var day := 0
 var completed_documents := 0
 var total_overtime := 0
-var difficulty_level := DifficultyResource.Level.INTERN
+var difficulty_level := DifficultyResource.Level.INTERN:
+	set(v):
+		if v in DIFFICULTIES:
+			difficulty_level = v
+			difficulty = DIFFICULTIES[v]
 
 var total_completed_words := 0
 var average_wpm := 0.0
@@ -49,7 +53,7 @@ func _ready():
 	if data:
 		cache_properties.load_data(data)
 	
-	difficulty = DIFFICULTIES[difficulty_level]
+	self.difficulty_level = difficulty_level
 
 func _save_data():
 	var data = cache_properties.save_data()
@@ -147,14 +151,13 @@ func can_have_promotion():
 	var next = difficulty_level + 1
 	if not next in DIFFICULTIES: return false
 	
-	return get_wpm() > DIFFICULTIES[next].average_wpm
+	var diff = DIFFICULTIES[next] as DifficultyResource
+	return get_wpm() > diff.average_wpm and completed_documents >= diff.minimum_documents and average_accuracy >= diff.min_accuracy
 	
 func take_promotion():
 	if is_max_promotion(): return
 
 	difficulty_level += 1
-	if difficulty_level in DIFFICULTIES:
-		difficulty = DIFFICULTIES[difficulty_level]
 	print("Promoted to %s" % DifficultyResource.Level.keys()[difficulty_level])
 	_save_data()
 

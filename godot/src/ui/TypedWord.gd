@@ -13,6 +13,7 @@ signal type_wrong()
 @export var highlight_color := Color.WHITE
 @export var active_color := Color.WHITE
 @export var typed_color := Color.WHITE
+@export var untyped_color := Color.BLACK
 @export var play_sound := true
 @export var center := true
 @export var enable_mistake_effect := true
@@ -88,7 +89,14 @@ func update_word():
 		text = _wrap_center(_wrap_typed(len, _wrap_word(len)))
 
 func _wrap_word(len: int):
-	return "[color=%s]%s[/color][color=%s][shake rate=%s level=%s]%s[/shake]%s[/color]" % [typed_color.to_html(), word.substr(0, len), text_color.to_html(), current_shake, 10 if current_shake > 0 else 0, word.substr(len, 1), word.substr(len + 1)]
+	return "[color=%s]%s[/color][color=%s][shake rate=%s level=%s]%s[/shake]%s[/color]" % [
+		typed_color.to_html(),
+		word.substr(0, len),
+		untyped_color.to_html() if typed.length() > 0 else text_color.to_html(),
+		current_shake, 10 if current_shake > 0 else 0,
+		word.substr(len, 1),
+		word.substr(len + 1)
+	]
 
 func _wrap_typed(until: int, w: String):
 	return "[typed until=%s height=%s frequency=%s]%s[/typed]" % [until, height, frequency, w]
