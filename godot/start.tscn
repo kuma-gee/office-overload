@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=27 format=3 uid="uid://ctlncowdl0sbn"]
 
 [ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="1_3ujy4"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
@@ -11,11 +11,13 @@
 [ext_resource type="Script" path="res://src/base-system/menu/AudioSlider.gd" id="12_qty1o"]
 [ext_resource type="AudioStream" uid="uid://7ix2fpbkls0p" path="res://assets/sound/Talk_with_me.mp3" id="13_gm25t"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="14_hvw1b"]
+[ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/Escape.png" id="14_vk34l"]
 [ext_resource type="Script" path="res://src/base-system/menu/AudioSettings.gd" id="15_4lkng"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="15_84nkj"]
 [ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="15_b245w"]
 [ext_resource type="Script" path="res://src/delegator.gd" id="16_bh4xx"]
 [ext_resource type="Script" path="res://src/ui/typing_slider.gd" id="16_vbvxj"]
+[ext_resource type="Script" path="res://src/ui/esc_button.gd" id="19_uqiqi"]
 [ext_resource type="Script" path="res://src/ui/GameModes.gd" id="19_yyowk"]
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="20_lew8u"]
 [ext_resource type="PackedScene" uid="uid://wtd5yqsbnpf0" path="res://src/ui/game_mode.tscn" id="21_npox4"]
@@ -141,8 +143,8 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -48.0
-offset_right = 73.0
+offset_top = -34.0
+offset_right = 54.0
 grow_vertical = 0
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
@@ -151,9 +153,10 @@ theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Stats/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 8
 
 [node name="Job" type="Label" parent="Stats/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
@@ -202,6 +205,7 @@ size_flags_vertical = 8
 layout_mode = 2
 
 [node name="Skill" type="Label" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
@@ -280,10 +284,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -111.0
-offset_top = -68.0
-offset_right = 112.0
-offset_bottom = 68.0
+offset_left = -119.0
+offset_top = -75.0
+offset_right = 121.0
+offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("15_4lkng")
@@ -436,6 +440,15 @@ word = "Quit Job"
 layout_mode = 2
 color = Color(0, 0, 0, 0.313726)
 
+[node name="EscButton" type="TextureButton" parent="Settings"]
+layout_mode = 1
+offset_left = 36.0
+offset_top = 12.0
+offset_right = 48.0
+offset_bottom = 21.0
+texture_normal = ExtResource("14_vk34l")
+script = ExtResource("19_uqiqi")
+
 [node name="GameModes" type="Control" parent="." node_paths=PackedStringArray("delegator")]
 visible = false
 layout_mode = 1
@@ -516,3 +529,11 @@ layout_mode = 2
 [node name="GameMode2" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
 layout_mode = 2
 mode = 2
+
+[node name="EscButton" type="TextureButton" parent="GameModes"]
+offset_left = 36.0
+offset_top = 12.0
+offset_right = 48.0
+offset_bottom = 21.0
+texture_normal = ExtResource("14_vk34l")
+script = ExtResource("19_uqiqi")
