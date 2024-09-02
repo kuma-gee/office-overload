@@ -36,9 +36,9 @@ var is_gameover = false
 var documents = []
 
 func _set_environment():
-	if GameManager.day <= 1 or GameManager.is_intern():
+	if GameManager.day <= 3 or GameManager.is_intern():
 		animation_player.play("normal")
-	elif GameManager.day <= 4:
+	elif not GameManager.is_management():
 		animation_player.play("messy")
 	else:
 		animation_player.play("littered")
@@ -160,8 +160,8 @@ func _spawn():
 		var t = _crunch_mode_spawn_time()
 		spawn_timer.start(t)
 		
-		var pitch = remap(t, crunch_start_spawn_time, max_bgm_pitch_time, 1.0, max_bgm_pitch)
-		bgm.pitch_scale = snappedf(pitch, 0.25) if pitch >= 1.25 else 1.0
+		var pitch = remap(document_stack.total, 1.0, 80, 1.0, max_bgm_pitch)
+		bgm.pitch_scale = snappedf(pitch, 0.25)
 		print(t, " - ", pitch, " -> ", bgm.pitch_scale)
 
 func _crunch_mode_spawn_time(doc_count: int = document_stack.total):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=78 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -56,14 +56,8 @@
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="32_eoisl"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="33_5ctor"]
 [ext_resource type="Script" path="res://src/ui/break_button.gd" id="34_xnoye"]
-[ext_resource type="Shader" path="res://src/dither.gdshader" id="37_m2tim"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
 [ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_txa2w"]
-shader = ExtResource("37_m2tim")
-shader_parameter/colors = null
-shader_parameter/dither = null
 
 [sub_resource type="Curve" id="Curve_m11kp"]
 _data = [Vector2(0, 0.701099), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -427,13 +421,12 @@ interpolation_mode = 2
 offsets = PackedFloat32Array(0.629214, 1)
 colors = PackedColorArray(1, 1, 1, 0.596078, 0.853488, 0.853488, 0.853488, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bun73"]
-shader = ExtResource("37_m2tim")
-shader_parameter/colors = 1.0
-shader_parameter/dither = 0.486
+[sub_resource type="Environment" id="Environment_cpt0l"]
+glow_enabled = true
+glow_bloom = 0.05
+glow_blend_mode = 0
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("work_time")]
-material = SubResource("ShaderMaterial_txa2w")
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
 
@@ -971,8 +964,7 @@ autoplay = "normal"
 texture = ExtResource("19_wvt8k")
 
 [node name="PointLight2D" type="PointLight2D" parent="Desk"]
-position = Vector2(0, 9)
-scale = Vector2(1, 1.12778)
+position = Vector2(0, 1)
 blend_mode = 2
 texture = ExtResource("14_uyjhq")
 
@@ -1104,7 +1096,7 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("10_am0oy")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "asdasd"
+text = "00"
 horizontal_alignment = 1
 script = ExtResource("7_ruuy4")
 timer = NodePath("Timer")
@@ -1260,19 +1252,6 @@ position = Vector2(-200, 22)
 script = ExtResource("4_macw6")
 document_scene = ExtResource("2_35x6g")
 
-[node name="ColorRect2" type="ColorRect" parent="."]
-visible = false
-material = SubResource("ShaderMaterial_bun73")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -228.0
-offset_top = -138.0
-offset_right = 235.0
-offset_bottom = 138.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
@@ -1290,6 +1269,9 @@ script = ExtResource("18_f0kcb")
 
 [node name="KeyReader" type="Node" parent="."]
 script = ExtResource("39_lfd1g")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cpt0l")
 
 [connection signal="finished" from="CanvasLayer/HUD/Day" to="." method="_on_day_finished"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
