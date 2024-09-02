@@ -10,5 +10,5 @@ max_documents = 1.5
 distractions = 0.3
 average_wpm = 100
 bgm_speed = 1.6
-minimum_documents = 50
+minimum_documents = 35
 min_accuracy = 0.8

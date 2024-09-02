@@ -531,6 +531,7 @@ layout_mode = 2
 mode = 2
 
 [node name="EscButton" type="TextureButton" parent="GameModes"]
+layout_mode = 0
 offset_left = 36.0
 offset_top = 12.0
 offset_right = 48.0

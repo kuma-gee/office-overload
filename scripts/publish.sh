@@ -13,6 +13,10 @@ STEAM_USER="$3"
 
 # win, linux, web, macOS, android
 CHANNELS=("linux" "win")
+if [[ "$PLATFORM" == "itch" ]]; then
+    CHANNELS=("web")
+fi
+
 LAST_TAG=$(git describe --tags --abbrev=0)
 CHANGELOG=""
 
@@ -49,12 +53,8 @@ github_release() {
 }
 
 itch_release() {
-    echo "Releasing version $VERSION to itch.io"
-
-    for CHANNEL in "${CHANNELS[@]}"; do
-        echo "Releasing $CHANNEL"
-        butler push build/$CHANNEL kuma-gee/$GAME:$CHANNEL --userversion $VERSION
-    done
+    echo "Releasing demo version $VERSION to itch.io"
+    butler push build/web kuma-gee/$GAME:web --userversion $VERSION
 }
 
 VERSION_REGEX='^v[0-9]+\.[0-9]+\.[0-9]+(-rc[0-9]+)?$'

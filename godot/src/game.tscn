@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=77 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -37,6 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://sy6r1qjyud55" path="res://assets/Desk_Static.png" id="19_wvt8k"]
 [ext_resource type="Script" path="res://src/BlinkText.gd" id="20_0ygyh"]
 [ext_resource type="AudioStream" uid="uid://bmtpsyxjqkjxv" path="res://assets/sound/携帯電話の着信音1.mp3" id="20_2av8q"]
+[ext_resource type="Texture2D" uid="uid://7rmhhytuv24r" path="res://assets/Email.png" id="20_hn5id"]
 [ext_resource type="Script" path="res://src/delegator.gd" id="20_tcix1"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="20_u0r5t"]
 [ext_resource type="Script" path="res://src/base-system/effect/Shake.gd" id="21_os6oe"]
@@ -70,6 +71,8 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 shader = ExtResource("4_tfr35")
 shader_parameter/enable = true
 shader_parameter/hit_color = Color(0.207843, 0.207843, 0.25098, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e6mqw"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1mklb"]
 
@@ -582,17 +585,26 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -75.0
-offset_top = -1.0
-offset_right = 75.0
-offset_bottom = 39.0
+offset_left = -84.0
+offset_right = 84.0
+offset_bottom = 68.0
 grow_horizontal = 2
 theme = ExtResource("10_am0oy")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_e6mqw")
 script = ExtResource("15_ffym8")
 tween_trans = 10
 label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/TypingLabel")
-slide_dir = Vector2(0, 50)
+slide_dir = Vector2(0, 100)
 sounds = [NodePath("Notification")]
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Distractions/Email"]
+layout_mode = 2
+theme_override_constants/margin_top = -30
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Email/MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("20_hn5id")
+stretch_mode = 2
 
 [node name="Notification" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Email"]
 stream = ExtResource("17_xms1k")
@@ -602,7 +614,7 @@ pitch_scale = 0.6
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Email"]
 layout_mode = 2
 theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
+theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
@@ -611,6 +623,7 @@ layout_mode = 2
 theme_override_constants/separation = 5
 
 [node name="Label" type="Label" parent="CanvasLayer/Distractions/Email/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Email"
 label_settings = ExtResource("16_3sqd2")
@@ -621,6 +634,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="Label2" type="Label" parent="CanvasLayer/Distractions/Email/MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Subject:"
 label_settings = ExtResource("16_3sqd2")
@@ -683,13 +697,12 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_1mklb")
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Phone/Phone"]
 layout_mode = 2
 texture = ExtResource("18_3w3fn")
-expand_mode = 5
-stretch_mode = 5
+stretch_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Phone/Phone"]
 layout_mode = 2
 theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
+theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
@@ -698,6 +711,7 @@ layout_mode = 2
 theme_override_constants/separation = 15
 
 [node name="Label" type="Label" parent="CanvasLayer/Distractions/Phone/Phone/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Phone"
 label_settings = ExtResource("16_3sqd2")
@@ -740,8 +754,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_o0ctv")
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Junior/Junior"]
 layout_mode = 2
 texture = ExtResource("18_51hqv")
-expand_mode = 5
-stretch_mode = 5
+stretch_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Junior/Junior"]
 layout_mode = 2
@@ -815,6 +828,7 @@ theme_override_font_sizes/normal_font_size = 10
 
 [node name="Pause" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("continue_btn")]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
