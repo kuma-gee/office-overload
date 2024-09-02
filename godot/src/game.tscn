@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=80 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -56,8 +56,14 @@
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="32_eoisl"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="33_5ctor"]
 [ext_resource type="Script" path="res://src/ui/break_button.gd" id="34_xnoye"]
+[ext_resource type="Shader" path="res://src/dither.gdshader" id="37_m2tim"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
 [ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_txa2w"]
+shader = ExtResource("37_m2tim")
+shader_parameter/colors = null
+shader_parameter/dither = null
 
 [sub_resource type="Curve" id="Curve_m11kp"]
 _data = [Vector2(0, 0.701099), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -421,7 +427,13 @@ interpolation_mode = 2
 offsets = PackedFloat32Array(0.629214, 1)
 colors = PackedColorArray(1, 1, 1, 0.596078, 0.853488, 0.853488, 0.853488, 0)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bun73"]
+shader = ExtResource("37_m2tim")
+shader_parameter/colors = 1.0
+shader_parameter/dither = 0.486
+
 [node name="Game" type="Node2D" node_paths=PackedStringArray("work_time")]
+material = SubResource("ShaderMaterial_txa2w")
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
 
@@ -442,15 +454,14 @@ layout_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -91.0
-grow_horizontal = 0
-grow_vertical = 0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 46.0
+offset_right = 65.0
+offset_bottom = 91.0
+grow_horizontal = 2
+rotation = 1.5708
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -549,6 +560,7 @@ visible = false
 visible = false
 
 [node name="Distractions" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -573,74 +585,88 @@ node = NodePath("../../Phone")
 
 [node name="Shake3" type="Node" parent="CanvasLayer/Distractions/ShakeEffect" node_paths=PackedStringArray("node")]
 script = ExtResource("21_os6oe")
-node = NodePath("../../Email")
+node = NodePath("../../Email/Email")
 
 [node name="Delegator" type="Node" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("nodes")]
 script = ExtResource("20_tcix1")
 nodes = [NodePath("../Email"), NodePath("../Phone"), NodePath("../Junior")]
 
-[node name="Email" type="PanelContainer" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "sounds")]
-custom_minimum_size = Vector2(150, 40)
+[node name="Email" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "sounds")]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 7
 anchor_left = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-offset_left = -84.0
-offset_right = 84.0
-offset_bottom = 68.0
+anchor_bottom = 1.0
 grow_horizontal = 2
-theme = ExtResource("10_am0oy")
-theme_override_styles/panel = SubResource("StyleBoxEmpty_e6mqw")
+grow_vertical = 0
 script = ExtResource("15_ffym8")
 tween_trans = 10
-label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/TypingLabel")
-slide_dir = Vector2(0, 100)
-sounds = [NodePath("Notification")]
+label = NodePath("Email/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel")
+slide_dir = Vector2(0, -100)
+sounds = [NodePath("Email/Notification")]
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Distractions/Email"]
+[node name="Email" type="PanelContainer" parent="CanvasLayer/Distractions/Email"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -84.0
+offset_top = -53.0
+offset_right = 84.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("10_am0oy")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_e6mqw")
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Distractions/Email/Email"]
 layout_mode = 2
 theme_override_constants/margin_top = -30
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Email/MarginContainer2"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Email/Email/MarginContainer2"]
 layout_mode = 2
 texture = ExtResource("20_hn5id")
 stretch_mode = 2
 
-[node name="Notification" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Email"]
+[node name="Notification" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Email/Email"]
 stream = ExtResource("17_xms1k")
 volume_db = -10.0
-pitch_scale = 0.6
+pitch_scale = 0.8
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Email"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Email/Email"]
 layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Email/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Email/Email/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Label" type="Label" parent="CanvasLayer/Distractions/Email/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 text = "Email"
 label_settings = ExtResource("16_3sqd2")
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Distractions/Email/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label2" type="Label" parent="CanvasLayer/Distractions/Email/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
 text = "Subject:"
 label_settings = ExtResource("16_3sqd2")
 horizontal_alignment = 1
 
-[node name="TypingLabel" parent="CanvasLayer/Distractions/Email/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("15_r4fui")]
+[node name="TypingLabel" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
 height = 1.0
@@ -934,11 +960,6 @@ offset_right = 203.0
 offset_bottom = 116.0
 color = Color(0.929412, 0.894118, 0.854902, 1)
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(0, -1.43051e-06)
-blend_mode = 2
-texture = ExtResource("14_uyjhq")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Desk")
 libraries = {
@@ -948,6 +969,12 @@ autoplay = "normal"
 
 [node name="Desk" type="Sprite2D" parent="."]
 texture = ExtResource("19_wvt8k")
+
+[node name="PointLight2D" type="PointLight2D" parent="Desk"]
+position = Vector2(0, 9)
+scale = Vector2(1, 1.12778)
+blend_mode = 2
+texture = ExtResource("14_uyjhq")
 
 [node name="Messy" type="Node2D" parent="Desk"]
 visible = false
@@ -1031,7 +1058,7 @@ texture = ExtResource("13_dyrwf")
 hframes = 2
 script = ExtResource("14_stuan")
 worktime = NodePath("HBoxContainer/WorkTime")
-point_light = NodePath("../../PointLight2D")
+point_light = NodePath("../PointLight2D")
 canvas_modulate = NodePath("../../CanvasModulate")
 overload_progress = NodePath("../../CanvasLayer/HUD/MarginContainer/OverloadProgress")
 
@@ -1229,9 +1256,22 @@ texture = ExtResource("24_g7dws")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="DocSpawner" type="Marker2D" parent="."]
-position = Vector2(-200, 18)
+position = Vector2(-200, 22)
 script = ExtResource("4_macw6")
 document_scene = ExtResource("2_35x6g")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_bun73")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -228.0
+offset_top = -138.0
+offset_right = 235.0
+offset_bottom = 138.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 2.0

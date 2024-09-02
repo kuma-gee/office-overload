@@ -4,6 +4,7 @@ extends Control
 @onready var leader_board_effect: EffectRoot = $LeaderBoardEffect
 
 @export var open_sound: AudioStreamPlayer
+@export var gameover_sound: AudioStreamPlayer
 @export var leader_board: Leaderboard
 @export var leader_board_container: Control
 
@@ -81,13 +82,13 @@ func crunch_ended(finished: int, hours: int):
 	crunch_time.text = "Worked for %s hours" % hours
 	crunch_wpm.text = "%.0f WPM / %.2f%%" % [GameManager.last_crunch_wpm, GameManager.last_crunch_accuracy * 100]
 	
-	_do_open(crunch_container)
+	_do_open(crunch_container, gameover_sound)
 
-func _do_open(container: Control):
+func _do_open(container: Control, sound = open_sound):
 	container.show()
 	end_effect.do_effect()
 	show()
-	open_sound.play()
+	sound.play()
 
 func _on_back_pressed():
 	GameManager.back_to_menu(false)

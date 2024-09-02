@@ -57,6 +57,7 @@ var distraction_accumulator = 0.0
 func _ready():
 	delegator.nodes = menus
 	_close_all()
+	show()
 
 func _close_all():
 	for x in menus:

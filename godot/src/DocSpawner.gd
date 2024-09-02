@@ -131,7 +131,7 @@ func _normalize(words: Array):
 
 func _get_rotation():
 	match mode:
-		Mode.EASY: return PI/12
+		Mode.EASY: return PI/20
 		#Mode.MEDIUM: return PI/10
 		#Mode.HARD: return PI/8
 	return PI/12
