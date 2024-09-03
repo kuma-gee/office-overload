@@ -76,10 +76,9 @@ enum Mode {
 
 @export var document_scene: PackedScene
 @export var center_offset := 50
+@export var word_generator: WordGenerator
 
 var mode = -1
-var words := []
-var last_words := []
 
 func _ready():
 	if GameManager.is_work_mode():
@@ -101,46 +100,32 @@ func _ready():
 func add_easy():
 	if mode >= Mode.EASY: return
 	
-	words.append_array(_normalize(EASY))
+	word_generator.add_words(EASY)
 	mode = Mode.EASY
 	
 func add_medium():
 	if mode >= Mode.MEDIUM: return
 	
-	_remove_less_than(6)
-	words.append_array(_normalize(MEDIUM))
+	word_generator.remove_words_less(6)
+	word_generator.add_words(MEDIUM)
 	mode = Mode.MEDIUM
 
 func add_hard():
 	if mode >= Mode.HARD or GameManager.is_intern(): return
 	
-	_remove_less_than(9)
-	words.append_array(_normalize(HARD))
+	word_generator.remove_words_less(9)
+	word_generator.add_words(HARD)
 	mode = Mode.HARD
 
-func _remove_less_than(char_count: int):
-	for w in words:
-		if w.length() < char_count:
-			words.erase(w)
-
-func _normalize(words: Array):
-	var result = []
-	for w in words:
-		result.append(w.replace(" ", "").to_lower())
-	return result
-
 func _get_rotation():
-	match mode:
-		Mode.EASY: return PI/20
+	# match mode:
+		# Mode.EASY: return PI/20
 		#Mode.MEDIUM: return PI/10
 		#Mode.HARD: return PI/8
-	return PI/12
+	return PI/20
 
 func spawn_document():
-	var word = words.pick_random()
-	while word in last_words:
-		word = words.pick_random()
-	
+	var word = word_generator.get_random_word()
 	var doc = document_scene.instantiate()
 	doc.word = word
 	doc.global_position = global_position
@@ -150,9 +135,5 @@ func spawn_document():
 	add_child(doc)
 	move_child(doc, 0)
 	doc.move_to(target, _get_rotation(), true)
-	
-	if last_words.size() > 5:
-		last_words.pop_front()
-	last_words.append(word)
 	
 	return doc

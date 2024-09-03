@@ -77,14 +77,14 @@ func _ready():
 			_finished()
 	)
 
-	document_stack.document_added.connect(func():
-		if GameManager.is_work_mode():
-			var p = _get_difficulty_level()
-			if p > 0.7:
-				doc_spawner.add_hard()
-			elif p > 0.4:
-				doc_spawner.add_medium()
-	)
+	# document_stack.document_added.connect(func():
+	# 	if GameManager.is_work_mode():
+	# 		var p = _get_difficulty_level()
+	# 		if p > 0.7:
+	# 			doc_spawner.add_hard()
+	# 		elif p > 0.4:
+	# 			doc_spawner.add_medium()
+	# )
 		
 	key_reader.pressed_key.connect(func(key, shift):
 		if not documents.is_empty():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=79 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -58,6 +58,7 @@
 [ext_resource type="Script" path="res://src/ui/break_button.gd" id="34_xnoye"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
 [ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
+[ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
 
 [sub_resource type="Curve" id="Curve_m11kp"]
 _data = [Vector2(0, 0.701099), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -447,14 +448,15 @@ layout_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 46.0
-offset_right = 65.0
-offset_bottom = 91.0
-grow_horizontal = 2
-rotation = 1.5708
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -19.0
+offset_top = -91.0
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -553,7 +555,6 @@ visible = false
 visible = false
 
 [node name="Distractions" type="Control" parent="CanvasLayer"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -666,18 +667,20 @@ height = 1.0
 
 [node name="Phone" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "effect_root", "sounds")]
 layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-grow_horizontal = 0
-grow_vertical = 2
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 73.0
+offset_right = 73.0
+grow_horizontal = 2
+grow_vertical = 0
 script = ExtResource("15_ffym8")
 label = NodePath("Phone/MarginContainer/VBoxContainer/TypingLabel")
 type = 1
 effect_root = NodePath("EffectRoot")
-slide_dir = Vector2(-100, 0)
+slide_dir = Vector2(0, -100)
 sounds = [NodePath("Vibrate"), NodePath("Ring")]
 
 [node name="Vibrate" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Phone"]
@@ -700,16 +703,17 @@ node = NodePath("../../Phone")
 [node name="Phone" type="PanelContainer" parent="CanvasLayer/Distractions/Phone"]
 custom_minimum_size = Vector2(20, 80)
 layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -71.0
-offset_top = -52.6379
-offset_bottom = 52.6379
-grow_horizontal = 0
-grow_vertical = 2
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -36.0
+offset_top = -82.0
+offset_right = 36.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 0
 theme = ExtResource("10_am0oy")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_1mklb")
 
@@ -1247,10 +1251,14 @@ texture = ExtResource("24_g7dws")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="DocSpawner" type="Marker2D" parent="."]
+[node name="DocSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("word_generator")]
 position = Vector2(-200, 22)
 script = ExtResource("4_macw6")
 document_scene = ExtResource("2_35x6g")
+word_generator = NodePath("WordGenerator")
+
+[node name="WordGenerator" type="Node" parent="DocSpawner"]
+script = ExtResource("55_o651g")
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 2.0
