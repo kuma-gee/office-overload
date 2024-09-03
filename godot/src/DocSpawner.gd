@@ -6,7 +6,7 @@ const EASY = [
 	"mouse",
 	"plant",
 	"light",
-	"pen",
+	"pencil",
 	"table",
 	"lamp",
 	"desk",
@@ -14,9 +14,9 @@ const EASY = [
 	"email",
 	"break",
 	"coffee",
-	"task",
+	"tasks",
 	"report",
-	"file",
+	"files",
 	"copier",
 	"printer",
 	"folder",
@@ -54,18 +54,21 @@ const HARD = [
 	"presentation",
 	"collaboration",
 	"meeting room",
-	"office supplies",
+	"multitasking",
 	"telecommute",
-	"office culture",
-	"office politics",
-	"worklife balance",
+	"brainstorming",
 	"office space",
-	"company policy",
+	"micromanagement",
+	"stakeholder",
+	"entrepreneurship",
 	"productivity",
 	"motivation",
 	"negotiation",
 	"organization",
 	"professional",
+	"performance",
+	"communication",
+	"optimization",
 ]
 
 enum Mode {
@@ -82,15 +85,23 @@ var mode = -1
 
 func _ready():
 	if GameManager.is_work_mode():
+		var p = GameManager.get_difficulty_level()
 		if GameManager.is_intern():
 			add_easy()
-		else:
-			if GameManager.day >= 5:
-				add_hard()
-			elif GameManager.day >= 3 or not GameManager.is_junior():
+			if GameManager.day >= 4 and p > 0.8:
 				add_medium()
-			else:
+		else:
+			if GameManager.is_junior():
 				add_easy()
+				if p > 0.4:
+					add_medium()
+				if p > 0.9:
+					add_hard()
+			else:
+				add_medium()
+				if p > 0.9:
+					add_hard()
+
 	elif GameManager.is_interview_mode():
 		add_easy()
 		add_medium()
@@ -106,14 +117,14 @@ func add_easy():
 func add_medium():
 	if mode >= Mode.MEDIUM: return
 	
-	word_generator.remove_words_less(6)
+	#word_generator.remove_words_less(6)
 	word_generator.add_words(MEDIUM)
 	mode = Mode.MEDIUM
 
 func add_hard():
 	if mode >= Mode.HARD or GameManager.is_intern(): return
 	
-	word_generator.remove_words_less(9)
+	#word_generator.remove_words_less(9)
 	word_generator.add_words(HARD)
 	mode = Mode.HARD
 

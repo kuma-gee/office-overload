@@ -145,6 +145,14 @@ func get_accuracy():
 
 ### Difficulty
 
+func get_difficulty_level():
+	var start_wpm = GameManager.difficulty.min_average_wpm
+	var end_wpm = GameManager.difficulty.max_average_wpm
+	var max_wpm_diff = end_wpm - start_wpm
+	var wpm_diff = GameManager.get_wpm() - start_wpm
+
+	return clamp(wpm_diff / max_wpm_diff, 0.0, 1.0)
+
 func can_have_promotion():
 	if is_max_promotion(): return false
 
@@ -152,7 +160,7 @@ func can_have_promotion():
 	if not next in DIFFICULTIES: return false
 	
 	var diff = DIFFICULTIES[next] as DifficultyResource
-	return get_wpm() > diff.average_wpm and completed_documents >= diff.minimum_documents and average_accuracy >= diff.min_accuracy
+	return get_wpm() > diff.min_average_wpm and completed_documents >= diff.minimum_documents and average_accuracy >= diff.min_accuracy
 	
 func take_promotion():
 	if is_max_promotion(): return

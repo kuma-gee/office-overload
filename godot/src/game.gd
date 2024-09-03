@@ -1,6 +1,5 @@
 extends Node2D
 
-@export var max_wpm_diff := 30.0
 @export var overload_reduce := 20.0
 @export var work_time: WorkTime
 
@@ -149,9 +148,8 @@ func _spawn():
 	
 	if GameManager.is_work_mode():
 		if not GameManager.is_intern():
-			var p = _get_difficulty_level()
+			var p = GameManager.get_difficulty_level()
 			var t = lerp(GameManager.difficulty.max_documents, GameManager.difficulty.min_documents, p)
-
 			spawn_timer.start(t)
 	elif GameManager.is_interview_mode():
 		if documents.size() < min_documents:
@@ -168,12 +166,6 @@ func _crunch_mode_spawn_time(doc_count: int = document_stack.total):
 	var x = max(doc_count, 1)
 	return max(crunch_start_spawn_time - (log(x) / log(10)) * 1.8, crunch_min_spawn_time)
 
-func _get_difficulty_level():
-	var start_wpm = GameManager.difficulty.average_wpm
-	var end_wpm = GameManager.difficulty.average_wpm + max_wpm_diff
-	var wpm_diff = GameManager.get_wpm() - start_wpm
-
-	return clamp(wpm_diff / max_wpm_diff, 0.0, 1.0)
 
 func _spawn_document(await_start = false):
 	var doc = doc_spawner.spawn_document() as Document

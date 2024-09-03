@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://h14bp6b8w6i8" path="res://assets/Progress_Under.png" id="2_s1wqh"]
 [ext_resource type="PackedScene" uid="uid://dffjinparflk0" path="res://src/ui/day.tscn" id="3_4j615"]
 [ext_resource type="Texture2D" uid="uid://df8a7xriw1acm" path="res://assets/Progress_Fill.png" id="3_6o0s1"]
-[ext_resource type="Texture2D" uid="uid://cwn1qhivlbajn" path="res://assets/ProgressBreak.png" id="4_21eo4"]
 [ext_resource type="Script" path="res://src/DocSpawner.gd" id="4_macw6"]
+[ext_resource type="Texture2D" uid="uid://wg2sutgl31vb" path="res://assets/Progress_Break.png" id="4_nv7v1"]
 [ext_resource type="Shader" path="res://src/base-system/shaders/hit.gdshader" id="4_tfr35"]
 [ext_resource type="Script" path="res://src/ProgressBroken.gd" id="5_b1x4w"]
 [ext_resource type="AudioStream" uid="uid://wbinc813ks6f" path="res://assets/sound/ガラスが割れる3.mp3" id="6_g6nin"]
@@ -467,7 +467,7 @@ visible = false
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 8
-texture = ExtResource("4_21eo4")
+texture = ExtResource("4_nv7v1")
 expand_mode = 3
 stretch_mode = 4
 script = ExtResource("5_b1x4w")

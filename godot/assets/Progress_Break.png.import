@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwn1qhivlbajn"
-path="res://.godot/imported/ProgressBreak.png-0a2eec9f647d03d6fd8e7cee5a41fbed.ctex"
+uid="uid://wg2sutgl31vb"
+path="res://.godot/imported/Progress_Break.png-d4529ae71bb9cbfe9ee4c12a551c51c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ProgressBreak.png"
-dest_files=["res://.godot/imported/ProgressBreak.png-0a2eec9f647d03d6fd8e7cee5a41fbed.ctex"]
+source_file="res://assets/Progress_Break.png"
+dest_files=["res://.godot/imported/Progress_Break.png-d4529ae71bb9cbfe9ee4c12a551c51c9.ctex"]
 
 [params]
 
