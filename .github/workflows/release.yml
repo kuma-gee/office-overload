@@ -19,8 +19,8 @@ jobs:
       GODOT_VERSION: 4.3
     steps:
       - uses: actions/checkout@v4
-      # - name: Setup Templates
-      #   run: ./scripts/prepare-templates.sh $GODOT_VERSION
+      - name: Setup Templates
+        run: ./scripts/prepare-templates.sh $GODOT_VERSION
 
       - name: Prepare Build
         run: ./scripts/prepare-build.sh $GITHUB_REF_NAME
