@@ -64,7 +64,8 @@ jobs:
       - run: npm ci && npm run changelog -- -t ${{env.prev_tag}}..${{env.latest_tag}}
       - uses: actions/download-artifact@v4
         with:
-          name: release-*
+          pattern: release-*
+          merge-multiple: true
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
