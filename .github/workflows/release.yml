@@ -29,7 +29,7 @@ jobs:
         run: ./scripts/build-channel.sh $CHANNEL
 
       - name: Publish Itch
-        if: env.BUTLER_API_KEY && env.USER && env.GAME && !contains(github.ref, '-rc') && env.CHANNEL == "web"
+        if: env.BUTLER_API_KEY && env.USER && env.GAME && !contains(github.ref, '-rc') && env.CHANNEL == 'web'
         shell: bash
         env:
           BUTLER_API_KEY: ${{secrets.BUTLER_API_KEY}}
