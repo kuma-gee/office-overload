@@ -1,0 +1,1297 @@
+[gd_scene load_steps=80 format=3 uid="uid://di8g8e6s34cik"]
+
+[ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
+[ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
+[ext_resource type="Script" path="res://src/base-system/CameraShake.gd" id="2_40dk3"]
+[ext_resource type="Texture2D" uid="uid://h14bp6b8w6i8" path="res://assets/sprites/Progress_Under.png" id="2_s1wqh"]
+[ext_resource type="PackedScene" uid="uid://dffjinparflk0" path="res://src/ui/day.tscn" id="3_4j615"]
+[ext_resource type="Texture2D" uid="uid://df8a7xriw1acm" path="res://assets/sprites/Progress_Fill.png" id="3_6o0s1"]
+[ext_resource type="Script" path="res://src/base-system/FrameFreeze.gd" id="3_o6tfp"]
+[ext_resource type="Script" path="res://src/DocSpawner.gd" id="4_macw6"]
+[ext_resource type="Texture2D" uid="uid://wg2sutgl31vb" path="res://assets/sprites/Progress_Break.png" id="4_nv7v1"]
+[ext_resource type="Shader" path="res://src/base-system/shaders/hit.gdshader" id="4_tfr35"]
+[ext_resource type="Script" path="res://src/ProgressBroken.gd" id="5_b1x4w"]
+[ext_resource type="AudioStream" uid="uid://wbinc813ks6f" path="res://assets/sound/ガラスが割れる3.mp3" id="6_g6nin"]
+[ext_resource type="Texture2D" uid="uid://mgxmnunxgvxi" path="res://assets/sprites/Progress_Front.png" id="7_8fqhj"]
+[ext_resource type="Script" path="res://src/WorkTime.gd" id="7_ruuy4"]
+[ext_resource type="PackedScene" uid="uid://dw4ed4dspm22v" path="res://src/ui/gameover.tscn" id="8_lpofg"]
+[ext_resource type="PackedScene" uid="uid://kdu7e637eapn" path="res://src/ui/end.tscn" id="9_dbvje"]
+[ext_resource type="Script" path="res://src/base-system/AutoProgressbar.gd" id="9_ul3fx"]
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="10_am0oy"]
+[ext_resource type="Script" path="res://src/base-system/ExtendedTimer.gd" id="10_sr2sn"]
+[ext_resource type="AudioStream" uid="uid://cbl54cvxxt3ij" path="res://assets/sound/beep.mp3" id="12_6mlls"]
+[ext_resource type="Script" path="res://src/DocumentStack.gd" id="12_n73rb"]
+[ext_resource type="AudioStream" uid="uid://dykrksjnisr7f" path="res://assets/sound/柱時計の鐘.mp3" id="12_y1afc"]
+[ext_resource type="Texture2D" uid="uid://b3m7b3wyx4tpw" path="res://assets/sprites/Clock.png" id="13_dyrwf"]
+[ext_resource type="Script" path="res://src/Distractions.gd" id="14_s1o3m"]
+[ext_resource type="Script" path="res://src/Clock.gd" id="14_stuan"]
+[ext_resource type="Texture2D" uid="uid://c7y3y52oh6sbg" path="res://assets/sprites/MonitorLight.png" id="14_uyjhq"]
+[ext_resource type="Script" path="res://src/ui/DistractionWindow.gd" id="15_ffym8"]
+[ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="15_r4fui"]
+[ext_resource type="LabelSettings" uid="uid://bsk404a5n517i" path="res://theme/text_normal.tres" id="16_3sqd2"]
+[ext_resource type="Texture2D" uid="uid://bikrg3yecci4h" path="res://assets/sprites/ClockLight.png" id="17_b6uxm"]
+[ext_resource type="AudioStream" uid="uid://cg3y8tqu354up" path="res://assets/sound/決定ボタンを押す53.mp3" id="17_xms1k"]
+[ext_resource type="Texture2D" uid="uid://fk36xs2n3q4o" path="res://assets/sprites/Phone.png" id="18_3w3fn"]
+[ext_resource type="Texture2D" uid="uid://dg4t2u4r7tk5d" path="res://assets/sprites/SpeechBubble.png" id="18_51hqv"]
+[ext_resource type="Script" path="res://src/ManualLoopAudio.gd" id="18_f0kcb"]
+[ext_resource type="AudioStream" uid="uid://dc1fhbgjs375l" path="res://assets/sound/携帯電話のバイブレーション1.mp3" id="19_5t58c"]
+[ext_resource type="AudioStream" uid="uid://bpxm5pscsli23" path="res://assets/sound/鳩時計1.mp3" id="19_mkiih"]
+[ext_resource type="Texture2D" uid="uid://sy6r1qjyud55" path="res://assets/sprites/Desk_Static.png" id="19_wvt8k"]
+[ext_resource type="Script" path="res://src/BlinkText.gd" id="20_0ygyh"]
+[ext_resource type="AudioStream" uid="uid://bmtpsyxjqkjxv" path="res://assets/sound/携帯電話の着信音1.mp3" id="20_2av8q"]
+[ext_resource type="Texture2D" uid="uid://7rmhhytuv24r" path="res://assets/sprites/Email.png" id="20_hn5id"]
+[ext_resource type="Script" path="res://src/delegator.gd" id="20_tcix1"]
+[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="20_u0r5t"]
+[ext_resource type="Script" path="res://src/base-system/effect/Shake.gd" id="21_os6oe"]
+[ext_resource type="Texture2D" uid="uid://r6b75n40gyxy" path="res://assets/sprites/Desk_Computer.png" id="21_tywuk"]
+[ext_resource type="Curve" uid="uid://c5dolop3rdetn" path="res://src/dust_damp.tres" id="24_ecpli"]
+[ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/sprites/Document.png" id="24_g7dws"]
+[ext_resource type="AudioStream" uid="uid://dl1bac3viudub" path="res://assets/sound/パパッ.mp3" id="25_k4kvb"]
+[ext_resource type="Texture2D" uid="uid://fhvvkmwkvr5c" path="res://assets/sprites/Desk_Plant.png" id="27_1a3yr"]
+[ext_resource type="Script" path="res://src/report.gd" id="27_q3o08"]
+[ext_resource type="Texture2D" uid="uid://ctoyv3g7nvrwf" path="res://assets/sprites/Desk_Coffee.png" id="28_i6mjb"]
+[ext_resource type="Script" path="res://src/ui/pause.gd" id="29_4wq2j"]
+[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="29_oyxqt"]
+[ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="30_x1cnl"]
+[ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="31_jak86"]
+[ext_resource type="Texture2D" uid="uid://c7bni1sdaaaqn" path="res://assets/sprites/Desk_Keyboard.png" id="31_x6efq"]
+[ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="32_eoisl"]
+[ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="33_5ctor"]
+[ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
+[ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
+[ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
+
+[sub_resource type="Curve" id="Curve_m11kp"]
+_data = [Vector2(0, 0.701099), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_vka2m"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kfp76"]
+shader = ExtResource("4_tfr35")
+shader_parameter/enable = true
+shader_parameter/hit_color = Color(0.207843, 0.207843, 0.25098, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e6mqw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1mklb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o0ctv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52hld"]
+
+[sub_resource type="Animation" id="Animation_mdfl2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Plant:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Coffee:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Messy:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Littered:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Keyboard:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../BGM:volume_db")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-30.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../BGM:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_qam2k"]
+resource_name = "littered"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Plant:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Littered:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Messy:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Coffee:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_if3j8"]
+resource_name = "messy"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Plant:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Messy:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Coffee:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ijo53"]
+resource_name = "normal"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Plant:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Coffee:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Messy:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Littered:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_0rw6j"]
+resource_name = "silent_bgm"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../BGM:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BGM:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-40.0]
+}
+
+[sub_resource type="Animation" id="Animation_c5ajb"]
+resource_name = "start_bgm"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../BGM:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-60.0, -30.0]
+}
+
+[sub_resource type="Animation" id="Animation_c62e5"]
+resource_name = "stop_bgm"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../BGM:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-30.0, -60.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BGM")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_5s4dq"]
+resource_name = "tutorial"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Keyboard:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vs0lt"]
+_data = {
+"RESET": SubResource("Animation_mdfl2"),
+"littered": SubResource("Animation_qam2k"),
+"messy": SubResource("Animation_if3j8"),
+"normal": SubResource("Animation_ijo53"),
+"silent_bgm": SubResource("Animation_0rw6j"),
+"start_bgm": SubResource("Animation_c5ajb"),
+"stop_bgm": SubResource("Animation_c62e5"),
+"tutorial": SubResource("Animation_5s4dq")
+}
+
+[sub_resource type="Curve" id="Curve_bp2je"]
+max_value = 5.0
+_data = [Vector2(0, 2.36264), 0.0, 0.0, 0, 0, Vector2(1, 5), -1.99979, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ar5ax"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.629214, 1)
+colors = PackedColorArray(1, 1, 1, 0.596078, 0.853488, 0.853488, 0.853488, 0)
+
+[sub_resource type="Environment" id="Environment_cpt0l"]
+glow_enabled = true
+glow_bloom = 0.05
+glow_blend_mode = 0
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time")]
+script = ExtResource("1_ptsas")
+work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
+
+[node name="CameraShake" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("2_40dk3")
+noise_shake_speed = 40.0
+noise_shake_strength = 20.0
+shake_decay_rate = 40.0
+
+[node name="FrameFreeze" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("3_o6tfp")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("10_am0oy")
+
+[node name="Day" parent="CanvasLayer/HUD" instance=ExtResource("3_4j615")]
+layout_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -19.0
+offset_top = -91.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ProgressBroken" type="TextureRect" parent="CanvasLayer/HUD/MarginContainer"]
+visible = false
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("4_nv7v1")
+expand_mode = 3
+stretch_mode = 4
+script = ExtResource("5_b1x4w")
+
+[node name="BurstParticles" type="CPUParticles2D" parent="CanvasLayer/HUD/MarginContainer/ProgressBroken"]
+process_mode = 3
+position = Vector2(9, 42)
+emitting = false
+amount = 16
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.8
+emission_shape = 3
+emission_rect_extents = Vector2(4, 2)
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+damping_min = 60.0
+damping_max = 80.0
+scale_amount_min = 6.0
+scale_amount_max = 8.0
+scale_amount_curve = SubResource("Curve_m11kp")
+color_ramp = SubResource("Gradient_vka2m")
+
+[node name="ShardParticles" type="CPUParticles2D" parent="CanvasLayer/HUD/MarginContainer/ProgressBroken"]
+position = Vector2(9.24707, 42)
+emitting = false
+amount = 12
+lifetime = 100.0
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(5, 2)
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 30.0
+damping_min = 50.0
+damping_max = 50.0
+color = Color(0.207843, 0.207843, 0.25098, 1)
+
+[node name="BreakSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/MarginContainer/ProgressBroken"]
+stream = ExtResource("6_g6nin")
+volume_db = 5.0
+bus = &"SFX"
+
+[node name="OverloadProgress" type="TextureProgressBar" parent="CanvasLayer/HUD/MarginContainer" node_paths=PackedStringArray("blink_timer_reference", "beep_sound")]
+material = SubResource("ShaderMaterial_kfp76")
+layout_mode = 2
+size_flags_horizontal = 8
+step = 0.01
+value = 45.0
+fill_mode = 3
+texture_under = ExtResource("2_s1wqh")
+texture_over = ExtResource("7_8fqhj")
+texture_progress = ExtResource("3_6o0s1")
+script = ExtResource("9_ul3fx")
+blink_timer_reference = NodePath("../../../../OverloadTimer")
+beep_sound = NodePath("OverloadSound")
+
+[node name="OverloadSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/MarginContainer/OverloadProgress"]
+stream = ExtResource("12_6mlls")
+volume_db = -15.0
+
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -31.0
+offset_bottom = 19.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="Gameover" parent="CanvasLayer" instance=ExtResource("8_lpofg")]
+visible = false
+
+[node name="End" parent="CanvasLayer" instance=ExtResource("9_dbvje")]
+visible = false
+
+[node name="Distractions" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("10_am0oy")
+script = ExtResource("14_s1o3m")
+
+[node name="ShakeEffect" type="Node" parent="CanvasLayer/Distractions"]
+script = ExtResource("20_u0r5t")
+duration = 0.5
+
+[node name="Shake" type="Node" parent="CanvasLayer/Distractions/ShakeEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("21_os6oe")
+node = NodePath("../../Junior")
+
+[node name="Shake2" type="Node" parent="CanvasLayer/Distractions/ShakeEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("21_os6oe")
+node = NodePath("../../Phone")
+
+[node name="Shake3" type="Node" parent="CanvasLayer/Distractions/ShakeEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("21_os6oe")
+node = NodePath("../../Email/Email")
+
+[node name="Delegator" type="Node" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("nodes")]
+script = ExtResource("20_tcix1")
+nodes = [NodePath("../Email"), NodePath("../Phone"), NodePath("../Junior")]
+
+[node name="Email" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "sounds")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("15_ffym8")
+tween_trans = 10
+label = NodePath("Email/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel")
+slide_dir = Vector2(0, -100)
+sounds = [NodePath("Email/Notification")]
+
+[node name="Email" type="PanelContainer" parent="CanvasLayer/Distractions/Email"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -84.0
+offset_top = -53.0
+offset_right = 84.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("10_am0oy")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_e6mqw")
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Distractions/Email/Email"]
+layout_mode = 2
+theme_override_constants/margin_top = -30
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Email/Email/MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("20_hn5id")
+stretch_mode = 2
+
+[node name="Notification" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Email/Email"]
+stream = ExtResource("17_xms1k")
+volume_db = -10.0
+pitch_scale = 0.8
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Email/Email"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Email/Email/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Email"
+label_settings = ExtResource("16_3sqd2")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Subject:"
+label_settings = ExtResource("16_3sqd2")
+horizontal_alignment = 1
+
+[node name="TypingLabel" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("15_r4fui")]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 12
+height = 1.0
+
+[node name="Phone" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "effect_root", "sounds")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 73.0
+offset_right = 73.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("15_ffym8")
+label = NodePath("Phone/MarginContainer/VBoxContainer/TypingLabel")
+type = 1
+effect_root = NodePath("EffectRoot")
+slide_dir = Vector2(0, -100)
+sounds = [NodePath("Vibrate"), NodePath("Ring")]
+
+[node name="Vibrate" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Phone"]
+stream = ExtResource("19_5t58c")
+volume_db = -20.0
+
+[node name="Ring" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Phone"]
+stream = ExtResource("20_2av8q")
+volume_db = -10.0
+
+[node name="EffectRoot" type="Node" parent="CanvasLayer/Distractions/Phone"]
+script = ExtResource("20_u0r5t")
+duration = 0.5
+loop = true
+
+[node name="Shake" type="Node" parent="CanvasLayer/Distractions/Phone/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("21_os6oe")
+node = NodePath("../../Phone")
+
+[node name="Phone" type="PanelContainer" parent="CanvasLayer/Distractions/Phone"]
+custom_minimum_size = Vector2(20, 80)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -36.0
+offset_top = -82.0
+offset_right = 36.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("10_am0oy")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1mklb")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Phone/Phone"]
+layout_mode = 2
+texture = ExtResource("18_3w3fn")
+stretch_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Phone/Phone"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Phone/Phone/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="CanvasLayer/Distractions/Phone/Phone/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Phone"
+label_settings = ExtResource("16_3sqd2")
+horizontal_alignment = 1
+
+[node name="TypingLabel" parent="CanvasLayer/Distractions/Phone/Phone/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 12
+height = 1.0
+
+[node name="Junior" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "sounds")]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2
+script = ExtResource("15_ffym8")
+label = NodePath("Junior/MarginContainer/VBoxContainer/TypingLabel")
+type = 2
+slide_dir = Vector2(100, 0)
+sounds = [NodePath("Popup")]
+
+[node name="Popup" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Junior"]
+stream = ExtResource("25_k4kvb")
+volume_db = -10.0
+
+[node name="Junior" type="PanelContainer" parent="CanvasLayer/Distractions/Junior"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -30.0
+offset_right = 85.0
+offset_bottom = 30.0
+grow_vertical = 2
+theme = ExtResource("10_am0oy")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_o0ctv")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Junior/Junior"]
+layout_mode = 2
+texture = ExtResource("18_51hqv")
+stretch_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Junior/Junior"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Junior:"
+label_settings = ExtResource("16_3sqd2")
+horizontal_alignment = 1
+
+[node name="TypingLabel" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 12
+height = 1.0
+
+[node name="Report" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("10_am0oy")
+script = ExtResource("27_q3o08")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Report"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.0
+offset_top = -80.0
+offset_right = 61.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Report/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Report/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/Report/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "REPORT"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Report/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TypingLabel" parent="CanvasLayer/Report/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2" instance=ExtResource("15_r4fui")]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 10
+
+[node name="Pause" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("quit_btn", "continue_btn")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+theme = ExtResource("10_am0oy")
+script = ExtResource("29_4wq2j")
+quit_btn = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay/Quit")
+continue_btn = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay/Continue")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Pause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="Delegator" type="Node" parent="CanvasLayer/Pause" node_paths=PackedStringArray("nodes")]
+script = ExtResource("20_tcix1")
+nodes = [NodePath("../CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay/Continue"), NodePath("../CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay/Quit")]
+
+[node name="EffectRoot" type="Node" parent="CanvasLayer/Pause"]
+script = ExtResource("20_u0r5t")
+ease = 1
+duration = 0.5
+
+[node name="Slide" type="Node" parent="CanvasLayer/Pause/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("29_oyxqt")
+node = NodePath("../../CenterContainer")
+
+[node name="Fade" type="Node" parent="CanvasLayer/Pause/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("30_x1cnl")
+node = NodePath("../../ColorRect")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Pause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Pause/CenterContainer"]
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_52hld")
+
+[node name="Interview" type="MarginContainer" parent="CanvasLayer/Pause/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview/VBoxContainer"]
+layout_mode = 2
+text = "COFFEE BREAK"
+label_settings = ExtResource("31_jak86")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+
+[node name="FinishedTasks" type="Label" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "You are enjoying
+your coffee on your desk"
+label_settings = ExtResource("32_eoisl")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NextDay" type="HBoxContainer" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Continue" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("33_5ctor")]
+layout_mode = 2
+word = "Continue"
+
+[node name="Quit" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("33_5ctor")]
+layout_mode = 2
+word = "quitjob"
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -187.0
+offset_top = -114.0
+offset_right = 203.0
+offset_bottom = 116.0
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Desk")
+libraries = {
+"": SubResource("AnimationLibrary_vs0lt")
+}
+autoplay = "normal"
+
+[node name="Desk" type="Sprite2D" parent="."]
+texture = ExtResource("19_wvt8k")
+
+[node name="PointLight2D" type="PointLight2D" parent="Desk"]
+position = Vector2(0, 1)
+blend_mode = 2
+texture = ExtResource("14_uyjhq")
+
+[node name="Messy" type="Node2D" parent="Desk"]
+visible = false
+
+[node name="Document" type="Sprite2D" parent="Desk/Messy"]
+position = Vector2(-152, -76)
+rotation = 0.829031
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Document2" type="Sprite2D" parent="Desk/Messy"]
+position = Vector2(-90, -79)
+rotation = 1.65981
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Document3" type="Sprite2D" parent="Desk/Messy"]
+position = Vector2(141, -79)
+rotation = -0.710349
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Coffee2" type="Sprite2D" parent="Desk/Messy"]
+position = Vector2(65, -49)
+texture = ExtResource("28_i6mjb")
+hframes = 2
+frame = 1
+
+[node name="Littered" type="Node2D" parent="Desk"]
+visible = false
+
+[node name="Document5" type="Sprite2D" parent="Desk/Littered"]
+position = Vector2(-126, -83)
+rotation = 2.11359
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Document9" type="Sprite2D" parent="Desk/Littered"]
+position = Vector2(-59, -94)
+rotation = 0.561996
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Document6" type="Sprite2D" parent="Desk/Littered"]
+position = Vector2(-154, -51)
+rotation = -2.77333
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Document8" type="Sprite2D" parent="Desk/Littered"]
+position = Vector2(76, -94)
+rotation = -1.23395
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Document4" type="Sprite2D" parent="Desk/Littered"]
+position = Vector2(48, -82)
+rotation = 0.5044
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Document7" type="Sprite2D" parent="Desk/Littered"]
+position = Vector2(112, -96)
+rotation = 0.959931
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Coffee3" type="Sprite2D" parent="Desk/Littered"]
+position = Vector2(90, -56)
+texture = ExtResource("28_i6mjb")
+hframes = 2
+frame = 1
+
+[node name="Computer" type="Sprite2D" parent="Desk"]
+position = Vector2(0, -80)
+texture = ExtResource("21_tywuk")
+
+[node name="Clock" type="Sprite2D" parent="Desk" node_paths=PackedStringArray("worktime", "point_light", "canvas_modulate", "overload_progress")]
+position = Vector2(88, -74)
+texture = ExtResource("13_dyrwf")
+hframes = 2
+script = ExtResource("14_stuan")
+worktime = NodePath("HBoxContainer/WorkTime")
+point_light = NodePath("../PointLight2D")
+canvas_modulate = NodePath("../../CanvasModulate")
+overload_progress = NodePath("../../CanvasLayer/HUD/MarginContainer/OverloadProgress")
+
+[node name="ClockLight1" type="PointLight2D" parent="Desk/Clock"]
+position = Vector2(-10.5, 2.25806)
+blend_mode = 2
+texture = ExtResource("17_b6uxm")
+
+[node name="ClockLight2" type="PointLight2D" parent="Desk/Clock"]
+position = Vector2(-4.5, 2.2)
+blend_mode = 2
+texture = ExtResource("17_b6uxm")
+
+[node name="ClockLight3" type="PointLight2D" parent="Desk/Clock"]
+position = Vector2(3.5, 2.25806)
+blend_mode = 2
+texture = ExtResource("17_b6uxm")
+
+[node name="ClockLight4" type="PointLight2D" parent="Desk/Clock"]
+position = Vector2(9, 2.25806)
+blend_mode = 2
+texture = ExtResource("17_b6uxm")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Desk/Clock"]
+light_mask = 2
+visibility_layer = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.5
+offset_top = -11.5
+offset_right = -5.5
+offset_bottom = -0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("10_am0oy")
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="WorkTime" type="Label" parent="Desk/Clock/HBoxContainer" node_paths=PackedStringArray("timer", "day_end_sound", "overtime_sound")]
+layout_mode = 2
+theme = ExtResource("10_am0oy")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "00"
+horizontal_alignment = 1
+script = ExtResource("7_ruuy4")
+timer = NodePath("Timer")
+day_end_sound = NodePath("End")
+overtime_sound = NodePath("Overtime")
+
+[node name="End" type="AudioStreamPlayer" parent="Desk/Clock/HBoxContainer/WorkTime"]
+process_mode = 3
+stream = ExtResource("19_mkiih")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="Overtime" type="AudioStreamPlayer" parent="Desk/Clock/HBoxContainer/WorkTime"]
+process_mode = 3
+stream = ExtResource("12_y1afc")
+volume_db = -20.0
+bus = &"SFX"
+
+[node name="Timer" type="Timer" parent="Desk/Clock/HBoxContainer/WorkTime"]
+
+[node name="MarginContainer" type="MarginContainer" parent="Desk/Clock/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 0
+
+[node name="Colon" type="Label" parent="Desk/Clock/HBoxContainer/MarginContainer" node_paths=PackedStringArray("blink_timer")]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = ":"
+script = ExtResource("20_0ygyh")
+blink_timer = NodePath("BlinkTimer")
+blink_duration = 0.5
+
+[node name="BlinkTimer" type="Timer" parent="Desk/Clock/HBoxContainer/MarginContainer/Colon"]
+one_shot = true
+
+[node name="Minutes" type="Label" parent="Desk/Clock/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "00"
+
+[node name="Plant" type="Sprite2D" parent="Desk"]
+position = Vector2(-118, -66)
+texture = ExtResource("27_1a3yr")
+hframes = 3
+
+[node name="Coffee" type="Sprite2D" parent="Desk"]
+position = Vector2(82, -29)
+texture = ExtResource("28_i6mjb")
+hframes = 2
+
+[node name="Keyboard" type="Sprite2D" parent="Desk"]
+position = Vector2(0, -29)
+texture = ExtResource("31_x6efq")
+hframes = 2
+
+[node name="DocumentStack" type="Node2D" parent="."]
+position = Vector2(133, -44)
+script = ExtResource("12_n73rb")
+stack_count = 5
+max_stacks = 10
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="DocumentStack"]
+position = Vector2(-10, 0)
+emitting = false
+amount = 2
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(5, 15)
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 40.0
+damping_min = 90.0
+damping_max = 90.0
+damping_curve = ExtResource("24_ecpli")
+scale_amount_curve = SubResource("Curve_bp2je")
+color_ramp = SubResource("Gradient_ar5ax")
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="DocumentStack"]
+position = Vector2(10, 0)
+scale = Vector2(-1, 1)
+emitting = false
+amount = 2
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(5, 15)
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 40.0
+damping_min = 90.0
+damping_max = 90.0
+damping_curve = ExtResource("24_ecpli")
+scale_amount_curve = SubResource("Curve_bp2je")
+color_ramp = SubResource("Gradient_ar5ax")
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="DocumentStack"]
+position = Vector2(0, -15)
+emitting = false
+amount = 2
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(7, 5)
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 40.0
+damping_min = 90.0
+damping_max = 90.0
+damping_curve = ExtResource("24_ecpli")
+scale_amount_curve = SubResource("Curve_bp2je")
+color_ramp = SubResource("Gradient_ar5ax")
+
+[node name="CPUParticles2D4" type="CPUParticles2D" parent="DocumentStack"]
+position = Vector2(0, 15)
+scale = Vector2(1, -1)
+emitting = false
+amount = 2
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(7, 5)
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 40.0
+damping_min = 90.0
+damping_max = 90.0
+damping_curve = ExtResource("24_ecpli")
+scale_amount_curve = SubResource("Curve_bp2je")
+color_ramp = SubResource("Gradient_ar5ax")
+
+[node name="Sprite2D" type="Sprite2D" parent="DocumentStack"]
+visible = false
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="DocSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("word_generator")]
+position = Vector2(-200, 22)
+script = ExtResource("4_macw6")
+document_scene = ExtResource("2_35x6g")
+word_generator = NodePath("WordGenerator")
+
+[node name="WordGenerator" type="Node" parent="DocSpawner"]
+script = ExtResource("55_o651g")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="OverloadTimer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+script = ExtResource("10_sr2sn")
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("39_xwwgs")
+volume_db = -30.0
+bus = &"BGM"
+script = ExtResource("18_f0kcb")
+
+[node name="KeyReader" type="Node" parent="."]
+script = ExtResource("39_lfd1g")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cpt0l")
+
+[connection signal="finished" from="CanvasLayer/HUD/Day" to="." method="_on_day_finished"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

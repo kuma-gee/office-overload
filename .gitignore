@@ -1,0 +1,11 @@
+build/
+*.css*
+_sprites/
+.godot/
+node_modules
+
+# Asset files are mostly gonna be protected
+godot/assets/**/*.mp3
+godot/assets/**/*.wav
+godot/assets/**/*.png
+godot/assets/**/*.ttf

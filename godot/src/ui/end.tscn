@@ -1,0 +1,589 @@
+[gd_scene load_steps=28 format=3 uid="uid://kdu7e637eapn"]
+
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_80w1y"]
+[ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_ox4yy"]
+[ext_resource type="Script" path="res://src/ui/end.gd" id="2_oxc1v"]
+[ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="4_0mkg1"]
+[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_j7irx"]
+[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_d7wj0"]
+[ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="5_rckpx"]
+[ext_resource type="Script" path="res://src/delegator.gd" id="7_ls5ot"]
+[ext_resource type="Script" path="res://src/ui/break_button.gd" id="7_mgfnm"]
+[ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="8_f3tsx"]
+[ext_resource type="AudioStream" uid="uid://e82h4pq7oib4" path="res://assets/sound/金額表示.mp3" id="8_i0k3p"]
+[ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="8_whfhi"]
+[ext_resource type="AudioStream" uid="uid://ctlbf2imxt5tn" path="res://assets/sound/呪いの旋律.mp3" id="13_26xkb"]
+[ext_resource type="Script" path="res://src/ui/unlocked_mode.gd" id="16_hp113"]
+[ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="17_74eho"]
+[ext_resource type="Script" path="res://src/ui/esc_button.gd" id="18_4swmg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yl2xo"]
+
+[sub_resource type="Curve" id="Curve_30t50"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99435, 0), -3.02564, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_wjj53"]
+curve = SubResource("Curve_30t50")
+
+[sub_resource type="Curve" id="Curve_5elgx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.14201, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_a4gy4"]
+curve = SubResource("Curve_5elgx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6w7w2"]
+particle_flag_disable_z = true
+direction = Vector3(-1, -1, 0)
+spread = 60.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 10, 0)
+scale_min = 5.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_a4gy4")
+alpha_curve = SubResource("CurveTexture_wjj53")
+
+[sub_resource type="Curve" id="Curve_y7k8r"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99435, 0), -3.02564, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_rj2fv"]
+curve = SubResource("Curve_y7k8r")
+
+[sub_resource type="Curve" id="Curve_jmgn4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.14201, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_51fdc"]
+curve = SubResource("Curve_jmgn4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_321tw"]
+particle_flag_disable_z = true
+direction = Vector3(-1, -1, 0)
+spread = 80.0
+initial_velocity_min = 30.0
+initial_velocity_max = 40.0
+gravity = Vector3(0, 20, 0)
+scale_min = 5.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_51fdc")
+alpha_curve = SubResource("CurveTexture_rj2fv")
+
+[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "interview_finished", "interview_wpm", "interview_delegator", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_delegator", "next_day", "next_day_container", "promotion_container", "title", "overtime", "finished_tasks", "day_delegator", "promotion_text", "promotion_text_container", "promotion_particle_1", "promotion_particle_2", "promotion_sound", "promotion_delegator", "work_container", "interview_container", "crunch_container", "unlocked_container")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_80w1y")
+script = ExtResource("2_oxc1v")
+open_sound = NodePath("OpenSound")
+gameover_sound = NodePath("GameoverSound")
+interview_finished = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/FinishedTasks")
+interview_wpm = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/WPM")
+interview_delegator = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/InterviewDelegator")
+crunch_tasks = NodePath("CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/Tasks")
+crunch_time = NodePath("CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/Time")
+crunch_wpm = NodePath("CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/WPM")
+crunch_delegator = NodePath("CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/CrunchDelegator")
+next_day = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay/NextDayButton")
+next_day_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer")
+promotion_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/Promotion")
+title = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/Title")
+overtime = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Overtime")
+finished_tasks = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/FinishedTasks")
+day_delegator = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/DayDelegator")
+promotion_text = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/TypingLabel")
+promotion_text_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer")
+promotion_particle_1 = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2/GPUParticles2D")
+promotion_particle_2 = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control3/GPUParticles2D")
+promotion_sound = NodePath("PromotionSound")
+promotion_delegator = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/PromotionDelegator")
+work_container = NodePath("CenterContainer/PanelContainer/Work")
+interview_container = NodePath("CenterContainer/PanelContainer/Interview")
+crunch_container = NodePath("CenterContainer/PanelContainer/Crunch")
+unlocked_container = NodePath("UnlockedMode")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_yl2xo")
+
+[node name="Interview" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Interview"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="CenterContainer/PanelContainer/Interview/VBoxContainer"]
+layout_mode = 2
+text = "result"
+label_settings = ExtResource("2_ox4yy")
+horizontal_alignment = 1
+
+[node name="InterviewDelegator" type="Node" parent="CenterContainer/PanelContainer/Interview/VBoxContainer" node_paths=PackedStringArray("nodes")]
+script = ExtResource("7_ls5ot")
+nodes = [NodePath("../VBoxContainer/NextDay/Upload"), NodePath("../VBoxContainer/NextDay/Break")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Interview/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "FINISHED_TASKS"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="WPM" type="Label" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "FINISHED_TASKS"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Upload" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+word = "Upload"
+
+[node name="Break" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+script = ExtResource("7_mgfnm")
+
+[node name="Work" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer"]
+layout_mode = 2
+text = "daily report"
+label_settings = ExtResource("2_ox4yy")
+horizontal_alignment = 1
+
+[node name="PromotionDelegator" type="Node" parent="CenterContainer/PanelContainer/Work/VBoxContainer" node_paths=PackedStringArray("nodes")]
+script = ExtResource("7_ls5ot")
+nodes = [NodePath("../Promotion/HBoxContainer2/PromotionYes"), NodePath("../Promotion/HBoxContainer2/PromotionNo")]
+
+[node name="Promotion" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion"]
+layout_mode = 2
+text = "We have been impressed
+by your performance"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion"]
+layout_mode = 2
+text = "Would you like
+a promotion?"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PromotionYes" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+word = "Yes"
+
+[node name="PromotionNo" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+word = "No"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+
+[node name="DayDelegator" type="Node" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("nodes")]
+script = ExtResource("7_ls5ot")
+nodes = [NodePath("../NextDay/NextDayButton"), NodePath("../NextDay/Break")]
+
+[node name="PromotionTextContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Promotion" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer"]
+layout_mode = 2
+text = "Promoted to"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Control2" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2"]
+position = Vector2(6, 8)
+emitting = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_6w7w2")
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.9
+
+[node name="TypingLabel" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer" instance=ExtResource("8_whfhi")]
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/normal_font_size = 10
+frequency = 2.0
+height = 0.5
+highlight_all = true
+
+[node name="Control3" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control3"]
+position = Vector2(-7, 8)
+rotation = 1.5708
+emitting = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_6w7w2")
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.9
+
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "FINISHED_TASKS"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Overtime" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "OVERTIME"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="NextDayButton" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+word = "Next Day"
+
+[node name="Break" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+script = ExtResource("7_mgfnm")
+word = "Break"
+
+[node name="Crunch" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer"]
+layout_mode = 2
+text = "Burned out"
+label_settings = ExtResource("2_ox4yy")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+
+[node name="CrunchDelegator" type="Node" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("nodes")]
+script = ExtResource("7_ls5ot")
+nodes = [NodePath("../NextDay/Upload"), NodePath("../NextDay/Break")]
+
+[node name="Tasks" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "FINISHED_TASKS"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Time" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "OVERTIME"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="WPM" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "OVERTIME"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Upload" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+word = "Upload"
+
+[node name="Break" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+script = ExtResource("7_mgfnm")
+word = "Break"
+
+[node name="EndEffect" type="Node" parent="."]
+script = ExtResource("4_j7irx")
+trans = 10
+ease = 1
+duration = 0.8
+
+[node name="Slide2" type="Node" parent="EndEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("5_d7wj0")
+node = NodePath("../../CenterContainer")
+
+[node name="Fade" type="Node" parent="EndEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("8_f3tsx")
+node = NodePath("../../ColorRect")
+
+[node name="PromotionSound" type="AudioStreamPlayer" parent="."]
+volume_db = -10.0
+pitch_scale = 0.9
+
+[node name="OpenSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_i0k3p")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="GameoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_26xkb")
+volume_db = -10.0
+pitch_scale = 1.2
+
+[node name="UnlockedMode" type="Control" parent="." node_paths=PackedStringArray("particles", "effect", "label")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+mouse_filter = 2
+script = ExtResource("16_hp113")
+particles = [NodePath("Control2/GPUParticles2D"), NodePath("Control3/GPUParticles2D"), NodePath("Control4/GPUParticles2D"), NodePath("Control5/GPUParticles2D")]
+effect = NodePath("EffectRoot")
+label = NodePath("Leaderboard/MarginContainer/VBoxContainer/Mode")
+
+[node name="Control2" type="Control" parent="UnlockedMode"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.0
+offset_top = -21.0
+offset_right = -57.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="UnlockedMode/Control2"]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_321tw")
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.9
+
+[node name="Control3" type="Control" parent="UnlockedMode"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.0
+offset_top = 1.0
+offset_right = -57.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="UnlockedMode/Control3"]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_321tw")
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.9
+
+[node name="Control4" type="Control" parent="UnlockedMode"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 56.0
+offset_top = -21.0
+offset_right = 56.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="UnlockedMode/Control4"]
+scale = Vector2(-1, 1)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_321tw")
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.9
+
+[node name="Control5" type="Control" parent="UnlockedMode"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 56.0
+offset_top = 1.0
+offset_right = 56.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="UnlockedMode/Control5"]
+scale = Vector2(-1, 1)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_321tw")
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.9
+
+[node name="Leaderboard" type="PanelContainer" parent="UnlockedMode"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = 44.0
+offset_right = 60.0
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+theme = ExtResource("1_80w1y")
+
+[node name="MarginContainer" type="MarginContainer" parent="UnlockedMode/Leaderboard"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UnlockedMode/Leaderboard/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="UnlockedMode/Leaderboard/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "New Mode Unlocked"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Mode" type="Label" parent="UnlockedMode/Leaderboard/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "CRUNCH"
+horizontal_alignment = 1
+
+[node name="EscButton" type="TextureButton" parent="UnlockedMode"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = 40.0
+offset_right = -53.0
+offset_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("17_74eho")
+script = ExtResource("18_4swmg")
+
+[node name="EffectRoot" type="Node" parent="UnlockedMode"]
+script = ExtResource("4_j7irx")
+
+[node name="Slide" type="Node" parent="UnlockedMode/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("5_d7wj0")
+node = NodePath("../..")
+
+[connection signal="finished" from="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion/HBoxContainer2/PromotionYes" to="." method="_on_promotion_yes_finished"]
+[connection signal="finished" from="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion/HBoxContainer2/PromotionNo" to="." method="_on_promotion_no_finished"]

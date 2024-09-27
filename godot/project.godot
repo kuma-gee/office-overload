@@ -1,0 +1,114 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="office-overloaded"
+run/main_scene="res://start.tscn"
+config/features=PackedStringArray("4.3")
+boot_splash/bg_color=Color(0.101961, 0.101961, 0.101961, 1)
+config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
+
+[audio]
+
+driver/mix_rate=48000
+
+[autoload]
+
+Env="*res://src/env/Env.gd"
+SceneManager="*res://addons/scene_manager/SceneManager.tscn"
+SoundManager="*res://src/sound_manager.tscn"
+GameManager="*res://src/game_manager.tscn"
+SteamManager="*res://src/steam_manager.gd"
+FeedbackManager="*res://src/autoload/feedback_manager.tscn"
+DebugWindow="*res://src/autoload/debug_window.tscn"
+
+[debug]
+
+file_logging/enable_file_logging=true
+file_logging/max_log_files=3
+gdscript/warnings/return_value_discarded=false
+
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=180
+window/size/mode=2
+window/stretch/mode="canvas_items"
+window/size/width=1920
+window/size/height=1080
+
+[editor]
+
+export/convert_text_resources_to_binary=false
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/graph_2d/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
+
+[gui]
+
+common/snap_controls_to_pixels=false
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": false,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/normal_map_invert_y": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
+
+[input]
+
+ui_focus_next={
+"deadzone": 0.5,
+"events": []
+}
+ui_focus_prev={
+"deadzone": 0.5,
+"events": []
+}
+
+[layer_names]
+
+2d_physics/layer_1="static"
+2d_physics/layer_2="player"
+2d_physics/layer_3="enemy"
+2d_physics/layer_4="player_hurtbox"
+2d_physics/layer_5="enemy_hurtbox"
+
+[locale]
+
+translations=PackedStringArray()
+locale_filter=[0, []]
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0.929412, 0.894118, 0.854902, 1)
+environment/default_clear_color=Color(0.101961, 0.101961, 0.101961, 1)
+environment/default_environment="res://default_env.tres"

@@ -1,0 +1,866 @@
+[gd_scene load_steps=41 format=3 uid="uid://ctlncowdl0sbn"]
+
+[ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="1_3ujy4"]
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
+[ext_resource type="Texture2D" uid="uid://da2p5kphaw5k5" path="res://assets/sprites/Cover_Image.png" id="2_2ttii"]
+[ext_resource type="Script" path="res://start.gd" id="2_508sk"]
+[ext_resource type="Texture2D" uid="uid://cjlwhavnsncw5" path="res://assets/sprites/Title.png" id="3_r3iy1"]
+[ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="7_2n7ql"]
+[ext_resource type="Script" path="res://src/ui/alt_typing_button.gd" id="8_mi7cx"]
+[ext_resource type="LabelSettings" uid="uid://uctt264dd2ni" path="res://theme/text_small.tres" id="9_mw082"]
+[ext_resource type="Texture2D" uid="uid://bstvwnc3xppv1" path="res://assets/sprites/Shift.png" id="11_811t6"]
+[ext_resource type="Script" path="res://src/base-system/menu/Settings.gd" id="11_ybmms"]
+[ext_resource type="Script" path="res://src/ui/Stats.gd" id="12_fmeio"]
+[ext_resource type="Script" path="res://src/base-system/menu/AudioSlider.gd" id="12_qty1o"]
+[ext_resource type="AudioStream" uid="uid://7ix2fpbkls0p" path="res://assets/sound/Talk_with_me.mp3" id="13_gm25t"]
+[ext_resource type="Script" path="res://src/ui/shift_buttons.gd" id="13_rmgj0"]
+[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="14_hvw1b"]
+[ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="14_vk34l"]
+[ext_resource type="Script" path="res://src/base-system/menu/AudioSettings.gd" id="15_4lkng"]
+[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="15_84nkj"]
+[ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="15_b245w"]
+[ext_resource type="Script" path="res://src/delegator.gd" id="16_bh4xx"]
+[ext_resource type="Script" path="res://src/ui/typing_slider.gd" id="16_vbvxj"]
+[ext_resource type="Script" path="res://src/ui/esc_button.gd" id="19_uqiqi"]
+[ext_resource type="Script" path="res://src/ui/GameModes.gd" id="19_yyowk"]
+[ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="20_lew8u"]
+[ext_resource type="Script" path="res://src/ui/fullscreen_button.gd" id="21_bmlq3"]
+[ext_resource type="Script" path="res://src/base-system/menu/DisplaySettings.gd" id="21_i78lr"]
+[ext_resource type="PackedScene" uid="uid://wtd5yqsbnpf0" path="res://src/ui/game_mode.tscn" id="21_npox4"]
+[ext_resource type="Script" path="res://src/ui/fullscreen_checkbox.gd" id="21_ycqnt"]
+[ext_resource type="Script" path="res://src/ui/feedback.gd" id="22_0pod6"]
+[ext_resource type="PackedScene" uid="uid://cwb2bomvrxmul" path="res://src/ui/leaderboad.tscn" id="22_026hy"]
+[ext_resource type="Script" path="res://src/ui/performance_graph.gd" id="25_028t0"]
+[ext_resource type="Script" path="res://addons/graph_2d/graph_2d.gd" id="25_d4kul"]
+[ext_resource type="Texture2D" uid="uid://qpujdmcko0bu" path="res://assets/sprites/Arrow.png" id="27_lc2cv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gorx4"]
+shader = ExtResource("1_3ujy4")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/enable = true
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_78ajf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_87uxo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fhusc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v61jy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m0tms"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fembg"]
+
+[node name="Start" type="Control" node_paths=PackedStringArray("work_performance", "setting_leaderboard", "exit_quitjob", "feedback")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qu80e")
+script = ExtResource("2_508sk")
+work_performance = NodePath("MarginContainer3/VBoxContainer/Work_Performance")
+setting_leaderboard = NodePath("MarginContainer3/VBoxContainer/Setting_Leaderboard")
+exit_quitjob = NodePath("MarginContainer3/VBoxContainer/Exit_QuitJob")
+feedback = NodePath("FeedbackContainer/FeedbackButton")
+
+[node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
+script = ExtResource("16_bh4xx")
+nodes = [NodePath("../MarginContainer3/VBoxContainer/Work_Performance"), NodePath("../MarginContainer3/VBoxContainer/Setting_Leaderboard"), NodePath("../MarginContainer3/VBoxContainer/Exit_QuitJob"), NodePath("../FeedbackContainer/FeedbackButton")]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_2ttii")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -66.0
+offset_right = 78.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 10
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+material = SubResource("ShaderMaterial_gorx4")
+use_parent_material = true
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+texture = ExtResource("3_r3iy1")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Stats" type="Control" parent="." node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy")]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("12_fmeio")
+job_container = NodePath("MarginContainer/VBoxContainer")
+day = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Day")
+level = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Level")
+documents = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Documents")
+skill_container = NodePath("MarginContainer2/VBoxContainer3")
+wpm = NodePath("MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2/WPM")
+accuracy = NodePath("MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2/Accuracy")
+
+[node name="MarginContainer" type="MarginContainer" parent="Stats"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -34.0
+offset_right = 54.0
+grow_vertical = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Stats/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Job" type="Label" parent="Stats/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+text = "Job"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Stats/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Day" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "DAY"
+label_settings = ExtResource("9_mw082")
+
+[node name="Level" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Level"
+label_settings = ExtResource("9_mw082")
+
+[node name="Documents" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Documents"
+label_settings = ExtResource("9_mw082")
+
+[node name="MarginContainer2" type="MarginContainer" parent="Stats"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -59.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Stats/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Stats/MarginContainer2/VBoxContainer3"]
+layout_mode = 2
+
+[node name="Skill" type="Label" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+text = "Skill"
+horizontal_alignment = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="WPM" type="Label" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Words/m"
+label_settings = ExtResource("9_mw082")
+horizontal_alignment = 2
+
+[node name="Accuracy" type="Label" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Accuracy"
+label_settings = ExtResource("9_mw082")
+horizontal_alignment = 2
+
+[node name="ShiftOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -66.0
+offset_right = 46.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Work_Performance" parent="MarginContainer3/VBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_78ajf")
+script = ExtResource("8_mi7cx")
+other_word = "Performance"
+word = "Work"
+
+[node name="Setting_Leaderboard" parent="MarginContainer3/VBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+script = ExtResource("8_mi7cx")
+other_word = "Leaderboard"
+word = "Setting"
+
+[node name="Exit_QuitJob" parent="MarginContainer3/VBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+script = ExtResource("8_mi7cx")
+other_word = "QuitJob"
+word = "Exit"
+
+[node name="ShiftContainer" type="MarginContainer" parent="." node_paths=PackedStringArray("overlay", "feedback_btn", "delegator")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -14.0
+offset_top = -22.0
+offset_right = 14.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+script = ExtResource("13_rmgj0")
+overlay = NodePath("../ShiftOverlay")
+feedback_btn = NodePath("../FeedbackContainer")
+delegator = NodePath("../Delegator")
+
+[node name="TextureButton" type="TextureButton" parent="ShiftContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("11_811t6")
+stretch_mode = 5
+
+[node name="FeedbackContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -14.0
+offset_top = -22.0
+offset_right = 14.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="FeedbackButton" parent="FeedbackContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+word = "Feedback"
+
+[node name="TypingLabel" parent="FeedbackContainer/FeedbackButton/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 6
+text = "aasdasdasdasdasdsadasdas"
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_gm25t")
+volume_db = -35.0
+autoplay = true
+bus = &"BGM"
+
+[node name="MenuOverlay" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="Settings" type="Control" parent="." node_paths=PackedStringArray("overlay", "sliders", "display_settings", "delegator")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+mouse_filter = 2
+script = ExtResource("11_ybmms")
+overlay = NodePath("Audio/Overlay")
+sliders = [NodePath("Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider"), NodePath("Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider"), NodePath("Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider")]
+display_settings = NodePath("Audio/MarginContainer/DisplaySettings")
+delegator = NodePath("Delegator")
+
+[node name="Delegator" type="Node" parent="Settings" node_paths=PackedStringArray("nodes")]
+script = ExtResource("16_bh4xx")
+nodes = [NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterVolume"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXVolume"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMVolume"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/FullScreen")]
+
+[node name="EffectRoot" type="Node" parent="Settings"]
+script = ExtResource("14_hvw1b")
+ease = 1
+duration = 0.5
+
+[node name="Slide" type="Node" parent="Settings/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("15_84nkj")
+node = NodePath("../..")
+
+[node name="Fade" type="Node" parent="Settings/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("15_b245w")
+node = NodePath("../../../MenuOverlay")
+
+[node name="Audio" type="PanelContainer" parent="Settings"]
+custom_minimum_size = Vector2(240, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -119.0
+offset_top = -75.0
+offset_right = 121.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_4lkng")
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings/Audio"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="DisplaySettings" type="VBoxContainer" parent="Settings/Audio/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+script = ExtResource("21_i78lr")
+
+[node name="Label" type="Label" parent="Settings/Audio/MarginContainer/DisplaySettings"]
+layout_mode = 2
+text = "Prepare for work"
+label_settings = ExtResource("20_lew8u")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="GridContainer" parent="Settings/Audio/MarginContainer/DisplaySettings"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 2
+
+[node name="MasterVolume" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_2n7ql")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+word = "Master"
+
+[node name="MasterSlider" type="HBoxContainer" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+layout_mode = 2
+script = ExtResource("16_vbvxj")
+trigger_button = NodePath("../MasterVolume")
+left = NodePath("Left")
+right = NodePath("Right")
+slider = NodePath("Slider")
+
+[node name="Left" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
+word = "h"
+
+[node name="Slider" type="HSlider" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider" node_paths=PackedStringArray("audio")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 4
+value = 30.0
+script = ExtResource("12_qty1o")
+audio = NodePath("../../../../..")
+
+[node name="Right" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
+word = "l"
+
+[node name="BGMVolume" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_2n7ql")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
+word = "BGM"
+
+[node name="BGMSlider" type="HBoxContainer" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+layout_mode = 2
+script = ExtResource("16_vbvxj")
+trigger_button = NodePath("../BGMVolume")
+left = NodePath("Left")
+right = NodePath("Right")
+slider = NodePath("Slider")
+
+[node name="Left" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
+word = "h"
+
+[node name="Slider" type="HSlider" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider" node_paths=PackedStringArray("audio")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 4
+value = 30.0
+script = ExtResource("12_qty1o")
+audio = NodePath("../../../../..")
+bus_name = "BGM"
+
+[node name="Right" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
+word = "l"
+
+[node name="SFXVolume" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_2n7ql")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
+word = "SFX"
+
+[node name="SFXSlider" type="HBoxContainer" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+layout_mode = 2
+script = ExtResource("16_vbvxj")
+trigger_button = NodePath("../SFXVolume")
+left = NodePath("Left")
+right = NodePath("Right")
+slider = NodePath("Slider")
+
+[node name="Left" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
+word = "h"
+
+[node name="Slider" type="HSlider" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider" node_paths=PackedStringArray("audio")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 4
+value = 30.0
+script = ExtResource("12_qty1o")
+audio = NodePath("../../../../..")
+bus_name = "SFX"
+
+[node name="Right" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
+word = "l"
+
+[node name="FullScreen" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("checkbox") instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+size_flags_vertical = 4
+script = ExtResource("21_bmlq3")
+checkbox = NodePath("../CheckBox")
+word = "fullscreen"
+
+[node name="CheckBox" type="CheckBox" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("display_settings")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("21_ycqnt")
+display_settings = NodePath("../..")
+
+[node name="Overlay" type="ColorRect" parent="Settings/Audio"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.313726)
+
+[node name="EscButton" type="TextureButton" parent="Settings"]
+layout_mode = 1
+offset_left = 36.0
+offset_top = 12.0
+offset_right = 48.0
+offset_bottom = 21.0
+texture_normal = ExtResource("14_vk34l")
+script = ExtResource("19_uqiqi")
+
+[node name="Feedback" type="Control" parent="." node_paths=PackedStringArray("label", "limit_label", "status_label", "loading_label")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+mouse_filter = 2
+script = ExtResource("22_0pod6")
+label = NodePath("Feedback/MarginContainer/VBoxContainer/VBoxContainer/TextEdit")
+limit_label = NodePath("Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Label")
+status_label = NodePath("Feedback/MarginContainer/VBoxContainer/VBoxContainer/Status")
+loading_label = NodePath("Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Loading")
+
+[node name="EffectRoot" type="Node" parent="Feedback"]
+script = ExtResource("14_hvw1b")
+ease = 1
+duration = 0.5
+
+[node name="Slide" type="Node" parent="Feedback/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("15_84nkj")
+node = NodePath("../..")
+
+[node name="Fade" type="Node" parent="Feedback/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("15_b245w")
+node = NodePath("../../../MenuOverlay")
+
+[node name="Feedback" type="PanelContainer" parent="Feedback"]
+custom_minimum_size = Vector2(240, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -65.0
+offset_right = 120.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Feedback/Feedback"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Feedback/Feedback/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="Feedback/Feedback/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Feedback"
+label_settings = ExtResource("20_lew8u")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Feedback/Feedback/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 3
+
+[node name="TextEdit" type="TextEdit" parent="Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_placeholder_color = Color(0.208, 0.208, 0.251, 0.3)
+placeholder_text = "Submit feedback or bugs."
+context_menu_enabled = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 8
+text = "Shift+Enter to submit"
+
+[node name="Loading" type="Label" parent="Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "..."
+
+[node name="Label" type="Label" parent="Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "0/200"
+horizontal_alignment = 2
+
+[node name="Status" type="Label" parent="Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Failed"
+
+[node name="EscButton" type="TextureButton" parent="Feedback"]
+layout_mode = 1
+offset_left = 35.0
+offset_top = 11.0
+offset_right = 47.0
+offset_bottom = 20.0
+texture_normal = ExtResource("14_vk34l")
+script = ExtResource("19_uqiqi")
+
+[node name="GameModes" type="Control" parent="." node_paths=PackedStringArray("delegator")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+mouse_filter = 2
+script = ExtResource("19_yyowk")
+delegator = NodePath("Delegator")
+
+[node name="Delegator" type="Node" parent="GameModes" node_paths=PackedStringArray("nodes")]
+script = ExtResource("16_bh4xx")
+nodes = [NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode3"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode2")]
+
+[node name="EffectRoot" type="Node" parent="GameModes"]
+script = ExtResource("14_hvw1b")
+ease = 1
+duration = 0.5
+
+[node name="Slide" type="Node" parent="GameModes/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("15_84nkj")
+node = NodePath("../..")
+
+[node name="Fade" type="Node" parent="GameModes/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("15_b245w")
+node = NodePath("../../../MenuOverlay")
+
+[node name="Modes" type="PanelContainer" parent="GameModes"]
+custom_minimum_size = Vector2(240, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -75.0
+offset_right = 120.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GameModes/Modes"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameModes/Modes/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GameModes/Modes/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Work Mode"
+label_settings = ExtResource("20_lew8u")
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="GameModes/Modes/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="GameMode" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
+layout_mode = 2
+mode = 0
+
+[node name="GameMode3" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
+layout_mode = 2
+
+[node name="GameMode2" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
+layout_mode = 2
+mode = 2
+
+[node name="EscButton" type="TextureButton" parent="GameModes"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 12.0
+offset_right = 48.0
+offset_bottom = 21.0
+texture_normal = ExtResource("14_vk34l")
+script = ExtResource("19_uqiqi")
+
+[node name="Leaderboard" parent="." node_paths=PackedStringArray("effect") instance=ExtResource("22_026hy")]
+visible = false
+effect = NodePath("EffectRoot")
+
+[node name="EffectRoot" type="Node" parent="Leaderboard"]
+script = ExtResource("14_hvw1b")
+ease = 1
+duration = 0.5
+
+[node name="Slide" type="Node" parent="Leaderboard/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("15_84nkj")
+node = NodePath("../..")
+
+[node name="Fade" type="Node" parent="Leaderboard/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("15_b245w")
+node = NodePath("../../../MenuOverlay")
+
+[node name="PerformanceGraph" type="Control" parent="." node_paths=PackedStringArray("graph", "effect", "left_button", "right_button")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+script = ExtResource("25_028t0")
+graph = NodePath("PanelContainer/Graph2D")
+effect = NodePath("EffectRoot")
+left_button = NodePath("PanelContainer/Graph2D/LeftButton")
+right_button = NodePath("PanelContainer/Graph2D/RightButton")
+
+[node name="Delegator" type="Node" parent="PerformanceGraph" node_paths=PackedStringArray("nodes")]
+script = ExtResource("16_bh4xx")
+nodes = [NodePath("../PanelContainer/Graph2D/LeftButton"), NodePath("../PanelContainer/Graph2D/RightButton")]
+
+[node name="PanelContainer" type="PanelContainer" parent="PerformanceGraph"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = 13.0
+offset_right = -23.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Graph2D" type="Control" parent="PerformanceGraph/PanelContainer"]
+layout_mode = 2
+theme = ExtResource("1_qu80e")
+script = ExtResource("25_d4kul")
+default_color = Color(0.207843, 0.207843, 0.25098, 1)
+x_label = "WPM"
+show_x_ticks = false
+show_x_numbers = false
+
+[node name="LeftButton" parent="PerformanceGraph/PanelContainer/Graph2D" instance=ExtResource("7_2n7ql")]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 131.0
+offset_right = 137.0
+offset_bottom = 149.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_m0tms")
+word = "H"
+reset_on_finished = false
+
+[node name="MarginContainer" parent="PerformanceGraph/PanelContainer/Graph2D/LeftButton" index="1"]
+z_index = 5
+theme_override_constants/margin_top = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="PerformanceGraph/PanelContainer/Graph2D/LeftButton"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = -8
+
+[node name="TextureRect" type="TextureRect" parent="PerformanceGraph/PanelContainer/Graph2D/LeftButton/MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("27_lc2cv")
+expand_mode = 2
+stretch_mode = 5
+flip_h = true
+
+[node name="RightButton" parent="PerformanceGraph/PanelContainer/Graph2D" instance=ExtResource("7_2n7ql")]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 131.0
+offset_right = 190.0
+offset_bottom = 149.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fembg")
+word = "L"
+reset_on_finished = false
+
+[node name="MarginContainer" parent="PerformanceGraph/PanelContainer/Graph2D/RightButton" index="1"]
+z_index = 5
+theme_override_constants/margin_top = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="PerformanceGraph/PanelContainer/Graph2D/RightButton"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 2
+
+[node name="TextureRect" type="TextureRect" parent="PerformanceGraph/PanelContainer/Graph2D/RightButton/MarginContainer3"]
+layout_mode = 2
+texture = ExtResource("27_lc2cv")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="EscButton" type="TextureButton" parent="PerformanceGraph"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 9.0
+offset_right = 29.0
+offset_bottom = 18.0
+texture_normal = ExtResource("14_vk34l")
+script = ExtResource("19_uqiqi")
+
+[node name="EffectRoot" type="Node" parent="PerformanceGraph"]
+script = ExtResource("14_hvw1b")
+ease = 1
+duration = 0.5
+
+[node name="Slide" type="Node" parent="PerformanceGraph/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("15_84nkj")
+node = NodePath("../..")
+
+[node name="Fade" type="Node" parent="PerformanceGraph/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("15_b245w")
+node = NodePath("../../../MenuOverlay")
+
+[editable path="FeedbackContainer/FeedbackButton"]
+[editable path="PerformanceGraph/PanelContainer/Graph2D/LeftButton"]
+[editable path="PerformanceGraph/PanelContainer/Graph2D/RightButton"]

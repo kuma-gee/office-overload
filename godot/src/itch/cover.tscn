@@ -1,0 +1,291 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtr43hybxxag1"]
+
+[ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/sprites/Document.png" id="1_cld0y"]
+[ext_resource type="Texture2D" uid="uid://cjlwhavnsncw5" path="res://assets/sprites/Title.png" id="2_62aua"]
+
+[node name="Cover" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(9, 11)
+
+[node name="Document" type="Sprite2D" parent="Node2D"]
+position = Vector2(-63, -45)
+rotation = -2.69304
+texture = ExtResource("1_cld0y")
+
+[node name="Document3" type="Sprite2D" parent="Node2D"]
+position = Vector2(-20, -8.00001)
+rotation = -1.39626
+texture = ExtResource("1_cld0y")
+
+[node name="Document4" type="Sprite2D" parent="Node2D"]
+position = Vector2(-11, -53)
+rotation = -1.79594
+texture = ExtResource("1_cld0y")
+
+[node name="Document5" type="Sprite2D" parent="Node2D"]
+position = Vector2(-49, -19)
+rotation = -2.29511
+texture = ExtResource("1_cld0y")
+
+[node name="Document2" type="Sprite2D" parent="Node2D"]
+position = Vector2(13, -30)
+rotation = -0.98262
+texture = ExtResource("1_cld0y")
+
+[node name="Document6" type="Sprite2D" parent="Node2D"]
+position = Vector2(35.2819, -78.1674)
+rotation = -2.69304
+texture = ExtResource("1_cld0y")
+
+[node name="Document7" type="Sprite2D" parent="Node2D"]
+position = Vector2(78.2819, -41.1674)
+rotation = -1.39626
+texture = ExtResource("1_cld0y")
+
+[node name="Document8" type="Sprite2D" parent="Node2D"]
+position = Vector2(87.2819, -86.1674)
+rotation = -1.79594
+texture = ExtResource("1_cld0y")
+
+[node name="Document9" type="Sprite2D" parent="Node2D"]
+position = Vector2(49.2819, -52.1674)
+rotation = -2.29511
+texture = ExtResource("1_cld0y")
+
+[node name="Document10" type="Sprite2D" parent="Node2D"]
+position = Vector2(111.282, -63.1674)
+rotation = -0.98262
+texture = ExtResource("1_cld0y")
+
+[node name="Document11" type="Sprite2D" parent="Node2D"]
+position = Vector2(49.2819, -7.16738)
+rotation = -2.69304
+texture = ExtResource("1_cld0y")
+
+[node name="Document12" type="Sprite2D" parent="Node2D"]
+position = Vector2(92.2819, 29.8326)
+rotation = -1.39626
+texture = ExtResource("1_cld0y")
+
+[node name="Document13" type="Sprite2D" parent="Node2D"]
+position = Vector2(101.282, -15.1674)
+rotation = -1.79594
+texture = ExtResource("1_cld0y")
+
+[node name="Document14" type="Sprite2D" parent="Node2D"]
+position = Vector2(63.2819, 18.8326)
+rotation = -2.29511
+texture = ExtResource("1_cld0y")
+
+[node name="Document15" type="Sprite2D" parent="Node2D"]
+position = Vector2(125.282, 7.83262)
+rotation = -0.98262
+texture = ExtResource("1_cld0y")
+
+[node name="Document16" type="Sprite2D" parent="Node2D"]
+position = Vector2(-41.7181, 21.8326)
+rotation = -2.69304
+texture = ExtResource("1_cld0y")
+
+[node name="Document17" type="Sprite2D" parent="Node2D"]
+position = Vector2(1.28191, 58.8326)
+rotation = -1.39626
+texture = ExtResource("1_cld0y")
+
+[node name="Document18" type="Sprite2D" parent="Node2D"]
+position = Vector2(10.2819, 13.8326)
+rotation = -1.79594
+texture = ExtResource("1_cld0y")
+
+[node name="Document19" type="Sprite2D" parent="Node2D"]
+position = Vector2(-27.7181, 47.8326)
+rotation = -2.29511
+texture = ExtResource("1_cld0y")
+
+[node name="Document20" type="Sprite2D" parent="Node2D"]
+position = Vector2(34.2819, 36.8326)
+rotation = -0.98262
+texture = ExtResource("1_cld0y")
+
+[node name="Document21" type="Sprite2D" parent="Node2D"]
+position = Vector2(-58.7181, -88.1674)
+rotation = -2.69304
+texture = ExtResource("1_cld0y")
+
+[node name="Document22" type="Sprite2D" parent="Node2D"]
+position = Vector2(-15.7181, -51.1674)
+rotation = -1.39626
+texture = ExtResource("1_cld0y")
+
+[node name="Document23" type="Sprite2D" parent="Node2D"]
+position = Vector2(-6.7181, -96.1674)
+rotation = -1.79594
+texture = ExtResource("1_cld0y")
+
+[node name="Document24" type="Sprite2D" parent="Node2D"]
+position = Vector2(-44.7181, -62.1674)
+rotation = -2.29511
+texture = ExtResource("1_cld0y")
+
+[node name="Document25" type="Sprite2D" parent="Node2D"]
+position = Vector2(17.2819, -73.1674)
+rotation = -0.98262
+texture = ExtResource("1_cld0y")
+
+[node name="Document26" type="Sprite2D" parent="Node2D"]
+position = Vector2(-148.718, -56.1674)
+rotation = -2.69304
+texture = ExtResource("1_cld0y")
+
+[node name="Document27" type="Sprite2D" parent="Node2D"]
+position = Vector2(-105.718, -19.1674)
+rotation = -1.39626
+texture = ExtResource("1_cld0y")
+
+[node name="Document28" type="Sprite2D" parent="Node2D"]
+position = Vector2(-96.7181, -64.1674)
+rotation = -1.79594
+texture = ExtResource("1_cld0y")
+
+[node name="Document29" type="Sprite2D" parent="Node2D"]
+position = Vector2(-134.718, -30.1674)
+rotation = -2.29511
+texture = ExtResource("1_cld0y")
+
+[node name="Document30" type="Sprite2D" parent="Node2D"]
+position = Vector2(-72.7181, -41.1674)
+rotation = -0.98262
+texture = ExtResource("1_cld0y")
+
+[node name="Document31" type="Sprite2D" parent="Node2D"]
+position = Vector2(-118.718, 19.8326)
+rotation = -2.69304
+texture = ExtResource("1_cld0y")
+
+[node name="Document32" type="Sprite2D" parent="Node2D"]
+position = Vector2(-75.7181, 56.8326)
+rotation = -1.39626
+texture = ExtResource("1_cld0y")
+
+[node name="Document33" type="Sprite2D" parent="Node2D"]
+position = Vector2(-66.7181, 11.8326)
+rotation = -1.79594
+texture = ExtResource("1_cld0y")
+
+[node name="Document34" type="Sprite2D" parent="Node2D"]
+position = Vector2(-104.718, 45.8326)
+rotation = -2.29511
+texture = ExtResource("1_cld0y")
+
+[node name="Document35" type="Sprite2D" parent="Node2D"]
+position = Vector2(-42.7181, 34.8326)
+rotation = -0.98262
+texture = ExtResource("1_cld0y")
+
+[node name="Document36" type="Sprite2D" parent="Node2D"]
+position = Vector2(71.2601, 70.8325)
+rotation = -1.39626
+texture = ExtResource("1_cld0y")
+
+[node name="Document37" type="Sprite2D" parent="Node2D"]
+position = Vector2(80.2602, 25.8325)
+rotation = -1.79594
+texture = ExtResource("1_cld0y")
+
+[node name="Document38" type="Sprite2D" parent="Node2D"]
+position = Vector2(42.2603, 59.8325)
+rotation = -2.29511
+texture = ExtResource("1_cld0y")
+
+[node name="Document39" type="Sprite2D" parent="Node2D"]
+position = Vector2(104.26, 48.8325)
+rotation = -0.98262
+texture = ExtResource("1_cld0y")
+
+[node name="Document40" type="Sprite2D" parent="Node2D"]
+position = Vector2(-114.74, -74.1675)
+rotation = -1.39626
+texture = ExtResource("1_cld0y")
+
+[node name="Document41" type="Sprite2D" parent="Node2D"]
+position = Vector2(-105.74, -119.167)
+rotation = -1.79594
+texture = ExtResource("1_cld0y")
+
+[node name="Document42" type="Sprite2D" parent="Node2D"]
+position = Vector2(-143.74, -85.1675)
+rotation = -2.29511
+texture = ExtResource("1_cld0y")
+
+[node name="Document43" type="Sprite2D" parent="Node2D"]
+position = Vector2(-81.7398, -96.1675)
+rotation = -0.98262
+texture = ExtResource("1_cld0y")
+
+[node name="Document44" type="Sprite2D" parent="Node2D"]
+position = Vector2(-161.74, 58.8325)
+rotation = -1.39626
+texture = ExtResource("1_cld0y")
+
+[node name="Document45" type="Sprite2D" parent="Node2D"]
+position = Vector2(-152.74, 13.8325)
+rotation = -1.79594
+texture = ExtResource("1_cld0y")
+
+[node name="Document46" type="Sprite2D" parent="Node2D"]
+position = Vector2(-190.74, 47.8325)
+rotation = -2.29511
+texture = ExtResource("1_cld0y")
+
+[node name="Document47" type="Sprite2D" parent="Node2D"]
+position = Vector2(-128.74, 36.8325)
+rotation = -0.98262
+texture = ExtResource("1_cld0y")
+
+[node name="Document48" type="Sprite2D" parent="Node2D"]
+position = Vector2(126.26, -64.1675)
+rotation = -1.39626
+texture = ExtResource("1_cld0y")
+
+[node name="Document49" type="Sprite2D" parent="Node2D"]
+position = Vector2(135.26, -109.167)
+rotation = -1.79594
+texture = ExtResource("1_cld0y")
+
+[node name="Document50" type="Sprite2D" parent="Node2D"]
+position = Vector2(97.2603, -75.1675)
+rotation = -2.29511
+texture = ExtResource("1_cld0y")
+
+[node name="Document51" type="Sprite2D" parent="Node2D"]
+position = Vector2(159.26, -86.1675)
+rotation = -0.98262
+texture = ExtResource("1_cld0y")
+
+[node name="Document52" type="Sprite2D" parent="Node2D"]
+position = Vector2(134.26, 1.83253)
+rotation = -1.39626
+texture = ExtResource("1_cld0y")
+
+[node name="Document53" type="Sprite2D" parent="Node2D"]
+position = Vector2(143.26, -43.1675)
+rotation = -1.79594
+texture = ExtResource("1_cld0y")
+
+[node name="Document54" type="Sprite2D" parent="Node2D"]
+position = Vector2(105.26, -9.16747)
+rotation = -2.29511
+texture = ExtResource("1_cld0y")
+
+[node name="Document55" type="Sprite2D" parent="Node2D"]
+position = Vector2(167.26, -20.1675)
+rotation = -0.98262
+texture = ExtResource("1_cld0y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_62aua")

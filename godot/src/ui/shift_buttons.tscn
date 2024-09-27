@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=3 uid="uid://holl57dpr32j"]
+
+[ext_resource type="Script" path="res://src/ui/shift_buttons.gd" id="1_4yaks"]
+[ext_resource type="Script" path="res://src/delegator.gd" id="2_r3tnl"]
+[ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="3_qpn0p"]
+[ext_resource type="Texture2D" uid="uid://bstvwnc3xppv1" path="res://assets/sprites/Shift.png" id="4_nv8rh"]
+[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="5_7wmiy"]
+[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="6_y20uf"]
+
+[node name="ShiftButtons" type="Control"]
+layout_mode = 3
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+script = ExtResource("1_4yaks")
+
+[node name="ShiftDelegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
+script = ExtResource("2_r3tnl")
+nodes = [NodePath("../Control/MarginContainer/VBoxContainer/TypingButton")]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -122.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="TypingButton" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("3_qpn0p")]
+layout_mode = 2
+word = "leaderboard"
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 16.0
+grow_vertical = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("4_nv8rh")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="EffectRoot" type="Node" parent="."]
+script = ExtResource("5_7wmiy")
+trans = 5
+ease = 1
+duration = 0.5
+
+[node name="ShiftSlide" type="Node" parent="EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("6_y20uf")
+dir = Vector2(1, 0)
+flip = true
+node = NodePath("../../MarginContainer2")
+
+[node name="ContainerSlide" type="Node" parent="EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("6_y20uf")
+dir = Vector2(1, 0)
+node = NodePath("../../Control/MarginContainer")

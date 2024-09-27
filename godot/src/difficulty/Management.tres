@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="DifficultyResource" load_steps=2 format=3 uid="uid://buerxc1qatc1b"]
+
+[ext_resource type="Script" path="res://src/difficulty/DifficultyResource.gd" id="1_frd3g"]
+
+[resource]
+script = ExtResource("1_frd3g")
+level = 3
+min_documents = 1.0
+max_documents = 2.0
+distractions = 0.3
+min_average_wpm = 140
+max_average_wpm = 240
+bgm_speed = 1.8
+minimum_documents = 80
+min_accuracy = 0.95
