@@ -90,7 +90,7 @@ jobs:
 
   release-steam-github:
     needs: [release-steam, generate-password]
-    uses: kuma-gee/action-godot/.github/workflows/github-release.yml
+    uses: kuma-gee/action-godot/.github/workflows/github-release.yml@main
     with:
       artifact: release-*
       name: ${{ vars.GAME_NAME }}
