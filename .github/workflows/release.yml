@@ -25,6 +25,6 @@ jobs:
     uses: kuma-gee/action-godot/.github/workflows/steam-release.yml@main
     with:
       branch: ${{ github.event.inputs.branch }}
-      notify: ${{ github.event.inputs.notify }}
-      demo: ${{ github.event.inputs.demo }}
+      notify: ${{ github.event.inputs.notify == 'true' }}
+      demo: ${{ github.event.inputs.demo == 'true' }}
     secrets: inherit
