@@ -42,7 +42,7 @@ jobs:
       - name: Unpack protected assets
         uses: kuma-gee/action-protect-assets@v1
         with:
-          path: godot-game/assets
+          path: ${{ vars.PROJECT_PATH }}/assets
           password: ${{ secrets.ASSETS_PASSWORD }}
 
       - name: Create Godot Environment File
