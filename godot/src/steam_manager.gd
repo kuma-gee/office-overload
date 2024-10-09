@@ -41,7 +41,10 @@ func _load_steam():
 	#Steam.current_stats_received.connect(_on_steam_stats_ready)
 	Steam.user_achievement_stored.connect(_on_achievement_stored)
 	
-	var id = DEMO_APP_ID if Env.is_demo() else APP_ID
+	var id = Build.STEAM_APP
+	
+	# DEMO_APP_ID if Env.is_demo() else APP_ID
+
 	var init = Steam.steamInit(true, id)
 	is_successful_initialized = init.status == 1
 	_logger.info("Steam initialized? %s" % init)
