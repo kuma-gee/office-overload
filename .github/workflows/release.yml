@@ -7,10 +7,10 @@ on:
         description: 'Steam branch to release'
         type: string
         default: ''
-      notify:
-        description: 'Notify on discord'
+      release-discord:
+        description: 'Release for discord'
         type: boolean
-        default: true
+        default: false
       demo:
         description: 'Release demo'
         type: boolean
@@ -21,6 +21,6 @@ jobs:
     uses: kuma-gee/action-godot/.github/workflows/steam-release.yml@main
     with:
       branch: ${{ github.event.inputs.branch }}
-      notify: ${{ github.event.inputs.notify == 'true' }}
+      release-discord: ${{ github.event.inputs.release-discord == 'true' }}
       demo: ${{ github.event.inputs.demo == 'true' }}
     secrets: inherit
