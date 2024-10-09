@@ -16,10 +16,6 @@ on:
         type: boolean
         default: false
 
-concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: true
-
 jobs:
   release-steam-github:
     uses: kuma-gee/action-godot/.github/workflows/steam-release.yml@main
