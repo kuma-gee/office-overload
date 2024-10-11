@@ -31,5 +31,5 @@ jobs:
     needs: release-info
     with:
       branch: ${{ needs.release-info.outputs.branch }}
-      release-discord: ${{ needs.release-info.outputs.release-discord }}
-      demo: ${{ needs.release-info.outputs.demo }}
+      release-discord: ${{ fromJSON(needs.release-info.outputs.release-discord) }}
+      demo: ${{ fromJSON(needs.release-info.outputs.demo) }}
