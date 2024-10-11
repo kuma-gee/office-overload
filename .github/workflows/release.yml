@@ -1,6 +1,20 @@
 name: Releases
 
 on:
+  workflow_call:
+    inputs:
+      branch:
+        description: 'Steam branch to release'
+        type: string
+        default: ''
+      release-discord:
+        description: 'Release for discord'
+        type: boolean
+        default: false
+      demo:
+        description: 'Release demo'
+        type: boolean
+        default: false
   workflow_dispatch:
     inputs:
       branch:
