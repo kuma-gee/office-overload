@@ -37,9 +37,20 @@ jobs:
         env:
           DEMO: ${{ github.event.inputs.demo }}
 
+  generate-password:
+    runs-on: ubuntu-latest
+    outputs:
+      password: ${{ steps.random-password.outputs.password }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: kuma-gee/action-godot/password@main
+        id: random-password
+        with:
+          length: 24
+
   release-steam-github:
     uses: kuma-gee/action-godot/.github/workflows/steam-release.yml@main
-    needs: steam-app
+    needs: [steam-app, generate-password]
     with:
       steam_app: ${{ fromJSON(needs.steam-app.outputs.id) }}
       branch: ${{ github.event.inputs.branch }}
@@ -47,5 +58,6 @@ jobs:
       project-path: godot
       assets-path: assets
       env-build-file: build.gd
+      password: ${{ needs.generate-password.outputs.password }}
       release-discord: ${{ github.event.inputs.release-discord == 'true' }}
     secrets: inherit
