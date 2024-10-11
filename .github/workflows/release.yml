@@ -16,11 +16,40 @@ on:
         type: boolean
         default: false
 
+env:
+  GODOT_VERSION: 4.3
+  PROJECT_PATH: godot
+  ASSETS_PATH: assets
+  ENV_BUILD_FILE: build.gd
+  STEAM_APP: 3191960
+  STEAM_DEMO_APP: 3196670
+
 jobs:
+  steam-app:
+    runs-on: ubuntu-latest
+    outputs:
+      id: ${{ steps.steam-app.outputs.id }}
+    steps:
+      - id: steam-app
+        run: |
+          STEAM_ID=$STEAM_APP
+          if [ $DEMO = true ]; then
+            STEAM_ID=$STEAM_DEMO_APP
+          fi
+
+          echo "id=$STEAM_ID" >> $GITHUB_OUTPUT
+        env:
+          DEMO: ${{ github.event.inputs.demo }}
+
   release-steam-github:
-    uses: kuma-gee/action-godot/.github/workflows/steam-release.yml@main
+    uses: kuma-gee/action-godot/steam-release.yml@main
     with:
+      steam_app: ${{ secrets.STEAM_APP }}
       branch: ${{ github.event.inputs.branch }}
+      godot-version: ${{ env.GODOT_VERSION }}
+      project-path: ${{ env.PROJECT_PATH }}
+      assets-path: ${{ env.ASSETS_PATH }}
+      env-build-file: ${{ env.ENV_BUILD_FILE }}
       release-discord: ${{ github.event.inputs.release-discord == 'true' }}
-      demo: ${{ github.event.inputs.demo == 'true' }}
+
     secrets: inherit

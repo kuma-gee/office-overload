@@ -3,11 +3,11 @@ name: Build Godot Templates
 on:
   workflow_dispatch:
     inputs:
-      debug:
-        description: 'Debug'
-        required: false
-        type: boolean
-        default: false
+      version:
+        description: 'Godot Version'
+        required: true
+        type: string
+        default: '4.3'
 
 concurrency:
   group: ${{ github.workflow }}
@@ -20,20 +20,12 @@ jobs:
       matrix:
         platform: [linux, windows]
     steps:
-      - uses: kuma-gee/action-godot/godot-template@main
-        if: ${{ ! inputs.debug }}
+      - uses: kuma-gee/action-godot-template@main
         with:
-          version: ${{ vars.GODOT_VERSION }}
+          version: ${{ inputs.version }}
           platform: ${{ matrix.platform }}
           encryption-key: ${{ secrets.ENCRYPTION_KEY }}
 
-      - run: |
-          mkdir -p custom_templates
-          echo "Test" > custom_templates/empty_test_template_$PLATFORM
-        if: ${{ inputs.debug }}
-        env:
-          PLATFORM: ${{ matrix.platform }}
-      
       - uses: actions/upload-artifact@v4
         with:
           name: template-${{ matrix.platform }}
@@ -55,5 +47,5 @@ jobs:
         with:
           prerelease: false
           files: bin/*
-          name: Godot ${{ vars.GODOT_VERSION }} Templates
-          tag_name: template-${{ vars.GODOT_VERSION }}
+          name: Godot ${{ inputs.version }} Templates
+          tag_name: template-${{ inputs.version }}
