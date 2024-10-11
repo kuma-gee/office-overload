@@ -43,17 +43,6 @@ jobs:
           DEMO: ${{ inputs.demo }}
           REF: ${{ github.ref_name }}
 
-  generate-password:
-    runs-on: ubuntu-latest
-    outputs:
-      password: ${{ steps.random-password.outputs.password }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: kuma-gee/action-godot/password@main
-        id: random-password
-        with:
-          length: 24
-
   release-steam-github:
     uses: kuma-gee/action-godot/.github/workflows/steam-release.yml@main
     needs: [release-info, generate-password]
@@ -64,12 +53,5 @@ jobs:
       project-path: godot
       assets-path: assets
       env-build-file: build.gd
-      release-discord: ${{ fromJSON(inputs.release-discord) }}
-    secrets:
-      STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
-      STEAM_CONFIG_VDF:   ${{ secrets.STEAM_CONFIG_VDF }}
-      ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
-      GAME_CODE: ${{ secrets.GAME_CODE }}
-      ASSETS_PASSWORD: ${{ secrets.ASSETS_PASSWORD }}
-      DISCORD_RELEASE_HOOK: ${{ secrets.DISCORD_RELEASE_HOOK }}
-      ARCHIVE_PASSWORD: ${{ needs.generate-password.outputs.password }}
+      release-discord: ${{ inputs.release-discord == 'true' }}
+    secrets: inherit
