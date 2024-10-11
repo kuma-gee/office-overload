@@ -16,7 +16,7 @@ jobs:
       - id: info
         run: |
           DEMO=false
-          if [[ $TAG =~ "-demo" ]];
+          if [[ $TAG =~ "-demo" ]]; then
             DEMO=true
           fi
 
