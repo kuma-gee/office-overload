@@ -44,12 +44,11 @@ jobs:
   release-steam-github:
     uses: kuma-gee/action-godot/.github/workflows/steam-release.yml@main
     with:
-      steam_app: ${{ secrets.STEAM_APP }}
+      steam_app: ${{ jobs.steam-app.outputs.id }}
       branch: ${{ github.event.inputs.branch }}
       godot-version: ${{ env.GODOT_VERSION }}
       project-path: ${{ env.PROJECT_PATH }}
       assets-path: ${{ env.ASSETS_PATH }}
       env-build-file: ${{ env.ENV_BUILD_FILE }}
       release-discord: ${{ github.event.inputs.release-discord == 'true' }}
-
     secrets: inherit
