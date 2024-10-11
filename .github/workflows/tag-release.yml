@@ -27,7 +27,7 @@ jobs:
           TAG: ${{ github.ref_name }}
 
   release-tag:
-    uses: .github/workflows/release.yml
+    uses: ./.github/workflows/release.yml
     needs: release-info
     with:
       branch: ${{ needs.release-info.outputs.branch }}
