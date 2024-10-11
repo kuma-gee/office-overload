@@ -4,6 +4,7 @@ signal document_added()
 
 @export var stack_count := 10
 @export var max_stacks := 5
+@export var doc_texture: Texture2D
 
 @onready var cpu_particles_2d = $CPUParticles2D
 @onready var cpu_particles_2d_2 = $CPUParticles2D2
@@ -11,13 +12,11 @@ signal document_added()
 @onready var cpu_particles_2d_4 = $CPUParticles2D4
 @onready var particles := [cpu_particles_2d, cpu_particles_2d_2, cpu_particles_2d_3, cpu_particles_2d_4]
 
-const DOC = preload("res://assets/Document.png")
-
 var total := 0
 
 func _create_doc():
 	var sprite = Sprite2D.new()
-	sprite.texture = DOC
+	sprite.texture = doc_texture
 	sprite.scale = Vector2(0.7, 0.7)
 	return sprite
 

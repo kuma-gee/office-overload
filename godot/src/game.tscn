@@ -1173,6 +1173,7 @@ position = Vector2(133, -44)
 script = ExtResource("12_n73rb")
 stack_count = 5
 max_stacks = 10
+doc_texture = ExtResource("24_g7dws")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="DocumentStack"]
 position = Vector2(-10, 0)
