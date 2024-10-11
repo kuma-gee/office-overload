@@ -28,30 +28,46 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       steam_id: ${{ steps.steam-app.outputs.id }}
+      branch: ${{ steps.steam-app.outputs.branch }}
+      discord: ${{ steps.steam-app.outputs.discord }}
     steps:
       - id: steam-app
         run: |
-          STEAM_ID=$STEAM_APP
+          STEAM_ID=${STEAM_APP:-430}
+          IS_DEMO=${DEMO:-false}
+          RELEASE_DISCORD=${DISCORD:-false}
+          BRANCH=${BRANCH}
 
           if [ $DEMO = true ] || [[ $REF =~ "-demo" ]]; then
             STEAM_ID=$STEAM_DEMO_APP
           fi
 
+          if [ $IS_TAG = true ]; then
+            BRANCH="beta"
+            RELEASE_DISCORD=true
+          fi
+
           echo "::debug::Steam App ID: $STEAM_ID"
+
           echo "steam_id=$STEAM_ID" >> $GITHUB_OUTPUT
+          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+          echo "discord=$RELEASE_DISCORD" >> $GITHUB_OUTPUT
         env:
           DEMO: ${{ inputs.demo }}
+          BRANCH: ${{ inputs.branch }}
+          DISCORD: ${{ inputs.release-discord }}
           REF: ${{ github.ref_name }}
+          IS_TAG: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') }}
 
   release-steam-github:
     uses: kuma-gee/action-godot/.github/workflows/steam-release.yml@main
     needs: release-info
     with:
       steam_app: ${{ fromJSON(needs.release-info.outputs.steam_id) }}
-      branch: ${{ inputs.branch }}
+      branch: ${{ needs.release-info.outputs.branch }}
       godot-version: 4.3
       project-path: godot
       assets-path: assets
       env-build-file: build.gd
-      release-discord: ${{ inputs.release-discord == 'true' }}
+      release-discord: ${{ needs.release-info.outputs.discord }}
     secrets: inherit
