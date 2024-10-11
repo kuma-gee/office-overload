@@ -13,8 +13,11 @@ func _ready():
 		log_level = Logger.Level.INFO
 	
 	var args = _args_dictionary()
+	print(args)
+	
 	if "live" in args:
-		_live = _get_hash(args["live"]) == Build.GAME_HASH
+		var hash = args["live"].sha256_text()
+		_live = hash == Build.GAME_HASH
 	if args.has("steam"):
 		_enable_steam = true
 	if args.has("debug"):
