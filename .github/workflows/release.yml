@@ -69,5 +69,5 @@ jobs:
       project-path: godot
       assets-path: assets
       env-build-file: build.gd
-      release-discord: ${{ needs.release-info.outputs.discord }}
+      release-discord: ${{ needs.release-info.outputs.discord == 'true' }}
     secrets: inherit
