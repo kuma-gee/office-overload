@@ -47,7 +47,7 @@ jobs:
     uses: kuma-gee/action-godot/.github/workflows/steam-release.yml@main
     needs: release-info
     with:
-      steam_app: ${{ fromJSON(needs.steam-app.outputs.steam_id) }}
+      steam_app: ${{ fromJSON(needs.release-info.outputs.steam_id) }}
       branch: ${{ inputs.branch }}
       godot-version: 4.3
       project-path: godot
