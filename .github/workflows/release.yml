@@ -1,30 +1,19 @@
 name: Releases
 
 on:
-  workflow_call:
-    inputs:
-      branch:
-        description: 'Steam branch to release'
-        type: string
-        default: ''
-      release-discord:
-        description: 'Release for discord'
-        type: boolean
-        default: false
-      demo:
-        description: 'Release demo'
-        type: boolean
-        default: false
+  push:
+    tags:
+      - v*.*
   workflow_dispatch:
     inputs:
       branch:
         description: 'Steam branch to release'
         type: string
-        default: ''
+        default: 'beta'
       release-discord:
         description: 'Release for discord'
         type: boolean
-        default: false
+        default: true
       demo:
         description: 'Release demo'
         type: boolean
@@ -35,22 +24,24 @@ env:
   STEAM_DEMO_APP: 3196670
 
 jobs:
-  steam-app:
+  release-info:
     runs-on: ubuntu-latest
     outputs:
-      id: ${{ steps.steam-app.outputs.id }}
+      steam_id: ${{ steps.steam-app.outputs.id }}
     steps:
       - id: steam-app
         run: |
           STEAM_ID=$STEAM_APP
-          if [ $DEMO = true ]; then
+
+          if [ $DEMO = true ] || [[ $REF =~ "-demo"]]; then
             STEAM_ID=$STEAM_DEMO_APP
           fi
 
           echo "::debug::Steam App ID: $STEAM_ID"
-          echo "id=$STEAM_ID" >> $GITHUB_OUTPUT
+          echo "steam_id=$STEAM_ID" >> $GITHUB_OUTPUT
         env:
           DEMO: ${{ inputs.demo }}
+          REF: ${{ github.ref_name }}
 
   generate-password:
     runs-on: ubuntu-latest
@@ -67,12 +58,18 @@ jobs:
     uses: kuma-gee/action-godot/.github/workflows/steam-release.yml@main
     needs: [steam-app, generate-password]
     with:
-      steam_app: ${{ fromJSON(needs.steam-app.outputs.id) }}
+      steam_app: ${{ fromJSON(needs.steam-app.outputs.steam_id) }}
       branch: ${{ inputs.branch }}
       godot-version: 4.3
       project-path: godot
       assets-path: assets
       env-build-file: build.gd
-      password: ${{ needs.generate-password.outputs.password }}
       release-discord: ${{ fromJSON(inputs.release-discord) }}
-    secrets: inherit
+    secrets:
+      STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
+      STEAM_CONFIG_VDF:   ${{ secrets.STEAM_CONFIG_VDF }}
+      ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+      GAME_CODE: ${{ secrets.GAME_CODE }}
+      ASSETS_PASSWORD: ${{ secrets.ASSETS_PASSWORD }}
+      DISCORD_RELEASE_HOOK: ${{ secrets.DISCORD_RELEASE_HOOK }}
+      ARCHIVE_PASSWORD: ${{ needs.generate-password.outputs.password }}
