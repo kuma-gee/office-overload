@@ -15,13 +15,14 @@ func _ready():
 	var args = _args_dictionary()
 	print(args)
 	
-	if "live" in args:
-		var hash = args["live"].sha256_text()
-		_live = hash == Build.GAME_HASH
-	if args.has("steam"):
-		_enable_steam = true
 	if args.has("debug"):
 		log_level = Logger.Level.DEBUG
+	if args.has("steam"):
+		_enable_steam = true
+	if "live" in args:
+		var hash = args["live"].sha256_text()
+		_logger.debug("Using hash %s" % hash)
+		_live = hash == Build.GAME_HASH
 	
 	_logger.info("Running version %s on %s: %s" % [version, OS.get_name(), {
 		"demo": is_demo(),
