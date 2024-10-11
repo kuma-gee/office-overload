@@ -33,7 +33,7 @@ jobs:
         run: |
           STEAM_ID=$STEAM_APP
 
-          if [ $DEMO = true ] || [[ $REF =~ "-demo"]]; then
+          if [ $DEMO = true ] || [[ $REF =~ "-demo" ]]; then
             STEAM_ID=$STEAM_DEMO_APP
           fi
 
