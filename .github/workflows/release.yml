@@ -45,7 +45,7 @@ jobs:
 
   release-steam-github:
     uses: kuma-gee/action-godot/.github/workflows/steam-release.yml@main
-    needs: [release-info, generate-password]
+    needs: release-info
     with:
       steam_app: ${{ fromJSON(needs.steam-app.outputs.steam_id) }}
       branch: ${{ inputs.branch }}
