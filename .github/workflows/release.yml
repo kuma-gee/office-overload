@@ -17,10 +17,6 @@ on:
         default: false
 
 env:
-  GODOT_VERSION: 4.3
-  PROJECT_PATH: godot
-  ASSETS_PATH: assets
-  ENV_BUILD_FILE: build.gd
   STEAM_APP: 3191960
   STEAM_DEMO_APP: 3196670
 
@@ -46,9 +42,9 @@ jobs:
     with:
       steam_app: ${{ jobs.steam-app.outputs.id }}
       branch: ${{ github.event.inputs.branch }}
-      godot-version: ${{ env.GODOT_VERSION }}
-      project-path: ${{ env.PROJECT_PATH }}
-      assets-path: ${{ env.ASSETS_PATH }}
-      env-build-file: ${{ env.ENV_BUILD_FILE }}
+      godot-version: 4.3
+      project-path: godot
+      assets-path: assets
+      env-build-file: build.gd
       release-discord: ${{ github.event.inputs.release-discord == 'true' }}
     secrets: inherit
