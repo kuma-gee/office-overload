@@ -42,7 +42,7 @@ jobs:
           DEMO: ${{ github.event.inputs.demo }}
 
   release-steam-github:
-    uses: kuma-gee/action-godot/steam-release.yml@main
+    uses: kuma-gee/action-godot/.github/workflows/steam-release.yml@main
     with:
       steam_app: ${{ secrets.STEAM_APP }}
       branch: ${{ github.event.inputs.branch }}
