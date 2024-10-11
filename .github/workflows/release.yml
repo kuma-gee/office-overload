@@ -9,11 +9,11 @@ on:
       branch:
         description: 'Steam branch to release'
         type: string
-        default: 'beta'
+        default: ''
       release-discord:
         description: 'Release for discord'
         type: boolean
-        default: true
+        default: false
       demo:
         description: 'Release demo'
         type: boolean
@@ -27,7 +27,7 @@ jobs:
   release-info:
     runs-on: ubuntu-latest
     outputs:
-      steam_id: ${{ steps.steam-app.outputs.id }}
+      steam_id: ${{ steps.steam-app.outputs.steam_id }}
       branch: ${{ steps.steam-app.outputs.branch }}
       discord: ${{ steps.steam-app.outputs.discord }}
     steps:
@@ -36,9 +36,9 @@ jobs:
           STEAM_ID=${STEAM_APP:-430}
           IS_DEMO=${DEMO:-false}
           RELEASE_DISCORD=${DISCORD:-false}
-          BRANCH=${BRANCH}
+          BRANCH=${BRANCH:-""}
 
-          if [ $DEMO = true ] || [[ $REF =~ "-demo" ]]; then
+          if [ $IS_DEMO = true ] || [[ "$REF" =~ "-demo" ]]; then
             STEAM_ID=$STEAM_DEMO_APP
           fi
 
