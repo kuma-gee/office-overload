@@ -33,3 +33,4 @@ jobs:
       branch: ${{ needs.release-info.outputs.branch }}
       release-discord: ${{ fromJSON(needs.release-info.outputs.release-discord) }}
       demo: ${{ fromJSON(needs.release-info.outputs.demo) }}
+    secrets: inherit
