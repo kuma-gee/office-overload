@@ -1,3 +1,6 @@
+# Release workflow for games on steam
+# - Itch used for uploading demo build
+# - Github release for internal testing
 name: Steam Releases
 
 on:
@@ -15,7 +18,7 @@ on:
         type: boolean
         default: false
       release-github:
-        description: 'Release for discord'
+        description: 'Release for github'
         type: boolean
         default: false
       release-itch:
@@ -72,7 +75,7 @@ jobs:
     with:
       channels: '["web"]'
       game: ${{ needs.build-godot.outputs.game }}
-      itch-user: env.ITCH_USER
+      itch-user: ${{ env.ITCH_USER }}
     secrets:
       BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
       PASSWORD: ${{ needs.build-godot.outputs.password }}
