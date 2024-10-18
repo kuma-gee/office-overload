@@ -40,7 +40,11 @@ jobs:
           STEAM_ID=${STEAM_APP:-430}
           IS_DEMO=${DEMO:-false}
 
-          if [ $IS_DEMO = true ] || [[ "$REF" =~ "-demo" ]]; then
+          if [[ "$REF" =~ "-demo" ]] || [ $RELEASE_ITCH = true ]; then
+            IS_DEMO=true
+          fi
+
+          if [ $IS_DEMO = true ]; then
             STEAM_ID=$STEAM_DEMO_APP
           fi
 
@@ -49,6 +53,7 @@ jobs:
         env:
           DEMO: ${{ inputs.demo }}
           REF: ${{ github.ref_name }}
+          RELEASE_ITCH: ${{ inputs.release-itch }}
   
   build-godot:
     uses: kuma-gee/actions/.github/workflows/godot-build.yml@main
@@ -63,7 +68,7 @@ jobs:
   release-itch:
     uses: kuma-gee/actions/.github/workflows/itch-release.yml@main
     needs: build-godot
-    if: ${{ inputs.release-itch && inputs.demo }}
+    if: ${{ inputs.release-itch }}
     with:
       channels: '["web"]'
       game: ${{ needs.build-godot.outputs.game }}
@@ -89,5 +94,5 @@ jobs:
     needs: build-godot
     if: ${{ inputs.release-github }}
     secrets:
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_RELEASE_HOOK }}
-      PASSWORD: ${{ needs.build-godot.outputs.password }}
+      discord-webhook: ${{ secrets.DISCORD_RELEASE_HOOK }}
+      password: ${{ needs.build-godot.outputs.password }}
