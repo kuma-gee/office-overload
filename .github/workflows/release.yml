@@ -59,7 +59,7 @@ jobs:
     uses: kuma-gee/actions/.github/workflows/godot-build.yml@main
     needs: release-info
     with:
-      channels: '["windows", "linux"]'
+      channels: '["windows", "linux", "web"]'
       steam-app: ${{ fromJSON(needs.release-info.outputs.steam_id) }}
       godot-version: 4.3
       project-path: godot
