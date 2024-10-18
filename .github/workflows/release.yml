@@ -50,7 +50,7 @@ jobs:
           REF: ${{ github.ref_name }}
   
   build-godot:
-    uses: kuma-gee/.github/workflows/godot-build.yml@main
+    uses: kuma-gee/actions/.github/workflows/godot-build.yml@main
     needs: release-info
     with:
       channels: '["windows", "linux"]'
@@ -60,7 +60,7 @@ jobs:
     secrets: inherit
 
   release-itch:
-    uses: kuma-gee/.github/workflows/itch-release.yml@main
+    uses: kuma-gee/actions/.github/workflows/itch-release.yml@main
     needs: build-godot
     if: ${{ inputs.release-itch && inputs.demo }}
     with:
@@ -72,7 +72,7 @@ jobs:
       PASSWORD: ${{ needs.build-godot.outputs.password }}
   
   release-steam:
-    uses: kuma-gee/.github/workflows/steam-release.yml@main
+    uses: kuma-gee/actions/.github/workflows/steam-release.yml@main
     needs: build-godot
     if: ${{ inputs.release-steam }}
     with:
@@ -84,7 +84,7 @@ jobs:
       PASSWORD: ${{ needs.build-godot.outputs.password }}
 
   release-github:
-    uses: kuma-gee/.github/workflows/github-release.yml@main
+    uses: kuma-gee/actions/.github/workflows/github-release.yml@main
     needs: build-godot
     if: ${{ inputs.release-github }}
     secrets:
