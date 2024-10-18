@@ -70,7 +70,7 @@ jobs:
   build-godot:
     uses: kuma-gee/actions/.github/workflows/godot-build.yml@main
     needs: build-info
-    if: ${{ needs.build-info.outputs.channels != '' }}
+    if: ${{ needs.build-info.outputs.channels != '[]' }}
     with:
       channels: ${{ needs.build-info.outputs.channels }}
       steam-app: ${{ fromJSON(needs.build-info.outputs.steam_id) }}
