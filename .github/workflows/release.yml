@@ -77,7 +77,7 @@ jobs:
     if: ${{ inputs.release-steam }}
     with:
       steam-app: ${{ fromJSON(needs.release-info.outputs.steam_id) }}
-      branch: ${{ env.STEAM_BRANCH }}
+      branch: env.STEAM_BRANCH
     secrets:
       STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
       STEAM_CONFIG_VDF: ${{ secrets.STEAM_CONFIG_VDF }}
