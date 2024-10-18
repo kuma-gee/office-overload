@@ -59,7 +59,7 @@ jobs:
 
           echo "::debug::Steam App ID: $STEAM_ID"
           echo "steam_id=$STEAM_ID" >> $GITHUB_OUTPUT
-          echo "channels='[$CHANNELS]" >> $GITHUB_OUTPUT
+          echo "channels='[$CHANNELS]'" >> $GITHUB_OUTPUT
         env:
           DEMO: ${{ inputs.demo }}
           REF: ${{ github.ref_name }}
