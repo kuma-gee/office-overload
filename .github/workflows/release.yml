@@ -29,8 +29,6 @@ on:
 env:
   STEAM_APP: 3191960
   STEAM_DEMO_APP: 3196670
-  STEAM_BRANCH: beta
-  ITCH_USER: kuma-gee
 
 jobs:
   release-info:
@@ -75,7 +73,7 @@ jobs:
     with:
       channels: '["web"]'
       game: ${{ needs.build-godot.outputs.game }}
-      itch-user: ${{ env.ITCH_USER }}
+      itch-user: kuma-gee
     secrets:
       BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
       PASSWORD: ${{ needs.build-godot.outputs.password }}
@@ -86,7 +84,7 @@ jobs:
     if: ${{ inputs.release-steam }}
     with:
       steam-app: ${{ fromJSON(needs.release-info.outputs.steam_id) }}
-      branch: env.STEAM_BRANCH
+      branch: beta
     secrets:
       STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
       STEAM_CONFIG_VDF: ${{ secrets.STEAM_CONFIG_VDF }}
