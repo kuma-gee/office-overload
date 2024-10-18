@@ -31,37 +31,49 @@ env:
   STEAM_DEMO_APP: 3196670
 
 jobs:
-  release-info:
+  build-info:
     runs-on: ubuntu-latest
     outputs:
-      steam_id: ${{ steps.steam-app.outputs.steam_id }}
+      steam_id: ${{ steps.build-data.outputs.steam_id }}
+      channels: ${{ steps.build-data.outputs.channels }}
     steps:
-      - id: steam-app
+      - id: build-data
         run: |
           STEAM_ID=${STEAM_APP:-430}
           IS_DEMO=${DEMO:-false}
+          CHANNELS='"windows", "linux"'
 
-          if [[ "$REF" =~ "-demo" ]] || [ $RELEASE_ITCH = true ]; then
-            IS_DEMO=true
+          if [ $RELEASE_STEAM = false ] && [ $RELEASE_GITHUB = false ]; then
+            CHANNELS=''
+
+            if [ $RELEASE_ITCH = true ]; then
+              CHANNELS='"web"'
+            fi
+          elif [ $RELEASE_ITCH = true ]; then
+            CHANNELS+=', "web"'
           fi
 
-          if [ $IS_DEMO = true ]; then
+          if [ $IS_DEMO = true ] || [[ "$REF" =~ "-demo" ]]; then
             STEAM_ID=$STEAM_DEMO_APP
           fi
 
           echo "::debug::Steam App ID: $STEAM_ID"
           echo "steam_id=$STEAM_ID" >> $GITHUB_OUTPUT
+          echo "channels='[$CHANNELS]" >> $GITHUB_OUTPUT
         env:
           DEMO: ${{ inputs.demo }}
           REF: ${{ github.ref_name }}
           RELEASE_ITCH: ${{ inputs.release-itch }}
+          RELEASE_STEAM: ${{ inputs.release-steam }}
+          RELEASE_GITHUB: ${{ inputs.release-github }}
   
   build-godot:
     uses: kuma-gee/actions/.github/workflows/godot-build.yml@main
-    needs: release-info
+    needs: build-info
+    if: ${{ needs.build-info.outputs.channels != '' }}
     with:
-      channels: '["windows", "linux", "web"]'
-      steam-app: ${{ fromJSON(needs.release-info.outputs.steam_id) }}
+      channels: ${{ needs.build-info.outputs.channels }}
+      steam-app: ${{ fromJSON(needs.build-info.outputs.steam_id) }}
       godot-version: 4.3
       project-path: godot
     secrets: inherit
@@ -83,7 +95,7 @@ jobs:
     needs: build-godot
     if: ${{ inputs.release-steam }}
     with:
-      steam-app: ${{ fromJSON(needs.release-info.outputs.steam_id) }}
+      steam-app: ${{ fromJSON(needs.build-info.outputs.steam_id) }}
       branch: beta
     secrets:
       STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
