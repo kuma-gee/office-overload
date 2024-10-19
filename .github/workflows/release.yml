@@ -1,5 +1,5 @@
 # Release workflow for games on steam
-# - Itch used for uploading demo build
+# - Itch used for uploading demo build (only web)
 # - Github release for internal testing
 name: Steam Releases
 
