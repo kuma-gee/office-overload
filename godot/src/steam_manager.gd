@@ -2,11 +2,9 @@ extends Node
 
 signal steam_status_changed()
 
-const APP_ID = 3191960
-const DEMO_APP_ID = 3196670
-
 const ACHIEVEMENT = {CEO = "CEO"}
 
+var steam
 var _logger = Logger.new("SteamManager")
 
 var achievements: Dictionary = {}
@@ -14,13 +12,20 @@ var steam_update_timer: Timer
 var is_successful_initialized = false
 
 func _ready():
+	if Engine.has_singleton("Steam"):
+		steam = Engine.get_singleton("Steam")
+	
+	if not steam:
+		steam = {}
+		return
+	
 	steam_update_timer = Timer.new()
 	steam_update_timer.one_shot = true
 	steam_update_timer.autostart = false
 	add_child(steam_update_timer)
 	
 	steam_update_timer.timeout.connect(func():
-		if Steam.storeStats():
+		if steam.storeStats():
 			_logger.info("Stats updated")
 		else:
 			_logger.warn("Failed to update stats")
@@ -39,29 +44,26 @@ func _load_steam():
 	
 	# This is not always called. Skipped if no diff to local storage?
 	#Steam.current_stats_received.connect(_on_steam_stats_ready)
-	Steam.user_achievement_stored.connect(_on_achievement_stored)
+	steam.user_achievement_stored.connect(_on_achievement_stored)
 	
 	var id = Build.STEAM_APP
-	
-	# DEMO_APP_ID if Env.is_demo() else APP_ID
-
-	var init = Steam.steamInit(true, id)
+	var init = steam.steamInit(true, id)
 	is_successful_initialized = init.status == 1
 	_logger.info("Steam initialized? %s" % init)
 	steam_status_changed.emit()
 	
 	if check_steam_available():
-		var stats_status = Steam.requestCurrentStats()
+		var stats_status = steam.requestCurrentStats()
 		_logger.info("Requesting steam stats: %s" % stats_status)
 		_sync_achievements()
 
 	if is_successful_initialized:
-		GameManager.exiting_game.connect(func(): Steam.steamShutdown())
+		GameManager.exiting_game.connect(func(): steam.steamShutdown())
 		_connect_leaderboard_signals()
 
 func _process(delta):
 	if is_successful_initialized:
-		Steam.run_callbacks()
+		steam.run_callbacks()
 
 func check_steam_available():
 	if is_successful_initialized: return true
@@ -73,10 +75,13 @@ func check_steam_available():
 #############
 
 func get_username():
-	return Steam.getPersonaName()
+	return steam.getPersonaName()
 
 func get_steam_username(id: int):
-	return Steam.getFriendPersonaName(id)
+	return steam.getFriendPersonaName(id)
+
+func get_steam_id():
+	return steam.getSteamID()
 
 #################
 ## Leaderboard ##
@@ -98,9 +103,9 @@ var is_uploading := false
 var handler_loaded := false
 
 func _connect_leaderboard_signals():
-	Steam.leaderboard_find_result.connect(_on_leaderboard_find_result)
-	Steam.leaderboard_score_uploaded.connect(_on_leaderboard_score_uploaded)
-	Steam.leaderboard_scores_downloaded.connect(_on_leaderboard_scores_downloaded)
+	steam.leaderboard_find_result.connect(_on_leaderboard_find_result)
+	steam.leaderboard_score_uploaded.connect(_on_leaderboard_score_uploaded)
+	steam.leaderboard_scores_downloaded.connect(_on_leaderboard_scores_downloaded)
 	_load_all_leaderboard()
 
 func _load_all_leaderboard():
@@ -118,7 +123,7 @@ func _load_leaderboard_handle():
 		return
 	
 	_logger.info("Loading steam leaderboard for %s" % [loading_handles[0]])
-	Steam.findLeaderboard(loading_handles[0])
+	steam.findLeaderboard(loading_handles[0])
 
 func _on_leaderboard_find_result(handle: int, found: int) -> void:
 	if found == 1 and not loading_handles.is_empty():
@@ -141,7 +146,7 @@ func upload_score(board: String, score: int, details: String, keep_best = true):
 		return
 
 	var detail_array = var_to_bytes(details).to_int32_array()
-	Steam.uploadLeaderboardScore(score, keep_best, detail_array, leaderboard_handles[board])
+	steam.uploadLeaderboardScore(score, keep_best, detail_array, leaderboard_handles[board])
 	_logger.info("Uploading score %s to %s with details of size %s" % [score, board, detail_array.size()])
 	is_uploading = true
 
@@ -175,11 +180,11 @@ func load_score(board: String, type: int):
 	
 	var start = 1
 	var end = 10
-	if type == Steam.LEADERBOARD_DATA_REQUEST_GLOBAL_AROUND_USER:
+	if type == steam.LEADERBOARD_DATA_REQUEST_GLOBAL_AROUND_USER:
 		start = -5
 		end = 4
 	
-	Steam.downloadLeaderboardEntries(start, end, type, leaderboard_handles[board])
+	steam.downloadLeaderboardEntries(start, end, type, leaderboard_handles[board])
 	await leaderboard_loaded
 
 	_logger.info("Loaded Leaderboard: %s" % [last_result.size()])
@@ -212,7 +217,7 @@ func unlock_achievement(achieve: String):
 	
 	achievements[achieve] = true
 	
-	if Steam.setAchievement(achieve):
+	if steam.setAchievement(achieve):
 		_logger.info("Unlocked steam achievement: %s" % achieve)
 	else:
 		_logger.warn("Failed to set achievement: %s" % achieve)
@@ -227,7 +232,7 @@ func _sync_achievements():
 	_logger.info("Synced Achievements: %s" % achievements)
 
 func _get_achievement(value: String) -> bool:
-	var this_achievement: Dictionary = Steam.getAchievement(value)
+	var this_achievement: Dictionary = steam.getAchievement(value)
 
 	# Achievement exists
 	if this_achievement['ret']:

@@ -5,15 +5,16 @@ extends Control
 @export var exit_quitjob: AltTypingButton
 @export var feedback: TypingButton
 
-@onready var settings: Settings = $Settings
-@onready var game_modes: GameModesDialog = $GameModes
-@onready var delegator: Delegator = $Delegator
-@onready var leaderboard: Leaderboard = $Leaderboard
-@onready var feedback_ui: FeedbackUI = $Feedback
-@onready var performance_graph: PerformanceGraph = $PerformanceGraph
+@export_category("Nodes") # onready does not work on web builds?? 
+@export var shift_container: ShiftButtons
+@export var settings: Settings
+@export var game_modes: GameModesDialog
+@export var delegator: Delegator
+@export var leaderboard: Leaderboard
+@export var feedback_ui: FeedbackUI
+@export var performance_graph: PerformanceGraph
 
 @onready var shift_buttons := [work_performance, setting_leaderboard, exit_quitjob]
-@onready var shift_container: ShiftButtons = $ShiftContainer
 
 var is_starting := false
 

@@ -55,7 +55,7 @@ shader_parameter/enable = true
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fembg"]
 
-[node name="Start" type="Control" node_paths=PackedStringArray("work_performance", "setting_leaderboard", "exit_quitjob", "feedback")]
+[node name="Start" type="Control" node_paths=PackedStringArray("work_performance", "setting_leaderboard", "exit_quitjob", "feedback", "shift_container", "settings", "game_modes", "delegator", "leaderboard", "feedback_ui", "performance_graph")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -68,6 +68,13 @@ work_performance = NodePath("MarginContainer3/VBoxContainer/Work_Performance")
 setting_leaderboard = NodePath("MarginContainer3/VBoxContainer/Setting_Leaderboard")
 exit_quitjob = NodePath("MarginContainer3/VBoxContainer/Exit_QuitJob")
 feedback = NodePath("FeedbackContainer/FeedbackButton")
+shift_container = NodePath("ShiftContainer")
+settings = NodePath("Settings")
+game_modes = NodePath("GameModes")
+delegator = NodePath("Delegator")
+leaderboard = NodePath("Leaderboard")
+feedback_ui = NodePath("Feedback")
+performance_graph = NodePath("PerformanceGraph")
 
 [node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")

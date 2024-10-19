@@ -18,7 +18,7 @@ func handle_event(event: InputEvent):
 	var key = KeyReader.get_key_of_event(event)
 	var handled = false
 	if key:
-		if last_event and last_event.keycode == event.keycode and last_event.pressed == event.pressed:
+		if last_event and last_event is InputEventKey and last_event.keycode == event.keycode and last_event.pressed == event.pressed:
 			return
 
 		var focused = _get_focused_label()

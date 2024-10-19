@@ -87,7 +87,7 @@ func show_data(data: Array):
 			if label.text.length() > 10:
 				label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 
-			if Steam.getSteamID() == d["steam_id"]:
+			if SteamManager.get_steam_id() == d["steam_id"]:
 				label.label_settings = TEXT_OUTLINE
 			
 			label.tooltip_text = label.text

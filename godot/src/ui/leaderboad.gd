@@ -25,9 +25,10 @@ func _ready() -> void:
 	friends_button.finished.connect(func(): show_board(friends_board, friends_button))
 	global_button.finished.connect(func(): show_board(global_board, global_button))
 
-	user_board.score_type = Steam.LEADERBOARD_DATA_REQUEST_GLOBAL_AROUND_USER
-	friends_board.score_type = Steam.LEADERBOARD_DATA_REQUEST_FRIENDS
-	global_board.score_type = Steam.LEADERBOARD_DATA_REQUEST_GLOBAL
+	if SteamManager.is_successful_initialized:
+		user_board.score_type = SteamManager.steam.LEADERBOARD_DATA_REQUEST_GLOBAL_AROUND_USER
+		friends_board.score_type = SteamManager.steam.LEADERBOARD_DATA_REQUEST_FRIENDS
+		global_board.score_type = SteamManager.steam.LEADERBOARD_DATA_REQUEST_GLOBAL
 	
 	delegator.nodes.append_array(user_board.buttons)
 	delegator.nodes.append_array(friends_board.buttons)
