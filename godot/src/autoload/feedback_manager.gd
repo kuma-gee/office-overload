@@ -8,7 +8,6 @@ signal request_successful()
 signal request_throttled(time_left: float)
 
 @export var enable := true
-@export var game := "Game Name"
 
 @onready var http_request: HTTPRequest = $HTTPRequest
 @onready var throttle_timer: Timer = $ThrottleTimer
@@ -39,7 +38,14 @@ func send_feedback(text: String):
 		_logger.info("Please wait %s seconds before sending another feedback" % throttle_timer.time_left)
 		return
 	
-	var res = http_request.request(URL, [], HTTPClient.METHOD_POST, JSON.stringify({"text": text, "game": game}))
+	var res = http_request.request(URL, [], HTTPClient.METHOD_POST, JSON.stringify({
+		"text": text,
+		"game": ProjectSettings.get_setting("application/config/name"),
+		"version": "%s (%s)" % [Build.VERSION, Build.GIT_SHA],
+		"demo": Env.is_demo(),
+		"platform": OS.get_name(),
+	}))
+
 	if res != OK:
 		_logger.info("Failed to send feedback request: %s" % res)
 		request_failed.emit()

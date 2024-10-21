@@ -24,7 +24,7 @@ func _ready():
 		_logger.debug("Using hash %s" % hash)
 		_live = hash == Build.GAME_HASH
 	
-	_logger.info("Running version %s on %s: %s" % [version, OS.get_name(), {
+	_logger.info("Running version %s (%s) on %s: %s" % [version, Build.GIT_SHA, OS.get_name(), {
 		"demo": is_demo(),
 		"steam": is_steam(),
 		"log_level": Logger.Level.keys()[log_level],
