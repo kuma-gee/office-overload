@@ -55,6 +55,9 @@ func _update_scrollbar():
 	bar.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	bar.update_minimum_size()
 
+func is_friends_board():
+	return score_type == SteamManager.steam.LEADERBOARD_DATA_REQUEST_FRIENDS
+
 func load_data(board: String):
 	if loaded: return
 	loaded = true
@@ -87,7 +90,8 @@ func show_data(data: Array):
 	scroll_button_container.visible = scroll_container.get_v_scroll_bar().visible and not data.is_empty()
 	empty_label.visible = data.is_empty()
 	
-	for d in data:
+	for i in range(data.size()):
+		var d = data[i]
 		var details = parse_details(d)
 			
 		for k in keys:
@@ -99,6 +103,9 @@ func show_data(data: Array):
 			
 			if k == "global_rank":
 				label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+				
+				if is_friends_board():
+					label.text = "%s" % (i+1)
 
 			if SteamManager.get_steam_id() == d["steam_id"]:
 				label.add_theme_color_override("font_color", Color.WHITE)
