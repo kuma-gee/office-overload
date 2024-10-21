@@ -7,8 +7,8 @@ const SECTION = "display"
 const FULLSCREEN = "fullscreen"
 
 func load_settings(config: ConfigFile) -> void:
-	var mode = config.get_value(SECTION, FULLSCREEN, "")
-	if mode != "":
+	var mode = config.get_value(SECTION, FULLSCREEN, -1)
+	if mode != -1:
 		set_fullscreen(mode == 1)
 	
 	loaded.emit()

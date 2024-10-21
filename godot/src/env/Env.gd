@@ -1,12 +1,14 @@
 extends Node
 
+const APP_ID = 3191960
+const DEMO_ID = 3196670
+
 var log_level := Logger.Level.DEBUG
 var version := Build.VERSION
-var editor_is_prod := false
 
 var _logger := Logger.new("Env")
 var _live := false
-var _enable_steam := false
+var _enable_steam := true
 
 func _ready():
 	if is_prod():
@@ -17,12 +19,18 @@ func _ready():
 	
 	if args.has("debug"):
 		log_level = Logger.Level.DEBUG
+	
 	if args.has("steam"):
 		_enable_steam = true
+		
 	if "live" in args:
 		var hash = args["live"].sha256_text()
 		_logger.debug("Using hash %s" % hash)
 		_live = hash == Build.GAME_HASH
+	
+	if _enable_steam and Build.STEAM_APP != APP_ID:
+		_live = false
+		_logger.warn("This build isn't designed to be used live")
 	
 	_logger.info("Running version %s (%s) on %s: %s" % [version, Build.GIT_SHA, OS.get_name(), {
 		"demo": is_demo(),
@@ -34,7 +42,7 @@ func is_editor():
 	return OS.is_debug_build()
 
 func is_prod() -> bool:
-	return not is_editor() or editor_is_prod
+	return true
 
 func is_web() -> bool:
 	return OS.has_feature("web")

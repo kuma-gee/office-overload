@@ -16,6 +16,9 @@ signal closed()
 @export var steam_offline: Control
 @export var boards: Control
 
+@export_category("Local Score")
+@export var local_score_label: RichTextLabel
+
 @onready var delegator: Delegator = $Delegator
 
 var current_leaderboard := ""
@@ -70,10 +73,27 @@ func show_board(board: ScoreBoard, btn: TypingButton) -> void:
 		board.use_days = current_leaderboard in [SteamManager.DEMO_LEADERBOARD, SteamManager.STORY_LEADERBOARD]
 		board.load_data(current_leaderboard)
 	
+		if GameManager.has_current_job():
+			var wpm_str = "%.0f/%.0f%%" % [GameManager.average_wpm, GameManager.average_accuracy * 100]
+			var score_str = "%.0f" % GameManager.calculate_score()
+			
+			local_score_label.text = "[center]Current Score: %s with WPM %s, %s %s as %s[/center]" % [
+				_bbcode_outline(score_str),
+				_bbcode_outline(wpm_str),
+				board.get_day_title(),
+				GameManager.day,
+				GameManager.get_level_text(GameManager.difficulty_level)
+			]
+		else:
+			local_score_label.text = "No current score"
+	
 	_set_active_button(user_button, false)
 	_set_active_button(friends_button, false)
 	_set_active_button(global_button, false)
 	_set_active_button(btn, true)
+
+func _bbcode_outline(txt: String):
+	return "[outline_size=3]%s[/outline_size]" % txt
 
 func _set_active_button(btn: TypingButton, active = false):
 	btn.get_label().highlight_first = not active

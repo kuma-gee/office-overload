@@ -109,6 +109,7 @@ func reset_values():
 	average_accuracy = 0.0
 	total_completed_words = 0
 	past_wpms = []
+	
 	job_quited.emit()
 	_save_data()
 
@@ -138,9 +139,13 @@ func finished_day(tasks: int, overtime: int):
 func upload_work_scores(wpm: float = average_wpm, acc: float = average_accuracy, level: int = difficulty_level):
 	if is_intern(): return
 	
-	var score = wpm * acc * level * (log(day+1)/log(10)) # +1 in log, so it doesn't return 0
+	var score = calculate_score(wpm, acc, level)
 	var board = get_leaderboard_for_mode()
-	SteamManager.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], day, -level]), false)
+	SteamManager.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], day, -level]))
+
+func calculate_score(wpm: float = average_wpm, acc: float = average_accuracy, level: int = difficulty_level):
+	var score = wpm * acc * level * (log(day+1)/log(10)) # +1 in log, so it doesn't return 0
+	return score
 
 func finished_interview(tasks: int, time_in_sec: int):
 	last_interview_wpm = wpm_calculator.get_average_wpm()
@@ -148,7 +153,6 @@ func finished_interview(tasks: int, time_in_sec: int):
 	wpm_calculator.reset()
 	
 	_upload_timed_scores(last_interview_wpm, last_crunch_accuracy, tasks)
-	_save_data()
 	round_ended.emit()
 
 func _upload_timed_scores(wpm: float, acc: float, count: int):
@@ -165,7 +169,6 @@ func finished_crunch(tasks: int):
 	last_crunch_time = 0.0
 	
 	_upload_endless_scores(last_crunch_wpm, last_crunch_accuracy, tasks)
-	_save_data()
 	round_ended.emit()
 
 func _upload_endless_scores(wpm: float, acc: float, count: int):
@@ -270,8 +273,9 @@ func unlock_mode(mode: Mode):
 func get_leaderboard_for_mode():
 	if not Env.is_demo():
 		match GameManager.current_mode:
-			GameManager.Mode.Work: return SteamManager.STORY_LEADERBOARD
-			GameManager.Mode.Crunch: return SteamManager.ENDLESS_LEADERBOARD
-			GameManager.Mode.Interview: return SteamManager.TIMED_LEADERBOARD
+			#GameManager.Mode.Work: return SteamManager.STORY_LEADERBOARD
+			#GameManager.Mode.Crunch: return SteamManager.ENDLESS_LEADERBOARD
+			#GameManager.Mode.Interview: return SteamManager.TIMED_LEADERBOARD
+			_: return SteamManager.STORY_LEADERBOARD
 	
 	return SteamManager.DEMO_LEADERBOARD

@@ -101,6 +101,7 @@ var loading_handles := []
 var last_result = []
 var is_uploading := false
 var handler_loaded := false
+var score_range := 20
 
 func _connect_leaderboard_signals():
 	steam.leaderboard_find_result.connect(_on_leaderboard_find_result)
@@ -137,18 +138,16 @@ func _on_leaderboard_find_result(handle: int, found: int) -> void:
 	_load_leaderboard_handle()
 
 func upload_score(board: String, score: int, details: String, keep_best = true):
-	if not check_steam_available():
+	if check_steam_available():
+		if board in leaderboard_handles:
+			var detail_array = var_to_bytes(details).to_int32_array()
+			steam.uploadLeaderboardScore(score, keep_best, detail_array, leaderboard_handles[board])
+			_logger.info("Uploading score %s to %s with details of size %s" % [score, board, detail_array.size()])
+			is_uploading = true
+		else:
+			_logger.warn("Leaderboard %s hasn't been loaded" % board)
+	else:
 		_logger.warn("Steam not available to upload scores")
-		return
-		
-	if not board in leaderboard_handles:
-		_logger.warn("Leaderboard %s hasn't been loaded" % board)
-		return
-
-	var detail_array = var_to_bytes(details).to_int32_array()
-	steam.uploadLeaderboardScore(score, keep_best, detail_array, leaderboard_handles[board])
-	_logger.info("Uploading score %s to %s with details of size %s" % [score, board, detail_array.size()])
-	is_uploading = true
 
 func _on_leaderboard_score_uploaded(success: int, this_handle: int, this_score: Dictionary) -> void:
 	var board = _find_leaderboard_for_handle(this_handle)
@@ -168,7 +167,7 @@ func load_score(board: String, type: int):
 
 	if not board in leaderboard_handles:
 		_logger.warn("Leaderboard handle for %s not loaded" % board)
-		return
+		return []
 
 	if is_uploading:
 		_logger.info("Awaiting score upload before fetching score for %s" % board)
@@ -179,10 +178,11 @@ func load_score(board: String, type: int):
 		await leaderboard_handler_loaded
 	
 	var start = 1
-	var end = 10
+	var end = score_range
 	if type == steam.LEADERBOARD_DATA_REQUEST_GLOBAL_AROUND_USER:
-		start = -5
-		end = 4
+		var mid = score_range/2
+		start = -mid
+		end = mid-1
 	
 	steam.downloadLeaderboardEntries(start, end, type, leaderboard_handles[board])
 	await leaderboard_loaded

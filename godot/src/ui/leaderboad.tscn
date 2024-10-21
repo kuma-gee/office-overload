@@ -1,14 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://cwb2bomvrxmul"]
+[gd_scene load_steps=10 format=3 uid="uid://cwb2bomvrxmul"]
 
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="1_brac4"]
 [ext_resource type="Script" path="res://src/ui/leaderboad.gd" id="1_l151m"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_tr223"]
 [ext_resource type="PackedScene" uid="uid://cmu36xk8jw0u8" path="res://src/ui/interview_score.tscn" id="4_tc631"]
 [ext_resource type="Script" path="res://src/delegator.gd" id="5_dsyjy"]
+[ext_resource type="LabelSettings" uid="uid://uctt264dd2ni" path="res://theme/text_small.tres" id="6_3awih"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="6_s33vv"]
 [ext_resource type="Script" path="res://src/ui/esc_button.gd" id="7_6qirp"]
 
-[node name="Leaderboard" type="Control" node_paths=PackedStringArray("user_button", "friends_button", "global_button", "user_board", "friends_board", "global_board", "steam_offline", "boards")]
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_qqxj0"]
+
+[node name="Leaderboard" type="Control" node_paths=PackedStringArray("user_button", "friends_button", "global_button", "user_board", "friends_board", "global_board", "steam_offline", "boards", "local_score_label")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 1.0
@@ -17,18 +20,19 @@ offset_right = 319.0
 offset_bottom = 179.0
 focus_mode = 2
 script = ExtResource("1_l151m")
-user_button = NodePath("Leaderboard/MarginContainer/Boards/HBoxContainer/User")
-friends_button = NodePath("Leaderboard/MarginContainer/Boards/HBoxContainer/Friends")
-global_button = NodePath("Leaderboard/MarginContainer/Boards/HBoxContainer/Global")
-user_board = NodePath("Leaderboard/MarginContainer/Boards/VBoxContainer/UserScore")
-friends_board = NodePath("Leaderboard/MarginContainer/Boards/VBoxContainer/FriendsScore")
-global_board = NodePath("Leaderboard/MarginContainer/Boards/VBoxContainer/GlobalScore")
-steam_offline = NodePath("Leaderboard/MarginContainer/Boards/SteamOffline")
-boards = NodePath("Leaderboard/MarginContainer/Boards/VBoxContainer")
+user_button = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/User")
+friends_button = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/Friends")
+global_button = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/Global")
+user_board = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/Boards/UserScore")
+friends_board = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/Boards/FriendsScore")
+global_board = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/Boards/GlobalScore")
+steam_offline = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/SteamOffline")
+boards = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/Boards")
+local_score_label = NodePath("Leaderboard/VBoxContainer/PanelContainer/MarginContainer2/Score")
 
 [node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("5_dsyjy")
-nodes = [NodePath("../Leaderboard/MarginContainer/Boards/HBoxContainer/User"), NodePath("../Leaderboard/MarginContainer/Boards/HBoxContainer/Friends"), NodePath("../Leaderboard/MarginContainer/Boards/HBoxContainer/Global")]
+nodes = [NodePath("../Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/User"), NodePath("../Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/Friends"), NodePath("../Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/Global")]
 
 [node name="Leaderboard" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(240, 150)
@@ -45,51 +49,86 @@ grow_vertical = 2
 focus_mode = 2
 theme = ExtResource("1_tr223")
 
-[node name="MarginContainer" type="MarginContainer" parent="Leaderboard"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Boards" type="VBoxContainer" parent="Leaderboard/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Leaderboard"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Leaderboard/MarginContainer/Boards"]
+[node name="MarginContainer" type="MarginContainer" parent="Leaderboard/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="Boards" type="VBoxContainer" parent="Leaderboard/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Leaderboard/VBoxContainer/MarginContainer/Boards"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="User" parent="Leaderboard/MarginContainer/Boards/HBoxContainer" instance=ExtResource("1_brac4")]
+[node name="User" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer" instance=ExtResource("1_brac4")]
 layout_mode = 2
 word = "User"
 
-[node name="Friends" parent="Leaderboard/MarginContainer/Boards/HBoxContainer" instance=ExtResource("1_brac4")]
+[node name="TypingLabel" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/User/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 6
+
+[node name="Friends" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer" instance=ExtResource("1_brac4")]
 layout_mode = 2
 word = "Friends"
 
-[node name="Global" parent="Leaderboard/MarginContainer/Boards/HBoxContainer" instance=ExtResource("1_brac4")]
+[node name="TypingLabel" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/Friends/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 6
+
+[node name="Global" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer" instance=ExtResource("1_brac4")]
 layout_mode = 2
 word = "Global"
 
-[node name="SteamOffline" type="CenterContainer" parent="Leaderboard/MarginContainer/Boards"]
-layout_mode = 2
+[node name="TypingLabel" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/Global/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 6
 
-[node name="Label" type="Label" parent="Leaderboard/MarginContainer/Boards/SteamOffline"]
-layout_mode = 2
-text = "Not connected to steam"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Leaderboard/MarginContainer/Boards"]
+[node name="SteamOffline" type="CenterContainer" parent="Leaderboard/VBoxContainer/MarginContainer/Boards"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="UserScore" parent="Leaderboard/MarginContainer/Boards/VBoxContainer" instance=ExtResource("4_tc631")]
+[node name="Label" type="Label" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/SteamOffline"]
+layout_mode = 2
+text = "Not connected to steam"
+label_settings = ExtResource("6_3awih")
+
+[node name="Boards" type="VBoxContainer" parent="Leaderboard/VBoxContainer/MarginContainer/Boards"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UserScore" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/Boards" instance=ExtResource("4_tc631")]
 layout_mode = 2
 
-[node name="FriendsScore" parent="Leaderboard/MarginContainer/Boards/VBoxContainer" instance=ExtResource("4_tc631")]
+[node name="FriendsScore" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/Boards" instance=ExtResource("4_tc631")]
 layout_mode = 2
 
-[node name="GlobalScore" parent="Leaderboard/MarginContainer/Boards/VBoxContainer" instance=ExtResource("4_tc631")]
+[node name="GlobalScore" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/Boards" instance=ExtResource("4_tc631")]
 layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Leaderboard/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_qqxj0")
+
+[node name="MarginContainer2" type="MarginContainer" parent="Leaderboard/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Score" type="RichTextLabel" parent="Leaderboard/VBoxContainer/PanelContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 6
+bbcode_enabled = true
+text = "[center]Current Score [outline_size=3]500[/outline_size] with WPM 100/90%, DAYS 10 as MANAGER[/center]"
+fit_content = true
 
 [node name="EscButton" type="TextureButton" parent="."]
 layout_mode = 0
@@ -99,3 +138,7 @@ offset_right = 14.0
 offset_bottom = 15.0
 texture_normal = ExtResource("6_s33vv")
 script = ExtResource("7_6qirp")
+
+[editable path="Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/User"]
+[editable path="Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/Friends"]
+[editable path="Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/Global"]

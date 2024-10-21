@@ -23,14 +23,17 @@ const TEXT_OUTLINE = preload("res://theme/text_outline.tres")
 @export var day_label: Label
 
 @export var loading_label: Control
+@export var empty_label: Control
 
 var loaded := false
 var score_type: int
+var loaded_board := ""
 
 func _ready() -> void:
 	up_scroll.finished.connect(func(): scroll_container.scroll_vertical -= scroll_step)
 	down_scroll.finished.connect(func(): scroll_container.scroll_vertical += scroll_step)
 	scroll_button_container.hide()
+	empty_label.hide()
 	
 	for i in container.get_child_count():
 		container.get_child(i).visible = i < keys.size()
@@ -59,37 +62,49 @@ func load_data(board: String):
 	loading_label.show()
 	var result = await SteamManager.load_score(board, score_type)
 	show_data(result)
-	
-func show_data(data: Array):
+
+func get_day_title():
 	if use_days:
-		day_label.text = "Days"
-	else:
-		day_label.text = "Docs"
+		return "Day"
+	return "Docs"
+
+func parse_details(data: Dictionary):
+	if not "details" in data: return []
 	
+	var details_data = data.get("details") as PackedInt32Array
+	var str = bytes_to_var(details_data.to_byte_array())
+	return str.split(";")
+
+func parse_data(data: Dictionary, key: String, details: Array):
+	if key == "steam_id":
+		return SteamManager.get_steam_username(data.get(key))
+	else:
+		return "%s" % _get_recursive(data, key, details)
+
+func show_data(data: Array):
+	day_label.text = get_day_title()
 	loading_label.hide()
-	scroll_button_container.visible = scroll_container.get_v_scroll_bar().visible
+	scroll_button_container.visible = scroll_container.get_v_scroll_bar().visible and not data.is_empty()
+	empty_label.visible = data.is_empty()
 	
 	for d in data:
-		var details = []
-		if "details" in d:
-			var details_data = d.get("details") as PackedInt32Array
-			var str = bytes_to_var(details_data.to_byte_array())
-			details = str.split(";")
+		var details = parse_details(d)
 			
 		for k in keys:
 			var label = Label.new()
-			
-			if k == "steam_id":
-				label.text = SteamManager.get_steam_username(d.get(k))
-			else:
-				label.text = "%s" % _get_recursive(d, k, details)
+			label.text = parse_data(d, k, details)
 
 			if label.text.length() > 10:
 				label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+			
+			if k == "global_rank":
+				label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 
 			if SteamManager.get_steam_id() == d["steam_id"]:
-				label.label_settings = TEXT_OUTLINE
+				label.add_theme_color_override("font_color", Color.WHITE)
+				label.add_theme_constant_override("outline_size", 3)
 			
+			label.add_theme_font_size_override("font_size", 6)
 			label.tooltip_text = label.text
 			container.add_child(label)
 
@@ -102,17 +117,3 @@ func _get_recursive(dict: Dictionary, key: String, details: Array):
 				return GameManager.get_level_text(-int(value), 6)
 			return details[idx]
 	return dict.get(key, "")
-	
-	#var parts = key.split(".")
-	#var result = dict
-	#for part in parts:
-		#result = result.get(part, "")
-		#if not result is Dictionary:
-			#break
-	#
-	#return result
-
-#func reset():
-	#loaded = false
-	#for c in container.get_children():
-		#c.queue_free()
