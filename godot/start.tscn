@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=42 format=3 uid="uid://ctlncowdl0sbn"]
 
 [ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="1_3ujy4"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
@@ -33,6 +33,7 @@
 [ext_resource type="Script" path="res://src/ui/performance_graph.gd" id="25_028t0"]
 [ext_resource type="Script" path="res://addons/graph_2d/graph_2d.gd" id="25_d4kul"]
 [ext_resource type="Texture2D" uid="uid://qpujdmcko0bu" path="res://assets/sprites/Arrow.png" id="27_lc2cv"]
+[ext_resource type="Script" path="res://src/ui/quit_job_warning.gd" id="34_xrtne"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gorx4"]
 shader = ExtResource("1_3ujy4")
@@ -55,7 +56,7 @@ shader_parameter/enable = true
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fembg"]
 
-[node name="Start" type="Control" node_paths=PackedStringArray("work_performance", "setting_leaderboard", "exit_quitjob", "feedback", "shift_container", "settings", "game_modes", "delegator", "leaderboard", "feedback_ui", "performance_graph")]
+[node name="Start" type="Control" node_paths=PackedStringArray("work_performance", "setting_leaderboard", "exit_quitjob", "feedback", "shift_container", "settings", "game_modes", "delegator", "leaderboard", "feedback_ui", "performance_graph", "quit_warning_dialog")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -75,6 +76,7 @@ delegator = NodePath("Delegator")
 leaderboard = NodePath("Leaderboard")
 feedback_ui = NodePath("Feedback")
 performance_graph = NodePath("PerformanceGraph")
+quit_warning_dialog = NodePath("QuitJobWarning")
 
 [node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
@@ -867,6 +869,97 @@ node = NodePath("../..")
 [node name="Fade" type="Node" parent="PerformanceGraph/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("15_b245w")
 node = NodePath("../../../MenuOverlay")
+
+[node name="QuitJobWarning" type="Control" parent="." node_paths=PackedStringArray("effect", "quit_button_yes", "quit_button_no", "delegator")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+script = ExtResource("34_xrtne")
+effect = NodePath("EffectRoot")
+quit_button_yes = NodePath("QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer/QuitYes")
+quit_button_no = NodePath("QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer/QuitNo")
+delegator = NodePath("QuitJobDelegator")
+
+[node name="EffectRoot" type="Node" parent="QuitJobWarning"]
+script = ExtResource("14_hvw1b")
+ease = 1
+duration = 0.5
+
+[node name="Slide" type="Node" parent="QuitJobWarning/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("15_84nkj")
+node = NodePath("../..")
+
+[node name="Fade" type="Node" parent="QuitJobWarning/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("15_b245w")
+node = NodePath("../../../MenuOverlay")
+
+[node name="QuitJobDelegator" type="Node" parent="QuitJobWarning" node_paths=PackedStringArray("nodes")]
+script = ExtResource("16_bh4xx")
+nodes = [NodePath("../QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer/QuitYes"), NodePath("../QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer/QuitNo")]
+
+[node name="QuitJobWarning" type="PanelContainer" parent="QuitJobWarning"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -78.5
+offset_top = -27.5
+offset_right = 78.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="QuitJobWarning/QuitJobWarning"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuitJobWarning/QuitJobWarning/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit Job?
+You will lose your progress 
+and restart as intern"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 30
+
+[node name="QuitYes" parent="QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+word = "Yes"
+
+[node name="QuitNo" parent="QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+word = "No"
+
+[node name="EscButton" type="TextureButton" parent="QuitJobWarning"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.0
+offset_top = -37.0
+offset_right = -75.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("14_vk34l")
+script = ExtResource("19_uqiqi")
 
 [editable path="FeedbackContainer/FeedbackButton"]
 [editable path="PerformanceGraph/PanelContainer/Graph2D/LeftButton"]

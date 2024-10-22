@@ -13,10 +13,12 @@ extends Control
 @export var leaderboard: Leaderboard
 @export var feedback_ui: FeedbackUI
 @export var performance_graph: PerformanceGraph
+@export var quit_warning_dialog: QuitJobWarning
 
 @onready var shift_buttons := [work_performance, setting_leaderboard, exit_quitjob]
 
 var is_starting := false
+var quit_warning_open := false
 
 func _ready():
 	get_tree().paused = false
@@ -35,7 +37,7 @@ func _ready():
 	setting_leaderboard.finished_alt.connect(func(): leaderboard.open())
 	
 	exit_quitjob.finished.connect(func(): GameManager.quit_game())
-	exit_quitjob.finished_alt.connect(func(): GameManager.reset_values())
+	exit_quitjob.finished_alt.connect(func(): quit_warning_dialog.grab_focus())
 	
 	feedback.finished.connect(func(): feedback_ui.open())
 	
