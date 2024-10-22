@@ -41,7 +41,8 @@ func send_feedback(text: String):
 	var res = http_request.request(URL, [], HTTPClient.METHOD_POST, JSON.stringify({
 		"text": text,
 		"game": ProjectSettings.get_setting("application/config/name"),
-		"version": "%s (%s)" % [Build.VERSION, Build.GIT_SHA],
+		"version": Build.VERSION,
+		"sha": Build.GIT_SHA,
 		"demo": Env.is_demo(),
 		"platform": OS.get_name(),
 	}))
