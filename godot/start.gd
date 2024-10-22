@@ -47,8 +47,7 @@ func _ready():
 			btn.set_active(active)
 		feedback.reset()
 		
-		if active:
-			exit_quitjob.disabled = not GameManager.has_current_job()
+		exit_quitjob.disabled = active and not GameManager.has_current_job()
 	)
 	
 	for btn in shift_buttons:
