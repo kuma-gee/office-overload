@@ -25,6 +25,7 @@ extends Control
 @export var overtime: Label
 @export var finished_tasks: Label
 @export var day_delegator: Delegator
+@export var promotion_tip_text: Label
 
 @export_category("Promotion")
 @export var promotion_text: RichTextLabel
@@ -58,9 +59,12 @@ func day_ended(finished: int, overtime_in_hours: float):
 	finished_tasks.text = "Finished %s tasks" % finished
 	overtime.text = "%s hours of overtime" % overtime_in_hours
 	
-	var promo = GameManager.can_have_promotion()
+	var promo_tip = GameManager.can_have_promotion()
+	var promo = promo_tip == null
 	next_day_container.visible = not promo
 	promotion_container.visible = promo
+	promotion_tip_text.text = _promotion_tip_text(promo_tip)
+
 	_do_open(work_container)
 	
 	if GameManager.is_work_mode() and not promo:
@@ -68,6 +72,17 @@ func day_ended(finished: int, overtime_in_hours: float):
 	
 	if GameManager.is_junior() and GameManager.day >= 5:
 		GameManager.unlock_mode(GameManager.Mode.Crunch)
+
+func _promotion_tip_text(tip) -> String:
+	match tip:
+		GameManager.PromotionTip.WPM:
+			return "The efficiency needs improvement."
+		GameManager.PromotionTip.Documents:
+			return "You still need more experience."
+		GameManager.PromotionTip.Accuracy:
+			return "The quality could be better."
+
+	return ""
 
 func interview_ended(finished: int):
 	interview_finished.text = "Finished %s documents" % finished

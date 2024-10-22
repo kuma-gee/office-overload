@@ -189,6 +189,12 @@ func get_accuracy():
 	return average_accuracy * 100
 
 ### Difficulty
+enum PromotionTip {
+	WPM,
+	Documents,
+	Accuracy,
+	Max,
+}
 
 func get_difficulty_level():
 	var start_wpm = GameManager.difficulty.min_average_wpm
@@ -199,13 +205,21 @@ func get_difficulty_level():
 	return clamp(wpm_diff / max_wpm_diff, 0.0, 1.0)
 
 func can_have_promotion():
-	if is_max_promotion(): return false
+	if is_max_promotion(): return PromotionTip.Max
 
 	var next = difficulty_level + 1
-	if not next in DIFFICULTIES: return false
-	
 	var diff = DIFFICULTIES[next] as DifficultyResource
-	return get_wpm() > diff.min_average_wpm and completed_documents >= diff.minimum_documents and average_accuracy >= diff.min_accuracy
+
+	if get_wpm() < diff.min_average_wpm:
+		return PromotionTip.WPM
+
+	if completed_documents < diff.minimum_documents:
+		return PromotionTip.Documents
+
+	if average_accuracy < diff.min_accuracy:
+		return PromotionTip.Accuracy
+	
+	return null
 	
 func take_promotion():
 	if is_max_promotion(): return
@@ -218,7 +232,8 @@ func is_max_promotion():
 	if Env.is_demo() and is_senior():
 		return true
 
-	return is_manager();
+	var next = difficulty_level + 1
+	return is_manager() or not next in DIFFICULTIES
 
 func is_intern():
 	return difficulty_level == DifficultyResource.Level.INTERN

@@ -71,7 +71,7 @@ scale_max = 5.0
 scale_curve = SubResource("CurveTexture_51fdc")
 alpha_curve = SubResource("CurveTexture_rj2fv")
 
-[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "interview_finished", "interview_wpm", "interview_delegator", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_delegator", "next_day", "next_day_container", "promotion_container", "title", "overtime", "finished_tasks", "day_delegator", "promotion_text", "promotion_text_container", "promotion_particle_1", "promotion_particle_2", "promotion_sound", "promotion_delegator", "work_container", "interview_container", "crunch_container", "unlocked_container")]
+[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "interview_finished", "interview_wpm", "interview_delegator", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_delegator", "next_day", "next_day_container", "promotion_container", "title", "overtime", "finished_tasks", "day_delegator", "promotion_tip_text", "promotion_text", "promotion_text_container", "promotion_particle_1", "promotion_particle_2", "promotion_sound", "promotion_delegator", "work_container", "interview_container", "crunch_container", "unlocked_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -97,6 +97,7 @@ title = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/Title")
 overtime = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Overtime")
 finished_tasks = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/FinishedTasks")
 day_delegator = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/DayDelegator")
+promotion_tip_text = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTip")
 promotion_text = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/TypingLabel")
 promotion_text_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer")
 promotion_particle_1 = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2/GPUParticles2D")
@@ -186,7 +187,6 @@ layout_mode = 2
 script = ExtResource("7_mgfnm")
 
 [node name="Work" type="MarginContainer" parent="CenterContainer/PanelContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -313,6 +313,16 @@ text = "OVERTIME"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
+[node name="Control2" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PromotionTip" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "PROMOTION_TIP"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
 [node name="Control" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -331,6 +341,7 @@ script = ExtResource("7_mgfnm")
 word = "Break"
 
 [node name="Crunch" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
