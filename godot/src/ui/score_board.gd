@@ -87,7 +87,6 @@ func parse_data(data: Dictionary, key: String, details: Array):
 func show_data(data: Array):
 	day_label.text = get_day_title()
 	loading_label.hide()
-	scroll_button_container.visible = scroll_container.get_v_scroll_bar().visible and not data.is_empty()
 	empty_label.visible = data.is_empty()
 	
 	for i in range(data.size()):
@@ -109,11 +108,15 @@ func show_data(data: Array):
 
 			if SteamManager.get_steam_id() == d["steam_id"]:
 				label.add_theme_color_override("font_color", Color.WHITE)
+				label.add_theme_color_override("font_outline_color", Color("#353540"))
 				label.add_theme_constant_override("outline_size", 3)
 			
 			label.add_theme_font_size_override("font_size", 6)
 			label.tooltip_text = label.text
 			container.add_child(label)
+	
+	await get_tree().physics_frame
+	scroll_button_container.visible = scroll_container.get_v_scroll_bar().visible and not data.is_empty()
 
 func _get_recursive(dict: Dictionary, key: String, details: Array):
 	if key.begins_with("details."):

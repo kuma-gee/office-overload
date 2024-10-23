@@ -11,6 +11,7 @@ var master_id
 func _ready():
 	master_id = AudioServer.get_bus_index(bus_name)
 	value_changed.connect(func(v): _volume_changed(v))
+	focus_mode = FOCUS_NONE
 	
 	if audio:
 		audio.loaded.connect(func(): update())

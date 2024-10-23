@@ -23,11 +23,11 @@ script = ExtResource("1_l151m")
 user_button = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/User")
 friends_button = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/Friends")
 global_button = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/Global")
-user_board = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/Boards/UserScore")
-friends_board = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/Boards/FriendsScore")
-global_board = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/Boards/GlobalScore")
-steam_offline = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/SteamOffline")
-boards = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/Boards")
+user_board = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer/VBoxContainer/Boards/UserScore")
+friends_board = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer/VBoxContainer/Boards/FriendsScore")
+global_board = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer/VBoxContainer/Boards/GlobalScore")
+steam_offline = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer/VBoxContainer/SteamOffline")
+boards = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer/VBoxContainer/Boards")
 local_score_label = NodePath("Leaderboard/VBoxContainer/PanelContainer/MarginContainer2/Score")
 
 [node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
@@ -51,6 +51,7 @@ theme = ExtResource("1_tr223")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Leaderboard"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="Leaderboard/VBoxContainer"]
 layout_mode = 2
@@ -88,27 +89,33 @@ word = "Global"
 [node name="TypingLabel" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/Global/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
 
-[node name="SteamOffline" type="CenterContainer" parent="Leaderboard/VBoxContainer/MarginContainer/Boards"]
+[node name="MarginContainer" type="MarginContainer" parent="Leaderboard/VBoxContainer/MarginContainer/Boards"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/SteamOffline"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer"]
+layout_mode = 2
+
+[node name="SteamOffline" type="CenterContainer" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer/VBoxContainer/SteamOffline"]
 layout_mode = 2
 text = "Not connected to steam"
 label_settings = ExtResource("6_3awih")
 
-[node name="Boards" type="VBoxContainer" parent="Leaderboard/VBoxContainer/MarginContainer/Boards"]
-visible = false
+[node name="Boards" type="VBoxContainer" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="UserScore" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/Boards" instance=ExtResource("4_tc631")]
+[node name="UserScore" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer/VBoxContainer/Boards" instance=ExtResource("4_tc631")]
 layout_mode = 2
 
-[node name="FriendsScore" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/Boards" instance=ExtResource("4_tc631")]
+[node name="FriendsScore" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer/VBoxContainer/Boards" instance=ExtResource("4_tc631")]
 layout_mode = 2
 
-[node name="GlobalScore" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/Boards" instance=ExtResource("4_tc631")]
+[node name="GlobalScore" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer/VBoxContainer/Boards" instance=ExtResource("4_tc631")]
 layout_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="Leaderboard/VBoxContainer"]

@@ -41,7 +41,7 @@ func has_focused():
 func _get_first_label_starting(key: String):
 	for m in nodes:
 		var lbl = m.get_label()
-		if _is_valid_node(lbl) and lbl.word.begins_with(key):
+		if lbl.word.begins_with(key) and _is_valid_node(lbl):
 			return lbl
 	return null
 
@@ -50,6 +50,7 @@ func _get_focused_label():
 		var lbl = m.get_label()
 		if _is_valid_node(lbl) and lbl.focused:
 			return lbl
+	
 	return null
 
 func _is_valid_node(label: TypedWord):
