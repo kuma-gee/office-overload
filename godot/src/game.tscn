@@ -599,17 +599,14 @@ nodes = [NodePath("../Email"), NodePath("../Phone"), NodePath("../Junior")]
 
 [node name="Email" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "sounds")]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 0
 script = ExtResource("15_ffym8")
 tween_trans = 10
 label = NodePath("Email/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel")
-slide_dir = Vector2(0, -100)
+slide_dir = Vector2(0, 80)
 sounds = [NodePath("Email/Notification")]
 
 [node name="Email" type="PanelContainer" parent="CanvasLayer/Distractions/Email"]
@@ -621,9 +618,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -84.0
-offset_top = -53.0
+offset_top = 7.0
 offset_right = 84.0
-offset_bottom = 17.0
+offset_bottom = 77.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("10_am0oy")
@@ -646,7 +643,7 @@ pitch_scale = 0.8
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Email/Email"]
 layout_mode = 2
 theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 8
+theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
@@ -863,6 +860,7 @@ theme_override_font_sizes/normal_font_size = 10
 
 [node name="Pause" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("quit_btn", "continue_btn")]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
