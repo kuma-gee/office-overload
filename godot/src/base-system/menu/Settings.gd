@@ -34,6 +34,11 @@ func _ready():
 	visibility_changed.connect(func(): if not visible: _save_config())
 	for s in sliders:
 		s.opened.connect(func(open): active_slider = s if open else null)
+	
+	focus_exited.connect(func():
+		for slider in sliders:
+			slider.set_control_visible(false)
+	)
 
 
 func _load_settings():
