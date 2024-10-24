@@ -92,7 +92,8 @@ func _ready():
 	key_reader.pressed_key.connect(func(key, shift):
 		if not documents.is_empty():
 			if not documents[0].handle_key(key):
-				frame_freeze.freeze(0.05)
+				pass
+				# frame_freeze.freeze(0.05)
 	)
 
 func _unhandled_input(event: InputEvent) -> void:
