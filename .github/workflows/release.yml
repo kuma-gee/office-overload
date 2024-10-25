@@ -95,9 +95,9 @@ jobs:
       steam-app: ${{ fromJSON(needs.build-info.outputs.steam_id) }}
       branch: beta
     secrets:
-      STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
-      STEAM_CONFIG_VDF: ${{ secrets.STEAM_CONFIG_VDF }}
-      PASSWORD: ${{ needs.build-godot.outputs.password }}
+      STEAM_USERNAME: '${{ secrets.STEAM_USERNAME }}'
+      STEAM_CONFIG_VDF: '${{ secrets.STEAM_CONFIG_VDF }}'
+      PASSWORD: '${{ needs.build-godot.outputs.password }}'
 
   release-github:
     uses: kuma-gee/actions/.github/workflows/github-release.yml@main
