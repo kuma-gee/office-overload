@@ -4,9 +4,6 @@
 name: Steam Releases
 
 on:
-  push:
-    tags:
-      - v*.*
   workflow_dispatch:
     inputs:
       demo:
