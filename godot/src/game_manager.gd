@@ -1,5 +1,6 @@
 extends Node
 
+signal initialized()
 signal game_started()
 signal round_ended()
 signal job_quited()
@@ -26,6 +27,8 @@ enum Mode {
 @onready var wpm_calculator = $WPMCalculator
 @onready var save_manager: SaveManager = $SaveManager
 @onready var cache_properties: CacheProperties = $CacheProperties
+
+var init := false
 
 ### Persisted ###
 var day := 0
@@ -61,15 +64,26 @@ var current_mode: Mode
 var _logger = Logger.new("GameManager")
 
 func _ready():
+	SteamCloud.initialized.connect(_load_data)
+	
+func _load_data():
 	var data = save_manager.load_from_slot(0)
 	if data:
 		cache_properties.load_data(data)
 	
 	self.difficulty_level = difficulty_level
+	
+	_logger.info("Game initialized")
+	init = true
+	initialized.emit()
+
+func _exit_tree() -> void:
+	_save_data()
 
 func _save_data():
 	var data = cache_properties.save_data()
 	save_manager.save_to_slot(0, data)
+	SteamCloud.upload_to_cloud()
 
 func quit_game():
 	exiting_game.emit()
