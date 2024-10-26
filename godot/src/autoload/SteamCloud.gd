@@ -57,7 +57,7 @@ func _get_save_file():
 	return SaveManager.SAVE_FILE % 0
 
 func is_steam_cloud_enabled():
-	return steam and steam.isCloudEnabledForAccount() or steam.isCloudEnabledForApp()
+	return steam and steam.isCloudEnabledForAccount() and steam.isCloudEnabledForApp()
 
 func download_from_cloud():
 	if not steam:
