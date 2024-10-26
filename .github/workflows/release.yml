@@ -103,6 +103,8 @@ jobs:
     uses: kuma-gee/actions/.github/workflows/github-release.yml@main
     needs: build-godot
     if: ${{ inputs.release-github }}
+    with:
+      demo: ${{ inputs.demo }}
     secrets:
       discord-webhook: ${{ secrets.DISCORD_RELEASE_HOOK }}
       password: ${{ needs.build-godot.outputs.password }}
