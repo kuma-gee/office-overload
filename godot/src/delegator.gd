@@ -7,7 +7,7 @@ extends Node
 var last_event: InputEvent
 
 func handle_event(event: InputEvent):
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("clear_word"):
 		for node in nodes:
 			if node and node.get_label():
 				node.get_label().reset()

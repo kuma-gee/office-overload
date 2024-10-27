@@ -4,7 +4,7 @@ extends CanvasLayer
 
 func _ready() -> void:
 	hide()
-	InputMapper.override_key_inputs({"debug": [KEY_F1]})
+	#InputMapper.override_key_inputs({"debug": [KEY_F1]})
 	
 	GameManager.logged.connect(func(txt):
 		logs.text += txt + "\n"
