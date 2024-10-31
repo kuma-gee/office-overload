@@ -8,7 +8,7 @@ var version := Build.VERSION
 
 var _logger := Logger.new("Env")
 var _live := false
-var _enable_steam := true
+var _enable_steam := false
 
 func _ready():
 	if is_prod():

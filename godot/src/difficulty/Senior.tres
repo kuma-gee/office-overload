@@ -13,3 +13,4 @@ max_average_wpm = 160
 bgm_speed = 1.8
 minimum_documents = 40
 min_accuracy = 0.85
+min_performance = 150

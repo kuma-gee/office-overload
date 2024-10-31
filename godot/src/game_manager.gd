@@ -47,6 +47,7 @@ var past_wpms := []
 
 var has_played := false
 var unlocked_modes = [Mode.Work]
+var performance := 0.0
 
 ### Maybe Save? ###
 var last_interview_wpm := 0.0
@@ -130,11 +131,14 @@ func reset_values():
 func has_current_job():
 	return day > 0
 
-func finished_day(tasks: int, overtime: int):
+func finished_day(tasks: int, overtime: int, points: int):
 	var wpm = wpm_calculator.get_average_wpm()
 	var acc = wpm_calculator.get_average_accuracy()
 	var current_size = wpm_calculator.get_total_size()
 	var previous_size = total_completed_words * 0.5 # count previous wpm less than the current one
+	
+	performance += max(points - overtime/2, 0) * acc
+	print("Performance: %s" % performance)
 	
 	average_wpm = ((average_wpm * previous_size) + (wpm * current_size)) / (previous_size + current_size)
 	average_accuracy = ((average_accuracy * previous_size) + (acc * current_size)) / (previous_size + current_size)

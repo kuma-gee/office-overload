@@ -567,6 +567,7 @@ visible = false
 visible = false
 
 [node name="Distractions" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1166,12 +1167,14 @@ position = Vector2(0, -29)
 texture = ExtResource("31_x6efq")
 hframes = 2
 
-[node name="DocumentStack" type="Node2D" parent="."]
+[node name="DocumentStack" type="Node2D" parent="." node_paths=PackedStringArray("doc_count_label", "combo_label")]
 position = Vector2(133, -44)
 script = ExtResource("12_n73rb")
 stack_count = 5
 max_stacks = 10
 doc_texture = ExtResource("24_g7dws")
+doc_count_label = NodePath("../MarginContainer/HBoxContainer/DocCount")
+combo_label = NodePath("../MarginContainer/HBoxContainer/Combo")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="DocumentStack"]
 position = Vector2(-10, 0)
@@ -1259,6 +1262,42 @@ color_ramp = SubResource("Gradient_ar5ax")
 visible = false
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 125.5
+offset_top = -57.0
+offset_right = 140.5
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 6
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="DocCount" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("10_am0oy")
+text = "123"
+label_settings = ExtResource("32_eoisl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Combo" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("10_am0oy")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 6
+text = "2x"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

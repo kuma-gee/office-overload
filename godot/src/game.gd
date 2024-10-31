@@ -92,7 +92,7 @@ func _ready():
 	key_reader.pressed_key.connect(func(key, shift):
 		if not documents.is_empty():
 			if not documents[0].handle_key(key):
-				pass
+				document_stack.remove_combo()
 				# frame_freeze.freeze(0.05)
 	)
 
@@ -134,7 +134,8 @@ func _finished(is_gameover = false):
 	self.is_gameover = is_gameover
 	
 	if GameManager.is_work_mode():
-		GameManager.finished_day(document_stack.total, work_time.get_overtime())
+		var total_points = document_stack.points.reduce(func(a, b): return a + b, 0)
+		GameManager.finished_day(document_stack.total, work_time.get_overtime(), total_points)
 		distractions.slide_all_out()
 		if is_gameover:
 			gameover.fired()
@@ -184,7 +185,7 @@ func _spawn_document(await_start = false):
 		documents.erase(doc)
 		
 		overload_progress.reduce(overload_reduce)
-		document_stack.add_document()
+		document_stack.add_document(doc.mistakes > 0)
 		overload_timer.stop()
 		
 		if not work_time.ended and GameManager.is_work_mode():

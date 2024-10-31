@@ -5,6 +5,8 @@ signal document_added()
 @export var stack_count := 10
 @export var max_stacks := 5
 @export var doc_texture: Texture2D
+@export var doc_count_label: Label
+@export var combo_label: Label
 
 @onready var cpu_particles_2d = $CPUParticles2D
 @onready var cpu_particles_2d_2 = $CPUParticles2D2
@@ -12,7 +14,41 @@ signal document_added()
 @onready var cpu_particles_2d_4 = $CPUParticles2D4
 @onready var particles := [cpu_particles_2d, cpu_particles_2d_2, cpu_particles_2d_3, cpu_particles_2d_4]
 
-var total := 0
+var tw: Tween
+var total := 0:
+	set(v):
+		total = v
+		doc_count_label.visible = total > 0
+		
+		if tw and tw.is_running():
+			tw.kill()
+		tw = create_tween().set_trans(Tween.TRANS_BACK).set_parallel()
+
+		doc_count_label.pivot_offset = doc_count_label.size / 2
+		if total == 1:
+			doc_count_label.modulate = Color.TRANSPARENT
+			tw.tween_property(doc_count_label, "modulate", Color.WHITE, 0.5).set_delay(0.5)
+		
+		if combo_count == 1:
+			combo_label.modulate = Color.TRANSPARENT
+			tw.tween_property(combo_label, "modulate", Color.WHITE, 0.5).set_delay(0.5)
+
+		tw.tween_callback(func():
+			doc_count_label.text = "%s" % total
+			doc_count_label.scale = Vector2(0.6, 0.6)
+		).set_delay(0.5)
+		tw.tween_property(doc_count_label, "scale", Vector2(1.0, 1.0), 0.5).set_ease(Tween.EASE_OUT).set_delay(0.5)
+
+var combo_count := 0:
+	set(v):
+		combo_count = v
+		combo_label.visible = combo_count > 0
+
+var points := []
+
+func _ready() -> void:
+	total = 0
+	combo_count = 0
 
 func _create_doc():
 	var sprite = Sprite2D.new()
@@ -20,7 +56,7 @@ func _create_doc():
 	sprite.scale = Vector2(0.7, 0.7)
 	return sprite
 
-func add_document():
+func add_document(mistake := false):
 	var doc = _create_doc()
 	add_child(doc)
 	
@@ -35,7 +71,20 @@ func add_document():
 	
 	var should_remove = not (total % stack_count == 0 and total <= (max_stacks * stack_count))
 	tw.finished.connect(func(): if should_remove: doc.queue_free())
+	
+	if mistake:
+		finish(1)
+	else:
+		combo_count += 1
 	total += 1
+
+func remove_combo():
+	combo_label.hide()
+
+func finish(add_point = 0):
+	if combo_count > 0:
+		points.append((combo_count * 2) + add_point)
+		combo_count = 0
 
 func _emit_particles():
 	for p in particles:
