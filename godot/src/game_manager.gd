@@ -215,14 +215,6 @@ enum PromotionTip {
 	Max,
 }
 
-func get_difficulty_level():
-	#var start_wpm = GameManager.difficulty.min_average_wpm
-	#var end_wpm = GameManager.difficulty.max_average_wpm
-	#var max_wpm_diff = end_wpm - start_wpm
-	#var wpm_diff = GameManager.get_wpm() - start_wpm
-
-	return 1.0 #clamp(wpm_diff / max_wpm_diff, 0.0, 1.0)
-
 func can_have_promotion():
 	if is_max_promotion(): return PromotionTip.Max
 

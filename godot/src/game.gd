@@ -2,6 +2,7 @@ extends Node2D
 
 @export var overload_reduce := 20.0
 @export var work_time: WorkTime
+@export var max_document_count := 15 # slower documents at this point
 
 @export_category("Interview")
 @export var min_documents := 2
@@ -156,8 +157,12 @@ func _spawn():
 	
 	if GameManager.is_work_mode():
 		if not GameManager.is_intern():
-			var p = GameManager.get_difficulty_level()
-			var t = lerp(GameManager.difficulty.max_documents, GameManager.difficulty.min_documents, p)
+			#var count = pow(2, 1 / documents.size())
+			#var p = count / float(pow(2, max_document_count))
+			#var t = lerp(GameManager.difficulty.max_documents, GameManager.difficulty.min_documents, p)
+			
+			var t = max(pow(GameManager.difficulty.max_documents, documents.size() / float(max_document_count)), GameManager.difficulty.min_documents)
+			print(documents.size(), ", ", t)
 			spawn_timer.start(t)
 	elif GameManager.is_interview_mode():
 		if documents.size() < min_documents:
