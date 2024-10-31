@@ -42,7 +42,7 @@ var total := 0:
 var combo_count := 0:
 	set(v):
 		combo_count = v
-		combo_label.visible = combo_count > 0
+		combo_label.visible = combo_count > 1
 
 var points := []
 

@@ -119,6 +119,7 @@ func reset_values():
 	completed_documents = 0
 	total_overtime = 0
 	difficulty_level = DifficultyResource.Level.INTERN
+	performance = 0
 	
 	average_wpm = 0.0
 	average_accuracy = 0.0
@@ -137,8 +138,8 @@ func finished_day(tasks: int, overtime: int, points: int):
 	var current_size = wpm_calculator.get_total_size()
 	var previous_size = total_completed_words * 0.5 # count previous wpm less than the current one
 	
-	performance += max(points - overtime/2, 0) * acc
-	print("Performance: %s" % performance)
+	performance += ceil(max(points - int(overtime/2), 0) * acc)
+	print("Performance: %s with %s, %s, %s" % [performance, points, acc, overtime])
 	
 	average_wpm = ((average_wpm * previous_size) + (wpm * current_size)) / (previous_size + current_size)
 	average_accuracy = ((average_accuracy * previous_size) + (acc * current_size)) / (previous_size + current_size)
@@ -215,27 +216,30 @@ enum PromotionTip {
 }
 
 func get_difficulty_level():
-	var start_wpm = GameManager.difficulty.min_average_wpm
-	var end_wpm = GameManager.difficulty.max_average_wpm
-	var max_wpm_diff = end_wpm - start_wpm
-	var wpm_diff = GameManager.get_wpm() - start_wpm
+	#var start_wpm = GameManager.difficulty.min_average_wpm
+	#var end_wpm = GameManager.difficulty.max_average_wpm
+	#var max_wpm_diff = end_wpm - start_wpm
+	#var wpm_diff = GameManager.get_wpm() - start_wpm
 
-	return clamp(wpm_diff / max_wpm_diff, 0.0, 1.0)
+	return 1.0 #clamp(wpm_diff / max_wpm_diff, 0.0, 1.0)
 
 func can_have_promotion():
 	if is_max_promotion(): return PromotionTip.Max
 
 	var next = difficulty_level + 1
 	var diff = DIFFICULTIES[next] as DifficultyResource
-
-	if get_wpm() < diff.min_average_wpm:
-		return PromotionTip.WPM
-
-	if completed_documents < diff.minimum_documents:
+	
+	if performance < diff.min_performance:
 		return PromotionTip.Documents
 
-	if average_accuracy < diff.min_accuracy:
-		return PromotionTip.Accuracy
+	#if get_wpm() < diff.min_average_wpm:
+		#return PromotionTip.WPM
+#
+	#if completed_documents < diff.minimum_documents:
+		#return PromotionTip.Documents
+#
+	#if average_accuracy < diff.min_accuracy:
+		#return PromotionTip.Accuracy
 	
 	return null
 	
