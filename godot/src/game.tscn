@@ -566,8 +566,7 @@ visible = false
 [node name="End" parent="CanvasLayer" instance=ExtResource("9_dbvje")]
 visible = false
 
-[node name="Distractions" type="Control" parent="CanvasLayer"]
-visible = false
+[node name="Distractions" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overlay")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -577,6 +576,16 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("10_am0oy")
 script = ExtResource("14_s1o3m")
+overlay = NodePath("Overlay")
+
+[node name="Overlay" type="ColorRect" parent="CanvasLayer/Distractions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
 
 [node name="ShakeEffect" type="Node" parent="CanvasLayer/Distractions"]
 script = ExtResource("20_u0r5t")
@@ -682,8 +691,8 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 73.0
-offset_right = 73.0
+offset_left = 99.0
+offset_right = 99.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("15_ffym8")
@@ -719,9 +728,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -36.0
-offset_top = -82.0
+offset_top = -68.0
 offset_right = 36.0
-offset_bottom = 37.0
+offset_bottom = 51.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("10_am0oy")
@@ -752,7 +761,10 @@ horizontal_alignment = 1
 
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Phone/Phone/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
+size_flags_horizontal = 1
 theme_override_font_sizes/normal_font_size = 12
+text = "aasdadasdasdas"
+autowrap_mode = 3
 height = 1.0
 
 [node name="Junior" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "sounds")]
@@ -802,7 +814,7 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Junior:"
+text = "Junior"
 label_settings = ExtResource("16_3sqd2")
 horizontal_alignment = 1
 

@@ -86,6 +86,10 @@ func finish(add_point = 0):
 		points.append((combo_count * 2) + add_point)
 		combo_count = 0
 
+func collect_points():
+	finish()
+	return points.reduce(func(a, b): return a + b, 0)
+
 func _emit_particles():
 	for p in particles:
 		p.emitting = true

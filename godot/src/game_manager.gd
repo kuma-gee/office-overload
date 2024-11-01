@@ -133,6 +133,7 @@ func reset_values():
 	total_overtime = 0
 	difficulty_level = DifficultyResource.Level.INTERN
 	performance = 0
+	past_performance = []
 	
 	average_wpm = 0.0
 	average_accuracy = 0.0

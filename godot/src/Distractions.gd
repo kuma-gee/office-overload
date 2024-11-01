@@ -44,6 +44,8 @@ enum Type {
 	JUNIOR,
 }
 
+@export var overlay: Control
+
 @onready var delegator = $Delegator
 @onready var shake_effect: EffectRoot = $ShakeEffect
 
@@ -52,12 +54,20 @@ enum Type {
 @onready var junior = $Junior
 @onready var menus: Array[Control] = [email, phone, junior]
 
+var tw: Tween
 var distraction_accumulator = 0.0
 
 func _ready():
+	overlay.modulate = Color.TRANSPARENT
 	delegator.nodes = menus
 	_close_all()
 	show()
+	
+	for m in menus:
+		m.finished.connect(func():
+			if not _has_active_distraction():
+				_hide_overlay()
+		)
 
 func _close_all():
 	for x in menus:
@@ -66,6 +76,7 @@ func _close_all():
 func slide_all_out():
 	for x in menus:
 		x.slide_out()
+	_hide_overlay()
 
 func maybe_show_distraction():
 	var distraction_random = randf() - distraction_accumulator
@@ -95,8 +106,41 @@ func _get_random_distraction_word(type: Type):
 
 	return ""
 
+func _hide_overlay():
+	if tw and tw.is_running():
+		tw.kill()
+	
+	tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	tw.tween_property(overlay, "modulate", Color.TRANSPARENT, 0.5)
+	
+	for m in menus:
+		if m.is_open:
+			m.slide_in_half()
+
+func _show_overlay():
+	if tw and tw.is_running():
+		tw.kill()
+	
+	tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	tw.tween_property(overlay, "modulate", Color.WHITE, 0.5)
+	
+	for m in menus:
+		if m.is_open:
+			m.slide_in_full()
+
 func _input(event):
+	if not event is InputEventKey: return
+	
+	var key_ev = event as InputEventKey
+	if key_ev.is_action_released("special_mode"):
+		_hide_overlay()
+	
 	if not _has_active_distraction(): return
+	
+	if key_ev.is_action_pressed("special_mode"):
+		_show_overlay()
+	
+	if not Input.is_action_pressed("special_mode"): return
 	
 	var handled = delegator.handle_event(event)
 	if event is InputEventKey and not delegator.has_focused() and not handled:

@@ -6,11 +6,7 @@
 script = ExtResource("1_qw0b4")
 level = 1
 min_documents = 1.5
-max_documents = 3.0
+max_documents = 2.5
 distractions = 0.0
-min_average_wpm = 70
-max_average_wpm = 140
 bgm_speed = 1.4
-minimum_documents = 20
-min_accuracy = 0.7
 min_performance = 50

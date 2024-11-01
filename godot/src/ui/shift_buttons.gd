@@ -27,9 +27,9 @@ func _physics_process(delta: float) -> void:
 
 func handle_event(event: InputEvent) -> bool:
 	if not event is InputEventKey: return false
-	if not event.is_pressed() and event.keycode != KEY_SHIFT: return false
+	if not event.is_pressed() and not event.is_action("special_mode"): return false
 	
-	var shift = is_shift_pressed(event)
+	var shift = event.is_action_pressed("special_mode") or Input.is_action_pressed("special_mode")
 	if not shift:
 		if was_shift:
 			close()
@@ -48,8 +48,8 @@ func handle_event(event: InputEvent) -> bool:
 	delegator.handle_event(event)
 	return true
 
-func is_shift_pressed(event: InputEventKey):
-	return event and (event.keycode == KEY_SHIFT or event.shift_pressed) and event.pressed
+#func is_shift_pressed(event: InputEventKey):
+	#return event and (event.keycode == KEY_SHIFT or event.shift_pressed) and event.pressed
 
 func close():
 	close_effect()

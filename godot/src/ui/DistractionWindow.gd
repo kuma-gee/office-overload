@@ -1,5 +1,7 @@
 extends Control
 
+signal finished()
+
 @export var tween_trans := Tween.TRANS_CUBIC
 @export var label: TypedWord
 @export var type := Distraction.Type.EMAIL
@@ -19,10 +21,12 @@ func _ready():
 	label.type_finish.connect(func():
 		GameManager.finish_type(label.word, mistakes)
 		slide_out()
+		finished.emit()
 	)
 	label.type_wrong.connect(func(): mistakes += 1)
 	
 	hide()
+	global_position = get_hide_position()
 
 func set_word(w: String):
 	label.word = w
@@ -35,15 +39,39 @@ func get_word():
 	return label.word
 
 func slide_in():
+	slide_in_half()
+	#if Input.is_action_pressed("special_mode"):
+		#slide_in_full()
+	#else:
+		#slide_in_half()
+
+func slide_in_half():
+	if tw and tw.is_running():
+		tw.kill()
+	
+	var hide_pos = get_hide_position()
+	var dir = hide_pos - start_pos
+	tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(tween_trans)
+	tw.tween_property(self, "global_position", start_pos + dir/2, 0.5) #.from(get_hide_position())
+	tw.finished.connect(func(): if effect_root: effect_root.do_effect())
+	
+	if not is_open:
+		is_open = true
+		for s in sounds:
+			s.play()
+
+func slide_in_full():
 	if tw and tw.is_running():
 		tw.kill()
 	
 	tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(tween_trans)
-	tw.tween_property(self, "global_position", start_pos, 0.5).from(get_hide_position())
+	tw.tween_property(self, "global_position", start_pos, 0.5) #.from(get_hide_position())
 	tw.finished.connect(func(): if effect_root: effect_root.do_effect())
-	is_open = true
-	for s in sounds:
-		s.play()
+	
+	if not is_open:
+		is_open = true
+		for s in sounds:
+			s.play()
 
 func slide_out():
 	if tw and tw.is_running():

@@ -113,6 +113,8 @@ func remove_all():
 	_points.clear()
 	_curve.points_px.clear()
 	_curve.queue_redraw()
+	if coordinate:
+		coordinate.hide()
 
 
 ## Delete instance
@@ -120,6 +122,8 @@ func delete():
 	_graph.get_node("PlotArea").remove_child(_curve)
 	_curve.queue_free()
 	legend.queue_free()
+	if coordinate:
+		coordinate.hide()
 	call_deferred("unreference")
 
 
