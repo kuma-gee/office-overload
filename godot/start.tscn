@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=43 format=3 uid="uid://ctlncowdl0sbn"]
 
 [ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="1_3ujy4"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
@@ -33,6 +33,7 @@
 [ext_resource type="Script" path="res://src/ui/performance_graph.gd" id="25_028t0"]
 [ext_resource type="Script" path="res://addons/graph_2d/graph_2d.gd" id="25_d4kul"]
 [ext_resource type="Texture2D" uid="uid://qpujdmcko0bu" path="res://assets/sprites/Arrow.png" id="27_lc2cv"]
+[ext_resource type="Script" path="res://addons/graph_2d/custom_nodes/coordinate.gd" id="33_4qrxl"]
 [ext_resource type="Script" path="res://src/ui/quit_job_warning.gd" id="34_xrtne"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gorx4"]
@@ -758,8 +759,7 @@ node = NodePath("../..")
 script = ExtResource("15_b245w")
 node = NodePath("../../../MenuOverlay")
 
-[node name="PerformanceGraph" type="Control" parent="." node_paths=PackedStringArray("graph", "effect", "left_button", "right_button")]
-visible = false
+[node name="PerformanceGraph" type="Control" parent="." node_paths=PackedStringArray("graph", "effect", "performance_button", "wpm_button", "left_button", "right_button")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -770,12 +770,14 @@ focus_mode = 2
 script = ExtResource("25_028t0")
 graph = NodePath("PanelContainer/Graph2D")
 effect = NodePath("EffectRoot")
-left_button = NodePath("PanelContainer/Graph2D/LeftButton")
-right_button = NodePath("PanelContainer/Graph2D/RightButton")
+performance_button = NodePath("PanelContainer/MarginContainer/HBoxContainer/Performance")
+wpm_button = NodePath("PanelContainer/MarginContainer/HBoxContainer/WPM")
+left_button = NodePath("PanelContainer/Graph2D/HBoxContainer/LeftButton")
+right_button = NodePath("PanelContainer/Graph2D/HBoxContainer/RightButton")
 
 [node name="Delegator" type="Node" parent="PerformanceGraph" node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
-nodes = [NodePath("../PanelContainer/Graph2D/LeftButton"), NodePath("../PanelContainer/Graph2D/RightButton")]
+nodes = [NodePath("../PanelContainer/Graph2D/HBoxContainer/LeftButton"), NodePath("../PanelContainer/Graph2D/HBoxContainer/RightButton"), NodePath("../PanelContainer/MarginContainer/HBoxContainer/Performance"), NodePath("../PanelContainer/MarginContainer/HBoxContainer/WPM")]
 
 [node name="PanelContainer" type="PanelContainer" parent="PerformanceGraph"]
 layout_mode = 1
@@ -789,61 +791,114 @@ offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Graph2D" type="Control" parent="PerformanceGraph/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PerformanceGraph/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PerformanceGraph/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Performance" parent="PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+word = "Performance"
+
+[node name="TypingLabel" parent="PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/Performance/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 6
+
+[node name="WPM" parent="PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+word = "WPM"
+
+[node name="TypingLabel" parent="PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/WPM/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 6
+
+[node name="Graph2D" type="Control" parent="PerformanceGraph/PanelContainer" node_paths=PackedStringArray("coordinate")]
 layout_mode = 2
 theme = ExtResource("1_qu80e")
 script = ExtResource("25_d4kul")
 default_color = Color(0.207843, 0.207843, 0.25098, 1)
-x_label = "WPM"
+coordinate = NodePath("Coordinate")
 show_x_ticks = false
 show_x_numbers = false
 
-[node name="LeftButton" parent="PerformanceGraph/PanelContainer/Graph2D" instance=ExtResource("7_2n7ql")]
-layout_mode = 0
-offset_left = 117.0
-offset_top = 131.0
-offset_right = 137.0
-offset_bottom = 149.0
+[node name="Coordinate" type="Label" parent="PerformanceGraph/PanelContainer/Graph2D"]
+visible = false
+z_index = 10
+z_as_relative = false
+layout_mode = 2
+offset_left = 263.0
+offset_right = 272.0
+offset_bottom = 6.0
+grow_horizontal = 0
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 6
+script = ExtResource("33_4qrxl")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PerformanceGraph/PanelContainer/Graph2D"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.5
+offset_top = -19.0
+offset_right = 40.5
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="LeftButton" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_m0tms")
 word = "H"
-reset_on_finished = false
 
-[node name="MarginContainer" parent="PerformanceGraph/PanelContainer/Graph2D/LeftButton" index="1"]
+[node name="MarginContainer" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton" index="1"]
 z_index = 5
-theme_override_constants/margin_top = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="PerformanceGraph/PanelContainer/Graph2D/LeftButton"]
+[node name="TypingLabel" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 6
+
+[node name="MarginContainer2" type="MarginContainer" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = -8
 
-[node name="TextureRect" type="TextureRect" parent="PerformanceGraph/PanelContainer/Graph2D/LeftButton/MarginContainer2"]
+[node name="TextureRect" type="TextureRect" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer2"]
 layout_mode = 2
 texture = ExtResource("27_lc2cv")
 expand_mode = 2
 stretch_mode = 5
 flip_h = true
 
-[node name="RightButton" parent="PerformanceGraph/PanelContainer/Graph2D" instance=ExtResource("7_2n7ql")]
-layout_mode = 0
-offset_left = 170.0
-offset_top = 131.0
-offset_right = 190.0
-offset_bottom = 149.0
+[node name="Label" type="Label" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 6
+text = "Performance"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightButton" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_fembg")
 word = "L"
-reset_on_finished = false
 
-[node name="MarginContainer" parent="PerformanceGraph/PanelContainer/Graph2D/RightButton" index="1"]
+[node name="MarginContainer" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton" index="1"]
 z_index = 5
-theme_override_constants/margin_top = 1
 
-[node name="MarginContainer3" type="MarginContainer" parent="PerformanceGraph/PanelContainer/Graph2D/RightButton"]
+[node name="TypingLabel" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 6
+
+[node name="MarginContainer3" type="MarginContainer" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 2
 
-[node name="TextureRect" type="TextureRect" parent="PerformanceGraph/PanelContainer/Graph2D/RightButton/MarginContainer3"]
+[node name="TextureRect" type="TextureRect" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton/MarginContainer3"]
 layout_mode = 2
 texture = ExtResource("27_lc2cv")
 expand_mode = 3
@@ -872,6 +927,7 @@ script = ExtResource("15_b245w")
 node = NodePath("../../../MenuOverlay")
 
 [node name="QuitJobWarning" type="Control" parent="." node_paths=PackedStringArray("effect", "quit_button_yes", "quit_button_no", "delegator")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -968,5 +1024,7 @@ texture_normal = ExtResource("14_vk34l")
 script = ExtResource("19_uqiqi")
 
 [editable path="FeedbackContainer/FeedbackButton"]
-[editable path="PerformanceGraph/PanelContainer/Graph2D/LeftButton"]
-[editable path="PerformanceGraph/PanelContainer/Graph2D/RightButton"]
+[editable path="PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/Performance"]
+[editable path="PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/WPM"]
+[editable path="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton"]
+[editable path="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton"]

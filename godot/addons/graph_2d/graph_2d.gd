@@ -10,6 +10,7 @@ extends Control
 #region Export variables
 
 @export var default_color := Color.WHITE
+@export var coordinate: Label
 
 @export_group("X Axis")
 ## Minimun value on X-axis
@@ -124,14 +125,14 @@ extends Control
 #region Private variables
 
 const _MARGIN_TOP = 30
-const _MARGIN_BOTTOM = 30
-const _MARGIN_LEFT = 45
+const _MARGIN_BOTTOM = 25
+const _MARGIN_LEFT = 30
 const _MARGIN_RIGHT = 30
 
 const _Graph2DAxis = preload("res://addons/graph_2d/custom_nodes/axis.gd")
 const _Graph2DCoord = preload("res://addons/graph_2d/custom_nodes/coordinate.gd")
 const _Graph2DGrid = preload("res://addons/graph_2d/custom_nodes/grid.gd")
-const _Graph2DLegend = preload("res://addons/graph_2d/custom_nodes/legend.gd")
+#const _Graph2DLegend = preload("res://addons/graph_2d/custom_nodes/legend.gd")
 
 var _plots: Array
 
@@ -140,7 +141,6 @@ var _y_step: float
 
 #endregion
 
-var coordinate
 var plot_area
 var first_plot: PlotItem
 
@@ -170,12 +170,12 @@ func _ready():
 	plot_area.offset_bottom = -_MARGIN_BOTTOM
 	add_child(plot_area)
 	
-	var legend = _Graph2DLegend.new()
-	plot_area.add_child(legend)
+	#var legend = _Graph2DLegend.new()
+	#plot_area.add_child(legend)
 	
-	coordinate = _Graph2DCoord.new()
-	coordinate.modulate = default_color
-	plot_area.add_child(coordinate)
+	#coordinate = _Graph2DCoord.new()
+	#coordinate.modulate = default_color
+	#plot_area.add_child(coordinate)
 	
 	resized.connect(_on_Graph_resized)
 	plot_area.resized.connect(_on_plot_area_resized)
@@ -225,6 +225,7 @@ func remove_plot_item(plot: PlotItem):
 func remove_all() -> void:
 	for p:PlotItem in _plots:
 		remove_plot_item(p)
+	first_plot = null
 
 ## Return number of plots
 func count() -> int:
@@ -345,12 +346,12 @@ func _update_plots():
 func _update_legend() -> void:
 	# Add labels to the legend
 	var labels = Array()
-	for p in _plots:
-		labels.append({
-			name = p.label,
-			color = p.color,
-		})
-	get_node("PlotArea/Legend").update(labels)
+	#for p in _plots:
+		#labels.append({
+			#name = p.label,
+			#color = p.color,
+		#})
+	#get_node("PlotArea/Legend").update(labels)
 
 func _on_Graph_resized() -> void:
 	_update_graph()

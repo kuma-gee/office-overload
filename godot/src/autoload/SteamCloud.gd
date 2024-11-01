@@ -57,10 +57,10 @@ func _get_save_file():
 	return SaveManager.SAVE_FILE % 0
 
 func is_steam_cloud_enabled():
-	return steam and steam.isCloudEnabledForAccount() and steam.isCloudEnabledForApp()
+	return steam and steam.isCloudEnabledForAccount() and steam.isCloudEnabledForApp() and SteamManager.is_successful_initialized
 
 func download_from_cloud():
-	if not steam:
+	if not is_steam_cloud_enabled():
 		logger.warn("Steam not initialized.")
 		initialized.emit()
 		return
@@ -74,7 +74,7 @@ func download_from_cloud():
 	steam.fileReadAsync(CLOUD_FILE, 0, steam.getFileSize(CLOUD_FILE))
 
 func upload_to_cloud():
-	if not steam:
+	if not is_steam_cloud_enabled():
 		logger.warn("Steam not initialized.")
 		return
 	

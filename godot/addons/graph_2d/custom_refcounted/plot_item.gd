@@ -31,8 +31,13 @@ var _curve: Plot2D
 var _LineCurve = preload("res://addons/graph_2d/custom_nodes/plot_2d.gd")
 var _points: PackedVector2Array
 var _graph
+var show_points = true:
+	set(v):
+		show_points = v
+		_curve.show_points = v
 
-var coordinate
+var coordinate: Label
+var legend: Label
 
 func _init(obj, l, c, w):
 	_curve = _LineCurve.new()
@@ -43,11 +48,21 @@ func _init(obj, l, c, w):
 	color = c
 	_curve.width = w
 	_graph.get_node("PlotArea").add_child(_curve)
+	
+	legend = Label.new()
+	legend.text = l
+	legend.add_theme_font_size_override("font_size", 6)
+	legend.add_theme_color_override("font_color", c)
+	_graph.add_child(legend)
 
 func set_active_point(pt: Vector2):
-	_curve.active_point_idx = _points.find(pt)
-	_curve.queue_redraw()
-	coordinate.text = "%.0f WPM" % [pt.y]
+	if coordinate:
+		var pt_id = _points.find(pt)
+		_curve.active_point_idx = pt_id
+		_curve.queue_redraw()
+		coordinate.text = "%.0f %s" % [pt.y, label]
+		coordinate.global_position = _curve.global_position + _curve.points_px[pt_id] + Vector2(2, 2)
+		coordinate.show()
 
 func get_point_from_active(delta: int):
 	var idx = _curve.active_point_idx + delta
@@ -76,6 +91,9 @@ func add_point(pt: Vector2):
 	if _curve.active_point_idx < 0:
 		set_active_point(pt)
 
+func update_legend():
+	var pt = _curve.points_px[_curve.points_px.size() - 1]
+	legend.global_position = _curve.global_position + pt + Vector2(2, -legend.size.y / 2)
 
 ## Remove point from plot
 func remove_point(pt: Vector2):
@@ -101,6 +119,7 @@ func remove_all():
 func delete():
 	_graph.get_node("PlotArea").remove_child(_curve)
 	_curve.queue_free()
+	legend.queue_free()
 	call_deferred("unreference")
 
 

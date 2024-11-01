@@ -39,11 +39,22 @@ var difficulty_level := DifficultyResource.Level.INTERN:
 		if v in DIFFICULTIES:
 			difficulty_level = v
 			difficulty = DIFFICULTIES[v]
+		
+		if v+1 in DIFFICULTIES:
+			next_difficulty = DIFFICULTIES[v+1]
+		else:
+			next_difficulty = null
+			
+		if v-1 in DIFFICULTIES:
+			prev_difficulty = DIFFICULTIES[v-1]
+		else:
+			prev_difficulty = null
 
 var total_completed_words := 0
 var average_wpm := 0.0
 var average_accuracy := 0.0
 var past_wpms := []
+var past_performance := []
 
 var has_played := false
 var unlocked_modes = [Mode.Work]
@@ -60,6 +71,8 @@ var last_crunch_accuracy := 0.0
 
 ### Dynamic ###
 var difficulty: DifficultyResource
+var next_difficulty: DifficultyResource
+var prev_difficulty: DifficultyResource
 var current_mode: Mode
 
 var _logger = Logger.new("GameManager")
@@ -138,12 +151,17 @@ func finished_day(tasks: int, overtime: int, points: int):
 	var current_size = wpm_calculator.get_total_size()
 	var previous_size = total_completed_words * 0.5 # count previous wpm less than the current one
 	
-	performance += ceil(max(points - int(overtime/2), 0) * acc)
+	performance += int(points - int(overtime/2) * acc)
+	past_performance.append(performance)
+	if past_performance.size() > keep_past_wpms:
+		past_performance.pop_front()
 	print("Performance: %s with %s, %s, %s" % [performance, points, acc, overtime])
 	
 	average_wpm = ((average_wpm * previous_size) + (wpm * current_size)) / (previous_size + current_size)
 	average_accuracy = ((average_accuracy * previous_size) + (acc * current_size)) / (previous_size + current_size)
 	past_wpms.append(average_wpm)
+	if past_wpms.size() > keep_past_wpms:
+		past_wpms.pop_front()
 	
 	wpm_calculator.reset()
 	

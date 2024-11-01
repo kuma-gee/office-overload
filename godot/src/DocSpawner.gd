@@ -85,7 +85,7 @@ var mode = -1
 
 func _ready():
 	if GameManager.is_work_mode():
-		var p = GameManager.get_difficulty_level()
+		var p = clamp(GameManager.day / 10, 0, 1)
 		if GameManager.is_intern():
 			add_easy()
 			if GameManager.day >= 4 and p > 0.8:
