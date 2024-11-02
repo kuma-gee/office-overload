@@ -135,13 +135,18 @@ func _finished(is_gameover = false):
 	self.is_gameover = is_gameover
 	
 	if GameManager.is_work_mode():
-		var total_points = document_stack.collect_points()
-		GameManager.finished_day(document_stack.total, work_time.get_overtime(), total_points, distractions.missed)
+		var data = {
+			"total": document_stack.total,
+			"perfect": document_stack.perfect_tasks,
+			"overtime": work_time.get_overtime(),
+			"distractions": distractions.missed,
+		}
+		GameManager.finished_day(data)
 		distractions.slide_all_out()
 		if is_gameover:
 			gameover.fired()
 		else:
-			end.day_ended(document_stack.total, work_time.get_overtime())
+			end.day_ended(data)
 	elif GameManager.is_interview_mode():
 		GameManager.finished_interview(document_stack.total, work_time.timed_mode_seconds)
 		end.interview_ended(document_stack.total)
@@ -162,7 +167,6 @@ func _spawn():
 			#var t = lerp(GameManager.difficulty.max_documents, GameManager.difficulty.min_documents, p)
 			
 			var t = max(pow(GameManager.difficulty.max_documents, documents.size() / float(max_document_count)), GameManager.difficulty.min_documents)
-			print(documents.size(), ", ", t)
 			spawn_timer.start(t)
 	elif GameManager.is_interview_mode():
 		if documents.size() < min_documents:

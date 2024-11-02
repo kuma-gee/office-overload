@@ -71,7 +71,7 @@ scale_max = 5.0
 scale_curve = SubResource("CurveTexture_51fdc")
 alpha_curve = SubResource("CurveTexture_rj2fv")
 
-[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "interview_finished", "interview_wpm", "interview_delegator", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_delegator", "next_day", "next_day_container", "promotion_container", "title", "overtime", "finished_tasks", "day_delegator", "promotion_tip_text", "promotion_text", "promotion_text_container", "promotion_particle_1", "promotion_particle_2", "promotion_sound", "promotion_delegator", "work_container", "interview_container", "crunch_container", "unlocked_container")]
+[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "interview_finished", "interview_wpm", "interview_delegator", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_delegator", "next_day", "next_day_container", "promotion_container", "title", "overtime", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "acc_label", "points_label", "promotion_text", "promotion_text_container", "promotion_particle_1", "promotion_particle_2", "promotion_sound", "promotion_delegator", "work_container", "interview_container", "crunch_container", "unlocked_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -95,9 +95,13 @@ next_day_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer
 promotion_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/Promotion")
 title = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/Title")
 overtime = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Overtime")
-finished_tasks = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/FinishedTasks")
+finished_tasks = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/HBoxContainer/FinishedTasks")
 day_delegator = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/DayDelegator")
 promotion_tip_text = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTip")
+perfect_tasks_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/HBoxContainer/PerfectTasks")
+distraction_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Distractions")
+acc_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/HBoxContainer2/Acc")
+points_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Points")
 promotion_text = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/TypingLabel")
 promotion_text_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer")
 promotion_particle_1 = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2/GPUParticles2D")
@@ -301,15 +305,47 @@ lifetime = 0.8
 one_shot = true
 explosiveness = 0.9
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "FINISHED_TASKS"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="PerfectTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "PERFECT_TASKS"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
 [node name="Overtime" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "OVERTIME"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Distractions" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "DISTRACTIONS"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Acc" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Accuracy"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Points" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "POINTS"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
@@ -431,6 +467,7 @@ volume_db = -10.0
 pitch_scale = 1.2
 
 [node name="UnlockedMode" type="Control" parent="." node_paths=PackedStringArray("particles", "effect", "label")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

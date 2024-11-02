@@ -26,6 +26,10 @@ extends Control
 @export var finished_tasks: Label
 @export var day_delegator: Delegator
 @export var promotion_tip_text: Label
+@export var perfect_tasks_label: Label
+@export var distraction_label: Label
+@export var acc_label: Label
+@export var points_label: Label
 
 @export_category("Promotion")
 @export var promotion_text: RichTextLabel
@@ -54,10 +58,21 @@ func _ready():
 	next_day.finished.connect(func(): GameManager.start())
 	GameManager.mode_unlocked.connect(func(mode): unlocked_container.unlocked_mode(mode))
 
-func day_ended(finished: int, overtime_in_hours: float):
+func day_ended(data: Dictionary):
+	var tasks = data["total"]
+	var perfect = data["perfect"]
+	var overtime_hours = data["overtime"]
+	var distraction_missed = data["distractions"]
+	var points = data["points"]
+	var acc = data["acc"]
+	
 	title.text = "Day %s report" % GameManager.day
-	finished_tasks.text = "Finished %s tasks" % finished
-	overtime.text = "%s hours of overtime" % overtime_in_hours
+	finished_tasks.text = "%s tasks" % tasks
+	perfect_tasks_label.text = "+ %s perfect" % perfect
+	overtime.text = "%s hours of overtime" % overtime_hours
+	distraction_label.text = "%s ignored messages" % distraction_missed
+	acc_label.text = "Quality %0.f%%" % [acc * 2]
+	points_label.text = "Performance %s" % points
 	
 	var promo_tip = GameManager.can_have_promotion()
 	var promo = promo_tip == null

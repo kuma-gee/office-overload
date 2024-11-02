@@ -4,9 +4,12 @@ signal document_added()
 
 @export var stack_count := 10
 @export var max_stacks := 5
+@export var combo_multiplier_divider := 5
 @export var doc_texture: Texture2D
 @export var doc_count_label: Label
 @export var combo_label: Label
+
+@export var combo_particles: GPUParticles2D
 
 @onready var cpu_particles_2d = $CPUParticles2D
 @onready var cpu_particles_2d_2 = $CPUParticles2D2
@@ -43,12 +46,28 @@ var combo_count := 0:
 	set(v):
 		combo_count = v
 		combo_label.visible = combo_count > 1
+		#if combo_count <= 1:
+			#combo_multiplier = 1
+			#combo_particles.emitting = false
+		#else:
+			#var extra_mult = ceil((combo_count-1) / combo_multiplier_divider)
+			#combo_multiplier = 2 + extra_mult
+			#combo_label.show()
+			#combo_particles.emitting = true
+			#combo_particles.speed_scale = 1 + 0.1 * extra_mult
 
-var points := []
+var combo_multiplier := 1:
+	set(v):
+		combo_multiplier = v
+		combo_label.text = "%sx" % combo_multiplier
+
+var perfect_tasks := 0
+var tasks := 0
 
 func _ready() -> void:
 	total = 0
 	combo_count = 0
+	combo_multiplier = 2
 
 func _create_doc():
 	var sprite = Sprite2D.new()
@@ -73,22 +92,16 @@ func add_document(mistake := false):
 	tw.finished.connect(func(): if should_remove: doc.queue_free())
 	
 	if mistake:
-		finish(1)
+		combo_count = 0
+		tasks += 1
 	else:
 		combo_count += 1
+		perfect_tasks += 1
+	
 	total += 1
 
 func remove_combo():
 	combo_label.hide()
-
-func finish(add_point = 0):
-	if combo_count > 0:
-		points.append((combo_count * 2) + add_point)
-		combo_count = 0
-
-func collect_points():
-	finish()
-	return points.reduce(func(a, b): return a + b, 0)
 
 func _emit_particles():
 	for p in particles:
