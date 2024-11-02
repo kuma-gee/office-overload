@@ -44,6 +44,7 @@ enum Type {
 	JUNIOR,
 }
 
+@export var distraction_timeout := 10
 @export var overlay: Control
 
 @onready var delegator = $Delegator
@@ -68,6 +69,7 @@ func _ready():
 		m.finished.connect(func():
 			if not _has_active_distraction():
 				_hide_overlay()
+			delegator.reset()
 		)
 		m.timeout.connect(func(): missed += 1)
 
@@ -98,15 +100,35 @@ func show_distraction():
 	
 	var distraction = available.pick_random()
 	var word = _get_random_distraction_word(distraction.type)
-	distraction.set_word(word)
+	distraction.set_word(word, distraction_timeout)
 
 func _get_random_distraction_word(type: Type):
+	var active = _get_active_words()
+	var available = []
+	
 	match type:
-		Type.EMAIL: return EMAIL.pick_random()
-		Type.PHONE: return PHONE.pick_random()
-		Type.JUNIOR: return JUNIOR.pick_random()
+		Type.EMAIL: available = EMAIL
+		Type.PHONE: available = PHONE
+		Type.JUNIOR: available = JUNIOR
+	
+	var max_loop = 10
+	var loop = 0
+	var word = ""
+	while word.length() == 0 or active.filter(func(x): return x[0] == word[0]).size() > 0:
+		word = available.pick_random()
+		loop += 1
+		
+		if loop >= max_loop:
+			break
 
-	return ""
+	return word
+
+func _get_active_words():
+	var result = []
+	for m in menus:
+		if m.is_open:
+			result.append(m.get_word())
+	return result
 
 func _hide_overlay():
 	if tw and tw.is_running():
@@ -118,6 +140,8 @@ func _hide_overlay():
 	for m in menus:
 		if m.is_open:
 			m.slide_in_half()
+	
+	delegator.reset()
 
 func _show_overlay():
 	if tw and tw.is_running():

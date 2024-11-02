@@ -6,12 +6,14 @@ extends Node
 
 var last_event: InputEvent
 
+func reset():
+	for node in nodes:
+		if node and node.get_label():
+			node.get_label().reset()
+
 func handle_event(event: InputEvent):
 	if event.is_action_pressed("clear_word"):
-		for node in nodes:
-			if node and node.get_label():
-				node.get_label().reset()
-				
+		reset()
 		get_viewport().set_input_as_handled()
 		return
 		

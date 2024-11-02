@@ -35,11 +35,11 @@ func _ready():
 	hide()
 	global_position = get_hide_position()
 
-func set_word(w: String):
+func set_word(w: String, timeout_sec: int):
 	label.word = w
 	label.highlight_first = true
-	label.focused = true
-	timer.start()
+	#label.focused = true
+	timer.start(timeout_sec)
 	slide_in()
 	show()
 

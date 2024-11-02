@@ -7,6 +7,6 @@ script = ExtResource("1_7go24")
 level = 2
 min_documents = 1.0
 max_documents = 1.5
-distractions = 0.3
+distractions = 0.5
 bgm_speed = 1.8
 min_performance = 200

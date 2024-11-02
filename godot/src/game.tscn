@@ -625,7 +625,7 @@ script = ExtResource("15_ffym8")
 tween_trans = 10
 label = NodePath("Email/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TypingLabel")
 timer = NodePath("Timer")
-slide_dir = Vector2(0, 80)
+slide_dir = Vector2(0, 100)
 sounds = [NodePath("Email/Notification")]
 
 [node name="Timer" type="Timer" parent="CanvasLayer/Distractions/Email"]
@@ -640,9 +640,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -84.0
-offset_top = 7.0
+offset_top = 5.0
 offset_right = 84.0
-offset_bottom = 77.0
+offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("10_am0oy")
@@ -736,8 +736,8 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 99.0
-offset_right = 99.0
+offset_left = 105.0
+offset_right = 105.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("15_ffym8")
@@ -745,7 +745,7 @@ label = NodePath("Phone/MarginContainer/VBoxContainer/TypingLabel")
 type = 1
 effect_root = NodePath("EffectRoot")
 timer = NodePath("Timer")
-slide_dir = Vector2(0, -100)
+slide_dir = Vector2(0, -120)
 sounds = [NodePath("Vibrate"), NodePath("Ring")]
 
 [node name="Timer" type="Timer" parent="CanvasLayer/Distractions/Phone"]
@@ -777,9 +777,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -36.0
-offset_top = -68.0
+offset_top = -76.0
 offset_right = 36.0
-offset_bottom = 51.0
+offset_bottom = 43.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("10_am0oy")
@@ -856,7 +856,7 @@ script = ExtResource("15_ffym8")
 label = NodePath("Junior/MarginContainer/VBoxContainer/TypingLabel")
 type = 2
 timer = NodePath("Timer")
-slide_dir = Vector2(0, -80)
+slide_dir = Vector2(0, -100)
 sounds = [NodePath("Popup")]
 
 [node name="Timer" type="Timer" parent="CanvasLayer/Distractions/Junior"]
@@ -872,9 +872,9 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -67.0
-offset_right = 92.0
-offset_bottom = -3.0
+offset_left = 3.0
+offset_top = -64.0
+offset_right = 95.0
 grow_vertical = 2
 theme = ExtResource("10_am0oy")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_o0ctv")
@@ -912,7 +912,7 @@ height = 1.0
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_top = 8
 
 [node name="ColorRect2" type="ColorRect" parent="CanvasLayer/Distractions/Junior/Junior/Countdown"]
 custom_minimum_size = Vector2(60, 4)
@@ -1290,7 +1290,7 @@ texture = ExtResource("28_i6mjb")
 hframes = 2
 
 [node name="Keyboard" type="Sprite2D" parent="Desk"]
-position = Vector2(0, -29)
+position = Vector2(0, -33)
 texture = ExtResource("31_x6efq")
 hframes = 2
 
@@ -1429,7 +1429,7 @@ vertical_alignment = 1
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="DocSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("word_generator")]
-position = Vector2(-200, 22)
+position = Vector2(-200, 0)
 script = ExtResource("4_macw6")
 document_scene = ExtResource("2_35x6g")
 word_generator = NodePath("WordGenerator")
