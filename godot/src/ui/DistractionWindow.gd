@@ -1,11 +1,13 @@
 extends Control
 
+signal timeout()
 signal finished()
 
 @export var tween_trans := Tween.TRANS_CUBIC
 @export var label: TypedWord
 @export var type := Distraction.Type.EMAIL
 @export var effect_root: EffectRoot
+@export var timer: Timer
 
 @export var slide_dir := Vector2.ZERO
 @export var sounds: Array[AudioStreamPlayer] = []
@@ -25,6 +27,11 @@ func _ready():
 	)
 	label.type_wrong.connect(func(): mistakes += 1)
 	
+	timer.timeout.connect(func():
+		slide_out()
+		timeout.emit()
+	)
+	
 	hide()
 	global_position = get_hide_position()
 
@@ -32,6 +39,7 @@ func set_word(w: String):
 	label.word = w
 	label.highlight_first = true
 	label.focused = true
+	timer.start()
 	slide_in()
 	show()
 

@@ -146,17 +146,18 @@ func reset_values():
 func has_current_job():
 	return day > 0
 
-func finished_day(tasks: int, overtime: int, points: int):
+func finished_day(tasks: int, overtime: int, points: int, distraction_missed: int):
 	var wpm = wpm_calculator.get_average_wpm()
 	var acc = wpm_calculator.get_average_accuracy()
 	var current_size = wpm_calculator.get_total_size()
 	var previous_size = total_completed_words * 0.5 # count previous wpm less than the current one
 	
-	performance += int(points - int(overtime/2) * acc)
+	var missed_point = pow(2, distraction_missed)
+	performance += int(points - int(overtime/2) * acc) - missed_point
 	past_performance.append(performance)
 	if past_performance.size() > keep_past_wpms:
 		past_performance.pop_front()
-	print("Performance: %s with %s, %s, %s" % [performance, points, acc, overtime])
+	print("Performance: %s with %s, %s, %s, %s" % [performance, points, acc, overtime, missed_point])
 	
 	average_wpm = ((average_wpm * previous_size) + (wpm * current_size)) / (previous_size + current_size)
 	average_accuracy = ((average_accuracy * previous_size) + (acc * current_size)) / (previous_size + current_size)

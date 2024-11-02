@@ -136,7 +136,7 @@ func _finished(is_gameover = false):
 	
 	if GameManager.is_work_mode():
 		var total_points = document_stack.collect_points()
-		GameManager.finished_day(document_stack.total, work_time.get_overtime(), total_points)
+		GameManager.finished_day(document_stack.total, work_time.get_overtime(), total_points, distractions.missed)
 		distractions.slide_all_out()
 		if is_gameover:
 			gameover.fired()

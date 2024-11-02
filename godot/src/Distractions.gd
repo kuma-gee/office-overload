@@ -56,6 +56,7 @@ enum Type {
 
 var tw: Tween
 var distraction_accumulator = 0.0
+var missed := 0
 
 func _ready():
 	overlay.modulate = Color.TRANSPARENT
@@ -68,6 +69,7 @@ func _ready():
 			if not _has_active_distraction():
 				_hide_overlay()
 		)
+		m.timeout.connect(func(): missed += 1)
 
 func _close_all():
 	for x in menus:
