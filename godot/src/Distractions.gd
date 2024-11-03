@@ -46,10 +46,10 @@ enum Type {
 
 @export var distraction_timeout := 10
 @export var overlay: Control
+@export var shift_button: DistractionItem
 
 @onready var delegator = $Delegator
 @onready var shake_effect: EffectRoot = $ShakeEffect
-@onready var shift_button: DistractionItem = $ShiftButton
 
 @onready var email = $Email
 @onready var phone = $Phone

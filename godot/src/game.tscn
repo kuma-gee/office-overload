@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=91 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -63,6 +63,8 @@
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
 [ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
+[ext_resource type="Script" path="res://src/ui/haika.gd" id="57_68uuw"]
+[ext_resource type="PackedScene" uid="uid://dpscoqgof7c0o" path="res://src/ui/person_info.tscn" id="57_yi5dh"]
 
 [sub_resource type="Curve" id="Curve_m11kp"]
 _data = [Vector2(0, 0.701099), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -468,14 +470,7 @@ glow_blend_mode = 0
 [node name="Game" type="Node2D" node_paths=PackedStringArray("work_time")]
 top_level = true
 script = ExtResource("1_ptsas")
-overload_reduce = null
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
-max_document_count = null
-min_documents = null
-max_bgm_pitch = null
-max_bgm_pitch_time = null
-crunch_start_spawn_time = null
-crunch_min_spawn_time = null
 
 [node name="CameraShake" type="Node" parent="."]
 process_mode = 3
@@ -489,6 +484,14 @@ process_mode = 3
 script = ExtResource("3_o6tfp")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Overlay" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
 
 [node name="HUD" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -611,7 +614,27 @@ visible = false
 [node name="End" parent="CanvasLayer" instance=ExtResource("9_dbvje")]
 visible = false
 
-[node name="Distractions" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overlay")]
+[node name="Delegator" type="Node" parent="CanvasLayer"]
+script = ExtResource("20_tcix1")
+
+[node name="Haika" type="VBoxContainer" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "delegator")]
+offset_bottom = 146.0
+script = ExtResource("57_68uuw")
+person_info_scene = ExtResource("57_yi5dh")
+overlay = NodePath("../Overlay")
+delegator = NodePath("../Delegator")
+
+[node name="PersonInfo" parent="CanvasLayer/Haika" instance=ExtResource("57_yi5dh")]
+layout_mode = 2
+
+[node name="PersonInfo2" parent="CanvasLayer/Haika" instance=ExtResource("57_yi5dh")]
+layout_mode = 2
+
+[node name="PersonInfo3" parent="CanvasLayer/Haika" instance=ExtResource("57_yi5dh")]
+layout_mode = 2
+
+[node name="Distractions" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "shift_button")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -621,16 +644,8 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("10_am0oy")
 script = ExtResource("14_s1o3m")
-overlay = NodePath("Overlay")
-
-[node name="Overlay" type="ColorRect" parent="CanvasLayer/Distractions"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.5)
+overlay = NodePath("../Overlay")
+shift_button = NodePath("../ShiftButton")
 
 [node name="ShakeEffect" type="Node" parent="CanvasLayer/Distractions"]
 script = ExtResource("20_u0r5t")
@@ -975,25 +990,24 @@ layout_mode = 2
 script = ExtResource("24_7p44n")
 timer = NodePath("../../../../../Timer")
 
-[node name="ShiftButton" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("effect_root")]
-layout_mode = 1
+[node name="ShiftButton" type="Control" parent="CanvasLayer"]
+layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 grow_vertical = 0
 script = ExtResource("15_ffym8")
-effect_root = NodePath("ShiftShake")
 slide_dir = Vector2(0, -30)
 
-[node name="ShiftShake" type="Node" parent="CanvasLayer/Distractions/ShiftButton"]
+[node name="ShiftShake" type="Node" parent="CanvasLayer/ShiftButton"]
 script = ExtResource("20_u0r5t")
 duration = 0.5
 
-[node name="Shake" type="Node" parent="CanvasLayer/Distractions/ShiftButton/ShiftShake" node_paths=PackedStringArray("node")]
+[node name="Shake" type="Node" parent="CanvasLayer/ShiftButton/ShiftShake" node_paths=PackedStringArray("node")]
 script = ExtResource("21_os6oe")
 node = NodePath("../../MarginContainer")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/ShiftButton"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ShiftButton"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -1006,7 +1020,7 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/ShiftButton/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ShiftButton/MarginContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 texture = ExtResource("33_qq0id")
@@ -1369,7 +1383,7 @@ position = Vector2(0, -33)
 texture = ExtResource("31_x6efq")
 hframes = 2
 
-[node name="DocumentStack" type="Node2D" parent="." node_paths=PackedStringArray("doc_count_label", "combo_label", "combo_particles")]
+[node name="DocumentStack" type="Node2D" parent="." node_paths=PackedStringArray("doc_count_label", "combo_label", "combo_particles01", "combo_particles02")]
 position = Vector2(133, -44)
 script = ExtResource("12_n73rb")
 stack_count = 5
@@ -1377,7 +1391,8 @@ max_stacks = 10
 doc_texture = ExtResource("24_g7dws")
 doc_count_label = NodePath("../MarginContainer/HBoxContainer/DocCount")
 combo_label = NodePath("../MarginContainer/HBoxContainer/Combo")
-combo_particles = NodePath("../MarginContainer/HBoxContainer/ComboParticles")
+combo_particles01 = NodePath("../MarginContainer/HBoxContainer/ComboParticles")
+combo_particles02 = NodePath("../MarginContainer/HBoxContainer/ComboParticles2")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="DocumentStack"]
 position = Vector2(-10, 0)
@@ -1503,7 +1518,7 @@ theme_override_constants/margin_top = 6
 
 [node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 2
 
 [node name="DocCount" type="Label" parent="MarginContainer/HBoxContainer"]
 z_index = 1
@@ -1515,8 +1530,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ComboParticles" type="GPUParticles2D" parent="MarginContainer/HBoxContainer"]
-visible = false
-position = Vector2(6.5, 14)
+position = Vector2(3.5, 15)
+scale = Vector2(1, -1)
+process_material = SubResource("ParticleProcessMaterial_ll7l4")
+randomness = 1.0
+
+[node name="ComboParticles2" type="GPUParticles2D" parent="MarginContainer/HBoxContainer"]
+position = Vector2(8.5, 15)
 scale = Vector2(1, -1)
 process_material = SubResource("ParticleProcessMaterial_ll7l4")
 randomness = 1.0

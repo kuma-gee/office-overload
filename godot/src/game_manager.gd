@@ -40,7 +40,7 @@ var difficulty_level := DifficultyResource.Level.INTERN:
 			difficulty_level = v
 			difficulty = DIFFICULTIES[v]
 		
-		if v+1 in DIFFICULTIES:
+		if v+1 in DIFFICULTIES and not is_max_promotion():
 			next_difficulty = DIFFICULTIES[v+1]
 		else:
 			next_difficulty = null
@@ -158,13 +158,13 @@ func finished_day(data: Dictionary):
 	var distraction_missed = data["distractions"]
 	
 	var missed_point = pow(1.5, distraction_missed)
-	var perfect_points = perfect * 2
+	var perfect_points = pow(1.25, perfect)
 	var overtime_minus = int(overtime / 2)
 	var normal_tasks = tasks - perfect
 	
 	var points = normal_tasks + perfect_points - overtime_minus - missed_point
 	points = floor(points * acc)
-	performance += points
+	performance = max(performance + points, 0)
 	data["points"] = points
 	data["acc"] = acc
 	

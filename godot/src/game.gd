@@ -3,6 +3,7 @@ extends Node2D
 @export var overload_reduce := 20.0
 @export var work_time: WorkTime
 @export var max_document_count := 15 # slower documents at this point
+@export var person_container: Haika
 
 @export_category("Interview")
 @export var min_documents := 2
@@ -38,12 +39,12 @@ var is_gameover = false
 var documents = []
 
 func _set_environment():
-	if GameManager.day <= 3 or GameManager.is_intern():
-		animation_player.play("normal")
-	elif not GameManager.is_manager():
-		animation_player.play("messy")
-	else:
-		animation_player.play("littered")
+	#if GameManager.day <= 3 or GameManager.is_intern():
+	animation_player.play("normal")
+	#elif not GameManager.is_manager():
+		#animation_player.play("messy")
+	#else:
+		#animation_player.play("littered")
 
 func _ready():
 	get_tree().paused = false

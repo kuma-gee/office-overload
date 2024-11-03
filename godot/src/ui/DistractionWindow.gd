@@ -70,8 +70,6 @@ func slide_in_half():
 		is_open = true
 		for s in sounds:
 			s.play()
-			
-			
 
 func slide_in_full():
 	if tw and tw.is_running():

@@ -9,7 +9,9 @@ signal document_added()
 @export var doc_count_label: Label
 @export var combo_label: Label
 
-@export var combo_particles: GPUParticles2D
+@export var combo_particles01: GPUParticles2D
+@export var combo_particles02: GPUParticles2D
+@onready var combo_particles := [combo_particles01, combo_particles02]
 
 @onready var cpu_particles_2d = $CPUParticles2D
 @onready var cpu_particles_2d_2 = $CPUParticles2D2
@@ -28,6 +30,8 @@ var total := 0:
 		tw = create_tween().set_trans(Tween.TRANS_BACK).set_parallel()
 
 		doc_count_label.pivot_offset = doc_count_label.size / 2
+		combo_label.pivot_offset = combo_label.size / 2
+		
 		if total == 1:
 			doc_count_label.modulate = Color.TRANSPARENT
 			tw.tween_property(doc_count_label, "modulate", Color.WHITE, 0.5).set_delay(0.5)
@@ -36,16 +40,29 @@ var total := 0:
 			combo_label.modulate = Color.TRANSPARENT
 			tw.tween_property(combo_label, "modulate", Color.WHITE, 0.5).set_delay(0.5)
 
+		var curr_combo_scale = Vector2.ONE + Vector2(combo_count / 10.0, combo_count / 10.0) if combo_count > 1 else Vector2.ONE
+		curr_combo_scale = curr_combo_scale.min(Vector2(2, 2))
+		curr_combo_scale = Vector2.ONE
+		#print(curr_combo_scale)
+		
 		tw.tween_callback(func():
 			doc_count_label.text = "%s" % total
 			doc_count_label.scale = Vector2(0.6, 0.6)
-		).set_delay(0.5)
+			
+			combo_label.scale = curr_combo_scale * 0.8
+		).set_delay(0.4)
 		tw.tween_property(doc_count_label, "scale", Vector2(1.0, 1.0), 0.5).set_ease(Tween.EASE_OUT).set_delay(0.5)
+		tw.tween_property(combo_label, "scale", curr_combo_scale, 0.5).set_ease(Tween.EASE_OUT).set_delay(0.5)
 
 var combo_count := 0:
 	set(v):
 		combo_count = v
 		combo_label.visible = combo_count > 1
+		combo_label.text = "%sx" % combo_count
+		for p in combo_particles:
+			p.emitting = combo_label.visible
+			p.amount = clamp(2 * ceil(combo_count / 3), 2, 16)
+		
 		#if combo_count <= 1:
 			#combo_multiplier = 1
 			#combo_particles.emitting = false
