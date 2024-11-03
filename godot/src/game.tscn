@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=89 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -59,6 +59,7 @@
 [ext_resource type="Texture2D" uid="uid://c7bni1sdaaaqn" path="res://assets/sprites/Desk_Keyboard.png" id="31_x6efq"]
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="32_eoisl"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="33_5ctor"]
+[ext_resource type="Texture2D" uid="uid://bstvwnc3xppv1" path="res://assets/sprites/Shift.png" id="33_qq0id"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
 [ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
@@ -973,6 +974,44 @@ material = SubResource("ShaderMaterial_8da6s")
 layout_mode = 2
 script = ExtResource("24_7p44n")
 timer = NodePath("../../../../../Timer")
+
+[node name="ShiftButton" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("effect_root")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+script = ExtResource("15_ffym8")
+effect_root = NodePath("ShiftShake")
+slide_dir = Vector2(0, -30)
+
+[node name="ShiftShake" type="Node" parent="CanvasLayer/Distractions/ShiftButton"]
+script = ExtResource("20_u0r5t")
+duration = 0.5
+
+[node name="Shake" type="Node" parent="CanvasLayer/Distractions/ShiftButton/ShiftShake" node_paths=PackedStringArray("node")]
+script = ExtResource("21_os6oe")
+node = NodePath("../../MarginContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/ShiftButton"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+offset_right = 24.0
+grow_vertical = 0
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/ShiftButton/MarginContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+texture = ExtResource("33_qq0id")
+expand_mode = 2
+stretch_mode = 5
 
 [node name="Report" type="Control" parent="CanvasLayer"]
 visible = false

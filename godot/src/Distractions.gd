@@ -49,6 +49,7 @@ enum Type {
 
 @onready var delegator = $Delegator
 @onready var shake_effect: EffectRoot = $ShakeEffect
+@onready var shift_button: DistractionItem = $ShiftButton
 
 @onready var email = $Email
 @onready var phone = $Phone
@@ -101,6 +102,9 @@ func show_distraction():
 	var distraction = available.pick_random()
 	var word = _get_random_distraction_word(distraction.type)
 	distraction.set_word(word, distraction_timeout)
+	
+	if not shift_button.is_open:
+		shift_button.slide_in_full()
 
 func _get_random_distraction_word(type: Type):
 	var active = _get_active_words()
@@ -142,6 +146,9 @@ func _hide_overlay():
 			m.slide_in_half()
 	
 	delegator.reset()
+	
+	if _has_active_distraction():
+		shift_button.slide_in_full()
 
 func _show_overlay():
 	if tw and tw.is_running():
@@ -153,6 +160,8 @@ func _show_overlay():
 	for m in menus:
 		if m.is_open:
 			m.slide_in_full()
+	
+	shift_button.slide_out()
 
 func _input(event):
 	if not event is InputEventKey: return

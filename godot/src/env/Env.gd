@@ -17,7 +17,7 @@ func _ready():
 	var args = _args_dictionary()
 	print(args)
 	
-	if args.has("debug"):
+	if args.has("debug") or is_editor():
 		log_level = Logger.Level.DEBUG
 	
 	if args.has("steam"):

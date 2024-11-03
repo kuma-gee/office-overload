@@ -157,7 +157,7 @@ func finished_day(data: Dictionary):
 	var overtime = data["overtime"]
 	var distraction_missed = data["distractions"]
 	
-	var missed_point = pow(2, distraction_missed)
+	var missed_point = pow(1.5, distraction_missed)
 	var perfect_points = perfect * 2
 	var overtime_minus = int(overtime / 2)
 	var normal_tasks = tasks - perfect

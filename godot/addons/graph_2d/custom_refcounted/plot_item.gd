@@ -60,6 +60,8 @@ func set_active_point(pt: Vector2):
 		var pt_id = _points.find(pt)
 		_curve.active_point_idx = pt_id
 		_curve.queue_redraw()
+		
+		await coordinate.get_tree().create_timer(0.1).timeout
 		coordinate.text = "%.0f %s" % [pt.y, label]
 		coordinate.global_position = _curve.global_position + _curve.points_px[pt_id] + Vector2(2, 2)
 		coordinate.show()

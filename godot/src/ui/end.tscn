@@ -321,6 +321,16 @@ text = "PERFECT_TASKS"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Acc" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Accuracy"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
 [node name="Overtime" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "OVERTIME"
@@ -333,16 +343,6 @@ text = "DISTRACTIONS"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Acc" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-text = "Accuracy"
-label_settings = ExtResource("4_0mkg1")
-horizontal_alignment = 1
-
 [node name="Points" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "POINTS"
@@ -350,16 +350,19 @@ label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
 [node name="Control2" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="PromotionTip" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "PROMOTION_TIP"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
 [node name="Control" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 

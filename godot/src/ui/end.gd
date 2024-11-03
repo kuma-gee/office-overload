@@ -69,9 +69,10 @@ func day_ended(data: Dictionary):
 	title.text = "Day %s report" % GameManager.day
 	finished_tasks.text = "%s tasks" % tasks
 	perfect_tasks_label.text = "+ %s perfect" % perfect
+	acc_label.text = "Quality %0.f%%" % [acc * 100]
+	
 	overtime.text = "%s hours of overtime" % overtime_hours
 	distraction_label.text = "%s ignored messages" % distraction_missed
-	acc_label.text = "Quality %0.f%%" % [acc * 2]
 	points_label.text = "Performance %s" % points
 	
 	var promo_tip = GameManager.can_have_promotion()
