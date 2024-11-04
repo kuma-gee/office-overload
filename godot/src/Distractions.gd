@@ -97,7 +97,7 @@ func show_distraction():
 	if not GameManager.is_senior():
 		available.erase(junior)
 	
-	if available.is_empty(): return
+	if available.is_empty() or GameManager.is_manager(): return
 	
 	var distraction = available.pick_random()
 	var word = _get_random_distraction_word(distraction.type)

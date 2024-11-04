@@ -59,6 +59,7 @@ var past_performance := []
 var has_played := false
 var unlocked_modes = [Mode.Work]
 var performance := 0.0
+var subordinates = {}
 
 ### Maybe Save? ###
 var last_interview_wpm := 0.0
@@ -139,6 +140,7 @@ func reset_values():
 	average_accuracy = 0.0
 	total_completed_words = 0
 	past_wpms = []
+	subordinates = {}
 	
 	job_quited.emit()
 	_save_data()
@@ -283,6 +285,9 @@ func is_max_promotion():
 
 	var next = difficulty_level + 1
 	return is_manager() or not next in DIFFICULTIES
+
+func is_level_greater_or_eq(diff: DifficultyResource.Level):
+	return difficulty_level >= diff
 
 func is_intern():
 	return difficulty_level == DifficultyResource.Level.INTERN

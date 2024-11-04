@@ -20,6 +20,7 @@ signal type_wrong()
 
 @onready var shake_timer: Timer = $ShakeTimer
 
+@export var outline_all := false
 @export var highlight_all := false:
 	set(v):
 		highlight_all = v
@@ -82,11 +83,16 @@ func update_word():
 	
 	var len = typed.length()
 	if highlight_first and len == 0:
-		text = _wrap_center(_wrap_typed(1, _wrap_word(0), false))
+		text = _wrap_outline(_wrap_center(_wrap_typed(1, _wrap_word(0), false)))
 	elif highlight_all:
-		text = _wrap_center(_wrap_typed(word.length(), _wrap_word(0), false))
+		text = _wrap_outline(_wrap_center(_wrap_typed(word.length(), _wrap_word(0), false)))
 	else:
-		text = _wrap_center(_wrap_typed(len, _wrap_word(len)))
+		text = _wrap_outline(_wrap_center(_wrap_typed(len, _wrap_word(len))))
+
+func _wrap_outline(w: String):
+	if outline_all:
+		return "[outline_color=%s]%s[/outline_color]" % [highlight_color.to_html(), w]
+	return w
 
 func _wrap_word(len: int):
 	return "[color=%s]%s[/color][color=%s][shake rate=%s level=%s]%s[/shake]%s[/color]" % [

@@ -35,7 +35,11 @@ extends Node2D
 @onready var camera_shake: CameraShake = $CameraShake
 @onready var frame_freeze: FrameFreeze = $FrameFreeze
 
-var is_gameover = false
+var is_gameover = false:
+	set(v):
+		is_gameover = v
+		person_container.is_gameover = v
+
 var documents = []
 
 func _set_environment():
@@ -47,6 +51,7 @@ func _set_environment():
 		#animation_player.play("littered")
 
 func _ready():
+	randomize()
 	get_tree().paused = false
 	_set_environment()
 	
@@ -196,6 +201,7 @@ func _spawn_document(await_start = false):
 		
 		overload_progress.reduce(overload_reduce)
 		document_stack.add_document(doc.mistakes > 0)
+		person_container.add_document()
 		overload_timer.stop()
 		
 		if not work_time.ended and GameManager.is_work_mode():

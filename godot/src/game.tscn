@@ -467,10 +467,11 @@ glow_enabled = true
 glow_bloom = 0.05
 glow_blend_mode = 0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "person_container")]
 top_level = true
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
+person_container = NodePath("CanvasLayer/Haika")
 
 [node name="CameraShake" type="Node" parent="."]
 process_mode = 3
@@ -1503,6 +1504,7 @@ scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

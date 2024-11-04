@@ -19,7 +19,15 @@ const NAMES = [
 	"Terry",
 ]
 
+enum StressLevel {
+	LOW = 1,
+	MEDIUM = 3,
+	HIGH = 5,
+}
+
 var tw: Tween
+var selected_person: PersonInfo
+var is_gameover := false
 
 func _ready() -> void:
 	for c in get_children():
@@ -27,16 +35,43 @@ func _ready() -> void:
 	
 	if not GameManager.is_manager(): return
 	
-	var names = NAMES.duplicate()
-	for i in person_count:
+	if GameManager.subordinates.is_empty():
+		var names = NAMES.duplicate()
+		var levels = StressLevel.values()
+
+		for i in person_count:
+			var n = names.pick_random()
+			names.erase(n)
+
+			var lvl = levels.pick_random()
+			levels.erase(lvl)
+
+			GameManager.subordinates[n] = lvl
+
+	for n in GameManager.subordinates:
 		var person_info = person_info_scene.instantiate()
 		
-		var n = names.pick_random()
-		names.erase(n)
-		person_info.set_word(n)
+		if selected_person == null:
+			selected_person = person_info
+		
+		person_info.haika = self
+		person_info.person = n
+		person_info.selected.connect(func():
+			for c in get_children():
+				c.is_selected = false
+
+			person_info.is_selected = true
+			selected_person = person_info
+		)
 		
 		add_child(person_info)
 		delegator.nodes.append(person_info)
+	
+	selected_person.is_selected = true
+
+func add_document():
+	if not selected_person or not GameManager.is_manager(): return
+	selected_person.current_documents += 1
 
 func _input(event: InputEvent) -> void:
 	if not event is InputEventKey: return
