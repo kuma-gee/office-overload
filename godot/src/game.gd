@@ -146,6 +146,7 @@ func _finished(is_gameover = false):
 			"perfect": document_stack.perfect_tasks,
 			"overtime": work_time.get_overtime(),
 			"distractions": distractions.missed,
+			"wrong": document_stack.wrong_tasks,
 		}
 		GameManager.finished_day(data)
 		distractions.slide_all_out()
@@ -191,7 +192,8 @@ func _crunch_mode_spawn_time(doc_count: int = document_stack.total):
 
 
 func _spawn_document(await_start = false):
-	var doc = doc_spawner.spawn_document() as Document
+	var invalid_chance = GameManager.difficulty.invalid_word_chance
+	var doc = doc_spawner.spawn_document(invalid_chance) as Document
 	doc.started.connect(func(): GameManager.start_type())
 	doc.finished.connect(func():
 		GameManager.finish_type(doc.word, doc.mistakes)
@@ -200,7 +202,7 @@ func _spawn_document(await_start = false):
 		documents.erase(doc)
 		
 		overload_progress.reduce(overload_reduce)
-		document_stack.add_document(doc.mistakes > 0)
+		document_stack.add_document(doc.mistakes > 0, doc_spawner.is_invalid_word(doc.word))
 		person_container.add_document()
 		overload_timer.stop()
 		

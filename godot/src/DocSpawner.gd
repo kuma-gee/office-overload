@@ -71,6 +71,26 @@ const HARD = [
 	"optimization",
 ]
 
+const INVALID_WORDS = [
+	"tomato",
+	"potato",
+	"carrot",
+	"cucumber",
+	"lettuce",
+	"broccoli",
+	"onion",
+	"garlic",
+	"pineapple",
+	"watermelon",
+	"applepie",
+	"brownie",
+	"cookie",
+	"muffin",
+	"donut",
+	"croissant",
+	"baguette",
+]
+
 enum Mode {
 	EASY,
 	MEDIUM,
@@ -82,6 +102,7 @@ enum Mode {
 @export var word_generator: WordGenerator
 
 var mode = -1
+var invalid_word_accum := 0.0
 
 func _ready():
 	if GameManager.is_work_mode():
@@ -107,6 +128,9 @@ func _ready():
 		add_medium()
 	elif GameManager.is_crunch_mode():
 		add_easy()
+
+func is_invalid_word(word: String):
+	return word in INVALID_WORDS
 
 func add_easy():
 	if mode >= Mode.EASY: return
@@ -135,10 +159,16 @@ func _get_rotation():
 		#Mode.HARD: return PI/8
 	return PI/20
 
-func spawn_document():
-	var word = word_generator.get_random_word()
+func spawn_document(invalid_word_chance := 0.0):
 	var doc = document_scene.instantiate()
-	doc.word = word
+
+	invalid_word_accum += invalid_word_chance
+	if randf() < invalid_word_accum:
+		doc.word = INVALID_WORDS.pick_random()
+		invalid_word_accum = 0.0
+	else:
+		doc.word = word_generator.get_random_word()
+
 	doc.global_position = global_position
 	
 	var x = abs(global_position.x)
