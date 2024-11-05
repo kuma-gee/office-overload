@@ -202,7 +202,7 @@ func _spawn_document(await_start = false):
 		documents.erase(doc)
 		
 		overload_progress.reduce(overload_reduce)
-		document_stack.add_document(doc.mistakes > 0, doc_spawner.is_invalid_word(doc.word))
+		document_stack.add_document(doc.mistakes > 0, doc_spawner.is_invalid_word(doc.word), person_container.is_trash_selected())
 		person_container.add_document()
 		overload_timer.stop()
 		

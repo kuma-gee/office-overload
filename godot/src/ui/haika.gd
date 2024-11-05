@@ -16,8 +16,10 @@ const NAMES = [
 	"Wendy",
 	"Raven",
 	"Oliver",
-	"Terry",
+	#"Terry",
 ]
+
+const TRASH_NAME = "Trash"
 
 enum StressLevel {
 	LOW = 1,
@@ -49,25 +51,33 @@ func _ready() -> void:
 			GameManager.subordinates[n] = lvl
 
 	for n in GameManager.subordinates:
-		var person_info = person_info_scene.instantiate()
-		
-		if selected_person == null:
-			selected_person = person_info
-		
-		person_info.haika = self
-		person_info.person = n
-		person_info.selected.connect(func():
-			for c in get_children():
-				c.is_selected = false
-
-			person_info.is_selected = true
-			selected_person = person_info
-		)
-		
-		add_child(person_info)
-		delegator.nodes.append(person_info)
+		_create_person_info(n)
 	
 	selected_person.is_selected = true
+	
+	_create_person_info(TRASH_NAME)
+
+func _create_person_info(n: String):
+	var person_info = person_info_scene.instantiate()
+	
+	if selected_person == null:
+		selected_person = person_info
+	
+	person_info.haika = self
+	person_info.person = n
+	person_info.selected.connect(func():
+		for c in get_children():
+			c.is_selected = false
+
+		person_info.is_selected = true
+		selected_person = person_info
+	)
+		
+	add_child(person_info)
+	delegator.nodes.append(person_info)
+
+func is_trash_selected():
+	return selected_person.person == TRASH_NAME
 
 func add_document():
 	if not selected_person or not GameManager.is_manager(): return

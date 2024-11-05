@@ -93,7 +93,7 @@ func _create_doc():
 	sprite.scale = Vector2(0.7, 0.7)
 	return sprite
 
-func add_document(mistake := false, wrong := false):
+func add_document(mistake := false, wrong := false, is_discarded := false):
 	if not GameManager.is_manager():
 		var doc = _create_doc()
 		add_child(doc)
@@ -110,19 +110,21 @@ func add_document(mistake := false, wrong := false):
 		var should_remove = not (total % stack_count == 0 and total <= (max_stacks * stack_count))
 		tw.finished.connect(func(): if should_remove: doc.queue_free())
 	
+	if mistake:
+		combo_count = 0
+	
 	if wrong:
-		wrong_tasks += 1
+		if not is_discarded:
+			wrong_tasks += 1
+	elif not is_discarded:
 		if mistake:
-			combo_count = 0
-	else:
-		if mistake:
-			combo_count = 0
 			tasks += 1
 		else:
 			combo_count += 1
 			perfect_tasks += 1
-	
-	total += 1
+
+	if not is_discarded and not wrong:
+		total += 1
 
 func remove_combo():
 	combo_label.hide()

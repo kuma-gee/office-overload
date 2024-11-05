@@ -56,7 +56,7 @@ var document_process := 0.0:
 var person = "":
 	set(v):
 		person = v
-		stress_level = GameManager.subordinates[v]
+		stress_level = GameManager.subordinates[v] if v in GameManager.subordinates else -1
 		set_word(v)
 
 func _ready() -> void:
@@ -71,7 +71,7 @@ func _ready() -> void:
 	overload_timer.timeout.connect(func(): overloaded.emit())
 
 func _process(delta: float) -> void:
-	if haika.is_gameover: return
+	if haika.is_gameover and stress_level != -1: return
 	
 	if current_documents > 0:
 		document_process += document_process_speed * delta
