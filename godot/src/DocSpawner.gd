@@ -166,14 +166,14 @@ func spawn_document(invalid_word_chance := 0.0):
 	var word = word_generator.get_random_word()
 
 	if randf() < invalid_word_accum:
-		if randf() < 0.7 or invalid_spawned < 2:
+		if randf() < 0.5 or invalid_spawned < 2:
 			word = INVALID_WORDS.pick_random()
 		else:
 			for _x in randi_range(2, 5):
 				var swap_idx = randi_range(1, word.length() - 1)
 				
 				if randf() < 0.3:
-					"".erase(swap_idx)
+					word.erase(swap_idx)
 				else:
 					var target_idx = swap_idx
 					while target_idx == swap_idx:
