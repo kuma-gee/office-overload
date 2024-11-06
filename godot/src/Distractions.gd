@@ -54,7 +54,7 @@ enum Type {
 @onready var email = $Email
 @onready var phone = $Phone
 @onready var junior = $Junior
-@onready var menus: Array[Control] = [email, phone, junior]
+@onready var menus: Array[Node] = [email, phone, junior]
 
 var tw: Tween
 var distraction_accumulator = 0.0

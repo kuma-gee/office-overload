@@ -16,7 +16,7 @@ const NAMES = [
 	"Wendy",
 	"Raven",
 	"Oliver",
-	#"Terry",
+	"Terry",
 ]
 
 const TRASH_NAME = "Trash"
@@ -55,7 +55,7 @@ func _ready() -> void:
 	
 	selected_person.is_selected = true
 	
-	_create_person_info(TRASH_NAME)
+	# _create_person_info(TRASH_NAME)
 
 func _create_person_info(n: String):
 	var person_info = person_info_scene.instantiate()
@@ -111,6 +111,10 @@ func _hide_overlay():
 	
 	delegator.reset()
 
+	var doc = get_tree().get_first_node_in_group(Document.ACTIVE_GROUP)
+	if doc:
+		doc.reset_word()
+
 func _show_overlay():
 	if tw and tw.is_running():
 		tw.kill()
@@ -120,3 +124,7 @@ func _show_overlay():
 	
 	for m in get_children():
 		m.slide_in()
+	
+	var doc = get_tree().get_first_node_in_group(Document.ACTIVE_GROUP)
+	if doc:
+		doc.enable_trash()

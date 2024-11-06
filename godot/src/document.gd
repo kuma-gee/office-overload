@@ -1,6 +1,8 @@
 class_name Document
 extends Node2D
 
+const ACTIVE_GROUP = "ActiveDocument"
+
 signal started()
 signal finished()
 
@@ -11,10 +13,15 @@ signal finished()
 @onready var paper_move_in = $PaperMoveIn
 @onready var paper_sort = $PaperSort
 
+const TRASH_PREFIX = "!"
+
 var mistakes := 0
 var word := ""
 var target_position := Vector2.ZERO
 var _logger = Logger.new("Document")
+
+func get_label():
+	return typing_label
 
 func show_tutorial():
 	typing_label.highlight_first = true
@@ -22,7 +29,10 @@ func show_tutorial():
 func _ready():
 	typing_label.word = word
 	typing_label.type_start.connect(func(): started.emit())
-	typing_label.type_finish.connect(func(): finished.emit())
+	typing_label.type_finish.connect(func():
+		remove_from_group(ACTIVE_GROUP)
+		finished.emit()
+	)
 	typing_label.position += Vector2.DOWN * 50
 	
 	sprite.material.set_shader_parameter("enable", false)
@@ -47,7 +57,21 @@ func handle_key(key: String):
 	return hit
 
 func highlight():
-	typing_label.focused = true
+	typing_label.locked = true
+	add_to_group(ACTIVE_GROUP)
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
+
+func enable_trash():
+	typing_label.word = TRASH_PREFIX + word
+	typing_label.highlight_first = true
+	z_index = 100
+
+func reset_word():
+	typing_label.word = word
+	typing_label.highlight_first = false
+	z_index = 0
+
+func is_discarded():
+	return typing_label.word.begins_with(TRASH_PREFIX)

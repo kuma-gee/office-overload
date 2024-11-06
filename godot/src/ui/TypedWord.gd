@@ -46,8 +46,10 @@ var typed = "":
 var focused := false:
 	set(v):
 		focused = v
-		add_theme_color_override("font_outline_color", highlight_color if v else Color.TRANSPARENT)
-		update_word()
+		
+		if not locked:
+			add_theme_color_override("font_outline_color", highlight_color if v else Color.TRANSPARENT)
+			update_word()
 
 var active := false:
 	set(v):
@@ -61,6 +63,12 @@ var current_shake := 0.0:
 			$ShakeTimer.start()
 		else:
 			$ShakeTimer.stop()
+		update_word()
+
+var locked := false:
+	set(v):
+		locked = v
+		add_theme_color_override("font_outline_color", highlight_color if v else Color.TRANSPARENT)
 		update_word()
 
 func _ready():

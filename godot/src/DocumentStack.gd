@@ -113,18 +113,17 @@ func add_document(mistake := false, wrong := false, is_discarded := false):
 	if mistake:
 		combo_count = 0
 	
-	if wrong:
-		if not is_discarded:
+	if not is_discarded:
+		if wrong:
 			wrong_tasks += 1
-	elif not is_discarded:
-		if mistake:
-			tasks += 1
 		else:
-			combo_count += 1
-			perfect_tasks += 1
+			if mistake:
+				tasks += 1
+			else:
+				combo_count += 1
+				perfect_tasks += 1
 
-	if not is_discarded and not wrong:
-		total += 1
+			total += 1
 
 func remove_combo():
 	combo_label.hide()

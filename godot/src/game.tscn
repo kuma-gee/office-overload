@@ -486,14 +486,6 @@ script = ExtResource("3_o6tfp")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Overlay" type="ColorRect" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.5)
-
 [node name="HUD" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
@@ -615,14 +607,15 @@ visible = false
 [node name="End" parent="CanvasLayer" instance=ExtResource("9_dbvje")]
 visible = false
 
-[node name="Delegator" type="Node" parent="CanvasLayer"]
+[node name="Delegator" type="Node" parent="CanvasLayer" node_paths=PackedStringArray("nodes")]
 script = ExtResource("20_tcix1")
+nodes = [NodePath("../..")]
 
 [node name="Haika" type="VBoxContainer" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "delegator")]
 offset_bottom = 146.0
 script = ExtResource("57_68uuw")
 person_info_scene = ExtResource("57_yi5dh")
-overlay = NodePath("../Overlay")
+overlay = NodePath("../../Overlay")
 delegator = NodePath("../Delegator")
 
 [node name="PersonInfo" parent="CanvasLayer/Haika" instance=ExtResource("57_yi5dh")]
@@ -645,7 +638,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("10_am0oy")
 script = ExtResource("14_s1o3m")
-overlay = NodePath("../Overlay")
+overlay = NodePath("../../Overlay")
 shift_button = NodePath("../ShiftButton")
 
 [node name="ShakeEffect" type="Node" parent="CanvasLayer/Distractions"]
@@ -1563,6 +1556,19 @@ word_generator = NodePath("WordGenerator")
 
 [node name="WordGenerator" type="Node" parent="DocSpawner"]
 script = ExtResource("55_o651g")
+
+[node name="Overlay" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -215.0
+offset_top = -130.0
+offset_right = 215.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 2.0

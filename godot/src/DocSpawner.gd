@@ -103,6 +103,7 @@ enum Mode {
 
 var mode = -1
 var invalid_word_accum := 0.0
+var invalid_spawned := 0
 
 func _ready():
 	if GameManager.is_work_mode():
@@ -130,7 +131,8 @@ func _ready():
 		add_easy()
 
 func is_invalid_word(word: String):
-	return word in INVALID_WORDS
+	#return word in INVALID_WORDS
+	return not word in word_generator.words
 
 func add_easy():
 	if mode >= Mode.EASY: return
@@ -161,14 +163,33 @@ func _get_rotation():
 
 func spawn_document(invalid_word_chance := 0.0):
 	var doc = document_scene.instantiate()
+	var word = word_generator.get_random_word()
 
-	invalid_word_accum += invalid_word_chance
 	if randf() < invalid_word_accum:
-		doc.word = INVALID_WORDS.pick_random()
-		invalid_word_accum = 0.0
-	else:
-		doc.word = word_generator.get_random_word()
+		if randf() < 0.7 or invalid_spawned < 2:
+			word = INVALID_WORDS.pick_random()
+		else:
+			for _x in randi_range(2, 5):
+				var swap_idx = randi_range(1, word.length() - 1)
+				
+				if randf() < 0.3:
+					"".erase(swap_idx)
+				else:
+					var target_idx = swap_idx
+					while target_idx == swap_idx:
+						target_idx = randi_range(1, word.length() - 1)
 
+					var temp = word[target_idx]
+					word[target_idx] = word[swap_idx]
+					word[swap_idx] = temp
+
+		invalid_word_accum = 0.0
+		invalid_spawned += 1
+	else:
+		# after checking, so there won't be two invalid words after another
+		invalid_word_accum += invalid_word_chance
+
+	doc.word = word
 	doc.global_position = global_position
 	
 	var x = abs(global_position.x)
