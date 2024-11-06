@@ -760,6 +760,7 @@ script = ExtResource("15_b245w")
 node = NodePath("../../../MenuOverlay")
 
 [node name="PerformanceGraph" type="Control" parent="." node_paths=PackedStringArray("graph", "effect", "performance_button", "wpm_button", "left_button", "right_button")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

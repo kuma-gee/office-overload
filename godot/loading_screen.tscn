@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://7s5w5v7jmf30"]
+[gd_scene load_steps=3 format=3 uid="uid://7s5w5v7jmf30"]
 
 [ext_resource type="Script" path="res://loading_screen.gd" id="1_e2e0k"]
+[ext_resource type="RichTextEffect" uid="uid://d0psnm1eyw40x" path="res://src/text-effect/typed_effect.tres" id="2_5s7em"]
 
 [node name="LoadingScreen" type="Control"]
 layout_mode = 3
@@ -19,3 +20,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -104.0
+offset_top = -9.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="Loading" type="RichTextLabel" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/normal_font_size = 6
+bbcode_enabled = true
+text = "[right][b][font_size=8][typed until=10 height=1]. . .[/typed][/font_size][/b][/right]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+custom_effects = [ExtResource("2_5s7em")]
+
+[node name="StartTimer" type="Timer" parent="."]
+one_shot = true
