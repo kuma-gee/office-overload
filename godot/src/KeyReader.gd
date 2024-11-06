@@ -22,12 +22,13 @@ static func get_key_of_event(ev: InputEvent):
 	var key = ev.duplicate() as InputEventKey
 	
 	# we don't care about modifiers
-	key.shift_pressed = false
+	#key.shift_pressed = false # we need special characters
 	key.ctrl_pressed = false
 	key.alt_pressed = false
 	key.meta_pressed = false
 	
-	var text = key.as_text().to_lower()
+	var text = char(key.unicode).to_lower()
 	if text.length() != 1:
 		return null
+	
 	return text

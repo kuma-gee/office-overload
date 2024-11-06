@@ -8,6 +8,8 @@ signal filled()
 @export var min_increase := 0.05
 @export var base := 0.994 # sqrt(max_increase + min_increase, 100)
 
+@export var max_documents = 5.0
+
 @export var blink_start_time := 0.5
 @export var blink_timer_reference: Timer
 
@@ -22,6 +24,8 @@ signal filled()
 @export var color = original_color
 var multiplier := 1.0
 var running := false
+
+var game: Game
 
 var base_blink_time := -1.0
 var rotation_strength := 0.0
@@ -53,6 +57,9 @@ func brighten():
 
 func _process(delta):
 	if not running: return
+	
+	var workload = game.documents.size() / max_documents
+	multiplier = max(workload, 0.5)
 	
 	var was_full = is_full()
 	var increase = pow(base, value) - max_increase

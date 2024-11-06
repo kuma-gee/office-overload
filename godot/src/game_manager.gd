@@ -59,6 +59,7 @@ var past_performance := []
 var has_played := false
 var unlocked_modes = [Mode.Work]
 var performance := 0.0
+var subordinates = {}
 
 ### Maybe Save? ###
 var last_interview_wpm := 0.0
@@ -139,6 +140,7 @@ func reset_values():
 	average_accuracy = 0.0
 	total_completed_words = 0
 	past_wpms = []
+	subordinates = {}
 	
 	job_quited.emit()
 	_save_data()
@@ -147,22 +149,36 @@ func has_current_job():
 	return day > 0
 
 func finished_day(data: Dictionary):
+	### Calculate WPM ###
 	var wpm = wpm_calculator.get_average_wpm()
 	var acc = wpm_calculator.get_average_accuracy()
 	var current_size = wpm_calculator.get_total_size()
 	var previous_size = total_completed_words * 0.5 # count previous wpm less than the current one
+
+	average_wpm = ((average_wpm * previous_size) + (wpm * current_size)) / (previous_size + current_size)
+	average_accuracy = ((average_accuracy * previous_size) + (acc * current_size)) / (previous_size + current_size)
+	past_wpms.append(average_wpm)
+	if past_wpms.size() > keep_past_wpms:
+		past_wpms.pop_front()
 	
+	wpm_calculator.reset()
+	total_completed_words += current_size # For calculating WPM
+	_logger.info("New Average WPM %s and Accuracy %s with %s words" % [average_wpm, average_accuracy, total_completed_words])
+	
+	### Calculate Performance ###
 	var tasks = data["total"]
 	var perfect = data["perfect"]
 	var overtime = data["overtime"]
 	var distraction_missed = data["distractions"]
+	var wrong = data["wrong"]
 	
-	var missed_point = pow(1.5, distraction_missed)
-	var perfect_points = pow(1.25, perfect)
+	var missed_point = pow(distraction_missed, 2) # max ~9 distractions
+	var perfect_points = pow(perfect, 1.5) # max ~20 tasks
+	var wrong_points = pow(wrong, 2)
 	var overtime_minus = int(overtime / 2)
 	var normal_tasks = tasks - perfect
 	
-	var points = normal_tasks + perfect_points - overtime_minus - missed_point
+	var points = normal_tasks + perfect_points - overtime_minus - missed_point - wrong_points
 	points = floor(points * acc)
 	performance = max(performance + points, 0)
 	data["points"] = points
@@ -173,19 +189,8 @@ func finished_day(data: Dictionary):
 		past_performance.pop_front()
 	_logger.debug("Performance: %s with %s" % [performance, data])
 	
-	
-	average_wpm = ((average_wpm * previous_size) + (wpm * current_size)) / (previous_size + current_size)
-	average_accuracy = ((average_accuracy * previous_size) + (acc * current_size)) / (previous_size + current_size)
-	past_wpms.append(average_wpm)
-	if past_wpms.size() > keep_past_wpms:
-		past_wpms.pop_front()
-	
-	wpm_calculator.reset()
-	
 	completed_documents += tasks
 	total_overtime += overtime
-	total_completed_words += tasks # For calculating WPM
-	_logger.info("New Average WPM %s and Accuracy %s with %s words" % [average_wpm, average_accuracy, total_completed_words])
 	
 	_save_data()
 	round_ended.emit()
@@ -283,6 +288,9 @@ func is_max_promotion():
 
 	var next = difficulty_level + 1
 	return is_manager() or not next in DIFFICULTIES
+
+func is_level_greater_or_eq(diff: DifficultyResource.Level):
+	return difficulty_level >= diff
 
 func is_intern():
 	return difficulty_level == DifficultyResource.Level.INTERN

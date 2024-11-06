@@ -10,3 +10,4 @@ max_documents = 1.5
 distractions = 0.3
 bgm_speed = 1.0
 min_performance = 500
+invalid_word_chance = 0.05

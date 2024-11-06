@@ -2,7 +2,7 @@ class_name Delegator
 extends Node
 
 @export var reset_on_mistake := false
-@export var nodes: Array[Control] = []
+@export var nodes: Array[Node] = []
 
 var last_event: InputEvent
 

@@ -1,3 +1,4 @@
+class_name Game
 extends Node2D
 
 @export var overload_reduce := 20.0
@@ -35,7 +36,11 @@ extends Node2D
 @onready var camera_shake: CameraShake = $CameraShake
 @onready var frame_freeze: FrameFreeze = $FrameFreeze
 
-var is_gameover = false
+var is_gameover = false:
+	set(v):
+		is_gameover = v
+		person_container.is_gameover = v
+
 var documents = []
 
 func _set_environment():
@@ -47,8 +52,11 @@ func _set_environment():
 		#animation_player.play("littered")
 
 func _ready():
+	randomize()
 	get_tree().paused = false
 	_set_environment()
+	
+	overload_progress.game = self
 	
 	GameManager.round_ended.connect(func():
 		is_gameover = true
@@ -127,11 +135,6 @@ func _start_game():
 	
 	_spawn()
 
-func _process(_delta):
-	var max_documents = 5.0
-	var workload = documents.size() / max_documents
-	overload_progress.multiplier = max(workload, 0.5)
-
 func _finished(is_gameover = false):
 	self.is_gameover = is_gameover
 	
@@ -141,6 +144,7 @@ func _finished(is_gameover = false):
 			"perfect": document_stack.perfect_tasks,
 			"overtime": work_time.get_overtime(),
 			"distractions": distractions.missed,
+			"wrong": document_stack.wrong_tasks,
 		}
 		GameManager.finished_day(data)
 		distractions.slide_all_out()
@@ -186,17 +190,23 @@ func _crunch_mode_spawn_time(doc_count: int = document_stack.total):
 
 
 func _spawn_document(await_start = false):
-	var doc = doc_spawner.spawn_document() as Document
+	var invalid_chance = GameManager.difficulty.invalid_word_chance
+	var doc = doc_spawner.spawn_document(invalid_chance) as Document
 	doc.started.connect(func(): GameManager.start_type())
 	doc.finished.connect(func():
 		GameManager.finish_type(doc.word, doc.mistakes)
 		
-		doc.move_to(Vector2(-doc_spawner.global_position.x, doc_spawner.global_position.y))
-		documents.erase(doc)
-		
+		if doc.is_discarded():
+			doc.move_to(doc.global_position + Vector2.DOWN * 200)
+		else:
+			doc.move_to(Vector2(-doc_spawner.global_position.x, doc_spawner.global_position.y))
+			person_container.add_document()
+			
 		overload_progress.reduce(overload_reduce)
-		document_stack.add_document(doc.mistakes > 0)
 		overload_timer.stop()
+
+		document_stack.add_document(doc.mistakes > 0, doc_spawner.is_invalid_word(doc.word), doc.is_discarded())
+		documents.erase(doc)
 		
 		if not work_time.ended and GameManager.is_work_mode():
 			distractions.maybe_show_distraction()
@@ -224,3 +234,7 @@ func _spawn_document(await_start = false):
 		doc.show_tutorial()
 		
 	documents.append(doc)
+
+func get_label():
+	if documents.is_empty(): return null
+	return documents[0].get_label()

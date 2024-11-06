@@ -19,7 +19,17 @@ const NAMES = [
 	"Terry",
 ]
 
+const TRASH_NAME = "Trash"
+
+enum StressLevel {
+	LOW = 1,
+	MEDIUM = 3,
+	HIGH = 5,
+}
+
 var tw: Tween
+var selected_person: PersonInfo
+var is_gameover := false
 
 func _ready() -> void:
 	for c in get_children():
@@ -27,16 +37,51 @@ func _ready() -> void:
 	
 	if not GameManager.is_manager(): return
 	
-	var names = NAMES.duplicate()
-	for i in person_count:
-		var person_info = person_info_scene.instantiate()
+	if GameManager.subordinates.is_empty():
+		var names = NAMES.duplicate()
+		var levels = StressLevel.values()
+
+		for i in person_count:
+			var n = names.pick_random()
+			names.erase(n)
+
+			var lvl = levels.pick_random()
+			levels.erase(lvl)
+
+			GameManager.subordinates[n] = lvl
+
+	for n in GameManager.subordinates:
+		_create_person_info(n)
+	
+	selected_person.is_selected = true
+	
+	# _create_person_info(TRASH_NAME)
+
+func _create_person_info(n: String):
+	var person_info = person_info_scene.instantiate()
+	
+	if selected_person == null:
+		selected_person = person_info
+	
+	person_info.haika = self
+	person_info.person = n
+	person_info.selected.connect(func():
+		for c in get_children():
+			c.is_selected = false
+
+		person_info.is_selected = true
+		selected_person = person_info
+	)
 		
-		var n = names.pick_random()
-		names.erase(n)
-		person_info.set_word(n)
-		
-		add_child(person_info)
-		delegator.nodes.append(person_info)
+	add_child(person_info)
+	delegator.nodes.append(person_info)
+
+func is_trash_selected():
+	return selected_person.person == TRASH_NAME
+
+func add_document():
+	if not selected_person or not GameManager.is_manager(): return
+	selected_person.current_documents += 1
 
 func _input(event: InputEvent) -> void:
 	if not event is InputEventKey: return
@@ -66,6 +111,10 @@ func _hide_overlay():
 	
 	delegator.reset()
 
+	var doc = get_tree().get_first_node_in_group(Document.ACTIVE_GROUP)
+	if doc:
+		doc.reset_word()
+
 func _show_overlay():
 	if tw and tw.is_running():
 		tw.kill()
@@ -75,3 +124,7 @@ func _show_overlay():
 	
 	for m in get_children():
 		m.slide_in()
+	
+	var doc = get_tree().get_first_node_in_group(Document.ACTIVE_GROUP)
+	if doc:
+		doc.enable_trash()
