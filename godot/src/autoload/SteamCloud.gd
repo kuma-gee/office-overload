@@ -37,6 +37,11 @@ func _on_file_write_async_complete(result: int):
 	else:
 		logger.error("Failed to write file to steam cloud. Error code: %d" % result)
 
+	var quota = get_used_quota()
+	logger.info("Cloud storage used: %f" % quota)
+	if quota > 0.9:
+		logger.warn("Cloud storage is almost full. Consider contacting the dev via the feedback form")
+
 	is_uploading = false
 
 func _on_file_read_async_complete(dict: Dictionary):
@@ -58,6 +63,12 @@ func _get_save_file():
 
 func is_steam_cloud_enabled():
 	return steam and steam.isCloudEnabledForAccount() and steam.isCloudEnabledForApp() and SteamManager.is_successful_initialized
+
+func get_used_quota():
+	var data = steam.getQuota()
+	var total = data["total_bytes"]
+	var available = data["available_bytes"]
+	return (total - available) / float(total)
 
 func download_from_cloud():
 	if not is_steam_cloud_enabled():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=44 format=3 uid="uid://ctlncowdl0sbn"]
 
 [ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="1_3ujy4"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://cwb2bomvrxmul" path="res://src/ui/leaderboad.tscn" id="22_026hy"]
 [ext_resource type="Script" path="res://src/ui/performance_graph.gd" id="25_028t0"]
 [ext_resource type="Script" path="res://addons/graph_2d/graph_2d.gd" id="25_d4kul"]
+[ext_resource type="Script" path="res://src/ui/cloud_settings.gd" id="25_nuxga"]
 [ext_resource type="Texture2D" uid="uid://qpujdmcko0bu" path="res://assets/sprites/Arrow.png" id="27_lc2cv"]
 [ext_resource type="Script" path="res://addons/graph_2d/custom_nodes/coordinate.gd" id="33_4qrxl"]
 [ext_resource type="Script" path="res://src/ui/quit_job_warning.gd" id="34_xrtne"]
@@ -348,7 +349,6 @@ focus_mode = 1
 color = Color(0, 0, 0, 0.588235)
 
 [node name="Settings" type="Control" parent="." node_paths=PackedStringArray("overlay", "sliders", "display_settings", "delegator")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -532,7 +532,44 @@ size_flags_vertical = 0
 script = ExtResource("21_ycqnt")
 display_settings = NodePath("../..")
 
+[node name="CloudSettings" type="MarginContainer" parent="Settings/Audio/MarginContainer/DisplaySettings"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+script = ExtResource("25_nuxga")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/Audio/MarginContainer/DisplaySettings/CloudSettings"]
+layout_mode = 2
+
+[node name="FullScreen" parent="Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer" node_paths=PackedStringArray("checkbox") instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+size_flags_vertical = 4
+script = ExtResource("21_bmlq3")
+checkbox = NodePath("../../../VBoxContainer/CheckBox")
+word = "cloud"
+
+[node name="CheckBox" type="CheckBox" parent="Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "unavailable"
+
+[node name="ProgressBar" type="ProgressBar" parent="Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(50, 6)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 50.0
+show_percentage = false
+
 [node name="Overlay" type="ColorRect" parent="Settings/Audio"]
+visible = false
 layout_mode = 2
 color = Color(0, 0, 0, 0.313726)
 
