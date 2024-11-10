@@ -6,16 +6,16 @@ extends Control
 @export var gameover_sound: AudioStreamPlayer
 @export var leader_board: Leaderboard
 
-@export_category("Interview Mode")
-@export var interview_finished: Label
-@export var interview_wpm: Label
-@export var interview_delegator: Delegator
-
-@export_category("Crunch Mode")
-@export var crunch_tasks: Label
-@export var crunch_time: Label
-@export var crunch_wpm: Label
-@export var crunch_delegator: Delegator
+#@export_category("Interview Mode")
+#@export var interview_finished: Label
+#@export var interview_wpm: Label
+#@export var interview_delegator: Delegator
+#
+#@export_category("Crunch Mode")
+#@export var crunch_tasks: Label
+#@export var crunch_time: Label
+#@export var crunch_wpm: Label
+#@export var crunch_delegator: Delegator
 
 @export_category("Work Mode")
 @export var next_day: TypingButton
@@ -47,8 +47,8 @@ extends Control
 
 func _ready():
 	work_container.hide()
-	interview_container.hide()
-	crunch_container.hide()
+	#interview_container.hide()
+	#crunch_container.hide()
 	
 	next_day_container.hide()
 	promotion_container.hide()
@@ -64,12 +64,12 @@ func day_ended(data: Dictionary):
 	var overtime_hours = data["overtime"]
 	var distraction_missed = data["distractions"]
 	var points = data["points"]
-	var acc = data["acc"]
+	#var acc = data["acc"]
 	
 	title.text = "Day %s report" % GameManager.day
 	finished_tasks.text = "%s tasks" % tasks
-	perfect_tasks_label.text = "+ %s perfect" % perfect
-	acc_label.text = "Quality %0.f%%" % [acc * 100]
+	perfect_tasks_label.text = "Highest Streak %s" % perfect
+	#acc_label.text = "Quality %0.f%%" % [acc * 100]
 	
 	overtime.text = "%s hours of overtime" % overtime_hours
 	distraction_label.text = "%s ignored messages" % distraction_missed
@@ -101,15 +101,15 @@ func _promotion_tip_text(tip) -> String:
 	return ""
 
 func interview_ended(finished: int):
-	interview_finished.text = "Finished %s documents" % finished
-	interview_wpm.text = "%.0f WPM / %.0f%%" % [GameManager.last_interview_wpm, GameManager.last_interview_accuracy * 100]
+	#interview_finished.text = "Finished %s documents" % finished
+	#interview_wpm.text = "%.0f WPM / %.0f%%" % [GameManager.last_interview_wpm, GameManager.last_interview_accuracy * 100]
 
 	_do_open(interview_container)
 
 func crunch_ended(finished: int, hours: int):
-	crunch_tasks.text = "Finished %s documents" % finished
-	crunch_time.text = "Worked for %s hours" % hours
-	crunch_wpm.text = "%.0f WPM / %.0f%%" % [GameManager.last_crunch_wpm, GameManager.last_crunch_accuracy * 100]
+	#crunch_tasks.text = "Finished %s documents" % finished
+	#crunch_time.text = "Worked for %s hours" % hours
+	#crunch_wpm.text = "%.0f WPM / %.0f%%" % [GameManager.last_crunch_wpm, GameManager.last_crunch_accuracy * 100]
 	
 	_do_open(crunch_container, gameover_sound)
 
@@ -147,7 +147,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			promotion_delegator.handle_event(event)
 		elif work_container.visible:
 			day_delegator.handle_event(event)
-	elif interview_container.visible:
-		interview_delegator.handle_event(event)
-	elif crunch_container.visible:
-		crunch_delegator.handle_event(event)
+	#elif interview_container.visible:
+		#interview_delegator.handle_event(event)
+	#elif crunch_container.visible:
+		#crunch_delegator.handle_event(event)

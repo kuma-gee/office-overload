@@ -37,23 +37,23 @@ func _ready() -> void:
 	
 	if not GameManager.is_manager(): return
 	
-	if GameManager.subordinates.is_empty():
-		var names = NAMES.duplicate()
-		var levels = StressLevel.values()
-
-		for i in person_count:
-			var n = names.pick_random()
-			names.erase(n)
-
-			var lvl = levels.pick_random()
-			levels.erase(lvl)
-
-			GameManager.subordinates[n] = lvl
-
-	for n in GameManager.subordinates:
-		_create_person_info(n)
-	
-	selected_person.is_selected = true
+	#if GameManager.subordinates.is_empty():
+		#var names = NAMES.duplicate()
+		#var levels = StressLevel.values()
+#
+		#for i in person_count:
+			#var n = names.pick_random()
+			#names.erase(n)
+#
+			#var lvl = levels.pick_random()
+			#levels.erase(lvl)
+#
+			#GameManager.subordinates[n] = lvl
+#
+	#for n in GameManager.subordinates:
+		#_create_person_info(n)
+	#
+	#selected_person.is_selected = true
 	
 	# _create_person_info(TRASH_NAME)
 

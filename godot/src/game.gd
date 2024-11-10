@@ -141,10 +141,11 @@ func _finished(is_gameover = false):
 	if GameManager.is_work_mode():
 		var data = {
 			"total": document_stack.total,
-			"perfect": document_stack.perfect_tasks,
+			"perfect": document_stack.highest_streak,
 			"overtime": work_time.get_overtime(),
 			"distractions": distractions.missed,
 			"wrong": document_stack.wrong_tasks,
+			"points": document_stack.points,
 		}
 		GameManager.finished_day(data)
 		distractions.slide_all_out()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://dut1ttw4w6dqx"]
+[gd_scene load_steps=42 format=3 uid="uid://dut1ttw4w6dqx"]
 
 [ext_resource type="Texture2D" uid="uid://sy6r1qjyud55" path="res://assets/sprites/Desk_Static.png" id="1_62juk"]
 [ext_resource type="Script" path="res://src/ceo_boss.gd" id="1_84b2s"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://r6b75n40gyxy" path="res://assets/sprites/Desk_Computer.png" id="3_wsd0e"]
 [ext_resource type="Texture2D" uid="uid://b3m7b3wyx4tpw" path="res://assets/sprites/Clock.png" id="4_6b7vh"]
 [ext_resource type="Script" path="res://src/ui/ceo_end.gd" id="4_7rxx5"]
-[ext_resource type="Script" path="res://src/Clock.gd" id="5_02rw2"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="5_rqvos"]
 [ext_resource type="Texture2D" uid="uid://bikrg3yecci4h" path="res://assets/sprites/ClockLight.png" id="6_purox"]
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="7_5fuld"]
@@ -261,13 +260,10 @@ texture = ExtResource("2_28ny4")
 position = Vector2(0, -80)
 texture = ExtResource("3_wsd0e")
 
-[node name="Clock" type="Sprite2D" parent="Desk" node_paths=PackedStringArray("worktime", "point_light")]
+[node name="Clock" type="Sprite2D" parent="Desk"]
 position = Vector2(88, -74)
 texture = ExtResource("4_6b7vh")
 hframes = 2
-script = ExtResource("5_02rw2")
-worktime = NodePath("HBoxContainer/WorkTime")
-point_light = NodePath("../PointLight2D")
 
 [node name="ClockLight1" type="PointLight2D" parent="Desk/Clock"]
 position = Vector2(-10.5, 2.25806)

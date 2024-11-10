@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=92 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -65,6 +65,7 @@
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
 [ext_resource type="Script" path="res://src/ui/haika.gd" id="57_68uuw"]
 [ext_resource type="PackedScene" uid="uid://dpscoqgof7c0o" path="res://src/ui/person_info.tscn" id="57_yi5dh"]
+[ext_resource type="Script" path="res://src/shift_overlay.gd" id="59_nhn8c"]
 
 [sub_resource type="Curve" id="Curve_m11kp"]
 _data = [Vector2(0, 0.701099), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -612,6 +613,7 @@ script = ExtResource("20_tcix1")
 nodes = [NodePath("../..")]
 
 [node name="Haika" type="VBoxContainer" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "delegator")]
+visible = false
 offset_bottom = 146.0
 script = ExtResource("57_68uuw")
 person_info_scene = ExtResource("57_yi5dh")
@@ -1496,8 +1498,16 @@ visible = false
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
+[node name="ShiftOverlay" type="Node" parent="." node_paths=PackedStringArray("overlay", "delegator")]
+script = ExtResource("59_nhn8c")
+overlay = NodePath("../Overlay")
+delegator = NodePath("ShiftDelegator")
+
+[node name="ShiftDelegator" type="Node" parent="ShiftOverlay" node_paths=PackedStringArray("nodes")]
+script = ExtResource("20_tcix1")
+nodes = [NodePath("../..")]
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -1525,12 +1535,14 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ComboParticles" type="GPUParticles2D" parent="MarginContainer/HBoxContainer"]
+visible = false
 position = Vector2(3.5, 15)
 scale = Vector2(1, -1)
 process_material = SubResource("ParticleProcessMaterial_ll7l4")
 randomness = 1.0
 
 [node name="ComboParticles2" type="GPUParticles2D" parent="MarginContainer/HBoxContainer"]
+visible = false
 position = Vector2(8.5, 15)
 scale = Vector2(1, -1)
 process_material = SubResource("ParticleProcessMaterial_ll7l4")

@@ -14,14 +14,13 @@ extends Sprite2D
 var light = 1.0:
 	set(v):
 		light = clamp(v, 0.2, 1)
-		if canvas_modulate:
-			canvas_modulate.color = Color(light, light, light, 1)
-			set_lights(light < 1)
-			
-			if light >= 0.3:
-				overload_progress.brighten()
-			else:
-				overload_progress.darken()
+		canvas_modulate.color = Color(light, light, light, 1)
+		set_lights(light < 1)
+		
+		if light >= 0.3:
+			overload_progress.brighten()
+		else:
+			overload_progress.darken()
 
 func _ready():
 	if canvas_modulate:

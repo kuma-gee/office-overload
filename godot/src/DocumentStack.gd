@@ -57,10 +57,12 @@ var total := 0:
 var combo_count := 0:
 	set(v):
 		combo_count = v
+		highest_streak = max(combo_count, highest_streak)
+		
 		if not combo_label: return
 		
-		#combo_label.visible = combo_count > 1
-		#combo_label.text = "%sx" % combo_count
+		combo_label.visible = combo_count > 1
+		combo_label.text = "%sx" % combo_count
 		#for p in [combo_particles01, combo_particles02]:
 			#p.emitting = combo_label.visible
 			#p.amount = clamp(2 * ceil(combo_count / 3), 2, 16)
@@ -75,21 +77,24 @@ var combo_count := 0:
 			#combo_particles.emitting = true
 			#combo_particles.speed_scale = 1 + 0.1 * extra_mult
 
-var combo_multiplier := 1:
-	set(v):
-		combo_multiplier = v
-		if not combo_label: return
-		
-		combo_label.text = "%sx" % combo_multiplier
+#var combo_multiplier := 1:
+	#set(v):
+		#combo_multiplier = v
+		#if not combo_label: return
+		#
+		#combo_label.text = "%sx" % combo_multiplier
 
-var perfect_tasks := 0
+#var perfect_tasks := 0
 var tasks := 0
 var wrong_tasks := 0
+
+var points := 0.0
+var highest_streak := 0
 
 func _ready() -> void:
 	total = 0
 	combo_count = 0
-	combo_multiplier = 2
+	#combo_multiplier = 2
 	_init_documents()
 
 func _create_doc():
@@ -123,14 +128,19 @@ func add_document(mistake := false, wrong := false, is_discarded := false):
 	if not is_discarded:
 		if wrong:
 			wrong_tasks += 1
+			combo_count = 0
 		else:
-			if mistake:
-				tasks += 1
-			else:
+			tasks += 1
+			
+			if not mistake:
 				combo_count += 1
-				perfect_tasks += 1
+				
+		#if mistake:
+			#else:
+				#combo_count += 1
+				#perfect_tasks += 1
 
-			total += 1
+			total += 1 * combo_count
 
 func _init_documents():
 	for i in range(initial_doc_count):
