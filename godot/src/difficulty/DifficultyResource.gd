@@ -6,6 +6,7 @@ enum Level {
 	JUNIOR,
 	SENIOR,
 	MANAGER,
+	CEO,
 }
 
 @export var level := Level.JUNIOR

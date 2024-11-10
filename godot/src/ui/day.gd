@@ -1,3 +1,4 @@
+class_name Day
 extends Control
 
 signal finished()

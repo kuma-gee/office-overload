@@ -71,7 +71,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "YOU ARE FIRED!"
+text = "Burned out!"
 label_settings = ExtResource("2_s2nja")
 horizontal_alignment = 1
 vertical_alignment = 1

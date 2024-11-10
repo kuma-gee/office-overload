@@ -1,8 +1,12 @@
+class_name DocumentStack
 extends Node2D
 
 signal document_added()
+signal document_emptied()
 
+@export var initial_doc_count := 0
 @export var stack_count := 10
+@export var stack_offset := 1
 @export var max_stacks := 5
 @export var combo_multiplier_divider := 5
 @export var doc_texture: Texture2D
@@ -11,18 +15,14 @@ signal document_added()
 
 @export var combo_particles01: GPUParticles2D
 @export var combo_particles02: GPUParticles2D
-@onready var combo_particles := [combo_particles01, combo_particles02]
-
-@onready var cpu_particles_2d = $CPUParticles2D
-@onready var cpu_particles_2d_2 = $CPUParticles2D2
-@onready var cpu_particles_2d_3 = $CPUParticles2D3
-@onready var cpu_particles_2d_4 = $CPUParticles2D4
-@onready var particles := [cpu_particles_2d, cpu_particles_2d_2, cpu_particles_2d_3, cpu_particles_2d_4]
 
 var tw: Tween
 var total := 0:
 	set(v):
 		total = v
+		if not doc_count_label:
+			return
+			
 		doc_count_label.visible = total > 0
 		
 		if tw and tw.is_running():
@@ -57,11 +57,13 @@ var total := 0:
 var combo_count := 0:
 	set(v):
 		combo_count = v
-		combo_label.visible = combo_count > 1
-		combo_label.text = "%sx" % combo_count
-		for p in combo_particles:
-			p.emitting = combo_label.visible
-			p.amount = clamp(2 * ceil(combo_count / 3), 2, 16)
+		if not combo_label: return
+		
+		#combo_label.visible = combo_count > 1
+		#combo_label.text = "%sx" % combo_count
+		#for p in [combo_particles01, combo_particles02]:
+			#p.emitting = combo_label.visible
+			#p.amount = clamp(2 * ceil(combo_count / 3), 2, 16)
 		
 		#if combo_count <= 1:
 			#combo_multiplier = 1
@@ -76,6 +78,8 @@ var combo_count := 0:
 var combo_multiplier := 1:
 	set(v):
 		combo_multiplier = v
+		if not combo_label: return
+		
 		combo_label.text = "%sx" % combo_multiplier
 
 var perfect_tasks := 0
@@ -86,29 +90,32 @@ func _ready() -> void:
 	total = 0
 	combo_count = 0
 	combo_multiplier = 2
+	_init_documents()
 
 func _create_doc():
 	var sprite = Sprite2D.new()
 	sprite.texture = doc_texture
 	sprite.scale = Vector2(0.7, 0.7)
+	add_child(sprite)
 	return sprite
 
+func has_documents():
+	return get_child_count() > 0
+
+func remove_document():
+	total -= 1
+	
+	var should_remove = not (total % stack_count == 0 and total <= (max_stacks * stack_count))
+	if should_remove and get_child_count() > 0:
+		_move_out_doc(get_child(get_child_count() - 1))
+		
+	if total <= 0:
+		document_emptied.emit()
+
 func add_document(mistake := false, wrong := false, is_discarded := false):
-	if not GameManager.is_manager():
-		var doc = _create_doc()
-		add_child(doc)
-		
-		var offset = min(floor(total / stack_count), max_stacks - 1)
-		var target = Vector2.UP * offset
-		
-		doc.position = Vector2.RIGHT * 100
-		var tw = create_tween()
-		tw.tween_property(doc, "position", target + Vector2.UP * 2, 1.0).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-		tw.tween_property(doc, "position", target, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_delay(0.1)
-		tw.parallel().tween_callback(_emit_particles).set_delay(0.2)
-		
-		var should_remove = not (total % stack_count == 0 and total <= (max_stacks * stack_count))
-		tw.finished.connect(func(): if should_remove: doc.queue_free())
+	#if not GameManager.is_manager():
+	var doc = _create_doc()
+	_move_in_doc(doc)
 	
 	if mistake:
 		combo_count = 0
@@ -125,9 +132,42 @@ func add_document(mistake := false, wrong := false, is_discarded := false):
 
 			total += 1
 
+func _init_documents():
+	for i in range(initial_doc_count):
+		var doc = _create_doc()
+		doc.position = get_current_final_position()
+		total += 1
+
+func _move_in_doc(doc):
+	var target = get_current_final_position()
+	
+	doc.position = Vector2.RIGHT * 100
+	var tw = create_tween()
+	tw.tween_property(doc, "position", target + Vector2.UP * 2, 1.0).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	tw.tween_property(doc, "position", target, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_delay(0.1)
+	tw.parallel().tween_callback(_emit_particles).set_delay(0.2)
+	
+	var should_remove = not (total % stack_count == 0 and total <= (max_stacks * stack_count))
+	tw.finished.connect(func(): if should_remove: doc.queue_free())
+
+func _move_out_doc(doc):
+	var target = Vector2.LEFT * 100
+	var tw = create_tween()
+	tw.tween_property(doc, "position", target + Vector2.UP * 2, 1.0).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	tw.tween_property(doc, "position", target, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_delay(0.1)
+	tw.finished.connect(func():
+		if is_instance_valid(doc):
+			doc.queue_free()
+	)
+
+func get_current_final_position():
+	var offset = min(floor(total / stack_count), max_stacks - 1)
+	return Vector2.UP * offset * stack_offset
+
 func remove_combo():
-	combo_label.hide()
+	if combo_label:
+		combo_label.hide()
 
 func _emit_particles():
-	for p in particles:
+	for p in [$CPUParticles2D, $CPUParticles2D2, $CPUParticles2D3, $CPUParticles2D4]:
 		p.emitting = true

@@ -14,6 +14,7 @@ const DIFFICULTIES = {
 	DifficultyResource.Level.JUNIOR: preload("res://src/difficulty/Junior.tres"),
 	DifficultyResource.Level.SENIOR: preload("res://src/difficulty/Senior.tres"),
 	DifficultyResource.Level.MANAGER: preload("res://src/difficulty/Management.tres"),
+	DifficultyResource.Level.CEO: preload("res://src/difficulty/CEO.tres"),
 }
 
 enum Mode {
@@ -86,7 +87,7 @@ func _load_data():
 	if data:
 		cache_properties.load_data(data)
 	
-	self.difficulty_level = difficulty_level
+	self.difficulty_level = DifficultyResource.Level.CEO
 	
 	_logger.info("Game initialized")
 	init = true
@@ -120,7 +121,11 @@ func start(mode: Mode = current_mode):
 	has_played = true
 	wpm_calculator.reset()
 	game_started.emit()
-	SceneManager.change_scene("res://src/game.tscn") # reload_scene (sometimes?) doesn't work?
+	
+	if is_ceo():
+		SceneManager.change_scene("res://src/ceo_boss.tscn")
+	else:
+		SceneManager.change_scene("res://src/game.tscn")
 
 func restart():
 	start()
@@ -303,6 +308,9 @@ func is_senior():
 
 func is_manager():
 	return difficulty_level == DifficultyResource.Level.MANAGER
+
+func is_ceo():
+	return difficulty_level == DifficultyResource.Level.CEO
 
 func get_level_text(lvl = difficulty_level, abbreviate = -1):
 	var txt = DifficultyResource.Level.keys()[lvl] as String
