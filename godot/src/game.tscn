@@ -630,7 +630,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Distractions" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "shift_button")]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -706,6 +705,7 @@ texture = ExtResource("20_hn5id")
 stretch_mode = 2
 
 [node name="Countdown" type="MarginContainer" parent="CanvasLayer/Distractions/Email/Email"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -865,6 +865,7 @@ autowrap_mode = 3
 height = 1.0
 
 [node name="Countdown" type="MarginContainer" parent="CanvasLayer/Distractions/Phone/Phone"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -935,7 +936,7 @@ stretch_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Junior/Junior"]
 layout_mode = 2
 theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
+theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 5
 
@@ -945,7 +946,6 @@ size_flags_vertical = 4
 theme_override_constants/separation = 10
 
 [node name="Label" type="Label" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 text = "Junior"
 label_settings = ExtResource("16_3sqd2")
@@ -957,6 +957,7 @@ theme_override_font_sizes/normal_font_size = 12
 height = 1.0
 
 [node name="Countdown" type="MarginContainer" parent="CanvasLayer/Distractions/Junior/Junior"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -987,6 +988,7 @@ script = ExtResource("24_7p44n")
 timer = NodePath("../../../../../Timer")
 
 [node name="ShiftButton" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0

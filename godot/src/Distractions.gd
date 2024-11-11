@@ -102,6 +102,7 @@ func show_distraction():
 	var distraction = available.pick_random()
 	var word = _get_random_distraction_word(distraction.type)
 	distraction.set_word(word, distraction_timeout)
+	_show_overlay()
 	
 	if not shift_button.is_open:
 		shift_button.slide_in_full()
@@ -151,8 +152,8 @@ func _hide_overlay():
 		shift_button.slide_in_full()
 
 func _show_overlay():
-	if tw and tw.is_running():
-		tw.kill()
+	if tw and tw.is_running() or overlay.modulate == Color.WHITE:
+		return
 	
 	tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tw.tween_property(overlay, "modulate", Color.WHITE, 0.5)
@@ -166,16 +167,16 @@ func _show_overlay():
 func _input(event):
 	if not event is InputEventKey: return
 	
-	var key_ev = event as InputEventKey
-	if key_ev.is_action_released("special_mode"):
-		_hide_overlay()
+	# var key_ev = event as InputEventKey
+	# if key_ev.is_action_released("special_mode"):
+	# 	_hide_overlay()
 	
 	if not _has_active_distraction(): return
 	
-	if key_ev.is_action_pressed("special_mode"):
-		_show_overlay()
+	# if key_ev.is_action_pressed("special_mode"):
+	# 	_show_overlay()
 	
-	if not Input.is_action_pressed("special_mode"): return
+	# if not Input.is_action_pressed("special_mode"): return
 	
 	var handled = delegator.handle_event(event)
 	if event is InputEventKey and not delegator.has_focused() and not handled:

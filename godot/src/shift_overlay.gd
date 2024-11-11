@@ -10,7 +10,7 @@ func _ready() -> void:
 	_hide_overlay()
 
 func _input(event: InputEvent) -> void:
-	if not event is InputEventKey: return
+	if not event is InputEventKey or not GameManager.is_manager(): return
 
 	var key_ev = event as InputEventKey
 	if key_ev.is_action_released("special_mode"):

@@ -29,11 +29,11 @@ func _ready():
 		)
 		label.type_wrong.connect(func(): mistakes += 1)
 	
-	if timer:
-		timer.timeout.connect(func():
-			slide_out()
-			timeout.emit()
-		)
+	# if timer:
+	# 	timer.timeout.connect(func():
+	# 		slide_out()
+	# 		timeout.emit()
+	# 	)
 	
 	#hide()
 	global_position = get_hide_position()
@@ -41,8 +41,9 @@ func _ready():
 func set_word(w: String, timeout_sec: int):
 	label.word = w
 	label.highlight_first = true
-	#label.focused = true
-	timer.start(timeout_sec)
+	label.focused = true
+	# timer.start(timeout_sec)
+
 	slide_in()
 
 func get_word():
@@ -50,7 +51,8 @@ func get_word():
 
 func slide_in():
 	show()
-	slide_in_half()
+	slide_in_full()
+	# slide_in_half()
 	#if Input.is_action_pressed("special_mode"):
 		#slide_in_full()
 	#else:

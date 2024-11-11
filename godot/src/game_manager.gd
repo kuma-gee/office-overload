@@ -87,7 +87,7 @@ func _load_data():
 	if data:
 		cache_properties.load_data(data)
 	
-	self.difficulty_level = DifficultyResource.Level.MANAGER
+	self.difficulty_level = DifficultyResource.Level.SENIOR
 	
 	_logger.info("Game initialized")
 	init = true
@@ -174,17 +174,17 @@ func finished_day(data: Dictionary):
 	var tasks = data["total"]
 	var perfect = data["perfect"]
 	var overtime = data["overtime"]
-	var distraction_missed = data["distractions"]
+	# var distraction_missed = data["distractions"]
 	var wrong = data["wrong"]
 	var points = data["points"]
 	
-	var missed_point = pow(distraction_missed, 2) # max ~9 distractions
+	# var missed_point = pow(distraction_missed, 2) # max ~9 distractions
 	#var perfect_points = pow(perfect, 1.5) # max ~20 tasks
 	var wrong_points = pow(wrong, 2)
 	var overtime_minus = int(overtime / 2)
 	#var normal_tasks = tasks - perfect
 	
-	points -= overtime_minus - missed_point - wrong_points
+	points -= overtime_minus - wrong_points
 	points = floor(points * acc)
 	performance = max(performance + points, 0)
 	data["points"] = points
