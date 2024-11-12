@@ -121,7 +121,7 @@ func _on_day_finished():
 	else:
 		bgm.pitch_scale = 1.0
 	
-	if GameManager.day > 1 and GameManager.is_work_mode():
+	if GameManager.day >= 1 and GameManager.is_work_mode():
 		_start_game()
 	else:
 		_spawn_document(true)

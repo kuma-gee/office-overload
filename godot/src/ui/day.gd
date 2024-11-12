@@ -13,7 +13,7 @@ func _ready():
 	level_label.hide()
 	
 	if GameManager.is_work_mode():
-		day_label.text = "Day %s" % GameManager.day
+		day_label.text = "Day %s" % (GameManager.day + 1)
 		level_label.text = "%s" % GameManager.get_level_text()
 		level_label.show()
 	elif GameManager.is_crunch_mode():

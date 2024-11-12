@@ -115,9 +115,6 @@ func start(mode: Mode = current_mode):
 	if Env.is_demo():
 		current_mode = Mode.Work
 	
-	if is_work_mode():
-		day += 1
-	
 	has_played = true
 	wpm_calculator.reset()
 	game_started.emit()
@@ -195,6 +192,9 @@ func finished_day(data: Dictionary):
 	# completed_documents += tasks
 	# total_overtime += overtime
 	
+	if is_work_mode():
+		day += 1
+
 	_save_data()
 	round_ended.emit()
 
