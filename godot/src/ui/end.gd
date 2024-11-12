@@ -86,12 +86,12 @@ func day_ended(data: Dictionary):
 	#var acc = data["acc"]
 	
 	title.text = "Day %s report" % GameManager.day
-	finished_tasks.text = "Tasks\n %s" % tasks
-	perfect_tasks_label.text = "Highest Combo\n %s" % combo
+	finished_tasks.text = "%s" % tasks
+	perfect_tasks_label.text = "%s" % combo
 	#acc_label.text = "Quality %0.f%%" % [acc * 100]
 	# overtime.text = "%s hours of overtime" % overtime_hours
 	# distraction_label.text = "%s ignored messages" % distraction_missed
-	distraction_label.text = "Mistakes\n %s" % (wrong + mistyped)
+	distraction_label.text = "%s" % (wrong + mistyped)
 
 	# points_label.text = "Performance %s" % points
 	

@@ -87,7 +87,7 @@ func _load_data():
 	if data:
 		cache_properties.load_data(data)
 	
-	self.difficulty_level = DifficultyResource.Level.SENIOR
+	self.difficulty_level = DifficultyResource.Level.INTERN
 	
 	_logger.info("Game initialized")
 	init = true

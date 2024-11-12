@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=94 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -60,6 +60,7 @@
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="32_eoisl"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="33_5ctor"]
 [ext_resource type="Texture2D" uid="uid://bstvwnc3xppv1" path="res://assets/sprites/Shift.png" id="33_qq0id"]
+[ext_resource type="Shader" path="res://src/base-system/shaders/blur_darken.gdshader" id="38_1aevo"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
 [ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
@@ -90,6 +91,11 @@ shader_parameter/not_fill_color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1mklb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o0ctv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6q17f"]
+shader = ExtResource("38_1aevo")
+shader_parameter/lod = 2.0
+shader_parameter/mix_percentage = 0.7
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52hld"]
 
@@ -630,6 +636,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Distractions" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "shift_button")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1075,6 +1082,7 @@ theme_override_font_sizes/normal_font_size = 10
 
 [node name="Pause" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("quit_btn", "continue_btn")]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1088,13 +1096,13 @@ quit_btn = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/VBox
 continue_btn = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay/Continue")
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Pause"]
+material = SubResource("ShaderMaterial_6q17f")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.588235)
 
 [node name="Delegator" type="Node" parent="CanvasLayer/Pause" node_paths=PackedStringArray("nodes")]
 script = ExtResource("20_tcix1")
@@ -1192,7 +1200,7 @@ autoplay = "normal"
 texture = ExtResource("19_wvt8k")
 
 [node name="PointLight2D" type="PointLight2D" parent="Desk"]
-position = Vector2(0, 1)
+position = Vector2(0.5, 0.5)
 blend_mode = 2
 texture = ExtResource("14_uyjhq")
 
@@ -1571,6 +1579,7 @@ word_generator = NodePath("WordGenerator")
 script = ExtResource("55_o651g")
 
 [node name="Overlay" type="ColorRect" parent="."]
+visible = false
 custom_minimum_size = Vector2(100, 100)
 anchors_preset = 15
 anchor_right = 1.0

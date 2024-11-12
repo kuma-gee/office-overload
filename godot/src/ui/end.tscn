@@ -17,8 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="17_74eho"]
 [ext_resource type="Script" path="res://src/ui/esc_button.gd" id="18_4swmg"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7k5ci"]
-
 [sub_resource type="Curve" id="Curve_30t50"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99435, 0), -3.02564, 0.0, 0, 0]
 point_count = 2
@@ -44,6 +42,10 @@ scale_min = 5.0
 scale_max = 5.0
 scale_curve = SubResource("CurveTexture_a4gy4")
 alpha_curve = SubResource("CurveTexture_wjj53")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_k1u62"]
+content_margin_top = 3.0
+color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [sub_resource type="Curve" id="Curve_y7k8r"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99435, 0), -3.02564, 0.0, 0, 0]
@@ -88,11 +90,11 @@ next_day_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer
 promotion_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/Promotion")
 title = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/Title")
 overtime = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Overtime")
-finished_tasks = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/FinishedTasks")
+finished_tasks = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer/Tasks")
 day_delegator = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/DayDelegator")
 promotion_tip_text = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTip")
-perfect_tasks_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PerfectTasks")
-distraction_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Distractions")
+perfect_tasks_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2/MaxCombo")
+distraction_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3/Mistakes")
 points_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Points")
 promotion_text = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/TypingLabel")
 promotion_text_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer")
@@ -123,7 +125,6 @@ grow_vertical = 2
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
 custom_minimum_size = Vector2(100, 150)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_7k5ci")
 
 [node name="Work" type="MarginContainer" parent="CenterContainer/PanelContainer"]
 layout_mode = 2
@@ -134,7 +135,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 8
 
 [node name="Title" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer"]
 layout_mode = 2
@@ -240,13 +241,51 @@ lifetime = 0.8
 one_shot = true
 explosiveness = 0.9
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "FINISHED_TASKS"
+columns = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+text = "Tasks"
 label_settings = ExtResource("4_0mkg1")
-horizontal_alignment = 1
+
+[node name="Tasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
+text = "100"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Max Combo"
+label_settings = ExtResource("4_0mkg1")
+
+[node name="MaxCombo" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
+text = "100"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3"]
+layout_mode = 2
+text = "Mistakes"
+label_settings = ExtResource("4_0mkg1")
+
+[node name="Mistakes" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
+text = "100"
 
 [node name="PerfectTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "PERFECT_TASKS"
 label_settings = ExtResource("4_0mkg1")
@@ -260,6 +299,7 @@ label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
 [node name="Distractions" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "DISTRACTIONS"
 label_settings = ExtResource("4_0mkg1")
