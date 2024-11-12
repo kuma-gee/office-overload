@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://kdu7e637eapn"]
+[gd_scene load_steps=28 format=3 uid="uid://kdu7e637eapn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_80w1y"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_ox4yy"]
@@ -16,6 +16,8 @@
 [ext_resource type="Script" path="res://src/ui/unlocked_mode.gd" id="16_hp113"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="17_74eho"]
 [ext_resource type="Script" path="res://src/ui/esc_button.gd" id="18_4swmg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7k5ci"]
 
 [sub_resource type="Curve" id="Curve_30t50"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99435, 0), -3.02564, 0.0, 0, 0]
@@ -121,6 +123,7 @@ grow_vertical = 2
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
 custom_minimum_size = Vector2(100, 150)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7k5ci")
 
 [node name="Work" type="MarginContainer" parent="CenterContainer/PanelContainer"]
 layout_mode = 2

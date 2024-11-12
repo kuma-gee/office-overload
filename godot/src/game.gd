@@ -105,6 +105,10 @@ func _ready():
 				document_stack.remove_combo()
 				# frame_freeze.freeze(0.05)
 	)
+	key_reader.pressed_cancel.connect(func(shift):
+		if not is_gameover:
+			pause.grab_focus()
+	)
 
 #func _unhandled_input(event: InputEvent) -> void:
 	#if event.is_action_pressed("ui_cancel") and not is_gameover:

@@ -1075,7 +1075,6 @@ theme_override_font_sizes/normal_font_size = 10
 
 [node name="Pause" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("quit_btn", "continue_btn")]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1170,7 +1169,7 @@ word = "Continue"
 
 [node name="Quit" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("33_5ctor")]
 layout_mode = 2
-word = "quitjob"
+word = "home"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.2, 0.2, 0.2, 1)
