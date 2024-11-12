@@ -250,13 +250,13 @@ label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
 [node name="Overtime" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "OVERTIME"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
 [node name="Distractions" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 text = "DISTRACTIONS"
 label_settings = ExtResource("4_0mkg1")

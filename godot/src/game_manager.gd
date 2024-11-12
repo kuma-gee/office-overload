@@ -171,21 +171,18 @@ func finished_day(data: Dictionary):
 	_logger.info("New Average WPM %s and Accuracy %s with %s words" % [average_wpm, average_accuracy, total_completed_words])
 	
 	### Calculate Performance ###
-	var tasks = data["total"]
-	var perfect = data["perfect"]
-	var overtime = data["overtime"]
-	# var distraction_missed = data["distractions"]
+	var total = data["total"]
 	var wrong = data["wrong"]
-	var points = data["points"]
 	
 	# var missed_point = pow(distraction_missed, 2) # max ~9 distractions
 	#var perfect_points = pow(perfect, 1.5) # max ~20 tasks
 	var wrong_points = pow(wrong, 2)
-	var overtime_minus = int(overtime / 2)
+	# var overtime_minus = int(overtime / 2)
 	#var normal_tasks = tasks - perfect
 	
-	points -= overtime_minus - wrong_points
-	points = floor(points * acc)
+	var points = total
+	points -= wrong_points
+	# points = floor(points * acc)
 	performance = max(performance + points, 0)
 	data["points"] = points
 	#data["acc"] = acc
@@ -195,8 +192,8 @@ func finished_day(data: Dictionary):
 		past_performance.pop_front()
 	_logger.debug("Performance: %s with %s" % [performance, data])
 	
-	completed_documents += tasks
-	total_overtime += overtime
+	# completed_documents += tasks
+	# total_overtime += overtime
 	
 	_save_data()
 	round_ended.emit()

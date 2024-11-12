@@ -1,5 +1,16 @@
 extends Control
 
+# S, A, B, C, D, E, F
+const GRADES = {
+	"S": 90,
+	"A": 60,
+	"B": 30,
+	"C": 10,
+	"D": 0,
+	"E": -10,
+	"F": -30,
+}
+
 @onready var end_effect = $EndEffect
 
 @export var open_sound: AudioStreamPlayer
@@ -60,20 +71,29 @@ func _ready():
 
 func day_ended(data: Dictionary):
 	var tasks = data["total"]
-	var perfect = data["perfect"]
-	var overtime_hours = data["overtime"]
-	var distraction_missed = data["distractions"]
+	var combo = data["combo"]
+	var wrong = data["wrong"]
+	var mistyped = data["mistyped"]
+	# var overtime_hours = data["overtime"]
+	# var distraction_missed = data["distractions"]
 	var points = data["points"]
+	var grade = "F"
+	for g in GRADES.keys():
+		if points >= GRADES[g]:
+			grade = g
+			break
+
 	#var acc = data["acc"]
 	
 	title.text = "Day %s report" % GameManager.day
-	finished_tasks.text = "%s tasks" % tasks
-	perfect_tasks_label.text = "Highest Streak %s" % perfect
+	finished_tasks.text = "Tasks\n %s" % tasks
+	perfect_tasks_label.text = "Highest Combo\n %s" % combo
 	#acc_label.text = "Quality %0.f%%" % [acc * 100]
-	
-	overtime.text = "%s hours of overtime" % overtime_hours
-	distraction_label.text = "%s ignored messages" % distraction_missed
-	points_label.text = "Performance %s" % points
+	# overtime.text = "%s hours of overtime" % overtime_hours
+	# distraction_label.text = "%s ignored messages" % distraction_missed
+	distraction_label.text = "Mistakes\n %s" % (wrong + mistyped)
+
+	# points_label.text = "Performance %s" % points
 	
 	var promo_tip = GameManager.can_have_promotion()
 	var promo = promo_tip == null

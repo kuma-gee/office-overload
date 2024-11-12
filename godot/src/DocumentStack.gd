@@ -87,8 +87,6 @@ var combo_count := 0:
 #var perfect_tasks := 0
 var tasks := 0
 var wrong_tasks := 0
-
-var points := 0.0
 var highest_streak := 0
 
 func _ready() -> void:
@@ -130,10 +128,10 @@ func add_document(mistake := false, wrong := false, is_discarded := false):
 			wrong_tasks += 1
 			combo_count = 0
 		else:
-			tasks += 1
-			
 			if not mistake:
 				combo_count += 1
+			else:
+				tasks += 1
 				
 		#if mistake:
 			#else:
