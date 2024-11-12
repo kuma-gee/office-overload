@@ -161,14 +161,33 @@ func _get_rotation():
 		#Mode.HARD: return PI/8
 	return PI/20
 
-func spawn_document(invalid_word_chance := 0.0):
-	var doc = document_scene.instantiate()
-	var word = word_generator.get_random_word()
+enum InvalidType {
+	INVALID,
+	SWAP,
+	CENSOR,
+}
 
-	if randf() < invalid_word_accum:
-		if randf() < 0.5 or invalid_spawned < 2:
+var invalid_chances = {
+	InvalidType.INVALID: 0.5,
+	InvalidType.SWAP: 0.3,
+	InvalidType.CENSOR: 0.2,
+}
+
+func _get_invalid_type():
+	var r = randf()
+	for type in invalid_chances.keys():
+		if r < invalid_chances[type]:
+			return type
+		r -= invalid_chances[type]
+
+	return InvalidType.INVALID
+
+func _set_invalid_word(doc: Document, word: String):
+	var invalid_type = _get_invalid_type()
+	match invalid_type:
+		InvalidType.INVALID:
 			word = INVALID_WORDS.pick_random()
-		else:
+		InvalidType.SWAP:
 			for _x in randi_range(2, 5):
 				var swap_idx = randi_range(1, word.length() - 1)
 				
@@ -182,14 +201,25 @@ func spawn_document(invalid_word_chance := 0.0):
 					var temp = word[target_idx]
 					word[target_idx] = word[swap_idx]
 					word[swap_idx] = temp
+		InvalidType.CENSOR:
+			# Words should be at least 4 characters long
+			doc.censored = [word[randi_range(2, word.length() - 2)]]
 
+	doc.word = word
+
+func spawn_document(invalid_word_chance := 0.0):
+	var doc = document_scene.instantiate()
+	var word = word_generator.get_random_word()
+
+	if randf() < invalid_word_accum:
+		_set_invalid_word(doc, word)
 		invalid_word_accum = 0.0
 		invalid_spawned += 1
 	else:
 		# after checking, so there won't be two invalid words after another
 		invalid_word_accum += invalid_word_chance
+		doc.word = word
 
-	doc.word = word
 	doc.global_position = global_position
 	
 	var x = abs(global_position.x)

@@ -17,6 +17,7 @@ const TRASH_PREFIX = "!"
 
 var mistakes := 0
 var word := ""
+var censored := []
 var target_position := Vector2.ZERO
 var _logger = Logger.new("Document")
 
@@ -28,6 +29,8 @@ func show_tutorial():
 
 func _ready():
 	typing_label.word = word
+	typing_label.censored = censored
+
 	typing_label.type_start.connect(func(): started.emit())
 	typing_label.type_finish.connect(func():
 		remove_from_group(ACTIVE_GROUP)

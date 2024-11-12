@@ -71,6 +71,8 @@ var locked := false:
 		add_theme_color_override("font_outline_color", highlight_color if v else Color.TRANSPARENT)
 		update_word()
 
+var censored := []
+
 func _ready():
 	self.focused = false
 	add_theme_constant_override("outline_size", 5)
@@ -89,27 +91,31 @@ func update_word():
 		text = "[outline_color=%s][color=%s]%s[/color][/outline_color]" % [highlight_color.to_html(), active_color.to_html(), word]
 		return
 	
-	var len = typed.length()
-	if highlight_first and len == 0:
+	var until = typed.length()
+	if highlight_first and until == 0:
 		text = _wrap_outline(_wrap_center(_wrap_typed(1, _wrap_word(0), false)))
 	elif highlight_all:
 		text = _wrap_outline(_wrap_center(_wrap_typed(word.length(), _wrap_word(0), false)))
 	else:
-		text = _wrap_outline(_wrap_center(_wrap_typed(len, _wrap_word(len))))
+		text = _wrap_outline(_wrap_center(_wrap_typed(until, _wrap_word(until))))
 
 func _wrap_outline(w: String):
 	if outline_all:
 		return "[outline_color=%s]%s[/outline_color]" % [highlight_color.to_html(), w]
 	return w
 
-func _wrap_word(len: int):
+func _wrap_word(until: int):
+	var censored_word = word
+	for c in censored:
+		censored_word = censored_word.replace(c, "_")
+
 	return "[color=%s]%s[/color][color=%s][shake rate=%s level=%s]%s[/shake]%s[/color]" % [
 		typed_color.to_html(),
-		word.substr(0, len),
+		censored_word.substr(0, until),
 		untyped_color.to_html() if typed.length() > 0 else text_color.to_html(),
 		current_shake, 10 if current_shake > 0 else 0,
-		word.substr(len, 1),
-		word.substr(len + 1)
+		censored_word.substr(until, 1),
+		censored_word.substr(until + 1)
 	]
 
 func _wrap_typed(until: int, w: String, highlight = true):
