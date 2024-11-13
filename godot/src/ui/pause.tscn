@@ -1,0 +1,118 @@
+[gd_scene load_steps=13 format=3 uid="uid://cuh77fo8okhk7"]
+
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_71maj"]
+[ext_resource type="Script" path="res://src/ui/pause.gd" id="2_m8npc"]
+[ext_resource type="Shader" path="res://src/base-system/shaders/blur_darken.gdshader" id="3_k0t8n"]
+[ext_resource type="Script" path="res://src/delegator.gd" id="4_odsy1"]
+[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="5_egeuo"]
+[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="6_tmpbb"]
+[ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="7_k7fko"]
+[ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="8_c1opt"]
+[ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="9_ghkfo"]
+[ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="10_w6yci"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6q17f"]
+shader = ExtResource("3_k0t8n")
+shader_parameter/lod = 2.0
+shader_parameter/mix_percentage = 0.7
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52hld"]
+
+[node name="Pause" type="Control" node_paths=PackedStringArray("quit_btn", "continue_btn")]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+theme = ExtResource("1_71maj")
+script = ExtResource("2_m8npc")
+quit_btn = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay/Quit")
+continue_btn = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay/Continue")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6q17f")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
+script = ExtResource("4_odsy1")
+nodes = [NodePath("../CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay/Continue"), NodePath("../CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay/Quit")]
+
+[node name="EffectRoot" type="Node" parent="."]
+script = ExtResource("5_egeuo")
+ease = 1
+duration = 0.5
+
+[node name="Slide" type="Node" parent="EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("6_tmpbb")
+node = NodePath("../../CenterContainer")
+
+[node name="Fade" type="Node" parent="EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("7_k7fko")
+node = NodePath("../../ColorRect")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_52hld")
+
+[node name="Interview" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Interview"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="CenterContainer/PanelContainer/Interview/VBoxContainer"]
+layout_mode = 2
+text = "COFFEE BREAK"
+label_settings = ExtResource("8_c1opt")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Interview/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "You are enjoying
+your coffee on your desk"
+label_settings = ExtResource("9_ghkfo")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Continue" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("10_w6yci")]
+layout_mode = 2
+word = "Continue"
+
+[node name="Quit" parent="CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("10_w6yci")]
+layout_mode = 2
+word = "home"

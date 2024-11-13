@@ -1,9 +1,9 @@
-[gd_scene load_steps=42 format=3 uid="uid://dut1ttw4w6dqx"]
+[gd_scene load_steps=45 format=3 uid="uid://dut1ttw4w6dqx"]
 
 [ext_resource type="Texture2D" uid="uid://sy6r1qjyud55" path="res://assets/sprites/Desk_Static.png" id="1_62juk"]
 [ext_resource type="Script" path="res://src/ceo_boss.gd" id="1_84b2s"]
 [ext_resource type="Texture2D" uid="uid://c7y3y52oh6sbg" path="res://assets/sprites/MonitorLight.png" id="2_28ny4"]
-[ext_resource type="Texture2D" uid="uid://r6b75n40gyxy" path="res://assets/sprites/Desk_Computer.png" id="3_wsd0e"]
+[ext_resource type="Script" path="res://src/base-system/CameraShake.gd" id="3_2yn8q"]
 [ext_resource type="Texture2D" uid="uid://b3m7b3wyx4tpw" path="res://assets/sprites/Clock.png" id="4_6b7vh"]
 [ext_resource type="Script" path="res://src/ui/ceo_end.gd" id="4_7rxx5"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="5_rqvos"]
@@ -23,8 +23,10 @@
 [ext_resource type="Texture2D" uid="uid://ctoyv3g7nvrwf" path="res://assets/sprites/Desk_Coffee.png" id="13_ms7dd"]
 [ext_resource type="Texture2D" uid="uid://c7bni1sdaaaqn" path="res://assets/sprites/Desk_Keyboard.png" id="14_7rcew"]
 [ext_resource type="AudioStream" uid="uid://e82h4pq7oib4" path="res://assets/sound/金額表示.mp3" id="14_875bo"]
+[ext_resource type="PackedScene" uid="uid://cuh77fo8okhk7" path="res://src/ui/pause.tscn" id="15_oyg0g"]
 [ext_resource type="Script" path="res://src/DocumentStack.gd" id="16_hdq7m"]
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/sprites/Document.png" id="17_g22pn"]
+[ext_resource type="Texture2D" uid="uid://d1vejsuehvg1r" path="res://assets/sprites/Desk_ComputerEmpty.png" id="17_umhoq"]
 [ext_resource type="Curve" uid="uid://c5dolop3rdetn" path="res://src/dust_damp.tres" id="18_qm7xj"]
 [ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="19_u686l"]
 [ext_resource type="Script" path="res://src/ManualLoopAudio.gd" id="20_l80bm"]
@@ -35,6 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://dffjinparflk0" path="res://src/ui/day.tscn" id="25_u1q0x"]
 [ext_resource type="Script" path="res://src/shift_overlay.gd" id="26_po2xs"]
 [ext_resource type="Script" path="res://src/delegator.gd" id="27_13mc2"]
+[ext_resource type="Script" path="res://src/RandomTimer.gd" id="36_ik04v"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yl2xo"]
 
@@ -84,9 +87,22 @@ _data = {
 "start": SubResource("Animation_vx230")
 }
 
-[node name="CEOBoss" type="Node2D" node_paths=PackedStringArray("work_time")]
+[node name="CEOBoss" type="Node2D" node_paths=PackedStringArray("work_time", "player_doc_label", "boss_doc_label", "boss_attack_timer")]
 script = ExtResource("1_84b2s")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
+player_doc_label = NodePath("Desk/Computer/HBoxContainer/VBoxContainer/PlayerDocuments")
+boss_doc_label = NodePath("Desk/Computer/HBoxContainer/VBoxContainer2/BossDocuments")
+boss_attack_timer = NodePath("BossTimer")
+
+[node name="BossTimer" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+script = ExtResource("36_ik04v")
+min_time = 6.0
+max_time = 10.0
+
+[node name="CameraShake" type="Node" parent="."]
+script = ExtResource("3_2yn8q")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -248,6 +264,8 @@ stream = ExtResource("14_875bo")
 volume_db = -10.0
 bus = &"SFX"
 
+[node name="Pause" parent="CanvasLayer" instance=ExtResource("15_oyg0g")]
+
 [node name="Desk" type="Sprite2D" parent="."]
 texture = ExtResource("1_62juk")
 
@@ -258,7 +276,58 @@ texture = ExtResource("2_28ny4")
 
 [node name="Computer" type="Sprite2D" parent="Desk"]
 position = Vector2(0, -80)
-texture = ExtResource("3_wsd0e")
+texture = ExtResource("17_umhoq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Desk/Computer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.5
+offset_top = -38.5
+offset_right = -6.5
+offset_bottom = -15.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Desk/Computer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="Desk/Computer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_7hhlt")
+text = "You"
+label_settings = ExtResource("7_5fuld")
+horizontal_alignment = 1
+
+[node name="PlayerDocuments" type="Label" parent="Desk/Computer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_7hhlt")
+text = "0"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="Desk/Computer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Desk/Computer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="Desk/Computer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("7_7hhlt")
+text = "Boss"
+label_settings = ExtResource("7_5fuld")
+horizontal_alignment = 1
+
+[node name="BossDocuments" type="Label" parent="Desk/Computer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("7_7hhlt")
+text = "0"
+horizontal_alignment = 1
 
 [node name="Clock" type="Sprite2D" parent="Desk"]
 position = Vector2(88, -74)
@@ -365,12 +434,12 @@ texture = ExtResource("14_7rcew")
 hframes = 2
 
 [node name="StartStack" type="Node2D" parent="."]
-position = Vector2(-151, -84)
+position = Vector2(-149, -63)
 script = ExtResource("16_hdq7m")
-initial_doc_count = 100
+initial_doc_count = 50
 stack_count = 2
 stack_offset = 3
-max_stacks = 50
+max_stacks = 25
 doc_texture = ExtResource("17_g22pn")
 
 [node name="Sprite2D" type="Sprite2D" parent="StartStack"]
@@ -505,7 +574,7 @@ script = ExtResource("21_4ka37")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="DocSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("word_generator")]
-position = Vector2(-200, 0)
+position = Vector2(-208, 0)
 script = ExtResource("22_fsipy")
 document_scene = ExtResource("23_fyva5")
 word_generator = NodePath("WordGenerator")

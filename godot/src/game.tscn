@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=87 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -52,15 +52,10 @@
 [ext_resource type="Texture2D" uid="uid://fhvvkmwkvr5c" path="res://assets/sprites/Desk_Plant.png" id="27_1a3yr"]
 [ext_resource type="Script" path="res://src/report.gd" id="27_q3o08"]
 [ext_resource type="Texture2D" uid="uid://ctoyv3g7nvrwf" path="res://assets/sprites/Desk_Coffee.png" id="28_i6mjb"]
-[ext_resource type="Script" path="res://src/ui/pause.gd" id="29_4wq2j"]
-[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="29_oyxqt"]
-[ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="30_x1cnl"]
-[ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="31_jak86"]
 [ext_resource type="Texture2D" uid="uid://c7bni1sdaaaqn" path="res://assets/sprites/Desk_Keyboard.png" id="31_x6efq"]
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="32_eoisl"]
-[ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="33_5ctor"]
 [ext_resource type="Texture2D" uid="uid://bstvwnc3xppv1" path="res://assets/sprites/Shift.png" id="33_qq0id"]
-[ext_resource type="Shader" path="res://src/base-system/shaders/blur_darken.gdshader" id="38_1aevo"]
+[ext_resource type="PackedScene" uid="uid://cuh77fo8okhk7" path="res://src/ui/pause.tscn" id="37_b7g85"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
 [ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
@@ -91,13 +86,6 @@ shader_parameter/not_fill_color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1mklb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o0ctv"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6q17f"]
-shader = ExtResource("38_1aevo")
-shader_parameter/lod = 2.0
-shader_parameter/mix_percentage = 0.7
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52hld"]
 
 [sub_resource type="Animation" id="Animation_mdfl2"]
 length = 0.001
@@ -1080,104 +1068,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 10
 
-[node name="Pause" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("quit_btn", "continue_btn")]
-process_mode = 3
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_mode = 2
-theme = ExtResource("10_am0oy")
-script = ExtResource("29_4wq2j")
-quit_btn = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay/Quit")
-continue_btn = NodePath("CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay/Continue")
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Pause"]
-material = SubResource("ShaderMaterial_6q17f")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Delegator" type="Node" parent="CanvasLayer/Pause" node_paths=PackedStringArray("nodes")]
-script = ExtResource("20_tcix1")
-nodes = [NodePath("../CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay/Continue"), NodePath("../CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay/Quit")]
-
-[node name="EffectRoot" type="Node" parent="CanvasLayer/Pause"]
-script = ExtResource("20_u0r5t")
-ease = 1
-duration = 0.5
-
-[node name="Slide" type="Node" parent="CanvasLayer/Pause/EffectRoot" node_paths=PackedStringArray("node")]
-script = ExtResource("29_oyxqt")
-node = NodePath("../../CenterContainer")
-
-[node name="Fade" type="Node" parent="CanvasLayer/Pause/EffectRoot" node_paths=PackedStringArray("node")]
-script = ExtResource("30_x1cnl")
-node = NodePath("../../ColorRect")
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Pause"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Pause/CenterContainer"]
-custom_minimum_size = Vector2(200, 150)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_52hld")
-
-[node name="Interview" type="MarginContainer" parent="CanvasLayer/Pause/CenterContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="Title" type="Label" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview/VBoxContainer"]
-layout_mode = 2
-text = "COFFEE BREAK"
-label_settings = ExtResource("31_jak86")
-horizontal_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 5
-
-[node name="FinishedTasks" type="Label" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "You are enjoying
-your coffee on your desk"
-label_settings = ExtResource("32_eoisl")
-horizontal_alignment = 1
-
-[node name="Control" type="Control" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="NextDay" type="HBoxContainer" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Continue" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("33_5ctor")]
-layout_mode = 2
-word = "Continue"
-
-[node name="Quit" parent="CanvasLayer/Pause/CenterContainer/PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("33_5ctor")]
-layout_mode = 2
-word = "home"
+[node name="Pause" parent="CanvasLayer" instance=ExtResource("37_b7g85")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.2, 0.2, 0.2, 1)
@@ -1579,7 +1470,6 @@ word_generator = NodePath("WordGenerator")
 script = ExtResource("55_o651g")
 
 [node name="Overlay" type="ColorRect" parent="."]
-visible = false
 custom_minimum_size = Vector2(100, 100)
 anchors_preset = 15
 anchor_right = 1.0

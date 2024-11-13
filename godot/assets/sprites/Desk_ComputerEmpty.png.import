@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bi677bl6yv3en"
-path="res://.godot/imported/Document.png-955bc4309c766ef1a1a28caec26b8986.ctex"
+uid="uid://d1vejsuehvg1r"
+path="res://.godot/imported/Desk_ComputerEmpty.png-e51b7982480841a551a9f94e3c2b6a11.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Document.png"
-dest_files=["res://.godot/imported/Document.png-955bc4309c766ef1a1a28caec26b8986.ctex"]
+source_file="res://assets/sprites/Desk_ComputerEmpty.png"
+dest_files=["res://.godot/imported/Desk_ComputerEmpty.png-e51b7982480841a551a9f94e3c2b6a11.ctex"]
 
 [params]
 
@@ -22,7 +22,7 @@ compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
-mipmaps/limit=10
+mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
 process/fix_alpha_border=true

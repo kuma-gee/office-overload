@@ -32,13 +32,15 @@ func open(data: Dictionary, boss_data: Dictionary):
 	show()
 	open_sound.play()
 	
-	player_total.text = "Tasks %s" % data["total"]
-	player_combo.text = "%sx" % data["combo"]
-	player_wrong.text = "Wrong %s" % data["wrong"]
+	player_total.text = "%s" % data["total"]
+	# player_combo.text = "%sx" % data["combo"]
+	player_wrong.text = "%s" % data["wrong"]
+	player_points.text = "%s" % data["points"]
 	
 	boss_total.text = boss_data["total"]
-	boss_combo.text = "%sx" % boss_data["combo"]
+	# boss_combo.text = "%sx" % boss_data["combo"]
 	boss_wrong.text = boss_data["wrong"]
+	boss_points.text = "%s" % boss_data["points"]
 
 func _unhandled_input(event: InputEvent) -> void:
 	if end_container.visible:

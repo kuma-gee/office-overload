@@ -7,7 +7,7 @@ signal started()
 signal finished()
 
 @onready var sprite = $Sprite2D
-@onready var typing_label = $TypingLabel
+@onready var typing_label = $Sprite2D/TypingLabel
 @onready var control = $Control
 @onready var paper_move_out = $PaperMoveOut
 @onready var paper_move_in = $PaperMoveIn

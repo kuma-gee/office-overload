@@ -1,31 +1,45 @@
-[gd_scene load_steps=9 format=3 uid="uid://d4l3bh8sq5hjr"]
+[gd_scene load_steps=11 format=3 uid="uid://d4l3bh8sq5hjr"]
 
 [ext_resource type="Script" path="res://src/document.gd" id="1_q4ht6"]
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/sprites/Document.png" id="1_qjb0l"]
+[ext_resource type="Shader" path="res://src/shadow.gdshader" id="2_gpqc5"]
 [ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="2_i3de4"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="4_jmrhn"]
 [ext_resource type="AudioStream" uid="uid://c8rl1qr4vjn25" path="res://assets/sound/paper.mp3" id="7_1wga7"]
 [ext_resource type="AudioStream" uid="uid://d3oql1wjpr4ip" path="res://assets/sound/paper-flip.mp3" id="8_hnjsk"]
 [ext_resource type="AudioStream" uid="uid://ji7etef3kh3s" path="res://assets/sound/紙を広げる2.mp3" id="9_uw5yq"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6slfg"]
+shader = ExtResource("2_gpqc5")
+shader_parameter/color = Color(0, 0, 0, 0.502)
+shader_parameter/blur = 0.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pxbm0"]
 shader = ExtResource("2_i3de4")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/width = 2.0
-shader_parameter/pattern = 0
+shader_parameter/pattern = 2
 shader_parameter/inside = false
 shader_parameter/add_margins = true
-shader_parameter/enable = false
+shader_parameter/enable = true
 
 [node name="Document" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_q4ht6")
 
+[node name="Shadow" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_6slfg")
+texture = ExtResource("1_qjb0l")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_pxbm0")
 texture = ExtResource("1_qjb0l")
 
-[node name="TypingLabel" parent="." instance=ExtResource("4_jmrhn")]
+[node name="TypingLabel" parent="Sprite2D" instance=ExtResource("4_jmrhn")]
+offset_left = -30.0
+offset_top = -39.5
+offset_right = -12.0
+offset_bottom = -15.5
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2(2.5, 3.2)

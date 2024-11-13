@@ -1,3 +1,4 @@
+class_name DocSpawner
 extends Marker2D
 
 const EASY = [
@@ -173,7 +174,7 @@ var invalid_chances = {
 	InvalidType.CENSOR: 0.2,
 }
 
-func _get_invalid_type():
+func get_invalid_type():
 	var r = randf()
 	for type in invalid_chances.keys():
 		if r < invalid_chances[type]:
@@ -183,7 +184,7 @@ func _get_invalid_type():
 	return InvalidType.INVALID
 
 func _set_invalid_word(doc: Document, word: String):
-	var invalid_type = _get_invalid_type()
+	var invalid_type = get_invalid_type()
 	match invalid_type:
 		InvalidType.INVALID:
 			word = INVALID_WORDS.pick_random()
@@ -207,6 +208,16 @@ func _set_invalid_word(doc: Document, word: String):
 
 	doc.word = word
 
+func spawn_invalid_documents(type: InvalidType, count: int):
+	var docs = []
+	for _x in count:
+		var doc = document_scene.instantiate()
+		_set_invalid_word(doc, word_generator.get_random_word())
+		doc.global_position = global_position
+		_move_document_in(doc)
+		docs.append(doc)
+	return docs
+
 func spawn_document(invalid_word_chance := 0.0):
 	var doc = document_scene.instantiate()
 	var word = word_generator.get_random_word()
@@ -220,6 +231,10 @@ func spawn_document(invalid_word_chance := 0.0):
 		invalid_word_accum += invalid_word_chance
 		doc.word = word
 
+	_move_document_in(doc)
+	return doc
+
+func _move_document_in(doc: Document):
 	doc.global_position = global_position
 	
 	var x = abs(global_position.x)
@@ -227,5 +242,3 @@ func spawn_document(invalid_word_chance := 0.0):
 	add_child(doc)
 	move_child(doc, 0)
 	doc.move_to(target, _get_rotation(), true)
-	
-	return doc

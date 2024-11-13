@@ -21,6 +21,7 @@ enum Mode {
 	Work,
 	Crunch,
 	Interview,
+	Multiplayer, # TODO:
 }
 
 @export var keep_past_wpms := 50
@@ -87,7 +88,7 @@ func _load_data():
 	if data:
 		cache_properties.load_data(data)
 	
-	self.difficulty_level = DifficultyResource.Level.INTERN
+	self.difficulty_level = DifficultyResource.Level.MANAGER
 	
 	_logger.info("Game initialized")
 	init = true
@@ -168,21 +169,8 @@ func finished_day(data: Dictionary):
 	_logger.info("New Average WPM %s and Accuracy %s with %s words" % [average_wpm, average_accuracy, total_completed_words])
 	
 	### Calculate Performance ###
-	var total = data["total"]
-	var wrong = data["wrong"]
-	
-	# var missed_point = pow(distraction_missed, 2) # max ~9 distractions
-	#var perfect_points = pow(perfect, 1.5) # max ~20 tasks
-	var wrong_points = pow(wrong, 2)
-	# var overtime_minus = int(overtime / 2)
-	#var normal_tasks = tasks - perfect
-	
-	var points = total
-	points -= wrong_points
-	# points = floor(points * acc)
+	var points = calculate_performance(data)
 	performance = max(performance + points, 0)
-	data["points"] = points
-	#data["acc"] = acc
 	
 	past_performance.append(performance)
 	if past_performance.size() > keep_past_wpms:
@@ -197,6 +185,22 @@ func finished_day(data: Dictionary):
 
 	_save_data()
 	round_ended.emit()
+
+func calculate_performance(data: Dictionary):
+	var total = data["total"]
+	var wrong = data["wrong"]
+	
+	# var missed_point = pow(distraction_missed, 2) # max ~9 distractions
+	#var perfect_points = pow(perfect, 1.5) # max ~20 tasks
+	var wrong_points = pow(wrong, 2)
+	# var overtime_minus = int(overtime / 2)
+	#var normal_tasks = tasks - perfect
+	
+	var points = total
+	points -= wrong_points
+	# points = floor(points * acc)
+	data["points"] = points
+	return points
 
 func upload_work_scores(wpm: float = average_wpm, acc: float = average_accuracy, level: int = difficulty_level):
 	if is_intern(): return

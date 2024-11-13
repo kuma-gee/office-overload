@@ -26,6 +26,7 @@ extends Node2D
 @onready var progress_broken = $CanvasLayer/HUD/MarginContainer/ProgressBroken
 @onready var animation_player = $AnimationPlayer
 @onready var distractions = $CanvasLayer/Distractions
+@onready var shift_overlay: ShiftOverlay = $ShiftOverlay
 
 @onready var bgm = $BGM
 @onready var end = $CanvasLayer/End
@@ -230,6 +231,9 @@ func _spawn_document(await_start = false):
 			else:
 				spawn_timer.stop()
 				_spawn()
+		
+		if Input.is_action_pressed("special_mode"):
+			shift_overlay.add_highlight()
 	)
 
 	if documents.is_empty():
