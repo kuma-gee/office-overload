@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=89 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -61,6 +61,7 @@
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
 [ext_resource type="Script" path="res://src/ui/haika.gd" id="57_68uuw"]
 [ext_resource type="PackedScene" uid="uid://dpscoqgof7c0o" path="res://src/ui/person_info.tscn" id="57_yi5dh"]
+[ext_resource type="Script" path="res://src/RandomTimer.gd" id="59_kef6u"]
 [ext_resource type="Script" path="res://src/shift_overlay.gd" id="59_nhn8c"]
 
 [sub_resource type="Curve" id="Curve_m11kp"]
@@ -172,6 +173,42 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Computer:frame")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Computer/HBoxContainer:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../StartStack:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_qam2k"]
@@ -406,9 +443,49 @@ tracks/0/keys = {
 "values": [0, 1]
 }
 
+[sub_resource type="Animation" id="Animation_y2k32"]
+resource_name = "ceo"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Computer:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Computer/HBoxContainer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../StartStack:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vs0lt"]
 _data = {
 "RESET": SubResource("Animation_mdfl2"),
+"ceo": SubResource("Animation_y2k32"),
 "littered": SubResource("Animation_qam2k"),
 "messy": SubResource("Animation_if3j8"),
 "normal": SubResource("Animation_ijo53"),
@@ -462,11 +539,14 @@ glow_enabled = true
 glow_bloom = 0.05
 glow_blend_mode = 0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "person_container")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "person_container", "player_doc_label", "boss_doc_label", "boss_attack_timer")]
 top_level = true
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
 person_container = NodePath("CanvasLayer/Haika")
+player_doc_label = NodePath("Desk/Computer/HBoxContainer/VBoxContainer/PlayerDocuments")
+boss_doc_label = NodePath("Desk/Computer/HBoxContainer/VBoxContainer2/BossDocuments")
+boss_attack_timer = NodePath("BossAttackTimer")
 
 [node name="CameraShake" type="Node" parent="."]
 process_mode = 3
@@ -1170,6 +1250,59 @@ frame = 1
 [node name="Computer" type="Sprite2D" parent="Desk"]
 position = Vector2(0, -80)
 texture = ExtResource("21_tywuk")
+hframes = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Desk/Computer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.5
+offset_top = -38.5
+offset_right = -6.5
+offset_bottom = -15.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Desk/Computer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="Desk/Computer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("10_am0oy")
+text = "You"
+label_settings = ExtResource("32_eoisl")
+horizontal_alignment = 1
+
+[node name="PlayerDocuments" type="Label" parent="Desk/Computer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("10_am0oy")
+text = "0"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="Desk/Computer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Desk/Computer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="Desk/Computer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("10_am0oy")
+text = "Boss"
+label_settings = ExtResource("32_eoisl")
+horizontal_alignment = 1
+
+[node name="BossDocuments" type="Label" parent="Desk/Computer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("10_am0oy")
+text = "0"
+horizontal_alignment = 1
 
 [node name="Clock" type="Sprite2D" parent="Desk" node_paths=PackedStringArray("worktime", "point_light", "canvas_modulate", "overload_progress")]
 position = Vector2(88, -74)
@@ -1398,6 +1531,20 @@ visible = false
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
+[node name="StartStack" type="Node2D" parent="."]
+visible = false
+position = Vector2(-149, -63)
+script = ExtResource("12_n73rb")
+initial_doc_count = 50
+stack_count = 2
+stack_offset = 3
+max_stacks = 25
+doc_texture = ExtResource("24_g7dws")
+
+[node name="Sprite2D" type="Sprite2D" parent="StartStack"]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
 [node name="ShiftOverlay" type="Node" parent="." node_paths=PackedStringArray("overlay", "delegator")]
 script = ExtResource("59_nhn8c")
 overlay = NodePath("../Overlay")
@@ -1485,6 +1632,13 @@ color = Color(0, 0, 0, 0.5)
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="BossAttackTimer" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+script = ExtResource("59_kef6u")
+min_time = 6.0
+max_time = 10.0
 
 [node name="OverloadTimer" type="Timer" parent="."]
 wait_time = 2.5

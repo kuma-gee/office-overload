@@ -6,8 +6,16 @@ extends Node2D
 @export var max_document_count := 15 # slower documents at this point
 @export var person_container: Haika
 
-@export_category("Interview")
+@export_category("Boss")
 @export var min_documents := 2
+@export var boss_process_speed := 3.0
+@export var player_doc_label: Label
+@export var boss_doc_label: Label
+@export var boss_attack_count := 3
+@export var boss_attack_timer: Timer
+
+#@export_category("Interview")
+#@export var min_documents := 2
 
 @export_category("Crunch")
 @export var max_bgm_pitch := 2.0
@@ -27,6 +35,7 @@ extends Node2D
 @onready var animation_player = $AnimationPlayer
 @onready var distractions = $CanvasLayer/Distractions
 @onready var shift_overlay: ShiftOverlay = $ShiftOverlay
+@onready var start_stack: DocumentStack = $StartStack
 
 @onready var bgm = $BGM
 @onready var end = $CanvasLayer/End
@@ -43,6 +52,13 @@ var is_gameover = false:
 		person_container.is_gameover = v
 
 var documents = []
+var attacking := false
+
+var boss_documents := 0:
+	set(v):
+		boss_documents = v
+		boss_doc_label.text = "%s" % boss_documents
+var boss_processing := 0.0
 
 func _set_environment():
 	#if GameManager.day <= 3 or GameManager.is_intern():
@@ -69,6 +85,11 @@ func _ready():
 		key_reader.process_mode = Node.PROCESS_MODE_DISABLED
 	)
 	
+	if GameManager.is_ceo():
+		start_stack.document_emptied.connect(func(): _finished())
+		animation_player.play("ceo")
+		work_time.hour_in_seconds = 10
+	
 	if not GameManager.is_intern() or GameManager.is_crunch_mode():
 		overload_progress.filled.connect(func(): overload_timer.start())
 		overload_timer.started.connect(func(): overload_progress.start_blink())
@@ -81,7 +102,8 @@ func _ready():
 			_finished(true)
 		)
 
-		spawn_timer.timeout.connect(func(): _spawn())
+		if not GameManager.is_ceo():
+			spawn_timer.timeout.connect(func(): _spawn())
 	else:
 		overload_progress.hide()
 
@@ -138,26 +160,34 @@ func _start_game():
 	if not bgm.playing:
 		bgm.play()
 	
+	if GameManager.is_ceo():
+		boss_attack_timer.start()
+	
 	_spawn()
-
+	
 func _finished(is_gameover = false):
 	self.is_gameover = is_gameover
 	
 	if GameManager.is_work_mode():
-		var data = {
-			"total": document_stack.total,
-			"mistyped": document_stack.tasks,
-			"combo": document_stack.highest_streak,
-			"wrong": document_stack.wrong_tasks,
-			# "overtime": work_time.get_overtime(),
-			# "distractions": distractions.missed,
-		}
-		GameManager.finished_day(data)
 		distractions.slide_all_out()
-		if is_gameover:
-			gameover.fired()
+		
+		if GameManager.is_ceo():
+			_ceo_game_ended()
 		else:
-			end.day_ended(data)
+			var data = {
+				"total": document_stack.total,
+				"mistyped": document_stack.tasks,
+				"combo": document_stack.highest_streak,
+				"wrong": document_stack.wrong_tasks,
+				# "overtime": work_time.get_overtime(),
+				# "distractions": distractions.missed,
+			}
+			GameManager.finished_day(data)
+			if is_gameover:
+				gameover.fired()
+			else:
+				end.day_ended(data)
+			
 	elif GameManager.is_interview_mode():
 		GameManager.finished_interview(document_stack.total, work_time.timed_mode_seconds)
 		end.interview_ended(document_stack.total)
@@ -196,21 +226,29 @@ func _crunch_mode_spawn_time(doc_count: int = document_stack.total):
 
 
 func _spawn_document(await_start = false):
-	var invalid_chance = GameManager.difficulty.invalid_word_chance
-	var doc = doc_spawner.spawn_document(invalid_chance) as Document
+	var delta = (document_stack.total - boss_documents) - 2
+	if GameManager.is_ceo() and boss_attack_timer.is_stopped() and delta > 0 and start_stack.total >= 5 and not attacking:
+		_boss_attack()
+	else:
+		var invalid_chance = GameManager.difficulty.invalid_word_chance
+		var doc = doc_spawner.spawn_document(invalid_chance) as Document
+		_add_document(doc, await_start)
+
+func _add_document(doc: Document, await_start := false):
 	doc.started.connect(func(): GameManager.start_type())
 	doc.finished.connect(func():
 		GameManager.finish_type(doc.word, doc.mistakes)
+		player_doc_label.text = "%s" % document_stack.total
 		
 		if doc.is_discarded():
 			doc.move_to(doc.global_position + Vector2.DOWN * 200)
 		else:
 			doc.move_to(Vector2(-doc_spawner.global_position.x, doc_spawner.global_position.y))
 			person_container.add_document()
-			
+
 		overload_progress.reduce(overload_reduce)
 		overload_timer.stop()
-
+		
 		document_stack.add_document(doc.mistakes > 0, doc_spawner.is_invalid_word(doc.word), doc.is_discarded())
 		documents.erase(doc)
 		
@@ -220,9 +258,9 @@ func _spawn_document(await_start = false):
 		if documents.size() > 0:
 			documents[0].highlight()
 			
-			if GameManager.is_interview_mode() and documents.size() < min_documents:
+			if documents.size() < min_documents:
 				_spawn()
-		elif work_time.ended and GameManager.is_work_mode():
+		elif work_time.ended:
 			_finished()
 		else:
 			if await_start:
@@ -231,7 +269,7 @@ func _spawn_document(await_start = false):
 			else:
 				spawn_timer.stop()
 				_spawn()
-		
+			
 		if Input.is_action_pressed("special_mode"):
 			shift_overlay.add_highlight()
 	)
@@ -241,9 +279,54 @@ func _spawn_document(await_start = false):
 		
 	if await_start:
 		doc.show_tutorial()
-		
+	
 	documents.append(doc)
 
 func get_label():
 	if documents.is_empty(): return null
 	return documents[0].get_label()
+
+
+#### CEO ####
+func _boss_attack():
+	# TODO: indicate attack
+
+	attacking = true
+	camera_shake.shake()
+	await get_tree().create_timer(0.5).timeout
+	camera_shake.shake()
+	await get_tree().create_timer(0.5).timeout
+
+	var type = doc_spawner.get_invalid_type()
+	var count = randi_range(boss_attack_count-1, boss_attack_count+1)
+	for doc in doc_spawner.spawn_invalid_documents(type, count):
+		_add_document(doc)
+	
+	boss_attack_timer.start()
+	attacking = false
+	
+func _ceo_game_ended():
+	var data = {
+		"total": document_stack.total,
+		# "combo": document_stack.combo_count,
+		"wrong": document_stack.wrong_tasks,
+	}
+	GameManager.calculate_performance(data)
+
+	var boss_data = {
+		"total": boss_documents,
+		# "combo": randi_range(0, boss_documents * 0.3),
+		"wrong": randi_range(boss_documents * 0.1, boss_documents * 0.3),
+	}
+	GameManager.calculate_performance(boss_data)
+
+	#end.open(data, boss_data)
+
+func _process(delta: float) -> void:
+	if is_gameover or not GameManager.is_ceo(): return
+	
+	boss_processing += delta
+	if boss_processing >= boss_process_speed and start_stack.has_documents():
+		boss_processing = 0
+		boss_documents += 1
+		start_stack.remove_document()

@@ -42,8 +42,8 @@ func _ready() -> void:
 			pause.grab_focus()
 	)
 	
-	start_stack.document_emptied.connect(func(): _game_ended())
 	work_time.day_ended.connect(func(): _game_ended())
+	start_stack.document_emptied.connect(func(): _game_ended())
 	boss_attack_timer.timeout.connect(_boss_attack)
 
 func _boss_attack():
@@ -119,7 +119,7 @@ func _add_document(doc: Document):
 
 		document_stack.add_document(doc.mistakes > 0, doc_spawner.is_invalid_word(doc.word), doc.is_discarded())
 		documents.erase(doc)
-
+		
 		if documents.size() > 0:
 			documents[0].highlight()
 			

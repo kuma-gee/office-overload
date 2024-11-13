@@ -88,7 +88,7 @@ func _load_data():
 	if data:
 		cache_properties.load_data(data)
 	
-	self.difficulty_level = DifficultyResource.Level.MANAGER
+	self.difficulty_level = DifficultyResource.Level.CEO
 	
 	_logger.info("Game initialized")
 	init = true
@@ -120,10 +120,10 @@ func start(mode: Mode = current_mode):
 	wpm_calculator.reset()
 	game_started.emit()
 	
-	if is_ceo():
-		SceneManager.change_scene("res://src/ceo_boss.tscn")
-	else:
-		SceneManager.change_scene("res://src/game.tscn")
+	#if is_ceo():
+		#SceneManager.change_scene("res://src/ceo_boss.tscn")
+	#else:
+	SceneManager.change_scene("res://src/game.tscn")
 
 func restart():
 	start()
