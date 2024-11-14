@@ -184,3 +184,6 @@ func cancel():
 func reset(w = word):
 	self.word = w
 	self.focused = false
+
+func get_label():
+	return self

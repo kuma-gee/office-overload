@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6ce1tcwltx0f"]
+
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_tgnhw"]
+
+[node name="Note" type="PanelContainer"]
+offset_right = 18.0
+offset_bottom = 18.0
+theme = ExtResource("1_tgnhw")
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(3, 4)
+points = PackedVector2Array(0, 0, 12, 0)
+width = 1.0
+default_color = Color(0.207843, 0.207843, 0.25098, 1)
+
+[node name="Line2D2" type="Line2D" parent="."]
+position = Vector2(3, 9)
+points = PackedVector2Array(0, 0, 12, 0)
+width = 1.0
+default_color = Color(0.207843, 0.207843, 0.25098, 1)
+
+[node name="Line2D3" type="Line2D" parent="."]
+position = Vector2(3, 14)
+points = PackedVector2Array(0, 0, 12, 0)
+width = 1.0
+default_color = Color(0.207843, 0.207843, 0.25098, 1)

@@ -1,18 +1,22 @@
-[gd_scene load_steps=44 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=50 format=3 uid="uid://ctlncowdl0sbn"]
 
-[ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="1_3ujy4"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
-[ext_resource type="Texture2D" uid="uid://da2p5kphaw5k5" path="res://assets/sprites/Cover_Image.png" id="2_2ttii"]
 [ext_resource type="Script" path="res://start.gd" id="2_508sk"]
 [ext_resource type="Texture2D" uid="uid://cjlwhavnsncw5" path="res://assets/sprites/Title.png" id="3_r3iy1"]
+[ext_resource type="Texture2D" uid="uid://bfmltr267wxbf" path="res://assets/sprites/StartLight.png" id="4_einu0"]
+[ext_resource type="Texture2D" uid="uid://bmm6sa6u2o7cb" path="res://assets/sprites/Start.png" id="6_7xrqw"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="7_2n7ql"]
+[ext_resource type="Texture2D" uid="uid://b3m7b3wyx4tpw" path="res://assets/sprites/Clock.png" id="7_4331q"]
 [ext_resource type="Script" path="res://src/ui/alt_typing_button.gd" id="8_mi7cx"]
+[ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="8_y3mf1"]
 [ext_resource type="LabelSettings" uid="uid://uctt264dd2ni" path="res://theme/text_small.tres" id="9_mw082"]
 [ext_resource type="Texture2D" uid="uid://bstvwnc3xppv1" path="res://assets/sprites/Shift.png" id="11_811t6"]
 [ext_resource type="Script" path="res://src/base-system/menu/Settings.gd" id="11_ybmms"]
 [ext_resource type="Script" path="res://src/ui/Stats.gd" id="12_fmeio"]
+[ext_resource type="PackedScene" uid="uid://c6ce1tcwltx0f" path="res://src/start/note.tscn" id="12_mc432"]
 [ext_resource type="Script" path="res://src/base-system/menu/AudioSlider.gd" id="12_qty1o"]
 [ext_resource type="AudioStream" uid="uid://7ix2fpbkls0p" path="res://assets/sound/Talk_with_me.mp3" id="13_gm25t"]
+[ext_resource type="Texture2D" uid="uid://bl06rcj3vftvg" path="res://assets/sprites/Folder.png" id="13_qj2lo"]
 [ext_resource type="Script" path="res://src/ui/shift_buttons.gd" id="13_rmgj0"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="14_hvw1b"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="14_vk34l"]
@@ -36,15 +40,9 @@
 [ext_resource type="Texture2D" uid="uid://qpujdmcko0bu" path="res://assets/sprites/Arrow.png" id="27_lc2cv"]
 [ext_resource type="Script" path="res://addons/graph_2d/custom_nodes/coordinate.gd" id="33_4qrxl"]
 [ext_resource type="Script" path="res://src/ui/quit_job_warning.gd" id="34_xrtne"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gorx4"]
-shader = ExtResource("1_3ujy4")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 2.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/enable = true
+[ext_resource type="PackedScene" uid="uid://bevwwvcqg3xhh" path="res://src/ui/folder.tscn" id="37_ajr2k"]
+[ext_resource type="PackedScene" uid="uid://du0v5of5joaem" path="res://src/ui/menu_paper.tscn" id="38_fltas"]
+[ext_resource type="Script" path="res://src/ui/resignation.gd" id="43_d3m8a"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_78ajf"]
 
@@ -58,179 +56,272 @@ shader_parameter/enable = true
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fembg"]
 
-[node name="Start" type="Control" node_paths=PackedStringArray("work_performance", "setting_leaderboard", "exit_quitjob", "feedback", "shift_container", "settings", "game_modes", "delegator", "leaderboard", "feedback_ui", "performance_graph", "quit_warning_dialog")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("1_qu80e")
+[node name="Start" type="Node2D" node_paths=PackedStringArray("work_label", "prepare_label", "files", "shift_container", "settings", "game_modes", "delegator", "leaderboard", "feedback_ui", "performance_graph", "quit_warning_dialog", "folder")]
 script = ExtResource("2_508sk")
-work_performance = NodePath("MarginContainer3/VBoxContainer/Work_Performance")
-setting_leaderboard = NodePath("MarginContainer3/VBoxContainer/Setting_Leaderboard")
-exit_quitjob = NodePath("MarginContainer3/VBoxContainer/Exit_QuitJob")
-feedback = NodePath("FeedbackContainer/FeedbackButton")
+work_label = NodePath("TextureRect2/Clock/TypingLabel")
+prepare_label = NodePath("TextureRect2/PrepareDoc/TypingLabel3")
+files = NodePath("TextureRect2/Files/TypingLabel2")
 shift_container = NodePath("ShiftContainer")
-settings = NodePath("Settings")
-game_modes = NodePath("GameModes")
+settings = NodePath("CanvasLayer/Control/Settings")
+game_modes = NodePath("CanvasLayer/Control/GameModes")
 delegator = NodePath("Delegator")
-leaderboard = NodePath("Leaderboard")
-feedback_ui = NodePath("Feedback")
-performance_graph = NodePath("PerformanceGraph")
-quit_warning_dialog = NodePath("QuitJobWarning")
+leaderboard = NodePath("CanvasLayer/Control/Leaderboard")
+feedback_ui = NodePath("CanvasLayer/Control/Feedback")
+performance_graph = NodePath("CanvasLayer/Control/PerformanceGraph")
+quit_warning_dialog = NodePath("CanvasLayer/Control/QuitJobWarning")
+folder = NodePath("CanvasLayer/Control/Folder")
 
 [node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
-nodes = [NodePath("../MarginContainer3/VBoxContainer/Work_Performance"), NodePath("../MarginContainer3/VBoxContainer/Setting_Leaderboard"), NodePath("../MarginContainer3/VBoxContainer/Exit_QuitJob"), NodePath("../FeedbackContainer/FeedbackButton")]
+nodes = [NodePath("../TextureRect2/Clock/TypingLabel"), NodePath("../TextureRect2/PrepareDoc/TypingLabel3"), NodePath("../TextureRect2/Files/TypingLabel2")]
 
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_2ttii")
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.493545, 0.493546, 0.493546, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -66.0
-offset_right = 78.0
-offset_bottom = 50.0
-grow_horizontal = 2
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 10
+[node name="PointLight2D" type="PointLight2D" parent="CanvasModulate"]
+position = Vector2(-32, -15)
+blend_mode = 2
+texture = ExtResource("4_einu0")
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
-material = SubResource("ShaderMaterial_gorx4")
-use_parent_material = true
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-texture = ExtResource("3_r3iy1")
-expand_mode = 2
-stretch_mode = 5
+[node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="Stats" type="Control" parent="." node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy")]
-layout_mode = 1
+[node name="TextureRect2" type="Sprite2D" parent="."]
+position = Vector2(0, 57)
+texture = ExtResource("6_7xrqw")
+
+[node name="Stats" type="Control" parent="TextureRect2" node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy")]
+layout_mode = 3
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -351.0
+offset_bottom = -351.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 script = ExtResource("12_fmeio")
-job_container = NodePath("MarginContainer/VBoxContainer")
-day = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Day")
-level = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Level")
-documents = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Documents")
-skill_container = NodePath("MarginContainer2/VBoxContainer3")
-wpm = NodePath("MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2/WPM")
-accuracy = NodePath("MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2/Accuracy")
+job_container = NodePath("../Job")
+day = NodePath("../Job/MarginContainer/VBoxContainer/VBoxContainer/Day")
+level = NodePath("../Job/MarginContainer/VBoxContainer/VBoxContainer/Level")
+documents = NodePath("../Job/MarginContainer/VBoxContainer/VBoxContainer/Documents")
+skill_container = NodePath("../Skills")
+wpm = NodePath("../Skills/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2/WPM")
+accuracy = NodePath("../Skills/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2/Accuracy")
 
-[node name="MarginContainer" type="MarginContainer" parent="Stats"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -34.0
-offset_right = 54.0
-grow_vertical = 0
+[node name="Note" parent="TextureRect2" instance=ExtResource("12_mc432")]
+offset_left = -142.0
+offset_top = -86.0
+offset_right = -124.0
+offset_bottom = -68.0
+
+[node name="Note5" parent="TextureRect2" instance=ExtResource("12_mc432")]
+offset_left = -140.0
+offset_top = -119.0
+offset_right = -122.0
+offset_bottom = -101.0
+
+[node name="Note6" parent="TextureRect2" instance=ExtResource("12_mc432")]
+offset_left = -29.0
+offset_top = -100.0
+offset_right = -11.0
+offset_bottom = -82.0
+
+[node name="Note7" parent="TextureRect2" instance=ExtResource("12_mc432")]
+offset_left = -108.0
+offset_top = -127.0
+offset_right = -90.0
+offset_bottom = -109.0
+
+[node name="Note2" parent="TextureRect2" instance=ExtResource("12_mc432")]
+offset_left = -100.0
+offset_top = -80.0
+offset_right = -82.0
+offset_bottom = -62.0
+
+[node name="Note3" parent="TextureRect2" instance=ExtResource("12_mc432")]
+offset_left = -78.0
+offset_top = -107.0
+offset_right = -60.0
+offset_bottom = -89.0
+
+[node name="Note9" parent="TextureRect2" instance=ExtResource("12_mc432")]
+offset_left = -59.0
+offset_top = -80.0
+offset_right = -41.0
+offset_bottom = -62.0
+
+[node name="Note4" parent="TextureRect2" instance=ExtResource("12_mc432")]
+offset_left = -1.0
+offset_top = -108.0
+offset_right = 17.0
+offset_bottom = -90.0
+
+[node name="Note8" parent="TextureRect2" instance=ExtResource("12_mc432")]
+offset_left = 9.0
+offset_top = -81.0
+offset_right = 27.0
+offset_bottom = -63.0
+
+[node name="Job" type="PanelContainer" parent="TextureRect2"]
+offset_left = -50.0
+offset_top = -105.0
+offset_right = -5.0
+offset_bottom = -69.0
+theme = ExtResource("1_qu80e")
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect2/Job"]
+layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Stats/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect2/Job/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 8
 
-[node name="Job" type="Label" parent="Stats/MarginContainer/VBoxContainer"]
-visible = false
+[node name="Job" type="Label" parent="TextureRect2/Job/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 8
 text = "Job"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Stats/MarginContainer/VBoxContainer"]
+[node name="Control2" type="Control" parent="TextureRect2/Job/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect2/Job/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Day" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Day" type="Label" parent="TextureRect2/Job/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "DAY"
 label_settings = ExtResource("9_mw082")
 
-[node name="Level" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Level" type="Label" parent="TextureRect2/Job/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Level"
 label_settings = ExtResource("9_mw082")
 
-[node name="Documents" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Documents" type="Label" parent="TextureRect2/Job/MarginContainer/VBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Documents"
 label_settings = ExtResource("9_mw082")
 
-[node name="MarginContainer2" type="MarginContainer" parent="Stats"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -59.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="Skills" type="PanelContainer" parent="TextureRect2"]
+offset_left = -143.0
+offset_top = -134.0
+offset_right = -101.0
+offset_bottom = -98.0
+size_flags_horizontal = 8
+theme = ExtResource("1_qu80e")
+
+[node name="MarginContainer2" type="MarginContainer" parent="TextureRect2/Skills"]
+layout_mode = 2
+size_flags_horizontal = 8
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="Stats/MarginContainer2"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="TextureRect2/Skills/MarginContainer2"]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_horizontal = 0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Stats/MarginContainer2/VBoxContainer3"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect2/Skills/MarginContainer2/VBoxContainer3"]
 layout_mode = 2
+size_flags_horizontal = 8
 
-[node name="Skill" type="Label" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2"]
+[node name="Skill" type="Label" parent="TextureRect2/Skills/MarginContainer2/VBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Skill"
+
+[node name="Control" type="Control" parent="TextureRect2/Skills/MarginContainer2/VBoxContainer3/VBoxContainer2"]
 visible = false
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 5
-text = "Skill"
-horizontal_alignment = 2
+size_flags_vertical = 3
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect2/Skills/MarginContainer2/VBoxContainer3/VBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_constants/separation = 0
 
-[node name="WPM" type="Label" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2"]
+[node name="WPM" type="Label" parent="TextureRect2/Skills/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Words/m"
 label_settings = ExtResource("9_mw082")
-horizontal_alignment = 2
 
-[node name="Accuracy" type="Label" parent="Stats/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2"]
+[node name="Accuracy" type="Label" parent="TextureRect2/Skills/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Accuracy"
 label_settings = ExtResource("9_mw082")
-horizontal_alignment = 2
+
+[node name="Title" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(-19, -122)
+scale = Vector2(0.814815, 0.814815)
+texture = ExtResource("3_r3iy1")
+
+[node name="Clock" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(56, -29)
+texture = ExtResource("7_4331q")
+hframes = 2
+frame = 1
+
+[node name="TypingLabel" parent="TextureRect2/Clock" instance=ExtResource("8_y3mf1")]
+offset_left = -36.0
+offset_top = -14.5
+offset_right = 1.0
+offset_bottom = 2.5
+theme_override_colors/default_color = Color(0.929412, 0.894118, 0.854902, 1)
+theme_override_font_sizes/normal_font_size = 12
+text = "work"
+text_color = Color(0.929412, 0.894118, 0.854902, 1)
+active_color = Color(0.207843, 0.207843, 0.25098, 1)
+typed_color = Color(0.207843, 0.207843, 0.25098, 1)
+untyped_color = Color(0.929412, 0.894118, 0.854902, 1)
+highlight_first = true
+word = "work"
+
+[node name="PrepareDoc" type="PanelContainer" parent="TextureRect2"]
+offset_left = -42.0
+offset_top = -39.0
+offset_right = 17.0
+offset_bottom = -6.0
+rotation = 0.0872665
+theme = ExtResource("1_qu80e")
+
+[node name="TypingLabel3" parent="TextureRect2/PrepareDoc" instance=ExtResource("8_y3mf1")]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 12
+text = "prepare"
+highlight_first = true
+word = "prepare"
+
+[node name="Files" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(-99, -18)
+rotation = -0.174533
+texture = ExtResource("13_qj2lo")
+
+[node name="TypingLabel2" parent="TextureRect2/Files" instance=ExtResource("8_y3mf1")]
+offset_left = -45.5
+offset_top = -20.5
+offset_right = -3.5
+offset_bottom = -3.5
+theme_override_font_sizes/normal_font_size = 12
+text = "FILES"
+highlight_first = true
+word = "files"
 
 [node name="ShiftOverlay" type="ColorRect" parent="."]
 visible = false
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -238,15 +329,44 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.588235)
 
-[node name="MarginContainer3" type="MarginContainer" parent="."]
+[node name="FolderButton" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Folder" parent="FolderButton" instance=ExtResource("7_2n7ql")]
 layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -8.0
+offset_right = 0.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 2
+word = "folder"
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -45.0
-offset_top = -66.0
+offset_top = -103.0
 offset_right = 46.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -279,7 +399,7 @@ other_word = "QuitJob"
 word = "Exit"
 
 [node name="ShiftContainer" type="MarginContainer" parent="." node_paths=PackedStringArray("overlay", "feedback_btn", "delegator")]
-layout_mode = 1
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -306,15 +426,15 @@ texture_normal = ExtResource("11_811t6")
 stretch_mode = 5
 
 [node name="FeedbackContainer" type="MarginContainer" parent="."]
-layout_mode = 1
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -14.0
+offset_left = -84.5
 offset_top = -22.0
-offset_right = 14.0
+offset_right = 84.5
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_left = 5
@@ -326,11 +446,12 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-word = "Feedback"
+script = ExtResource("8_mi7cx")
+other_word = "Feedback"
 
 [node name="TypingLabel" parent="FeedbackContainer/FeedbackButton/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
-text = "aasdasdasdasdasdsadasdas"
+text = "[typed until=1 height=1 frequency=8 ][color=ede4daff][/color][color=353540ff][shake rate=0 level=0][/shake][/color][/typed]"
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_gm25t")
@@ -338,7 +459,19 @@ volume_db = -50.0
 autoplay = true
 bus = &"BGM"
 
-[node name="MenuOverlay" type="ColorRect" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qu80e")
+
+[node name="MenuOverlay" type="ColorRect" parent="CanvasLayer/Control"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -348,8 +481,7 @@ grow_vertical = 2
 focus_mode = 1
 color = Color(0, 0, 0, 0.588235)
 
-[node name="Settings" type="Control" parent="." node_paths=PackedStringArray("overlay", "sliders", "display_settings", "delegator")]
-visible = false
+[node name="Settings" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("overlay", "sliders", "display_settings", "delegator")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -364,24 +496,24 @@ sliders = [NodePath("Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterS
 display_settings = NodePath("Audio/MarginContainer/DisplaySettings")
 delegator = NodePath("Delegator")
 
-[node name="Delegator" type="Node" parent="Settings" node_paths=PackedStringArray("nodes")]
+[node name="Delegator" type="Node" parent="CanvasLayer/Control/Settings" node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
 nodes = [NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterVolume"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXVolume"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMVolume"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/FullScreen")]
 
-[node name="EffectRoot" type="Node" parent="Settings"]
+[node name="EffectRoot" type="Node" parent="CanvasLayer/Control/Settings"]
 script = ExtResource("14_hvw1b")
 ease = 1
 duration = 0.5
 
-[node name="Slide" type="Node" parent="Settings/EffectRoot" node_paths=PackedStringArray("node")]
+[node name="Slide" type="Node" parent="CanvasLayer/Control/Settings/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("15_84nkj")
 node = NodePath("../..")
 
-[node name="Fade" type="Node" parent="Settings/EffectRoot" node_paths=PackedStringArray("node")]
+[node name="Fade" type="Node" parent="CanvasLayer/Control/Settings/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("15_b245w")
 node = NodePath("../../../MenuOverlay")
 
-[node name="Audio" type="PanelContainer" parent="Settings"]
+[node name="Audio" type="PanelContainer" parent="CanvasLayer/Control/Settings"]
 custom_minimum_size = Vector2(240, 150)
 layout_mode = 1
 anchors_preset = 8
@@ -397,37 +529,37 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("15_4lkng")
 
-[node name="MarginContainer" type="MarginContainer" parent="Settings/Audio"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Settings/Audio"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="DisplaySettings" type="VBoxContainer" parent="Settings/Audio/MarginContainer"]
+[node name="DisplaySettings" type="VBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("21_i78lr")
 
-[node name="Label" type="Label" parent="Settings/Audio/MarginContainer/DisplaySettings"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings"]
 layout_mode = 2
 text = "Prepare for work"
 label_settings = ExtResource("20_lew8u")
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="GridContainer" parent="Settings/Audio/MarginContainer/DisplaySettings"]
+[node name="VBoxContainer" type="GridContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 2
 
-[node name="MasterVolume" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="MasterVolume" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_2n7ql")]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 word = "Master"
 
-[node name="MasterSlider" type="HBoxContainer" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+[node name="MasterSlider" type="HBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
 layout_mode = 2
 script = ExtResource("16_vbvxj")
 trigger_button = NodePath("../MasterVolume")
@@ -435,12 +567,12 @@ left = NodePath("Left")
 right = NodePath("Right")
 slider = NodePath("Slider")
 
-[node name="Left" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider" instance=ExtResource("7_2n7ql")]
+[node name="Left" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
 word = "h"
 
-[node name="Slider" type="HSlider" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider" node_paths=PackedStringArray("audio")]
+[node name="Slider" type="HSlider" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider" node_paths=PackedStringArray("audio")]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 4
@@ -448,18 +580,18 @@ value = 30.0
 script = ExtResource("12_qty1o")
 audio = NodePath("../../../../..")
 
-[node name="Right" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider" instance=ExtResource("7_2n7ql")]
+[node name="Right" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
 word = "l"
 
-[node name="BGMVolume" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="BGMVolume" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_2n7ql")]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
 word = "BGM"
 
-[node name="BGMSlider" type="HBoxContainer" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+[node name="BGMSlider" type="HBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
 layout_mode = 2
 script = ExtResource("16_vbvxj")
 trigger_button = NodePath("../BGMVolume")
@@ -467,12 +599,12 @@ left = NodePath("Left")
 right = NodePath("Right")
 slider = NodePath("Slider")
 
-[node name="Left" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider" instance=ExtResource("7_2n7ql")]
+[node name="Left" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
 word = "h"
 
-[node name="Slider" type="HSlider" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider" node_paths=PackedStringArray("audio")]
+[node name="Slider" type="HSlider" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider" node_paths=PackedStringArray("audio")]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 4
@@ -481,18 +613,18 @@ script = ExtResource("12_qty1o")
 audio = NodePath("../../../../..")
 bus_name = "BGM"
 
-[node name="Right" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider" instance=ExtResource("7_2n7ql")]
+[node name="Right" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
 word = "l"
 
-[node name="SFXVolume" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="SFXVolume" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_2n7ql")]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
 word = "SFX"
 
-[node name="SFXSlider" type="HBoxContainer" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+[node name="SFXSlider" type="HBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
 layout_mode = 2
 script = ExtResource("16_vbvxj")
 trigger_button = NodePath("../SFXVolume")
@@ -500,12 +632,12 @@ left = NodePath("Left")
 right = NodePath("Right")
 slider = NodePath("Slider")
 
-[node name="Left" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider" instance=ExtResource("7_2n7ql")]
+[node name="Left" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
 word = "h"
 
-[node name="Slider" type="HSlider" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider" node_paths=PackedStringArray("audio")]
+[node name="Slider" type="HSlider" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider" node_paths=PackedStringArray("audio")]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 4
@@ -514,54 +646,54 @@ script = ExtResource("12_qty1o")
 audio = NodePath("../../../../..")
 bus_name = "SFX"
 
-[node name="Right" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider" instance=ExtResource("7_2n7ql")]
+[node name="Right" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
 word = "l"
 
-[node name="FullScreen" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("checkbox") instance=ExtResource("7_2n7ql")]
+[node name="FullScreen" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("checkbox") instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 size_flags_vertical = 4
 script = ExtResource("21_bmlq3")
 checkbox = NodePath("../CheckBox")
 word = "fullscreen"
 
-[node name="CheckBox" type="CheckBox" parent="Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("display_settings")]
+[node name="CheckBox" type="CheckBox" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("display_settings")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 script = ExtResource("21_ycqnt")
 display_settings = NodePath("../..")
 
-[node name="CloudSettings" type="MarginContainer" parent="Settings/Audio/MarginContainer/DisplaySettings"]
+[node name="CloudSettings" type="MarginContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 script = ExtResource("25_nuxga")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/Audio/MarginContainer/DisplaySettings/CloudSettings"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/CloudSettings"]
 layout_mode = 2
 
-[node name="FullScreen" parent="Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer" node_paths=PackedStringArray("checkbox") instance=ExtResource("7_2n7ql")]
+[node name="FullScreen" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer" node_paths=PackedStringArray("checkbox") instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 size_flags_vertical = 4
 script = ExtResource("21_bmlq3")
 checkbox = NodePath("../../../VBoxContainer/CheckBox")
 word = "cloud"
 
-[node name="CheckBox" type="CheckBox" parent="Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer"]
+[node name="CheckBox" type="CheckBox" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer/MarginContainer"]
 layout_mode = 2
 text = "unavailable"
 
-[node name="ProgressBar" type="ProgressBar" parent="Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer/MarginContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(50, 6)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -569,12 +701,12 @@ size_flags_vertical = 4
 value = 50.0
 show_percentage = false
 
-[node name="Overlay" type="ColorRect" parent="Settings/Audio"]
+[node name="Overlay" type="ColorRect" parent="CanvasLayer/Control/Settings/Audio"]
 visible = false
 layout_mode = 2
 color = Color(0, 0, 0, 0.313726)
 
-[node name="EscButton" type="TextureButton" parent="Settings"]
+[node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/Settings"]
 layout_mode = 1
 offset_left = 36.0
 offset_top = 12.0
@@ -583,7 +715,7 @@ offset_bottom = 21.0
 texture_normal = ExtResource("14_vk34l")
 script = ExtResource("19_uqiqi")
 
-[node name="Feedback" type="Control" parent="." node_paths=PackedStringArray("label", "limit_label", "status_label", "loading_label")]
+[node name="Feedback" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("label", "limit_label", "status_label", "loading_label")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -599,20 +731,20 @@ limit_label = NodePath("Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBo
 status_label = NodePath("Feedback/MarginContainer/VBoxContainer/VBoxContainer/Status")
 loading_label = NodePath("Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Loading")
 
-[node name="EffectRoot" type="Node" parent="Feedback"]
+[node name="EffectRoot" type="Node" parent="CanvasLayer/Control/Feedback"]
 script = ExtResource("14_hvw1b")
 ease = 1
 duration = 0.5
 
-[node name="Slide" type="Node" parent="Feedback/EffectRoot" node_paths=PackedStringArray("node")]
+[node name="Slide" type="Node" parent="CanvasLayer/Control/Feedback/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("15_84nkj")
 node = NodePath("../..")
 
-[node name="Fade" type="Node" parent="Feedback/EffectRoot" node_paths=PackedStringArray("node")]
+[node name="Fade" type="Node" parent="CanvasLayer/Control/Feedback/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("15_b245w")
 node = NodePath("../../../MenuOverlay")
 
-[node name="Feedback" type="PanelContainer" parent="Feedback"]
+[node name="Feedback" type="PanelContainer" parent="CanvasLayer/Control/Feedback"]
 custom_minimum_size = Vector2(240, 150)
 layout_mode = 1
 anchors_preset = 8
@@ -627,61 +759,61 @@ offset_bottom = 65.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Feedback/Feedback"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Feedback/Feedback"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Feedback/Feedback/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Label" type="Label" parent="Feedback/Feedback/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Feedback"
 label_settings = ExtResource("20_lew8u")
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Feedback/Feedback/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 3
 
-[node name="TextEdit" type="TextEdit" parent="Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_placeholder_color = Color(0.208, 0.208, 0.251, 0.3)
 placeholder_text = "Submit feedback or bugs."
 context_menu_enabled = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 8
 text = "Shift+Enter to submit"
 
-[node name="Loading" type="Label" parent="Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Loading" type="Label" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "..."
 
-[node name="Label" type="Label" parent="Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "0/200"
 horizontal_alignment = 2
 
-[node name="Status" type="Label" parent="Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Status" type="Label" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Failed"
 
-[node name="EscButton" type="TextureButton" parent="Feedback"]
+[node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/Feedback"]
 layout_mode = 1
 offset_left = 35.0
 offset_top = 11.0
@@ -690,7 +822,7 @@ offset_bottom = 20.0
 texture_normal = ExtResource("14_vk34l")
 script = ExtResource("19_uqiqi")
 
-[node name="GameModes" type="Control" parent="." node_paths=PackedStringArray("delegator")]
+[node name="GameModes" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("delegator")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -703,24 +835,24 @@ mouse_filter = 2
 script = ExtResource("19_yyowk")
 delegator = NodePath("Delegator")
 
-[node name="Delegator" type="Node" parent="GameModes" node_paths=PackedStringArray("nodes")]
+[node name="Delegator" type="Node" parent="CanvasLayer/Control/GameModes" node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
 nodes = [NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode3"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode2")]
 
-[node name="EffectRoot" type="Node" parent="GameModes"]
+[node name="EffectRoot" type="Node" parent="CanvasLayer/Control/GameModes"]
 script = ExtResource("14_hvw1b")
 ease = 1
 duration = 0.5
 
-[node name="Slide" type="Node" parent="GameModes/EffectRoot" node_paths=PackedStringArray("node")]
+[node name="Slide" type="Node" parent="CanvasLayer/Control/GameModes/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("15_84nkj")
 node = NodePath("../..")
 
-[node name="Fade" type="Node" parent="GameModes/EffectRoot" node_paths=PackedStringArray("node")]
+[node name="Fade" type="Node" parent="CanvasLayer/Control/GameModes/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("15_b245w")
 node = NodePath("../../../MenuOverlay")
 
-[node name="Modes" type="PanelContainer" parent="GameModes"]
+[node name="Modes" type="PanelContainer" parent="CanvasLayer/Control/GameModes"]
 custom_minimum_size = Vector2(240, 150)
 layout_mode = 1
 anchors_preset = 8
@@ -735,43 +867,43 @@ offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="GameModes/Modes"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/GameModes/Modes"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameModes/Modes/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="GameModes/Modes/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Work Mode"
 label_settings = ExtResource("20_lew8u")
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="GameModes/Modes/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="GameMode" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
+[node name="GameMode" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
 layout_mode = 2
 mode = 0
 
-[node name="GameMode3" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
+[node name="GameMode3" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
 layout_mode = 2
 
-[node name="GameMode2" parent="GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
+[node name="GameMode2" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
 layout_mode = 2
 mode = 2
 
-[node name="EscButton" type="TextureButton" parent="GameModes"]
+[node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/GameModes"]
 layout_mode = 0
 offset_left = 36.0
 offset_top = 12.0
@@ -780,24 +912,24 @@ offset_bottom = 21.0
 texture_normal = ExtResource("14_vk34l")
 script = ExtResource("19_uqiqi")
 
-[node name="Leaderboard" parent="." node_paths=PackedStringArray("effect") instance=ExtResource("22_026hy")]
+[node name="Leaderboard" parent="CanvasLayer/Control" node_paths=PackedStringArray("effect") instance=ExtResource("22_026hy")]
 visible = false
 effect = NodePath("EffectRoot")
 
-[node name="EffectRoot" type="Node" parent="Leaderboard"]
+[node name="EffectRoot" type="Node" parent="CanvasLayer/Control/Leaderboard"]
 script = ExtResource("14_hvw1b")
 ease = 1
 duration = 0.5
 
-[node name="Slide" type="Node" parent="Leaderboard/EffectRoot" node_paths=PackedStringArray("node")]
+[node name="Slide" type="Node" parent="CanvasLayer/Control/Leaderboard/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("15_84nkj")
 node = NodePath("../..")
 
-[node name="Fade" type="Node" parent="Leaderboard/EffectRoot" node_paths=PackedStringArray("node")]
+[node name="Fade" type="Node" parent="CanvasLayer/Control/Leaderboard/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("15_b245w")
 node = NodePath("../../../MenuOverlay")
 
-[node name="PerformanceGraph" type="Control" parent="." node_paths=PackedStringArray("graph", "effect", "performance_button", "wpm_button", "left_button", "right_button")]
+[node name="PerformanceGraph" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("graph", "effect", "performance_button", "wpm_button", "left_button", "right_button")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -814,11 +946,11 @@ wpm_button = NodePath("PanelContainer/MarginContainer/HBoxContainer/WPM")
 left_button = NodePath("PanelContainer/Graph2D/HBoxContainer/LeftButton")
 right_button = NodePath("PanelContainer/Graph2D/HBoxContainer/RightButton")
 
-[node name="Delegator" type="Node" parent="PerformanceGraph" node_paths=PackedStringArray("nodes")]
+[node name="Delegator" type="Node" parent="CanvasLayer/Control/PerformanceGraph" node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
 nodes = [NodePath("../PanelContainer/Graph2D/HBoxContainer/LeftButton"), NodePath("../PanelContainer/Graph2D/HBoxContainer/RightButton"), NodePath("../PanelContainer/MarginContainer/HBoxContainer/Performance"), NodePath("../PanelContainer/MarginContainer/HBoxContainer/WPM")]
 
-[node name="PanelContainer" type="PanelContainer" parent="PerformanceGraph"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/PerformanceGraph"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -830,30 +962,32 @@ offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PerformanceGraph/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PerformanceGraph/PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="Performance" parent="PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="Performance" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 word = "Performance"
 
-[node name="TypingLabel" parent="PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/Performance/MarginContainer" index="0"]
+[node name="TypingLabel" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/Performance/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
+text = "[typed until=1 height=1 frequency=8 ][color=ede4daff][/color][color=353540ff][shake rate=0 level=0][/shake][/color][/typed]"
 
-[node name="WPM" parent="PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="WPM" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 word = "WPM"
 
-[node name="TypingLabel" parent="PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/WPM/MarginContainer" index="0"]
+[node name="TypingLabel" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/WPM/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
+text = "[typed until=1 height=1 frequency=8 ][color=ede4daff][/color][color=353540ff][shake rate=0 level=0][/shake][/color][/typed]"
 
-[node name="Graph2D" type="Control" parent="PerformanceGraph/PanelContainer" node_paths=PackedStringArray("coordinate")]
+[node name="Graph2D" type="Control" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer" node_paths=PackedStringArray("coordinate")]
 layout_mode = 2
 theme = ExtResource("1_qu80e")
 script = ExtResource("25_d4kul")
@@ -862,7 +996,7 @@ coordinate = NodePath("Coordinate")
 show_x_ticks = false
 show_x_numbers = false
 
-[node name="Coordinate" type="Label" parent="PerformanceGraph/PanelContainer/Graph2D"]
+[node name="Coordinate" type="Label" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D"]
 visible = false
 z_index = 10
 z_as_relative = false
@@ -876,7 +1010,7 @@ theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 6
 script = ExtResource("33_4qrxl")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PerformanceGraph/PanelContainer/Graph2D"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -890,30 +1024,31 @@ offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="LeftButton" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="LeftButton" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_m0tms")
 word = "H"
 
-[node name="MarginContainer" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton" index="1"]
+[node name="MarginContainer" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton" index="1"]
 z_index = 5
 
-[node name="TypingLabel" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer" index="0"]
+[node name="TypingLabel" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
+text = "[typed until=1 height=1 frequency=8 ][color=ede4daff][/color][color=353540ff][shake rate=0 level=0][/shake][/color][/typed]"
 
-[node name="MarginContainer2" type="MarginContainer" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton"]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = -8
 
-[node name="TextureRect" type="TextureRect" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer2"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer2"]
 layout_mode = 2
 texture = ExtResource("27_lc2cv")
 expand_mode = 2
 stretch_mode = 5
 flip_h = true
 
-[node name="Label" type="Label" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 6
@@ -921,29 +1056,30 @@ text = "Performance"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RightButton" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="RightButton" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_fembg")
 word = "L"
 
-[node name="MarginContainer" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton" index="1"]
+[node name="MarginContainer" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton" index="1"]
 z_index = 5
 
-[node name="TypingLabel" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton/MarginContainer" index="0"]
+[node name="TypingLabel" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
+text = "[typed until=1 height=1 frequency=8 ][color=ede4daff][/color][color=353540ff][shake rate=0 level=0][/shake][/color][/typed]"
 
-[node name="MarginContainer3" type="MarginContainer" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton"]
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 2
 
-[node name="TextureRect" type="TextureRect" parent="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton/MarginContainer3"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton/MarginContainer3"]
 layout_mode = 2
 texture = ExtResource("27_lc2cv")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="EscButton" type="TextureButton" parent="PerformanceGraph"]
+[node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/PerformanceGraph"]
 layout_mode = 0
 offset_left = 17.0
 offset_top = 9.0
@@ -952,20 +1088,20 @@ offset_bottom = 18.0
 texture_normal = ExtResource("14_vk34l")
 script = ExtResource("19_uqiqi")
 
-[node name="EffectRoot" type="Node" parent="PerformanceGraph"]
+[node name="EffectRoot" type="Node" parent="CanvasLayer/Control/PerformanceGraph"]
 script = ExtResource("14_hvw1b")
 ease = 1
 duration = 0.5
 
-[node name="Slide" type="Node" parent="PerformanceGraph/EffectRoot" node_paths=PackedStringArray("node")]
+[node name="Slide" type="Node" parent="CanvasLayer/Control/PerformanceGraph/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("15_84nkj")
 node = NodePath("../..")
 
-[node name="Fade" type="Node" parent="PerformanceGraph/EffectRoot" node_paths=PackedStringArray("node")]
+[node name="Fade" type="Node" parent="CanvasLayer/Control/PerformanceGraph/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("15_b245w")
 node = NodePath("../../../MenuOverlay")
 
-[node name="QuitJobWarning" type="Control" parent="." node_paths=PackedStringArray("effect", "quit_button_yes", "quit_button_no", "delegator")]
+[node name="QuitJobWarning" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("effect", "quit_button_yes", "quit_button_no", "delegator")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -980,24 +1116,24 @@ quit_button_yes = NodePath("QuitJobWarning/MarginContainer/VBoxContainer/HBoxCon
 quit_button_no = NodePath("QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer/QuitNo")
 delegator = NodePath("QuitJobDelegator")
 
-[node name="EffectRoot" type="Node" parent="QuitJobWarning"]
+[node name="EffectRoot" type="Node" parent="CanvasLayer/Control/QuitJobWarning"]
 script = ExtResource("14_hvw1b")
 ease = 1
 duration = 0.5
 
-[node name="Slide" type="Node" parent="QuitJobWarning/EffectRoot" node_paths=PackedStringArray("node")]
+[node name="Slide" type="Node" parent="CanvasLayer/Control/QuitJobWarning/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("15_84nkj")
 node = NodePath("../..")
 
-[node name="Fade" type="Node" parent="QuitJobWarning/EffectRoot" node_paths=PackedStringArray("node")]
+[node name="Fade" type="Node" parent="CanvasLayer/Control/QuitJobWarning/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("15_b245w")
 node = NodePath("../../../MenuOverlay")
 
-[node name="QuitJobDelegator" type="Node" parent="QuitJobWarning" node_paths=PackedStringArray("nodes")]
+[node name="QuitJobDelegator" type="Node" parent="CanvasLayer/Control/QuitJobWarning" node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
 nodes = [NodePath("../QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer/QuitYes"), NodePath("../QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer/QuitNo")]
 
-[node name="QuitJobWarning" type="PanelContainer" parent="QuitJobWarning"]
+[node name="QuitJobWarning" type="PanelContainer" parent="CanvasLayer/Control/QuitJobWarning"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1011,42 +1147,42 @@ offset_bottom = 27.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="QuitJobWarning/QuitJobWarning"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/QuitJobWarning/QuitJobWarning"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="QuitJobWarning/QuitJobWarning/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/QuitJobWarning/QuitJobWarning/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit Job?"
 label_settings = ExtResource("20_lew8u")
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="CanvasLayer/Control/QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "You will lose your progress 
 and restart as intern"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 30
 
-[node name="QuitYes" parent="QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="QuitYes" parent="CanvasLayer/Control/QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 word = "Yes"
 
-[node name="QuitNo" parent="QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="QuitNo" parent="CanvasLayer/Control/QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_2n7ql")]
 layout_mode = 2
 word = "No"
 
-[node name="EscButton" type="TextureButton" parent="QuitJobWarning"]
+[node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/QuitJobWarning"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1062,8 +1198,100 @@ grow_vertical = 2
 texture_normal = ExtResource("14_vk34l")
 script = ExtResource("19_uqiqi")
 
+[node name="Folder" parent="CanvasLayer/Control" instance=ExtResource("37_ajr2k")]
+light_mask = 0
+layout_mode = 1
+offset_top = 82.0
+offset_bottom = 82.0
+
+[node name="TextureRect" parent="CanvasLayer/Control/Folder" index="2"]
+light_mask = 0
+
+[node name="Papers" parent="CanvasLayer/Control/Folder/TextureRect" index="0"]
+light_mask = 0
+
+[node name="MenuPaper" parent="CanvasLayer/Control/Folder/TextureRect/Papers" index="0" instance=ExtResource("38_fltas")]
+light_mask = 0
+layout_mode = 1
+offset_left = -122.0
+offset_top = -38.0
+offset_right = 28.0
+offset_bottom = 132.0
+rotation = -0.261799
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/MenuPaper/MarginContainer/VBoxContainer" index="0"]
+text = "performance"
+word = "performance"
+
+[node name="Resignation" parent="CanvasLayer/Control/Folder/TextureRect/Papers" index="1" node_paths=PackedStringArray("signature", "text") instance=ExtResource("38_fltas")]
+light_mask = 0
+layout_mode = 1
+offset_left = -27.0
+offset_top = -33.0
+offset_right = 123.0
+offset_bottom = 137.0
+rotation = 0.174533
+script = ExtResource("43_d3m8a")
+signature = NodePath("MarginContainer/VBoxContainer/Signature")
+text = NodePath("MarginContainer/VBoxContainer/Text")
+
+[node name="Delegator" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation" index="0" node_paths=PackedStringArray("nodes")]
+nodes = [NodePath("../MarginContainer/VBoxContainer/Signature")]
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation/MarginContainer/VBoxContainer" index="0"]
+text = "resignation"
+word = "resignation"
+
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+text = "Dear Boss,
+
+I regret to inform you that I am resigning from my position as %s at the company, effective immediately."
+fit_content = true
+autowrap_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation/MarginContainer/VBoxContainer" index="2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation/MarginContainer/VBoxContainer" index="3"]
+layout_mode = 2
+text = "Sincerly"
+fit_content = true
+
+[node name="Signature" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation/MarginContainer/VBoxContainer" index="4" instance=ExtResource("8_y3mf1")]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/normal_font_size = 12
+highlight_first = true
+
+[node name="MenuPaper2" parent="CanvasLayer/Control/Folder/TextureRect/Papers" index="2" instance=ExtResource("38_fltas")]
+light_mask = 0
+layout_mode = 1
+offset_left = -79.0
+offset_top = -11.0
+offset_right = 71.0
+offset_bottom = 159.0
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/MenuPaper2/MarginContainer/VBoxContainer" index="0"]
+text = "employees"
+word = "employees"
+
+[node name="TextureRect2" parent="CanvasLayer/Control/Folder/TextureRect" index="1"]
+light_mask = 0
+offset_top = 4.0
+offset_bottom = 10.0
+
+[node name="PanelContainer" parent="CanvasLayer/Control/Folder/TextureRect" index="3"]
+offset_top = 20.5
+offset_bottom = 170.5
+
 [editable path="FeedbackContainer/FeedbackButton"]
-[editable path="PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/Performance"]
-[editable path="PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/WPM"]
-[editable path="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton"]
-[editable path="PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton"]
+[editable path="CanvasLayer/Control/PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/Performance"]
+[editable path="CanvasLayer/Control/PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/WPM"]
+[editable path="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton"]
+[editable path="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton"]
+[editable path="CanvasLayer/Control/Folder"]
+[editable path="CanvasLayer/Control/Folder/TextureRect/Papers/MenuPaper"]
+[editable path="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation"]
+[editable path="CanvasLayer/Control/Folder/TextureRect/Papers/MenuPaper2"]

@@ -40,6 +40,7 @@ offset_left = -30.0
 offset_top = -39.5
 offset_right = -12.0
 offset_bottom = -15.5
+theme_override_font_sizes/normal_font_size = 20
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2(2.5, 3.2)

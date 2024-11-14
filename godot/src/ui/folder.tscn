@@ -1,0 +1,243 @@
+[gd_scene load_steps=11 format=3 uid="uid://bevwwvcqg3xhh"]
+
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_eb7yf"]
+[ext_resource type="Script" path="res://src/ui/folder.gd" id="1_pv7op"]
+[ext_resource type="Texture2D" uid="uid://b86s2s2gagfk4" path="res://assets/sprites/Menu_FrontBack.png" id="2_co0qb"]
+[ext_resource type="Script" path="res://src/ui/papers.gd" id="3_l8ihl"]
+[ext_resource type="Texture2D" uid="uid://c5kug4qan8fud" path="res://assets/sprites/Menu_FolderFront.png" id="5_s5drs"]
+[ext_resource type="Script" path="res://src/delegator.gd" id="5_xfvoj"]
+
+[sub_resource type="Animation" id="Animation_xpunr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(160, 262)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect/TextureRect2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-8, 4)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextureRect/PanelContainer:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 20.5)]
+}
+
+[sub_resource type="Animation" id="Animation_om7um"]
+resource_name = "close_folder"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(160, 90), Vector2(160, 262)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect/Papers")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"close"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextureRect/TextureRect2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-8, 96.5), Vector2(-8, 4)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TextureRect/PanelContainer:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 112.5), Vector2(0, 20.5)]
+}
+
+[sub_resource type="Animation" id="Animation_gi17e"]
+resource_name = "open_folder"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(160, 262), Vector2(160, 90)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect/Papers")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"open"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextureRect/TextureRect2:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-8, 4), Vector2(-8, 96.5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TextureRect/PanelContainer:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 20.5), Vector2(0, 112.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pnlba"]
+_data = {
+"RESET": SubResource("Animation_xpunr"),
+"close_folder": SubResource("Animation_om7um"),
+"open_folder": SubResource("Animation_gi17e")
+}
+
+[node name="Folder" type="Control" node_paths=PackedStringArray("papers")]
+light_mask = 2
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -90.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_mode = 2
+theme = ExtResource("1_eb7yf")
+script = ExtResource("1_pv7op")
+papers = NodePath("TextureRect/Papers")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pnlba")
+}
+
+[node name="Delegator" type="Node" parent="."]
+script = ExtResource("5_xfvoj")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+light_mask = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -72.5
+offset_right = 130.0
+offset_bottom = 72.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_co0qb")
+stretch_mode = 5
+
+[node name="Papers" type="Control" parent="TextureRect"]
+light_mask = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_l8ihl")
+
+[node name="TextureRect2" type="TextureRect" parent="TextureRect"]
+visible = false
+light_mask = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = 96.5
+offset_right = 5.0
+offset_bottom = 127.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_s5drs")
+expand_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="TextureRect"]
+visible = false
+light_mask = 2
+position = Vector2(128.5, 80.5)
+texture = ExtResource("5_s5drs")
+
+[node name="PanelContainer" type="PanelContainer" parent="TextureRect"]
+light_mask = 2
+layout_mode = 0
+offset_top = 112.5
+offset_right = 260.0
+offset_bottom = 262.5

@@ -14,12 +14,12 @@ var sync_feedback_pos := true # some weird bug with the button position
 var was_shift := false
 var tw: Tween
 
-func _ready() -> void:
-	overlay.modulate = Color.TRANSPARENT
-	
-	await get_tree().physics_frame
-	feedback_original = feedback_btn.position
-	get_tree().create_timer(0.1).timeout.connect(func(): sync_feedback_pos = false)
+#func _ready() -> void:
+	#overlay.modulate = Color.TRANSPARENT
+	#
+	#await get_tree().physics_frame
+	#feedback_original = feedback_btn.position
+	#get_tree().create_timer(0.1).timeout.connect(func(): sync_feedback_pos = false)
 
 func _physics_process(delta: float) -> void:
 	if not was_shift and sync_feedback_pos:
