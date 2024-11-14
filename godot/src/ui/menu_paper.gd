@@ -14,14 +14,16 @@ var previous_focus: Control
 
 func _ready() -> void:
 	close()
-	
+	connect_focus()
+
+func connect_focus(node = self):
 	label.type_finish.connect(func():
 		previous_focus = get_viewport().gui_get_focus_owner()
 		label.reset()
-		grab_focus()
+		node.grab_focus()
 	)
-	focus_entered.connect(func(): focused())
-	focus_exited.connect(func(): defocused())
+	node.focus_entered.connect(func(): focused())
+	node.focus_exited.connect(func(): defocused())
 
 func get_label():
 	return label

@@ -1,11 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://bevwwvcqg3xhh"]
+[gd_scene load_steps=13 format=3 uid="uid://bevwwvcqg3xhh"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_eb7yf"]
 [ext_resource type="Script" path="res://src/ui/folder.gd" id="1_pv7op"]
 [ext_resource type="Texture2D" uid="uid://b86s2s2gagfk4" path="res://assets/sprites/Menu_FrontBack.png" id="2_co0qb"]
 [ext_resource type="Script" path="res://src/ui/papers.gd" id="3_l8ihl"]
+[ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="5_3scs5"]
 [ext_resource type="Texture2D" uid="uid://c5kug4qan8fud" path="res://assets/sprites/Menu_FolderFront.png" id="5_s5drs"]
 [ext_resource type="Script" path="res://src/delegator.gd" id="5_xfvoj"]
+[ext_resource type="Script" path="res://src/ui/esc_button.gd" id="6_d4hqn"]
 
 [sub_resource type="Animation" id="Animation_xpunr"]
 length = 0.001
@@ -167,8 +169,8 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -90.0
-offset_bottom = -90.0
+offset_top = 82.0
+offset_bottom = 82.0
 grow_horizontal = 2
 grow_vertical = 0
 focus_mode = 2
@@ -201,6 +203,15 @@ grow_vertical = 2
 texture = ExtResource("2_co0qb")
 stretch_mode = 5
 
+[node name="EscButton" type="TextureButton" parent="TextureRect"]
+layout_mode = 1
+offset_left = 3.0
+offset_top = 2.5
+offset_right = 15.0
+offset_bottom = 11.5
+texture_normal = ExtResource("5_3scs5")
+script = ExtResource("6_d4hqn")
+
 [node name="Papers" type="Control" parent="TextureRect"]
 light_mask = 2
 layout_mode = 1
@@ -221,9 +232,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -8.0
-offset_top = 96.5
+offset_top = 4.0
 offset_right = 5.0
-offset_bottom = 127.5
+offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_s5drs")
@@ -238,6 +249,6 @@ texture = ExtResource("5_s5drs")
 [node name="PanelContainer" type="PanelContainer" parent="TextureRect"]
 light_mask = 2
 layout_mode = 0
-offset_top = 112.5
+offset_top = 20.5
 offset_right = 260.0
-offset_bottom = 262.5
+offset_bottom = 170.5

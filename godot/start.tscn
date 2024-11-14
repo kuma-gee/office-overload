@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=49 format=3 uid="uid://ctlncowdl0sbn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
 [ext_resource type="Script" path="res://start.gd" id="2_508sk"]
@@ -7,17 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://bmm6sa6u2o7cb" path="res://assets/sprites/Start.png" id="6_7xrqw"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="7_2n7ql"]
 [ext_resource type="Texture2D" uid="uid://b3m7b3wyx4tpw" path="res://assets/sprites/Clock.png" id="7_4331q"]
-[ext_resource type="Script" path="res://src/ui/alt_typing_button.gd" id="8_mi7cx"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="8_y3mf1"]
 [ext_resource type="LabelSettings" uid="uid://uctt264dd2ni" path="res://theme/text_small.tres" id="9_mw082"]
-[ext_resource type="Texture2D" uid="uid://bstvwnc3xppv1" path="res://assets/sprites/Shift.png" id="11_811t6"]
 [ext_resource type="Script" path="res://src/base-system/menu/Settings.gd" id="11_ybmms"]
 [ext_resource type="Script" path="res://src/ui/Stats.gd" id="12_fmeio"]
 [ext_resource type="PackedScene" uid="uid://c6ce1tcwltx0f" path="res://src/start/note.tscn" id="12_mc432"]
 [ext_resource type="Script" path="res://src/base-system/menu/AudioSlider.gd" id="12_qty1o"]
 [ext_resource type="AudioStream" uid="uid://7ix2fpbkls0p" path="res://assets/sound/Talk_with_me.mp3" id="13_gm25t"]
 [ext_resource type="Texture2D" uid="uid://bl06rcj3vftvg" path="res://assets/sprites/Folder.png" id="13_qj2lo"]
-[ext_resource type="Script" path="res://src/ui/shift_buttons.gd" id="13_rmgj0"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="14_hvw1b"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="14_vk34l"]
 [ext_resource type="Script" path="res://src/base-system/menu/AudioSettings.gd" id="15_4lkng"]
@@ -39,12 +36,10 @@
 [ext_resource type="Script" path="res://src/ui/cloud_settings.gd" id="25_nuxga"]
 [ext_resource type="Texture2D" uid="uid://qpujdmcko0bu" path="res://assets/sprites/Arrow.png" id="27_lc2cv"]
 [ext_resource type="Script" path="res://addons/graph_2d/custom_nodes/coordinate.gd" id="33_4qrxl"]
-[ext_resource type="Script" path="res://src/ui/quit_job_warning.gd" id="34_xrtne"]
 [ext_resource type="PackedScene" uid="uid://bevwwvcqg3xhh" path="res://src/ui/folder.tscn" id="37_ajr2k"]
 [ext_resource type="PackedScene" uid="uid://du0v5of5joaem" path="res://src/ui/menu_paper.tscn" id="38_fltas"]
 [ext_resource type="Script" path="res://src/ui/resignation.gd" id="43_d3m8a"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_78ajf"]
+[ext_resource type="RichTextEffect" uid="uid://d0psnm1eyw40x" path="res://src/text-effect/typed_effect.tres" id="43_fqxjg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_87uxo"]
 
@@ -56,19 +51,23 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fembg"]
 
-[node name="Start" type="Node2D" node_paths=PackedStringArray("work_label", "prepare_label", "files", "shift_container", "settings", "game_modes", "delegator", "leaderboard", "feedback_ui", "performance_graph", "quit_warning_dialog", "folder")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nn2rb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n7tvb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xv7lq"]
+
+[node name="Start" type="Node2D" node_paths=PackedStringArray("work_label", "prepare_label", "files", "shift_container", "settings", "game_modes", "delegator", "leaderboard", "performance_graph", "folder")]
 script = ExtResource("2_508sk")
 work_label = NodePath("TextureRect2/Clock/TypingLabel")
 prepare_label = NodePath("TextureRect2/PrepareDoc/TypingLabel3")
 files = NodePath("TextureRect2/Files/TypingLabel2")
-shift_container = NodePath("ShiftContainer")
+shift_container = NodePath("")
 settings = NodePath("CanvasLayer/Control/Settings")
 game_modes = NodePath("CanvasLayer/Control/GameModes")
 delegator = NodePath("Delegator")
 leaderboard = NodePath("CanvasLayer/Control/Leaderboard")
-feedback_ui = NodePath("CanvasLayer/Control/Feedback")
 performance_graph = NodePath("CanvasLayer/Control/PerformanceGraph")
-quit_warning_dialog = NodePath("CanvasLayer/Control/QuitJobWarning")
 folder = NodePath("CanvasLayer/Control/Folder")
 
 [node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
@@ -319,139 +318,6 @@ theme_override_font_sizes/normal_font_size = 12
 text = "FILES"
 highlight_first = true
 word = "files"
-
-[node name="ShiftOverlay" type="ColorRect" parent="."]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.588235)
-
-[node name="FolderButton" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -20.0
-offset_bottom = 20.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="Folder" parent="FolderButton" instance=ExtResource("7_2n7ql")]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -18.0
-offset_top = -8.0
-offset_right = 0.0
-offset_bottom = 8.0
-grow_horizontal = 0
-grow_vertical = 2
-word = "folder"
-
-[node name="MarginContainer3" type="MarginContainer" parent="."]
-visible = false
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -45.0
-offset_top = -103.0
-offset_right = 46.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 40
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="Work_Performance" parent="MarginContainer3/VBoxContainer" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_78ajf")
-script = ExtResource("8_mi7cx")
-other_word = "Performance"
-word = "Work"
-
-[node name="Setting_Leaderboard" parent="MarginContainer3/VBoxContainer" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
-script = ExtResource("8_mi7cx")
-other_word = "Leaderboard"
-word = "Setting"
-
-[node name="Exit_QuitJob" parent="MarginContainer3/VBoxContainer" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
-script = ExtResource("8_mi7cx")
-other_word = "QuitJob"
-word = "Exit"
-
-[node name="ShiftContainer" type="MarginContainer" parent="." node_paths=PackedStringArray("overlay", "feedback_btn", "delegator")]
-visible = false
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -14.0
-offset_top = -22.0
-offset_right = 14.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-script = ExtResource("13_rmgj0")
-overlay = NodePath("../ShiftOverlay")
-feedback_btn = NodePath("../FeedbackContainer")
-delegator = NodePath("../Delegator")
-
-[node name="TextureButton" type="TextureButton" parent="ShiftContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-texture_normal = ExtResource("11_811t6")
-stretch_mode = 5
-
-[node name="FeedbackContainer" type="MarginContainer" parent="."]
-visible = false
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -84.5
-offset_top = -22.0
-offset_right = 84.5
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="FeedbackButton" parent="FeedbackContainer" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-script = ExtResource("8_mi7cx")
-other_word = "Feedback"
-
-[node name="TypingLabel" parent="FeedbackContainer/FeedbackButton/MarginContainer" index="0"]
-theme_override_font_sizes/normal_font_size = 6
-text = "[typed until=1 height=1 frequency=8 ][color=ede4daff][/color][color=353540ff][shake rate=0 level=0][/shake][/color][/typed]"
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_gm25t")
@@ -712,113 +578,6 @@ offset_left = 36.0
 offset_top = 12.0
 offset_right = 48.0
 offset_bottom = 21.0
-texture_normal = ExtResource("14_vk34l")
-script = ExtResource("19_uqiqi")
-
-[node name="Feedback" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("label", "limit_label", "status_label", "loading_label")]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_mode = 2
-mouse_filter = 2
-script = ExtResource("22_0pod6")
-label = NodePath("Feedback/MarginContainer/VBoxContainer/VBoxContainer/TextEdit")
-limit_label = NodePath("Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Label")
-status_label = NodePath("Feedback/MarginContainer/VBoxContainer/VBoxContainer/Status")
-loading_label = NodePath("Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Loading")
-
-[node name="EffectRoot" type="Node" parent="CanvasLayer/Control/Feedback"]
-script = ExtResource("14_hvw1b")
-ease = 1
-duration = 0.5
-
-[node name="Slide" type="Node" parent="CanvasLayer/Control/Feedback/EffectRoot" node_paths=PackedStringArray("node")]
-script = ExtResource("15_84nkj")
-node = NodePath("../..")
-
-[node name="Fade" type="Node" parent="CanvasLayer/Control/Feedback/EffectRoot" node_paths=PackedStringArray("node")]
-script = ExtResource("15_b245w")
-node = NodePath("../../../MenuOverlay")
-
-[node name="Feedback" type="PanelContainer" parent="CanvasLayer/Control/Feedback"]
-custom_minimum_size = Vector2(240, 150)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -120.0
-offset_top = -65.0
-offset_right = 120.0
-offset_bottom = 65.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Feedback/Feedback"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Feedback"
-label_settings = ExtResource("20_lew8u")
-horizontal_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 3
-
-[node name="TextEdit" type="TextEdit" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_placeholder_color = Color(0.208, 0.208, 0.251, 0.3)
-placeholder_text = "Submit feedback or bugs."
-context_menu_enabled = false
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 8
-text = "Shift+Enter to submit"
-
-[node name="Loading" type="Label" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "..."
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "0/200"
-horizontal_alignment = 2
-
-[node name="Status" type="Label" parent="CanvasLayer/Control/Feedback/Feedback/MarginContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "Failed"
-
-[node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/Feedback"]
-layout_mode = 1
-offset_left = 35.0
-offset_top = 11.0
-offset_right = 47.0
-offset_bottom = 20.0
 texture_normal = ExtResource("14_vk34l")
 script = ExtResource("19_uqiqi")
 
@@ -1101,116 +860,94 @@ node = NodePath("../..")
 script = ExtResource("15_b245w")
 node = NodePath("../../../MenuOverlay")
 
-[node name="QuitJobWarning" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("effect", "quit_button_yes", "quit_button_no", "delegator")]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_mode = 2
-script = ExtResource("34_xrtne")
-effect = NodePath("EffectRoot")
-quit_button_yes = NodePath("QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer/QuitYes")
-quit_button_no = NodePath("QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer/QuitNo")
-delegator = NodePath("QuitJobDelegator")
-
-[node name="EffectRoot" type="Node" parent="CanvasLayer/Control/QuitJobWarning"]
-script = ExtResource("14_hvw1b")
-ease = 1
-duration = 0.5
-
-[node name="Slide" type="Node" parent="CanvasLayer/Control/QuitJobWarning/EffectRoot" node_paths=PackedStringArray("node")]
-script = ExtResource("15_84nkj")
-node = NodePath("../..")
-
-[node name="Fade" type="Node" parent="CanvasLayer/Control/QuitJobWarning/EffectRoot" node_paths=PackedStringArray("node")]
-script = ExtResource("15_b245w")
-node = NodePath("../../../MenuOverlay")
-
-[node name="QuitJobDelegator" type="Node" parent="CanvasLayer/Control/QuitJobWarning" node_paths=PackedStringArray("nodes")]
-script = ExtResource("16_bh4xx")
-nodes = [NodePath("../QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer/QuitYes"), NodePath("../QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer/QuitNo")]
-
-[node name="QuitJobWarning" type="PanelContainer" parent="CanvasLayer/Control/QuitJobWarning"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -78.5
-offset_top = -27.5
-offset_right = 78.5
-offset_bottom = 27.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/QuitJobWarning/QuitJobWarning"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/QuitJobWarning/QuitJobWarning/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Quit Job?"
-label_settings = ExtResource("20_lew8u")
-horizontal_alignment = 1
-
-[node name="Label2" type="Label" parent="CanvasLayer/Control/QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "You will lose your progress 
-and restart as intern"
-horizontal_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 30
-
-[node name="QuitYes" parent="CanvasLayer/Control/QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
-word = "Yes"
-
-[node name="QuitNo" parent="CanvasLayer/Control/QuitJobWarning/QuitJobWarning/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
-word = "No"
-
-[node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/QuitJobWarning"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -87.0
-offset_top = -37.0
-offset_right = -75.0
-offset_bottom = -28.0
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = ExtResource("14_vk34l")
-script = ExtResource("19_uqiqi")
-
 [node name="Folder" parent="CanvasLayer/Control" instance=ExtResource("37_ajr2k")]
 light_mask = 0
 layout_mode = 1
-offset_top = 82.0
-offset_bottom = 82.0
 
 [node name="TextureRect" parent="CanvasLayer/Control/Folder" index="2"]
 light_mask = 0
 
-[node name="Papers" parent="CanvasLayer/Control/Folder/TextureRect" index="0"]
+[node name="Papers" parent="CanvasLayer/Control/Folder/TextureRect" index="1"]
 light_mask = 0
 
-[node name="MenuPaper" parent="CanvasLayer/Control/Folder/TextureRect/Papers" index="0" instance=ExtResource("38_fltas")]
+[node name="Feedback1" parent="CanvasLayer/Control/Folder/TextureRect/Papers" index="0" node_paths=PackedStringArray("form", "limit_label", "status_label", "loading_label") instance=ExtResource("38_fltas")]
+light_mask = 0
+layout_mode = 1
+offset_left = -93.0
+offset_top = -65.0
+offset_right = 57.0
+offset_bottom = 105.0
+rotation = -0.150098
+script = ExtResource("22_0pod6")
+form = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/TextEdit")
+limit_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Limit")
+max_limit = 200
+status_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Status")
+loading_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/Loading2")
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+text = "feedback"
+word = "feedback"
+
+[node name="Limit" type="Label" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 8
+text = "0/200"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 3
+
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_placeholder_color = Color(0.208, 0.208, 0.251, 0.3)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_nn2rb")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_n7tvb")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_xv7lq")
+placeholder_text = "Let us know of any problems or improvements"
+context_menu_enabled = false
+wrap_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 8
+text = "Shift+Enter to send"
+
+[node name="Loading2" type="RichTextLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(6.3, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+text = "[typed until=10 height=1]. . .[/typed]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+custom_effects = [ExtResource("43_fqxjg")]
+
+[node name="Status" type="Label" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Failed"
+
+[node name="MenuPaper3" parent="CanvasLayer/Control/Folder/TextureRect/Papers" index="1" instance=ExtResource("38_fltas")]
 light_mask = 0
 layout_mode = 1
 offset_left = -122.0
@@ -1219,11 +956,7 @@ offset_right = 28.0
 offset_bottom = 132.0
 rotation = -0.261799
 
-[node name="TypingLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/MenuPaper/MarginContainer/VBoxContainer" index="0"]
-text = "performance"
-word = "performance"
-
-[node name="Resignation" parent="CanvasLayer/Control/Folder/TextureRect/Papers" index="1" node_paths=PackedStringArray("signature", "text") instance=ExtResource("38_fltas")]
+[node name="Resignation3" parent="CanvasLayer/Control/Folder/TextureRect/Papers" index="2" node_paths=PackedStringArray("signature", "text") instance=ExtResource("38_fltas")]
 light_mask = 0
 layout_mode = 1
 offset_left = -27.0
@@ -1235,14 +968,14 @@ script = ExtResource("43_d3m8a")
 signature = NodePath("MarginContainer/VBoxContainer/Signature")
 text = NodePath("MarginContainer/VBoxContainer/Text")
 
-[node name="Delegator" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation" index="0" node_paths=PackedStringArray("nodes")]
+[node name="Delegator" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation3" index="0" node_paths=PackedStringArray("nodes")]
 nodes = [NodePath("../MarginContainer/VBoxContainer/Signature")]
 
-[node name="TypingLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation/MarginContainer/VBoxContainer" index="0"]
+[node name="TypingLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "resignation"
 word = "resignation"
 
-[node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation/MarginContainer/VBoxContainer" index="1"]
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2
 text = "Dear Boss,
 
@@ -1250,22 +983,22 @@ I regret to inform you that I am resigning from my position as %s at the company
 fit_content = true
 autowrap_mode = 2
 
-[node name="Control" type="Control" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation/MarginContainer/VBoxContainer" index="2"]
+[node name="Control" type="Control" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="2"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation/MarginContainer/VBoxContainer" index="3"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="3"]
 layout_mode = 2
 text = "Sincerly"
 fit_content = true
 
-[node name="Signature" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation/MarginContainer/VBoxContainer" index="4" instance=ExtResource("8_y3mf1")]
+[node name="Signature" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="4" instance=ExtResource("8_y3mf1")]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/normal_font_size = 12
 highlight_first = true
 
-[node name="MenuPaper2" parent="CanvasLayer/Control/Folder/TextureRect/Papers" index="2" instance=ExtResource("38_fltas")]
+[node name="MenuPaper4" parent="CanvasLayer/Control/Folder/TextureRect/Papers" index="3" instance=ExtResource("38_fltas")]
 light_mask = 0
 layout_mode = 1
 offset_left = -79.0
@@ -1273,25 +1006,19 @@ offset_top = -11.0
 offset_right = 71.0
 offset_bottom = 159.0
 
-[node name="TypingLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/MenuPaper2/MarginContainer/VBoxContainer" index="0"]
-text = "employees"
-word = "employees"
-
-[node name="TextureRect2" parent="CanvasLayer/Control/Folder/TextureRect" index="1"]
+[node name="TextureRect2" parent="CanvasLayer/Control/Folder/TextureRect" index="2"]
 light_mask = 0
-offset_top = 4.0
 offset_bottom = 10.0
 
-[node name="PanelContainer" parent="CanvasLayer/Control/Folder/TextureRect" index="3"]
-offset_top = 20.5
-offset_bottom = 170.5
+[node name="PanelContainer" parent="CanvasLayer/Control/Folder/TextureRect" index="4"]
+visible = false
 
-[editable path="FeedbackContainer/FeedbackButton"]
 [editable path="CanvasLayer/Control/PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/Performance"]
 [editable path="CanvasLayer/Control/PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/WPM"]
 [editable path="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton"]
 [editable path="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton"]
 [editable path="CanvasLayer/Control/Folder"]
-[editable path="CanvasLayer/Control/Folder/TextureRect/Papers/MenuPaper"]
-[editable path="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation"]
-[editable path="CanvasLayer/Control/Folder/TextureRect/Papers/MenuPaper2"]
+[editable path="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1"]
+[editable path="CanvasLayer/Control/Folder/TextureRect/Papers/MenuPaper3"]
+[editable path="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation3"]
+[editable path="CanvasLayer/Control/Folder/TextureRect/Papers/MenuPaper4"]

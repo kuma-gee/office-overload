@@ -13,6 +13,13 @@ func _ready() -> void:
 	
 	for c in papers.get_children():
 		delegator.nodes.append(c)
+	
+	focus_entered.connect(func(): set_focused(true))
+	focus_exited.connect(func(): set_focused(false))
+
+func set_focused(focus = false):
+	for c in papers.get_children():
+		c.get_label().highlight_first = focus
 
 func open():
 	animation_player.play("open_folder")
