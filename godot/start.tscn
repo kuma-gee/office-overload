@@ -61,8 +61,8 @@
 script = ExtResource("2_508sk")
 work_label = NodePath("TextureRect2/Clock/TypingLabel")
 prepare_label = NodePath("TextureRect2/PrepareDoc/TypingLabel3")
-files = NodePath("TextureRect2/Files/Files")
-team = NodePath("TextureRect2/Rankings/Rank")
+files = NodePath("TextureRect2/Files/Report")
+team = NodePath("TextureRect2/Rankings/Team")
 settings = NodePath("CanvasLayer/Control/Settings")
 game_modes = NodePath("CanvasLayer/Control/GameModes")
 delegator = NodePath("Delegator")
@@ -71,7 +71,7 @@ teams = NodePath("CanvasLayer/Control/Team")
 
 [node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
-nodes = [NodePath("../TextureRect2/Clock/TypingLabel"), NodePath("../TextureRect2/PrepareDoc/TypingLabel3"), NodePath("../TextureRect2/Files/Files"), NodePath("../TextureRect2/Rankings/Rank")]
+nodes = [NodePath("../TextureRect2/Clock/TypingLabel"), NodePath("../TextureRect2/PrepareDoc/TypingLabel3"), NodePath("../TextureRect2/Files/Report"), NodePath("../TextureRect2/Rankings/Team")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.493545, 0.493546, 0.493546, 1)
@@ -356,7 +356,7 @@ rotation = 0.174533
 scale = Vector2(1, 1)
 texture = ExtResource("13_qj2lo")
 
-[node name="Rank" parent="TextureRect2/Rankings" instance=ExtResource("8_y3mf1")]
+[node name="Team" parent="TextureRect2/Rankings" instance=ExtResource("8_y3mf1")]
 offset_left = -45.5
 offset_top = -20.5
 offset_right = -3.5
@@ -371,7 +371,7 @@ position = Vector2(-87, -18)
 rotation = -0.174533
 texture = ExtResource("13_qj2lo")
 
-[node name="Files" parent="TextureRect2/Files" instance=ExtResource("8_y3mf1")]
+[node name="Report" parent="TextureRect2/Files" instance=ExtResource("8_y3mf1")]
 offset_left = -45.5
 offset_top = -20.5
 offset_right = -3.5
@@ -761,9 +761,6 @@ Check your steam status[/center]"
 fit_content = true
 autowrap_mode = 0
 
-[node name="Papers" parent="CanvasLayer/Control/Team/TextureRect" index="2"]
-visible = false
-
 [node name="Top1" parent="CanvasLayer/Control/Team/TextureRect/Papers" index="0" node_paths=PackedStringArray("board") instance=ExtResource("38_fltas")]
 light_mask = 0
 custom_minimum_size = Vector2(200, 150)
@@ -790,10 +787,10 @@ layout_mode = 2
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = -75.0
-offset_top = -40.0
-offset_right = 125.0
-offset_bottom = 110.0
+offset_left = -77.0
+offset_top = -34.0
+offset_right = 123.0
+offset_bottom = 116.0
 rotation = 0.174533
 script = ExtResource("34_qjurq")
 board = NodePath("MarginContainer/VBoxContainer/UserScore")
@@ -809,10 +806,10 @@ layout_mode = 2
 light_mask = 0
 custom_minimum_size = Vector2(200, 150)
 layout_mode = 1
-offset_left = -104.0
-offset_top = -13.0
-offset_right = 96.0
-offset_bottom = 137.0
+offset_left = -101.0
+offset_top = -6.0
+offset_right = 99.0
+offset_bottom = 144.0
 rotation = -0.0523599
 script = ExtResource("34_qjurq")
 board = NodePath("MarginContainer/VBoxContainer/FriendsScore")

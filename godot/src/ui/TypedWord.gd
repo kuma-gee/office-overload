@@ -133,7 +133,7 @@ func _next_char():
 		return null
 	return word[typed.length()]
 
-func handle_key(key: String):
+func handle_key(key: String, ignore_error = false):
 	var next_word_char = _next_char()
 	if next_word_char == key.to_lower():
 		if typed.length() == 0:
@@ -150,7 +150,7 @@ func handle_key(key: String):
 		if typed == word:
 			type_finish.emit()
 		return true
-	elif typed != word:
+	elif typed != word and not ignore_error:
 		if enable_mistake_effect:
 			play_mistake_effect()
 		type_wrong.emit()
