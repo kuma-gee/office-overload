@@ -2,6 +2,7 @@ class_name Folder
 extends Control
 
 @export var papers: Papers
+@export var overlay: Control
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var delegator: Delegator = $Delegator
@@ -18,6 +19,12 @@ func _ready() -> void:
 	focus_exited.connect(func(): set_focused(false))
 
 func set_focused(focus = false):
+	if not animation_player.is_playing():
+		if not focus:
+			animation_player.play("show_overlay")
+		else:
+			animation_player.play_backwards("show_overlay")
+	
 	for c in papers.get_children():
 		c.get_label().highlight_first = focus
 

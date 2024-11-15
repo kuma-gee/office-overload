@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmu36xk8jw0u8"]
+[gd_scene load_steps=8 format=3 uid="uid://cmu36xk8jw0u8"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_1wirg"]
 [ext_resource type="Script" path="res://src/ui/score_board.gd" id="2_hvdfi"]
 [ext_resource type="LabelSettings" uid="uid://uctt264dd2ni" path="res://theme/text_small.tres" id="3_jt1on"]
 [ext_resource type="RichTextEffect" uid="uid://d0psnm1eyw40x" path="res://src/text-effect/typed_effect.tres" id="3_vpmc6"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="4_5kh8s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m3b5g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0niil"]
 
 [node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("container", "scroll_container", "up_scroll", "down_scroll", "scroll_button_container", "day_label", "loading_label", "empty_label")]
 anchors_preset = 15
@@ -114,6 +118,7 @@ theme_override_constants/margin_top = -10
 
 [node name="UpScroll" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer" instance=ExtResource("4_5kh8s")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_m3b5g")
 word = "K"
 
 [node name="TypingLabel" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer/UpScroll/MarginContainer" index="0"]
@@ -134,6 +139,7 @@ theme_override_constants/margin_bottom = -10
 
 [node name="DownScroll" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2" instance=ExtResource("4_5kh8s")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0niil")
 word = "J"
 
 [node name="TypingLabel" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2/DownScroll/MarginContainer" index="0"]

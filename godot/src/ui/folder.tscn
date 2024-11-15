@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bevwwvcqg3xhh"]
+[gd_scene load_steps=14 format=3 uid="uid://bevwwvcqg3xhh"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_eb7yf"]
 [ext_resource type="Script" path="res://src/ui/folder.gd" id="1_pv7op"]
@@ -46,6 +46,30 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 20.5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TextureRect/ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_om7um"]
@@ -153,15 +177,44 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(0, 20.5), Vector2(0, 112.5)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ebrw4"]
+resource_name = "show_overlay"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect/ColorRect:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pnlba"]
 _data = {
 "RESET": SubResource("Animation_xpunr"),
 "close_folder": SubResource("Animation_om7um"),
-"open_folder": SubResource("Animation_gi17e")
+"open_folder": SubResource("Animation_gi17e"),
+"show_overlay": SubResource("Animation_ebrw4")
 }
 
-[node name="Folder" type="Control" node_paths=PackedStringArray("papers")]
+[node name="Folder" type="Control" node_paths=PackedStringArray("papers", "overlay")]
 light_mask = 2
 layout_mode = 3
 anchors_preset = 7
@@ -177,6 +230,7 @@ focus_mode = 2
 theme = ExtResource("1_eb7yf")
 script = ExtResource("1_pv7op")
 papers = NodePath("TextureRect/Papers")
+overlay = NodePath("TextureRect/ColorRect")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -252,3 +306,18 @@ layout_mode = 0
 offset_top = 20.5
 offset_right = 260.0
 offset_bottom = 170.5
+
+[node name="ColorRect" type="ColorRect" parent="TextureRect"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -83.0
+offset_top = -54.0
+offset_right = 84.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.5)

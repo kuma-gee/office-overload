@@ -9,8 +9,8 @@ var width: float = 1.0
 var show_points = true
 var active_point_idx := -1
 
-func _ready() -> void:
-	z_index = 5
+#func _ready() -> void:
+	#z_index = 5
 
 func _draw() -> void:
 	if points_px.size() > 1:

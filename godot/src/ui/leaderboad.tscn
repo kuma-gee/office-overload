@@ -11,7 +11,7 @@
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_qqxj0"]
 
-[node name="Leaderboard" type="Control" node_paths=PackedStringArray("user_button", "friends_button", "global_button", "user_board", "friends_board", "global_board", "steam_offline", "boards", "local_score_label")]
+[node name="Leaderboard" type="Control" node_paths=PackedStringArray("user_board", "friends_board", "global_board", "steam_offline")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 1.0
@@ -20,15 +20,10 @@ offset_right = 319.0
 offset_bottom = 179.0
 focus_mode = 2
 script = ExtResource("1_l151m")
-user_button = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/User")
-friends_button = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/Friends")
-global_button = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/Global")
 user_board = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer/VBoxContainer/Boards/UserScore")
 friends_board = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer/VBoxContainer/Boards/FriendsScore")
 global_board = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer/VBoxContainer/Boards/GlobalScore")
 steam_offline = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer/VBoxContainer/SteamOffline")
-boards = NodePath("Leaderboard/VBoxContainer/MarginContainer/Boards/MarginContainer/VBoxContainer/Boards")
-local_score_label = NodePath("Leaderboard/VBoxContainer/PanelContainer/MarginContainer2/Score")
 
 [node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("5_dsyjy")

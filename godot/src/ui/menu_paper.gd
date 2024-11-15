@@ -29,7 +29,7 @@ func get_label():
 	return label
 
 func close():
-	var offset = idx * Vector2.RIGHT * 10
+	var offset = (idx - 2) * Vector2.RIGHT * 10
 	offset += Vector2.DOWN * 50
 	tw = _create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	tw.tween_property(self, "rotation", 0, 0.5)

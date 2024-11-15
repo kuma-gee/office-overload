@@ -17,9 +17,10 @@ const TEXT_OUTLINE = preload("res://theme/text_outline.tres")
 @export var down_scroll: TypingButton
 @export var scroll_step := 20
 @export var scroll_button_container: Control
+
 @onready var buttons: Array[TypingButton] = [up_scroll, down_scroll]
 
-@export var use_days := false
+@export var use_days := true
 @export var day_label: Label
 
 @export var loading_label: Control
@@ -58,7 +59,7 @@ func _update_scrollbar():
 func is_friends_board():
 	return score_type == SteamManager.steam.LEADERBOARD_DATA_REQUEST_FRIENDS
 
-func load_data(board: String):
+func load_data(board: String = GameManager.get_leaderboard_for_mode()): # should only be one right now
 	if loaded: return
 	loaded = true
 	

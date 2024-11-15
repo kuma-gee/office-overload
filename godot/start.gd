@@ -9,17 +9,19 @@ extends Node
 @export var work_label: TypedWord
 @export var prepare_label: TypedWord
 @export var files: TypedWord
+@export var team: TypedWord
 
 @export_category("Nodes") # onready does not work on web builds?? 
 @export var shift_container: ShiftButtons
 @export var settings: Settings
 @export var game_modes: GameModesDialog
 @export var delegator: Delegator
-@export var leaderboard: Leaderboard
-@export var feedback_ui: FeedbackUI
-@export var performance_graph: PerformanceGraph
-@export var quit_warning_dialog: QuitJobWarning
+#@export var leaderboard: Leaderboard
+#@export var feedback_ui: FeedbackUI
+#@export var performance_graph: PerformanceGraph
+#@export var quit_warning_dialog: QuitJobWarning
 @export var folder: Folder
+@export var teams: Folder
 
 #@onready var shift_buttons := [work_performance, setting_leaderboard, exit_quitjob, feedback]
 
@@ -47,6 +49,10 @@ func _ready():
 	files.type_finish.connect(func():
 		folder.open()
 		files.reset()
+	)
+	team.type_finish.connect(func():
+		teams.open()
+		team.reset()
 	)
 	#setting_leaderboard.finished_alt.connect(func(): leaderboard.open())
 	#
@@ -85,6 +91,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	delegator.handle_event(event)
 
-func _notification(what) -> void:
-	if what == NOTIFICATION_WM_WINDOW_FOCUS_OUT:
-		shift_container.close()
+#func _notification(what) -> void:
+	#if what == NOTIFICATION_WM_WINDOW_FOCUS_OUT:
+		#shift_container.close()

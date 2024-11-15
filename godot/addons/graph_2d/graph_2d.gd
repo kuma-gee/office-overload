@@ -124,10 +124,10 @@ extends Control
 
 #region Private variables
 
-const _MARGIN_TOP = 30
-const _MARGIN_BOTTOM = 25
-const _MARGIN_LEFT = 30
-const _MARGIN_RIGHT = 30
+@export var _MARGIN_TOP = 10
+@export var  _MARGIN_BOTTOM = 20
+@export var _MARGIN_LEFT = 15
+@export var _MARGIN_RIGHT = 15
 
 const _Graph2DAxis = preload("res://addons/graph_2d/custom_nodes/axis.gd")
 const _Graph2DCoord = preload("res://addons/graph_2d/custom_nodes/coordinate.gd")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=50 format=3 uid="uid://ctlncowdl0sbn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
 [ext_resource type="Script" path="res://start.gd" id="2_508sk"]
@@ -30,12 +30,14 @@
 [ext_resource type="PackedScene" uid="uid://wtd5yqsbnpf0" path="res://src/ui/game_mode.tscn" id="21_npox4"]
 [ext_resource type="Script" path="res://src/ui/fullscreen_checkbox.gd" id="21_ycqnt"]
 [ext_resource type="Script" path="res://src/ui/feedback.gd" id="22_0pod6"]
-[ext_resource type="PackedScene" uid="uid://cwb2bomvrxmul" path="res://src/ui/leaderboad.tscn" id="22_026hy"]
 [ext_resource type="Script" path="res://src/ui/performance_graph.gd" id="25_028t0"]
 [ext_resource type="Script" path="res://addons/graph_2d/graph_2d.gd" id="25_d4kul"]
 [ext_resource type="Script" path="res://src/ui/cloud_settings.gd" id="25_nuxga"]
 [ext_resource type="Texture2D" uid="uid://qpujdmcko0bu" path="res://assets/sprites/Arrow.png" id="27_lc2cv"]
+[ext_resource type="Script" path="res://src/ui/leaderboad.gd" id="32_rwy2e"]
 [ext_resource type="Script" path="res://addons/graph_2d/custom_nodes/coordinate.gd" id="33_4qrxl"]
+[ext_resource type="PackedScene" uid="uid://cmu36xk8jw0u8" path="res://src/ui/interview_score.tscn" id="33_nyl55"]
+[ext_resource type="Script" path="res://src/ui/score_paper.gd" id="34_qjurq"]
 [ext_resource type="PackedScene" uid="uid://bevwwvcqg3xhh" path="res://src/ui/folder.tscn" id="37_ajr2k"]
 [ext_resource type="PackedScene" uid="uid://du0v5of5joaem" path="res://src/ui/menu_paper.tscn" id="38_fltas"]
 [ext_resource type="Script" path="res://src/ui/resignation.gd" id="43_d3m8a"]
@@ -45,34 +47,31 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fhusc"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v61jy"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m0tms"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fembg"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nn2rb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n7tvb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xv7lq"]
 
-[node name="Start" type="Node2D" node_paths=PackedStringArray("work_label", "prepare_label", "files", "shift_container", "settings", "game_modes", "delegator", "leaderboard", "performance_graph", "folder")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kv34e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tnvcv"]
+
+[node name="Start" type="Node2D" node_paths=PackedStringArray("work_label", "prepare_label", "files", "team", "settings", "game_modes", "delegator", "folder", "teams")]
 script = ExtResource("2_508sk")
 work_label = NodePath("TextureRect2/Clock/TypingLabel")
 prepare_label = NodePath("TextureRect2/PrepareDoc/TypingLabel3")
-files = NodePath("TextureRect2/Files/TypingLabel2")
-shift_container = NodePath("")
+files = NodePath("TextureRect2/Files/Files")
+team = NodePath("TextureRect2/Rankings/Rank")
 settings = NodePath("CanvasLayer/Control/Settings")
 game_modes = NodePath("CanvasLayer/Control/GameModes")
 delegator = NodePath("Delegator")
-leaderboard = NodePath("CanvasLayer/Control/Leaderboard")
-performance_graph = NodePath("CanvasLayer/Control/PerformanceGraph")
-folder = NodePath("CanvasLayer/Control/Folder")
+folder = NodePath("CanvasLayer/Control/Report")
+teams = NodePath("CanvasLayer/Control/Team")
 
 [node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
-nodes = [NodePath("../TextureRect2/Clock/TypingLabel"), NodePath("../TextureRect2/PrepareDoc/TypingLabel3"), NodePath("../TextureRect2/Files/TypingLabel2")]
+nodes = [NodePath("../TextureRect2/Clock/TypingLabel"), NodePath("../TextureRect2/PrepareDoc/TypingLabel3"), NodePath("../TextureRect2/Files/Files"), NodePath("../TextureRect2/Rankings/Rank")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.493545, 0.493546, 0.493546, 1)
@@ -88,7 +87,7 @@ texture = ExtResource("4_einu0")
 position = Vector2(0, 57)
 texture = ExtResource("6_7xrqw")
 
-[node name="Stats" type="Control" parent="TextureRect2" node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy")]
+[node name="Stats" type="Control" parent="TextureRect2" node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy", "score_container", "score")]
 layout_mode = 3
 anchors_preset = 12
 anchor_top = 1.0
@@ -107,6 +106,8 @@ documents = NodePath("../Job/MarginContainer/VBoxContainer/VBoxContainer/Documen
 skill_container = NodePath("../Skills")
 wpm = NodePath("../Skills/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2/WPM")
 accuracy = NodePath("../Skills/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2/Accuracy")
+score_container = NodePath("../Score")
+score = NodePath("../Score/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2/Score")
 
 [node name="Note" parent="TextureRect2" instance=ExtResource("12_mc432")]
 offset_left = -142.0
@@ -163,9 +164,9 @@ offset_right = 27.0
 offset_bottom = -63.0
 
 [node name="Job" type="PanelContainer" parent="TextureRect2"]
-offset_left = -50.0
+offset_left = -33.0
 offset_top = -105.0
-offset_right = -5.0
+offset_right = 12.0
 offset_bottom = -69.0
 theme = ExtResource("1_qu80e")
 
@@ -263,13 +264,58 @@ theme_override_font_sizes/font_size = 8
 text = "Accuracy"
 label_settings = ExtResource("9_mw082")
 
+[node name="Score" type="PanelContainer" parent="TextureRect2"]
+offset_left = -108.0
+offset_top = -92.0
+offset_right = -69.0
+offset_bottom = -62.0
+size_flags_horizontal = 8
+theme = ExtResource("1_qu80e")
+
+[node name="MarginContainer2" type="MarginContainer" parent="TextureRect2/Score"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="TextureRect2/Score/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect2/Score/MarginContainer2/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Skill" type="Label" parent="TextureRect2/Score/MarginContainer2/VBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "SCore"
+
+[node name="Control" type="Control" parent="TextureRect2/Score/MarginContainer2/VBoxContainer3/VBoxContainer2"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect2/Score/MarginContainer2/VBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 0
+
+[node name="Score" type="Label" parent="TextureRect2/Score/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Words/m"
+label_settings = ExtResource("9_mw082")
+
 [node name="Title" type="Sprite2D" parent="TextureRect2"]
 position = Vector2(-19, -122)
 scale = Vector2(0.814815, 0.814815)
 texture = ExtResource("3_r3iy1")
 
 [node name="Clock" type="Sprite2D" parent="TextureRect2"]
-position = Vector2(56, -29)
+position = Vector2(61, -29)
 texture = ExtResource("7_4331q")
 hframes = 2
 frame = 1
@@ -304,20 +350,36 @@ text = "prepare"
 highlight_first = true
 word = "prepare"
 
-[node name="Files" type="Sprite2D" parent="TextureRect2"]
-position = Vector2(-99, -18)
-rotation = -0.174533
+[node name="Rankings" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(-133, -29)
+rotation = 0.174533
+scale = Vector2(1, 1)
 texture = ExtResource("13_qj2lo")
 
-[node name="TypingLabel2" parent="TextureRect2/Files" instance=ExtResource("8_y3mf1")]
+[node name="Rank" parent="TextureRect2/Rankings" instance=ExtResource("8_y3mf1")]
 offset_left = -45.5
 offset_top = -20.5
 offset_right = -3.5
 offset_bottom = -3.5
 theme_override_font_sizes/normal_font_size = 12
-text = "FILES"
+text = "teams"
 highlight_first = true
-word = "files"
+word = "teams"
+
+[node name="Files" type="Sprite2D" parent="TextureRect2"]
+position = Vector2(-87, -18)
+rotation = -0.174533
+texture = ExtResource("13_qj2lo")
+
+[node name="Files" parent="TextureRect2/Files" instance=ExtResource("8_y3mf1")]
+offset_left = -45.5
+offset_top = -20.5
+offset_right = -3.5
+offset_bottom = -3.5
+theme_override_font_sizes/normal_font_size = 12
+text = "report"
+highlight_first = true
+word = "report"
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_gm25t")
@@ -348,6 +410,7 @@ focus_mode = 1
 color = Color(0, 0, 0, 0.588235)
 
 [node name="Settings" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("overlay", "sliders", "display_settings", "delegator")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -454,7 +517,6 @@ word = "l"
 [node name="BGMVolume" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_2n7ql")]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
 word = "BGM"
 
 [node name="BGMSlider" type="HBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
@@ -487,7 +549,6 @@ word = "l"
 [node name="SFXVolume" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_2n7ql")]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
 word = "SFX"
 
 [node name="SFXSlider" type="HBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
@@ -574,10 +635,10 @@ color = Color(0, 0, 0, 0.313726)
 
 [node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/Settings"]
 layout_mode = 1
-offset_left = 36.0
-offset_top = 12.0
-offset_right = 48.0
-offset_bottom = 21.0
+offset_left = 44.0
+offset_top = 18.0
+offset_right = 56.0
+offset_bottom = 27.0
 texture_normal = ExtResource("14_vk34l")
 script = ExtResource("19_uqiqi")
 
@@ -671,212 +732,115 @@ offset_bottom = 21.0
 texture_normal = ExtResource("14_vk34l")
 script = ExtResource("19_uqiqi")
 
-[node name="Leaderboard" parent="CanvasLayer/Control" node_paths=PackedStringArray("effect") instance=ExtResource("22_026hy")]
-visible = false
-effect = NodePath("EffectRoot")
-
-[node name="EffectRoot" type="Node" parent="CanvasLayer/Control/Leaderboard"]
-script = ExtResource("14_hvw1b")
-ease = 1
-duration = 0.5
-
-[node name="Slide" type="Node" parent="CanvasLayer/Control/Leaderboard/EffectRoot" node_paths=PackedStringArray("node")]
-script = ExtResource("15_84nkj")
-node = NodePath("../..")
-
-[node name="Fade" type="Node" parent="CanvasLayer/Control/Leaderboard/EffectRoot" node_paths=PackedStringArray("node")]
-script = ExtResource("15_b245w")
-node = NodePath("../../../MenuOverlay")
-
-[node name="PerformanceGraph" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("graph", "effect", "performance_button", "wpm_button", "left_button", "right_button")]
-visible = false
+[node name="Team" parent="CanvasLayer/Control" node_paths=PackedStringArray("user_board", "friends_board", "global_board", "steam_offline") instance=ExtResource("37_ajr2k")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_mode = 2
-script = ExtResource("25_028t0")
-graph = NodePath("PanelContainer/Graph2D")
-effect = NodePath("EffectRoot")
-performance_button = NodePath("PanelContainer/MarginContainer/HBoxContainer/Performance")
-wpm_button = NodePath("PanelContainer/MarginContainer/HBoxContainer/WPM")
-left_button = NodePath("PanelContainer/Graph2D/HBoxContainer/LeftButton")
-right_button = NodePath("PanelContainer/Graph2D/HBoxContainer/RightButton")
+script = ExtResource("32_rwy2e")
+user_board = NodePath("TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/UserScore")
+friends_board = NodePath("TextureRect/Papers/Team2/MarginContainer/VBoxContainer/FriendsScore")
+global_board = NodePath("TextureRect/Papers/Top1/MarginContainer/VBoxContainer/GlobalScore")
+steam_offline = NodePath("TextureRect/Offline")
 
-[node name="Delegator" type="Node" parent="CanvasLayer/Control/PerformanceGraph" node_paths=PackedStringArray("nodes")]
-script = ExtResource("16_bh4xx")
-nodes = [NodePath("../PanelContainer/Graph2D/HBoxContainer/LeftButton"), NodePath("../PanelContainer/Graph2D/HBoxContainer/RightButton"), NodePath("../PanelContainer/MarginContainer/HBoxContainer/Performance"), NodePath("../PanelContainer/MarginContainer/HBoxContainer/WPM")]
+[node name="Delegator" parent="CanvasLayer/Control/Team" index="1" node_paths=PackedStringArray("nodes")]
+nodes = [NodePath("../TextureRect/Papers/Top1/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel"), NodePath("../TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel"), NodePath("../TextureRect/Papers/Team2/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel")]
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/PerformanceGraph"]
+[node name="Offline" type="RichTextLabel" parent="CanvasLayer/Control/Team/TextureRect" index="0"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 23.0
-offset_top = 13.0
-offset_right = -23.0
-offset_bottom = -13.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-
-[node name="Performance" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
-word = "Performance"
-
-[node name="TypingLabel" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/Performance/MarginContainer" index="0"]
-theme_override_font_sizes/normal_font_size = 6
-text = "[typed until=1 height=1 frequency=8 ][color=ede4daff][/color][color=353540ff][shake rate=0 level=0][/shake][/color][/typed]"
-
-[node name="WPM" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
-word = "WPM"
-
-[node name="TypingLabel" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/WPM/MarginContainer" index="0"]
-theme_override_font_sizes/normal_font_size = 6
-text = "[typed until=1 height=1 frequency=8 ][color=ede4daff][/color][color=353540ff][shake rate=0 level=0][/shake][/color][/typed]"
-
-[node name="Graph2D" type="Control" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer" node_paths=PackedStringArray("coordinate")]
-layout_mode = 2
-theme = ExtResource("1_qu80e")
-script = ExtResource("25_d4kul")
-default_color = Color(0.207843, 0.207843, 0.25098, 1)
-coordinate = NodePath("Coordinate")
-show_x_ticks = false
-show_x_numbers = false
-
-[node name="Coordinate" type="Label" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D"]
-visible = false
-z_index = 10
-z_as_relative = false
-layout_mode = 2
-offset_left = 263.0
-offset_right = 272.0
-offset_bottom = 6.0
-grow_horizontal = 0
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 6
-script = ExtResource("33_4qrxl")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D"]
-layout_mode = 1
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -40.5
-offset_top = -19.0
-offset_right = 40.5
-offset_bottom = -6.0
+anchor_bottom = 0.5
+offset_left = -101.5
+offset_top = -26.0
+offset_right = 101.5
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center]You are not connected to your team.
+Check your steam status[/center]"
+fit_content = true
+autowrap_mode = 0
 
-[node name="LeftButton" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer" instance=ExtResource("7_2n7ql")]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_m0tms")
-word = "H"
-
-[node name="MarginContainer" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton" index="1"]
-z_index = 5
-
-[node name="TypingLabel" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer" index="0"]
-theme_override_font_sizes/normal_font_size = 6
-text = "[typed until=1 height=1 frequency=8 ][color=ede4daff][/color][color=353540ff][shake rate=0 level=0][/shake][/color][/typed]"
-
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton"]
+[node name="Papers" parent="CanvasLayer/Control/Team/TextureRect" index="2"]
 visible = false
+
+[node name="Top1" parent="CanvasLayer/Control/Team/TextureRect/Papers" index="0" node_paths=PackedStringArray("board") instance=ExtResource("38_fltas")]
+light_mask = 0
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 1
+offset_left = -125.0
+offset_top = -42.0
+offset_right = 75.0
+offset_bottom = 108.0
+rotation = -0.174533
+script = ExtResource("34_qjurq")
+board = NodePath("MarginContainer/VBoxContainer/GlobalScore")
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Top1/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+text = "Topspot"
+word = "Topspot"
+
+[node name="GlobalScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Top1/MarginContainer/VBoxContainer" index="1" instance=ExtResource("33_nyl55")]
 layout_mode = 2
-theme_override_constants/margin_left = -8
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer2"]
+[node name="Fellows3" parent="CanvasLayer/Control/Team/TextureRect/Papers" index="1" node_paths=PackedStringArray("board") instance=ExtResource("38_fltas")]
+light_mask = 0
+custom_minimum_size = Vector2(200, 150)
 layout_mode = 2
-texture = ExtResource("27_lc2cv")
-expand_mode = 2
-stretch_mode = 5
-flip_h = true
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -75.0
+offset_top = -40.0
+offset_right = 125.0
+offset_bottom = 110.0
+rotation = 0.174533
+script = ExtResource("34_qjurq")
+board = NodePath("MarginContainer/VBoxContainer/UserScore")
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer"]
+[node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+text = "Fellows"
+word = "Fellows"
+
+[node name="UserScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer" index="1" instance=ExtResource("33_nyl55")]
 layout_mode = 2
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 6
-text = "Performance"
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="RightButton" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer" instance=ExtResource("7_2n7ql")]
+[node name="Team2" parent="CanvasLayer/Control/Team/TextureRect/Papers" index="2" node_paths=PackedStringArray("board") instance=ExtResource("38_fltas")]
+light_mask = 0
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 1
+offset_left = -104.0
+offset_top = -13.0
+offset_right = 96.0
+offset_bottom = 137.0
+rotation = -0.0523599
+script = ExtResource("34_qjurq")
+board = NodePath("MarginContainer/VBoxContainer/FriendsScore")
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Team2/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+text = "Teammates"
+word = "Teammates"
+
+[node name="FriendsScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Team2/MarginContainer/VBoxContainer" index="1" instance=ExtResource("33_nyl55")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_fembg")
-word = "L"
 
-[node name="MarginContainer" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton" index="1"]
-z_index = 5
-
-[node name="TypingLabel" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton/MarginContainer" index="0"]
-theme_override_font_sizes/normal_font_size = 6
-text = "[typed until=1 height=1 frequency=8 ][color=ede4daff][/color][color=353540ff][shake rate=0 level=0][/shake][/color][/typed]"
-
-[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton"]
-visible = false
-layout_mode = 2
-theme_override_constants/margin_left = 2
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton/MarginContainer3"]
-layout_mode = 2
-texture = ExtResource("27_lc2cv")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/PerformanceGraph"]
-layout_mode = 0
-offset_left = 17.0
-offset_top = 9.0
-offset_right = 29.0
-offset_bottom = 18.0
-texture_normal = ExtResource("14_vk34l")
-script = ExtResource("19_uqiqi")
-
-[node name="EffectRoot" type="Node" parent="CanvasLayer/Control/PerformanceGraph"]
-script = ExtResource("14_hvw1b")
-ease = 1
-duration = 0.5
-
-[node name="Slide" type="Node" parent="CanvasLayer/Control/PerformanceGraph/EffectRoot" node_paths=PackedStringArray("node")]
-script = ExtResource("15_84nkj")
-node = NodePath("../..")
-
-[node name="Fade" type="Node" parent="CanvasLayer/Control/PerformanceGraph/EffectRoot" node_paths=PackedStringArray("node")]
-script = ExtResource("15_b245w")
-node = NodePath("../../../MenuOverlay")
-
-[node name="Folder" parent="CanvasLayer/Control" instance=ExtResource("37_ajr2k")]
+[node name="Report" parent="CanvasLayer/Control" instance=ExtResource("37_ajr2k")]
 light_mask = 0
 layout_mode = 1
 
-[node name="TextureRect" parent="CanvasLayer/Control/Folder" index="2"]
+[node name="TextureRect" parent="CanvasLayer/Control/Report" index="2"]
 light_mask = 0
 
-[node name="Papers" parent="CanvasLayer/Control/Folder/TextureRect" index="1"]
+[node name="Papers" parent="CanvasLayer/Control/Report/TextureRect" index="1"]
 light_mask = 0
 
-[node name="Feedback1" parent="CanvasLayer/Control/Folder/TextureRect/Papers" index="0" node_paths=PackedStringArray("form", "limit_label", "status_label", "loading_label") instance=ExtResource("38_fltas")]
+[node name="Feedback1" parent="CanvasLayer/Control/Report/TextureRect/Papers" index="0" node_paths=PackedStringArray("form", "limit_label", "status_label", "loading_label") instance=ExtResource("38_fltas")]
 light_mask = 0
 layout_mode = 1
 offset_left = -93.0
-offset_top = -65.0
+offset_top = -54.0
 offset_right = 57.0
-offset_bottom = 105.0
+offset_bottom = 116.0
 rotation = -0.150098
 script = ExtResource("22_0pod6")
 form = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/TextEdit")
@@ -885,11 +849,11 @@ max_limit = 200
 status_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Status")
 loading_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/Loading2")
 
-[node name="TypingLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+[node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "feedback"
 word = "feedback"
 
-[node name="Limit" type="Label" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
+[node name="Limit" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 8
@@ -897,7 +861,7 @@ text = "0/200"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer" index="1"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 2
@@ -905,32 +869,33 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 3
 
-[node name="TextEdit" type="TextEdit" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_placeholder_color = Color(0.208, 0.208, 0.251, 0.3)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_nn2rb")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_n7tvb")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_xv7lq")
-placeholder_text = "Let us know of any problems or improvements"
+placeholder_text = "Let us know of any suggestions or problems"
 context_menu_enabled = false
 wrap_mode = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 8
 text = "Shift+Enter to send"
 
-[node name="Loading2" type="RichTextLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Loading2" type="RichTextLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(6.3, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -942,40 +907,149 @@ scroll_active = false
 autowrap_mode = 0
 custom_effects = [ExtResource("43_fqxjg")]
 
-[node name="Status" type="Label" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Status" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Failed"
 
-[node name="MenuPaper3" parent="CanvasLayer/Control/Folder/TextureRect/Papers" index="1" instance=ExtResource("38_fltas")]
+[node name="Performance2" parent="CanvasLayer/Control/Report/TextureRect/Papers" index="1" node_paths=PackedStringArray("graph", "left_button", "right_button") instance=ExtResource("38_fltas")]
 light_mask = 0
+custom_minimum_size = Vector2(200, 120)
 layout_mode = 1
-offset_left = -122.0
-offset_top = -38.0
-offset_right = 28.0
-offset_bottom = 132.0
+offset_left = -114.0
+offset_top = -8.0
+offset_right = 86.0
+offset_bottom = 112.0
 rotation = -0.261799
+script = ExtResource("25_028t0")
+graph = NodePath("MarginContainer/VBoxContainer/Graph2D")
+left_button = NodePath("MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton")
+right_button = NodePath("MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton")
 
-[node name="Resignation3" parent="CanvasLayer/Control/Folder/TextureRect/Papers" index="2" node_paths=PackedStringArray("signature", "text") instance=ExtResource("38_fltas")]
+[node name="Delegator" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2" index="0" node_paths=PackedStringArray("nodes")]
+nodes = [NodePath("../MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"), NodePath("../MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton")]
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+text = "performance"
+word = "performance"
+
+[node name="Graph2D" type="Control" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer" index="1" node_paths=PackedStringArray("coordinate")]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_qu80e")
+script = ExtResource("25_d4kul")
+default_color = Color(0.207843, 0.207843, 0.25098, 1)
+coordinate = NodePath("Coordinate")
+show_x_ticks = false
+show_x_numbers = false
+_MARGIN_TOP = 5
+_MARGIN_BOTTOM = 10
+_MARGIN_LEFT = 30
+_MARGIN_RIGHT = 10
+
+[node name="Coordinate" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D"]
+layout_mode = 2
+offset_left = 263.0
+offset_right = 272.0
+offset_bottom = 6.0
+grow_horizontal = 0
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 6
+script = ExtResource("33_4qrxl")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -39.5229
+offset_top = -9.91672
+offset_right = 41.4771
+offset_bottom = 2.08328
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="LeftButton" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_kv34e")
+word = "H"
+
+[node name="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton" index="1"]
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 6
+text = "H"
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = -8
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("27_lc2cv")
+expand_mode = 2
+stretch_mode = 5
+flip_h = true
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 6
+text = "< wpm >"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightButton" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer" instance=ExtResource("7_2n7ql")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tnvcv")
+word = "L"
+
+[node name="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton" index="1"]
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 6
+text = "L"
+
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton/MarginContainer3"]
+layout_mode = 2
+texture = ExtResource("27_lc2cv")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Resignation3" parent="CanvasLayer/Control/Report/TextureRect/Papers" index="2" node_paths=PackedStringArray("signature", "text") instance=ExtResource("38_fltas")]
 light_mask = 0
 layout_mode = 1
-offset_left = -27.0
-offset_top = -33.0
-offset_right = 123.0
-offset_bottom = 137.0
+offset_left = -29.0
+offset_top = -23.0
+offset_right = 121.0
+offset_bottom = 147.0
 rotation = 0.174533
 script = ExtResource("43_d3m8a")
 signature = NodePath("MarginContainer/VBoxContainer/Signature")
 text = NodePath("MarginContainer/VBoxContainer/Text")
 
-[node name="Delegator" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation3" index="0" node_paths=PackedStringArray("nodes")]
+[node name="Delegator" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3" index="0" node_paths=PackedStringArray("nodes")]
 nodes = [NodePath("../MarginContainer/VBoxContainer/Signature")]
 
-[node name="TypingLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+[node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "resignation"
 word = "resignation"
 
-[node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="1"]
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2
 text = "Dear Boss,
 
@@ -983,42 +1057,42 @@ I regret to inform you that I am resigning from my position as %s at the company
 fit_content = true
 autowrap_mode = 2
 
-[node name="Control" type="Control" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="2"]
+[node name="Control" type="Control" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="2"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="3"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="3"]
 layout_mode = 2
 text = "Sincerly"
 fit_content = true
 
-[node name="Signature" parent="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="4" instance=ExtResource("8_y3mf1")]
+[node name="Signature" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="4" instance=ExtResource("8_y3mf1")]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/normal_font_size = 12
 highlight_first = true
 
-[node name="MenuPaper4" parent="CanvasLayer/Control/Folder/TextureRect/Papers" index="3" instance=ExtResource("38_fltas")]
+[node name="MenuPaper4" parent="CanvasLayer/Control/Report/TextureRect/Papers" index="3" instance=ExtResource("38_fltas")]
+visible = false
 light_mask = 0
 layout_mode = 1
-offset_left = -79.0
-offset_top = -11.0
-offset_right = 71.0
-offset_bottom = 159.0
+offset_left = -68.0
+offset_top = 3.0
+offset_right = 82.0
+offset_bottom = 173.0
 
-[node name="TextureRect2" parent="CanvasLayer/Control/Folder/TextureRect" index="2"]
+[node name="TextureRect2" parent="CanvasLayer/Control/Report/TextureRect" index="2"]
 light_mask = 0
 offset_bottom = 10.0
 
-[node name="PanelContainer" parent="CanvasLayer/Control/Folder/TextureRect" index="4"]
-visible = false
-
-[editable path="CanvasLayer/Control/PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/Performance"]
-[editable path="CanvasLayer/Control/PerformanceGraph/PanelContainer/MarginContainer/HBoxContainer/WPM"]
-[editable path="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/LeftButton"]
-[editable path="CanvasLayer/Control/PerformanceGraph/PanelContainer/Graph2D/HBoxContainer/RightButton"]
-[editable path="CanvasLayer/Control/Folder"]
-[editable path="CanvasLayer/Control/Folder/TextureRect/Papers/Feedback1"]
-[editable path="CanvasLayer/Control/Folder/TextureRect/Papers/MenuPaper3"]
-[editable path="CanvasLayer/Control/Folder/TextureRect/Papers/Resignation3"]
-[editable path="CanvasLayer/Control/Folder/TextureRect/Papers/MenuPaper4"]
+[editable path="CanvasLayer/Control/Team"]
+[editable path="CanvasLayer/Control/Team/TextureRect/Papers/Top1"]
+[editable path="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3"]
+[editable path="CanvasLayer/Control/Team/TextureRect/Papers/Team2"]
+[editable path="CanvasLayer/Control/Report"]
+[editable path="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1"]
+[editable path="CanvasLayer/Control/Report/TextureRect/Papers/Performance2"]
+[editable path="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"]
+[editable path="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton"]
+[editable path="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3"]
+[editable path="CanvasLayer/Control/Report/TextureRect/Papers/MenuPaper4"]
