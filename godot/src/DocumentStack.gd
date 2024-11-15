@@ -17,43 +17,7 @@ signal document_emptied()
 @export var combo_particles02: GPUParticles2D
 
 var tw: Tween
-var total := 0:
-	set(v):
-		total = v
-		if not doc_count_label:
-			return
-			
-		doc_count_label.visible = total > 0
-		
-		if tw and tw.is_running():
-			tw.kill()
-		tw = create_tween().set_trans(Tween.TRANS_BACK).set_parallel()
-
-		doc_count_label.pivot_offset = doc_count_label.size / 2
-		combo_label.pivot_offset = combo_label.size / 2
-		
-		if total == 1:
-			doc_count_label.modulate = Color.TRANSPARENT
-			tw.tween_property(doc_count_label, "modulate", Color.WHITE, 0.5).set_delay(0.5)
-		
-		if combo_count == 1:
-			combo_label.modulate = Color.TRANSPARENT
-			tw.tween_property(combo_label, "modulate", Color.WHITE, 0.5).set_delay(0.5)
-
-		var curr_combo_scale = Vector2.ONE + Vector2(combo_count / 10.0, combo_count / 10.0) if combo_count > 1 else Vector2.ONE
-		curr_combo_scale = curr_combo_scale.min(Vector2(2, 2))
-		curr_combo_scale = Vector2.ONE
-		#print(curr_combo_scale)
-		
-		tw.tween_callback(func():
-			doc_count_label.text = "%s" % total
-			doc_count_label.scale = Vector2(0.6, 0.6)
-			
-			combo_label.scale = curr_combo_scale * 0.8
-		).set_delay(0.4)
-		tw.tween_property(doc_count_label, "scale", Vector2(1.0, 1.0), 0.5).set_ease(Tween.EASE_OUT).set_delay(0.5)
-		tw.tween_property(combo_label, "scale", curr_combo_scale, 0.5).set_ease(Tween.EASE_OUT).set_delay(0.5)
-
+var total_points := 0
 var combo_count := 0:
 	set(v):
 		combo_count = v
@@ -61,7 +25,7 @@ var combo_count := 0:
 		
 		if not combo_label: return
 		
-		combo_label.visible = combo_count > 1
+		combo_label.visible = combo_count > 0
 		combo_label.text = "%sx" % combo_count
 		#for p in [combo_particles01, combo_particles02]:
 			#p.emitting = combo_label.visible
@@ -84,15 +48,51 @@ var combo_count := 0:
 		#
 		#combo_label.text = "%sx" % combo_multiplier
 
-#var perfect_tasks := 0
 var tasks := 0
 var wrong_tasks := 0
 var highest_streak := 0
 
+var actual_document_count := 0:
+	set(v):
+		actual_document_count = v
+		if not doc_count_label:
+			return
+			
+		doc_count_label.visible = actual_document_count > 0
+		
+		if tw and tw.is_running():
+			tw.kill()
+		tw = create_tween().set_trans(Tween.TRANS_BACK).set_parallel()
+
+		doc_count_label.pivot_offset = doc_count_label.size / 2
+		combo_label.pivot_offset = combo_label.size / 2
+		
+		if actual_document_count == 1:
+			doc_count_label.modulate = Color.TRANSPARENT
+			tw.tween_property(doc_count_label, "modulate", Color.WHITE, 0.5).set_delay(0.5)
+		
+		if combo_count == 1:
+			combo_label.modulate = Color.TRANSPARENT
+			tw.tween_property(combo_label, "modulate", Color.WHITE, 0.5).set_delay(0.5)
+
+		var curr_combo_scale = Vector2.ONE + Vector2(combo_count / 10.0, combo_count / 10.0) if combo_count > 1 else Vector2.ONE
+		curr_combo_scale = curr_combo_scale.min(Vector2(2, 2))
+		curr_combo_scale = Vector2.ONE
+		#print(curr_combo_scale)
+		
+		tw.tween_callback(func():
+			doc_count_label.text = "%s" % total_points
+			doc_count_label.scale = Vector2(0.6, 0.6)
+			
+			combo_label.scale = curr_combo_scale * 0.8
+		).set_delay(0.4)
+		tw.tween_property(doc_count_label, "scale", Vector2(1.0, 1.0), 0.5).set_ease(Tween.EASE_OUT).set_delay(0.5)
+		tw.tween_property(combo_label, "scale", curr_combo_scale, 0.5).set_ease(Tween.EASE_OUT).set_delay(0.5)
+
 func _ready() -> void:
-	total = 0
+	total_points = 0
 	combo_count = 0
-	#combo_multiplier = 2
+	actual_document_count = 0
 	_init_documents()
 
 func _create_doc():
@@ -106,45 +106,35 @@ func has_documents():
 	return get_child_count() > 0
 
 func remove_document():
-	total -= 1
+	actual_document_count -= 1
 	
-	var should_remove = not (total % stack_count == 0 and total <= (max_stacks * stack_count))
+	var should_remove = not (actual_document_count % stack_count == 0 and actual_document_count <= (max_stacks * stack_count))
 	if should_remove and get_child_count() > 0:
 		_move_out_doc(get_child(get_child_count() - 1))
 		
-	if total <= 0:
+	if actual_document_count <= 0:
 		document_emptied.emit()
 
-func add_document(mistake := false, wrong := false, is_discarded := false):
-	#if not GameManager.is_manager():
+func add_document(mistake := false, wrong := false, is_discarded := false, word := ""):
 	var doc = _create_doc()
 	_move_in_doc(doc)
 	
-	if mistake:
-		combo_count = 0
-	
 	if not is_discarded:
 		if wrong:
-			wrong_tasks += 1
+			wrong_tasks += word.length()
 			combo_count = 0
 		else:
-			if not mistake:
-				combo_count += 1
-			else:
-				tasks += 1
-				
-		#if mistake:
-			#else:
-				#combo_count += 1
-				#perfect_tasks += 1
-
-			total += 1 * combo_count
+			tasks += 1
+			total_points += 1 + 1 * combo_count
+			combo_count += 1
+	
+	actual_document_count += 1
 
 func _init_documents():
 	for i in range(initial_doc_count):
 		var doc = _create_doc()
 		doc.position = get_current_final_position()
-		total += 1
+		actual_document_count += 1
 
 func _move_in_doc(doc):
 	var target = get_current_final_position()
@@ -155,7 +145,7 @@ func _move_in_doc(doc):
 	tw.tween_property(doc, "position", target, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_delay(0.1)
 	tw.parallel().tween_callback(_emit_particles).set_delay(0.2)
 	
-	var should_remove = not (total % stack_count == 0 and total <= (max_stacks * stack_count))
+	var should_remove = not (actual_document_count % stack_count == 0 and actual_document_count <= (max_stacks * stack_count))
 	tw.finished.connect(func(): if should_remove: doc.queue_free())
 
 func _move_out_doc(doc):
@@ -169,12 +159,17 @@ func _move_out_doc(doc):
 	)
 
 func get_current_final_position():
-	var offset = min(floor(total / stack_count), max_stacks - 1)
+	var offset = min(floor(actual_document_count / stack_count), max_stacks - 1)
 	return Vector2.UP * offset * stack_offset
 
-func remove_combo():
-	if combo_label:
-		combo_label.hide()
+func add_combo():
+	pass
+	#combo_count += 1
+	#total += 1 * combo_count % 5
+
+func add_mistake():
+	wrong_tasks += 1
+	combo_count = 0
 
 func _emit_particles():
 	for p in [$CPUParticles2D, $CPUParticles2D2, $CPUParticles2D3, $CPUParticles2D4]:

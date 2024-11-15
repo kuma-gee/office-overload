@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://kdu7e637eapn"]
+[gd_scene load_steps=31 format=3 uid="uid://kdu7e637eapn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_80w1y"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_ox4yy"]
@@ -10,8 +10,10 @@
 [ext_resource type="Script" path="res://src/delegator.gd" id="7_ls5ot"]
 [ext_resource type="Script" path="res://src/ui/break_button.gd" id="7_mgfnm"]
 [ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="8_f3tsx"]
+[ext_resource type="Texture2D" uid="uid://c0ufovhq76t52" path="res://assets/sprites/Grade.png" id="8_fgvoi"]
 [ext_resource type="AudioStream" uid="uid://e82h4pq7oib4" path="res://assets/sound/金額表示.mp3" id="8_i0k3p"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="8_whfhi"]
+[ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="8_yhc58"]
 [ext_resource type="AudioStream" uid="uid://ctlbf2imxt5tn" path="res://assets/sound/呪いの旋律.mp3" id="13_26xkb"]
 [ext_resource type="Script" path="res://src/ui/unlocked_mode.gd" id="16_hp113"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="17_74eho"]
@@ -47,6 +49,15 @@ alpha_curve = SubResource("CurveTexture_wjj53")
 content_margin_top = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w53bh"]
+shader = ExtResource("8_yhc58")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/enable = true
+
 [sub_resource type="Curve" id="Curve_y7k8r"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99435, 0), -3.02564, 0.0, 0, 0]
 point_count = 2
@@ -73,7 +84,7 @@ scale_max = 5.0
 scale_curve = SubResource("CurveTexture_51fdc")
 alpha_curve = SubResource("CurveTexture_rj2fv")
 
-[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "next_day", "next_day_container", "promotion_container", "title", "overtime", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "points_label", "promotion_text", "promotion_text_container", "promotion_particle_1", "promotion_particle_2", "promotion_sound", "promotion_delegator", "work_container", "unlocked_container")]
+[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "next_day", "next_day_container", "promotion_container", "title", "overtime", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "points_label", "grade_label", "promotion_text", "promotion_text_container", "promotion_particle_1", "promotion_particle_2", "promotion_sound", "promotion_delegator", "work_container", "unlocked_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -96,6 +107,7 @@ promotion_tip_text = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer
 perfect_tasks_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2/MaxCombo")
 distraction_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3/Mistakes")
 points_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Points")
+grade_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D/GradeLabel")
 promotion_text = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/TypingLabel")
 promotion_text_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer")
 promotion_particle_1 = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2/GPUParticles2D")
@@ -123,15 +135,15 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
-custom_minimum_size = Vector2(100, 150)
+custom_minimum_size = Vector2(100, 160)
 layout_mode = 2
 
 [node name="Work" type="MarginContainer" parent="CenterContainer/PanelContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work"]
 layout_mode = 2
@@ -221,7 +233,6 @@ explosiveness = 0.9
 
 [node name="TypingLabel" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer" instance=ExtResource("8_whfhi")]
 layout_mode = 2
-theme_override_constants/outline_size = 5
 theme_override_font_sizes/normal_font_size = 10
 frequency = 2.0
 height = 0.5
@@ -283,6 +294,32 @@ label_settings = ExtResource("4_0mkg1")
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
+
+[node name="Grade" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade"]
+material = SubResource("ShaderMaterial_w53bh")
+position = Vector2(32, 21)
+texture = ExtResource("8_fgvoi")
+
+[node name="GradeLabel" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -32.5
+offset_right = -14.0
+offset_bottom = -10.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_80w1y")
+theme_override_font_sizes/font_size = 24
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PerfectTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
 visible = false

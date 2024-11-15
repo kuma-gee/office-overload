@@ -41,6 +41,7 @@ const GRADES = {
 @export var distraction_label: Label
 @export var acc_label: Label
 @export var points_label: Label
+@export var grade_label: Label
 
 @export_category("Promotion")
 @export var promotion_text: RichTextLabel
@@ -73,7 +74,7 @@ func day_ended(data: Dictionary):
 	var tasks = data["total"]
 	var combo = data["combo"]
 	var wrong = data["wrong"]
-	var mistyped = data["mistyped"]
+	#var mistyped = data["mistyped"]
 	# var overtime_hours = data["overtime"]
 	# var distraction_missed = data["distractions"]
 	var points = data["points"]
@@ -82,6 +83,7 @@ func day_ended(data: Dictionary):
 		if points >= GRADES[g]:
 			grade = g
 			break
+	grade_label.text = grade
 
 	#var acc = data["acc"]
 	
@@ -91,7 +93,7 @@ func day_ended(data: Dictionary):
 	#acc_label.text = "Quality %0.f%%" % [acc * 100]
 	# overtime.text = "%s hours of overtime" % overtime_hours
 	# distraction_label.text = "%s ignored messages" % distraction_missed
-	distraction_label.text = "%s" % (wrong + mistyped)
+	distraction_label.text = "%s" % wrong
 
 	# points_label.text = "Performance %s" % points
 	

@@ -192,7 +192,7 @@ func calculate_performance(data: Dictionary):
 	
 	# var missed_point = pow(distraction_missed, 2) # max ~9 distractions
 	#var perfect_points = pow(perfect, 1.5) # max ~20 tasks
-	var wrong_points = pow(wrong, 2)
+	var wrong_points = pow(wrong, 1.2)
 	# var overtime_minus = int(overtime / 2)
 	#var normal_tasks = tasks - perfect
 	

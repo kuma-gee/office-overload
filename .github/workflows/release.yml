@@ -73,6 +73,7 @@ jobs:
       steam-app: ${{ fromJSON(needs.build-info.outputs.steam_id) }}
       godot-version: 4.3
       project-path: godot
+      template-repo: ${{ github.repository }}
     secrets: inherit
 
   release-itch:

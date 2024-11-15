@@ -124,8 +124,10 @@ func _ready():
 	
 	key_reader.pressed_key.connect(func(key, shift):
 		if not documents.is_empty():
-			if not documents[0].handle_key(key):
-				document_stack.remove_combo()
+			if documents[0].handle_key(key):
+				document_stack.add_combo()
+			else:
+				document_stack.add_mistake()
 				# frame_freeze.freeze(0.05)
 	)
 	key_reader.pressed_cancel.connect(func(shift):
@@ -175,7 +177,7 @@ func _finished(is_gameover = false):
 			_ceo_game_ended()
 		else:
 			var data = {
-				"total": document_stack.total,
+				"total": document_stack.total_points,
 				"mistyped": document_stack.tasks,
 				"combo": document_stack.highest_streak,
 				"wrong": document_stack.wrong_tasks,
@@ -189,10 +191,10 @@ func _finished(is_gameover = false):
 				end.day_ended(data)
 			
 	elif GameManager.is_interview_mode():
-		GameManager.finished_interview(document_stack.total, work_time.timed_mode_seconds)
+		GameManager.finished_interview(document_stack.actual_document_count, work_time.timed_mode_seconds)
 		end.interview_ended(document_stack.total)
 	else:
-		GameManager.finished_crunch(document_stack.total)
+		GameManager.finished_crunch(document_stack.actual_document_count)
 		end.crunch_ended(document_stack.total, work_time.hour)
 			
 func _spawn():
@@ -216,18 +218,18 @@ func _spawn():
 		var t = _crunch_mode_spawn_time()
 		spawn_timer.start(t)
 		
-		var pitch = remap(document_stack.total, 1.0, 80, 1.0, max_bgm_pitch)
+		var pitch = remap(document_stack.actual_document_count, 1.0, 80, 1.0, max_bgm_pitch)
 		bgm.pitch_scale = snappedf(pitch, 0.25)
 		print(t, " - ", pitch, " -> ", bgm.pitch_scale)
 
-func _crunch_mode_spawn_time(doc_count: int = document_stack.total):
+func _crunch_mode_spawn_time(doc_count: int = document_stack.actual_document_count):
 	var x = max(doc_count, 1)
 	return max(crunch_start_spawn_time - (log(x) / log(10)) * 1.8, crunch_min_spawn_time)
 
 
 func _spawn_document(await_start = false):
-	var delta = (document_stack.total - boss_documents) - 2
-	if GameManager.is_ceo() and boss_attack_timer.is_stopped() and delta > 0 and start_stack.total >= 5 and not attacking:
+	var delta = (document_stack.actual_document_count - boss_documents) - 2
+	if GameManager.is_ceo() and boss_attack_timer.is_stopped() and delta > 0 and start_stack.actual_document_count >= 5 and not attacking:
 		_boss_attack()
 	else:
 		var invalid_chance = GameManager.difficulty.invalid_word_chance
@@ -238,7 +240,7 @@ func _add_document(doc: Document, await_start := false):
 	doc.started.connect(func(): GameManager.start_type())
 	doc.finished.connect(func():
 		GameManager.finish_type(doc.word, doc.mistakes)
-		player_doc_label.text = "%s" % document_stack.total
+		player_doc_label.text = "%s" % document_stack.total_points
 		
 		if doc.is_discarded():
 			doc.move_to(doc.global_position + Vector2.DOWN * 200)
@@ -249,7 +251,7 @@ func _add_document(doc: Document, await_start := false):
 		overload_progress.reduce(overload_reduce)
 		overload_timer.stop()
 		
-		document_stack.add_document(doc.mistakes > 0, doc_spawner.is_invalid_word(doc.word), doc.is_discarded())
+		document_stack.add_document(doc.mistakes > 0, doc_spawner.is_invalid_word(doc.word), doc.is_discarded(), doc.word)
 		documents.erase(doc)
 		
 		if not work_time.ended and GameManager.is_work_mode():
@@ -307,7 +309,7 @@ func _boss_attack():
 	
 func _ceo_game_ended():
 	var data = {
-		"total": document_stack.total,
+		"total": document_stack.total_points,
 		# "combo": document_stack.combo_count,
 		"wrong": document_stack.wrong_tasks,
 	}
