@@ -20,14 +20,14 @@ size_flags_vertical = 3
 theme = ExtResource("1_1wirg")
 theme_override_constants/margin_bottom = 10
 script = ExtResource("2_hvdfi")
-container = NodePath("VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/InterviewScore")
-scroll_container = NodePath("VBoxContainer/HBoxContainer/ScrollContainer")
+container = NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore")
+scroll_container = NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer")
 up_scroll = NodePath("VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer/UpScroll")
 down_scroll = NodePath("VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2/DownScroll")
 scroll_button_container = NodePath("VBoxContainer/HBoxContainer/ScrollButtons")
-day_label = NodePath("VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/InterviewScore/DocsDays")
-loading_label = NodePath("VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/Loading")
-empty_label = NodePath("VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/Empty")
+day_label = NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore/DocsDays")
+loading_label = NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Loading")
+empty_label = NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Empty")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -37,56 +37,61 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="InterviewScore" type="GridContainer" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="InterviewScore" type="GridContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_1wirg")
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 5
 columns = 6
 
-[node name="Rank" type="Label" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/InterviewScore"]
+[node name="Rank" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore"]
 layout_mode = 2
 text = "Rank"
 label_settings = ExtResource("3_jt1on")
 
-[node name="Score" type="Label" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/InterviewScore"]
+[node name="Score" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore"]
 layout_mode = 2
 text = "Score"
 label_settings = ExtResource("3_jt1on")
 
-[node name="Name" type="Label" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/InterviewScore"]
+[node name="Name" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Name    "
 label_settings = ExtResource("3_jt1on")
 
-[node name="Wpm" type="Label" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/InterviewScore"]
+[node name="Wpm" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "WPM"
 label_settings = ExtResource("3_jt1on")
 
-[node name="DocsDays" type="Label" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/InterviewScore"]
+[node name="DocsDays" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore"]
 layout_mode = 2
 text = "Docs"
 label_settings = ExtResource("3_jt1on")
 
-[node name="Level" type="Label" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/InterviewScore"]
+[node name="Level" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Level  "
 label_settings = ExtResource("3_jt1on")
 
-[node name="Loading" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Loading" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/normal_font_size = 6
@@ -97,7 +102,7 @@ scroll_active = false
 autowrap_mode = 0
 custom_effects = [ExtResource("3_vpmc6")]
 
-[node name="Empty" type="Label" parent="VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Empty" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "no data or failed to load"
 label_settings = ExtResource("3_jt1on")
@@ -111,18 +116,23 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -16.0
+offset_left = -10.0
 offset_bottom = 2.0
 grow_horizontal = 0
-theme_override_constants/margin_top = -10
+theme_override_constants/margin_top = -12
 
 [node name="UpScroll" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer" instance=ExtResource("4_5kh8s")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_m3b5g")
 word = "K"
 
+[node name="MarginContainer" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer/UpScroll" index="1"]
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+
 [node name="TypingLabel" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer/UpScroll/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
+text = "A"
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer/ScrollButtons"]
 layout_mode = 1
@@ -131,19 +141,24 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -2.0
+offset_left = -10.0
+offset_top = 1.0
+offset_bottom = 13.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_constants/margin_bottom = -10
 
 [node name="DownScroll" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2" instance=ExtResource("4_5kh8s")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_0niil")
 word = "J"
 
+[node name="MarginContainer" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2/DownScroll" index="1"]
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+
 [node name="TypingLabel" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2/DownScroll/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
+text = "A"
 
 [editable path="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer/UpScroll"]
 [editable path="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2/DownScroll"]

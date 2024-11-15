@@ -32,7 +32,7 @@ func _update():
 	wpm.text = "%.0f words/m" % GameManager.get_wpm()
 	accuracy.text = "%.0f%% accuracy" % GameManager.get_accuracy()
 
-	score_container.visible = GameManager.has_current_job() or false # disable for now
+	score_container.visible = false #GameManager.has_current_job() # disable for now
 	score.text = "%.0f" % GameManager.calculate_score()
 	
 			##var wpm_str = "%.0f/%.0f%%" % [GameManager.average_wpm, GameManager.average_accuracy * 100]

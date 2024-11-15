@@ -101,7 +101,7 @@ var loading_handles := []
 var last_result = []
 var is_uploading := false
 var handler_loaded := false
-var score_range := 20
+var score_range := 30
 
 func _connect_leaderboard_signals():
 	steam.leaderboard_find_result.connect(_on_leaderboard_find_result)

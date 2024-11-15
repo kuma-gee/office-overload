@@ -40,7 +40,6 @@ func _ready() -> void:
 		container.get_child(i).visible = i < keys.size()
 	container.columns = keys.size()
 	
-	
 	#var bar = scroll_container.get_v_scroll_bar()
 	#bar.reparent(scroll_button_container)
 	#_update_scrollbar()
@@ -49,6 +48,15 @@ func _ready() -> void:
 # Doesn't work, it always gets overwritten by the scroll container probably
 #func _process(delta: float) -> void:
 	#_update_scrollbar()
+
+func active():
+	up_scroll.get_label().highlight_first = true
+	down_scroll.get_label().highlight_first = true
+
+func reset():
+	scroll_container.scroll_vertical = 0
+	up_scroll.get_label().highlight_first = false
+	down_scroll.get_label().highlight_first = false
 
 func _update_scrollbar():
 	var bar = scroll_container.get_v_scroll_bar()

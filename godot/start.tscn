@@ -351,9 +351,8 @@ highlight_first = true
 word = "prepare"
 
 [node name="Rankings" type="Sprite2D" parent="TextureRect2"]
-position = Vector2(-133, -29)
+position = Vector2(-129, -24)
 rotation = 0.174533
-scale = Vector2(1, 1)
 texture = ExtResource("13_qj2lo")
 
 [node name="Team" parent="TextureRect2/Rankings" instance=ExtResource("8_y3mf1")]
@@ -367,7 +366,7 @@ highlight_first = true
 word = "teams"
 
 [node name="Files" type="Sprite2D" parent="TextureRect2"]
-position = Vector2(-87, -18)
+position = Vector2(-82, -19)
 rotation = -0.174533
 texture = ExtResource("13_qj2lo")
 
@@ -734,14 +733,13 @@ script = ExtResource("19_uqiqi")
 
 [node name="Team" parent="CanvasLayer/Control" node_paths=PackedStringArray("user_board", "friends_board", "global_board", "steam_offline") instance=ExtResource("37_ajr2k")]
 layout_mode = 1
+offset_top = -90.0
+offset_bottom = -90.0
 script = ExtResource("32_rwy2e")
 user_board = NodePath("TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/UserScore")
 friends_board = NodePath("TextureRect/Papers/Team2/MarginContainer/VBoxContainer/FriendsScore")
 global_board = NodePath("TextureRect/Papers/Top1/MarginContainer/VBoxContainer/GlobalScore")
 steam_offline = NodePath("TextureRect/Offline")
-
-[node name="Delegator" parent="CanvasLayer/Control/Team" index="1" node_paths=PackedStringArray("nodes")]
-nodes = [NodePath("../TextureRect/Papers/Top1/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel"), NodePath("../TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel"), NodePath("../TextureRect/Papers/Team2/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel")]
 
 [node name="Offline" type="RichTextLabel" parent="CanvasLayer/Control/Team/TextureRect" index="0"]
 layout_mode = 1
@@ -761,14 +759,36 @@ Check your steam status[/center]"
 fit_content = true
 autowrap_mode = 0
 
-[node name="Top1" parent="CanvasLayer/Control/Team/TextureRect/Papers" index="0" node_paths=PackedStringArray("board") instance=ExtResource("38_fltas")]
+[node name="Fellows3" parent="CanvasLayer/Control/Team/TextureRect/Papers" index="0" node_paths=PackedStringArray("board") instance=ExtResource("38_fltas")]
 light_mask = 0
-custom_minimum_size = Vector2(200, 150)
+custom_minimum_size = Vector2(240, 150)
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -114.0
+offset_top = -62.0
+offset_right = 126.0
+offset_bottom = 88.0
+rotation = 0.139626
+script = ExtResource("34_qjurq")
+board = NodePath("MarginContainer/VBoxContainer/UserScore")
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+text = "Fellows"
+word = "Fellows"
+
+[node name="UserScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer" index="1" instance=ExtResource("33_nyl55")]
+layout_mode = 2
+
+[node name="Top1" parent="CanvasLayer/Control/Team/TextureRect/Papers" index="1" node_paths=PackedStringArray("board") instance=ExtResource("38_fltas")]
+light_mask = 0
+custom_minimum_size = Vector2(240, 150)
 layout_mode = 1
 offset_left = -125.0
-offset_top = -42.0
-offset_right = 75.0
-offset_bottom = 108.0
+offset_top = -39.0
+offset_right = 115.0
+offset_bottom = 111.0
 rotation = -0.174533
 script = ExtResource("34_qjurq")
 board = NodePath("MarginContainer/VBoxContainer/GlobalScore")
@@ -780,37 +800,15 @@ word = "Topspot"
 [node name="GlobalScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Top1/MarginContainer/VBoxContainer" index="1" instance=ExtResource("33_nyl55")]
 layout_mode = 2
 
-[node name="Fellows3" parent="CanvasLayer/Control/Team/TextureRect/Papers" index="1" node_paths=PackedStringArray("board") instance=ExtResource("38_fltas")]
-light_mask = 0
-custom_minimum_size = Vector2(200, 150)
-layout_mode = 2
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -77.0
-offset_top = -34.0
-offset_right = 123.0
-offset_bottom = 116.0
-rotation = 0.174533
-script = ExtResource("34_qjurq")
-board = NodePath("MarginContainer/VBoxContainer/UserScore")
-
-[node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-text = "Fellows"
-word = "Fellows"
-
-[node name="UserScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer" index="1" instance=ExtResource("33_nyl55")]
-layout_mode = 2
-
 [node name="Team2" parent="CanvasLayer/Control/Team/TextureRect/Papers" index="2" node_paths=PackedStringArray("board") instance=ExtResource("38_fltas")]
 light_mask = 0
-custom_minimum_size = Vector2(200, 150)
+custom_minimum_size = Vector2(240, 150)
 layout_mode = 1
-offset_left = -101.0
-offset_top = -6.0
-offset_right = 99.0
-offset_bottom = 144.0
-rotation = -0.0523599
+offset_left = -116.0
+offset_top = -7.0
+offset_right = 124.0
+offset_bottom = 143.0
+rotation = 0.0872665
 script = ExtResource("34_qjurq")
 board = NodePath("MarginContainer/VBoxContainer/FriendsScore")
 
@@ -820,6 +818,14 @@ word = "Teammates"
 
 [node name="FriendsScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Team2/MarginContainer/VBoxContainer" index="1" instance=ExtResource("33_nyl55")]
 layout_mode = 2
+
+[node name="TextureRect2" parent="CanvasLayer/Control/Team/TextureRect" index="3"]
+offset_top = 96.5
+offset_bottom = 127.5
+
+[node name="PanelContainer" parent="CanvasLayer/Control/Team/TextureRect" index="5"]
+offset_top = 112.5
+offset_bottom = 262.5
 
 [node name="Report" parent="CanvasLayer/Control" instance=ExtResource("37_ajr2k")]
 light_mask = 0
@@ -1083,8 +1089,8 @@ light_mask = 0
 offset_bottom = 10.0
 
 [editable path="CanvasLayer/Control/Team"]
-[editable path="CanvasLayer/Control/Team/TextureRect/Papers/Top1"]
 [editable path="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3"]
+[editable path="CanvasLayer/Control/Team/TextureRect/Papers/Top1"]
 [editable path="CanvasLayer/Control/Team/TextureRect/Papers/Team2"]
 [editable path="CanvasLayer/Control/Report"]
 [editable path="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1"]
