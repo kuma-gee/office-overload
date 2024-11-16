@@ -1,8 +1,6 @@
 class_name Leaderboard
 extends Folder
 
-signal closed()
-
 @export var user_board: ScoreBoard
 @export var friends_board: ScoreBoard
 @export var global_board: ScoreBoard

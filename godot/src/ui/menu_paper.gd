@@ -44,8 +44,8 @@ func focused():
 	tw = _create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tw.tween_property(self, "rotation", 0, 0.5)
 	tw.parallel().tween_property(self, "position", -size/2 + Vector2.UP * 100, 0.5)
+	tw.parallel().tween_callback(func(): z_index = 100).set_delay(0.3)
 	
-	tw.tween_callback(func(): z_index = 100)
 	tw.tween_property(self, "position", -size/2, 0.5)
 	label.highlight_first = false
 	label.focused = true

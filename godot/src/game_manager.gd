@@ -59,9 +59,9 @@ var past_wpms := []
 var past_performance := []
 
 var has_played := false
+var has_reached_junior := false
 var unlocked_modes = [Mode.Work]
 var performance := 0.0
-var subordinates = {}
 
 ### Maybe Save? ###
 var last_interview_wpm := 0.0
@@ -88,7 +88,7 @@ func _load_data():
 	if data:
 		cache_properties.load_data(data)
 	
-	self.difficulty_level = DifficultyResource.Level.INTERN
+	# self.difficulty_level = DifficultyResource.Level.INTERN
 	
 	_logger.info("Game initialized")
 	init = true
@@ -143,7 +143,6 @@ func reset_values():
 	average_accuracy = 0.0
 	total_completed_words = 0
 	past_wpms = []
-	subordinates = {}
 	
 	job_quited.emit()
 	_save_data()
@@ -287,6 +286,10 @@ func take_promotion():
 
 	difficulty_level += 1
 	_logger.info("Promoted to %s" % DifficultyResource.Level.keys()[difficulty_level])
+	
+	if difficulty_level >= DifficultyResource.Level.JUNIOR:
+		has_reached_junior = true
+	
 	_save_data()
 
 func is_max_promotion():

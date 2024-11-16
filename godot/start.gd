@@ -11,10 +11,15 @@ extends Node
 @export var files: TypedWord
 @export var team: TypedWord
 
+@export_category("Items")
+@export var prepare_node: DeskItem
+@export var teams_node: DeskItem
+@export var files_node: DeskItem
+
 @export_category("Nodes") # onready does not work on web builds?? 
-@export var shift_container: ShiftButtons
+#@export var shift_container: ShiftButtons
 @export var settings: Settings
-@export var game_modes: GameModesDialog
+#@export var game_modes: GameModesDialog
 @export var delegator: Delegator
 #@export var leaderboard: Leaderboard
 #@export var feedback_ui: FeedbackUI
@@ -32,6 +37,14 @@ func _ready():
 	get_tree().paused = false
 	GameManager.game_started.connect(func(): is_starting = true)
 	
+	#get_tree().create_timer(1.0).timeout.connect(func():
+	prepare_node.move_in(0.5)
+	if GameManager.has_played:
+		files_node.move_in(0.6)
+	if GameManager.has_reached_junior:
+		teams_node.move_in(0.7)
+	#)
+	
 	work_label.type_finish.connect(func():
 		var modes = GameManager.get_unlocked_modes()
 		#if modes.size() == 1 or Env.is_demo():
@@ -40,17 +53,24 @@ func _ready():
 		#else:
 			#game_modes.grab_focus()
 	)
+	
+	settings.focus_exited.connect(func(): prepare_node.move_in())
+	folder.closed.connect(func(): files_node.move_in())
+	teams.closed.connect(func(): teams_node.move_in())
 	#work_performance.finished_alt.connect(func(): performance_graph.open())
 	#
 	prepare_label.type_finish.connect(func():
+		await prepare_node.move_open()
 		settings.grab_focus()
 		prepare_label.reset()
 	)
 	files.type_finish.connect(func():
+		await files_node.move_open()
 		folder.open()
 		files.reset()
 	)
 	team.type_finish.connect(func():
+		await teams_node.move_open()
 		teams.open()
 		team.reset()
 	)

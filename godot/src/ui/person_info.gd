@@ -56,7 +56,7 @@ var document_process := 0.0:
 var person = "":
 	set(v):
 		person = v
-		stress_level = GameManager.subordinates[v] if v in GameManager.subordinates else -1
+		#stress_level = GameManager.subordinates[v] if v in GameManager.subordinates else -1
 		set_word(v)
 
 func _ready() -> void:

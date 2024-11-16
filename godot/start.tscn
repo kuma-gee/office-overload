@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=51 format=3 uid="uid://ctlncowdl0sbn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
 [ext_resource type="Script" path="res://start.gd" id="2_508sk"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://src/base-system/menu/Settings.gd" id="11_ybmms"]
 [ext_resource type="Script" path="res://src/ui/Stats.gd" id="12_fmeio"]
 [ext_resource type="PackedScene" uid="uid://c6ce1tcwltx0f" path="res://src/start/note.tscn" id="12_mc432"]
+[ext_resource type="Script" path="res://src/start/desk_item.gd" id="12_o5b08"]
 [ext_resource type="Script" path="res://src/base-system/menu/AudioSlider.gd" id="12_qty1o"]
 [ext_resource type="AudioStream" uid="uid://7ix2fpbkls0p" path="res://assets/sound/Talk_with_me.mp3" id="13_gm25t"]
 [ext_resource type="Texture2D" uid="uid://bl06rcj3vftvg" path="res://assets/sprites/Folder.png" id="13_qj2lo"]
@@ -57,21 +58,23 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tnvcv"]
 
-[node name="Start" type="Node2D" node_paths=PackedStringArray("work_label", "prepare_label", "files", "team", "settings", "game_modes", "delegator", "folder", "teams")]
+[node name="Start" type="Node2D" node_paths=PackedStringArray("work_label", "prepare_label", "files", "team", "prepare_node", "teams_node", "files_node", "settings", "delegator", "folder", "teams")]
 script = ExtResource("2_508sk")
 work_label = NodePath("TextureRect2/Clock/TypingLabel")
-prepare_label = NodePath("TextureRect2/PrepareDoc/TypingLabel3")
+prepare_label = NodePath("TextureRect2/Prepare/PrepareDoc/TypingLabel3")
 files = NodePath("TextureRect2/Files/Report")
 team = NodePath("TextureRect2/Rankings/Team")
+prepare_node = NodePath("TextureRect2/Prepare")
+teams_node = NodePath("TextureRect2/Rankings")
+files_node = NodePath("TextureRect2/Files")
 settings = NodePath("CanvasLayer/Control/Settings")
-game_modes = NodePath("CanvasLayer/Control/GameModes")
 delegator = NodePath("Delegator")
 folder = NodePath("CanvasLayer/Control/Report")
 teams = NodePath("CanvasLayer/Control/Team")
 
 [node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
-nodes = [NodePath("../TextureRect2/Clock/TypingLabel"), NodePath("../TextureRect2/PrepareDoc/TypingLabel3"), NodePath("../TextureRect2/Files/Report"), NodePath("../TextureRect2/Rankings/Team")]
+nodes = [NodePath("../TextureRect2/Clock/TypingLabel"), NodePath("../TextureRect2/Prepare/PrepareDoc/TypingLabel3"), NodePath("../TextureRect2/Files/Report"), NodePath("../TextureRect2/Rankings/Team")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.493545, 0.493546, 0.493546, 1)
@@ -335,7 +338,11 @@ untyped_color = Color(0.929412, 0.894118, 0.854902, 1)
 highlight_first = true
 word = "work"
 
-[node name="PrepareDoc" type="PanelContainer" parent="TextureRect2"]
+[node name="Prepare" type="Node2D" parent="TextureRect2"]
+position = Vector2(0, 3.8147e-06)
+script = ExtResource("12_o5b08")
+
+[node name="PrepareDoc" type="PanelContainer" parent="TextureRect2/Prepare"]
 offset_left = -42.0
 offset_top = -39.0
 offset_right = 17.0
@@ -343,7 +350,7 @@ offset_bottom = -6.0
 rotation = 0.0872665
 theme = ExtResource("1_qu80e")
 
-[node name="TypingLabel3" parent="TextureRect2/PrepareDoc" instance=ExtResource("8_y3mf1")]
+[node name="TypingLabel3" parent="TextureRect2/Prepare/PrepareDoc" instance=ExtResource("8_y3mf1")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
 text = "prepare"
@@ -354,6 +361,7 @@ word = "prepare"
 position = Vector2(-129, -24)
 rotation = 0.174533
 texture = ExtResource("13_qj2lo")
+script = ExtResource("12_o5b08")
 
 [node name="Team" parent="TextureRect2/Rankings" instance=ExtResource("8_y3mf1")]
 offset_left = -45.5
@@ -369,6 +377,7 @@ word = "teams"
 position = Vector2(-82, -19)
 rotation = -0.174533
 texture = ExtResource("13_qj2lo")
+script = ExtResource("12_o5b08")
 
 [node name="Report" parent="TextureRect2/Files" instance=ExtResource("8_y3mf1")]
 offset_left = -45.5
@@ -733,8 +742,6 @@ script = ExtResource("19_uqiqi")
 
 [node name="Team" parent="CanvasLayer/Control" node_paths=PackedStringArray("user_board", "friends_board", "global_board", "steam_offline") instance=ExtResource("37_ajr2k")]
 layout_mode = 1
-offset_top = -90.0
-offset_bottom = -90.0
 script = ExtResource("32_rwy2e")
 user_board = NodePath("TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/UserScore")
 friends_board = NodePath("TextureRect/Papers/Team2/MarginContainer/VBoxContainer/FriendsScore")
@@ -818,14 +825,6 @@ word = "Teammates"
 
 [node name="FriendsScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Team2/MarginContainer/VBoxContainer" index="1" instance=ExtResource("33_nyl55")]
 layout_mode = 2
-
-[node name="TextureRect2" parent="CanvasLayer/Control/Team/TextureRect" index="3"]
-offset_top = 96.5
-offset_bottom = 127.5
-
-[node name="PanelContainer" parent="CanvasLayer/Control/Team/TextureRect" index="5"]
-offset_top = 112.5
-offset_bottom = 262.5
 
 [node name="Report" parent="CanvasLayer/Control" instance=ExtResource("37_ajr2k")]
 light_mask = 0
