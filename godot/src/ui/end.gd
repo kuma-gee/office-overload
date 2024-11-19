@@ -91,7 +91,7 @@ func day_ended(data: Dictionary):
 	finished_tasks.text = "%s" % tasks
 	perfect_tasks_label.text = "%s" % combo
 	#acc_label.text = "Quality %0.f%%" % [acc * 100]
-	# overtime.text = "%s hours of overtime" % overtime_hours
+	# overtime.text = "%s hours of wovertime" % overtime_hours
 	# distraction_label.text = "%s ignored messages" % distraction_missed
 	distraction_label.text = "%s" % wrong
 
@@ -108,8 +108,12 @@ func day_ended(data: Dictionary):
 	if GameManager.is_work_mode() and not promo:
 		GameManager.upload_work_scores()
 	
-	if GameManager.is_junior() and GameManager.day >= 5:
-		GameManager.unlock_mode(GameManager.Mode.Crunch)
+	if GameManager.is_senior():
+		GameManager.unlock_mode(GameManager.Mode.Meeting)
+	if GameManager.is_junior():
+		GameManager.unlock_mode(GameManager.Mode.MorningCoffee)
+	if GameManager.is_junior() and data["overtime"] > 1:
+		GameManager.unlock_mode(GameManager.Mode.AfterworkBeer)
 
 func _promotion_tip_text(tip) -> String:
 	match tip:

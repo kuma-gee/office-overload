@@ -2,14 +2,13 @@ class_name GameMode
 extends MarginContainer
 
 const DESC = {
-	GameManager.Mode.Work: "Get tasks based on your skill. (story)",
+	GameManager.Mode.Work: "Get tasks based on your skill and improve until you become the next ceo.",
+	GameManager.Mode.Meeting: "Schedule a meeting with your teams and discuss to reduce the number of distractions.",
+	GameManager.Mode.AfterworkBeer: "Relax and have a beer with your team after a long day of work.",
+	GameManager.Mode.MorningCoffee: "Start your day with a cup of coffee that helps reduce your stress level.",
+
 	GameManager.Mode.Crunch: "Work until you burn out. (endless)",
 	GameManager.Mode.Interview: "Tests your skills. (timed)",
-}
-const TEXT = {
-	GameManager.Mode.Work: "Work time",
-	GameManager.Mode.Crunch: "Crunch time",
-	GameManager.Mode.Interview: "Job interview",
 }
 
 @export var typing_button: TypingButton
@@ -18,7 +17,7 @@ const TEXT = {
 @export var mode := GameManager.Mode.Crunch
 
 func _ready() -> void:
-	typing_button.word = TEXT[mode]
+	typing_button.word = GameManager.get_mode_title(mode)
 	typing_button.update()
 	
 	label.text = DESC[mode]
@@ -33,5 +32,5 @@ func _update():
 	typing_button.get_label().highlight_first = unlocked
 
 func get_label():
-	if not label.visible: return null
+	if lock_fg.visible: return null
 	return typing_button.get_label()

@@ -29,7 +29,7 @@ func _update():
 	documents.text = "Finished Tasks: %s" % GameManager.completed_documents
 
 	skill_container.visible = GameManager.get_wpm() > 0
-	wpm.text = "%.0f words/m" % GameManager.get_wpm()
+	wpm.text = "%.0f speed" % GameManager.get_wpm()
 	accuracy.text = "%.0f%% accuracy" % GameManager.get_accuracy()
 
 	score_container.visible = false #GameManager.has_current_job() # disable for now

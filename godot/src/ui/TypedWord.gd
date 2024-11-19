@@ -78,6 +78,10 @@ func _ready():
 	add_theme_constant_override("outline_size", 5)
 	shake_timer.timeout.connect(func(): self.current_shake = 0)
 
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		type_finish.emit()
+
 func play_mistake_effect():
 	self.current_shake = shake_amount
 	update_word()

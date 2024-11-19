@@ -36,10 +36,10 @@ material = SubResource("ShaderMaterial_pxbm0")
 texture = ExtResource("1_qjb0l")
 
 [node name="TypingLabel" parent="Sprite2D" instance=ExtResource("4_jmrhn")]
-offset_left = -30.0
-offset_top = -39.5
-offset_right = -12.0
-offset_bottom = -15.5
+offset_left = -42.0
+offset_top = 0.5
+offset_right = 0.0
+offset_bottom = 24.5
 theme_override_font_sizes/normal_font_size = 20
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=88 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -50,7 +50,6 @@
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/sprites/Document.png" id="24_g7dws"]
 [ext_resource type="AudioStream" uid="uid://dl1bac3viudub" path="res://assets/sound/パパッ.mp3" id="25_k4kvb"]
 [ext_resource type="Texture2D" uid="uid://fhvvkmwkvr5c" path="res://assets/sprites/Desk_Plant.png" id="27_1a3yr"]
-[ext_resource type="Script" path="res://src/report.gd" id="27_q3o08"]
 [ext_resource type="Texture2D" uid="uid://ctoyv3g7nvrwf" path="res://assets/sprites/Desk_Coffee.png" id="28_i6mjb"]
 [ext_resource type="Texture2D" uid="uid://c7bni1sdaaaqn" path="res://assets/sprites/Desk_Keyboard.png" id="31_x6efq"]
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="32_eoisl"]
@@ -1098,54 +1097,6 @@ layout_mode = 2
 texture = ExtResource("33_qq0id")
 expand_mode = 2
 stretch_mode = 5
-
-[node name="Report" type="Control" parent="CanvasLayer"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("10_am0oy")
-script = ExtResource("27_q3o08")
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Report"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -61.0
-offset_top = -80.0
-offset_right = 61.0
-offset_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Report/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Report/PanelContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="Label" type="Label" parent="CanvasLayer/Report/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "REPORT"
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Report/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="TypingLabel" parent="CanvasLayer/Report/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2" instance=ExtResource("15_r4fui")]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 10
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("37_b7g85")]
 

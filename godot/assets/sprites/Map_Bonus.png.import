@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgrmyc8c417rx"
-path="res://.godot/imported/Person.png-28de9abf50d54897fec907170d374ef6.ctex"
+uid="uid://dif1rjiv3kepy"
+path="res://.godot/imported/Map_Bonus.png-064c886c955d99516fa58be0a4b58c49.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Person.png"
-dest_files=["res://.godot/imported/Person.png-28de9abf50d54897fec907170d374ef6.ctex"]
+source_file="res://assets/sprites/Map_Bonus.png"
+dest_files=["res://.godot/imported/Map_Bonus.png-064c886c955d99516fa58be0a4b58c49.ctex"]
 
 [params]
 

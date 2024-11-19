@@ -17,18 +17,11 @@ extends Node
 @export var files_node: DeskItem
 
 @export_category("Nodes") # onready does not work on web builds?? 
-#@export var shift_container: ShiftButtons
 @export var settings: Settings
-#@export var game_modes: GameModesDialog
+@export var game_modes: GameModesDialog
 @export var delegator: Delegator
-#@export var leaderboard: Leaderboard
-#@export var feedback_ui: FeedbackUI
-#@export var performance_graph: PerformanceGraph
-#@export var quit_warning_dialog: QuitJobWarning
 @export var folder: Folder
 @export var teams: Folder
-
-#@onready var shift_buttons := [work_performance, setting_leaderboard, exit_quitjob, feedback]
 
 var is_starting := false
 var quit_warning_open := false
@@ -37,21 +30,19 @@ func _ready():
 	get_tree().paused = false
 	GameManager.game_started.connect(func(): is_starting = true)
 	
-	#get_tree().create_timer(1.0).timeout.connect(func():
 	prepare_node.move_in(0.5)
 	if GameManager.has_played:
 		files_node.move_in(0.6)
 	if GameManager.has_reached_junior:
 		teams_node.move_in(0.7)
-	#)
 	
 	work_label.type_finish.connect(func():
 		var modes = GameManager.get_unlocked_modes()
-		#if modes.size() == 1 or Env.is_demo():
-		GameManager.start(GameManager.Mode.Work)
-		work_label.reset()
-		#else:
-			#game_modes.grab_focus()
+		if modes.size() == 1 or Env.is_demo():
+			GameManager.start(GameManager.Mode.Work)
+			work_label.reset()
+		else:
+			game_modes.grab_focus()
 	)
 	
 	settings.focus_exited.connect(func(): prepare_node.move_in())

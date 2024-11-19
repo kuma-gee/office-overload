@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://wtd5yqsbnpf0"]
+[gd_scene load_steps=6 format=3 uid="uid://wtd5yqsbnpf0"]
 
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_1o2e1"]
 [ext_resource type="Script" path="res://src/ui/game_mode.gd" id="1_jnoe1"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="2_eivyo"]
 [ext_resource type="Texture2D" uid="uid://wmdeiblvsffh" path="res://assets/sprites/Lock.png" id="3_d7ftr"]
@@ -12,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_1o2e1")
 script = ExtResource("1_jnoe1")
 typing_button = NodePath("HBoxContainer2/TypingButton")
 label = NodePath("HBoxContainer2/Desc")
@@ -28,7 +30,6 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_v61jy")
 word = "Crunch Time"
 
 [node name="Desc" type="Label" parent="HBoxContainer2"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 8

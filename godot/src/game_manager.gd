@@ -17,13 +17,6 @@ const DIFFICULTIES = {
 	DifficultyResource.Level.CEO: preload("res://src/difficulty/CEO.tres"),
 }
 
-enum Mode {
-	Work,
-	Crunch,
-	Interview,
-	Multiplayer, # TODO:
-}
-
 @export var keep_past_wpms := 50
 
 @onready var wpm_calculator = $WPMCalculator
@@ -89,6 +82,7 @@ func _load_data():
 		cache_properties.load_data(data)
 	
 	# self.difficulty_level = DifficultyResource.Level.INTERN
+	unlocked_modes = Mode.values()
 	
 	_logger.info("Game initialized")
 	init = true
@@ -120,10 +114,10 @@ func start(mode: Mode = current_mode):
 	wpm_calculator.reset()
 	game_started.emit()
 	
-	#if is_ceo():
-		#SceneManager.change_scene("res://src/ceo_boss.tscn")
-	#else:
-	SceneManager.change_scene("res://src/game.tscn")
+	if mode == Mode.Work:
+		SceneManager.change_scene("res://src/game.tscn")
+	else:
+		SceneManager.change_scene("res://src/gamemode/bonus_game.tscn")
 
 func restart():
 	start()
@@ -297,7 +291,7 @@ func is_max_promotion():
 		return true
 
 	var next = difficulty_level + 1
-	return is_manager() or not next in DIFFICULTIES
+	return not next in DIFFICULTIES
 
 func is_level_greater_or_eq(diff: DifficultyResource.Level):
 	return difficulty_level >= diff
@@ -324,6 +318,32 @@ func get_level_text(lvl = difficulty_level, abbreviate = -1):
 	return txt
 
 ### Modes
+enum Mode {
+	Work,
+	Crunch,
+	Interview,
+
+	Meeting,
+	AfterworkBeer,
+	MorningCoffee,
+
+	Multiplayer, # TODO: add multiplayer, after release?
+}
+
+var MODE_CONDITION = {
+	Mode.Meeting: func(): return is_senior(),
+	Mode.AfterworkBeer: func(): return true, # TODO: check if overtime stress is high
+	Mode.MorningCoffee: func(): return is_junior(),
+}
+
+var MODE_TITLE = {
+	Mode.Work: "Work Day",
+	Mode.Crunch: "Crunch Time",
+	Mode.Interview: "Job Interview",
+	Mode.Meeting: "Meeting",
+	Mode.AfterworkBeer: "Afterwork Beer",
+	Mode.MorningCoffee: "Morning Coffee",
+}
 
 func is_interview_mode():
 	return current_mode == Mode.Interview
@@ -334,10 +354,33 @@ func is_work_mode():
 func is_crunch_mode():
 	return current_mode == Mode.Crunch
 
+func is_meeting_mode():
+	return current_mode == Mode.Meeting
+
+func is_afterwork_mode():
+	return current_mode == Mode.AfterworkBeer
+
+func is_morning_mode():
+	return current_mode == Mode.MorningCoffee
+
 func is_mode_unlocked(mode: Mode):
 	if Env.is_demo():
 		return mode == Mode.Work
-	return mode in unlocked_modes
+
+	if not mode in unlocked_modes:
+		return false
+
+	#if mode in MODE_CONDITION:
+		#var condition = MODE_CONDITION.get(mode)
+		#if not condition.call():
+			#return false
+	
+	return true
+
+func get_mode_title(mode: Mode):
+	if mode in MODE_TITLE:
+		return MODE_TITLE[mode]
+	return ""
 
 func get_unlocked_modes():
 	if Env.is_demo():

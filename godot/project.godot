@@ -31,6 +31,7 @@ SteamManager="*res://src/steam_manager.gd"
 FeedbackManager="*res://src/autoload/feedback_manager.tscn"
 DebugWindow="*res://src/autoload/debug_window.tscn"
 SteamCloud="*res://src/autoload/SteamCloud.gd"
+WordManager="*res://src/autoload/word_manager.gd"
 
 [debug]
 

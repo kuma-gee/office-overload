@@ -181,7 +181,7 @@ func _finished(is_gameover = false):
 				"mistyped": document_stack.tasks,
 				"combo": document_stack.highest_streak,
 				"wrong": document_stack.wrong_tasks,
-				# "overtime": work_time.get_overtime(),
+				"overtime": work_time.get_overtime(),
 				# "distractions": distractions.missed,
 			}
 			GameManager.finished_day(data)
@@ -198,7 +198,7 @@ func _finished(is_gameover = false):
 		end.crunch_ended(document_stack.total, work_time.hour)
 			
 func _spawn():
-	if (work_time.ended and GameManager.is_work_mode()) or is_gameover:
+	if (work_time.is_day_ended() and GameManager.is_work_mode()) or is_gameover:
 		return
 	
 	_spawn_document()
@@ -254,7 +254,7 @@ func _add_document(doc: Document, await_start := false):
 		document_stack.add_document(doc.mistakes > 0, doc_spawner.is_invalid_word(doc.word), doc.is_discarded(), doc.word)
 		documents.erase(doc)
 		
-		if not work_time.ended and GameManager.is_work_mode():
+		if not work_time.is_day_ended() and GameManager.is_work_mode():
 			distractions.maybe_show_distraction()
 
 		if documents.size() > 0:
@@ -262,7 +262,7 @@ func _add_document(doc: Document, await_start := false):
 			
 			if documents.size() < min_documents:
 				_spawn()
-		elif work_time.ended:
+		elif work_time.is_day_ended():
 			_finished()
 		else:
 			if await_start:

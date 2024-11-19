@@ -58,7 +58,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tnvcv"]
 
-[node name="Start" type="Node2D" node_paths=PackedStringArray("work_label", "prepare_label", "files", "team", "prepare_node", "teams_node", "files_node", "settings", "delegator", "folder", "teams")]
+[node name="Start" type="Node2D" node_paths=PackedStringArray("work_label", "prepare_label", "files", "team", "prepare_node", "teams_node", "files_node", "settings", "game_modes", "delegator", "folder", "teams")]
 script = ExtResource("2_508sk")
 work_label = NodePath("TextureRect2/Clock/TypingLabel")
 prepare_label = NodePath("TextureRect2/Prepare/PrepareDoc/TypingLabel3")
@@ -68,6 +68,7 @@ prepare_node = NodePath("TextureRect2/Prepare")
 teams_node = NodePath("TextureRect2/Rankings")
 files_node = NodePath("TextureRect2/Files")
 settings = NodePath("CanvasLayer/Control/Settings")
+game_modes = NodePath("CanvasLayer/Control/GameModes")
 delegator = NodePath("Delegator")
 folder = NodePath("CanvasLayer/Control/Report")
 teams = NodePath("CanvasLayer/Control/Team")
@@ -353,9 +354,9 @@ theme = ExtResource("1_qu80e")
 [node name="TypingLabel3" parent="TextureRect2/Prepare/PrepareDoc" instance=ExtResource("8_y3mf1")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
-text = "prepare"
+text = "setting"
 highlight_first = true
-word = "prepare"
+word = "setting"
 
 [node name="Rankings" type="Sprite2D" parent="TextureRect2"]
 position = Vector2(-129, -24)
@@ -404,6 +405,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("1_qu80e")
 
 [node name="MenuOverlay" type="ColorRect" parent="CanvasLayer/Control"]
@@ -651,7 +653,6 @@ texture_normal = ExtResource("14_vk34l")
 script = ExtResource("19_uqiqi")
 
 [node name="GameModes" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("delegator")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -665,7 +666,7 @@ delegator = NodePath("Delegator")
 
 [node name="Delegator" type="Node" parent="CanvasLayer/Control/GameModes" node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
-nodes = [NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode3"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode2")]
+nodes = [NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode3"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode2"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode4"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode5")]
 
 [node name="EffectRoot" type="Node" parent="CanvasLayer/Control/GameModes"]
 script = ExtResource("14_hvw1b")
@@ -726,10 +727,18 @@ mode = 0
 
 [node name="GameMode3" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
 layout_mode = 2
+mode = 3
 
 [node name="GameMode2" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
 layout_mode = 2
-mode = 2
+
+[node name="GameMode4" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
+layout_mode = 2
+mode = 4
+
+[node name="GameMode5" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
+layout_mode = 2
+mode = 5
 
 [node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/GameModes"]
 layout_mode = 0
@@ -1004,7 +1013,7 @@ flip_h = true
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 6
-text = "< wpm >"
+text = "< speed >"
 horizontal_alignment = 1
 vertical_alignment = 1
 

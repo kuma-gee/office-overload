@@ -14,8 +14,12 @@ extends Sprite2D
 var light = 1.0:
 	set(v):
 		light = clamp(v, 0.2, 1)
-		canvas_modulate.color = Color(light, light, light, 1)
 		set_lights(light < 1)
+		
+		if canvas_modulate:
+			canvas_modulate.color = Color(light, light, light, 1)
+		
+		if not overload_progress: return
 		
 		if light >= 0.3:
 			overload_progress.brighten()
@@ -32,9 +36,9 @@ func _ready():
 	worktime.started.connect(func(): _work_frame())
 	worktime.day_ended.connect(func(): _overtime_frame())
 	worktime.time_changed.connect(func(time):
-		if time >= 2 and time <= worktime.start_hour:
+		if time >= 2 and time <= worktime.MORNING_TIME:
 			light += 0.16
-		elif time >= worktime.end_hour:
+		elif time >= worktime.EVENING_TIME:
 			light -= 0.1
 	)
 
@@ -46,4 +50,5 @@ func _overtime_frame():
 
 func set_lights(enabled: bool):
 	for l in lights:
-		l.enabled = enabled
+		if l:
+			l.enabled = enabled

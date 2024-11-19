@@ -16,10 +16,8 @@ func _ready():
 		day_label.text = "Day %s" % (GameManager.day + 1)
 		level_label.text = "%s" % GameManager.get_level_text()
 		level_label.show()
-	elif GameManager.is_crunch_mode():
-		day_label.text = "Crunch Time"
-	elif GameManager.is_interview_mode():
-		day_label.text = "Job Interview"
+	else:
+		day_label.text = GameManager.get_mode_title(GameManager.current_mode)
 
 	_show_animation()
 
