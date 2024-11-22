@@ -29,7 +29,7 @@ func _hide_overlay():
 	
 	tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tw.tween_property(overlay, "modulate", Color.TRANSPARENT, 0.5)
-	delegator.reset()
+	#delegator.reset()
 	_remove_highlight()
 
 func _remove_highlight():

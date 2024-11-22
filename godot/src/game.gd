@@ -4,7 +4,6 @@ extends Node2D
 @export var overload_reduce := 20.0
 @export var work_time: WorkTime
 @export var max_document_count := 15 # slower documents at this point
-@export var person_container: Haika
 
 @export_category("Boss")
 @export var min_documents := 2
@@ -49,7 +48,6 @@ extends Node2D
 var is_gameover = false:
 	set(v):
 		is_gameover = v
-		person_container.is_gameover = v
 
 var documents = []
 var attacking := false
@@ -167,6 +165,7 @@ func _finished(is_gameover = false):
 				"overtime": work_time.get_overtime(),
 			}
 			GameManager.finished_day(data)
+			
 			if is_gameover:
 				gameover.fired()
 			else:
@@ -228,7 +227,6 @@ func _add_document(doc: Document, await_start := false):
 			doc.move_to(doc.global_position + Vector2.DOWN * 200)
 		else:
 			doc.move_to(Vector2(-doc_spawner.global_position.x, doc_spawner.global_position.y))
-			person_container.add_document()
 
 		overload_progress.reduce(overload_reduce)
 		overload_timer.stop()

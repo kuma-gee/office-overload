@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=86 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -58,8 +58,6 @@
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
 [ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
-[ext_resource type="Script" path="res://src/ui/haika.gd" id="57_68uuw"]
-[ext_resource type="PackedScene" uid="uid://dpscoqgof7c0o" path="res://src/ui/person_info.tscn" id="57_yi5dh"]
 [ext_resource type="Script" path="res://src/RandomTimer.gd" id="59_kef6u"]
 [ext_resource type="Script" path="res://src/shift_overlay.gd" id="59_nhn8c"]
 
@@ -538,11 +536,10 @@ glow_enabled = true
 glow_bloom = 0.05
 glow_blend_mode = 0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "person_container", "player_doc_label", "boss_doc_label", "boss_attack_timer")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "player_doc_label", "boss_doc_label", "boss_attack_timer")]
 top_level = true
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
-person_container = NodePath("CanvasLayer/Haika")
 player_doc_label = NodePath("Desk/Computer/HBoxContainer/VBoxContainer/PlayerDocuments")
 boss_doc_label = NodePath("Desk/Computer/HBoxContainer/VBoxContainer2/BossDocuments")
 boss_attack_timer = NodePath("BossAttackTimer")
@@ -683,23 +680,6 @@ visible = false
 [node name="Delegator" type="Node" parent="CanvasLayer" node_paths=PackedStringArray("nodes")]
 script = ExtResource("20_tcix1")
 nodes = [NodePath("../..")]
-
-[node name="Haika" type="VBoxContainer" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "delegator")]
-visible = false
-offset_bottom = 146.0
-script = ExtResource("57_68uuw")
-person_info_scene = ExtResource("57_yi5dh")
-overlay = NodePath("../../Overlay")
-delegator = NodePath("../Delegator")
-
-[node name="PersonInfo" parent="CanvasLayer/Haika" instance=ExtResource("57_yi5dh")]
-layout_mode = 2
-
-[node name="PersonInfo2" parent="CanvasLayer/Haika" instance=ExtResource("57_yi5dh")]
-layout_mode = 2
-
-[node name="PersonInfo3" parent="CanvasLayer/Haika" instance=ExtResource("57_yi5dh")]
-layout_mode = 2
 
 [node name="Distractions" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "shift_button")]
 visible = false

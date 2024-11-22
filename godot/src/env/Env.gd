@@ -1,7 +1,6 @@
 extends Node
 
 const APP_ID = 3191960
-const DEMO_ID = 3196670
 
 var log_level := Logger.Level.DEBUG
 var version := Build.VERSION
