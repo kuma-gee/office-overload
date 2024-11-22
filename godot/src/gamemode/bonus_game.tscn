@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bm6glqenuebbr"]
+[gd_scene load_steps=42 format=3 uid="uid://bm6glqenuebbr"]
 
 [ext_resource type="Script" path="res://src/gamemode/bonus_game.gd" id="1_h8rtr"]
 [ext_resource type="Shader" path="res://src/base-system/shaders/hit.gdshader" id="1_y4413"]
@@ -21,9 +21,19 @@
 [ext_resource type="Script" path="res://src/BlinkText.gd" id="15_0deuh"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="15_wdlim"]
 [ext_resource type="Shader" path="res://src/gamemode/drunk_camera.gdshader" id="23_aobx4"]
+[ext_resource type="Script" path="res://src/ui/ending.gd" id="24_3gklo"]
+[ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="24_m2g75"]
 [ext_resource type="Script" path="res://src/DocSpawner.gd" id="25_lm2mi"]
+[ext_resource type="Script" path="res://src/delegator.gd" id="25_sdwea"]
+[ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="26_gc4xk"]
+[ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="27_4ixvh"]
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="27_ng3f4"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="28_5efhx"]
+[ext_resource type="Script" path="res://src/ui/break_button.gd" id="31_mah44"]
+[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="32_g7kve"]
+[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="33_4fd3s"]
+[ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="34_12c13"]
+[ext_resource type="AudioStream" uid="uid://e82h4pq7oib4" path="res://assets/sound/金額表示.mp3" id="35_ob7ro"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8kwky"]
 shader = ExtResource("1_y4413")
@@ -35,6 +45,8 @@ shader = ExtResource("23_aobx4")
 shader_parameter/amplitutde = Vector2(0.01, 0.01)
 shader_parameter/speed = Vector2(10, 10)
 shader_parameter/blur = 1.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_71ux3"]
 
 [sub_resource type="Animation" id="Animation_6pe1c"]
 length = 0.001
@@ -339,6 +351,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("7_pf076")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
 visible = false
@@ -401,6 +414,122 @@ grow_vertical = 2
 [node name="Day" parent="CanvasLayer/Control" instance=ExtResource("7_apkwh")]
 layout_mode = 1
 display_time = null
+
+[node name="Ending" type="Control" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+mouse_filter = 2
+script = ExtResource("24_3gklo")
+
+[node name="Delegator" type="Node" parent="CanvasLayer/Control/Ending"]
+script = ExtResource("25_sdwea")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/Ending"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/Ending"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/Ending/CenterContainer"]
+custom_minimum_size = Vector2(100, 160)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_71ux3")
+
+[node name="Work" type="MarginContainer" parent="CanvasLayer/Control/Ending/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Ending/CenterContainer/PanelContainer/Work"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="CanvasLayer/Control/Ending/CenterContainer/PanelContainer/Work/VBoxContainer"]
+layout_mode = 2
+text = "closing hour"
+label_settings = ExtResource("24_m2g75")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Ending/CenterContainer/PanelContainer/Work/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+
+[node name="DayDelegator" type="Node" parent="CanvasLayer/Control/Ending/CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("nodes")]
+script = ExtResource("25_sdwea")
+nodes = [NodePath("../NextDay/NextDayButton"), NodePath("../NextDay/Break")]
+
+[node name="Drunk" type="Label" parent="CanvasLayer/Control/Ending/CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "DRANK 100 BEER"
+label_settings = ExtResource("26_gc4xk")
+horizontal_alignment = 1
+
+[node name="Overtime" type="Label" parent="CanvasLayer/Control/Ending/CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "FULL RECOVERED"
+label_settings = ExtResource("26_gc4xk")
+horizontal_alignment = 1
+
+[node name="Overtime2" type="Label" parent="CanvasLayer/Control/Ending/CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Hangover"
+label_settings = ExtResource("26_gc4xk")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/Ending/CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NextDay" type="HBoxContainer" parent="CanvasLayer/Control/Ending/CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="NextDayButton" parent="CanvasLayer/Control/Ending/CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("27_4ixvh")]
+layout_mode = 2
+word = "Next Day"
+
+[node name="Break" parent="CanvasLayer/Control/Ending/CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("27_4ixvh")]
+layout_mode = 2
+script = ExtResource("31_mah44")
+word = "Break"
+
+[node name="EndEffect" type="Node" parent="CanvasLayer/Control/Ending"]
+script = ExtResource("32_g7kve")
+trans = 10
+ease = 1
+duration = 0.8
+
+[node name="Slide2" type="Node" parent="CanvasLayer/Control/Ending/EndEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("33_4fd3s")
+node = NodePath("../../CenterContainer")
+
+[node name="Fade" type="Node" parent="CanvasLayer/Control/Ending/EndEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("34_12c13")
+node = NodePath("../../ColorRect")
+
+[node name="OpenSound" type="AudioStreamPlayer" parent="CanvasLayer/Control/Ending"]
+stream = ExtResource("35_ob7ro")
+volume_db = -10.0
+bus = &"SFX"
 
 [node name="KeyReader" type="Node" parent="."]
 script = ExtResource("28_5efhx")

@@ -17,7 +17,7 @@ var drunk_amount := 0.0
 
 func _ready():
 	value = 0.0
-	target_wpm = 50 #GameManager.average_wpm * 0.5 # 5 char / 60s
+	target_wpm = GameManager.average_wpm * 0.5 # 5 char / 60s
 	
 	var total_chars_per_minute = target_wpm * 5
 	var total_chars_per_second = total_chars_per_minute / 60

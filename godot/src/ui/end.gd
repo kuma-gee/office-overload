@@ -42,6 +42,7 @@ const GRADES = {
 @export var acc_label: Label
 @export var points_label: Label
 @export var grade_label: Label
+@export var wpm_label: Label
 
 @export_category("Promotion")
 @export var promotion_text: RichTextLabel
@@ -94,6 +95,7 @@ func day_ended(data: Dictionary):
 	# overtime.text = "%s hours of wovertime" % overtime_hours
 	# distraction_label.text = "%s ignored messages" % distraction_missed
 	distraction_label.text = "%s" % wrong
+	wpm_label.text = "%0.f" % data["wpm"]
 
 	# points_label.text = "Performance %s" % points
 	

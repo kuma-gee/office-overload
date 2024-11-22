@@ -38,7 +38,9 @@ func _gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and not delegator.has_focused():
 		get_viewport().gui_release_focus()
 		animation_player.play("close_folder")
-		closed.emit()
 	
 	delegator.handle_event(event)
 	get_viewport().set_input_as_handled()
+
+func close_finished():
+	closed.emit()

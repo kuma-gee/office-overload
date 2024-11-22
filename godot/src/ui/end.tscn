@@ -23,14 +23,14 @@
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99435, 0), -3.02564, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_wjj53"]
+[sub_resource type="CurveTexture" id="CurveTexture_canlb"]
 curve = SubResource("Curve_30t50")
 
 [sub_resource type="Curve" id="Curve_5elgx"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.14201, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_a4gy4"]
+[sub_resource type="CurveTexture" id="CurveTexture_fpx84"]
 curve = SubResource("Curve_5elgx")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6w7w2"]
@@ -42,8 +42,8 @@ initial_velocity_max = 20.0
 gravity = Vector3(0, 10, 0)
 scale_min = 5.0
 scale_max = 5.0
-scale_curve = SubResource("CurveTexture_a4gy4")
-alpha_curve = SubResource("CurveTexture_wjj53")
+scale_curve = SubResource("CurveTexture_fpx84")
+alpha_curve = SubResource("CurveTexture_canlb")
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_k1u62"]
 content_margin_top = 3.0
@@ -107,7 +107,7 @@ promotion_tip_text = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer
 perfect_tasks_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2/MaxCombo")
 distraction_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3/Mistakes")
 points_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Points")
-grade_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D/GradeLabel")
+grade_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Grade/Sprite2D/GradeLabel")
 promotion_text = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/TypingLabel")
 promotion_text_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer")
 promotion_particle_1 = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2/GPUParticles2D")
@@ -295,15 +295,29 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
 
-[node name="Grade" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer4" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4"]
+layout_mode = 2
+text = "Speed"
+label_settings = ExtResource("4_0mkg1")
+
+[node name="WPM" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
+text = "100"
+
+[node name="Grade" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(34.135, 12.14)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Grade"]
 material = SubResource("ShaderMaterial_w53bh")
-position = Vector2(32, 21)
+position = Vector2(93, 11)
 texture = ExtResource("8_fgvoi")
 
-[node name="GradeLabel" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D"]
+[node name="GradeLabel" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Grade/Sprite2D"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -367,7 +381,7 @@ size_flags_vertical = 3
 
 [node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 
 [node name="NextDayButton" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
 layout_mode = 2

@@ -15,6 +15,8 @@ var is_gameover := false
 var documents := []
 var type_time := []
 
+var typed := 0
+
 func _ready() -> void:
 	if GameManager.is_morning_mode():
 		work_time.start_hour = 6
@@ -71,7 +73,10 @@ func _spawn_document():
 	documents.append(doc)
 
 func _add_document(doc: Document):
-	doc.typed.connect(func(): progress_bar.typed())
+	doc.typed.connect(func():
+		typed += 1
+		progress_bar.typed()
+	)
 	doc.finished.connect(func():
 		doc.move_to(Vector2(-doc_spawner.global_position.x, doc_spawner.global_position.y))
 		_on_document_finished(doc)

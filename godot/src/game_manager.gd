@@ -150,6 +150,7 @@ func finished_day(data: Dictionary):
 	var acc = wpm_calculator.get_average_accuracy()
 	var current_size = wpm_calculator.get_total_size()
 	var previous_size = total_completed_words * 0.5 # count previous wpm less than the current one
+	data["wpm"] = wpm
 
 	average_wpm = ((average_wpm * previous_size) + (wpm * current_size)) / (previous_size + current_size)
 	average_accuracy = ((average_accuracy * previous_size) + (acc * current_size)) / (previous_size + current_size)
