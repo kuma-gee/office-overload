@@ -3,6 +3,8 @@ extends Control
 
 signal loaded()
 
+@export var fullscreen_button: TypingButton
+
 const SECTION = "display"
 const FULLSCREEN = "fullscreen"
 
@@ -22,3 +24,6 @@ func is_fullscreen():
 
 func set_fullscreen(fullscreen: bool):
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if fullscreen else DisplayServer.WINDOW_MODE_MAXIMIZED)
+
+func set_active(v: bool):
+	fullscreen_button.get_label().highlight_first = v

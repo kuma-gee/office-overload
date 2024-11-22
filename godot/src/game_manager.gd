@@ -67,6 +67,7 @@ var unlocked_modes = [Mode.Work]
 var performance := 0.0
 
 var received_promotion_day := 0
+var days_since_promotion := 0
 
 ### Maybe Save? ###
 var last_interview_wpm := 0.0
@@ -151,6 +152,7 @@ func reset_values():
 	past_wpms = []
 
 	received_promotion_day = 0
+	days_since_promotion = 0
 	
 	job_quited.emit()
 	_save_data()
@@ -190,6 +192,7 @@ func finished_day(data: Dictionary):
 	
 	if is_work_mode():
 		day += 1
+		days_since_promotion += 1
 
 	_save_data()
 	round_ended.emit()
@@ -309,6 +312,7 @@ func take_promotion():
 		has_reached_junior = true
 	
 	received_promotion_day = day
+	days_since_promotion = 0
 	_save_data()
 
 func is_max_promotion():

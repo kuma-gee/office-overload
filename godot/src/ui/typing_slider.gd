@@ -2,6 +2,7 @@ class_name TypingSlider
 extends HBoxContainer
 
 signal opened(open)
+signal activated(active)
 
 @export var trigger_button: TypingButton
 @export var delta := 5
@@ -36,6 +37,11 @@ func set_control_visible(v: bool):
 	
 	slider.highlight(v)
 	opened.emit(v)
+	
+	activated.emit(v)
+
+func set_active(v: bool):
+	trigger_button.get_label().highlight_first = v
 
 func handle_event(event: InputEvent):
 	if event.is_action_pressed("ui_cancel"):

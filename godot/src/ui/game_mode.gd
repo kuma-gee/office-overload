@@ -9,6 +9,8 @@ const DESC = {
 
 	GameManager.Mode.Crunch: "Work until you burn out. (endless)",
 	GameManager.Mode.Interview: "Tests your skills. (timed)",
+	
+	GameManager.Mode.Multiplayer: "Challenge other co-workers",
 }
 
 @export var typing_button: TypingButton

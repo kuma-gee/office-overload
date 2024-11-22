@@ -420,7 +420,6 @@ focus_mode = 1
 color = Color(0, 0, 0, 0.588235)
 
 [node name="Settings" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("overlay", "sliders", "display_settings", "delegator")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -453,16 +452,16 @@ script = ExtResource("15_b245w")
 node = NodePath("../../../MenuOverlay")
 
 [node name="Audio" type="PanelContainer" parent="CanvasLayer/Control/Settings"]
-custom_minimum_size = Vector2(240, 150)
+custom_minimum_size = Vector2(100, 160)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -119.0
+offset_left = -87.0
 offset_top = -75.0
-offset_right = 121.0
+offset_right = 90.0
 offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -475,10 +474,11 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="DisplaySettings" type="VBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer"]
+[node name="DisplaySettings" type="VBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer" node_paths=PackedStringArray("fullscreen_button")]
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("21_i78lr")
+fullscreen_button = NodePath("VBoxContainer/FullScreen")
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings"]
 layout_mode = 2
@@ -489,8 +489,8 @@ horizontal_alignment = 1
 [node name="VBoxContainer" type="GridContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/h_separation = 5
-theme_override_constants/v_separation = 5
+theme_override_constants/h_separation = 3
+theme_override_constants/v_separation = 3
 columns = 2
 
 [node name="MasterVolume" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_2n7ql")]
@@ -510,6 +510,7 @@ slider = NodePath("Slider")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
 word = "h"
+show_underline = false
 
 [node name="Slider" type="HSlider" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider" node_paths=PackedStringArray("audio")]
 custom_minimum_size = Vector2(50, 0)
@@ -523,6 +524,7 @@ audio = NodePath("../../../../..")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
 word = "l"
+show_underline = false
 
 [node name="BGMVolume" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_2n7ql")]
 custom_minimum_size = Vector2(50, 0)
@@ -541,6 +543,7 @@ slider = NodePath("Slider")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
 word = "h"
+show_underline = false
 
 [node name="Slider" type="HSlider" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider" node_paths=PackedStringArray("audio")]
 custom_minimum_size = Vector2(50, 0)
@@ -555,6 +558,7 @@ bus_name = "BGM"
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
 word = "l"
+show_underline = false
 
 [node name="SFXVolume" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_2n7ql")]
 custom_minimum_size = Vector2(50, 0)
@@ -573,6 +577,7 @@ slider = NodePath("Slider")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_87uxo")
 word = "h"
+show_underline = false
 
 [node name="Slider" type="HSlider" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider" node_paths=PackedStringArray("audio")]
 custom_minimum_size = Vector2(50, 0)
@@ -587,6 +592,7 @@ bus_name = "SFX"
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_fhusc")
 word = "l"
+show_underline = false
 
 [node name="FullScreen" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("checkbox") instance=ExtResource("7_2n7ql")]
 layout_mode = 2
@@ -645,14 +651,15 @@ color = Color(0, 0, 0, 0.313726)
 
 [node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/Settings"]
 layout_mode = 1
-offset_left = 44.0
+offset_left = 76.0
 offset_top = 18.0
-offset_right = 56.0
+offset_right = 88.0
 offset_bottom = 27.0
 texture_normal = ExtResource("14_vk34l")
 script = ExtResource("19_uqiqi")
 
 [node name="GameModes" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("delegator")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -666,7 +673,7 @@ delegator = NodePath("Delegator")
 
 [node name="Delegator" type="Node" parent="CanvasLayer/Control/GameModes" node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
-nodes = [NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode3"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode2"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode4"), NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode5")]
+nodes = [NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode"), null, NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode2"), null, NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode5")]
 
 [node name="EffectRoot" type="Node" parent="CanvasLayer/Control/GameModes"]
 script = ExtResource("14_hvw1b")
@@ -725,20 +732,12 @@ layout_mode = 2
 layout_mode = 2
 mode = 0
 
-[node name="GameMode3" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
-layout_mode = 2
-mode = 3
-
 [node name="GameMode2" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
 layout_mode = 2
 
-[node name="GameMode4" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
-layout_mode = 2
-mode = 4
-
 [node name="GameMode5" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_npox4")]
 layout_mode = 2
-mode = 5
+mode = 6
 
 [node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/GameModes"]
 layout_mode = 0
@@ -988,14 +987,11 @@ alignment = 1
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_kv34e")
 word = "H"
+show_underline = false
 
 [node name="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton" index="1"]
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
-
-[node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer" index="0"]
-theme_override_font_sizes/normal_font_size = 6
-text = "H"
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"]
 visible = false
@@ -1021,14 +1017,11 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_tnvcv")
 word = "L"
+show_underline = false
 
 [node name="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton" index="1"]
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
-
-[node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton/MarginContainer" index="0"]
-theme_override_font_sizes/normal_font_size = 6
-text = "L"
 
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton"]
 visible = false

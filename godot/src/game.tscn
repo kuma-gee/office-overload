@@ -1310,7 +1310,7 @@ bus = &"SFX"
 
 [node name="MarginContainer" type="MarginContainer" parent="Desk/Clock/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 0
+theme_override_constants/margin_top = 1
 
 [node name="Colon" type="Label" parent="Desk/Clock/HBoxContainer/MarginContainer" node_paths=PackedStringArray("blink_timer")]
 layout_mode = 2
@@ -1540,7 +1540,7 @@ vertical_alignment = 1
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="DocSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("word_generator")]
-position = Vector2(-200, 0)
+position = Vector2(-200, 18)
 script = ExtResource("4_macw6")
 document_scene = ExtResource("2_35x6g")
 word_generator = NodePath("WordGenerator")

@@ -1,16 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgwassol31f0l"]
+[gd_scene load_steps=5 format=3 uid="uid://cgwassol31f0l"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_jl3i8"]
 [ext_resource type="Script" path="res://src/ui/TypingButton.gd" id="1_vmnp8"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="3_w7wv5"]
 
-[node name="TypingButton" type="PanelContainer" node_paths=PackedStringArray("typing_label", "button", "center_container", "panel", "container")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_af0u4"]
+
+[node name="TypingButton" type="PanelContainer" node_paths=PackedStringArray("typing_label", "button", "underline", "center_container", "panel", "container")]
 offset_right = 18.0
 offset_bottom = 16.0
 theme = ExtResource("1_jl3i8")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_af0u4")
 script = ExtResource("1_vmnp8")
-typing_label = NodePath("MarginContainer/TypingLabel")
+typing_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/TypingLabel")
 button = NodePath("MarginContainer/TextureButton")
+underline = NodePath("MarginContainer/VBoxContainer/ColorRect")
 center_container = NodePath("CenterPanel")
 panel = NodePath("CenterPanel/Panel")
 container = NodePath("MarginContainer")
@@ -24,17 +28,29 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 0
 
-[node name="TypingLabel" parent="MarginContainer" instance=ExtResource("3_w7wv5")]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 10
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 3
+
+[node name="TypingLabel" parent="MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource("3_w7wv5")]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 8
 height = 1.0
 center = false
 highlight_first = true
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="TextureButton" type="TextureButton" parent="MarginContainer"]
 layout_mode = 2

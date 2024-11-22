@@ -7,7 +7,9 @@ extends Node
 var last_words := []
 
 func add_words(words: Array):
-	self.words.append_array(_normalize(words))
+	for w in _normalize(words):
+		if not w in self.words:
+			self.words.append(w)
 
 func remove_words_less(char_count: int):
 	for w in words:

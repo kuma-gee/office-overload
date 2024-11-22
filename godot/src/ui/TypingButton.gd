@@ -8,6 +8,9 @@ signal finished()
 @export var button: TextureButton
 @export var reset_on_finished := true
 
+@export var underline: Control
+@export var show_underline := true
+
 @export var center_container: Control
 @export var panel: Panel
 @export var container: Control
@@ -30,6 +33,8 @@ func _ready():
 	
 	if reset_on_finished:
 		finished.connect(func(): reset())
+
+	underline.visible = show_underline
 
 func _press_effect():
 	center_container.pivot_offset = center_container.size / 2
@@ -61,7 +66,7 @@ func set_typed(player_typed: String):
 func get_word():
 	return typing_label.get_word()
 
-func get_label():
+func get_label() -> TypedWord:
 	return typing_label
 
 func reset():

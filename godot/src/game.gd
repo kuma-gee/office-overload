@@ -3,7 +3,6 @@ extends Node2D
 
 @export var overload_reduce := 20.0
 @export var work_time: WorkTime
-@export var max_document_count := 15 # slower documents at this point
 
 @export_category("Boss")
 @export var min_documents := 2
@@ -186,12 +185,9 @@ func _spawn():
 	
 	if GameManager.is_work_mode():
 		if not GameManager.is_intern():
-			#var count = pow(2, 1 / documents.size())
-			#var p = count / float(pow(2, max_document_count))
-			#var t = lerp(GameManager.difficulty.max_documents, GameManager.difficulty.min_documents, p)
-			
-			var t = max(pow(GameManager.difficulty.max_documents, documents.size() / float(max_document_count)), GameManager.difficulty.min_documents)
-			spawn_timer.start(t)
+			var day_multipler = min(remap(GameManager.days_since_promotion, 1, 10, 1.0, 0.5), 1.0)
+			var document_multipler = max(remap(documents.size(), 5, 15, 1.0, 5.0), 1.0)
+			spawn_timer.start(GameManager.difficulty.base_document_time * day_multipler * document_multipler)
 	elif GameManager.is_interview_mode():
 		if documents.size() < min_documents:
 			_spawn()
