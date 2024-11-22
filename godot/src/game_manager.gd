@@ -9,6 +9,16 @@ signal mode_unlocked(mode)
 
 signal logged(line)
 
+const GRADES = {
+	"S": 90,
+	"A": 60,
+	"B": 30,
+	"C": 10,
+	"D": 0,
+	"E": -10,
+	"F": -30,
+}
+
 const DIFFICULTIES = {
 	DifficultyResource.Level.INTERN: preload("res://src/difficulty/Intern.tres"),
 	DifficultyResource.Level.JUNIOR: preload("res://src/difficulty/Junior.tres"),
@@ -56,6 +66,8 @@ var has_reached_junior := false
 var unlocked_modes = [Mode.Work]
 var performance := 0.0
 
+var received_promotion_day := 0
+
 ### Maybe Save? ###
 var last_interview_wpm := 0.0
 var last_interview_accuracy := 0.0
@@ -82,7 +94,7 @@ func _load_data():
 		cache_properties.load_data(data)
 	
 	# self.difficulty_level = DifficultyResource.Level.INTERN
-	unlocked_modes = Mode.values()
+	#unlocked_modes = Mode.values()
 	
 	_logger.info("Game initialized")
 	init = true
@@ -137,6 +149,8 @@ func reset_values():
 	average_accuracy = 0.0
 	total_completed_words = 0
 	past_wpms = []
+
+	received_promotion_day = 0
 	
 	job_quited.emit()
 	_save_data()
@@ -183,6 +197,7 @@ func finished_day(data: Dictionary):
 func calculate_performance(data: Dictionary):
 	var total = data["total"]
 	var wrong = data["wrong"]
+	var mistyped = data["tasks"] != data["combo"]
 	
 	# var missed_point = pow(distraction_missed, 2) # max ~9 distractions
 	#var perfect_points = pow(perfect, 1.5) # max ~20 tasks
@@ -194,6 +209,14 @@ func calculate_performance(data: Dictionary):
 	points -= wrong_points
 	# points = floor(points * acc)
 	data["points"] = points
+
+	var grade = "F"
+	for g in GRADES.keys():
+		if points >= GRADES[g]:
+			grade = g
+			break
+
+	data["grade"] = grade
 	return points
 
 func upload_work_scores(wpm: float = average_wpm, acc: float = average_accuracy, level: int = difficulty_level):
@@ -285,6 +308,7 @@ func take_promotion():
 	if difficulty_level >= DifficultyResource.Level.JUNIOR:
 		has_reached_junior = true
 	
+	received_promotion_day = day
 	_save_data()
 
 func is_max_promotion():

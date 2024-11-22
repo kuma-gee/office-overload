@@ -112,12 +112,12 @@ func _add_document(doc: Document):
 		GameManager.finish_type(doc.word, doc.mistakes)
 		player_doc_label.text = "%s" % document_stack.total
 		
-		if doc.is_discarded():
+		if doc.is_discarded:
 			doc.move_to(doc.global_position + Vector2.DOWN * 200)
 		else:
 			doc.move_to(Vector2(-doc_spawner.global_position.x, doc_spawner.global_position.y))
 
-		document_stack.add_document(doc.mistakes > 0, doc_spawner.is_invalid_word(doc.word), doc.is_discarded())
+		document_stack.add_document(doc.mistakes > 0, doc_spawner.is_invalid_word(doc.word), doc.is_discarded)
 		documents.erase(doc)
 		
 		if documents.size() > 0:

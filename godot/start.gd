@@ -37,12 +37,12 @@ func _ready():
 		teams_node.move_in(0.7)
 	
 	work_label.type_finish.connect(func():
-		var modes = GameManager.get_unlocked_modes()
-		if modes.size() == 1 or Env.is_demo():
+		#var modes = GameManager.get_unlocked_modes()
+		#if modes.size() == 1 or Env.is_demo():
 			GameManager.start(GameManager.Mode.Work)
 			work_label.reset()
-		else:
-			game_modes.grab_focus()
+		#else:
+			#game_modes.grab_focus()
 	)
 	
 	settings.focus_exited.connect(func(): prepare_node.move_in())

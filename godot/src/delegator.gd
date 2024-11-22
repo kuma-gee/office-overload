@@ -7,7 +7,7 @@ var last_event: InputEvent
 
 func reset():
 	for node in nodes:
-		if node and node.get_label():
+		if node and node.has_method("get_label") and node.get_label():
 			node.get_label().reset()
 
 func handle_event(event: InputEvent):

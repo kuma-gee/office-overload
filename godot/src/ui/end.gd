@@ -1,16 +1,5 @@
 extends Control
 
-# S, A, B, C, D, E, F
-const GRADES = {
-	"S": 90,
-	"A": 60,
-	"B": 30,
-	"C": 10,
-	"D": 0,
-	"E": -10,
-	"F": -30,
-}
-
 @onready var end_effect = $EndEffect
 
 @export var open_sound: AudioStreamPlayer
@@ -79,15 +68,9 @@ func day_ended(data: Dictionary):
 	# var overtime_hours = data["overtime"]
 	# var distraction_missed = data["distractions"]
 	var points = data["points"]
-	var grade = "F"
-	for g in GRADES.keys():
-		if points >= GRADES[g]:
-			grade = g
-			break
-	grade_label.text = grade
+	var grade = data["grade"]
 
-	#var acc = data["acc"]
-	
+	grade_label.text = grade
 	title.text = "Day %s report" % GameManager.day
 	finished_tasks.text = "%s" % tasks
 	perfect_tasks_label.text = "%s" % combo

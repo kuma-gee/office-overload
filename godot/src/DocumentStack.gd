@@ -51,6 +51,7 @@ var combo_count := 0:
 var tasks := 0
 var wrong_tasks := 0
 var highest_streak := 0
+var missed_combos := 0
 
 var actual_document_count := 0:
 	set(v):

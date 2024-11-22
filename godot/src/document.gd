@@ -17,7 +17,8 @@ signal typed()
 @onready var paper_move_in = $PaperMoveIn
 @onready var paper_sort = $PaperSort
 
-const TRASH_PREFIX = "!"
+# const TRASH_PREFIX = "!"
+var is_discarded := false
 
 var mistakes := 0
 var word := ""
@@ -82,14 +83,13 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
 
 func enable_trash():
-	typing_label.word = TRASH_PREFIX + word
-	typing_label.highlight_first = true
+	#typing_label.word = TRASH_PREFIX + word
+	#typing_label.highlight_first = true
 	z_index = 100
+	is_discarded = true
 
 func reset_word():
-	typing_label.word = word
-	typing_label.highlight_first = false
+	#typing_label.word = word
+	#typing_label.highlight_first = false
 	z_index = 0
-
-func is_discarded():
-	return typing_label.word.begins_with(TRASH_PREFIX)
+	is_discarded = false

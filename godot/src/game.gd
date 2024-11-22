@@ -109,18 +109,9 @@ func _ready():
 
 	work_time.next_work_day.connect(func(): _finished(true))
 	work_time.day_ended.connect(func():
-		if documents.is_empty():
+		if documents.is_empty() or GameManager.is_intern():
 			_finished()
 	)
-
-	# document_stack.document_added.connect(func():
-	# 	if GameManager.is_work_mode():
-	# 		var p = _get_difficulty_level()
-	# 		if p > 0.7:
-	# 			doc_spawner.add_hard()
-	# 		elif p > 0.4:
-	# 			doc_spawner.add_medium()
-	# )
 	
 	key_reader.pressed_key.connect(func(key, shift):
 		if not documents.is_empty():
@@ -128,21 +119,15 @@ func _ready():
 				document_stack.add_combo()
 			else:
 				document_stack.add_mistake()
-				# frame_freeze.freeze(0.05)
 	)
 	key_reader.pressed_cancel.connect(func(shift):
 		if not is_gameover:
 			pause.grab_focus()
 	)
 
-#func _unhandled_input(event: InputEvent) -> void:
-	#if event.is_action_pressed("ui_cancel") and not is_gameover:
-		#pause.grab_focus()
-
 func _on_day_finished():
 	if GameManager.is_work_mode():
 		bgm.pitch_scale = GameManager.difficulty.bgm_speed
-		#print("Setting pitch to %s, actual %s" % [GameManager.difficulty.bgm_speed, bgm.pitch_scale])
 	else:
 		bgm.pitch_scale = 1.0
 	
@@ -150,8 +135,6 @@ func _on_day_finished():
 		_start_game()
 	else:
 		_spawn_document(true)
-		#animation_player.play("silent_bgm")
-		#await animation_player.animation_finished
 		animation_player.play("tutorial")
 
 func _start_game():
@@ -178,11 +161,10 @@ func _finished(is_gameover = false):
 		else:
 			var data = {
 				"total": document_stack.total_points,
-				"mistyped": document_stack.tasks,
+				"tasks": document_stack.tasks,
 				"combo": document_stack.highest_streak,
 				"wrong": document_stack.wrong_tasks,
 				"overtime": work_time.get_overtime(),
-				# "distractions": distractions.missed,
 			}
 			GameManager.finished_day(data)
 			if is_gameover:
@@ -242,7 +224,7 @@ func _add_document(doc: Document, await_start := false):
 		GameManager.finish_type(doc.word, doc.mistakes)
 		player_doc_label.text = "%s" % document_stack.total_points
 		
-		if doc.is_discarded():
+		if doc.is_discarded:
 			doc.move_to(doc.global_position + Vector2.DOWN * 200)
 		else:
 			doc.move_to(Vector2(-doc_spawner.global_position.x, doc_spawner.global_position.y))
@@ -251,7 +233,7 @@ func _add_document(doc: Document, await_start := false):
 		overload_progress.reduce(overload_reduce)
 		overload_timer.stop()
 		
-		document_stack.add_document(doc.mistakes > 0, doc_spawner.is_invalid_word(doc.word), doc.is_discarded(), doc.word)
+		document_stack.add_document(doc.mistakes > 0, doc_spawner.is_invalid_word(doc.word), doc.is_discarded, doc.word)
 		documents.erase(doc)
 		
 		if not work_time.is_day_ended() and GameManager.is_work_mode():

@@ -16,32 +16,13 @@ var invalid_spawned := 0
 
 func _ready():
 	if word_type == WordManager.WORK_GROUP:
-		var p = clamp(GameManager.day / 10, 0, 1)
 		add_easy()
-		add_medium()
-		#if GameManager.is_intern():
-			#add_easy()
-			#if GameManager.day >= 4 and p > 0.8:
-				#add_medium()
-		#else:
-			#if GameManager.is_junior():
-				#add_easy()
-				#if p > 0.4:
-					#add_medium()
-				#if p > 0.9:
-					#add_hard()
-			#else:
-				#add_medium()
-				#if p > 0.9:
-					#add_hard()
+		if GameManager.day >= 3 and GameManager.received_promotion_day != 3:
+			add_medium()
+		elif GameManager.day >= 6 and GameManager.received_promotion_day != 6:
+			add_hard()
 	else:
 		add_words_from_group()
-
-	#elif GameManager.is_interview_mode():
-		#add_easy()
-		#add_medium()
-	#elif GameManager.is_crunch_mode():
-		#add_easy()
 	
 func add_words_from_group():
 	var words = WordManager.get_words(word_type)
@@ -50,7 +31,6 @@ func add_words_from_group():
 	
 
 func is_invalid_word(word: String):
-	#return word in INVALID_WORDS
 	return not word in word_generator.words
 
 func add_easy():

@@ -13,9 +13,9 @@ void fragment() {
 	vec2 pos = mod((UV - amplitutde * sin(TIME + vec2(UV.y, UV.x) * speed)) / TEXTURE_PIXEL_SIZE,
 			1.0 / TEXTURE_PIXEL_SIZE) * TEXTURE_PIXEL_SIZE;
 	COLOR = texture(SCREEN_TEXTURE, pos);
-	
-	
-	COLOR.rgb = (texture(SCREEN_TEXTURE, pos) + 
+
+
+	COLOR.rgb = (texture(SCREEN_TEXTURE, pos) +
 			texture(SCREEN_TEXTURE, pos * blur)).rgb / 2.0;
 			//texture(SCREEN_TEXTURE, pos * 0.98)).rgb / 3.0;
 			//texture(SCREEN_TEXTURE, pos * 0.97 + blur*0.03) +
