@@ -681,7 +681,7 @@ visible = false
 script = ExtResource("20_tcix1")
 nodes = [NodePath("../..")]
 
-[node name="Distractions" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "shift_button")]
+[node name="Distractions" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "shift_button", "work_time")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -694,6 +694,7 @@ theme = ExtResource("10_am0oy")
 script = ExtResource("14_s1o3m")
 overlay = NodePath("../../Overlay")
 shift_button = NodePath("../ShiftButton")
+work_time = NodePath("../../Desk/Clock/HBoxContainer/WorkTime")
 
 [node name="ShakeEffect" type="Node" parent="CanvasLayer/Distractions"]
 script = ExtResource("20_u0r5t")

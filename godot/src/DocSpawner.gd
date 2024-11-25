@@ -13,6 +13,7 @@ extends Marker2D
 var mode = -1
 var invalid_word_accum := 0.0
 var invalid_spawned := 0
+var invalid_skipped := 0
 
 func _ready():
 	if word_type == WordManager.WORK_GROUP:
@@ -68,6 +69,12 @@ var invalid_chances = {
 
 func get_invalid_type():
 	var r = randf()
+	var available = [InvalidType.INVALID]
+	if GameManager.days_since_promotion >= 3:
+		available.append(InvalidType.SWAP)
+	elif GameManager.days_since_promotion >= 6:
+		available.append(InvalidType.CENSOR)
+	
 	for type in invalid_chances.keys():
 		if r < invalid_chances[type]:
 			return type
@@ -114,13 +121,15 @@ func spawn_document(invalid_word_chance := 0.0):
 	var doc = document_scene.instantiate()
 	var word = word_generator.get_random_word()
 
-	if randf() < invalid_word_accum:
+	if randf() < invalid_word_accum and invalid_skipped > 0:
 		_set_invalid_word(doc, word)
 		invalid_word_accum = 0.0
 		invalid_spawned += 1
+		invalid_skipped = 0
 	else:
 		# after checking, so there won't be two invalid words after another
 		invalid_word_accum += invalid_word_chance
+		invalid_skipped += 1
 		doc.word = word
 
 	_move_document_in(doc)

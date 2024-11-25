@@ -1,52 +1,22 @@
 class_name Distraction
 extends Control
 
-const EMAIL = [
-	"Greetings",
-	"Meeting",
-	"Schedule",
-	"Urgent",
-	"Attachment",
-	"Reminder",
-	"Deadline",
-	"Confirmation",
-	"Response"
-]
-
-const PHONE = [
-	"Voicemail",
-	"Reception",
-	"Hold",
-	"Speaker",
-	"Mute",
-	"Ring",
-	"Decline",
-	"Ignore",
-	"Answer",
-]
-
-const JUNIOR = [
-	"Guidance",
-	"Advice",
-	"Clarify",
-	"Support",
-	"Mentorship",
-	"Question",
-	"Assist",
-	"Feedback",
-	"Explain",
-	"Instruct"
-]
-
 enum Type {
 	EMAIL,
 	PHONE,
 	JUNIOR,
 }
 
+const TYPE_MAP = {
+	Type.EMAIL: WordManager.EMAIL_GROUP,
+	Type.PHONE: WordManager.PHONE_GROUP,
+	Type.JUNIOR: WordManager.JUNIOR_GROUP,
+}
+
 @export var distraction_timeout := 10
 @export var overlay: Control
 @export var shift_button: DistractionItem
+@export var work_time: WorkTime
 
 @onready var delegator = $Delegator
 @onready var shake_effect: EffectRoot = $ShakeEffect
@@ -56,11 +26,24 @@ enum Type {
 @onready var junior = $Junior
 @onready var menus: Array[Node] = [email, phone, junior]
 
+var _logger = Logger.new("Distraction")
+
 var tw: Tween
 var distraction_accumulator = 0.0
 var missed := 0
 
+var called := 0
+var shown := 0
+var skipped_since_last_distraction := 0
+
+# Min range: 1 - 2
+# Max range: 6 - 8
+@onready var min_count = min(GameManager.days_since_promotion + 1, 6)
+@onready var max_count = min_count + 1 if min_count < 3 else 2
+
 func _ready():
+	_logger.info("Days since promotion: %s" % GameManager.days_since_promotion)
+	
 	overlay.modulate = Color.TRANSPARENT
 	delegator.nodes = menus
 	_close_all()
@@ -74,6 +57,8 @@ func _ready():
 		)
 		m.timeout.connect(func(): missed += 1)
 
+	_logger.info("Showing %s - %s number of distractions today" % [min_count, max_count])
+
 func _close_all():
 	for x in menus:
 		x.hide()
@@ -84,13 +69,23 @@ func slide_all_out():
 	_hide_overlay()
 
 func maybe_show_distraction():
+	if shown >= max_count:
+		_logger.info("Max distractions shown, not showing more")
+		return
+
+	var distractions_left_to_show = min_count - shown
+	_logger.info("%s distractions left to show" % distractions_left_to_show)
+
+	var skip_count = [1, 2, 2, 1, 0, 0, 0, 0, 0]
 	var distraction_random = randf() - distraction_accumulator
-	if distraction_random < GameManager.difficulty.distractions:
+	if distraction_random < GameManager.difficulty.distractions and skipped_since_last_distraction >= skip_count[shown]:
 		show_distraction()
 		distraction_accumulator = 0.0
+		skipped_since_last_distraction = 0
 	else:
 		# Increase distraction chance, otherwise it's too random and can take too long
-		distraction_accumulator += GameManager.difficulty.distractions / 10.
+		distraction_accumulator += (GameManager.difficulty.distractions / 10.) * distractions_left_to_show
+		skipped_since_last_distraction += 1
 
 func show_distraction():
 	var available = menus.filter(func(m): return m.get_word() == "")
@@ -98,6 +93,7 @@ func show_distraction():
 		available.erase(junior)
 	
 	if available.is_empty() or GameManager.is_manager(): return
+	shown += 1
 	
 	var distraction = available.pick_random()
 	var word = _get_random_distraction_word(distraction.type)
@@ -108,25 +104,8 @@ func show_distraction():
 		shift_button.slide_in_full()
 
 func _get_random_distraction_word(type: Type):
-	var active = _get_active_words()
-	var available = []
-	
-	match type:
-		Type.EMAIL: available = EMAIL
-		Type.PHONE: available = PHONE
-		Type.JUNIOR: available = JUNIOR
-	
-	var max_loop = 10
-	var loop = 0
-	var word = ""
-	while word.length() == 0 or active.filter(func(x): return x[0] == word[0]).size() > 0:
-		word = available.pick_random()
-		loop += 1
-		
-		if loop >= max_loop:
-			break
-
-	return word
+	var available = WordManager.get_words(TYPE_MAP[type]) # TODO: use WordGenerator??
+	return available.pick_random()
 
 func _get_active_words():
 	var result = []

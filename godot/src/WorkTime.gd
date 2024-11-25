@@ -42,6 +42,11 @@ func _set_start_hour():
 func get_overtime():
 	return max(hour - end_hour, 0)
 
+func get_time_left():
+	var total = end_hour - start_hour
+	var left = end_hour - hour
+	return left / float(total)
+
 func start():
 	hour = start_hour
 	started.emit()
