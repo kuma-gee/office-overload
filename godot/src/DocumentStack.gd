@@ -117,8 +117,8 @@ func remove_document():
 		document_emptied.emit()
 
 func add_document(mistake := false, wrong := false, is_discarded := false, word := ""):
-	var doc = _create_doc()
-	_move_in_doc(doc)
+	#var doc = _create_doc()
+	#_move_in_doc(doc)
 	
 	if not is_discarded:
 		if wrong:

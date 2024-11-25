@@ -4,13 +4,18 @@ extends Node2D
 @export var overload_reduce := 20.0
 @export var work_time: WorkTime
 
+@export_category("Work Mode")
+@export var single_player_doc_label: Label
+@export var single_player_combo_label: Label
+
 @export_category("Boss")
 @export var min_documents := 2
 @export var boss_process_speed := 3.0
-@export var player_doc_label: Label
 @export var boss_doc_label: Label
 @export var boss_attack_count := 3
 @export var boss_attack_timer: Timer
+@export var player_doc_label: Label
+@export var player_combo_label: Label
 
 #@export_category("Interview")
 #@export var min_documents := 2
@@ -69,6 +74,7 @@ func _ready():
 	randomize()
 	get_tree().paused = false
 	_set_environment()
+	_update_score()
 	
 	overload_progress.game = self
 	
@@ -116,6 +122,7 @@ func _ready():
 				document_stack.add_combo()
 			else:
 				document_stack.add_mistake()
+				_update_score()
 	)
 	key_reader.pressed_cancel.connect(func(shift):
 		if not is_gameover:
@@ -213,11 +220,19 @@ func _spawn_document(await_start = false):
 		var doc = doc_spawner.spawn_document(invalid_chance) as Document
 		_add_document(doc, await_start)
 
+func _update_score():
+	player_doc_label.text = "%s" % document_stack.total_points
+	player_combo_label.text = "%sx" % document_stack.combo_count
+	player_combo_label.visible = document_stack.combo_count > 0
+	
+	single_player_doc_label.text = "%s" % document_stack.total_points
+	single_player_combo_label.text = "%sx" % document_stack.combo_count
+	single_player_combo_label.visible = document_stack.combo_count > 0
+
 func _add_document(doc: Document, await_start := false):
 	doc.started.connect(func(): GameManager.start_type())
 	doc.finished.connect(func():
 		GameManager.finish_type(doc.word, doc.mistakes)
-		player_doc_label.text = "%s" % document_stack.total_points
 		
 		if doc.is_discarded:
 			doc.move_to(doc.global_position + Vector2.DOWN * 200)
@@ -229,6 +244,8 @@ func _add_document(doc: Document, await_start := false):
 		
 		document_stack.add_document(doc.mistakes > 0, doc_spawner.is_invalid_word(doc.word), doc.is_discarded, doc.word)
 		documents.erase(doc)
+		
+		_update_score()
 		
 		if not work_time.is_day_ended() and GameManager.is_work_mode():
 			distractions.maybe_show_distraction()

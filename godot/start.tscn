@@ -420,6 +420,7 @@ focus_mode = 1
 color = Color(0, 0, 0, 0.588235)
 
 [node name="Settings" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("overlay", "sliders", "display_settings", "delegator")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -975,12 +976,13 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -39.5229
-offset_top = -9.91672
-offset_right = 41.4771
-offset_bottom = 2.08328
+offset_left = -40.0
+offset_top = -11.0
+offset_right = 42.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 0
 alignment = 1
 
 [node name="LeftButton" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer" instance=ExtResource("7_2n7ql")]
@@ -992,6 +994,16 @@ show_underline = false
 [node name="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton" index="1"]
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
+
+[node name="VBoxContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer" index="0"]
+theme_override_constants/separation = -2
+
+[node name="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer/VBoxContainer" index="0"]
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_right = 1
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer/VBoxContainer/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 6
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"]
 visible = false
@@ -1023,6 +1035,16 @@ show_underline = false
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 
+[node name="VBoxContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton/MarginContainer" index="0"]
+theme_override_constants/separation = -2
+
+[node name="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton/MarginContainer/VBoxContainer" index="0"]
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_right = 1
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton/MarginContainer/VBoxContainer/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 6
+
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton"]
 visible = false
 layout_mode = 2
@@ -1035,6 +1057,7 @@ expand_mode = 3
 stretch_mode = 5
 
 [node name="Resignation3" parent="CanvasLayer/Control/Report/TextureRect/Papers" index="2" node_paths=PackedStringArray("signature", "text") instance=ExtResource("38_fltas")]
+visible = false
 light_mask = 0
 layout_mode = 1
 offset_left = -29.0
@@ -1076,18 +1099,12 @@ size_flags_horizontal = 0
 theme_override_font_sizes/normal_font_size = 12
 highlight_first = true
 
-[node name="MenuPaper4" parent="CanvasLayer/Control/Report/TextureRect/Papers" index="3" instance=ExtResource("38_fltas")]
-visible = false
-light_mask = 0
-layout_mode = 1
-offset_left = -68.0
-offset_top = 3.0
-offset_right = 82.0
-offset_bottom = 173.0
-
 [node name="TextureRect2" parent="CanvasLayer/Control/Report/TextureRect" index="2"]
 light_mask = 0
 offset_bottom = 10.0
+
+[node name="PanelContainer" parent="CanvasLayer/Control/Report/TextureRect" index="4"]
+visible = false
 
 [editable path="CanvasLayer/Control/Team"]
 [editable path="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3"]
@@ -1099,4 +1116,3 @@ offset_bottom = 10.0
 [editable path="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"]
 [editable path="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton"]
 [editable path="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3"]
-[editable path="CanvasLayer/Control/Report/TextureRect/Papers/MenuPaper4"]

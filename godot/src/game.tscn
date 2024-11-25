@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=88 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -181,12 +181,12 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [1]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Computer/HBoxContainer:visible")
+tracks/8/path = NodePath("../StartStack:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -198,7 +198,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("../StartStack:visible")
+tracks/9/path = NodePath("Computer/BossUI:visible")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -206,6 +206,18 @@ tracks/9/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Computer/SingleUI:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_y2k32"]
@@ -225,7 +237,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Computer/HBoxContainer:visible")
+tracks/1/path = NodePath("Computer/BossUI:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -245,6 +257,54 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Computer/BossUI/Control:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Computer/BossUI/VBoxContainer2:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Computer/BossUI/VBoxContainer/Label:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Computer/SingleUI:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_qam2k"]
@@ -492,6 +552,16 @@ _data = {
 "tutorial": SubResource("Animation_5s4dq")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_hq0v7"]
+font_size = 10
+font_color = Color(0.207843, 0.207843, 0.25098, 1)
+outline_size = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_hajth"]
+font_size = 10
+font_color = Color(0.207843, 0.207843, 0.25098, 1)
+outline_size = 5
+
 [sub_resource type="Curve" id="Curve_bp2je"]
 max_value = 5.0
 _data = [Vector2(0, 2.36264), 0.0, 0.0, 0, 0, Vector2(1, 5), -1.99979, 0.0, 0, 0]
@@ -536,13 +606,16 @@ glow_enabled = true
 glow_bloom = 0.05
 glow_blend_mode = 0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "player_doc_label", "boss_doc_label", "boss_attack_timer")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "single_player_doc_label", "single_player_combo_label", "boss_doc_label", "boss_attack_timer", "player_doc_label", "player_combo_label")]
 top_level = true
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
-player_doc_label = NodePath("Desk/Computer/HBoxContainer/VBoxContainer/PlayerDocuments")
-boss_doc_label = NodePath("Desk/Computer/HBoxContainer/VBoxContainer2/BossDocuments")
+single_player_doc_label = NodePath("Desk/Computer/SingleUI/PlayerDocuments")
+single_player_combo_label = NodePath("Desk/Computer/SingleUI/PlayerCombo")
+boss_doc_label = NodePath("Desk/Computer/BossUI/VBoxContainer2/BossDocuments")
 boss_attack_timer = NodePath("BossAttackTimer")
+player_doc_label = NodePath("Desk/Computer/BossUI/VBoxContainer/HBoxContainer/PlayerDocuments")
+player_combo_label = NodePath("Desk/Computer/BossUI/VBoxContainer/HBoxContainer/PlayerCombo")
 
 [node name="CameraShake" type="Node" parent="."]
 process_mode = 3
@@ -1182,8 +1255,37 @@ frame = 1
 position = Vector2(0, -80)
 texture = ExtResource("21_tywuk")
 hframes = 2
+frame = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Desk/Computer"]
+[node name="SingleUI" type="VBoxContainer" parent="Desk/Computer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.5
+offset_top = -37.5
+offset_right = -45.5
+offset_bottom = -17.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="PlayerDocuments" type="Label" parent="Desk/Computer/SingleUI"]
+layout_mode = 2
+theme = ExtResource("10_am0oy")
+theme_override_font_sizes/font_size = 12
+text = "0"
+horizontal_alignment = 1
+
+[node name="PlayerCombo" type="Label" parent="Desk/Computer/SingleUI"]
+layout_mode = 2
+theme = ExtResource("10_am0oy")
+theme_override_font_sizes/font_size = 8
+text = "0"
+horizontal_alignment = 1
+
+[node name="BossUI" type="HBoxContainer" parent="Desk/Computer"]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -1191,47 +1293,60 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -94.5
-offset_top = -38.5
+offset_top = -37.5
 offset_right = -6.5
-offset_bottom = -15.5
+offset_bottom = -17.5
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Desk/Computer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Desk/Computer/BossUI"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="Desk/Computer/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Desk/Computer/BossUI/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("10_am0oy")
 text = "You"
-label_settings = ExtResource("32_eoisl")
+label_settings = SubResource("LabelSettings_hq0v7")
 horizontal_alignment = 1
 
-[node name="PlayerDocuments" type="Label" parent="Desk/Computer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Desk/Computer/BossUI/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerDocuments" type="Label" parent="Desk/Computer/BossUI/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("10_am0oy")
+theme_override_font_sizes/font_size = 10
 text = "0"
 horizontal_alignment = 1
 
-[node name="Control" type="Control" parent="Desk/Computer/HBoxContainer"]
+[node name="PlayerCombo" type="Label" parent="Desk/Computer/BossUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("10_am0oy")
+theme_override_font_sizes/font_size = 10
+text = "0"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="Desk/Computer/BossUI"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Desk/Computer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Desk/Computer/BossUI"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="Desk/Computer/HBoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="Desk/Computer/BossUI/VBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("10_am0oy")
 text = "Boss"
-label_settings = ExtResource("32_eoisl")
+label_settings = SubResource("LabelSettings_hajth")
 horizontal_alignment = 1
 
-[node name="BossDocuments" type="Label" parent="Desk/Computer/HBoxContainer/VBoxContainer2"]
+[node name="BossDocuments" type="Label" parent="Desk/Computer/BossUI/VBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("10_am0oy")
+theme_override_font_sizes/font_size = 10
 text = "0"
 horizontal_alignment = 1
 
@@ -1346,6 +1461,7 @@ texture = ExtResource("31_x6efq")
 hframes = 2
 
 [node name="DocumentStack" type="Node2D" parent="." node_paths=PackedStringArray("doc_count_label", "combo_label", "combo_particles01", "combo_particles02")]
+visible = false
 position = Vector2(133, -44)
 script = ExtResource("12_n73rb")
 stack_count = 5
@@ -1488,6 +1604,7 @@ script = ExtResource("20_tcix1")
 nodes = [NodePath("../..")]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
