@@ -1,6 +1,7 @@
 extends Node
 
-const WORD_FILE := "res://assets/theme/words.csv"
+const LOCAL_WORD_FILE := "./words.csv"
+const WORD_FILE := "res://words.csv"
 
 const WORK_GROUP = "WORK"
 const AFTERWORK_GROUP = "AFTERWORK"
@@ -22,9 +23,18 @@ enum Type {
 @export var hard_word_length := 9
 
 var all_words := {}
+var _logger = Logger.new("WordManager")
+
+func _open_words_file():
+	if FileAccess.file_exists(LOCAL_WORD_FILE):
+		_logger.info("Loading local word file %s" % LOCAL_WORD_FILE)
+		return FileAccess.open(LOCAL_WORD_FILE, FileAccess.READ)
+	
+	_logger.info("Loading default word file %s" % WORD_FILE)
+	return FileAccess.open(WORD_FILE, FileAccess.READ)
 
 func _ready():
-	var file = FileAccess.open(WORD_FILE, FileAccess.READ)
+	var file = _open_words_file()
 	if not file:
 		print("Failed to open file %s" % WORD_FILE)
 		return

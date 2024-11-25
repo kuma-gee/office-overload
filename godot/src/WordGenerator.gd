@@ -23,6 +23,9 @@ func _normalize(words: Array):
 	return result
 
 func get_random_word():
+	if words.size() == 0:
+		return ""
+
 	var word = words.pick_random()
 	while word in last_words:
 		word = words.pick_random()

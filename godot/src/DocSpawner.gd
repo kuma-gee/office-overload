@@ -14,6 +14,7 @@ var mode = -1
 var invalid_word_accum := 0.0
 var invalid_spawned := 0
 var invalid_skipped := 0
+var _logger = Logger.new("DocSpawner")
 
 func _ready():
 	if word_type == WordManager.WORK_GROUP:
@@ -86,7 +87,11 @@ func _set_invalid_word(doc: Document, word: String):
 	var invalid_type = get_invalid_type()
 	match invalid_type:
 		InvalidType.INVALID:
-			word = WordManager.get_words(WordManager.INVALID_GROUP).pick_random()
+			var invalid = WordManager.get_words(WordManager.INVALID_GROUP)
+			if invalid.size() > 0:
+				word = invalid.pick_random()
+			else:
+				_logger.warn("No invalid words available")
 		InvalidType.SWAP:
 			for _x in randi_range(2, 5):
 				var swap_idx = randi_range(1, word.length() - 1)
@@ -111,7 +116,10 @@ func spawn_invalid_documents(type: InvalidType, count: int):
 	var docs = []
 	for _x in count:
 		var doc = document_scene.instantiate()
-		_set_invalid_word(doc, word_generator.get_random_word())
+		_set_invalid_word(doc, "")
+		if doc.word == "":
+			continue
+
 		doc.global_position = global_position
 		_move_document_in(doc)
 		docs.append(doc)
@@ -120,6 +128,9 @@ func spawn_invalid_documents(type: InvalidType, count: int):
 func spawn_document(invalid_word_chance := 0.0):
 	var doc = document_scene.instantiate()
 	var word = word_generator.get_random_word()
+	if word == "":
+		_logger.warn("No words available for document")
+		return null
 
 	if randf() < invalid_word_accum and invalid_skipped > 0:
 		_set_invalid_word(doc, word)

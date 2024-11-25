@@ -97,14 +97,19 @@ func show_distraction():
 	
 	var distraction = available.pick_random()
 	var word = _get_random_distraction_word(distraction.type)
-	distraction.set_word(word, distraction_timeout)
-	_show_overlay()
+	if word:
+		distraction.set_word(word, distraction_timeout)
+		_show_overlay()
 	
 	if not shift_button.is_open:
 		shift_button.slide_in_full()
 
 func _get_random_distraction_word(type: Type):
-	var available = WordManager.get_words(TYPE_MAP[type]) # TODO: use WordGenerator??
+	var group = TYPE_MAP[type]
+	var available = WordManager.get_words(group) # TODO: use WordGenerator??
+	if available.is_empty():
+		_logger.warn("No words available for distraction %s" % group)
+		return ""
 	return available.pick_random()
 
 func _get_active_words():
