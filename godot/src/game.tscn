@@ -553,12 +553,12 @@ _data = {
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_hq0v7"]
-font_size = 10
+font_size = 12
 font_color = Color(0.207843, 0.207843, 0.25098, 1)
 outline_size = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_hajth"]
-font_size = 10
+font_size = 12
 font_color = Color(0.207843, 0.207843, 0.25098, 1)
 outline_size = 5
 
@@ -606,13 +606,14 @@ glow_enabled = true
 glow_bloom = 0.05
 glow_blend_mode = 0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "single_player_doc_label", "single_player_combo_label", "boss_doc_label", "boss_attack_timer", "player_doc_label", "player_combo_label")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "single_player_doc_label", "single_player_combo_label", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label")]
 top_level = true
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
 single_player_doc_label = NodePath("Desk/Computer/SingleUI/PlayerDocuments")
 single_player_combo_label = NodePath("Desk/Computer/SingleUI/PlayerCombo")
-boss_doc_label = NodePath("Desk/Computer/BossUI/VBoxContainer2/BossDocuments")
+boss_doc_label = NodePath("Desk/Computer/BossUI/VBoxContainer2/HBoxContainer2/Doc")
+boss_combo_label = NodePath("Desk/Computer/BossUI/VBoxContainer2/HBoxContainer2/Combo")
 boss_attack_timer = NodePath("BossAttackTimer")
 player_doc_label = NodePath("Desk/Computer/BossUI/VBoxContainer/HBoxContainer/PlayerDocuments")
 player_combo_label = NodePath("Desk/Computer/BossUI/VBoxContainer/HBoxContainer/PlayerCombo")
@@ -1293,7 +1294,7 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -94.5
-offset_top = -37.5
+offset_top = -38.5
 offset_right = -6.5
 offset_bottom = -17.5
 grow_horizontal = 2
@@ -1309,24 +1310,24 @@ layout_mode = 2
 theme = ExtResource("10_am0oy")
 text = "You"
 label_settings = SubResource("LabelSettings_hq0v7")
-horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Desk/Computer/BossUI/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 8
 
 [node name="PlayerDocuments" type="Label" parent="Desk/Computer/BossUI/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("10_am0oy")
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 12
 text = "0"
-horizontal_alignment = 1
 
 [node name="PlayerCombo" type="Label" parent="Desk/Computer/BossUI/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 8
 theme = ExtResource("10_am0oy")
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 8
 text = "0"
-horizontal_alignment = 1
+horizontal_alignment = 2
 
 [node name="Control" type="Control" parent="Desk/Computer/BossUI"]
 layout_mode = 2
@@ -1343,12 +1344,24 @@ text = "Boss"
 label_settings = SubResource("LabelSettings_hajth")
 horizontal_alignment = 1
 
-[node name="BossDocuments" type="Label" parent="Desk/Computer/BossUI/VBoxContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Desk/Computer/BossUI/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="Combo" type="Label" parent="Desk/Computer/BossUI/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 8
+theme = ExtResource("10_am0oy")
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Doc" type="Label" parent="Desk/Computer/BossUI/VBoxContainer2/HBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("10_am0oy")
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 12
 text = "0"
-horizontal_alignment = 1
+horizontal_alignment = 2
 
 [node name="Clock" type="Sprite2D" parent="Desk" node_paths=PackedStringArray("worktime", "point_light", "canvas_modulate", "overload_progress")]
 position = Vector2(88, -74)

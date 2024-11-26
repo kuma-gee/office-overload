@@ -116,9 +116,10 @@ func spawn_invalid_documents(type: InvalidType, count: int):
 	var docs = []
 	for _x in count:
 		var doc = document_scene.instantiate()
-		_set_invalid_word(doc, "")
-		if doc.word == "":
+		var word = word_generator.get_random_word()
+		if word == "":
 			continue
+		_set_invalid_word(doc, word)
 
 		doc.global_position = global_position
 		_move_document_in(doc)

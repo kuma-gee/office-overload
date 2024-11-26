@@ -19,6 +19,16 @@ const GRADES = {
 	"F": -30,
 }
 
+const GRADE_MONEY = {
+	"S": 1000,
+	"A": 500,
+	"B": 250,
+	"C": 100,
+	"D": 50,
+	"E": 25,
+	"F": 0,
+}
+
 const DIFFICULTIES = {
 	DifficultyResource.Level.INTERN: preload("res://src/difficulty/Intern.tres"),
 	DifficultyResource.Level.JUNIOR: preload("res://src/difficulty/Junior.tres"),
@@ -68,6 +78,7 @@ var performance := 0.0
 
 var received_promotion_day := 0
 var days_since_promotion := 0
+var money := 0
 
 ### Maybe Save? ###
 var last_interview_wpm := 0.0
@@ -94,7 +105,7 @@ func _load_data():
 	if data:
 		cache_properties.load_data(data)
 	
-	self.difficulty_level = DifficultyResource.Level.JUNIOR
+	self.difficulty_level = DifficultyResource.Level.CEO
 	#unlocked_modes = Mode.values()
 	
 	_logger.info("Game initialized")
@@ -180,6 +191,8 @@ func finished_day(data: Dictionary):
 	
 	### Calculate Performance ###
 	var points = calculate_performance(data)
+	points["money"] = GRADE_MONEY[points["grade"]]
+	money += points["money"]
 	performance = max(performance + points, 0)
 	
 	past_performance.append(performance)

@@ -11,14 +11,17 @@ extends Node2D
 @export_category("Boss")
 @export var min_documents := 2
 @export var boss_process_speed := 3.0
-@export var boss_doc_label: Label
+@export var boss_process_speed_variation := 0.2
 @export var boss_attack_count := 3
+@export var boss_max_combo_count := 10
+@export var boss_min_combo_count := 6
+@export var boss_combo_failure_rate := 0.2
+
+@export var boss_doc_label: Label
+@export var boss_combo_label: Label
 @export var boss_attack_timer: Timer
 @export var player_doc_label: Label
 @export var player_combo_label: Label
-
-#@export_category("Interview")
-#@export var min_documents := 2
 
 @export_category("Crunch")
 @export var max_bgm_pitch := 2.0
@@ -54,21 +57,9 @@ var is_gameover = false:
 		is_gameover = v
 
 var documents = []
-var attacking := false
-
-var boss_documents := 0:
-	set(v):
-		boss_documents = v
-		boss_doc_label.text = "%s" % boss_documents
-var boss_processing := 0.0
 
 func _set_environment():
-	#if GameManager.day <= 3 or GameManager.is_intern():
 	animation_player.play("normal")
-	#elif not GameManager.is_manager():
-		#animation_player.play("messy")
-	#else:
-		#animation_player.play("littered")
 
 func _ready():
 	randomize()
@@ -283,6 +274,18 @@ func get_label():
 
 
 #### CEO ####
+var attacking := false
+var boss_documents := 0:
+	set(v):
+		boss_documents = v
+		boss_doc_label.text = "%s" % boss_documents
+var boss_combo := 0:
+	set(v):
+		boss_combo = v
+		boss_combo_label.text = "%sx" % boss_combo
+var boss_processing := 0.0
+var boss_current_speed := boss_process_speed
+
 func _boss_attack():
 	# TODO: indicate attack
 
@@ -321,7 +324,20 @@ func _process(delta: float) -> void:
 	if is_gameover or not GameManager.is_ceo(): return
 	
 	boss_processing += delta
-	if boss_processing >= boss_process_speed and start_stack.has_documents():
+	if boss_processing >= boss_current_speed and start_stack.has_documents():
+		
+		var failed = false
+		if boss_combo > boss_min_combo_count:
+			var diff = max(boss_max_combo_count - boss_combo, 0)
+			failed = randf() < boss_combo_failure_rate / (diff + 1)
+			if failed:
+				boss_combo = 0
+		
 		boss_processing = 0
-		boss_documents += 1
+		boss_documents += 1 + 1 * boss_combo
 		start_stack.remove_document()
+		
+		if not failed:
+			boss_combo += 1
+
+		boss_current_speed = randf_range(boss_process_speed * (1 - boss_process_speed), boss_process_speed * (1 + boss_process_speed))
