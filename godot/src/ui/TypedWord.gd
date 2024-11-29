@@ -110,8 +110,9 @@ func _wrap_outline(w: String):
 
 func _wrap_word(until: int):
 	var censored_word = word
-	for c in censored:
-		censored_word = censored_word.replace(c, "_")
+	for i in censored:
+		if i < until: continue
+		censored_word[i] = "_"
 
 	return "[color=%s]%s[/color][color=%s][shake rate=%s level=%s]%s[/shake]%s[/color]" % [
 		typed_color.to_html(),

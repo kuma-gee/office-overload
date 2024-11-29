@@ -73,7 +73,8 @@ func get_invalid_type():
 	var available = [InvalidType.INVALID]
 	if GameManager.days_since_promotion >= 3:
 		available.append(InvalidType.SWAP)
-	elif GameManager.days_since_promotion >= 6:
+	#elif GameManager.days_since_promotion >= 6:
+	elif GameManager.is_ceo():
 		available.append(InvalidType.CENSOR)
 	
 	for type in invalid_chances.keys():
@@ -108,23 +109,20 @@ func _set_invalid_word(doc: Document, word: String):
 					word[swap_idx] = temp
 		InvalidType.CENSOR:
 			# Words should be at least 4 characters long
-			doc.censored = [word[randi_range(2, word.length() - 2)]]
+			doc.censored = [randi_range(2, word.length() - 2)]
 
 	doc.word = word
 
-func spawn_invalid_documents(type: InvalidType, count: int):
-	var docs = []
-	for _x in count:
-		var doc = document_scene.instantiate()
-		var word = word_generator.get_random_word()
-		if word == "":
-			continue
-		_set_invalid_word(doc, word)
+func spawn_invalid_document(type: InvalidType = get_invalid_type()):
+	var doc = document_scene.instantiate()
+	var word = word_generator.get_random_word()
+	if word == "":
+		return
+	_set_invalid_word(doc, word)
 
-		doc.global_position = global_position
-		_move_document_in(doc)
-		docs.append(doc)
-	return docs
+	doc.global_position = global_position
+	_move_document_in(doc)
+	return doc
 
 func spawn_document(invalid_word_chance := 0.0):
 	var doc = document_scene.instantiate()

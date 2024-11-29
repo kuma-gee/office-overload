@@ -1,7 +1,10 @@
 class_name Delegator
 extends Node
 
+signal unhandled_key(key)
+
 @export var nodes: Array[Node] = []
+@export var ignore_errors := true
 
 var last_event: InputEvent
 
@@ -29,7 +32,7 @@ func handle_event(event: InputEvent):
 		var not_handled = []
 		for node in focused:
 			if node and node.get_label():
-				var was_handled = node.get_label().handle_key(key, true)
+				var was_handled = node.get_label().handle_key(key, ignore_errors)
 				if not was_handled:
 					not_handled.append(node)
 
@@ -39,6 +42,8 @@ func handle_event(event: InputEvent):
 		if handled:
 			for node in not_handled:
 				node.get_label().reset()
+		else:
+			unhandled_key.emit(key)
 
 	last_event = event
 	get_viewport().set_input_as_handled()

@@ -10,10 +10,9 @@ extends Node2D
 
 @export_category("Boss")
 @export var min_documents := 2
-@export var boss_process_speed := 3.0
-@export var boss_process_speed_variation := 0.2
-@export var boss_attack_count := 3
-@export var boss_max_combo_count := 10
+@export var boss_process_speed := 2.5
+@export var boss_process_speed_variation := 0.3
+@export var boss_max_combo_count := 15
 @export var boss_min_combo_count := 6
 @export var boss_combo_failure_rate := 0.2
 
@@ -22,6 +21,13 @@ extends Node2D
 @export var boss_attack_timer: Timer
 @export var player_doc_label: Label
 @export var player_combo_label: Label
+
+@export_category("Boss Attack")
+@export var boss_document_max_diff_timer := 100
+@export var boss_max_attack_time := 10.0
+@export var boss_min_attack_time := 5.0
+@export var boss_attack_count_min := 2
+@export var boss_attack_count_max := 4
 
 @export_category("Crunch")
 @export var max_bgm_pitch := 2.0
@@ -42,6 +48,7 @@ extends Node2D
 @onready var distractions = $CanvasLayer/Distractions
 @onready var shift_overlay: ShiftOverlay = $ShiftOverlay
 @onready var start_stack: DocumentStack = $StartStack
+@onready var shift_delegator: Delegator = $ShiftOverlay/ShiftDelegator
 
 @onready var bgm = $BGM
 @onready var end = $CanvasLayer/End
@@ -67,6 +74,7 @@ func _ready():
 	_set_environment()
 	_update_score()
 	
+	boss_combo = 0
 	overload_progress.game = self
 	
 	GameManager.round_ended.connect(func():
@@ -103,10 +111,15 @@ func _ready():
 
 	work_time.next_work_day.connect(func(): _finished(true))
 	work_time.day_ended.connect(func():
-		if documents.is_empty() or GameManager.is_intern():
+		if documents.is_empty() or GameManager.is_intern() or GameManager.is_ceo():
 			_finished()
 	)
 	
+	shift_delegator.unhandled_key.connect(func(key):
+		if get_label():
+			document_stack.add_mistake()
+			_update_score()
+	)
 	key_reader.pressed_key.connect(func(key, shift):
 		if not documents.is_empty():
 			if documents[0].handle_key(key):
@@ -186,8 +199,8 @@ func _spawn():
 			var day_multipler = min(remap(GameManager.days_since_promotion, 1, 10, 1.0, 0.5), 1.0)
 			var document_multipler = max(remap(documents.size(), 5, 15, 1.0, 5.0), 1.0)
 			spawn_timer.start(GameManager.difficulty.base_document_time * day_multipler * document_multipler)
-	elif GameManager.is_interview_mode():
-		if documents.size() < min_documents:
+			
+		if GameManager.is_ceo() and documents.size() < min_documents:
 			_spawn()
 	else:
 		var t = _crunch_mode_spawn_time()
@@ -203,13 +216,19 @@ func _crunch_mode_spawn_time(doc_count: int = document_stack.actual_document_cou
 
 
 func _spawn_document(await_start = false):
-	var delta = (document_stack.actual_document_count - boss_documents) - 2
-	if GameManager.is_ceo() and boss_attack_timer.is_stopped() and delta > 0 and start_stack.actual_document_count >= 5 and not attacking:
-		_boss_attack()
+	if GameManager.is_ceo() and boss_attack_timer.is_stopped() and document_stack.total_points > boss_points and boss_attack_documents <= 0:
+		_setup_boss_attack()
 	else:
-		var invalid_chance = GameManager.difficulty.invalid_word_chance
-		var doc = doc_spawner.spawn_document(invalid_chance) as Document
-		_add_document(doc, await_start)
+		if boss_attack_documents > 0:
+			var doc = doc_spawner.spawn_invalid_document()
+			_add_document(doc, await_start)
+			boss_attack_documents -= 1
+			if boss_attack_documents <= 0:
+				_start_boss_attack_timer()
+		else:
+			var invalid_chance = GameManager.difficulty.invalid_word_chance
+			var doc = doc_spawner.spawn_document(invalid_chance) as Document
+			_add_document(doc, await_start)
 
 func _update_score():
 	player_doc_label.text = "%s" % document_stack.total_points
@@ -274,47 +293,56 @@ func get_label():
 
 
 #### CEO ####
-var attacking := false
-var boss_documents := 0:
+var boss_documents := 0
+var boss_points := 0:
 	set(v):
-		boss_documents = v
-		boss_doc_label.text = "%s" % boss_documents
+		boss_points = v
+		boss_doc_label.text = "%s" % boss_points
 var boss_combo := 0:
 	set(v):
 		boss_combo = v
 		boss_combo_label.text = "%sx" % boss_combo
+		boss_combo_label.visible = boss_combo > 0
+		
 var boss_processing := 0.0
 var boss_current_speed := boss_process_speed
+var boss_mistakes := 0
+var boss_attack_documents := 0
 
-func _boss_attack():
-	# TODO: indicate attack
-
-	attacking = true
+func _setup_boss_attack():
 	camera_shake.shake()
 	await get_tree().create_timer(0.5).timeout
 	camera_shake.shake()
 	await get_tree().create_timer(0.5).timeout
 
-	var type = doc_spawner.get_invalid_type()
-	var count = randi_range(boss_attack_count-1, boss_attack_count+1)
-	for doc in doc_spawner.spawn_invalid_documents(type, count):
-		_add_document(doc)
+	boss_attack_documents = randi_range(boss_attack_count_min, boss_attack_count_max)
+	_spawn_boss_attack()
+
+func _spawn_boss_attack():
+	if boss_attack_documents <= 0: return
 	
+	for _i in range(boss_attack_documents):
+		_spawn() # call normal spawn function to reset the normal document spawning
+		await get_tree().create_timer(0.25).timeout
+
+func _start_boss_attack_timer():
+	var doc_diff = document_stack.total_points - boss_points
+	var p = clamp(doc_diff / boss_document_max_diff_timer, 0.0, 1.0)
+		
+	var time_diff = boss_max_attack_time - boss_min_attack_time
+	var time = boss_min_attack_time + time_diff * (1-p)
 	boss_attack_timer.start()
-	attacking = false
-	
+
 func _ceo_game_ended():
 	var data = {
 		"total": document_stack.total_points,
-		# "combo": document_stack.combo_count,
 		"wrong": document_stack.wrong_tasks,
 	}
 	GameManager.calculate_performance(data)
 
 	var boss_data = {
-		"total": boss_documents,
-		# "combo": randi_range(0, boss_documents * 0.3),
-		"wrong": randi_range(boss_documents * 0.1, boss_documents * 0.3),
+		"total": boss_points,
+		"wrong": boss_mistakes,
 	}
 	GameManager.calculate_performance(boss_data)
 
@@ -324,20 +352,22 @@ func _process(delta: float) -> void:
 	if is_gameover or not GameManager.is_ceo(): return
 	
 	boss_processing += delta
-	if boss_processing >= boss_current_speed and start_stack.has_documents():
-		
+	if boss_processing >= boss_current_speed: #and start_stack.has_documents():
 		var failed = false
 		if boss_combo > boss_min_combo_count:
 			var diff = max(boss_max_combo_count - boss_combo, 0)
 			failed = randf() < boss_combo_failure_rate / (diff + 1)
 			if failed:
 				boss_combo = 0
+				boss_mistakes += randi_range(1, 10)
 		
 		boss_processing = 0
-		boss_documents += 1 + 1 * boss_combo
-		start_stack.remove_document()
+		boss_points += 1 + 1 * boss_combo
+		boss_documents += 1
+		#start_stack.remove_document()
 		
 		if not failed:
 			boss_combo += 1
 
-		boss_current_speed = randf_range(boss_process_speed * (1 - boss_process_speed), boss_process_speed * (1 + boss_process_speed))
+		boss_current_speed = randf_range(boss_process_speed * (1 - boss_process_speed_variation), boss_process_speed * (1 + boss_process_speed_variation))
+		print("Boss Finished, next speed %s" % boss_current_speed)

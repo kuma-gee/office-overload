@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=87 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -58,7 +58,6 @@
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
 [ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
-[ext_resource type="Script" path="res://src/RandomTimer.gd" id="59_kef6u"]
 [ext_resource type="Script" path="res://src/shift_overlay.gd" id="59_nhn8c"]
 
 [sub_resource type="Curve" id="Curve_m11kp"]
@@ -1615,6 +1614,7 @@ delegator = NodePath("ShiftDelegator")
 [node name="ShiftDelegator" type="Node" parent="ShiftOverlay" node_paths=PackedStringArray("nodes")]
 script = ExtResource("20_tcix1")
 nodes = [NodePath("../..")]
+ignore_errors = false
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 visible = false
@@ -1697,11 +1697,8 @@ wait_time = 2.0
 one_shot = true
 
 [node name="BossAttackTimer" type="Timer" parent="."]
-wait_time = 8.0
+wait_time = 10.0
 one_shot = true
-script = ExtResource("59_kef6u")
-min_time = 6.0
-max_time = 10.0
 
 [node name="OverloadTimer" type="Timer" parent="."]
 wait_time = 2.5

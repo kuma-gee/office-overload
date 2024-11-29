@@ -213,7 +213,7 @@ func finished_day(data: Dictionary):
 func calculate_performance(data: Dictionary):
 	var total = data["total"]
 	var wrong = data["wrong"]
-	var mistyped = data["tasks"] != data["combo"]
+	#var mistyped = data["tasks"] != data["combo"]
 	
 	# var missed_point = pow(distraction_missed, 2) # max ~9 distractions
 	#var perfect_points = pow(perfect, 1.5) # max ~20 tasks
