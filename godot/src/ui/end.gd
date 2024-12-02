@@ -20,7 +20,6 @@ extends Control
 @export_category("Work Mode")
 @export var next_day: TypingButton
 @export var next_day_container: Control
-@export var promotion_container: Control
 @export var title: Label
 @export var overtime: Label
 @export var finished_tasks: Label
@@ -34,11 +33,6 @@ extends Control
 @export var wpm_label: Label
 
 @export_category("Promotion")
-@export var promotion_text: RichTextLabel
-@export var promotion_text_container: Control
-@export var promotion_particle_1: GPUParticles2D
-@export var promotion_particle_2: GPUParticles2D
-@export var promotion_sound: AudioStreamPlayer
 @export var promotion_delegator: Delegator
 
 @export_category("Mode Container")
@@ -47,14 +41,15 @@ extends Control
 @export var crunch_container: Control
 @export var unlocked_container: UnlockedMode
 
+@onready var promotion_paper: PromotionPaper = $PromotionPaper
+@onready var promotion_status: PromotionStatus = $PromotionStatus
+
 func _ready():
 	work_container.hide()
 	#interview_container.hide()
 	#crunch_container.hide()
-	
-	next_day_container.hide()
-	promotion_container.hide()
-	promotion_text_container.hide()
+	#next_day_container.hide()
+	#promotion_container.hide()
 	
 	hide()
 	next_day.finished.connect(func(): GameManager.start())
@@ -84,8 +79,9 @@ func day_ended(data: Dictionary):
 	
 	var promo_tip = GameManager.can_have_promotion()
 	var promo = promo_tip == null
-	next_day_container.visible = not promo
-	promotion_container.visible = promo
+	if promo:
+		promotion_paper.open(0.2)
+	
 	promotion_tip_text.text = _promotion_tip_text(promo_tip)
 
 	_do_open(work_container)
@@ -93,12 +89,12 @@ func day_ended(data: Dictionary):
 	if GameManager.is_work_mode() and not promo:
 		GameManager.upload_work_scores()
 	
-	if GameManager.is_senior():
-		GameManager.unlock_mode(GameManager.Mode.Meeting)
-	if GameManager.is_junior():
-		GameManager.unlock_mode(GameManager.Mode.MorningCoffee)
-	if GameManager.is_junior() and data["overtime"] > 1:
-		GameManager.unlock_mode(GameManager.Mode.AfterworkBeer)
+	#if GameManager.is_senior():
+		#GameManager.unlock_mode(GameManager.Mode.Meeting)
+	#if GameManager.is_junior():
+		#GameManager.unlock_mode(GameManager.Mode.MorningCoffee)
+	#if GameManager.is_junior() and data["overtime"] > 1:
+		#GameManager.unlock_mode(GameManager.Mode.AfterworkBeer)
 
 func _promotion_tip_text(tip) -> String:
 	match tip:
@@ -129,34 +125,23 @@ func _do_open(container: Control, sound = open_sound):
 	end_effect.do_effect()
 	show()
 	sound.play()
+	
+	promotion_paper.accepted.connect(func():
+		promotion_status.open()
+		
+		if GameManager.is_work_mode():
+			GameManager.upload_work_scores()
+	)
 
 func _on_back_pressed():
 	GameManager.back_to_menu()
 
-func _on_promotion_yes_finished():
-	GameManager.take_promotion()
-	
-	promotion_text.word = GameManager.get_level_text()
-	promotion_text.focused = true
-	promotion_text_container.show()
-	
-	promotion_particle_1.emitting = true
-	promotion_particle_2.emitting = true
-	promotion_sound.play()
-	
-	if GameManager.is_work_mode():
-		GameManager.upload_work_scores()
-	_on_promotion_no_finished()
-
-func _on_promotion_no_finished():
-	promotion_container.hide()
-	next_day_container.show()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if work_container.visible:
-		if promotion_container.visible:
+		if promotion_paper.visible:
 			promotion_delegator.handle_event(event)
-		elif work_container.visible:
+		else:
 			day_delegator.handle_event(event)
 	#elif interview_container.visible:
 		#interview_delegator.handle_event(event)

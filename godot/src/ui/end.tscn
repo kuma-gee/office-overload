@@ -1,8 +1,9 @@
-[gd_scene load_steps=31 format=3 uid="uid://kdu7e637eapn"]
+[gd_scene load_steps=33 format=3 uid="uid://kdu7e637eapn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_80w1y"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_ox4yy"]
 [ext_resource type="Script" path="res://src/ui/end.gd" id="2_oxc1v"]
+[ext_resource type="Script" path="res://src/ui/promotion_status.gd" id="3_dapla"]
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="4_0mkg1"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_j7irx"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_d7wj0"]
@@ -14,23 +15,11 @@
 [ext_resource type="AudioStream" uid="uid://e82h4pq7oib4" path="res://assets/sound/金額表示.mp3" id="8_i0k3p"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="8_whfhi"]
 [ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="8_yhc58"]
+[ext_resource type="Script" path="res://src/ui/promotion_paper.gd" id="11_r0shu"]
 [ext_resource type="AudioStream" uid="uid://ctlbf2imxt5tn" path="res://assets/sound/呪いの旋律.mp3" id="13_26xkb"]
 [ext_resource type="Script" path="res://src/ui/unlocked_mode.gd" id="16_hp113"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="17_74eho"]
 [ext_resource type="Script" path="res://src/ui/esc_button.gd" id="18_4swmg"]
-
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_k1u62"]
-content_margin_top = 3.0
-color = Color(0.207843, 0.207843, 0.25098, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_w53bh"]
-shader = ExtResource("8_yhc58")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/enable = true
 
 [sub_resource type="Curve" id="Curve_30t50"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99435, 0), -3.02564, 0.0, 0, 0]
@@ -58,6 +47,19 @@ scale_max = 5.0
 scale_curve = SubResource("CurveTexture_fpx84")
 alpha_curve = SubResource("CurveTexture_canlb")
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_k1u62"]
+content_margin_top = 3.0
+color = Color(0.207843, 0.207843, 0.25098, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w53bh"]
+shader = ExtResource("8_yhc58")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/enable = true
+
 [sub_resource type="Curve" id="Curve_y7k8r"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99435, 0), -3.02564, 0.0, 0, 0]
 point_count = 2
@@ -84,7 +86,7 @@ scale_max = 5.0
 scale_curve = SubResource("CurveTexture_51fdc")
 alpha_curve = SubResource("CurveTexture_rj2fv")
 
-[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "next_day", "next_day_container", "promotion_container", "title", "overtime", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "points_label", "grade_label", "wpm_label", "promotion_text", "promotion_text_container", "promotion_particle_1", "promotion_particle_2", "promotion_sound", "promotion_delegator", "work_container", "unlocked_container")]
+[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "promotion_delegator", "work_container", "unlocked_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -98,23 +100,15 @@ open_sound = NodePath("OpenSound")
 gameover_sound = NodePath("GameoverSound")
 next_day = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay/NextDayButton")
 next_day_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer")
-promotion_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/Promotion")
 title = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/Title")
-overtime = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Overtime")
 finished_tasks = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer/Tasks")
 day_delegator = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/DayDelegator")
 promotion_tip_text = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTip")
 perfect_tasks_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2/MaxCombo")
 distraction_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3/Mistakes")
-points_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Points")
 grade_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Grade/Sprite2D/GradeLabel")
 wpm_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4/WPM")
-promotion_text = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/TypingLabel")
-promotion_text_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer")
-promotion_particle_1 = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2/GPUParticles2D")
-promotion_particle_2 = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control3/GPUParticles2D")
-promotion_sound = NodePath("PromotionSound")
-promotion_delegator = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/PromotionDelegator")
+promotion_delegator = NodePath("PromotionPaper/Work/VBoxContainer/PromotionDelegator")
 work_container = NodePath("CenterContainer/PanelContainer/Work")
 unlocked_container = NodePath("UnlockedMode")
 
@@ -126,6 +120,104 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.588235)
+
+[node name="PromotionStatus" type="PanelContainer" parent="." node_paths=PackedStringArray("promotion_text", "promotion_sound")]
+custom_minimum_size = Vector2(100, 80)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -108.0
+offset_top = -173.0
+offset_right = -8.0
+offset_bottom = -93.0
+grow_horizontal = 0
+grow_vertical = 0
+rotation = 0.174533
+pivot_offset = Vector2(50, 40)
+script = ExtResource("3_dapla")
+promotion_text = NodePath("Work/VBoxContainer/PromotionTextContainer/HBoxContainer/TypingLabel")
+promotion_sound = NodePath("../PromotionSound")
+
+[node name="Work" type="MarginContainer" parent="PromotionStatus"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PromotionStatus/Work"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="PromotionStatus/Work/VBoxContainer"]
+layout_mode = 2
+text = "Promotion"
+label_settings = ExtResource("2_ox4yy")
+horizontal_alignment = 1
+
+[node name="PromotionTextContainer" type="VBoxContainer" parent="PromotionStatus/Work/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 0
+
+[node name="Promotion" type="Label" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer"]
+layout_mode = 2
+text = "Promoted to"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Control2" type="Control" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2"]
+position = Vector2(6, 8)
+emitting = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_6w7w2")
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.9
+
+[node name="TypingLabel" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer" instance=ExtResource("8_whfhi")]
+layout_mode = 2
+size_flags_horizontal = 6
+frequency = 2.0
+height = 0.5
+highlight_all = true
+
+[node name="Control3" type="Control" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer/Control3"]
+position = Vector2(-7, 8)
+rotation = 1.5708
+emitting = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_6w7w2")
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.9
+
+[node name="EndEffect" type="Node" parent="PromotionStatus"]
+script = ExtResource("4_j7irx")
+trans = 10
+ease = 1
+duration = 0.8
+
+[node name="Slide3" type="Node" parent="PromotionStatus/EndEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("5_d7wj0")
+node = NodePath("../..")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -155,49 +247,6 @@ layout_mode = 2
 text = "daily report"
 label_settings = ExtResource("2_ox4yy")
 horizontal_alignment = 1
-
-[node name="PromotionDelegator" type="Node" parent="CenterContainer/PanelContainer/Work/VBoxContainer" node_paths=PackedStringArray("nodes")]
-script = ExtResource("7_ls5ot")
-nodes = [NodePath("../Promotion/HBoxContainer2/PromotionYes"), NodePath("../Promotion/HBoxContainer2/PromotionNo")]
-
-[node name="Promotion" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 10
-
-[node name="Label" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion"]
-layout_mode = 2
-text = "We have been impressed
-by your performance"
-label_settings = ExtResource("4_0mkg1")
-horizontal_alignment = 1
-
-[node name="Label2" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion"]
-layout_mode = 2
-text = "Would you like
-a promotion?"
-label_settings = ExtResource("4_0mkg1")
-horizontal_alignment = 1
-
-[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion"]
-layout_mode = 2
-
-[node name="PromotionYes" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
-layout_mode = 2
-word = "Yes"
-
-[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="PromotionNo" parent="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion/HBoxContainer2" instance=ExtResource("5_rckpx")]
-layout_mode = 2
-word = "No"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer"]
 layout_mode = 2
@@ -272,7 +321,7 @@ layout_mode = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Grade"]
 material = SubResource("ShaderMaterial_w53bh")
-position = Vector2(86, -3)
+position = Vector2(20, 17)
 rotation = -0.139626
 texture = ExtResource("8_fgvoi")
 
@@ -294,80 +343,18 @@ text = "A"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PromotionTextContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
 
-[node name="Promotion" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer"]
+[node name="Money" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
-text = "Promoted to"
-label_settings = ExtResource("4_0mkg1")
-horizontal_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Control2" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2"]
-position = Vector2(6, 8)
-emitting = false
-amount = 6
-process_material = SubResource("ParticleProcessMaterial_6w7w2")
-lifetime = 0.8
-one_shot = true
-explosiveness = 0.9
-
-[node name="TypingLabel" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer" instance=ExtResource("8_whfhi")]
-layout_mode = 2
-frequency = 2.0
-height = 0.5
-highlight_all = true
-
-[node name="Control3" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTextContainer/HBoxContainer/Control3"]
-position = Vector2(-7, 8)
-rotation = 1.5708
-emitting = false
-amount = 6
-process_material = SubResource("ParticleProcessMaterial_6w7w2")
-lifetime = 0.8
-one_shot = true
-explosiveness = 0.9
-
-[node name="PerfectTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "PERFECT_TASKS"
-label_settings = ExtResource("4_0mkg1")
-horizontal_alignment = 1
-
-[node name="Overtime" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "OVERTIME"
-label_settings = ExtResource("4_0mkg1")
-horizontal_alignment = 1
-
-[node name="Distractions" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "DISTRACTIONS"
-label_settings = ExtResource("4_0mkg1")
-horizontal_alignment = 1
-
-[node name="Points" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "POINTS"
-label_settings = ExtResource("4_0mkg1")
-horizontal_alignment = 1
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 12
+text = "$100"
+horizontal_alignment = 2
 
 [node name="Control2" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -401,11 +388,93 @@ size_flags_horizontal = 3
 layout_mode = 2
 word = "Next Day"
 
+[node name="PromotionPaper" type="PanelContainer" parent="." node_paths=PackedStringArray("yes_button", "no_button")]
+custom_minimum_size = Vector2(120, 160)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -62.0
+offset_right = 36.0
+offset_bottom = 98.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.174533
+pivot_offset = Vector2(60, 80)
+script = ExtResource("11_r0shu")
+yes_button = NodePath("Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionYes")
+no_button = NodePath("Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionNo")
+
+[node name="Work" type="MarginContainer" parent="PromotionPaper"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PromotionPaper/Work"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="PromotionPaper/Work/VBoxContainer"]
+layout_mode = 2
+text = "Promotion"
+label_settings = ExtResource("2_ox4yy")
+horizontal_alignment = 1
+
+[node name="PromotionDelegator" type="Node" parent="PromotionPaper/Work/VBoxContainer" node_paths=PackedStringArray("nodes")]
+script = ExtResource("7_ls5ot")
+nodes = [NodePath("../Promotion/MarginContainer/HBoxContainer2/PromotionYes"), NodePath("../Promotion/MarginContainer/HBoxContainer2/PromotionNo")]
+
+[node name="Promotion" type="VBoxContainer" parent="PromotionPaper/Work/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="PromotionPaper/Work/VBoxContainer/Promotion"]
+layout_mode = 2
+text = "We have been impressed
+by your performance"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="PromotionPaper/Work/VBoxContainer/Promotion"]
+layout_mode = 2
+text = "Would you like
+a promotion?"
+label_settings = ExtResource("4_0mkg1")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="PromotionPaper/Work/VBoxContainer/Promotion"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="PromotionPaper/Work/VBoxContainer/Promotion"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer"]
+layout_mode = 2
+
+[node name="PromotionYes" parent="PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+word = "Yes"
+
+[node name="Control" type="Control" parent="PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PromotionNo" parent="PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+word = "No"
+
 [node name="EndEffect" type="Node" parent="."]
 script = ExtResource("4_j7irx")
-trans = 10
+trans = 5
 ease = 1
-duration = 0.8
 
 [node name="Slide2" type="Node" parent="EndEffect" node_paths=PackedStringArray("node")]
 script = ExtResource("5_d7wj0")
@@ -595,6 +664,3 @@ script = ExtResource("4_j7irx")
 [node name="Slide" type="Node" parent="UnlockedMode/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("5_d7wj0")
 node = NodePath("../..")
-
-[connection signal="finished" from="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion/HBoxContainer2/PromotionYes" to="." method="_on_promotion_yes_finished"]
-[connection signal="finished" from="CenterContainer/PanelContainer/Work/VBoxContainer/Promotion/HBoxContainer2/PromotionNo" to="." method="_on_promotion_no_finished"]

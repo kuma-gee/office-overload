@@ -2,7 +2,6 @@ class_name Effect
 extends Node
 
 @export var node: Node
-
 @onready var effect_root: EffectRoot = get_parent()
 
 func _ready():

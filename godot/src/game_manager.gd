@@ -20,12 +20,12 @@ const GRADES = {
 }
 
 const GRADE_MONEY = {
-	"S": 1000,
+	"S": 600,
 	"A": 500,
-	"B": 250,
-	"C": 100,
-	"D": 50,
-	"E": 25,
+	"B": 400,
+	"C": 200,
+	"D": 100,
+	"E": 50,
 	"F": 0,
 }
 
@@ -105,7 +105,7 @@ func _load_data():
 	if data:
 		cache_properties.load_data(data)
 	
-	self.difficulty_level = DifficultyResource.Level.CEO
+	self.difficulty_level = DifficultyResource.Level.INTERN
 	#unlocked_modes = Mode.values()
 	
 	_logger.info("Game initialized")
@@ -191,8 +191,8 @@ func finished_day(data: Dictionary):
 	
 	### Calculate Performance ###
 	var points = calculate_performance(data)
-	points["money"] = GRADE_MONEY[points["grade"]]
-	money += points["money"]
+	data["money"] = GRADE_MONEY[data["grade"]]
+	money += data["money"]
 	performance = max(performance + points, 0)
 	
 	past_performance.append(performance)

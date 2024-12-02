@@ -55,3 +55,6 @@ func stop():
 	tw.kill()
 	for eff in effects:
 		eff.stop(tw)
+
+func is_running():
+	return tw and tw.is_running()
