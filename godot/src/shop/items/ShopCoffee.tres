@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShopResource" load_steps=3 format=3 uid="uid://c26iy7v60mwce"]
+
+[ext_resource type="Texture2D" uid="uid://dj6bb0pkr5rc3" path="res://assets/sprites/Icon_Coffee.png" id="1_q82mi"]
+[ext_resource type="Script" path="res://src/shop/shop_resource.gd" id="2_a4y3k"]
+
+[resource]
+script = ExtResource("2_a4y3k")
+type = 2
+icon = ExtResource("1_q82mi")
+price = 250

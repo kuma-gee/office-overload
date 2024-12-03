@@ -71,6 +71,7 @@ var locked := false:
 		add_theme_color_override("font_outline_color", highlight_color if v else Color.TRANSPARENT)
 		update_word()
 
+var disabled := false
 var censored := []
 
 func _ready():

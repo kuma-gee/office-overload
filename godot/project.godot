@@ -32,6 +32,7 @@ FeedbackManager="*res://src/autoload/feedback_manager.tscn"
 DebugWindow="*res://src/autoload/debug_window.tscn"
 SteamCloud="*res://src/autoload/SteamCloud.gd"
 WordManager="*res://src/autoload/word_manager.gd"
+DataLoader="*res://src/autoload/data_loader.gd"
 
 [debug]
 
@@ -110,6 +111,10 @@ special_mode={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194325,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://translations.csv")
 
 [layer_names]
 

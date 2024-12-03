@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShopResource" load_steps=3 format=3 uid="uid://xxpklh6gysxc"]
+
+[ext_resource type="Texture2D" uid="uid://d2ytjaidx528u" path="res://assets/sprites/Icon_Disturb.png" id="1_w7p7p"]
+[ext_resource type="Script" path="res://src/shop/shop_resource.gd" id="2_7r2uh"]
+
+[resource]
+script = ExtResource("2_7r2uh")
+type = 3
+icon = ExtResource("1_w7p7p")
+price = 400

@@ -73,6 +73,9 @@ func _ready():
 	get_tree().paused = false
 	_set_environment()
 	_update_score()
+
+	for item in GameManager.bought_items:
+		pass
 	
 	boss_combo = 0
 	overload_progress.game = self

@@ -71,4 +71,4 @@ func _get_focused_label():
 	return labels
 
 func _is_valid_node(label: TypedWord):
-	return label and label.is_visible_in_tree() and label.word != "" and label.modulate.a >= 1 and not label.active
+	return label and label.is_visible_in_tree() and label.word != "" and label.modulate.a >= 1 and not label.active and not label.disabled

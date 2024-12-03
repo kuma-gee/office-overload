@@ -80,6 +80,8 @@ var received_promotion_day := 0
 var days_since_promotion := 0
 var money := 0
 
+var bought_items: Array[Shop.Items]= []
+
 ### Maybe Save? ###
 var last_interview_wpm := 0.0
 var last_interview_accuracy := 0.0
@@ -286,6 +288,24 @@ func get_wpm():
 
 func get_accuracy():
 	return average_accuracy * 100
+
+### Items
+func buy_item(item: Shop.Items, price: int):
+	if bought_items.has(item):
+		_logger.warn("Item %s already bought" % item)
+		return false
+	
+	if money < price:
+		_logger.warn("Not enough money to buy %s" % item)
+		return false
+
+	money -= price
+	bought_items.append(item)
+	_save_data()
+	return true
+
+func has_item(item: Shop.Items):
+	return bought_items.has(item)
 
 ### Difficulty
 enum PromotionTip {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=53 format=3 uid="uid://ctlncowdl0sbn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
 [ext_resource type="Script" path="res://start.gd" id="2_508sk"]
@@ -43,6 +43,8 @@
 [ext_resource type="PackedScene" uid="uid://du0v5of5joaem" path="res://src/ui/menu_paper.tscn" id="38_fltas"]
 [ext_resource type="Script" path="res://src/ui/resignation.gd" id="43_d3m8a"]
 [ext_resource type="RichTextEffect" uid="uid://d0psnm1eyw40x" path="res://src/text-effect/typed_effect.tres" id="43_fqxjg"]
+[ext_resource type="Script" path="res://src/shop/shop.gd" id="44_yqie7"]
+[ext_resource type="PackedScene" uid="uid://cn8lfhdkylik" path="res://src/shop/shop_item.tscn" id="45_rl6dp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_87uxo"]
 
@@ -58,12 +60,13 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tnvcv"]
 
-[node name="Start" type="Node2D" node_paths=PackedStringArray("work_label", "prepare_label", "files", "team", "prepare_node", "teams_node", "files_node", "settings", "game_modes", "delegator", "folder", "teams")]
+[node name="Start" type="Node2D" node_paths=PackedStringArray("work_label", "prepare_label", "files", "team", "shop_button", "prepare_node", "teams_node", "files_node", "settings", "game_modes", "delegator", "folder", "teams", "shop")]
 script = ExtResource("2_508sk")
 work_label = NodePath("TextureRect2/Clock/TypingLabel")
 prepare_label = NodePath("TextureRect2/Prepare/PrepareDoc/TypingLabel3")
 files = NodePath("TextureRect2/Files/Report")
 team = NodePath("TextureRect2/Rankings/Team")
+shop_button = NodePath("ShopButton/PrepareDoc/TypingLabel3")
 prepare_node = NodePath("TextureRect2/Prepare")
 teams_node = NodePath("TextureRect2/Rankings")
 files_node = NodePath("TextureRect2/Files")
@@ -72,10 +75,11 @@ game_modes = NodePath("CanvasLayer/Control/GameModes")
 delegator = NodePath("Delegator")
 folder = NodePath("CanvasLayer/Control/Report")
 teams = NodePath("CanvasLayer/Control/Team")
+shop = NodePath("Shop")
 
 [node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_bh4xx")
-nodes = [NodePath("../TextureRect2/Clock/TypingLabel"), NodePath("../TextureRect2/Prepare/PrepareDoc/TypingLabel3"), NodePath("../TextureRect2/Files/Report"), NodePath("../TextureRect2/Rankings/Team")]
+nodes = [NodePath("../TextureRect2/Clock/TypingLabel"), NodePath("../TextureRect2/Prepare/PrepareDoc/TypingLabel3"), NodePath("../TextureRect2/Files/Report"), NodePath("../TextureRect2/Rankings/Team"), NodePath("../ShopButton/PrepareDoc/TypingLabel3")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.493545, 0.493546, 0.493546, 1)
@@ -397,6 +401,7 @@ autoplay = true
 bus = &"BGM"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -1105,6 +1110,97 @@ offset_bottom = 10.0
 
 [node name="PanelContainer" parent="CanvasLayer/Control/Report/TextureRect" index="4"]
 visible = false
+
+[node name="ShopButton" type="Node2D" parent="."]
+position = Vector2(122, -64)
+
+[node name="PrepareDoc" type="PanelContainer" parent="ShopButton"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.5
+offset_top = -9.5
+offset_right = 28.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qu80e")
+
+[node name="TypingLabel3" parent="ShopButton/PrepareDoc" instance=ExtResource("8_y3mf1")]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 12
+text = "shop"
+highlight_first = true
+word = "shop"
+
+[node name="Shop" type="Control" parent="." node_paths=PackedStringArray("container", "delegator")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 320.0
+offset_right = 320.0
+theme = ExtResource("1_qu80e")
+script = ExtResource("44_yqie7")
+container = NodePath("MarginContainer/CenterContainer/MarginContainer/GridContainer")
+item_scene = ExtResource("45_rl6dp")
+delegator = NodePath("Delegator")
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop"]
+custom_minimum_size = Vector2(320, 180)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Shop/MarginContainer"]
+layout_mode = 2
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="Shop/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop/MarginContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="GridContainer" type="GridContainer" parent="Shop/MarginContainer/CenterContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="ShopItem" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("45_rl6dp")]
+layout_mode = 2
+
+[node name="ShopItem2" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("45_rl6dp")]
+layout_mode = 2
+
+[node name="ShopItem3" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("45_rl6dp")]
+layout_mode = 2
+
+[node name="ShopItem4" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("45_rl6dp")]
+layout_mode = 2
+
+[node name="ShopItem7" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("45_rl6dp")]
+layout_mode = 2
+
+[node name="ShopItem8" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("45_rl6dp")]
+layout_mode = 2
+
+[node name="Delegator" type="Node" parent="Shop"]
+script = ExtResource("16_bh4xx")
 
 [editable path="CanvasLayer/Control/Team"]
 [editable path="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3"]

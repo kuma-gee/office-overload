@@ -2,21 +2,56 @@ class_name Shop
 extends Control
 
 enum Items {
-    RUBBER_DUCK,
-    PLANT,
-    COFFEE,
-    NOT_DISTURB,
-    MONEY_CAT,
-    COSMETIC,
+	RUBBER_DUCK,
+	PLANT,
+	COFFEE,
+	DO_NOT_DISTURB,
+	MONEY_CAT,
+	COSMETIC,
 }
 
-const PRICES = {
-    Items.PLANT: 100,
-    Items.COFFEE: 300,
-    Items.NOT_DISTURB: 400,
-    Items.RUBBER_DUCK: 600,
-    Items.MONEY_CAT: 1000,
+const ITEM_FOLDER = "res://src/shop/items/"
 
-    Items.COSMETIC: 600,
-}
+@export var container: Control
+@export var item_scene: PackedScene
+@export var delegator: Delegator
+@onready var camera := get_viewport().get_camera_2d()
 
+var tw: Tween
+
+func _ready() -> void:
+	focus_mode = FOCUS_ALL
+	focus_entered.connect(_on_focus_enter)
+	focus_exited.connect(_on_focus_exit)
+
+	for c in container.get_children():
+		c.queue_free()
+
+	# for item in DataLoader.items:
+	var items = []
+	for file in DirAccess.get_files_at(ITEM_FOLDER):
+		var res = load(ITEM_FOLDER + file) as ShopResource
+		if not res: continue
+		items.append(res)
+
+	items.sort_custom(func(a, b): return a.price < b.price)
+	for item in items:
+		var node = item_scene.instantiate() as ShopItem
+		node.item = item
+
+		container.add_child(node)
+		delegator.nodes.append(node)
+
+func _gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") and not delegator.has_focused():
+		get_viewport().gui_release_focus()
+	
+	delegator.handle_event(event)
+
+func _on_focus_enter() -> void:
+	tw = create_tween().set_ease(Tween.EaseType.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tw.tween_property(camera, "global_position", global_position, 0.5)
+
+func _on_focus_exit() -> void:
+	tw = create_tween().set_ease(Tween.EaseType.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tw.tween_property(camera, "global_position", Vector2.ZERO, 0.5)

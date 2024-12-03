@@ -34,31 +34,19 @@ func _open_words_file():
 	return FileAccess.open(WORD_FILE, FileAccess.READ)
 
 func _ready():
-	var file = _open_words_file()
-	if not file:
-		print("Failed to open file %s" % WORD_FILE)
-		return
-	
-	var words = file.get_as_text().split("\n")
-	file.close()
-
-	for line in words:
-		var parts = line.split(";")
-		if parts.size() != 2:
-			continue
-
-		var group = parts[1]
+	for line in DataLoader.load_csv("words.csv", ["word", "group"]):
+		var group = line["group"]
 		if not group in all_words:
 			all_words[group] = []
 		
-		var word = parts[0].strip_edges().to_lower()
+		var word = line["word"].to_lower()
 		if not word in all_words[group]:
 			all_words[group].append(word)
 		else:
-			print("Duplicate word %s in group %s" % [word, group])
-	
+			_logger.warn("Duplicate word %s in group %s" % [word, group])
+
 	for x in all_words:
-		print("Added %d words to group %s" % [all_words[x].size(), x])
+		_logger.info("Added %d words to group %s" % [all_words[x].size(), x])
 
 func get_words(group: String, type: Type = Type.ALL) -> Array:
 	if not group in all_words:

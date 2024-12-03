@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=88 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -36,7 +36,6 @@
 [ext_resource type="Script" path="res://src/ManualLoopAudio.gd" id="18_f0kcb"]
 [ext_resource type="AudioStream" uid="uid://dc1fhbgjs375l" path="res://assets/sound/携帯電話のバイブレーション1.mp3" id="19_5t58c"]
 [ext_resource type="AudioStream" uid="uid://bpxm5pscsli23" path="res://assets/sound/鳩時計1.mp3" id="19_mkiih"]
-[ext_resource type="Texture2D" uid="uid://sy6r1qjyud55" path="res://assets/sprites/Desk_Static.png" id="19_wvt8k"]
 [ext_resource type="Script" path="res://src/BlinkText.gd" id="20_0ygyh"]
 [ext_resource type="AudioStream" uid="uid://bmtpsyxjqkjxv" path="res://assets/sound/携帯電話の着信音1.mp3" id="20_2av8q"]
 [ext_resource type="Texture2D" uid="uid://7rmhhytuv24r" path="res://assets/sprites/Email.png" id="20_hn5id"]
@@ -57,6 +56,8 @@
 [ext_resource type="PackedScene" uid="uid://cuh77fo8okhk7" path="res://src/ui/pause.tscn" id="37_b7g85"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
 [ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
+[ext_resource type="Texture2D" uid="uid://dl1vy7elnxhrw" path="res://assets/sprites/Desk_Mouse.png" id="48_edn0k"]
+[ext_resource type="Texture2D" uid="uid://gxkl3pcqm8ch" path="res://assets/sprites/Desk_Note.png" id="49_bjcyb"]
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
 [ext_resource type="Script" path="res://src/shift_overlay.gd" id="59_nhn8c"]
 
@@ -1172,7 +1173,6 @@ libraries = {
 autoplay = "normal"
 
 [node name="Desk" type="Sprite2D" parent="."]
-texture = ExtResource("19_wvt8k")
 
 [node name="PointLight2D" type="PointLight2D" parent="Desk"]
 position = Vector2(0.5, 0.5)
@@ -1471,6 +1471,14 @@ hframes = 2
 position = Vector2(0, -33)
 texture = ExtResource("31_x6efq")
 hframes = 2
+
+[node name="Mouse" type="Sprite2D" parent="Desk"]
+position = Vector2(41, -25)
+texture = ExtResource("48_edn0k")
+
+[node name="Note" type="Sprite2D" parent="Desk"]
+position = Vector2(-78, -33)
+texture = ExtResource("49_bjcyb")
 
 [node name="DocumentStack" type="Node2D" parent="." node_paths=PackedStringArray("doc_count_label", "combo_label", "combo_particles01", "combo_particles02")]
 visible = false
