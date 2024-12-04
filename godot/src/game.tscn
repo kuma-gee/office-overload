@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=93 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -56,8 +56,13 @@
 [ext_resource type="PackedScene" uid="uid://cuh77fo8okhk7" path="res://src/ui/pause.tscn" id="37_b7g85"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
 [ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
+[ext_resource type="Texture2D" uid="uid://cahg70l0ct3i3" path="res://assets/sprites/Desk_Duck.png" id="47_0m5o6"]
+[ext_resource type="Script" path="res://src/duck.gd" id="47_m6qb4"]
 [ext_resource type="Texture2D" uid="uid://dl1vy7elnxhrw" path="res://assets/sprites/Desk_Mouse.png" id="48_edn0k"]
+[ext_resource type="Texture2D" uid="uid://busfi7fbj5jtp" path="res://assets/sprites/Desk_Cat.png" id="48_ic7kw"]
 [ext_resource type="Texture2D" uid="uid://gxkl3pcqm8ch" path="res://assets/sprites/Desk_Note.png" id="49_bjcyb"]
+[ext_resource type="Texture2D" uid="uid://bh6vqkyuoo3dm" path="res://assets/sprites/Desk_Sign.png" id="49_f18oy"]
+[ext_resource type="Texture2D" uid="uid://byjv7juagwece" path="res://assets/sprites/Desk_Cosmetic.png" id="50_rmwb1"]
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
 [ext_resource type="Script" path="res://src/shift_overlay.gd" id="59_nhn8c"]
 
@@ -90,7 +95,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Plant:frame")
+tracks/0/path = NodePath("Items/Plant:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -102,7 +107,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Coffee:frame")
+tracks/1/path = NodePath("Items/Coffee:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -312,7 +317,7 @@ resource_name = "littered"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Plant:frame")
+tracks/0/path = NodePath("Items/Plant:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -348,7 +353,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Coffee:frame")
+tracks/3/path = NodePath("Items/Coffee:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -364,7 +369,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Plant:frame")
+tracks/0/path = NodePath("Items/Plant:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -388,7 +393,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Coffee:frame")
+tracks/2/path = NodePath("Items/Coffee:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -404,7 +409,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Plant:frame")
+tracks/0/path = NodePath("Items/Plant:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -416,7 +421,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Coffee:frame")
+tracks/1/path = NodePath("Items/Coffee:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -606,12 +611,14 @@ glow_enabled = true
 glow_bloom = 0.05
 glow_blend_mode = 0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "single_player_doc_label", "single_player_combo_label", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label")]
 top_level = true
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
+items_root = NodePath("Desk/Items")
 single_player_doc_label = NodePath("Desk/Computer/SingleUI/PlayerDocuments")
 single_player_combo_label = NodePath("Desk/Computer/SingleUI/PlayerCombo")
+duck = NodePath("Desk/Items/Duck")
 boss_doc_label = NodePath("Desk/Computer/BossUI/VBoxContainer2/HBoxContainer2/Doc")
 boss_combo_label = NodePath("Desk/Computer/BossUI/VBoxContainer2/HBoxContainer2/Combo")
 boss_attack_timer = NodePath("BossAttackTimer")
@@ -1156,6 +1163,7 @@ stretch_mode = 5
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("37_b7g85")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.2, 0.2, 0.2, 1)
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -1457,15 +1465,40 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 10
 text = "00"
 
-[node name="Plant" type="Sprite2D" parent="Desk"]
-position = Vector2(-118, -66)
+[node name="Items" type="Node2D" parent="Desk"]
+
+[node name="Duck" type="Sprite2D" parent="Desk/Items"]
+position = Vector2(91, -35)
+texture = ExtResource("47_0m5o6")
+hframes = 2
+script = ExtResource("47_m6qb4")
+
+[node name="Plant" type="Sprite2D" parent="Desk/Items"]
+position = Vector2(-108, -39)
 texture = ExtResource("27_1a3yr")
 hframes = 3
 
-[node name="Coffee" type="Sprite2D" parent="Desk"]
-position = Vector2(82, -29)
+[node name="Coffee" type="Sprite2D" parent="Desk/Items"]
+position = Vector2(69, -15)
 texture = ExtResource("28_i6mjb")
 hframes = 2
+
+[node name="Sign" type="Sprite2D" parent="Desk/Items"]
+position = Vector2(133, -62)
+texture = ExtResource("49_f18oy")
+
+[node name="Cat" type="Sprite2D" parent="Desk/Items"]
+position = Vector2(-71, -63)
+texture = ExtResource("48_ic7kw")
+hframes = 2
+
+[node name="Cosmetic" type="Sprite2D" parent="Desk/Items"]
+position = Vector2(61, -66)
+texture = ExtResource("50_rmwb1")
+
+[node name="Note" type="Sprite2D" parent="Desk/Items"]
+position = Vector2(-61, -12)
+texture = ExtResource("49_bjcyb")
 
 [node name="Keyboard" type="Sprite2D" parent="Desk"]
 position = Vector2(0, -33)
@@ -1475,10 +1508,6 @@ hframes = 2
 [node name="Mouse" type="Sprite2D" parent="Desk"]
 position = Vector2(41, -25)
 texture = ExtResource("48_edn0k")
-
-[node name="Note" type="Sprite2D" parent="Desk"]
-position = Vector2(-78, -33)
-texture = ExtResource("49_bjcyb")
 
 [node name="DocumentStack" type="Node2D" parent="." node_paths=PackedStringArray("doc_count_label", "combo_label", "combo_particles01", "combo_particles02")]
 visible = false
@@ -1688,6 +1717,7 @@ word_generator = NodePath("WordGenerator")
 script = ExtResource("55_o651g")
 
 [node name="Overlay" type="ColorRect" parent="."]
+visible = false
 custom_minimum_size = Vector2(100, 100)
 anchors_preset = 15
 anchor_right = 1.0

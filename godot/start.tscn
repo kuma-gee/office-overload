@@ -401,7 +401,6 @@ autoplay = true
 bus = &"BGM"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -1111,6 +1110,24 @@ offset_bottom = 10.0
 [node name="PanelContainer" parent="CanvasLayer/Control/Report/TextureRect" index="4"]
 visible = false
 
+[node name="Money" type="MarginContainer" parent="CanvasLayer/Control"]
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = -6
+
+[node name="Money" type="PanelContainer" parent="CanvasLayer/Control/Money"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Money/Money"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Money/Money/MarginContainer"]
+layout_mode = 2
+text = "$10000"
+
 [node name="ShopButton" type="Node2D" parent="."]
 position = Vector2(122, -64)
 
@@ -1135,7 +1152,7 @@ text = "shop"
 highlight_first = true
 word = "shop"
 
-[node name="Shop" type="Control" parent="." node_paths=PackedStringArray("container", "delegator")]
+[node name="Shop" type="Control" parent="." node_paths=PackedStringArray("container", "delegator", "money_container")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 320.0
@@ -1145,6 +1162,7 @@ script = ExtResource("44_yqie7")
 container = NodePath("MarginContainer/CenterContainer/MarginContainer/GridContainer")
 item_scene = ExtResource("45_rl6dp")
 delegator = NodePath("Delegator")
+money_container = NodePath("../CanvasLayer/Control/Money")
 
 [node name="MarginContainer" type="MarginContainer" parent="Shop"]
 custom_minimum_size = Vector2(320, 180)

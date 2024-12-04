@@ -3,10 +3,12 @@ extends Node2D
 
 @export var overload_reduce := 20.0
 @export var work_time: WorkTime
+@export var items_root: Node
 
 @export_category("Work Mode")
 @export var single_player_doc_label: Label
 @export var single_player_combo_label: Label
+@export var duck: Duck
 
 @export_category("Boss")
 @export var min_documents := 2
@@ -74,8 +76,8 @@ func _ready():
 	_set_environment()
 	_update_score()
 
-	for item in GameManager.bought_items:
-		pass
+	for i in range(items_root.get_child_count()):
+		items_root.get_child(i).visible = i in GameManager.bought_items
 	
 	boss_combo = 0
 	overload_progress.game = self
@@ -280,6 +282,9 @@ func _add_document(doc: Document, await_start := false):
 			
 		if Input.is_action_pressed("special_mode"):
 			shift_overlay.add_highlight()
+		
+		if documents.size() > 0 and doc_spawner.is_invalid_word(documents[0].word):
+			duck.play()
 	)
 
 	if documents.is_empty():

@@ -3,11 +3,13 @@
 importer="csv_translation"
 type="Translation"
 uid="uid://cjnljm42h8wfr"
-valid=false
 
 [deps]
 
+files=["res://translations.Rubber Duck.translation"]
+
 source_file="res://translations.csv"
+dest_files=["res://translations.Rubber Duck.translation"]
 
 [params]
 

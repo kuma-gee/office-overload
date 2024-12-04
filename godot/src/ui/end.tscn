@@ -86,7 +86,7 @@ scale_max = 5.0
 scale_curve = SubResource("CurveTexture_51fdc")
 alpha_curve = SubResource("CurveTexture_rj2fv")
 
-[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "promotion_delegator", "work_container", "unlocked_container")]
+[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "promotion_delegator", "work_container", "unlocked_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -108,6 +108,7 @@ perfect_tasks_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContaine
 distraction_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3/Mistakes")
 grade_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Grade/Sprite2D/GradeLabel")
 wpm_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4/WPM")
+money_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/MarginContainer/Money")
 promotion_delegator = NodePath("PromotionPaper/Work/VBoxContainer/PromotionDelegator")
 work_container = NodePath("CenterContainer/PanelContainer/Work")
 unlocked_container = NodePath("UnlockedMode")

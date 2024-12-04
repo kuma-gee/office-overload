@@ -78,7 +78,8 @@ func maybe_show_distraction():
 
 	var skip_count = [1, 2, 2, 1, 0, 0, 0, 0, 0]
 	var distraction_random = randf() - distraction_accumulator
-	if distraction_random < GameManager.difficulty.distractions and skipped_since_last_distraction >= skip_count[shown]:
+	var chance = GameManager.difficulty.distractions * GameManager.get_distraction_reduction()
+	if distraction_random < chance and skipped_since_last_distraction >= skip_count[shown]:
 		show_distraction()
 		distraction_accumulator = 0.0
 		skipped_since_last_distraction = 0

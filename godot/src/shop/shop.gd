@@ -15,6 +15,8 @@ const ITEM_FOLDER = "res://src/shop/items/"
 @export var container: Control
 @export var item_scene: PackedScene
 @export var delegator: Delegator
+@export var money_container: Control
+
 @onready var camera := get_viewport().get_camera_2d()
 
 var tw: Tween
@@ -23,6 +25,8 @@ func _ready() -> void:
 	focus_mode = FOCUS_ALL
 	focus_entered.connect(_on_focus_enter)
 	focus_exited.connect(_on_focus_exit)
+	
+	money_container.position = Vector2.UP * 50
 
 	for c in container.get_children():
 		c.queue_free()
@@ -49,9 +53,11 @@ func _gui_input(event: InputEvent) -> void:
 	delegator.handle_event(event)
 
 func _on_focus_enter() -> void:
-	tw = create_tween().set_ease(Tween.EaseType.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tw = create_tween().set_ease(Tween.EaseType.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	tw.tween_property(camera, "global_position", global_position, 0.5)
+	tw.tween_property(money_container, "position", Vector2.ZERO, 0.8).set_trans(Tween.TRANS_BACK)
 
 func _on_focus_exit() -> void:
-	tw = create_tween().set_ease(Tween.EaseType.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tw = create_tween().set_ease(Tween.EaseType.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	tw.tween_property(camera, "global_position", Vector2.ZERO, 0.5)
+	tw.tween_property(money_container, "position", Vector2.UP * 50, 0.8).set_trans(Tween.TRANS_BACK)

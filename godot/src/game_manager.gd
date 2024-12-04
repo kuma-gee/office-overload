@@ -193,7 +193,7 @@ func finished_day(data: Dictionary):
 	
 	### Calculate Performance ###
 	var points = calculate_performance(data)
-	data["money"] = GRADE_MONEY[data["grade"]]
+	data["money"] = int(ceil(GRADE_MONEY[data["grade"]] * get_money_bonus()))
 	money += data["money"]
 	performance = max(performance + points, 0)
 	
@@ -306,6 +306,32 @@ func buy_item(item: Shop.Items, price: int):
 
 func has_item(item: Shop.Items):
 	return bought_items.has(item)
+
+func get_stress_reduction():
+	if not Shop.Items.PLANT in bought_items:
+		return 1.0
+	return 0.8
+
+func get_money_bonus():
+	if not Shop.Items.MONEY_CAT in bought_items:
+		return 1.0
+	return 1.2
+
+func get_distraction_reduction():
+	if not Shop.Items.DO_NOT_DISTURB in bought_items:
+		return 1.0
+	return 0.8
+
+func has_coffee():
+	return Shop.Items.COFFEE in bought_items
+
+func use_coffee():
+	if not has_coffee():
+		return 0.0
+
+	bought_items.erase(Shop.Items.COFFEE)
+	_save_data()
+	return 100.0
 
 ### Difficulty
 enum PromotionTip {

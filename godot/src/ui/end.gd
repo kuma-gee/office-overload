@@ -31,6 +31,7 @@ extends Control
 @export var points_label: Label
 @export var grade_label: Label
 @export var wpm_label: Label
+@export var money_label: Label
 
 @export_category("Promotion")
 @export var promotion_delegator: Delegator
@@ -59,9 +60,7 @@ func day_ended(data: Dictionary):
 	var tasks = data["total"]
 	var combo = data["combo"]
 	var wrong = data["wrong"]
-	#var mistyped = data["mistyped"]
-	# var overtime_hours = data["overtime"]
-	# var distraction_missed = data["distractions"]
+	#var mi_missed = data["distractions"]
 	var points = data["points"]
 	var grade = data["grade"]
 
@@ -69,14 +68,10 @@ func day_ended(data: Dictionary):
 	title.text = "Day %s report" % GameManager.day
 	finished_tasks.text = "%s" % tasks
 	perfect_tasks_label.text = "%s" % combo
-	#acc_label.text = "Quality %0.f%%" % [acc * 100]
-	# overtime.text = "%s hours of wovertime" % overtime_hours
-	# distraction_label.text = "%s ignored messages" % distraction_missed
+	money_label.text = "%0.f" % data["money"]
 	distraction_label.text = "%s" % wrong
 	wpm_label.text = "%0.f" % data["wpm"]
 
-	# points_label.text = "Performance %s" % points
-	
 	var promo_tip = GameManager.can_have_promotion()
 	var promo = promo_tip == null
 	if promo:
@@ -88,13 +83,6 @@ func day_ended(data: Dictionary):
 	
 	if GameManager.is_work_mode() and not promo:
 		GameManager.upload_work_scores()
-	
-	#if GameManager.is_senior():
-		#GameManager.unlock_mode(GameManager.Mode.Meeting)
-	#if GameManager.is_junior():
-		#GameManager.unlock_mode(GameManager.Mode.MorningCoffee)
-	#if GameManager.is_junior() and data["overtime"] > 1:
-		#GameManager.unlock_mode(GameManager.Mode.AfterworkBeer)
 
 func _promotion_tip_text(tip) -> String:
 	match tip:
