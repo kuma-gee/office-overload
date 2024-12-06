@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=55 format=3 uid="uid://ctlncowdl0sbn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
 [ext_resource type="Script" path="res://start.gd" id="2_508sk"]
@@ -43,6 +43,8 @@
 [ext_resource type="PackedScene" uid="uid://du0v5of5joaem" path="res://src/ui/menu_paper.tscn" id="38_fltas"]
 [ext_resource type="Script" path="res://src/ui/resignation.gd" id="43_d3m8a"]
 [ext_resource type="RichTextEffect" uid="uid://d0psnm1eyw40x" path="res://src/text-effect/typed_effect.tres" id="43_fqxjg"]
+[ext_resource type="Script" path="res://src/shop/shop_item_details.gd" id="44_0p3lu"]
+[ext_resource type="Texture2D" uid="uid://gdjrbxg43sj4" path="res://icon.png" id="44_eykpo"]
 [ext_resource type="Script" path="res://src/shop/shop.gd" id="44_yqie7"]
 [ext_resource type="PackedScene" uid="uid://cn8lfhdkylik" path="res://src/shop/shop_item.tscn" id="45_rl6dp"]
 
@@ -1110,7 +1112,118 @@ offset_bottom = 10.0
 [node name="PanelContainer" parent="CanvasLayer/Control/Report/TextureRect" index="4"]
 visible = false
 
+[node name="ShopItemDetails" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("icon", "name_label", "price_label", "desc_label", "purchase_word", "sold_out_label")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -58.0
+offset_right = 2.0
+offset_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("44_0p3lu")
+icon = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/Icon")
+name_label = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/Name")
+price_label = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/Price")
+desc_label = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/Desc")
+purchase_word = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/BuyWord")
+sold_out_label = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/SoldOut")
+
+[node name="Delegator" type="Node" parent="CanvasLayer/Control/ShopItemDetails" node_paths=PackedStringArray("nodes")]
+script = ExtResource("16_bh4xx")
+nodes = [NodePath("../PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/BuyWord")]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/ShopItemDetails"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/Control"]
+layout_mode = 1
+offset_right = 18.0
+offset_bottom = 15.0
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/Control/MarginContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("14_vk34l")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+texture = ExtResource("44_eykpo")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "ITEM_NAME"
+label_settings = ExtResource("20_lew8u")
+horizontal_alignment = 1
+
+[node name="Price" type="Label" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "PRICE"
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+text = "ITEM_NAME_DESCadsadsadadsadsa"
+label_settings = ExtResource("9_mw082")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BuyWord" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2" instance=ExtResource("8_y3mf1")]
+visible = false
+layout_mode = 2
+text = "purchase"
+highlight_first = true
+word = "purchase"
+
+[node name="SoldOut" type="RichTextLabel" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Sold OUT"
+fit_content = true
+scroll_active = false
+
 [node name="Money" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = -6
 
@@ -1152,7 +1265,7 @@ text = "shop"
 highlight_first = true
 word = "shop"
 
-[node name="Shop" type="Control" parent="." node_paths=PackedStringArray("container", "delegator", "money_container")]
+[node name="Shop" type="Control" parent="." node_paths=PackedStringArray("container", "delegator", "money_container", "details")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 320.0
@@ -1163,6 +1276,7 @@ container = NodePath("MarginContainer/CenterContainer/MarginContainer/GridContai
 item_scene = ExtResource("45_rl6dp")
 delegator = NodePath("Delegator")
 money_container = NodePath("../CanvasLayer/Control/Money")
+details = NodePath("../CanvasLayer/Control/ShopItemDetails")
 
 [node name="MarginContainer" type="MarginContainer" parent="Shop"]
 custom_minimum_size = Vector2(320, 180)

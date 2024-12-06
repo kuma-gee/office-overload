@@ -1,6 +1,14 @@
+key,en
 RUBBER_DUCK,Rubber Duck
 PLANT,Plant
 COFFEE,Coffee
 DO_NOT_DISTURB,Do not disturb
 MONEY_CAT,Money Cat
 COSMETIC,Cosmetic
+RUBBER_DUCK_DESC,This duck automatically quacks when the active document is an invalid word
+PLANT_DESC,A plant that reduces your stress build up
+COFFEE_DESC,Drink a coffee to reduce your stress once
+DO_NOT_DISTURB_DESC,Reduces the number of distraction, but some people may just ignore it
+MONEY_CAT_DESC,Increases your amount of money that you receive
+COSMETIC_DESC,Just cosmetics, nothing special
+SOLD_OUT,Sold out

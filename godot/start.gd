@@ -19,6 +19,13 @@ extends Node
 @export var teams: Folder
 @export var shop: Shop
 
+var is_shop := false:
+	set(v):
+		is_shop = v
+		if v:
+			shop.open()
+		else:
+			shop.close()
 var is_starting := false
 var quit_warning_open := false
 
@@ -61,12 +68,17 @@ func _ready():
 		team.reset()
 	)
 	shop_button.type_finish.connect(func():
-		shop.grab_focus()
+		is_shop = true
 		shop_button.reset()
 	)
+	shop.closed.connect(func(): is_shop = false)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if is_starting: return
 	if get_viewport().gui_get_focus_owner() != null: return
+	
+	if is_shop:
+		shop.handle_input(event)
+		return
 	
 	delegator.handle_event(event)

@@ -6,6 +6,7 @@ signal round_ended()
 signal job_quited()
 signal exiting_game()
 signal mode_unlocked(mode)
+signal item_purchased()
 
 signal logged(line)
 
@@ -301,6 +302,7 @@ func buy_item(item: Shop.Items, price: int):
 
 	money -= price
 	bought_items.append(item)
+	item_purchased.emit()
 	_save_data()
 	return true
 

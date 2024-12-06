@@ -6,10 +6,10 @@ uid="uid://cjnljm42h8wfr"
 
 [deps]
 
-files=["res://translations.Rubber Duck.translation"]
+files=["res://translations.en.translation"]
 
 source_file="res://translations.csv"
-dest_files=["res://translations.Rubber Duck.translation"]
+dest_files=["res://translations.en.translation"]
 
 [params]
 

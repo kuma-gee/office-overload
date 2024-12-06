@@ -171,4 +171,4 @@ pivot_offset = Vector2(19, 5)
 
 [node name="Label" type="Label" parent="VBoxContainer/SoldOut/Control/PanelContainer"]
 layout_mode = 2
-text = "SOLD OUT"
+text = "SOLD_OUT"

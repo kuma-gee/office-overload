@@ -65,10 +65,11 @@ func _get_focused_label():
 	var labels = []
 	for m in nodes:
 		var lbl = m.get_label()
+		print(lbl.word, ", ", lbl.focused)
 		if _is_valid_node(lbl) and lbl.focused:
 			labels.append(lbl)
 	
 	return labels
 
 func _is_valid_node(label: TypedWord):
-	return label and label.is_visible_in_tree() and label.word != "" and label.modulate.a >= 1 and not label.active and not label.disabled
+	return label and label.is_visible_in_tree() and label.word != "" and label.modulate.a >= 1 and not label.active #and not label.disabled
