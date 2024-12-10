@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://ctlncowdl0sbn"]
+[gd_scene load_steps=56 format=3 uid="uid://ctlncowdl0sbn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_qu80e"]
 [ext_resource type="Script" path="res://start.gd" id="2_508sk"]
@@ -47,6 +47,7 @@
 [ext_resource type="Texture2D" uid="uid://gdjrbxg43sj4" path="res://icon.png" id="44_eykpo"]
 [ext_resource type="Script" path="res://src/shop/shop.gd" id="44_yqie7"]
 [ext_resource type="PackedScene" uid="uid://cn8lfhdkylik" path="res://src/shop/shop_item.tscn" id="45_rl6dp"]
+[ext_resource type="Script" path="res://src/shop/money_label.gd" id="46_82435"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_87uxo"]
 
@@ -1240,6 +1241,7 @@ theme_override_constants/margin_bottom = 5
 [node name="Label" type="Label" parent="CanvasLayer/Control/Money/Money/MarginContainer"]
 layout_mode = 2
 text = "$10000"
+script = ExtResource("46_82435")
 
 [node name="ShopButton" type="Node2D" parent="."]
 position = Vector2(122, -64)

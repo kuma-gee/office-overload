@@ -291,23 +291,31 @@ func get_accuracy():
 	return average_accuracy * 100
 
 ### Items
-func buy_item(item: Shop.Items, price: int):
-	if bought_items.has(item):
-		_logger.warn("Item %s already bought" % item)
+func buy_item(item: ShopResource):
+	if is_item_max(item):
+		_logger.warn("Item %s already at max upgrade" % Shop.Items.keys()[item.type])
 		return false
 	
+	var price = item_price(item)
 	if money < price:
-		_logger.warn("Not enough money to buy %s" % item)
+		_logger.warn("Not enough money to buy %s" % Shop.Items.keys()[item.type])
 		return false
 
 	money -= price
-	bought_items.append(item)
+	bought_items.append(item.type)
 	item_purchased.emit()
 	_save_data()
 	return true
 
-func has_item(item: Shop.Items):
-	return bought_items.has(item)
+func is_item_max(item: ShopResource):
+	return item_count(item.type) >= item.prices.size()
+
+func item_count(item: Shop.Items):
+	return bought_items.count(item)
+
+func item_price(item: ShopResource):
+	var item_bought = item_count(item.type)
+	return item.prices[min(item_bought, item.prices.size() - 1)]
 
 func get_stress_reduction():
 	if not Shop.Items.PLANT in bought_items:

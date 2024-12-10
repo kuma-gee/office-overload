@@ -68,7 +68,7 @@ func day_ended(data: Dictionary):
 	title.text = "Day %s report" % GameManager.day
 	finished_tasks.text = "%s" % tasks
 	perfect_tasks_label.text = "%s" % combo
-	money_label.text = "%0.f" % data["money"]
+	money_label.text = "$%0.f" % data["money"]
 	distraction_label.text = "%s" % wrong
 	wpm_label.text = "%0.f" % data["wpm"]
 

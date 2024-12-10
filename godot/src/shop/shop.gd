@@ -41,7 +41,7 @@ func _ready() -> void:
 		if not res: continue
 		items.append(res)
 
-	items.sort_custom(func(a, b): return a.price < b.price)
+	items.sort_custom(func(a, b): return a.prices[0] < b.prices[0])
 	for item in items:
 		var node = item_scene.instantiate() as ShopItem
 		node.item = item

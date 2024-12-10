@@ -7,4 +7,4 @@
 script = ExtResource("2_7r2uh")
 type = 3
 icon = ExtResource("1_w7p7p")
-price = 400
+prices = [400]

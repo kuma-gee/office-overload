@@ -17,3 +17,4 @@ enum Level {
 @export var bgm_speed := 1.0
 @export var min_performance := 0
 @export var invalid_word_chance := 0.0
+@export var average_wpm := 0

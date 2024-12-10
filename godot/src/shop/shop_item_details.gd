@@ -19,9 +19,12 @@ var current_item: ShopResource:
 			icon.texture = current_item.icon
 			var type_str = Shop.Items.keys()[current_item.type]
 			name_label.text = tr(type_str)
-			price_label.text = "$%s" % current_item.price
+
+			var price = GameManager.item_price(current_item)
+			price_label.text = "$%s" % price
 			desc_label.text = tr("%s_DESC" % type_str)
-			purchase_word.visible = not GameManager.has_item(current_item.type)
+			purchase_word.visible = not GameManager.is_item_max(current_item)
+			purchase_word.word = tr("PURCHASE") if GameManager.item_count(current_item.type) <= 0 else tr("UPGRADE")
 			sold_out_label.visible = not purchase_word.visible
 
 var tw: Tween
@@ -31,9 +34,12 @@ func _ready() -> void:
 	focus_exited.connect(func(): close())
 	
 	purchase_word.type_finish.connect(func():
+		purchase_word.reset()
+		
 		if not current_item: return
-		if GameManager.buy_item(current_item.type, current_item.price) and not GameManager.has_item(current_item.type):
-			pass
+		if GameManager.is_item_max(current_item): return
+		
+		GameManager.buy_item(current_item)
 	)
 	sold_out_label.text = "[center]%s[/center]" % tr("SOLD_OUT")
 	

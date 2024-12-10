@@ -65,7 +65,7 @@ func _update_wpm_graph():
 
 	var wpms = GameManager.past_wpms
 	graph.x_max = wpms.size()
-	graph.y_max = 250
+	graph.y_max = 200
 	for i in wpms.size():
 		main.add_point(Vector2(i, wpms[i]))
 

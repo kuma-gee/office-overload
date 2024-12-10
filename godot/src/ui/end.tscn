@@ -139,7 +139,7 @@ grow_vertical = 0
 rotation = 0.174533
 pivot_offset = Vector2(50, 40)
 script = ExtResource("3_dapla")
-promotion_text = NodePath("Work/VBoxContainer/PromotionTextContainer/HBoxContainer/TypingLabel")
+promotion_text = NodePath("Work/VBoxContainer/PromotionTextContainer/Promotion")
 promotion_sound = NodePath("../PromotionSound")
 
 [node name="Work" type="MarginContainer" parent="PromotionStatus"]
@@ -167,10 +167,10 @@ theme_override_constants/separation = 0
 [node name="Promotion" type="Label" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer"]
 layout_mode = 2
 text = "Promoted to"
-label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 0
 
@@ -191,9 +191,9 @@ explosiveness = 0.9
 [node name="TypingLabel" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer" instance=ExtResource("8_whfhi")]
 layout_mode = 2
 size_flags_horizontal = 6
-frequency = 2.0
-height = 0.5
-highlight_all = true
+frequency = 0.0
+height = 0.0
+enable_mistake_effect = false
 
 [node name="Control3" type="Control" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer"]
 visible = false
