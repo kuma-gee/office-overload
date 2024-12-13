@@ -29,7 +29,7 @@ func update_stock_status():
 	var disable = GameManager.is_item_max(item)
 	#label.disabled = GameManager.has_item(item.type)
 	sold_out_container.visible = disable
-	label.highlight_first = not disable
+	#label.highlight_first = not disable
 	light.enabled = not disable
 
 func get_label():

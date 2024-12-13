@@ -25,16 +25,11 @@ signal closed()
 var tw: Tween
 
 func _ready() -> void:
-	#focus_mode = FOCUS_ALL
-	#focus_entered.connect(_on_focus_enter)
-	#focus_exited.connect(_on_focus_exit)
-	
 	money_container.position = Vector2.UP * 50
 
 	for c in container.get_children():
 		c.queue_free()
 
-	# for item in DataLoader.items:
 	var items = []
 	for file in DirAccess.get_files_at(ITEM_FOLDER):
 		var res = load(ITEM_FOLDER + file) as ShopResource

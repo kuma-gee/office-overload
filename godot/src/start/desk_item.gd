@@ -6,7 +6,8 @@ extends Node2D
 var tw: Tween
 
 func _ready() -> void:
-	position.x = -200
+	#position.x = -200
+	position.y = 150
 
 func move_in(delay = 0.2):
 	await get_tree().create_timer(delay).timeout

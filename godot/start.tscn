@@ -98,7 +98,79 @@ texture = ExtResource("4_einu0")
 position = Vector2(0, 57)
 texture = ExtResource("6_7xrqw")
 
-[node name="Stats" type="Control" parent="TextureRect2" node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy", "score_container", "score")]
+[node name="Control" type="Control" parent="TextureRect2"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -160.0
+offset_top = -147.0
+offset_right = -160.0
+offset_bottom = -147.0
+
+[node name="Note" parent="TextureRect2/Control" instance=ExtResource("12_mc432")]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 61.0
+offset_right = 36.0
+offset_bottom = 79.0
+
+[node name="Note5" parent="TextureRect2/Control" instance=ExtResource("12_mc432")]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 28.0
+offset_right = 38.0
+offset_bottom = 46.0
+
+[node name="Note6" parent="TextureRect2/Control" instance=ExtResource("12_mc432")]
+layout_mode = 0
+offset_left = 131.0
+offset_top = 47.0
+offset_right = 149.0
+offset_bottom = 65.0
+
+[node name="Note7" parent="TextureRect2/Control" instance=ExtResource("12_mc432")]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 20.0
+offset_right = 70.0
+offset_bottom = 38.0
+
+[node name="Note2" parent="TextureRect2/Control" instance=ExtResource("12_mc432")]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 67.0
+offset_right = 78.0
+offset_bottom = 85.0
+
+[node name="Note3" parent="TextureRect2/Control" instance=ExtResource("12_mc432")]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 40.0
+offset_right = 100.0
+offset_bottom = 58.0
+
+[node name="Note9" parent="TextureRect2/Control" instance=ExtResource("12_mc432")]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 67.0
+offset_right = 119.0
+offset_bottom = 85.0
+
+[node name="Note4" parent="TextureRect2/Control" instance=ExtResource("12_mc432")]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 39.0
+offset_right = 177.0
+offset_bottom = 57.0
+
+[node name="Note8" parent="TextureRect2/Control" instance=ExtResource("12_mc432")]
+layout_mode = 0
+offset_left = 169.0
+offset_top = 66.0
+offset_right = 187.0
+offset_bottom = 84.0
+
+[node name="Stats" type="Control" parent="TextureRect2" node_paths=PackedStringArray("job_container", "day", "level", "skill_container", "wpm", "accuracy", "score_container", "score")]
 layout_mode = 3
 anchors_preset = 12
 anchor_top = 1.0
@@ -113,66 +185,11 @@ script = ExtResource("12_fmeio")
 job_container = NodePath("../Job")
 day = NodePath("../Job/MarginContainer/VBoxContainer/VBoxContainer/Day")
 level = NodePath("../Job/MarginContainer/VBoxContainer/VBoxContainer/Level")
-documents = NodePath("../Job/MarginContainer/VBoxContainer/VBoxContainer/Documents")
 skill_container = NodePath("../Skills")
 wpm = NodePath("../Skills/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2/WPM")
 accuracy = NodePath("../Skills/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2/Accuracy")
 score_container = NodePath("../Score")
 score = NodePath("../Score/MarginContainer2/VBoxContainer3/VBoxContainer2/VBoxContainer2/Score")
-
-[node name="Note" parent="TextureRect2" instance=ExtResource("12_mc432")]
-offset_left = -142.0
-offset_top = -86.0
-offset_right = -124.0
-offset_bottom = -68.0
-
-[node name="Note5" parent="TextureRect2" instance=ExtResource("12_mc432")]
-offset_left = -140.0
-offset_top = -119.0
-offset_right = -122.0
-offset_bottom = -101.0
-
-[node name="Note6" parent="TextureRect2" instance=ExtResource("12_mc432")]
-offset_left = -29.0
-offset_top = -100.0
-offset_right = -11.0
-offset_bottom = -82.0
-
-[node name="Note7" parent="TextureRect2" instance=ExtResource("12_mc432")]
-offset_left = -108.0
-offset_top = -127.0
-offset_right = -90.0
-offset_bottom = -109.0
-
-[node name="Note2" parent="TextureRect2" instance=ExtResource("12_mc432")]
-offset_left = -100.0
-offset_top = -80.0
-offset_right = -82.0
-offset_bottom = -62.0
-
-[node name="Note3" parent="TextureRect2" instance=ExtResource("12_mc432")]
-offset_left = -78.0
-offset_top = -107.0
-offset_right = -60.0
-offset_bottom = -89.0
-
-[node name="Note9" parent="TextureRect2" instance=ExtResource("12_mc432")]
-offset_left = -59.0
-offset_top = -80.0
-offset_right = -41.0
-offset_bottom = -62.0
-
-[node name="Note4" parent="TextureRect2" instance=ExtResource("12_mc432")]
-offset_left = -1.0
-offset_top = -108.0
-offset_right = 17.0
-offset_bottom = -90.0
-
-[node name="Note8" parent="TextureRect2" instance=ExtResource("12_mc432")]
-offset_left = 9.0
-offset_top = -81.0
-offset_right = 27.0
-offset_bottom = -63.0
 
 [node name="Job" type="PanelContainer" parent="TextureRect2"]
 offset_left = -33.0
@@ -338,11 +355,10 @@ offset_right = 1.0
 offset_bottom = 2.5
 theme_override_colors/default_color = Color(0.929412, 0.894118, 0.854902, 1)
 theme_override_font_sizes/normal_font_size = 12
-text = "work"
-text_color = Color(0.929412, 0.894118, 0.854902, 1)
-active_color = Color(0.207843, 0.207843, 0.25098, 1)
-typed_color = Color(0.207843, 0.207843, 0.25098, 1)
-untyped_color = Color(0.929412, 0.894118, 0.854902, 1)
+text = "[center][color=353540ff][/color][color=ede4daff][outline_color=ffffff00][color=353540ff][shake rate=0 level=0]w[/shake][/color][/outline_color]ork[/color][/center]"
+untyped_color = null
+untyped_outline_color = null
+untyped_outline_size = null
 highlight_first = true
 word = "work"
 
@@ -361,7 +377,10 @@ theme = ExtResource("1_qu80e")
 [node name="TypingLabel3" parent="TextureRect2/Prepare/PrepareDoc" instance=ExtResource("8_y3mf1")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
-text = "setting"
+text = "[center][color=353540ff][/color][color=353540b3][outline_color=ffffff00][color=353540ff][shake rate=0 level=0]s[/shake][/color][/outline_color]etting[/color][/center]"
+untyped_color = null
+untyped_outline_color = null
+untyped_outline_size = null
 highlight_first = true
 word = "setting"
 
@@ -377,7 +396,10 @@ offset_top = -20.5
 offset_right = -3.5
 offset_bottom = -3.5
 theme_override_font_sizes/normal_font_size = 12
-text = "teams"
+text = "[center][color=353540ff][/color][color=353540b3][outline_color=ffffff00][color=353540ff][shake rate=0 level=0]t[/shake][/color][/outline_color]eams[/color][/center]"
+untyped_color = null
+untyped_outline_color = null
+untyped_outline_size = null
 highlight_first = true
 word = "teams"
 
@@ -393,7 +415,10 @@ offset_top = -20.5
 offset_right = -3.5
 offset_bottom = -3.5
 theme_override_font_sizes/normal_font_size = 12
-text = "report"
+text = "[center][color=353540ff][/color][color=353540b3][outline_color=ffffff00][color=353540ff][shake rate=0 level=0]r[/shake][/color][/outline_color]eport[/color][/center]"
+untyped_color = null
+untyped_outline_color = null
+untyped_outline_size = null
 highlight_first = true
 word = "report"
 
@@ -798,8 +823,11 @@ script = ExtResource("34_qjurq")
 board = NodePath("MarginContainer/VBoxContainer/UserScore")
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-text = "Fellows"
-word = "Fellows"
+text = "[center][color=353540ff][/color][color=353540b3][outline_color=ffffff00][color=353540ff][shake rate=0 level=0]f[/shake][/color][/outline_color]ellows[/color][/center]"
+untyped_color = null
+untyped_outline_color = null
+untyped_outline_size = null
+word = "fellows"
 
 [node name="UserScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer" index="1" instance=ExtResource("33_nyl55")]
 layout_mode = 2
@@ -817,8 +845,11 @@ script = ExtResource("34_qjurq")
 board = NodePath("MarginContainer/VBoxContainer/GlobalScore")
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Top1/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-text = "Topspot"
-word = "Topspot"
+text = "[center][color=353540ff][/color][color=353540b3][outline_color=ffffff00][color=353540ff][shake rate=0 level=0]t[/shake][/color][/outline_color]opspot[/color][/center]"
+untyped_color = null
+untyped_outline_color = null
+untyped_outline_size = null
+word = "topspot"
 
 [node name="GlobalScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Top1/MarginContainer/VBoxContainer" index="1" instance=ExtResource("33_nyl55")]
 layout_mode = 2
@@ -836,8 +867,11 @@ script = ExtResource("34_qjurq")
 board = NodePath("MarginContainer/VBoxContainer/FriendsScore")
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Team2/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-text = "Teammates"
-word = "Teammates"
+text = "[center][color=353540ff][/color][color=353540b3][outline_color=ffffff00][color=353540ff][shake rate=0 level=0]t[/shake][/color][/outline_color]eammates[/color][/center]"
+untyped_color = null
+untyped_outline_color = null
+untyped_outline_size = null
+word = "teammates"
 
 [node name="FriendsScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Team2/MarginContainer/VBoxContainer" index="1" instance=ExtResource("33_nyl55")]
 layout_mode = 2
@@ -868,7 +902,10 @@ status_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxConta
 loading_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/Loading2")
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-text = "feedback"
+text = "[center][color=353540ff][/color][color=353540b3][outline_color=ffffff00][color=353540ff][shake rate=0 level=0]f[/shake][/color][/outline_color]eedback[/color][/center]"
+untyped_color = null
+untyped_outline_color = null
+untyped_outline_size = null
 word = "feedback"
 
 [node name="Limit" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
@@ -948,7 +985,10 @@ right_button = NodePath("MarginContainer/VBoxContainer/Graph2D/HBoxContainer/Rig
 nodes = [NodePath("../MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"), NodePath("../MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton")]
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-text = "performance"
+text = "[center][color=353540ff][/color][color=353540b3][outline_color=ffffff00][color=353540ff][shake rate=0 level=0]p[/shake][/color][/outline_color]erformance[/color][/center]"
+untyped_color = null
+untyped_outline_color = null
+untyped_outline_size = null
 word = "performance"
 
 [node name="Graph2D" type="Control" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer" index="1" node_paths=PackedStringArray("coordinate")]
@@ -1011,6 +1051,10 @@ theme_override_constants/margin_right = 1
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer/VBoxContainer/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
+text = "[color=353540ff][/color][color=35354080][outline_color=ffffff00][color=353540ff][shake rate=0 level=0][/shake][/color][/outline_color][/color]"
+untyped_color = null
+untyped_outline_color = null
+untyped_outline_size = null
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"]
 visible = false
@@ -1051,6 +1095,10 @@ theme_override_constants/margin_right = 1
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton/MarginContainer/VBoxContainer/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
+text = "[color=353540ff][/color][color=35354080][outline_color=ffffff00][color=353540ff][shake rate=0 level=0][/shake][/color][/outline_color][/color]"
+untyped_color = null
+untyped_outline_color = null
+untyped_outline_size = null
 
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton"]
 visible = false
@@ -1080,7 +1128,10 @@ text = NodePath("MarginContainer/VBoxContainer/Text")
 nodes = [NodePath("../MarginContainer/VBoxContainer/Signature")]
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-text = "resignation"
+text = "[center][color=353540ff][/color][color=353540b3][outline_color=ffffff00][color=353540ff][shake rate=0 level=0]r[/shake][/color][/outline_color]esignation[/color][/center]"
+untyped_color = null
+untyped_outline_color = null
+untyped_outline_size = null
 word = "resignation"
 
 [node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="1"]
@@ -1104,6 +1155,10 @@ fit_content = true
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/normal_font_size = 12
+text = "[center][color=353540ff][/color][color=353540b3][outline_color=ffffff00][color=353540ff][shake rate=0 level=0][/shake][/color][/outline_color][/color][/center]"
+untyped_color = null
+untyped_outline_color = null
+untyped_outline_size = null
 highlight_first = true
 
 [node name="TextureRect2" parent="CanvasLayer/Control/Report/TextureRect" index="2"]
@@ -1212,7 +1267,10 @@ size_flags_vertical = 3
 [node name="BuyWord" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2" instance=ExtResource("8_y3mf1")]
 visible = false
 layout_mode = 2
-text = "purchase"
+text = "[center][color=353540ff][/color][color=353540b3][outline_color=ffffff00][color=353540ff][shake rate=0 level=0]p[/shake][/color][/outline_color]urchase[/color][/center]"
+untyped_color = null
+untyped_outline_color = null
+untyped_outline_size = null
 highlight_first = true
 word = "purchase"
 
@@ -1263,7 +1321,10 @@ theme = ExtResource("1_qu80e")
 [node name="TypingLabel3" parent="ShopButton/PrepareDoc" instance=ExtResource("8_y3mf1")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
-text = "shop"
+text = "[center][color=353540ff][/color][color=353540b3][outline_color=ffffff00][color=353540ff][shake rate=0 level=0]s[/shake][/color][/outline_color]hop[/color][/center]"
+untyped_color = null
+untyped_outline_color = null
+untyped_outline_size = null
 highlight_first = true
 word = "shop"
 

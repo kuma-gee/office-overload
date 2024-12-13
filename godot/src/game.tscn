@@ -910,6 +910,7 @@ layout_mode = 2
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
+text = "[outline_color=353540ff][center][typed until=0 height=1 frequency=8 highlight_falloff=20 highlight_normal=353540ff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=353540ff]h[/outline_color][/shake][outline_size=3]elloworld[/outline_size][/color][/typed][/center][/outline_color]"
 height = 1.0
 
 [node name="Phone" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "effect_root", "timer", "sounds")]
@@ -995,7 +996,7 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 1
 theme_override_font_sizes/normal_font_size = 12
-text = "aasdadasdasdas"
+text = "[outline_color=353540ff][center][typed until=0 height=1 frequency=8 highlight_falloff=20 highlight_normal=353540ff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=353540ff]h[/outline_color][/shake][outline_size=3]elloworld[/outline_size][/color][/typed][/center][/outline_color]"
 autowrap_mode = 3
 height = 1.0
 
@@ -1089,6 +1090,7 @@ horizontal_alignment = 1
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
+text = "[outline_color=353540ff][center][typed until=0 height=1 frequency=8 highlight_falloff=20 highlight_normal=353540ff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=353540ff]h[/outline_color][/shake][outline_size=3]elloworld[/outline_size][/color][/typed][/center][/outline_color]"
 height = 1.0
 
 [node name="Countdown" type="MarginContainer" parent="CanvasLayer/Distractions/Junior/Junior"]

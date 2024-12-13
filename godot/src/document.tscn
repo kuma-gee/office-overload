@@ -41,6 +41,9 @@ offset_top = 0.5
 offset_right = 0.0
 offset_bottom = 24.5
 theme_override_font_sizes/normal_font_size = 20
+text = "[outline_color=353540ff][center][typed until=0 height=2 frequency=8 highlight_falloff=20 highlight_normal=353540ff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=353540ff]h[/outline_color][/shake][outline_size=5]elloworld[/outline_size][/color][/typed][/center][/outline_color]"
+untyped_outline_size = 5
+highlight_first = false
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2(2.5, 3.2)

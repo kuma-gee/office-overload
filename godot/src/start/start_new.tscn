@@ -1,0 +1,1330 @@
+[gd_scene load_steps=54 format=3 uid="uid://cdafk4ywr2fbg"]
+
+[ext_resource type="Script" path="res://src/ui/Stats.gd" id="1_1pk7f"]
+[ext_resource type="Script" path="res://src/start/start_new.gd" id="1_25sst"]
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="2_xj832"]
+[ext_resource type="LabelSettings" uid="uid://uctt264dd2ni" path="res://theme/text_small.tres" id="3_0j057"]
+[ext_resource type="Texture2D" uid="uid://de38c2uof5d55" path="res://assets/sprites/LightLarge.png" id="3_ep5ga"]
+[ext_resource type="Texture2D" uid="uid://cjlwhavnsncw5" path="res://assets/sprites/Title.png" id="4_h3t2k"]
+[ext_resource type="Texture2D" uid="uid://qpujdmcko0bu" path="res://assets/sprites/Arrow.png" id="5_gs4c1"]
+[ext_resource type="Script" path="res://src/delegator.gd" id="5_o5vtn"]
+[ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="5_qryb2"]
+[ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="7_plxua"]
+[ext_resource type="Script" path="res://src/start/DocumentUI.gd" id="8_4jrgk"]
+[ext_resource type="Texture2D" uid="uid://bl06rcj3vftvg" path="res://assets/sprites/Folder.png" id="9_h10wu"]
+[ext_resource type="Script" path="res://src/start/desk_item.gd" id="10_vvvnb"]
+[ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="11_cjr5n"]
+[ext_resource type="Script" path="res://src/base-system/menu/Settings.gd" id="14_efhj6"]
+[ext_resource type="Script" path="res://src/shop/shop.gd" id="14_nnqu0"]
+[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="15_17vat"]
+[ext_resource type="PackedScene" uid="uid://cn8lfhdkylik" path="res://src/shop/shop_item.tscn" id="15_a4ld2"]
+[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="16_xmdsl"]
+[ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="17_s6hs1"]
+[ext_resource type="Script" path="res://src/base-system/menu/AudioSettings.gd" id="18_ikgcj"]
+[ext_resource type="Script" path="res://src/base-system/menu/DisplaySettings.gd" id="19_t18oa"]
+[ext_resource type="Script" path="res://src/ui/typing_slider.gd" id="20_yx3sx"]
+[ext_resource type="Script" path="res://src/base-system/menu/AudioSlider.gd" id="21_44ua4"]
+[ext_resource type="Script" path="res://src/ui/fullscreen_button.gd" id="22_jx87d"]
+[ext_resource type="Script" path="res://src/ui/fullscreen_checkbox.gd" id="23_xaoub"]
+[ext_resource type="Script" path="res://src/ui/cloud_settings.gd" id="24_6ge0a"]
+[ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="25_pu2hv"]
+[ext_resource type="Script" path="res://src/ui/esc_button.gd" id="26_ye0hp"]
+[ext_resource type="Script" path="res://src/ui/GameModes.gd" id="27_r358n"]
+[ext_resource type="PackedScene" uid="uid://wtd5yqsbnpf0" path="res://src/ui/game_mode.tscn" id="28_2yc81"]
+[ext_resource type="PackedScene" uid="uid://bevwwvcqg3xhh" path="res://src/ui/folder.tscn" id="29_t2y1x"]
+[ext_resource type="Script" path="res://src/ui/leaderboad.gd" id="30_m1awn"]
+[ext_resource type="Script" path="res://src/shop/shop_item_details.gd" id="32_dn4hy"]
+[ext_resource type="Texture2D" uid="uid://gdjrbxg43sj4" path="res://icon.png" id="33_bnvno"]
+[ext_resource type="Script" path="res://src/shop/money_label.gd" id="34_06bnc"]
+[ext_resource type="PackedScene" uid="uid://du0v5of5joaem" path="res://src/ui/menu_paper.tscn" id="34_wy63k"]
+[ext_resource type="Script" path="res://src/ui/score_paper.gd" id="35_whsqs"]
+[ext_resource type="PackedScene" uid="uid://cmu36xk8jw0u8" path="res://src/ui/interview_score.tscn" id="36_vfedp"]
+[ext_resource type="Script" path="res://src/ui/feedback.gd" id="37_u2so1"]
+[ext_resource type="RichTextEffect" uid="uid://d0psnm1eyw40x" path="res://src/text-effect/typed_effect.tres" id="38_trre5"]
+[ext_resource type="Script" path="res://src/ui/performance_graph.gd" id="38_u842k"]
+[ext_resource type="Script" path="res://src/ui/resignation.gd" id="39_cuxap"]
+[ext_resource type="Script" path="res://addons/graph_2d/graph_2d.gd" id="40_i77at"]
+[ext_resource type="Script" path="res://addons/graph_2d/custom_nodes/coordinate.gd" id="41_f7xlp"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_an0ir"]
+texture = ExtResource("5_gs4c1")
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pnf0e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4m4d5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_31qb0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_18vcd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1gmyi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yd0ux"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tpjge"]
+
+[node name="StartNew" type="Node2D" node_paths=PackedStringArray("work_label", "prepare_label", "files", "team", "shop_button", "teams_node", "files_node", "settings", "game_modes", "delegator", "folder", "teams", "shop")]
+script = ExtResource("1_25sst")
+work_label = NodePath("WorkDocument/MarginContainer/VBoxContainer/Work")
+prepare_label = NodePath("WorkDocument/MarginContainer/VBoxContainer/Settings")
+files = NodePath("Files/Report")
+team = NodePath("Rankings/Team")
+shop_button = NodePath("ShopButton/PrepareDoc/MarginContainer/TypingLabel3")
+teams_node = NodePath("Rankings")
+files_node = NodePath("Files")
+settings = NodePath("CanvasLayer/Control/Settings")
+game_modes = NodePath("CanvasLayer/Control/GameModes")
+delegator = NodePath("Delegator")
+folder = NodePath("CanvasLayer/Control/Report")
+teams = NodePath("CanvasLayer/Control/Team")
+shop = NodePath("Shop")
+
+[node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
+script = ExtResource("5_o5vtn")
+nodes = [NodePath("../WorkDocument/MarginContainer/VBoxContainer/Work"), NodePath("../WorkDocument/MarginContainer/VBoxContainer/Settings"), NodePath("../WorkDocument/MarginContainer/VBoxContainer/Exit"), NodePath("../Rankings/Team"), NodePath("../Files/Report"), NodePath("../ShopButton/PrepareDoc/MarginContainer/TypingLabel3")]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(78, 40)
+blend_mode = 2
+texture = ExtResource("3_ep5ga")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.493545, 0.493546, 0.493546, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -196.0
+offset_top = -116.0
+offset_right = 196.0
+offset_bottom = 116.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ShopButton" type="Node2D" parent="."]
+position = Vector2(131, -71)
+
+[node name="PrepareDoc" type="PanelContainer" parent="ShopButton"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -29.0
+offset_top = -9.0
+offset_right = 21.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_xj832")
+theme_override_styles/panel = SubResource("StyleBoxTexture_an0ir")
+
+[node name="MarginContainer" type="MarginContainer" parent="ShopButton/PrepareDoc"]
+layout_mode = 2
+theme_override_constants/margin_left = -2
+
+[node name="TypingLabel3" parent="ShopButton/PrepareDoc/MarginContainer" instance=ExtResource("11_cjr5n")]
+layout_mode = 2
+text = "[outline_color=353540ff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=ffffffff][outline_size=3][color=ede4daff]s[/color][/outline_size][/outline_color][/shake][outline_size=3]hop[/outline_size][/color][/center][/outline_color]"
+word = "shop"
+
+[node name="Stats" type="PanelContainer" parent="." node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy", "score_container", "score")]
+custom_minimum_size = Vector2(120, 160)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -145.0
+offset_top = -55.0
+offset_right = -25.0
+offset_bottom = 105.0
+grow_horizontal = 2
+grow_vertical = 0
+rotation = -0.0872665
+pivot_offset = Vector2(60, 80)
+mouse_filter = 2
+theme = ExtResource("2_xj832")
+script = ExtResource("1_1pk7f")
+job_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer")
+day = NodePath("MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Day")
+level = NodePath("MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Level")
+documents = NodePath("MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Documents")
+skill_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer2")
+wpm = NodePath("MarginContainer/VBoxContainer/VBoxContainer2/WPM")
+accuracy = NodePath("MarginContainer/VBoxContainer/VBoxContainer2/Accuracy")
+score_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer3")
+score = NodePath("MarginContainer/VBoxContainer/VBoxContainer3/Score")
+move_dir = Vector2(-0.2, -1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Stats"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Stats/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Stats/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 12
+text = "Current Job"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Job" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Job"
+label_settings = ExtResource("5_qryb2")
+
+[node name="Day" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "DAY"
+label_settings = ExtResource("3_0j057")
+
+[node name="Level" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Level"
+label_settings = ExtResource("3_0j057")
+
+[node name="Documents" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Doc"
+label_settings = ExtResource("3_0j057")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Stats/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="Skill" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Skill"
+label_settings = ExtResource("5_qryb2")
+
+[node name="WPM" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Words/m"
+label_settings = ExtResource("3_0j057")
+
+[node name="Accuracy" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Accuracy"
+label_settings = ExtResource("3_0j057")
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Stats/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="Score" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "SCore"
+label_settings = ExtResource("5_qryb2")
+
+[node name="Score2" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Words/m"
+label_settings = ExtResource("3_0j057")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+
+[node name="WorkDocument" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(120, 160)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 19.0
+offset_top = -35.0
+offset_right = 139.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.139626
+pivot_offset = Vector2(60, 80)
+theme = ExtResource("2_xj832")
+script = ExtResource("8_4jrgk")
+move_dir = Vector2(0.2, -1)
+
+[node name="MarginContainer" type="MarginContainer" parent="WorkDocument"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WorkDocument/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Control" type="Control" parent="WorkDocument/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Title" type="Sprite2D" parent="WorkDocument/MarginContainer/VBoxContainer/Control"]
+position = Vector2(57, 15)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_h3t2k")
+
+[node name="Work" parent="WorkDocument/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
+layout_mode = 2
+word = "work"
+
+[node name="Settings" parent="WorkDocument/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
+layout_mode = 2
+word = "settings"
+
+[node name="Exit" parent="WorkDocument/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
+layout_mode = 2
+word = "exit"
+
+[node name="Rankings" type="Sprite2D" parent="."]
+position = Vector2(-12, 45.5341)
+rotation = 0.279253
+texture = ExtResource("9_h10wu")
+script = ExtResource("10_vvvnb")
+
+[node name="Team" parent="Rankings" instance=ExtResource("11_cjr5n")]
+offset_left = -45.5
+offset_top = -20.5
+offset_right = -3.5
+offset_bottom = -3.5
+theme_override_font_sizes/normal_font_size = 12
+text = "[outline_color=353540ff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=ffffffff][outline_size=3][color=ede4daff]t[/color][/outline_size][/outline_color][/shake][outline_size=3]eams[/outline_size][/color][/center][/outline_color]"
+word = "teams"
+
+[node name="Files" type="Sprite2D" parent="."]
+position = Vector2(-12, -3.4659)
+rotation = -0.174533
+texture = ExtResource("9_h10wu")
+script = ExtResource("10_vvvnb")
+
+[node name="Report" parent="Files" instance=ExtResource("11_cjr5n")]
+offset_left = -45.5
+offset_top = -20.5
+offset_right = -3.5
+offset_bottom = -3.5
+theme_override_font_sizes/normal_font_size = 12
+text = "[outline_color=353540ff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=ffffffff][outline_size=3][color=ede4daff]r[/color][/outline_size][/outline_color][/shake][outline_size=3]eport[/outline_size][/color][/center][/outline_color]"
+word = "report"
+
+[node name="Shop" type="Control" parent="." node_paths=PackedStringArray("container", "delegator", "money_container", "details")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 320.0
+offset_right = 320.0
+theme = ExtResource("2_xj832")
+script = ExtResource("14_nnqu0")
+container = NodePath("MarginContainer/CenterContainer/MarginContainer/GridContainer")
+item_scene = ExtResource("15_a4ld2")
+delegator = NodePath("Delegator")
+money_container = NodePath("../CanvasLayer/Control/Money")
+details = NodePath("../CanvasLayer/Control/ShopItemDetails")
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop"]
+custom_minimum_size = Vector2(320, 180)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Shop/MarginContainer"]
+layout_mode = 2
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="Shop/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop/MarginContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="GridContainer" type="GridContainer" parent="Shop/MarginContainer/CenterContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="ShopItem" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("15_a4ld2")]
+layout_mode = 2
+
+[node name="ShopItem2" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("15_a4ld2")]
+layout_mode = 2
+
+[node name="ShopItem3" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("15_a4ld2")]
+layout_mode = 2
+
+[node name="ShopItem4" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("15_a4ld2")]
+layout_mode = 2
+
+[node name="ShopItem7" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("15_a4ld2")]
+layout_mode = 2
+
+[node name="ShopItem8" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("15_a4ld2")]
+layout_mode = 2
+
+[node name="Delegator" type="Node" parent="Shop"]
+script = ExtResource("5_o5vtn")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_xj832")
+
+[node name="MenuOverlay" type="ColorRect" parent="CanvasLayer/Control"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 1
+color = Color(0, 0, 0, 0.588235)
+
+[node name="Settings" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("overlay", "sliders", "display_settings", "delegator")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+mouse_filter = 2
+script = ExtResource("14_efhj6")
+overlay = NodePath("Audio/Overlay")
+sliders = [NodePath("Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider"), NodePath("Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider"), NodePath("Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider")]
+display_settings = NodePath("Audio/MarginContainer/DisplaySettings")
+delegator = NodePath("Delegator")
+
+[node name="Delegator" type="Node" parent="CanvasLayer/Control/Settings" node_paths=PackedStringArray("nodes")]
+script = ExtResource("5_o5vtn")
+nodes = [NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterVolume"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXVolume"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMVolume"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/FullScreen")]
+
+[node name="EffectRoot" type="Node" parent="CanvasLayer/Control/Settings"]
+script = ExtResource("15_17vat")
+ease = 1
+duration = 0.5
+
+[node name="Slide" type="Node" parent="CanvasLayer/Control/Settings/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("16_xmdsl")
+node = NodePath("../..")
+
+[node name="Fade" type="Node" parent="CanvasLayer/Control/Settings/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("17_s6hs1")
+node = NodePath("../../../MenuOverlay")
+
+[node name="Audio" type="PanelContainer" parent="CanvasLayer/Control/Settings"]
+custom_minimum_size = Vector2(100, 160)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.0
+offset_top = -75.0
+offset_right = 90.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("18_ikgcj")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Settings/Audio"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="DisplaySettings" type="VBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer" node_paths=PackedStringArray("fullscreen_button")]
+layout_mode = 2
+theme_override_constants/separation = 10
+script = ExtResource("19_t18oa")
+fullscreen_button = NodePath("VBoxContainer/FullScreen")
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings"]
+layout_mode = 2
+text = "Prepare for work"
+label_settings = ExtResource("5_qryb2")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="GridContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 3
+theme_override_constants/v_separation = 3
+columns = 2
+
+[node name="MasterVolume" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_plxua")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+word = "Master"
+
+[node name="MasterSlider" type="HBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+layout_mode = 2
+script = ExtResource("20_yx3sx")
+trigger_button = NodePath("../MasterVolume")
+left = NodePath("Left")
+right = NodePath("Right")
+slider = NodePath("Slider")
+
+[node name="Left" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider" instance=ExtResource("7_plxua")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_pnf0e")
+word = "h"
+show_underline = false
+
+[node name="Slider" type="HSlider" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider" node_paths=PackedStringArray("audio")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 4
+value = 30.0
+script = ExtResource("21_44ua4")
+audio = NodePath("../../../../..")
+
+[node name="Right" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider" instance=ExtResource("7_plxua")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4m4d5")
+word = "l"
+show_underline = false
+
+[node name="BGMVolume" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_plxua")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+word = "BGM"
+
+[node name="BGMSlider" type="HBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+layout_mode = 2
+script = ExtResource("20_yx3sx")
+trigger_button = NodePath("../BGMVolume")
+left = NodePath("Left")
+right = NodePath("Right")
+slider = NodePath("Slider")
+
+[node name="Left" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider" instance=ExtResource("7_plxua")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_pnf0e")
+word = "h"
+show_underline = false
+
+[node name="Slider" type="HSlider" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider" node_paths=PackedStringArray("audio")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 4
+value = 30.0
+script = ExtResource("21_44ua4")
+audio = NodePath("../../../../..")
+bus_name = "BGM"
+
+[node name="Right" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider" instance=ExtResource("7_plxua")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4m4d5")
+word = "l"
+show_underline = false
+
+[node name="SFXVolume" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_plxua")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+word = "SFX"
+
+[node name="SFXSlider" type="HBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("trigger_button", "left", "right", "slider")]
+layout_mode = 2
+script = ExtResource("20_yx3sx")
+trigger_button = NodePath("../SFXVolume")
+left = NodePath("Left")
+right = NodePath("Right")
+slider = NodePath("Slider")
+
+[node name="Left" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider" instance=ExtResource("7_plxua")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_pnf0e")
+word = "h"
+show_underline = false
+
+[node name="Slider" type="HSlider" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider" node_paths=PackedStringArray("audio")]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 4
+value = 30.0
+script = ExtResource("21_44ua4")
+audio = NodePath("../../../../..")
+bus_name = "SFX"
+
+[node name="Right" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider" instance=ExtResource("7_plxua")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4m4d5")
+word = "l"
+show_underline = false
+
+[node name="FullScreen" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("checkbox") instance=ExtResource("7_plxua")]
+layout_mode = 2
+size_flags_vertical = 4
+script = ExtResource("22_jx87d")
+checkbox = NodePath("../CheckBox")
+word = "fullscreen"
+
+[node name="CheckBox" type="CheckBox" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("display_settings")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("23_xaoub")
+display_settings = NodePath("../..")
+
+[node name="CloudSettings" type="MarginContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+script = ExtResource("24_6ge0a")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/CloudSettings"]
+layout_mode = 2
+
+[node name="FullScreen" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer" node_paths=PackedStringArray("checkbox") instance=ExtResource("7_plxua")]
+layout_mode = 2
+size_flags_vertical = 4
+script = ExtResource("22_jx87d")
+checkbox = NodePath("../../../VBoxContainer/CheckBox")
+word = "cloud"
+
+[node name="CheckBox" type="CheckBox" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "unavailable"
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(50, 6)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 50.0
+show_percentage = false
+
+[node name="Overlay" type="ColorRect" parent="CanvasLayer/Control/Settings/Audio"]
+visible = false
+layout_mode = 2
+color = Color(0, 0, 0, 0.313726)
+
+[node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/Settings"]
+layout_mode = 1
+offset_left = 74.0
+offset_top = 14.0
+offset_right = 86.0
+offset_bottom = 23.0
+texture_normal = ExtResource("25_pu2hv")
+script = ExtResource("26_ye0hp")
+
+[node name="GameModes" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("delegator")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+mouse_filter = 2
+script = ExtResource("27_r358n")
+delegator = NodePath("Delegator")
+
+[node name="Delegator" type="Node" parent="CanvasLayer/Control/GameModes" node_paths=PackedStringArray("nodes")]
+script = ExtResource("5_o5vtn")
+nodes = [NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode"), null, NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode2"), null, NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode5")]
+
+[node name="EffectRoot" type="Node" parent="CanvasLayer/Control/GameModes"]
+script = ExtResource("15_17vat")
+ease = 1
+duration = 0.5
+
+[node name="Slide" type="Node" parent="CanvasLayer/Control/GameModes/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("16_xmdsl")
+node = NodePath("../..")
+
+[node name="Fade" type="Node" parent="CanvasLayer/Control/GameModes/EffectRoot" node_paths=PackedStringArray("node")]
+script = ExtResource("17_s6hs1")
+node = NodePath("../../../MenuOverlay")
+
+[node name="Modes" type="PanelContainer" parent="CanvasLayer/Control/GameModes"]
+custom_minimum_size = Vector2(240, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -75.0
+offset_right = 120.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/GameModes/Modes"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Work Mode"
+label_settings = ExtResource("5_qryb2")
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="GameMode" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("28_2yc81")]
+layout_mode = 2
+mode = 0
+
+[node name="GameMode2" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("28_2yc81")]
+layout_mode = 2
+
+[node name="GameMode5" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("28_2yc81")]
+layout_mode = 2
+mode = 6
+
+[node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/GameModes"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 12.0
+offset_right = 48.0
+offset_bottom = 21.0
+texture_normal = ExtResource("25_pu2hv")
+script = ExtResource("26_ye0hp")
+
+[node name="Team" parent="CanvasLayer/Control" node_paths=PackedStringArray("user_board", "friends_board", "global_board", "steam_offline") instance=ExtResource("29_t2y1x")]
+layout_mode = 1
+script = ExtResource("30_m1awn")
+user_board = NodePath("TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/UserScore")
+friends_board = NodePath("TextureRect/Papers/Team2/MarginContainer/VBoxContainer/FriendsScore")
+global_board = NodePath("TextureRect/Papers/Top1/MarginContainer/VBoxContainer/GlobalScore")
+steam_offline = NodePath("TextureRect/Offline")
+
+[node name="Offline" type="RichTextLabel" parent="CanvasLayer/Control/Team/TextureRect" index="0"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.5
+offset_top = -26.0
+offset_right = 101.5
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center]You are not connected to your team.
+Check your steam status[/center]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="EscButton" parent="CanvasLayer/Control/Team/TextureRect" index="1"]
+clip_contents = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.5
+offset_top = -26.0
+offset_right = 101.5
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+
+[node name="Papers" parent="CanvasLayer/Control/Team/TextureRect" index="2"]
+light_mask = 1
+offset_left = -6.0
+offset_top = -4.5
+offset_right = 6.0
+offset_bottom = 4.5
+focus_mode = 2
+
+[node name="Fellows3" parent="CanvasLayer/Control/Team/TextureRect/Papers" index="0" node_paths=PackedStringArray("board") instance=ExtResource("34_wy63k")]
+light_mask = 0
+custom_minimum_size = Vector2(240, 150)
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -114.0
+offset_top = -62.0
+offset_right = 126.0
+offset_bottom = 88.0
+grow_horizontal = 1
+grow_vertical = 1
+rotation = 0.139626
+script = ExtResource("35_whsqs")
+board = NodePath("MarginContainer/VBoxContainer/UserScore")
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=ffffffff][outline_size=3][color=ede4daff]f[/color][/outline_size][/outline_color][/shake][outline_size=3]ellows[/outline_size][/color][/center][/outline_color]"
+untyped_outline_color = Color(1, 1, 1, 1)
+word = "fellows"
+
+[node name="UserScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer" index="1" instance=ExtResource("36_vfedp")]
+layout_mode = 2
+
+[node name="Top1" parent="CanvasLayer/Control/Team/TextureRect/Papers" index="1" node_paths=PackedStringArray("board") instance=ExtResource("34_wy63k")]
+light_mask = 0
+custom_minimum_size = Vector2(240, 150)
+layout_mode = 1
+offset_left = -125.0
+offset_top = -39.0
+offset_right = 115.0
+offset_bottom = 111.0
+rotation = -0.174533
+script = ExtResource("35_whsqs")
+board = NodePath("MarginContainer/VBoxContainer/GlobalScore")
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Top1/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=ffffffff][outline_size=3][color=ede4daff]t[/color][/outline_size][/outline_color][/shake][outline_size=3]opspot[/outline_size][/color][/center][/outline_color]"
+untyped_outline_color = Color(1, 1, 1, 1)
+word = "topspot"
+
+[node name="GlobalScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Top1/MarginContainer/VBoxContainer" index="1" instance=ExtResource("36_vfedp")]
+layout_mode = 2
+
+[node name="Team2" parent="CanvasLayer/Control/Team/TextureRect/Papers" index="2" node_paths=PackedStringArray("board") instance=ExtResource("34_wy63k")]
+light_mask = 0
+custom_minimum_size = Vector2(240, 150)
+layout_mode = 1
+offset_left = -116.0
+offset_top = -7.0
+offset_right = 124.0
+offset_bottom = 143.0
+rotation = 0.0872665
+script = ExtResource("35_whsqs")
+board = NodePath("MarginContainer/VBoxContainer/FriendsScore")
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Team2/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=ffffffff][outline_size=3][color=ede4daff]t[/color][/outline_size][/outline_color][/shake][outline_size=3]eammates[/outline_size][/color][/center][/outline_color]"
+untyped_outline_color = Color(1, 1, 1, 1)
+word = "teammates"
+
+[node name="FriendsScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Team2/MarginContainer/VBoxContainer" index="1" instance=ExtResource("36_vfedp")]
+layout_mode = 2
+
+[node name="TextureRect2" parent="CanvasLayer/Control/Team/TextureRect" index="3"]
+visible = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -138.0
+offset_top = -68.5
+offset_right = -138.0
+offset_bottom = -68.5
+mouse_filter = 0
+
+[node name="Sprite2D" parent="CanvasLayer/Control/Team/TextureRect" index="4"]
+physics_interpolation_mode = 2
+
+[node name="PanelContainer" parent="CanvasLayer/Control/Team/TextureRect" index="5"]
+physics_interpolation_mode = 0
+visible = false
+
+[node name="ColorRect" parent="CanvasLayer/Control/Team/TextureRect" index="6"]
+light_mask = 2
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 20.5
+offset_right = 260.0
+offset_bottom = 170.5
+grow_horizontal = 1
+grow_vertical = 1
+mouse_filter = 0
+
+[node name="Report" parent="CanvasLayer/Control" instance=ExtResource("29_t2y1x")]
+light_mask = 0
+layout_mode = 1
+
+[node name="TextureRect" parent="CanvasLayer/Control/Report" index="2"]
+light_mask = 0
+
+[node name="Papers" parent="CanvasLayer/Control/Report/TextureRect" index="1"]
+light_mask = 0
+
+[node name="Feedback1" parent="CanvasLayer/Control/Report/TextureRect/Papers" index="0" node_paths=PackedStringArray("form", "limit_label", "status_label", "loading_label") instance=ExtResource("34_wy63k")]
+light_mask = 0
+layout_mode = 1
+offset_left = -93.0
+offset_top = -54.0
+offset_right = 57.0
+offset_bottom = 116.0
+rotation = -0.150098
+script = ExtResource("37_u2so1")
+form = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/TextEdit")
+limit_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Limit")
+max_limit = 200
+status_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Status")
+loading_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/Loading2")
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+text = "[outline_color=353540ff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=ffffffff][outline_size=3][color=ede4daff]f[/color][/outline_size][/outline_color][/shake][outline_size=3]eedback[/outline_size][/color][/center][/outline_color]"
+word = "feedback"
+
+[node name="Limit" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 8
+text = "0/200"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 3
+
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_placeholder_color = Color(0.208, 0.208, 0.251, 0.3)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_31qb0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_18vcd")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_1gmyi")
+placeholder_text = "Let us know of any suggestions or problems"
+context_menu_enabled = false
+wrap_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 8
+text = "Shift+Enter to send"
+
+[node name="Loading2" type="RichTextLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(6.3, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+text = "[typed until=10 height=1]. . .[/typed]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+custom_effects = [ExtResource("38_trre5")]
+
+[node name="Status" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Failed"
+
+[node name="Performance2" parent="CanvasLayer/Control/Report/TextureRect/Papers" index="1" node_paths=PackedStringArray("graph", "left_button", "right_button") instance=ExtResource("34_wy63k")]
+light_mask = 0
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 1
+offset_left = -114.0
+offset_top = -8.0
+offset_right = 86.0
+offset_bottom = 112.0
+rotation = -0.261799
+script = ExtResource("38_u842k")
+graph = NodePath("MarginContainer/VBoxContainer/Graph2D")
+left_button = NodePath("MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton")
+right_button = NodePath("MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton")
+
+[node name="Delegator" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2" index="0" node_paths=PackedStringArray("nodes")]
+nodes = [NodePath("../MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"), NodePath("../MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton")]
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+text = "[outline_color=353540ff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=ffffffff][outline_size=3][color=ede4daff]p[/color][/outline_size][/outline_color][/shake][outline_size=3]erformance[/outline_size][/color][/center][/outline_color]"
+word = "performance"
+
+[node name="Graph2D" type="Control" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer" index="1" node_paths=PackedStringArray("coordinate")]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_xj832")
+script = ExtResource("40_i77at")
+default_color = Color(0.207843, 0.207843, 0.25098, 1)
+coordinate = NodePath("Coordinate")
+show_x_ticks = false
+show_x_numbers = false
+_MARGIN_TOP = 5
+_MARGIN_BOTTOM = 10
+_MARGIN_LEFT = 30
+_MARGIN_RIGHT = 10
+
+[node name="Coordinate" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D"]
+layout_mode = 2
+offset_left = 263.0
+offset_right = 272.0
+offset_bottom = 6.0
+grow_horizontal = 0
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 6
+script = ExtResource("41_f7xlp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -11.0
+offset_right = 42.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="LeftButton" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer" instance=ExtResource("7_plxua")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_yd0ux")
+word = "H"
+show_underline = false
+
+[node name="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton" index="1"]
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+
+[node name="VBoxContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer" index="0"]
+theme_override_constants/separation = -2
+
+[node name="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer/VBoxContainer" index="0"]
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_right = 1
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer/VBoxContainer/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 6
+text = "[outline_color=ffffffff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=ffffffff][outline_size=2][color=ede4daff]h[/color][/outline_size][/outline_color][/shake][outline_size=2]elloworld[/outline_size][/color][/outline_color]"
+untyped_outline_color = Color(1, 1, 1, 1)
+untyped_outline_size = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = -8
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("5_gs4c1")
+expand_mode = 2
+stretch_mode = 5
+flip_h = true
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 6
+text = "< speed >"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightButton" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer" instance=ExtResource("7_plxua")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tpjge")
+word = "L"
+show_underline = false
+
+[node name="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton" index="1"]
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+
+[node name="VBoxContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton/MarginContainer" index="0"]
+theme_override_constants/separation = -2
+
+[node name="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton/MarginContainer/VBoxContainer" index="0"]
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_right = 1
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton/MarginContainer/VBoxContainer/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 6
+text = "[outline_color=ffffffff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=ffffffff][outline_size=2][color=ede4daff]h[/color][/outline_size][/outline_color][/shake][outline_size=2]elloworld[/outline_size][/color][/outline_color]"
+untyped_outline_color = Color(1, 1, 1, 1)
+untyped_outline_size = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton/MarginContainer3"]
+layout_mode = 2
+texture = ExtResource("5_gs4c1")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Resignation3" parent="CanvasLayer/Control/Report/TextureRect/Papers" index="2" node_paths=PackedStringArray("signature", "text") instance=ExtResource("34_wy63k")]
+light_mask = 0
+layout_mode = 1
+offset_left = -29.0
+offset_top = -23.0
+offset_right = 121.0
+offset_bottom = 147.0
+rotation = 0.174533
+script = ExtResource("39_cuxap")
+signature = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Signature")
+text = NodePath("MarginContainer/VBoxContainer/Text")
+
+[node name="Delegator" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3" index="0" node_paths=PackedStringArray("nodes")]
+nodes = [null]
+
+[node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+text = "[outline_color=353540ff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=ffffffff][outline_size=3][color=ede4daff]r[/color][/outline_size][/outline_color][/shake][outline_size=3]esignation[/outline_size][/color][/center][/outline_color]"
+word = "resignation"
+
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+text = "Dear Boss,
+
+I regret to inform you that I am resigning from my position as %s at the company, effective immediately."
+fit_content = true
+autowrap_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="3"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sincerly"
+fit_content = true
+
+[node name="Signature" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("11_cjr5n")]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=ffffffff][outline_size=3][color=ede4daff]h[/color][/outline_size][/outline_color][/shake][outline_size=3]elloworld[/outline_size][/color][/center][/outline_color]"
+untyped_outline_color = Color(1, 1, 1, 1)
+
+[node name="TextureRect2" parent="CanvasLayer/Control/Report/TextureRect" index="2"]
+light_mask = 0
+offset_bottom = 10.0
+
+[node name="PanelContainer" parent="CanvasLayer/Control/Report/TextureRect" index="4"]
+visible = false
+
+[node name="ShopItemDetails" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("icon", "name_label", "price_label", "desc_label", "purchase_word", "sold_out_label")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -58.0
+offset_right = 2.0
+offset_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("32_dn4hy")
+icon = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/Icon")
+name_label = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/Name")
+price_label = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/Price")
+desc_label = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/Desc")
+purchase_word = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/BuyWord")
+sold_out_label = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/SoldOut")
+
+[node name="Delegator" type="Node" parent="CanvasLayer/Control/ShopItemDetails" node_paths=PackedStringArray("nodes")]
+script = ExtResource("5_o5vtn")
+nodes = [NodePath("../PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/BuyWord")]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/ShopItemDetails"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/Control"]
+layout_mode = 1
+offset_right = 18.0
+offset_bottom = 15.0
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/Control/MarginContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("25_pu2hv")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+texture = ExtResource("33_bnvno")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "ITEM_NAME"
+label_settings = ExtResource("5_qryb2")
+horizontal_alignment = 1
+
+[node name="Price" type="Label" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "PRICE"
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+text = "ITEM_NAME_DESCadsadsadadsadsa"
+label_settings = ExtResource("3_0j057")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BuyWord" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2" instance=ExtResource("11_cjr5n")]
+visible = false
+layout_mode = 2
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=ffffffff][outline_size=3][color=ede4daff]p[/color][/outline_size][/outline_color][/shake][outline_size=3]urchase[/outline_size][/color][/center][/outline_color]"
+untyped_outline_color = Color(1, 1, 1, 1)
+word = "purchase"
+
+[node name="SoldOut" type="RichTextLabel" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Sold OUT"
+fit_content = true
+scroll_active = false
+
+[node name="Money" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = -6
+
+[node name="Money" type="PanelContainer" parent="CanvasLayer/Control/Money"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Money/Money"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Money/Money/MarginContainer"]
+layout_mode = 2
+text = "$10000"
+script = ExtResource("34_06bnc")
+
+[editable path="CanvasLayer/Control/Team"]
+[editable path="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3"]
+[editable path="CanvasLayer/Control/Team/TextureRect/Papers/Top1"]
+[editable path="CanvasLayer/Control/Team/TextureRect/Papers/Team2"]
+[editable path="CanvasLayer/Control/Report"]
+[editable path="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1"]
+[editable path="CanvasLayer/Control/Report/TextureRect/Papers/Performance2"]
+[editable path="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"]
+[editable path="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton"]
+[editable path="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3"]

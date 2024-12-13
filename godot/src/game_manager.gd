@@ -108,7 +108,7 @@ func _load_data():
 	if data:
 		cache_properties.load_data(data)
 	
-	self.difficulty_level = DifficultyResource.Level.INTERN
+	#self.difficulty_level = DifficultyResource.Level.INTERN
 	#unlocked_modes = Mode.values()
 	
 	_logger.info("Game initialized")

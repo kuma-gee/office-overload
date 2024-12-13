@@ -42,10 +42,8 @@ theme_override_constants/margin_right = 3
 
 [node name="TypingLabel" parent="MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource("3_w7wv5")]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 8
-height = 1.0
+text = "[outline_color=353540ff][typed until=5 height=1 frequency=8 highlight_falloff=20 highlight_normal=353540ff][color=353540ff][outline_color=ffffffff]hello[/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=ffffffff]w[/outline_color][/shake][outline_size=3]orld[/outline_size][/color][/typed][/outline_color]"
 center = false
-highlight_first = true
 
 [node name="ColorRect" type="ColorRect" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 1)

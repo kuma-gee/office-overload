@@ -1,4 +1,5 @@
 # Ref: https://github.com/teebarjunk/godot-text_effects/blob/master/addons/teeb.text_effects/effects/Jump.gd
+@tool
 class_name TypedEffect
 extends RichTextEffect
 

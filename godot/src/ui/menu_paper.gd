@@ -20,6 +20,7 @@ func connect_focus(node = self):
 	label.type_finish.connect(func():
 		previous_focus = get_viewport().gui_get_focus_owner()
 		label.reset()
+		label.active = true
 		node.grab_focus()
 	)
 	node.focus_entered.connect(func(): focused())
@@ -60,6 +61,7 @@ func defocused():
 	tw.parallel().tween_property(self, "position", original_pos, 0.5)
 	label.highlight_first = true
 	label.focused = false
+	label.active = false
 
 func send():
 	tw = _create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)

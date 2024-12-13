@@ -144,8 +144,7 @@ offset_bottom = -3.0
 [node name="TypingLabel" parent="VBoxContainer/CenterContainer2/Control/Control/PanelContainer" instance=ExtResource("3_0obvy")]
 light_mask = 0
 layout_mode = 2
-text = "DONOTDISTURB"
-highlight_first = true
+text = "[outline_color=353540ff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=ede4daff][shake rate=0 level=0][outline_color=ffffffff][outline_size=3][color=ede4daff]h[/color][/outline_size][/outline_color][/shake][outline_size=3]elloworld[/outline_size][/color][/center][/outline_color]"
 
 [node name="SoldOut" type="CenterContainer" parent="VBoxContainer"]
 layout_mode = 2

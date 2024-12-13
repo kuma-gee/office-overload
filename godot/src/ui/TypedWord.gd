@@ -1,3 +1,4 @@
+@tool
 class_name TypedWord
 extends RichTextLabel
 
@@ -9,11 +10,12 @@ signal type_wrong()
 @export var shake_amount := 20
 @export var frequency := 8.0
 @export var height := 2.0
-@export var text_color := Color.BLACK
-@export var highlight_color := Color.WHITE
-@export var active_color := Color.WHITE
-@export var typed_color := Color.WHITE
 @export var untyped_color := Color.BLACK
+@export var highlight_color := Color.WHITE
+@export var typed_color := Color.WHITE
+@export var untyped_outline_color := Color.WHITE
+@export var untyped_outline_size := 2
+#@export var untyped_color := Color.BLACK
 @export var play_sound := true
 @export var center := true
 @export var enable_mistake_effect := true
@@ -38,7 +40,7 @@ signal type_wrong()
 		typed = ""
 		update_word()
 
-var typed = "":
+@export var typed = "":
 	set(v):
 		typed = v
 		update_word()
@@ -93,38 +95,49 @@ func get_remaining_word():
 
 func update_word():
 	if active:
-		text = "[outline_color=%s][color=%s]%s[/color][/outline_color]" % [highlight_color.to_html(), active_color.to_html(), word]
+		text = "[outline_color=%s][color=%s]%s[/color][/outline_color]" % [highlight_color.to_html(), typed_color.to_html(), word]
 		return
 	
 	var until = typed.length()
 	if highlight_first and until == 0:
-		text = _wrap_outline(_wrap_center(_wrap_typed(1, _wrap_word(0), false)))
+		text = _outline(_wrap_center(_wrap_word(0, true)))
 	elif highlight_all:
-		text = _wrap_outline(_wrap_center(_wrap_typed(word.length(), _wrap_word(0), false)))
+		text = _outline(_wrap_center(_wrap_typed(word.length(), _wrap_word(0))))
 	else:
-		text = _wrap_outline(_wrap_center(_wrap_typed(until, _wrap_word(until))))
+		text = _outline(_wrap_center(_wrap_typed(until, _wrap_word(until), true)))
 
-func _wrap_outline(w: String):
-	if outline_all:
-		return "[outline_color=%s]%s[/outline_color]" % [highlight_color.to_html(), w]
-	return w
+func _outline(w: String, color: Color = untyped_outline_color):
+	return "[outline_color=%s]%s[/outline_color]" % [color.to_html(), w]
 
-func _wrap_word(until: int):
+func _outline_size(w: String, i: int):
+	return "[outline_size=%s]%s[/outline_size]" % [i, w]
+
+func _color(w: String, color: Color):
+	return "[color=%s]%s[/color]" % [color.to_html(), w]
+
+func _wrap_word(until: int, highlight_letter = false):
 	var censored_word = word
 	for i in censored:
 		if i < until: continue
 		censored_word[i] = "_"
 
+	#var highlight_start = "[outline_color=%s][color=%s]" % [Color.TRANSPARENT.to_html(), typed_color.to_html()]
+	#var highlight_end = "[/color][/outline_color]"
+	
+	var not_highlight_char = _outline(_outline_size(censored_word.substr(until, 1), untyped_outline_size), highlight_color if highlight_first else untyped_outline_color)
 	return "[color=%s]%s[/color][color=%s][shake rate=%s level=%s]%s[/shake]%s[/color]" % [
 		typed_color.to_html(),
-		censored_word.substr(0, until),
-		untyped_color.to_html() if typed.length() > 0 else text_color.to_html(),
+		_outline(censored_word.substr(0, until), highlight_color),
+		#untyped_color.to_html() if typed.length() > 0 else text_color.to_html(),
+		untyped_color.to_html(),
+		#highlight_start if highlight_letter else "",
 		current_shake, 10 if current_shake > 0 else 0,
-		censored_word.substr(until, 1),
-		censored_word.substr(until + 1)
+		_outline(_outline_size(_color(censored_word.substr(until, 1), untyped_color), untyped_outline_size), highlight_color) if highlight_first and until == 0 else not_highlight_char,
+		#highlight_end if highlight_letter else "",
+		_outline_size(censored_word.substr(until + 1), untyped_outline_size)
 	]
 
-func _wrap_typed(until: int, w: String, highlight = true):
+func _wrap_typed(until: int, w: String, highlight = false):
 	var highlight_text = ""
 	if highlight:
 		highlight_text = "highlight_falloff=%s highlight_normal=%s" % [20., typed_color.to_html()]

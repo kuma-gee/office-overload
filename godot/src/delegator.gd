@@ -65,7 +65,6 @@ func _get_focused_label():
 	var labels = []
 	for m in nodes:
 		var lbl = m.get_label()
-		print(lbl.word, ", ", lbl.focused)
 		if _is_valid_node(lbl) and lbl.focused:
 			labels.append(lbl)
 	
