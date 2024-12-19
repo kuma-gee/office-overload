@@ -132,9 +132,9 @@ func _wrap_word(until: int, highlight_letter = false):
 		untyped_color.to_html(),
 		#highlight_start if highlight_letter else "",
 		current_shake, 10 if current_shake > 0 else 0,
-		_outline(_outline_size(_color(censored_word.substr(until, 1), untyped_color), untyped_outline_size), highlight_color) if highlight_first and until == 0 else not_highlight_char,
+		_outline(_outline_size(_color(censored_word.substr(until, 1), typed_color), untyped_outline_size), highlight_color if focused else Color.TRANSPARENT) if highlight_first and until == 0 else not_highlight_char,
 		#highlight_end if highlight_letter else "",
-		_outline_size(censored_word.substr(until + 1), untyped_outline_size)
+		_outline(_outline_size(censored_word.substr(until + 1), untyped_outline_size), untyped_outline_color if locked else Color.TRANSPARENT)
 	]
 
 func _wrap_typed(until: int, w: String, highlight = false):

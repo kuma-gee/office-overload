@@ -76,6 +76,7 @@ func handle_key(key: String):
 
 func highlight():
 	typing_label.locked = true
+	typing_label.focused = true
 	add_to_group(ACTIVE_GROUP)
 
 func _on_visible_on_screen_notifier_2d_screen_exited():

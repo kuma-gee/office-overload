@@ -43,4 +43,4 @@ func _show_progress(progress: float) -> void:
 
 func start_game():
 	loading_scene = ""
-	SceneManager.change_scene("res://src/start/start_new.tscn")
+	GameManager.back_to_menu()

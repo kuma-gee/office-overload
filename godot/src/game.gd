@@ -267,6 +267,7 @@ func _add_document(doc: Document, await_start := false):
 
 		if documents.size() > 0:
 			documents[0].highlight()
+			documents[0].show_tutorial()
 			
 			if documents.size() < min_documents:
 				_spawn()
@@ -290,7 +291,7 @@ func _add_document(doc: Document, await_start := false):
 	if documents.is_empty():
 		doc.highlight()
 		
-	if await_start:
+	if await_start or documents.size() == 0:
 		doc.show_tutorial()
 	
 	documents.append(doc)

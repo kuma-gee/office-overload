@@ -150,7 +150,7 @@ func restart():
 	start()
 
 func back_to_menu():
-	SceneManager.change_scene("res://start.tscn")
+	SceneManager.change_scene("res://src/start/start_new.tscn")
 
 func reset_values():
 	day = 0

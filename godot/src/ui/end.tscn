@@ -191,12 +191,8 @@ explosiveness = 0.9
 [node name="TypingLabel" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer" instance=ExtResource("8_whfhi")]
 layout_mode = 2
 size_flags_horizontal = 6
-text = "[center][typed until=0 height=0 frequency=0 highlight_falloff=20 highlight_normal=353540ff][color=353540ff][/color][color=353540b3][shake rate=0 level=0][/shake][/color][/typed][/center]"
 frequency = 0.0
 height = 0.0
-untyped_color = null
-untyped_outline_color = null
-untyped_outline_size = null
 enable_mistake_effect = false
 
 [node name="Control3" type="Control" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer"]
