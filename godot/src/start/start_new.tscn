@@ -181,7 +181,7 @@ theme_override_constants/separation = 5
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "Current Job"
 horizontal_alignment = 1
 
@@ -471,10 +471,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -87.0
-offset_top = -75.0
-offset_right = 90.0
-offset_bottom = 75.0
+offset_left = -78.0
+offset_top = -80.0
+offset_right = 81.0
+offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("18_ikgcj")
@@ -494,8 +494,10 @@ fullscreen_button = NodePath("VBoxContainer/FullScreen")
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 10
 text = "Prepare for work"
-label_settings = ExtResource("5_qryb2")
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="GridContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings"]
@@ -661,12 +663,15 @@ visible = false
 layout_mode = 2
 color = Color(0, 0, 0, 0.313726)
 
-[node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/Settings"]
-layout_mode = 1
-offset_left = 74.0
-offset_top = 14.0
-offset_right = 86.0
-offset_bottom = 23.0
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/Settings/Audio"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/Settings/Audio/MarginContainer2"]
+layout_mode = 2
 texture_normal = ExtResource("25_pu2hv")
 script = ExtResource("26_ye0hp")
 
@@ -1073,7 +1078,7 @@ theme_override_constants/margin_right = 1
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer/VBoxContainer/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
-text = "[outline_color=ffffffff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=2][color=353540ff]h[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2]elloworld[/outline_size][/outline_color][/color][/outline_color]"
+text = "[outline_color=ffffffff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=2][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2][/outline_size][/outline_color][/color][/outline_color]"
 untyped_outline_size = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"]
@@ -1115,7 +1120,7 @@ theme_override_constants/margin_right = 1
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton/MarginContainer/VBoxContainer/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
-text = "[outline_color=ffffffff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=2][color=353540ff]h[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2]elloworld[/outline_size][/outline_color][/color][/outline_color]"
+text = "[outline_color=ffffffff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=2][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2][/outline_size][/outline_color][/color][/outline_color]"
 untyped_outline_size = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton"]

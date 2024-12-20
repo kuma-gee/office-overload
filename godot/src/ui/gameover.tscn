@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dw4ed4dspm22v"]
+[gd_scene load_steps=11 format=3 uid="uid://dw4ed4dspm22v"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_t4bof"]
 [ext_resource type="Script" path="res://src/ui/gameover.gd" id="2_biwr8"]
@@ -6,16 +6,12 @@
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="3_k17yd"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_ekemn"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="4_vuj6l"]
-[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_dkoqc"]
-[ext_resource type="Script" path="res://src/KeyReader.gd" id="6_1wju1"]
 [ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="7_chtch"]
 [ext_resource type="AudioStream" uid="uid://ctlbf2imxt5tn" path="res://assets/sound/呪いの旋律.mp3" id="7_fg57t"]
-[ext_resource type="Script" path="res://src/ui/break_button.gd" id="8_twfbg"]
 [ext_resource type="Script" path="res://src/delegator.gd" id="12_m587a"]
+[ext_resource type="Script" path="res://src/ui/promotion_paper.gd" id="13_vcgby"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tx0w4"]
-
-[node name="Gameover" type="Control" node_paths=PackedStringArray("restart", "menu", "finished", "days", "overtime")]
+[node name="Gameover" type="Control" node_paths=PackedStringArray("restart", "menu", "title", "desc", "days", "level", "speed", "acc")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -25,15 +21,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_t4bof")
 script = ExtResource("2_biwr8")
-restart = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Restart")
-menu = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Menu")
-finished = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Finished")
-days = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Days")
-overtime = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Overtime")
+restart = NodePath("BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/Restart")
+menu = NodePath("BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/Home")
+title = NodePath("BurnoutPaper/Work/VBoxContainer/Title")
+desc = NodePath("BurnoutPaper/Work/VBoxContainer/Promotion/Desc")
+days = NodePath("BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer/Days")
+level = NodePath("BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer/Level")
+speed = NodePath("BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer/Speed")
+acc = NodePath("BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer/Acc")
 
 [node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("12_m587a")
-nodes = [NodePath("../CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Restart"), NodePath("../CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Menu")]
+nodes = [NodePath("../BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/Restart"), NodePath("../BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/Home")]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -44,90 +43,11 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.588235)
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
-custom_minimum_size = Vector2(200, 150)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_tx0w4")
-
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Burned out!"
-label_settings = ExtResource("2_s2nja")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 5
-
-[node name="Days" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "DAYS"
-label_settings = ExtResource("3_k17yd")
-horizontal_alignment = 1
-
-[node name="Finished" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "FINISHED"
-label_settings = ExtResource("3_k17yd")
-horizontal_alignment = 1
-
-[node name="Overtime" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "OVERTIME"
-label_settings = ExtResource("3_k17yd")
-horizontal_alignment = 1
-
-[node name="Control" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Restart" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_vuj6l")]
-layout_mode = 2
-word = "New Job"
-
-[node name="Menu" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_vuj6l")]
-layout_mode = 2
-script = ExtResource("8_twfbg")
-
-[node name="KeyReader" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
-process_mode = 2
-script = ExtResource("6_1wju1")
-
 [node name="GameoverEffect" type="Node" parent="."]
 script = ExtResource("4_ekemn")
 trans = 10
 ease = 1
 duration = 0.75
-
-[node name="Slide" type="Node" parent="GameoverEffect" node_paths=PackedStringArray("node")]
-script = ExtResource("5_dkoqc")
-node = NodePath("../../CenterContainer")
 
 [node name="Fade" type="Node" parent="GameoverEffect" node_paths=PackedStringArray("node")]
 script = ExtResource("7_chtch")
@@ -137,3 +57,129 @@ node = NodePath("../../ColorRect")
 stream = ExtResource("7_fg57t")
 volume_db = -10.0
 pitch_scale = 1.2
+
+[node name="BurnoutPaper" type="PanelContainer" parent="." node_paths=PackedStringArray("yes_button", "no_button")]
+custom_minimum_size = Vector2(120, 160)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -74.0
+offset_top = -80.0
+offset_right = 74.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(60, 80)
+script = ExtResource("13_vcgby")
+yes_button = NodePath("Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/Restart")
+no_button = NodePath("Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/Home")
+
+[node name="Work" type="MarginContainer" parent="BurnoutPaper"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BurnoutPaper/Work"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="BurnoutPaper/Work/VBoxContainer"]
+layout_mode = 2
+text = "Burned out!"
+label_settings = ExtResource("2_s2nja")
+horizontal_alignment = 1
+
+[node name="Promotion" type="VBoxContainer" parent="BurnoutPaper/Work/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Desc" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "You quit your work
+"
+label_settings = ExtResource("3_k17yd")
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="BurnoutPaper/Work/VBoxContainer/Promotion"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="GridContainer" type="GridContainer" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 2
+
+[node name="Label" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Days"
+
+[node name="Days" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer"]
+layout_mode = 2
+text = "12"
+label_settings = ExtResource("3_k17yd")
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Level"
+
+[node name="Level" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer"]
+layout_mode = 2
+text = "JUNIOR"
+label_settings = ExtResource("3_k17yd")
+horizontal_alignment = 2
+
+[node name="Label5" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Speed"
+
+[node name="Speed" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer"]
+layout_mode = 2
+text = "123"
+label_settings = ExtResource("3_k17yd")
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer"]
+layout_mode = 2
+text = "Accuracy"
+
+[node name="Acc" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer"]
+layout_mode = 2
+text = "80%"
+label_settings = ExtResource("3_k17yd")
+horizontal_alignment = 2
+
+[node name="Control" type="Control" parent="BurnoutPaper/Work/VBoxContainer/Promotion"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="BurnoutPaper/Work/VBoxContainer/Promotion"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer"]
+layout_mode = 2
+
+[node name="Home" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2" instance=ExtResource("4_vuj6l")]
+layout_mode = 2
+word = "Home"
+
+[node name="Control" type="Control" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Restart" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2" instance=ExtResource("4_vuj6l")]
+layout_mode = 2
+word = "newjob"

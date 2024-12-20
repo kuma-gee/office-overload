@@ -90,7 +90,8 @@ func start():
 	)
 	
 	work_document.open(0.5)
-	stats.open(0.5)
+	if GameManager.has_current_job():
+		stats.open(0.5)
 	if GameManager.has_played:
 		files_node.move_in(0.6)
 	if GameManager.has_reached_junior:

@@ -54,7 +54,7 @@ extends Node2D
 
 @onready var bgm = $BGM
 @onready var end = $CanvasLayer/End
-@onready var gameover = $CanvasLayer/Gameover
+@onready var gameover: Gameover = $CanvasLayer/Gameover
 @onready var key_reader = $KeyReader
 @onready var pause: Pause = $CanvasLayer/Pause
 
@@ -114,7 +114,7 @@ func _ready():
 	else:
 		overload_progress.hide()
 
-	work_time.next_work_day.connect(func(): _finished(true))
+	work_time.next_work_day.connect(func(): _finished(false, true))
 	work_time.day_ended.connect(func():
 		if documents.is_empty() or GameManager.is_intern() or GameManager.is_ceo():
 			_finished()
@@ -163,8 +163,8 @@ func _start_game():
 	
 	_spawn()
 	
-func _finished(is_gameover = false):
-	self.is_gameover = is_gameover
+func _finished(is_burn_out = false, is_fired = false):
+	#self.is_gameover = is_burn_out or is_fired
 	
 	if GameManager.is_work_mode():
 		distractions.slide_all_out()
@@ -181,7 +181,9 @@ func _finished(is_gameover = false):
 			}
 			GameManager.finished_day(data)
 			
-			if is_gameover:
+			if is_burn_out:
+				gameover.burnout()
+			elif is_fired:
 				gameover.fired()
 			else:
 				end.day_ended(data)
