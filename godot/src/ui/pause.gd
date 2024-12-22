@@ -3,6 +3,7 @@ extends Control
 
 @onready var effect_root: EffectRoot = $EffectRoot
 @onready var delegator: Delegator = $Delegator
+@onready var panel_container: EndPaper = $PanelContainer
 
 @export var quit_btn: TypingButton
 @export var continue_btn: TypingButton
@@ -20,11 +21,13 @@ func _ready() -> void:
 func _on_focused():
 	get_tree().paused = true
 	effect_root.do_effect()
+	panel_container.open()
 	show()
 	
 func _on_focus_exited():
 	get_tree().paused = false
 	effect_root.reverse_effect()
+	panel_container.close()
 
 func _gui_input(event: InputEvent) -> void:
 	delegator.handle_event(event)
