@@ -60,11 +60,8 @@ func day_ended(data: Dictionary):
 	var tasks = data["total"]
 	var combo = data["combo"]
 	var wrong = data["wrong"]
-	#var mi_missed = data["distractions"]
-	var points = data["points"]
-	var grade = data["grade"]
 
-	grade_label.text = grade
+	grade_label.text = data["grade"].grade
 	title.text = "Day %s report" % GameManager.day
 	finished_tasks.text = "%s" % tasks
 	perfect_tasks_label.text = "%s" % combo

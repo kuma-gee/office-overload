@@ -178,6 +178,7 @@ func _finished(is_burn_out = false, is_fired = false):
 				"combo": document_stack.highest_streak,
 				"wrong": document_stack.wrong_tasks,
 				"overtime": work_time.get_overtime(),
+				"stress": overload_progress.get_average(),
 			}
 			GameManager.finished_day(data)
 			
@@ -194,7 +195,7 @@ func _finished(is_burn_out = false, is_fired = false):
 	else:
 		GameManager.finished_crunch(document_stack.actual_document_count)
 		end.crunch_ended(document_stack.total, work_time.hour)
-			
+		
 func _spawn():
 	if (work_time.is_day_ended() and GameManager.is_work_mode()) or is_gameover:
 		return

@@ -1,9 +1,10 @@
-[gd_scene load_steps=93 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=94 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
 [ext_resource type="Script" path="res://src/base-system/CameraShake.gd" id="2_40dk3"]
 [ext_resource type="Texture2D" uid="uid://h14bp6b8w6i8" path="res://assets/sprites/Progress_Under.png" id="2_s1wqh"]
+[ext_resource type="Script" path="res://src/difficulty_manger.gd" id="2_s81cp"]
 [ext_resource type="PackedScene" uid="uid://dffjinparflk0" path="res://src/ui/day.tscn" id="3_4j615"]
 [ext_resource type="Texture2D" uid="uid://df8a7xriw1acm" path="res://assets/sprites/Progress_Fill.png" id="3_6o0s1"]
 [ext_resource type="Script" path="res://src/base-system/FrameFreeze.gd" id="3_o6tfp"]
@@ -625,6 +626,9 @@ boss_attack_timer = NodePath("BossAttackTimer")
 player_doc_label = NodePath("Desk/Computer/BossUI/VBoxContainer/HBoxContainer/PlayerDocuments")
 player_combo_label = NodePath("Desk/Computer/BossUI/VBoxContainer/HBoxContainer/PlayerCombo")
 
+[node name="DifficultyManger" type="Node" parent="."]
+script = ExtResource("2_s81cp")
+
 [node name="CameraShake" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("2_40dk3")
@@ -910,7 +914,6 @@ layout_mode = 2
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
-height = 1.0
 
 [node name="Phone" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "effect_root", "timer", "sounds")]
 layout_mode = 1
@@ -996,7 +999,6 @@ layout_mode = 2
 size_flags_horizontal = 1
 theme_override_font_sizes/normal_font_size = 12
 autowrap_mode = 3
-height = 1.0
 
 [node name="Countdown" type="MarginContainer" parent="CanvasLayer/Distractions/Phone/Phone"]
 visible = false
@@ -1088,7 +1090,6 @@ horizontal_alignment = 1
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
-height = 1.0
 
 [node name="Countdown" type="MarginContainer" parent="CanvasLayer/Distractions/Junior/Junior"]
 visible = false

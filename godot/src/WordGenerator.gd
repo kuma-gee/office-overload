@@ -5,11 +5,15 @@ extends Node
 @export var last_words_size := 5
 
 var last_words := []
+var tagged_words = {}
 
-func add_words(words: Array):
+func add_words(words: Array, tag = null):
 	for w in _normalize(words):
 		if not w in self.words:
 			self.words.append(w)
+	
+	if tag:
+		tagged_words[tag] = words
 
 func remove_words_less(char_count: int):
 	for w in words:
@@ -22,13 +26,20 @@ func _normalize(words: Array):
 		result.append(w.replace(" ", "").to_lower())
 	return result
 
-func get_random_word():
-	if words.size() == 0:
-		return ""
+func get_random_word(tag = null):
+	var arr = []
+	if tag and tag in tagged_words:
+		arr.append_array(tagged_words[tag])
+	elif not words.is_empty():
+		arr.append_array(words)
 
-	var word = words.pick_random()
+	if arr.is_empty():
+		return ""
+	print("Getting word from %s" % [tag])
+
+	var word = arr.pick_random()
 	while word in last_words:
-		word = words.pick_random()
+		word = arr.pick_random()
 	
 	if last_words.size() >= last_words_size:
 		last_words.pop_front()

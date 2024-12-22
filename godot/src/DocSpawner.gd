@@ -16,12 +16,20 @@ var invalid_spawned := 0
 var invalid_skipped := 0
 var _logger = Logger.new("DocSpawner")
 
+var word_type_chance := {}
+
 func _ready():
+	word_type_chance = {
+		WordManager.Type.EASY: GameManager.difficulty.easy_words,
+		WordManager.Type.MEDIUM: GameManager.difficulty.medium_words,
+		WordManager.Type.HARD: GameManager.difficulty.hard_words,
+	}
+	
 	if word_type == WordManager.WORK_GROUP:
 		add_easy()
-		if GameManager.day >= 3 and GameManager.received_promotion_day != 3:
+		if GameManager.day >= 3:
 			add_medium()
-		elif GameManager.day >= 6 and GameManager.received_promotion_day != 6:
+		elif GameManager.day >= 6:
 			add_hard()
 	else:
 		add_words_from_group()
@@ -30,7 +38,6 @@ func add_words_from_group():
 	var words = WordManager.get_words(word_type)
 	word_generator.add_words(words)
 	mode = WordManager.Type.ALL
-	
 
 func is_invalid_word(word: String):
 	return not word in word_generator.words
@@ -39,21 +46,21 @@ func add_easy():
 	if mode >= WordManager.Type.EASY: return
 	
 	var words = WordManager.get_words(WordManager.WORK_GROUP, WordManager.Type.EASY)
-	word_generator.add_words(words)
+	word_generator.add_words(words, WordManager.Type.EASY)
 	mode = WordManager.Type.EASY
 	
 func add_medium():
 	if mode >= WordManager.Type.MEDIUM: return
 	
 	var words = WordManager.get_words(WordManager.WORK_GROUP, WordManager.Type.MEDIUM)
-	word_generator.add_words(words)
+	word_generator.add_words(words, WordManager.Type.MEDIUM)
 	mode = WordManager.Type.MEDIUM
 
 func add_hard():
 	if mode >= WordManager.Type.HARD or GameManager.is_intern(): return
 	
 	var words = WordManager.get_words(WordManager.WORK_GROUP, WordManager.Type.HARD)
-	word_generator.add_words(words)
+	word_generator.add_words(words, WordManager.Type.MEDIUM)
 	mode = WordManager.Type.HARD
 
 enum InvalidType {
@@ -73,7 +80,6 @@ func get_invalid_type():
 	var available = [InvalidType.INVALID]
 	if GameManager.days_since_promotion >= 3:
 		available.append(InvalidType.SWAP)
-	#elif GameManager.days_since_promotion >= 6:
 	elif GameManager.is_ceo():
 		available.append(InvalidType.CENSOR)
 	
@@ -124,9 +130,19 @@ func spawn_invalid_document(type: InvalidType = get_invalid_type()):
 	_move_document_in(doc)
 	return doc
 
+func get_word_tag():
+	var r = randf()
+	var accum = 0.0
+	for type in word_type_chance.keys():
+		if r <= word_type_chance[type]:
+			return type
+		accum += word_type_chance[type]
+	
+	return WordManager.Type.ALL
+
 func spawn_document(invalid_word_chance := 0.0):
 	var doc = document_scene.instantiate()
-	var word = word_generator.get_random_word()
+	var word = word_generator.get_random_word(get_word_tag())
 	if word == "":
 		_logger.warn("No words available for document")
 		return null

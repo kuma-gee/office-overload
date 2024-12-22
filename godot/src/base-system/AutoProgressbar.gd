@@ -31,12 +31,18 @@ var base_blink_time := -1.0
 var rotation_strength := 0.0
 var noise_i: float = 0.0
 
+var total := 0.0
+var total_time := 0.0
+
 func _ready():
 	value = 0.0
 	pivot_offset = size / 2
 	
 	noise.seed = randi()
 	noise.frequency = 2
+
+func get_average():
+	return total / total_time
 
 func start():
 	running = true
@@ -75,6 +81,8 @@ func _process(delta):
 		noise_i += delta * 5
 		rotation = noise.get_noise_2d(1, noise_i) * rotation_strength
 
+	total += value
+	total_time += max_value
 
 func is_full():
 	return value >= max_value

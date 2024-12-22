@@ -10,26 +10,6 @@ signal item_purchased()
 
 signal logged(line)
 
-const GRADES = {
-	"S": 90,
-	"A": 60,
-	"B": 30,
-	"C": 10,
-	"D": 0,
-	"E": -10,
-	"F": -30,
-}
-
-const GRADE_MONEY = {
-	"S": 600,
-	"A": 500,
-	"B": 400,
-	"C": 200,
-	"D": 100,
-	"E": 50,
-	"F": 0,
-}
-
 const DIFFICULTIES = {
 	DifficultyResource.Level.INTERN: preload("res://src/difficulty/Intern.tres"),
 	DifficultyResource.Level.JUNIOR: preload("res://src/difficulty/Junior.tres"),
@@ -39,6 +19,7 @@ const DIFFICULTIES = {
 }
 
 @export var keep_past_wpms := 50
+@export var grades: Array[GradeResource] = []
 
 @onready var wpm_calculator = $WPMCalculator
 @onready var save_manager: SaveManager = $SaveManager
@@ -75,7 +56,7 @@ var past_performance := []
 var has_played := false
 var has_reached_junior := false
 var unlocked_modes = [Mode.Work]
-var performance := 0.0
+var performance := 0
 
 var received_promotion_day := 0
 var days_since_promotion := 0
@@ -181,6 +162,7 @@ func finished_day(data: Dictionary):
 	var current_size = wpm_calculator.get_total_size()
 	var previous_size = total_completed_words * 0.5 # count previous wpm less than the current one
 	data["wpm"] = wpm
+	data["acc"] = acc
 
 	average_wpm = ((average_wpm * previous_size) + (wpm * current_size)) / (previous_size + current_size)
 	average_accuracy = ((average_accuracy * previous_size) + (acc * current_size)) / (previous_size + current_size)
@@ -193,10 +175,12 @@ func finished_day(data: Dictionary):
 	_logger.info("New Average WPM %s and Accuracy %s with %s words" % [average_wpm, average_accuracy, total_completed_words])
 	
 	### Calculate Performance ###
-	var points = calculate_performance(data)
-	data["money"] = int(ceil(GRADE_MONEY[data["grade"]] * get_money_bonus()))
+	var grade = get_grade_for(data)
+	data["money"] = int(ceil(difficulty.money * (get_money_bonus() + grade.money_multiplier)))
+	data["grade"] = grade
+	
 	money += data["money"]
-	performance = max(performance + points, 0)
+	performance = clamp(performance + grade.points, 0, difficulty.max_performance)
 	
 	past_performance.append(performance)
 	if past_performance.size() > keep_past_wpms:
@@ -213,30 +197,37 @@ func finished_day(data: Dictionary):
 	_save_data()
 	round_ended.emit()
 
+# deprecated??
 func calculate_performance(data: Dictionary):
 	var total = data["total"]
 	var wrong = data["wrong"]
-	#var mistyped = data["tasks"] != data["combo"]
+	var overtime = data["overtime"]
+	var stress = data["stress"]
+	var acc = data["acc"]
 	
-	# var missed_point = pow(distraction_missed, 2) # max ~9 distractions
-	#var perfect_points = pow(perfect, 1.5) # max ~20 tasks
 	var wrong_points = pow(wrong, 1.2)
-	# var overtime_minus = int(overtime / 2)
-	#var normal_tasks = tasks - perfect
 	
 	var points = total
 	points -= wrong_points
-	# points = floor(points * acc)
 	data["points"] = points
-
-	var grade = "F"
-	for g in GRADES.keys():
-		if points >= GRADES[g]:
-			grade = g
-			break
-
+	
+	var grade = get_grade_for(data)
 	data["grade"] = grade
+	
 	return points
+
+func get_grade_for(data: Dictionary):
+	var wrong = data["wrong"]
+	var overtime = data["overtime"]
+	var stress = data["stress"]
+	var acc = data["acc"]
+	var tasks = data["tasks"]
+	
+	for grade in grades:
+		if stress <= grade.stress and wrong <= grade.mistakes and overtime <= grade.overtime and acc >= grade.accuracy and tasks >= grade.documents:
+			return grade
+			
+	return grades[grades.size() - 1]
 
 func upload_work_scores(wpm: float = average_wpm, acc: float = average_accuracy, level: int = difficulty_level):
 	if is_intern(): return
@@ -289,6 +280,10 @@ func get_wpm():
 
 func get_accuracy():
 	return average_accuracy * 100
+
+### Performance
+func get_until_max_performance():
+	return difficulty.max_performance - performance
 
 ### Items
 func buy_item(item: ShopResource):
@@ -354,10 +349,10 @@ enum PromotionTip {
 func can_have_promotion():
 	if is_max_promotion(): return PromotionTip.Max
 
-	var next = difficulty_level + 1
-	var diff = DIFFICULTIES[next] as DifficultyResource
+	#var next = difficulty_level + 1
+	#var diff = DIFFICULTIES[next] as DifficultyResource
 	
-	if performance < diff.min_performance:
+	if performance < difficulty.max_performance:
 		return PromotionTip.Documents
 
 	#if get_wpm() < diff.min_average_wpm:

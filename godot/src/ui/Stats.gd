@@ -17,7 +17,7 @@ extends DocumentUI
 
 func _ready():
 	visibility_changed.connect(func(): _update())
-	GameManager.job_quited.connect(func(): _update())
+	GameManager.job_quited.connect(func(): close())
 	_update()
 	
 	visible = GameManager.has_current_job()

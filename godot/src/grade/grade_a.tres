@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="GradeResource" load_steps=2 format=3 uid="uid://wssn7mvoubcw"]
+
+[ext_resource type="Script" path="res://src/grade/GradeResource.gd" id="1_q2nte"]
+
+[resource]
+script = ExtResource("1_q2nte")
+grade = "A"
+points = 3
+money = 300
+stress = 0.6
+mistakes = 2
+overtime = 2
+accuracy = 0.85
+documents = 15
