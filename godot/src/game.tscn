@@ -1707,14 +1707,25 @@ vertical_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="DocSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("word_generator")]
-position = Vector2(-200, 18)
+[node name="DocSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("word_generator", "positions")]
+position = Vector2(-200, 22)
 script = ExtResource("4_macw6")
 document_scene = ExtResource("2_35x6g")
 word_generator = NodePath("WordGenerator")
+center_offset = 10
+positions = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3")]
 
 [node name="WordGenerator" type="Node" parent="DocSpawner"]
 script = ExtResource("55_o651g")
+
+[node name="Marker2D" type="Marker2D" parent="DocSpawner"]
+position = Vector2(140, 0)
+
+[node name="Marker2D2" type="Marker2D" parent="DocSpawner"]
+position = Vector2(200, 0)
+
+[node name="Marker2D3" type="Marker2D" parent="DocSpawner"]
+position = Vector2(260, 0)
 
 [node name="Overlay" type="ColorRect" parent="."]
 visible = false

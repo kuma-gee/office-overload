@@ -2,13 +2,14 @@ class_name DocSpawner
 extends Marker2D
 
 @export var document_scene: PackedScene
-@export var center_offset := 50
 @export var word_generator: WordGenerator
+@export var center_offset := 50
 @export var verfical_offset := 0.0
 @export var move_back := false
 @export_enum(WordManager.WORK_GROUP, WordManager.AFTERWORK_GROUP, WordManager.MEETING_GROUP) var word_type := WordManager.WORK_GROUP
 
 @export var spawn_vertical_offset := 0
+@export var positions: Array[Node2D] = []
 
 var mode = -1
 var invalid_word_accum := 0.0
@@ -16,6 +17,7 @@ var invalid_spawned := 0
 var invalid_skipped := 0
 var _logger = Logger.new("DocSpawner")
 
+var last_position: Node2D
 var word_type_chance := {}
 
 func _ready():
@@ -170,9 +172,20 @@ func _move_document_in(doc: Document):
 	doc.global_position.y += spawn_vertical_offset
 	doc.global_position.y += y_offset
 	
-	var x = abs(global_position.x)
-	var target = global_position + Vector2.RIGHT * randi_range(x - center_offset, x + center_offset)
+	var target = _get_target_position()
 	
 	add_child(doc)
 	move_child(doc, 0)
 	doc.move_to(target, true, global_position if move_back else null)
+
+func _get_target_position():
+	if positions.is_empty():
+		var x = abs(global_position.x)
+		return global_position + Vector2.RIGHT * randi_range(x - center_offset, x + center_offset)
+	
+	var node = positions.filter(func(p): return p != last_position).pick_random()
+	last_position = node
+	
+	var pos = node.global_position
+	pos.x += randi_range(-center_offset, center_offset)
+	return pos
