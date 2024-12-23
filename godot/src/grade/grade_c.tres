@@ -5,10 +5,10 @@
 [resource]
 script = ExtResource("1_o2b21")
 grade = "C"
-points = 1
-money = 100
+points = 0
+money_multiplier = 0.0
 stress = 1.0
-mistakes = 10
+mistakes = 20
 overtime = 6
 accuracy = 0.75
 documents = 0

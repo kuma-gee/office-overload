@@ -5,10 +5,10 @@
 [resource]
 script = ExtResource("1_7buwx")
 grade = "B"
-points = 2
-money = 200
+points = 1
+money_multiplier = 0.0
 stress = 0.8
-mistakes = 5
+mistakes = 8
 overtime = 4
 accuracy = 0.8
 documents = 10

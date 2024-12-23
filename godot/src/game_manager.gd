@@ -176,7 +176,7 @@ func finished_day(data: Dictionary):
 	
 	### Calculate Performance ###
 	var grade = get_grade_for(data)
-	data["money"] = int(ceil(difficulty.money * (get_money_bonus() + grade.money_multiplier)))
+	data["money"] = int(ceil(data["total"] * get_money_bonus()))
 	data["grade"] = grade
 	
 	money += data["money"]
@@ -283,7 +283,14 @@ func get_accuracy():
 
 ### Performance
 func get_until_max_performance():
-	return difficulty.max_performance - performance
+	return get_max_performance() - performance
+
+func get_min_performance():
+	if not prev_difficulty: return 0
+	return prev_difficulty.max_performance
+	
+func get_max_performance():
+	return difficulty.max_performance
 
 ### Items
 func buy_item(item: ShopResource):
@@ -319,8 +326,8 @@ func get_stress_reduction():
 
 func get_money_bonus():
 	if not Shop.Items.MONEY_CAT in bought_items:
-		return 1.0
-	return 1.2
+		return 1.0 * difficulty.money_multiplier
+	return 1.2 * difficulty.money_multiplier
 
 func get_distraction_reduction():
 	if not Shop.Items.DO_NOT_DISTURB in bought_items:

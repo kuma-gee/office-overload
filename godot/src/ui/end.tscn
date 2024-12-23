@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://kdu7e637eapn"]
+[gd_scene load_steps=35 format=3 uid="uid://kdu7e637eapn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_80w1y"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_ox4yy"]
@@ -15,7 +15,9 @@
 [ext_resource type="AudioStream" uid="uid://e82h4pq7oib4" path="res://assets/sound/金額表示.mp3" id="8_i0k3p"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="8_whfhi"]
 [ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="8_yhc58"]
+[ext_resource type="LabelSettings" uid="uid://uctt264dd2ni" path="res://theme/text_small.tres" id="9_e1gla"]
 [ext_resource type="Script" path="res://src/ui/promotion_paper.gd" id="11_r0shu"]
+[ext_resource type="LabelSettings" uid="uid://fiyuuqq6ppow" path="res://theme/text_small_outline.tres" id="12_wqs3t"]
 [ext_resource type="AudioStream" uid="uid://ctlbf2imxt5tn" path="res://assets/sound/呪いの旋律.mp3" id="13_26xkb"]
 [ext_resource type="Script" path="res://src/ui/unlocked_mode.gd" id="16_hp113"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="17_74eho"]
@@ -86,7 +88,7 @@ scale_max = 5.0
 scale_curve = SubResource("CurveTexture_51fdc")
 alpha_curve = SubResource("CurveTexture_rj2fv")
 
-[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "promotion_delegator", "work_container", "unlocked_container")]
+[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "bonus_label", "promotion_delegator", "work_container", "unlocked_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -106,9 +108,10 @@ day_delegator = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBox
 promotion_tip_text = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTip")
 perfect_tasks_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2/MaxCombo")
 distraction_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3/Mistakes")
-grade_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Grade/Sprite2D/GradeLabel")
+grade_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D/GradeLabel")
 wpm_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4/WPM")
 money_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/MarginContainer/Money")
+bonus_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5/Bonus")
 promotion_delegator = NodePath("PromotionPaper/Work/VBoxContainer/PromotionDelegator")
 work_container = NodePath("CenterContainer/PanelContainer/Work")
 unlocked_container = NodePath("UnlockedMode")
@@ -266,67 +269,85 @@ columns = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 3
 
 [node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
 text = "Tasks"
-label_settings = ExtResource("4_0mkg1")
+label_settings = ExtResource("12_wqs3t")
 
 [node name="Tasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
+label_settings = ExtResource("9_e1gla")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 3
 
 [node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
 text = "Max Combo"
-label_settings = ExtResource("4_0mkg1")
+label_settings = ExtResource("12_wqs3t")
 
 [node name="MaxCombo" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
+label_settings = ExtResource("9_e1gla")
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_constants/separation = 3
 
 [node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
 text = "Mistakes"
-label_settings = ExtResource("4_0mkg1")
+label_settings = ExtResource("12_wqs3t")
 
 [node name="Mistakes" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
+label_settings = ExtResource("9_e1gla")
 
 [node name="VBoxContainer4" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_constants/separation = 3
 
 [node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
 text = "Speed"
-label_settings = ExtResource("4_0mkg1")
+label_settings = ExtResource("12_wqs3t")
 
 [node name="WPM" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
+label_settings = ExtResource("9_e1gla")
 
-[node name="Grade" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+[node name="Grade" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(34.135, 15)
 layout_mode = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Grade"]
+[node name="Sprite2D" type="Sprite2D" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade"]
 material = SubResource("ShaderMaterial_w53bh")
 position = Vector2(20, 17)
 rotation = -0.139626
 texture = ExtResource("8_fgvoi")
 
-[node name="GradeLabel" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/Grade/Sprite2D"]
+[node name="GradeLabel" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -344,9 +365,28 @@ text = "A"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="VBoxContainer5" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 6
+text = "Bonus"
+label_settings = ExtResource("12_wqs3t")
+
+[node name="Bonus" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
+text = "x1.5"
+label_settings = ExtResource("9_e1gla")
+
 [node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 
 [node name="Money" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/MarginContainer"]
@@ -390,6 +430,7 @@ layout_mode = 2
 word = "Next Day"
 
 [node name="PromotionPaper" type="PanelContainer" parent="." node_paths=PackedStringArray("yes_button", "no_button")]
+visible = false
 custom_minimum_size = Vector2(120, 160)
 layout_mode = 1
 anchors_preset = 8

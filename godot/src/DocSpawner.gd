@@ -27,10 +27,13 @@ func _ready():
 	
 	if word_type == WordManager.WORK_GROUP:
 		add_easy()
-		if GameManager.day >= 3:
+		
+		if not GameManager.is_intern() or GameManager.get_until_max_performance() <= 5:
 			add_medium()
-		elif GameManager.day >= 6:
-			add_hard()
+		if not GameManager.is_intern():
+			if not GameManager.is_junior() or GameManager.get_until_max_performance() <= 10:
+				add_hard()
+		
 	else:
 		add_words_from_group()
 	

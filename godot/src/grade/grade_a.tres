@@ -6,9 +6,9 @@
 script = ExtResource("1_q2nte")
 grade = "A"
 points = 3
-money = 300
+money_multiplier = 0.0
 stress = 0.6
-mistakes = 2
+mistakes = 3
 overtime = 2
 accuracy = 0.85
 documents = 15

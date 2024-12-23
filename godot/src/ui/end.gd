@@ -21,17 +21,15 @@ extends Control
 @export var next_day: TypingButton
 @export var next_day_container: Control
 @export var title: Label
-@export var overtime: Label
 @export var finished_tasks: Label
 @export var day_delegator: Delegator
 @export var promotion_tip_text: Label
 @export var perfect_tasks_label: Label
 @export var distraction_label: Label
-@export var acc_label: Label
-@export var points_label: Label
 @export var grade_label: Label
 @export var wpm_label: Label
 @export var money_label: Label
+@export var bonus_label: Label
 
 @export_category("Promotion")
 @export var promotion_delegator: Delegator
@@ -57,7 +55,7 @@ func _ready():
 	GameManager.mode_unlocked.connect(func(mode): unlocked_container.unlocked_mode(mode))
 
 func day_ended(data: Dictionary):
-	var tasks = data["total"]
+	var tasks = data["tasks"]
 	var combo = data["combo"]
 	var wrong = data["wrong"]
 
@@ -68,8 +66,9 @@ func day_ended(data: Dictionary):
 	money_label.text = "$%0.f" % data["money"]
 	distraction_label.text = "%s" % wrong
 	wpm_label.text = "%0.f" % data["wpm"]
+	bonus_label.text = "x%s" % GameManager.difficulty.money_multiplier
 
-	var promo_tip = GameManager.can_have_promotion()
+	var promo_tip = GameManager.can_have_promotion() and data["grade"].points > 0
 	var promo = promo_tip == null
 	if promo:
 		promotion_paper.open(0.2)

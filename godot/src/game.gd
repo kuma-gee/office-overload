@@ -66,6 +66,7 @@ var is_gameover = false:
 		is_gameover = v
 
 var documents = []
+var day_ended := false
 
 func _set_environment():
 	animation_player.play("normal")
@@ -116,7 +117,12 @@ func _ready():
 
 	work_time.next_work_day.connect(func(): _finished(false, true))
 	work_time.day_ended.connect(func():
-		if documents.is_empty() or GameManager.is_intern() or GameManager.is_ceo():
+		if documents.is_empty() or GameManager.is_ceo():
+			_finished()
+		day_ended = true
+	)
+	work_time.time_changed.connect(func(t):
+		if day_ended and work_time.is_day_ended() and GameManager.is_intern():
 			_finished()
 	)
 	
@@ -204,11 +210,11 @@ func _spawn():
 	
 	if GameManager.is_work_mode():
 		if not GameManager.is_intern():
-			var day_multipler = min(remap(GameManager.days_since_promotion, 1, 10, 1.0, 0.5), 1.0)
+			var day_multipler = min(remap(GameManager.performance, GameManager.get_min_performance(), GameManager.get_max_performance(), 1.0, 0.5), 1.0)
 			var document_multipler = max(remap(documents.size(), 5, 15, 1.0, 5.0), 1.0)
 			spawn_timer.start(GameManager.difficulty.base_document_time * day_multipler * document_multipler)
 			
-		if GameManager.is_ceo() and documents.size() < min_documents:
+		if (GameManager.is_ceo() or GameManager.is_intern() and GameManager.get_until_max_performance() <= 5) and documents.size() < min_documents:
 			_spawn()
 	else:
 		var t = _crunch_mode_spawn_time()
@@ -239,11 +245,11 @@ func _spawn_document(await_start = false):
 			_add_document(doc, await_start)
 
 func _update_score():
-	player_doc_label.text = "%s" % document_stack.total_points
+	player_doc_label.text = "%s" % document_stack.tasks
 	player_combo_label.text = "%sx" % document_stack.combo_count
 	player_combo_label.visible = document_stack.combo_count > 0
 	
-	single_player_doc_label.text = "%s" % document_stack.total_points
+	single_player_doc_label.text = "$%s" % document_stack.total_points
 	single_player_combo_label.text = "%sx" % document_stack.combo_count
 	single_player_combo_label.visible = document_stack.combo_count > 0
 
@@ -309,7 +315,7 @@ var boss_documents := 0
 var boss_points := 0:
 	set(v):
 		boss_points = v
-		boss_doc_label.text = "%s" % boss_points
+		boss_doc_label.text = "%s" % boss_documents
 var boss_combo := 0:
 	set(v):
 		boss_combo = v

@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_7gpf7")
 grade = "D"
-points = -1
-money = 50
+points = -2
+money_multiplier = 0.0
 stress = 1.0
 mistakes = 10000
 overtime = 1000
