@@ -4,13 +4,20 @@ extends Node
 signal pressed_key(key, shift)
 signal pressed_cancel(shift)
 
+var last_key := ""
+
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("ui_cancel"):
 		pressed_cancel.emit(event.shift_pressed)
 		return
 	
+	if event.is_released():
+		last_key = ""
+	
 	var key = get_key_of_event(event)
-	if not key: return
+	if not key or last_key == key: return
+	
+	last_key = key
 	
 	#print("[%s] Handling input %s" % [get_path(), event])
 	pressed_key.emit(key.to_lower(), event.shift_pressed)
