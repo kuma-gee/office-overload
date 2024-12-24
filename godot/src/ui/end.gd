@@ -68,12 +68,11 @@ func day_ended(data: Dictionary):
 	wpm_label.text = "%0.f" % data["wpm"]
 	bonus_label.text = "x%s" % GameManager.difficulty.money_multiplier
 
-	var promo_tip = GameManager.can_have_promotion() and data["grade"].points > 0
-	var promo = promo_tip == null
+	var promo = GameManager.can_have_promotion() and data["grade"].points > 0
 	if promo:
 		promotion_paper.open(0.2)
 	
-	promotion_tip_text.text = _promotion_tip_text(promo_tip)
+	#promotion_tip_text.text = _promotion_tip_text(null)
 
 	_do_open(work_container)
 	

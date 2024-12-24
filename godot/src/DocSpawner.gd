@@ -159,6 +159,7 @@ func spawn_document(invalid_word_chance := 0.0):
 		invalid_skipped = 0
 	else:
 		# after checking, so there won't be two invalid words after another
+		var mult = remap(GameManager.performance, GameManager.get_min_performance(), GameManager.get_max_performance(), 0.5, 1.5)
 		invalid_word_accum += invalid_word_chance
 		invalid_skipped += 1
 		doc.word = word

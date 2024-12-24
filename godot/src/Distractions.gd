@@ -38,11 +38,11 @@ var skipped_since_last_distraction := 0
 
 # Min range: 1 - 2
 # Max range: 6 - 8
-@onready var min_count = min(GameManager.days_since_promotion + 1, 6)
+@onready var min_count = clamp(remap(GameManager.performance, GameManager.get_min_performance(), GameManager.get_max_performance() * 0.7, 1, 6), 1, 6)
 @onready var max_count = min_count + 1 if min_count < 3 else 2
 
 func _ready():
-	_logger.info("Days since promotion: %s" % GameManager.days_since_promotion)
+	_logger.info("Performance: %s, within %s, left: %s" % [GameManager.performance, GameManager.get_performance_within_level(), GameManager.get_until_max_performance()])
 	
 	overlay.modulate = Color.TRANSPARENT
 	delegator.nodes = menus

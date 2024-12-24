@@ -285,6 +285,10 @@ func get_accuracy():
 func get_until_max_performance():
 	return get_max_performance() - performance
 
+func get_performance_within_level():
+	var diff = get_max_performance() - get_min_performance()
+	return diff - get_until_max_performance()
+
 func get_min_performance():
 	if not prev_difficulty: return 0
 	return prev_difficulty.max_performance
@@ -354,13 +358,13 @@ enum PromotionTip {
 }
 
 func can_have_promotion():
-	if is_max_promotion(): return PromotionTip.Max
+	if is_max_promotion(): return false #PromotionTip.Max
 
 	#var next = difficulty_level + 1
 	#var diff = DIFFICULTIES[next] as DifficultyResource
 	
 	if performance < difficulty.max_performance:
-		return PromotionTip.Documents
+		return false #PromotionTip.Documents
 
 	#if get_wpm() < diff.min_average_wpm:
 		#return PromotionTip.WPM
@@ -371,7 +375,7 @@ func can_have_promotion():
 	#if average_accuracy < diff.min_accuracy:
 		#return PromotionTip.Accuracy
 	
-	return null
+	return true
 	
 func take_promotion():
 	if is_max_promotion(): return

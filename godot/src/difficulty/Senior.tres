@@ -5,15 +5,12 @@
 [resource]
 script = ExtResource("1_7go24")
 level = 2
-min_documents = 1.0
-max_documents = 1.5
+bgm_speed = 1.8
+money_multiplier = 1.2
+max_performance = 48
 base_document_time = 1.5
 distractions = 0.5
-bgm_speed = 1.8
-max_performance = 50
 invalid_word_chance = 0.0
-average_wpm = 70
-money_multiplier = 1.2
 easy_words = 0.3
 medium_words = 0.5
 hard_words = 0.2
