@@ -31,6 +31,7 @@ var _logger = Logger.new("Distraction")
 var tw: Tween
 var distraction_accumulator = 0.0
 var missed := 0
+var last_menu = null
 
 var called := 0
 var shown := 0
@@ -74,7 +75,7 @@ func maybe_show_distraction():
 		return
 
 	var distractions_left_to_show = min_count - shown
-	_logger.info("%s distractions left to show" % distractions_left_to_show)
+	_logger.info("%s distractions left to show: %s" % [distractions_left_to_show, distraction_accumulator])
 
 	var skip_count = [1, 2, 2, 1, 0, 0, 0, 0, 0]
 	var distraction_random = randf() - distraction_accumulator
@@ -85,18 +86,21 @@ func maybe_show_distraction():
 		skipped_since_last_distraction = 0
 	else:
 		# Increase distraction chance, otherwise it's too random and can take too long
-		distraction_accumulator += (GameManager.difficulty.distractions / 10.) * distractions_left_to_show
+		distraction_accumulator += (GameManager.difficulty.distractions / 10.0) * distractions_left_to_show
 		skipped_since_last_distraction += 1
 
 func show_distraction():
-	var available = menus.filter(func(m): return m.get_word() == "")
+	var available = menus.filter(func(m): return not m.is_open and (m != last_menu or randf() > 0.7))
 	if not GameManager.is_senior():
 		available.erase(junior)
 	
+	_logger.debug("Showing distraction: %s, %s" % [available, menus.map(func(x): return x.get_word())])
 	if available.is_empty() or GameManager.is_manager(): return
 	shown += 1
 	
 	var distraction = available.pick_random()
+	last_menu = distraction
+	
 	var word = _get_random_distraction_word(distraction.type)
 	if word:
 		distraction.set_word(word, distraction_timeout)
