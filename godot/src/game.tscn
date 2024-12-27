@@ -1806,7 +1806,7 @@ vertical_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="DocSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("word_generator")]
+[node name="DocSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("word_generator", "positions")]
 position = Vector2(-200, 22)
 script = ExtResource("4_macw6")
 document_scene = ExtResource("2_35x6g")
@@ -1816,6 +1816,7 @@ verfical_offset = null
 move_back = null
 word_type = null
 spawn_vertical_offset = null
+positions = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3")]
 
 [node name="WordGenerator" type="Node" parent="DocSpawner"]
 script = ExtResource("55_o651g")

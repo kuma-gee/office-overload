@@ -95,7 +95,6 @@ func _load_data():
 	
 	#self.difficulty_level = DifficultyResource.Level.INTERN
 	#unlocked_modes = Mode.values()
-	shown_stress_tutorial = false
 	
 	_logger.info("Game initialized")
 	init = true
