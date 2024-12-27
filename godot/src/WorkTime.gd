@@ -22,7 +22,7 @@ const MORNING_TIME = 8
 
 @onready var hour = start_hour : set = _set_hour
 
-var stopped = false
+var stopped = true
 
 func _ready():
 	self.start_hour = start_hour

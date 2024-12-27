@@ -9,6 +9,6 @@ points = 0
 money_multiplier = 0.0
 stress = 1.0
 mistakes = 20
-overtime = 6
+overtime = 10
 accuracy = 0.75
 documents = 0

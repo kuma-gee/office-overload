@@ -43,4 +43,8 @@ func _show_progress(progress: float) -> void:
 
 func start_game():
 	loading_scene = ""
-	GameManager.back_to_menu()
+	
+	if GameManager.has_played:
+		GameManager.back_to_menu()
+	else:
+		GameManager.start(GameManager.Mode.Work)

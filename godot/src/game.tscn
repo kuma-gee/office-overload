@@ -225,6 +225,18 @@ tracks/10/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Computer/TutorialUI:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_y2k32"]
 resource_name = "ceo"
@@ -307,6 +319,18 @@ tracks/6/path = NodePath("Computer/SingleUI:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Computer/TutorialUI:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -455,6 +479,30 @@ tracks/3/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Computer/SingleUI:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Computer/TutorialUI:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_0rw6j"]
 resource_name = "silent_bgm"
@@ -543,6 +591,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Computer/SingleUI:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Computer/TutorialUI:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vs0lt"]
@@ -761,12 +833,14 @@ theme_override_constants/margin_bottom = 3
 visible = false
 
 [node name="End" parent="CanvasLayer" instance=ExtResource("9_dbvje")]
+visible = false
 
 [node name="Delegator" type="Node" parent="CanvasLayer" node_paths=PackedStringArray("nodes")]
 script = ExtResource("20_tcix1")
 nodes = [NodePath("../..")]
 
 [node name="Distractions" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "shift_button", "work_time")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -913,6 +987,7 @@ layout_mode = 2
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
+jump_first = false
 
 [node name="Phone" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "effect_root", "timer", "sounds")]
 layout_mode = 1
@@ -998,6 +1073,7 @@ layout_mode = 2
 size_flags_horizontal = 1
 theme_override_font_sizes/normal_font_size = 12
 autowrap_mode = 3
+jump_first = false
 
 [node name="Countdown" type="MarginContainer" parent="CanvasLayer/Distractions/Phone/Phone"]
 visible = false
@@ -1089,6 +1165,7 @@ horizontal_alignment = 1
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
+jump_first = false
 
 [node name="Countdown" type="MarginContainer" parent="CanvasLayer/Distractions/Junior/Junior"]
 visible = false
@@ -1160,6 +1237,7 @@ expand_mode = 2
 stretch_mode = 5
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("37_b7g85")]
+visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
@@ -1290,6 +1368,28 @@ layout_mode = 2
 theme = ExtResource("10_am0oy")
 theme_override_font_sizes/font_size = 8
 text = "0"
+horizontal_alignment = 1
+
+[node name="TutorialUI" type="VBoxContainer" parent="Desk/Computer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.5
+offset_top = -37.5
+offset_right = -45.5
+offset_bottom = -17.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="PlayerDocuments" type="Label" parent="Desk/Computer/TutorialUI"]
+layout_mode = 2
+theme = ExtResource("10_am0oy")
+theme_override_font_sizes/font_size = 10
+text = "Type the word"
 horizontal_alignment = 1
 
 [node name="BossUI" type="HBoxContainer" parent="Desk/Computer"]
@@ -1706,13 +1806,16 @@ vertical_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="DocSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("word_generator", "positions")]
+[node name="DocSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("word_generator")]
 position = Vector2(-200, 22)
 script = ExtResource("4_macw6")
 document_scene = ExtResource("2_35x6g")
 word_generator = NodePath("WordGenerator")
 center_offset = 10
-positions = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3")]
+verfical_offset = null
+move_back = null
+word_type = null
+spawn_vertical_offset = null
 
 [node name="WordGenerator" type="Node" parent="DocSpawner"]
 script = ExtResource("55_o651g")

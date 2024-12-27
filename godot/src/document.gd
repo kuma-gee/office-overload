@@ -31,6 +31,8 @@ func get_label():
 
 func show_tutorial():
 	typing_label.highlight_first = true
+	#if not GameManager.has_played:
+		#typing_label.jump_first = true
 
 func _ready():
 	typing_label.word = word

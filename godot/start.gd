@@ -34,8 +34,8 @@ func _ready():
 	GameManager.game_started.connect(func(): is_starting = true)
 	
 	prepare_node.move_in(0.5)
-	if GameManager.has_played:
-		files_node.move_in(0.6)
+	files_node.move_in(0.6)
+	
 	if GameManager.has_reached_junior:
 		teams_node.move_in(0.7)
 	

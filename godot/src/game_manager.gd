@@ -53,13 +53,16 @@ var average_accuracy := 0.0
 var past_wpms := []
 var past_performance := []
 
+var shown_discard_tutorial := false # manager
+var shown_distraction_tutorial := false # senior
+var shown_stress_tutorial := false # junior
+
 var has_played := false
 var has_reached_junior := false
 var unlocked_modes = [Mode.Work]
 var performance := 0
 
 var received_promotion_day := 0
-var days_since_promotion := 0
 var money := 0
 
 var bought_items: Array[Shop.Items]= []
@@ -82,6 +85,7 @@ var current_mode: Mode
 var _logger = Logger.new("GameManager")
 
 func _ready():
+	self.difficulty_level = difficulty_level
 	SteamCloud.initialized.connect(_load_data)
 	
 func _load_data():
@@ -91,6 +95,7 @@ func _load_data():
 	
 	#self.difficulty_level = DifficultyResource.Level.INTERN
 	#unlocked_modes = Mode.values()
+	shown_stress_tutorial = false
 	
 	_logger.info("Game initialized")
 	init = true
@@ -118,7 +123,6 @@ func start(mode: Mode = current_mode):
 	if Env.is_demo():
 		current_mode = Mode.Work
 	
-	has_played = true
 	wpm_calculator.reset()
 	game_started.emit()
 	
@@ -147,7 +151,6 @@ func reset_values():
 	past_wpms = []
 
 	received_promotion_day = 0
-	days_since_promotion = 0
 	
 	job_quited.emit()
 	_save_data()
@@ -192,7 +195,6 @@ func finished_day(data: Dictionary):
 	
 	if is_work_mode():
 		day += 1
-		days_since_promotion += 1
 
 	_save_data()
 	round_ended.emit()
@@ -274,6 +276,7 @@ func start_type():
 
 func finish_type(word: String, mistakes: int):
 	wpm_calculator.finish_type(word, mistakes)
+	has_played = true
 
 func get_wpm():
 	return average_wpm
@@ -387,7 +390,6 @@ func take_promotion():
 		has_reached_junior = true
 	
 	received_promotion_day = day
-	days_since_promotion = 0
 	_save_data()
 
 func is_max_promotion():
@@ -420,6 +422,9 @@ func get_level_text(lvl = difficulty_level, abbreviate = -1):
 	if abbreviate > 0 and txt.length() > abbreviate:
 		txt = txt.substr(0, abbreviate) + "."
 	return txt
+
+func days_since_promotion():
+	return day - received_promotion_day
 
 ### Modes
 enum Mode {

@@ -45,13 +45,18 @@ signal type_wrong()
 		typed = v
 		update_word()
 
-var focused := false:
+@export var focused := false:
 	set(v):
 		focused = v
 		
 		if not locked:
 			add_theme_color_override("font_outline_color", highlight_color if v else Color.TRANSPARENT)
 			update_word()
+
+@export var jump_first := false:
+	set(v):
+		jump_first = v
+		update_word()
 
 var active := false:
 	set(v):
@@ -124,7 +129,9 @@ func _wrap_word(until: int, highlight_letter = false):
 	#var highlight_start = "[outline_color=%s][color=%s]" % [Color.TRANSPARENT.to_html(), typed_color.to_html()]
 	#var highlight_end = "[/color][/outline_color]"
 	
-	var not_highlight_char = _outline(_outline_size(censored_word.substr(until, 1), untyped_outline_size), highlight_color if highlight_first else untyped_outline_color)
+	var not_highlight_char = _outline(_outline_size(censored_word.substr(until, 1), untyped_outline_size), highlight_color if highlight_first else Color.TRANSPARENT)
+	var first_highlight = _outline(_outline_size(_color(censored_word.substr(until, 1), typed_color), untyped_outline_size), highlight_color if focused else Color.TRANSPARENT)
+	var first_jump = _wrap_typed(1, first_highlight)
 	return "[color=%s]%s[/color][color=%s][shake rate=%s level=%s]%s[/shake]%s[/color]" % [
 		typed_color.to_html(),
 		_outline(censored_word.substr(0, until), highlight_color),
@@ -132,7 +139,7 @@ func _wrap_word(until: int, highlight_letter = false):
 		untyped_color.to_html(),
 		#highlight_start if highlight_letter else "",
 		current_shake, 10 if current_shake > 0 else 0,
-		_outline(_outline_size(_color(censored_word.substr(until, 1), typed_color), untyped_outline_size), highlight_color if focused else Color.TRANSPARENT) if highlight_first and until == 0 else not_highlight_char,
+		first_jump if jump_first and until == 0 else (first_highlight if highlight_first and until == 0 else not_highlight_char),
 		#highlight_end if highlight_letter else "",
 		_outline(_outline_size(censored_word.substr(until + 1), untyped_outline_size), untyped_outline_color if locked else Color.TRANSPARENT)
 	]

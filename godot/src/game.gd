@@ -57,6 +57,7 @@ extends Node2D
 @onready var gameover: Gameover = $CanvasLayer/Gameover
 @onready var key_reader = $KeyReader
 @onready var pause: Pause = $CanvasLayer/Pause
+@onready var day: Day = $CanvasLayer/HUD/Day
 
 @onready var camera_shake: CameraShake = $CameraShake
 @onready var frame_freeze: FrameFreeze = $FrameFreeze
@@ -68,13 +69,9 @@ var is_gameover = false:
 var documents = []
 var day_ended := false
 
-func _set_environment():
-	animation_player.play("normal")
-
 func _ready():
 	randomize()
 	get_tree().paused = false
-	_set_environment()
 	_update_score()
 
 	for i in range(items_root.get_child_count()):
@@ -140,9 +137,16 @@ func _ready():
 				_update_score()
 	)
 	key_reader.pressed_cancel.connect(func(shift):
-		if not is_gameover:
+		if day.is_feature_open():
+			day.close_feature()
+			return
+		
+		if not is_gameover and not work_time.stopped:
 			pause.grab_focus()
 	)
+	
+	if not GameManager.has_played:
+		animation_player.play("tutorial")
 
 func _on_day_finished():
 	if GameManager.is_work_mode():
@@ -154,15 +158,18 @@ func _on_day_finished():
 		_start_game()
 	else:
 		_spawn_document(true)
-		animation_player.play("tutorial")
 
 func _start_game():
+	animation_player.play("normal")
 	key_reader.process_mode = Node.PROCESS_MODE_ALWAYS
 	work_time.start()
 	overload_progress.start()
-	animation_player.play("start_bgm")
-	if not bgm.playing:
-		bgm.play()
+	
+	get_tree().create_timer(0.5).timeout.connect(func():
+		animation_player.play("start_bgm")
+		if not bgm.playing:
+			bgm.play()
+	)
 	
 	if GameManager.is_ceo():
 		boss_attack_timer.start()
