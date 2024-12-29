@@ -17,7 +17,7 @@ var plots = []
 func _ready() -> void:
 	super._ready()
 	
-	visible = GameManager.past_performance.size() > 0
+	#visible = GameManager.past_performance.size() > 0
 	
 	#performance_button.finished.connect(func(): _update_performance_graph())
 	#wpm_button.finished.connect(func(): _update_wpm_graph())

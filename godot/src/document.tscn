@@ -44,7 +44,6 @@ theme_override_font_sizes/normal_font_size = 20
 text = "[outline_color=ffffffff][center][typed until=0 height=2 frequency=8 highlight_falloff=20 highlight_normal=353540ff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5]h[/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]elloworld[/outline_size][/outline_color][/color][/typed][/center][/outline_color]"
 height = 2.0
 highlight_first = false
-jump_first = false
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2(2.5, 3.2)

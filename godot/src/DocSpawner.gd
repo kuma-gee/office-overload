@@ -83,7 +83,7 @@ var invalid_chances = {
 func get_invalid_type():
 	var r = randf()
 	var available = [InvalidType.INVALID]
-	if GameManager.days_since_promotion() >= 3:
+	if GameManager.get_performance_within_level() >= 5:
 		available.append(InvalidType.SWAP)
 	elif GameManager.is_ceo():
 		available.append(InvalidType.CENSOR)

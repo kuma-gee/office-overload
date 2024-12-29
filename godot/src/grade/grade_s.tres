@@ -6,8 +6,7 @@
 script = ExtResource("1_woxyj")
 grade = "S"
 points = 5
-money_multiplier = 2
-stress = 0.4
+stress = 0.7
 mistakes = 1
 overtime = 2
 accuracy = 0.9

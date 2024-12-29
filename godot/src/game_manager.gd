@@ -51,21 +51,21 @@ var total_completed_words := 0
 var average_wpm := 0.0
 var average_accuracy := 0.0
 var past_wpms := []
-var past_performance := []
 
+var has_played := false
+var has_reached_junior := false
+var performance := 0
+var ceo_blocked := 0
+
+var shown_ceo_tutorial := false # ceo
 var shown_discard_tutorial := false # manager
 var shown_distraction_tutorial := false # senior
 var shown_stress_tutorial := false # junior
 
-var has_played := false
-var has_reached_junior := false
+var finished_game := false
 var unlocked_modes = [Mode.Work]
-var performance := 0
-
-var received_promotion_day := 0
-var money := 0
-
 var bought_items: Array[Shop.Items]= []
+var money := 0
 
 ### Maybe Save? ###
 var last_interview_wpm := 0.0
@@ -142,14 +142,13 @@ func reset_values():
 	total_overtime = 0
 	difficulty_level = DifficultyResource.Level.INTERN
 	performance = 0
-	past_performance = []
 	
 	average_wpm = 0.0
 	average_accuracy = 0.0
 	total_completed_words = 0
 	past_wpms = []
 
-	received_promotion_day = 0
+	ceo_blocked = 0
 	
 	job_quited.emit()
 	_save_data()
@@ -183,10 +182,11 @@ func finished_day(data: Dictionary):
 	
 	money += data["money"]
 	performance = clamp(performance + grade.points, 0, difficulty.max_performance)
+	ceo_blocked -= grade.points
 	
-	past_performance.append(performance)
-	if past_performance.size() > keep_past_wpms:
-		past_performance.pop_front()
+	#past_performance.append(performance)
+	#if past_performance.size() > keep_past_wpms:
+		#past_performance.pop_front()
 	_logger.debug("Performance: %s with %s" % [performance, data])
 	
 	# completed_documents += tasks
@@ -388,7 +388,10 @@ func take_promotion():
 	if difficulty_level >= DifficultyResource.Level.JUNIOR:
 		has_reached_junior = true
 	
-	received_promotion_day = day
+	_save_data()
+
+func demote():
+	difficulty_level -= 1
 	_save_data()
 
 func is_max_promotion():
@@ -416,14 +419,22 @@ func is_manager():
 func is_ceo():
 	return difficulty_level == DifficultyResource.Level.CEO
 
+func is_finished_game():
+	return finished_game
+
 func get_level_text(lvl = difficulty_level, abbreviate = -1):
 	var txt = DifficultyResource.Level.keys()[lvl] as String
 	if abbreviate > 0 and txt.length() > abbreviate:
 		txt = txt.substr(0, abbreviate) + "."
 	return txt
 
-func days_since_promotion():
-	return day - received_promotion_day
+func lost_ceo():
+	ceo_blocked = 10
+	demote()
+
+func won_ceo():
+	finished_game = true
+	unlock_mode(Mode.Multiplayer)
 
 ### Modes
 enum Mode {

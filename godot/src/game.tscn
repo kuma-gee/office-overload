@@ -987,7 +987,6 @@ layout_mode = 2
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
-jump_first = false
 
 [node name="Phone" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "effect_root", "timer", "sounds")]
 layout_mode = 1
@@ -1073,7 +1072,6 @@ layout_mode = 2
 size_flags_horizontal = 1
 theme_override_font_sizes/normal_font_size = 12
 autowrap_mode = 3
-jump_first = false
 
 [node name="Countdown" type="MarginContainer" parent="CanvasLayer/Distractions/Phone/Phone"]
 visible = false
@@ -1165,7 +1163,6 @@ horizontal_alignment = 1
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 12
-jump_first = false
 
 [node name="Countdown" type="MarginContainer" parent="CanvasLayer/Distractions/Junior/Junior"]
 visible = false
@@ -1812,10 +1809,6 @@ script = ExtResource("4_macw6")
 document_scene = ExtResource("2_35x6g")
 word_generator = NodePath("WordGenerator")
 center_offset = 10
-verfical_offset = null
-move_back = null
-word_type = null
-spawn_vertical_offset = null
 positions = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3")]
 
 [node name="WordGenerator" type="Node" parent="DocSpawner"]

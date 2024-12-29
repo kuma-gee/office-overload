@@ -4,7 +4,6 @@ extends Control
 
 @export var open_sound: AudioStreamPlayer
 @export var gameover_sound: AudioStreamPlayer
-@export var leader_board: Leaderboard
 
 #@export_category("Interview Mode")
 #@export var interview_finished: Label
@@ -36,23 +35,30 @@ extends Control
 
 @export_category("Mode Container")
 @export var work_container: Control
-@export var interview_container: Control
-@export var crunch_container: Control
+@export var ceo_container: Control
 @export var unlocked_container: UnlockedMode
 
 @onready var promotion_paper: PromotionPaper = $PromotionPaper
 @onready var promotion_status: PromotionStatus = $PromotionStatus
+@onready var challenge_paper: ChallengePaper = $ChallengePaper
 
 func _ready():
 	work_container.hide()
-	#interview_container.hide()
-	#crunch_container.hide()
-	#next_day_container.hide()
-	#promotion_container.hide()
+	ceo_container.hide()
 	
 	hide()
 	next_day.finished.connect(func(): GameManager.start())
 	GameManager.mode_unlocked.connect(func(mode): unlocked_container.unlocked_mode(mode))
+	
+	promotion_paper.accepted.connect(func():
+		promotion_status.open()
+		
+		if GameManager.is_work_mode():
+			GameManager.upload_work_scores()
+	)
+
+func ceo_ended(user: Dictionary, boss: Dictionary):
+	_do_open(ceo_container)
 
 func day_ended(data: Dictionary):
 	var tasks = data["tasks"]
@@ -70,7 +76,11 @@ func day_ended(data: Dictionary):
 
 	var promo = GameManager.can_have_promotion() and data["grade"].points > 0
 	if promo:
-		promotion_paper.open(0.2)
+		if GameManager.is_manager():
+			if GameManager.ceo_blocked <= 0:
+				challenge_paper.open(0.2)
+		else:
+			promotion_paper.open(0.2)
 	
 	#promotion_tip_text.text = _promotion_tip_text(null)
 
@@ -91,30 +101,25 @@ func _promotion_tip_text(tip) -> String:
 	return ""
 
 func interview_ended(finished: int):
+	pass
 	#interview_finished.text = "Finished %s documents" % finished
 	#interview_wpm.text = "%.0f WPM / %.0f%%" % [GameManager.last_interview_wpm, GameManager.last_interview_accuracy * 100]
 
-	_do_open(interview_container)
+	#_do_open(interview_container)
 
 func crunch_ended(finished: int, hours: int):
+	pass
 	#crunch_tasks.text = "Finished %s documents" % finished
 	#crunch_time.text = "Worked for %s hours" % hours
 	#crunch_wpm.text = "%.0f WPM / %.0f%%" % [GameManager.last_crunch_wpm, GameManager.last_crunch_accuracy * 100]
 	
-	_do_open(crunch_container, gameover_sound)
+	#_do_open(crunch_container, gameover_sound)
 
 func _do_open(container: Control, sound = open_sound):
 	container.show()
 	end_effect.do_effect()
 	show()
 	sound.play()
-	
-	promotion_paper.accepted.connect(func():
-		promotion_status.open()
-		
-		if GameManager.is_work_mode():
-			GameManager.upload_work_scores()
-	)
 
 func _on_back_pressed():
 	GameManager.back_to_menu()
@@ -122,7 +127,7 @@ func _on_back_pressed():
 
 func _unhandled_input(event: InputEvent) -> void:
 	if work_container.visible:
-		if promotion_paper.visible:
+		if promotion_paper.visible or challenge_paper.visible:
 			promotion_delegator.handle_event(event)
 		else:
 			day_delegator.handle_event(event)

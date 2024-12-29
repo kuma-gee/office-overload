@@ -134,7 +134,6 @@ theme_override_constants/margin_left = -2
 layout_mode = 2
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]s[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]hop[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "shop"
-jump_first = false
 
 [node name="Stats" type="PanelContainer" parent="." node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy", "score_container", "score")]
 custom_minimum_size = Vector2(120, 160)
@@ -325,7 +324,6 @@ offset_bottom = -3.5
 theme_override_font_sizes/normal_font_size = 12
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]t[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eams[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "teams"
-jump_first = false
 
 [node name="Files" type="Sprite2D" parent="."]
 position = Vector2(-12, 10)
@@ -341,7 +339,6 @@ offset_bottom = -3.5
 theme_override_font_sizes/normal_font_size = 12
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]r[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eport[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "report"
-jump_first = false
 
 [node name="Shop" type="Control" parent="." node_paths=PackedStringArray("container", "delegator", "money_container", "details")]
 layout_mode = 3
@@ -837,7 +834,6 @@ board = NodePath("MarginContainer/VBoxContainer/UserScore")
 [node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]f[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]ellows[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "fellows"
-jump_first = false
 
 [node name="UserScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer" index="1" instance=ExtResource("36_vfedp")]
 layout_mode = 2
@@ -857,7 +853,6 @@ board = NodePath("MarginContainer/VBoxContainer/GlobalScore")
 [node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Top1/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]t[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]opspot[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "topspot"
-jump_first = false
 
 [node name="GlobalScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Top1/MarginContainer/VBoxContainer" index="1" instance=ExtResource("36_vfedp")]
 layout_mode = 2
@@ -877,7 +872,6 @@ board = NodePath("MarginContainer/VBoxContainer/FriendsScore")
 [node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Team2/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]t[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eammates[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "teammates"
-jump_first = false
 
 [node name="FriendsScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Team2/MarginContainer/VBoxContainer" index="1" instance=ExtResource("36_vfedp")]
 layout_mode = 2
@@ -944,7 +938,6 @@ loading_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxCont
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]f[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eedback[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "feedback"
-jump_first = false
 
 [node name="Limit" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
 layout_mode = 2
@@ -1025,7 +1018,6 @@ nodes = [NodePath("../MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftBu
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]p[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]erformance[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "performance"
-jump_first = false
 
 [node name="Graph2D" type="Control" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer" index="1" node_paths=PackedStringArray("coordinate")]
 layout_mode = 2
@@ -1089,7 +1081,6 @@ theme_override_constants/margin_right = 1
 theme_override_font_sizes/normal_font_size = 6
 text = "[outline_color=ffffffff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=2][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2][/outline_size][/outline_color][/color][/outline_color]"
 untyped_outline_size = 2
-jump_first = false
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"]
 visible = false
@@ -1132,7 +1123,6 @@ theme_override_constants/margin_right = 1
 theme_override_font_sizes/normal_font_size = 6
 text = "[outline_color=ffffffff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=2][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2][/outline_size][/outline_color][/color][/outline_color]"
 untyped_outline_size = 2
-jump_first = false
 
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton"]
 visible = false
@@ -1163,7 +1153,6 @@ nodes = [NodePath("../MarginContainer/VBoxContainer/VBoxContainer/Signature")]
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]r[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]esignation[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "resignation"
-jump_first = false
 
 [node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2
@@ -1189,7 +1178,6 @@ fit_content = true
 [node name="Signature" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("11_cjr5n")]
 layout_mode = 2
 size_flags_horizontal = 0
-jump_first = false
 
 [node name="TextureRect2" parent="CanvasLayer/Control/Report/TextureRect" index="2"]
 light_mask = 0
@@ -1299,7 +1287,6 @@ visible = false
 layout_mode = 2
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]p[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]urchase[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "purchase"
-jump_first = false
 
 [node name="SoldOut" type="RichTextLabel" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
 layout_mode = 2

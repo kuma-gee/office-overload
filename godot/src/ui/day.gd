@@ -38,6 +38,11 @@ func _ready():
 		shift_tex.show()
 		GameManager.shown_discard_tutorial = true
 		_show_feature()
+	elif GameManager.is_ceo() and not GameManager.shown_ceo_tutorial:
+		feature_title.text = "Challenge"
+		feature_text.text = "You challenge your boss for the position. Finish more documents within the time!"
+		GameManager.shown_ceo_tutorial = true
+		_show_feature()
 	else:
 		_start_day()
 

@@ -35,7 +35,6 @@ typed_color = Color(0.207843, 0.207843, 0.25098, 1)
 untyped_outline_size = 5
 highlight_first = true
 word = "helloworld"
-jump_first = null
 
 [node name="ShakeTimer" type="Timer" parent="."]
 wait_time = 0.2

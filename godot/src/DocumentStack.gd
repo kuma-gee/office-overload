@@ -122,7 +122,7 @@ func add_document(mistake := false, wrong := false, is_discarded := false, word 
 	
 	if not is_discarded:
 		if wrong:
-			wrong_tasks += word.length()
+			wrong_tasks += ceil(word.length() / 2.0)
 			combo_count = 0
 		else:
 			tasks += 1

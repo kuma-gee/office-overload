@@ -335,12 +335,13 @@ var boss_mistakes := 0
 var boss_attack_documents := 0
 
 func _setup_boss_attack():
+	boss_attack_documents = randi_range(boss_attack_count_min, boss_attack_count_max)
+	
 	camera_shake.shake()
 	await get_tree().create_timer(0.5).timeout
 	camera_shake.shake()
 	await get_tree().create_timer(0.5).timeout
 
-	boss_attack_documents = randi_range(boss_attack_count_min, boss_attack_count_max)
 	_spawn_boss_attack()
 
 func _spawn_boss_attack():
@@ -363,18 +364,23 @@ func _ceo_game_ended():
 		"total": document_stack.total_points,
 		"wrong": document_stack.wrong_tasks,
 	}
-	GameManager.calculate_performance(data)
+	var points = GameManager.calculate_performance(data)
 
 	var boss_data = {
 		"total": boss_points,
 		"wrong": boss_mistakes,
 	}
-	GameManager.calculate_performance(boss_data)
+	var boss_points = GameManager.calculate_performance(boss_data)
 
-	#end.open(data, boss_data)
+	if points <= boss_points:
+		GameManager.lost_ceo()
+	else:
+		GameManager.won_ceo()
+
+	end.ceo_ended(data, boss_data)
 
 func _process(delta: float) -> void:
-	if is_gameover or not GameManager.is_ceo(): return
+	if is_gameover or not GameManager.is_ceo() or work_time.stopped: return
 	
 	boss_processing += delta
 	if boss_processing >= boss_current_speed: #and start_stack.has_documents():
