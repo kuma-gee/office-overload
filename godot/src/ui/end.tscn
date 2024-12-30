@@ -89,7 +89,7 @@ scale_max = 5.0
 scale_curve = SubResource("CurveTexture_51fdc")
 alpha_curve = SubResource("CurveTexture_rj2fv")
 
-[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "bonus_label", "promotion_delegator", "work_container", "ceo_container", "unlocked_container")]
+[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "bonus_label", "ceo_player_tasks", "ceo_boss_tasks", "ceo_player_mistakes", "ceo_boss_mistakes", "ceo_win_status", "promotion_delegator", "work_container", "ceo_container", "unlocked_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -105,7 +105,7 @@ next_day = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxConta
 next_day_container = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer")
 title = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/Title")
 finished_tasks = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer/Tasks")
-day_delegator = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/DayDelegator")
+day_delegator = NodePath("CenterContainer/PanelContainer/DayDelegator")
 promotion_tip_text = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/PromotionTip")
 perfect_tasks_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2/MaxCombo")
 distraction_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3/Mistakes")
@@ -113,6 +113,11 @@ grade_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxCo
 wpm_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4/WPM")
 money_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/MarginContainer/Money")
 bonus_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5/Bonus")
+ceo_player_tasks = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer/Tasks")
+ceo_boss_tasks = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2/BossTasks")
+ceo_player_mistakes = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3/Mistakes")
+ceo_boss_mistakes = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4/BossMistakes")
+ceo_win_status = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/WinLost")
 promotion_delegator = NodePath("PromotionDelegator")
 work_container = NodePath("CenterContainer/PanelContainer/Work")
 ceo_container = NodePath("CenterContainer/PanelContainer/Ceo")
@@ -237,6 +242,10 @@ grow_vertical = 2
 custom_minimum_size = Vector2(120, 160)
 layout_mode = 2
 
+[node name="DayDelegator" type="Node" parent="CenterContainer/PanelContainer" node_paths=PackedStringArray("nodes")]
+script = ExtResource("7_ls5ot")
+nodes = [NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/NextDayButton"), NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/Break")]
+
 [node name="Work" type="MarginContainer" parent="CenterContainer/PanelContainer"]
 visible = false
 layout_mode = 2
@@ -259,10 +268,6 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 5
-
-[node name="DayDelegator" type="Node" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("nodes")]
-script = ExtResource("7_ls5ot")
-nodes = [NodePath("../NextDay/NextDayButton"), NodePath("../NextDay/Break")]
 
 [node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -422,7 +427,7 @@ layout_mode = 2
 [node name="Break" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
 layout_mode = 2
 script = ExtResource("7_mgfnm")
-word = "Break"
+word = "home"
 
 [node name="Control" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay"]
 layout_mode = 2
@@ -454,15 +459,24 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 5
 
-[node name="DayDelegator" type="Node" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("nodes")]
-script = ExtResource("7_ls5ot")
-nodes = [NodePath("../NextDay/NextDayButton"), NodePath("../NextDay/Break")]
-
 [node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 2
+
+[node name="FinishedTasks2" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+text = "You"
+
+[node name="FinishedTasks3" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+text = "Boss"
+horizontal_alignment = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
@@ -491,14 +505,16 @@ theme_override_constants/separation = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
-text = "Max Combo"
+text = "  "
 label_settings = ExtResource("12_wqs3t")
+horizontal_alignment = 1
 
-[node name="MaxCombo" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2"]
+[node name="BossTasks" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
 label_settings = ExtResource("9_e1gla")
+horizontal_alignment = 2
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
@@ -525,88 +541,29 @@ theme_override_constants/separation = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
-text = "Speed"
+text = "  "
 label_settings = ExtResource("12_wqs3t")
 
-[node name="WPM" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4"]
+[node name="BossMistakes" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
 label_settings = ExtResource("9_e1gla")
-
-[node name="Grade" type="Control" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(34.135, 15)
-layout_mode = 2
-
-[node name="Sprite2D" type="Sprite2D" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/Grade"]
-material = SubResource("ShaderMaterial_w53bh")
-position = Vector2(20, 17)
-rotation = -0.139626
-texture = ExtResource("8_fgvoi")
-
-[node name="GradeLabel" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -28.0
-offset_top = -32.5
-offset_right = -14.0
-offset_bottom = -10.5
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("1_80w1y")
-theme_override_font_sizes/font_size = 24
-text = "A"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VBoxContainer5" type="VBoxContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-theme_override_constants/separation = 3
-
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 6
-text = "Bonus"
-label_settings = ExtResource("12_wqs3t")
-
-[node name="Bonus" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
-text = "x1.5"
-label_settings = ExtResource("9_e1gla")
-
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-
-[node name="Money" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 12
-text = "$100"
 horizontal_alignment = 2
 
-[node name="Control2" type="Control" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer"]
+[node name="Control3" type="Control" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PromotionTip" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer"]
-visible = false
+[node name="WinLost" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "PROMOTION_TIP"
-label_settings = ExtResource("4_0mkg1")
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 10
+text = "YOU LOST"
 horizontal_alignment = 1
 
-[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer"]
-visible = false
+[node name="Control2" type="Control" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -616,15 +573,7 @@ layout_mode = 2
 [node name="Break" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
 layout_mode = 2
 script = ExtResource("7_mgfnm")
-word = "Break"
-
-[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="NextDayButton" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
-layout_mode = 2
-word = "Next Day"
+word = "Home"
 
 [node name="PromotionDelegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("7_ls5ot")

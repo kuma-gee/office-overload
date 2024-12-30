@@ -202,9 +202,9 @@ func finished_day(data: Dictionary):
 func calculate_performance(data: Dictionary):
 	var total = data["total"]
 	var wrong = data["wrong"]
-	var overtime = data["overtime"]
-	var stress = data["stress"]
-	var acc = data["acc"]
+	#var overtime = data["overtime"]
+	#var stress = data["stress"]
+	#var acc = data["acc"]
 	
 	var wrong_points = pow(wrong, 1.2)
 	
@@ -431,10 +431,12 @@ func get_level_text(lvl = difficulty_level, abbreviate = -1):
 func lost_ceo():
 	ceo_blocked = 10
 	demote()
+	round_ended.emit()
 
 func won_ceo():
 	finished_game = true
 	unlock_mode(Mode.Multiplayer)
+	round_ended.emit()
 
 ### Modes
 enum Mode {

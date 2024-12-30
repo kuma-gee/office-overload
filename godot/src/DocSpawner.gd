@@ -77,18 +77,18 @@ enum InvalidType {
 var invalid_chances = {
 	InvalidType.INVALID: 0.5,
 	InvalidType.SWAP: 0.3,
-	InvalidType.CENSOR: 0.2,
+	#InvalidType.CENSOR: 0.2,
 }
 
 func get_invalid_type():
-	var r = randf()
 	var available = [InvalidType.INVALID]
 	if GameManager.get_performance_within_level() >= 5:
 		available.append(InvalidType.SWAP)
-	elif GameManager.is_ceo():
-		available.append(InvalidType.CENSOR)
+	#elif GameManager.is_ceo():
+		#available.append(InvalidType.CENSOR)
 	
-	for type in invalid_chances.keys():
+	var r = randf()
+	for type in available:
 		if r < invalid_chances[type]:
 			return type
 		r -= invalid_chances[type]

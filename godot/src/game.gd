@@ -49,7 +49,6 @@ extends Node2D
 @onready var animation_player = $AnimationPlayer
 @onready var distractions = $CanvasLayer/Distractions
 @onready var shift_overlay: ShiftOverlay = $ShiftOverlay
-@onready var start_stack: DocumentStack = $StartStack
 @onready var shift_delegator: Delegator = $ShiftOverlay/ShiftDelegator
 
 @onready var bgm = $BGM
@@ -91,9 +90,8 @@ func _ready():
 	)
 	
 	if GameManager.is_ceo():
-		start_stack.document_emptied.connect(func(): _finished())
 		animation_player.play("ceo")
-		work_time.hour_in_seconds = 10
+		work_time.hour_in_seconds = 1
 	
 	if not GameManager.is_intern() or GameManager.is_crunch_mode():
 		overload_progress.filled.connect(func(): overload_timer.start())
@@ -160,7 +158,9 @@ func _on_day_finished():
 		_spawn_document(true)
 
 func _start_game():
-	animation_player.play("normal")
+	if not GameManager.is_ceo():
+		animation_player.play("normal")
+	
 	key_reader.process_mode = Node.PROCESS_MODE_ALWAYS
 	work_time.start()
 	overload_progress.start()
@@ -254,7 +254,7 @@ func _spawn_document(await_start = false):
 func _update_score():
 	player_doc_label.text = "%s" % document_stack.tasks
 	player_combo_label.text = "%sx" % document_stack.combo_count
-	player_combo_label.visible = document_stack.combo_count > 0
+	#player_combo_label.visible = document_stack.combo_count > 0
 	
 	single_player_doc_label.text = "$%s" % document_stack.total_points
 	single_player_combo_label.text = "%sx" % document_stack.combo_count
@@ -327,7 +327,7 @@ var boss_combo := 0:
 	set(v):
 		boss_combo = v
 		boss_combo_label.text = "%sx" % boss_combo
-		boss_combo_label.visible = boss_combo > 0
+		#boss_combo_label.visible = boss_combo > 0
 		
 var boss_processing := 0.0
 var boss_current_speed := boss_process_speed
@@ -360,24 +360,7 @@ func _start_boss_attack_timer():
 	boss_attack_timer.start()
 
 func _ceo_game_ended():
-	var data = {
-		"total": document_stack.total_points,
-		"wrong": document_stack.wrong_tasks,
-	}
-	var points = GameManager.calculate_performance(data)
-
-	var boss_data = {
-		"total": boss_points,
-		"wrong": boss_mistakes,
-	}
-	var boss_points = GameManager.calculate_performance(boss_data)
-
-	if points <= boss_points:
-		GameManager.lost_ceo()
-	else:
-		GameManager.won_ceo()
-
-	end.ceo_ended(data, boss_data)
+	end.ceo_ended({"tasks": document_stack.tasks, "mistakes": document_stack.wrong_tasks}, {"tasks": boss_documents, "mistakes": boss_mistakes})
 
 func _process(delta: float) -> void:
 	if is_gameover or not GameManager.is_ceo() or work_time.stopped: return

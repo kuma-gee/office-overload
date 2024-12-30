@@ -79,7 +79,10 @@ var locked := false:
 		update_word()
 
 var disabled := false
-var censored := []
+var censored := []:
+	set(v):
+		censored = v
+		update_word()
 
 func _ready():
 	self.focused = false

@@ -30,6 +30,13 @@ extends Control
 @export var money_label: Label
 @export var bonus_label: Label
 
+@export_category("CEO")
+@export var ceo_player_tasks: Label
+@export var ceo_boss_tasks: Label
+@export var ceo_player_mistakes: Label
+@export var ceo_boss_mistakes: Label
+@export var ceo_win_status: Label
+
 @export_category("Promotion")
 @export var promotion_delegator: Delegator
 
@@ -58,7 +65,26 @@ func _ready():
 	)
 
 func ceo_ended(user: Dictionary, boss: Dictionary):
+	var user_tasks = user["tasks"]
+	var boss_tasks = boss["tasks"]
+	var user_mistakes = user["mistakes"]
+	var boss_mistakes = boss["mistakes"]
+	var user_points = user_tasks - user_mistakes
+	var boss_points = boss_tasks - boss_mistakes
+	var win = user_tasks > boss_points
+	
+	ceo_player_tasks.text = "%s" % user_tasks
+	ceo_boss_tasks.text = "%s" % boss_tasks
+	ceo_player_mistakes.text = "%s" % user_mistakes
+	ceo_boss_mistakes.text = "%s" % boss_mistakes
+	ceo_win_status.text = "You win" if win else "You lose"
 	_do_open(ceo_container)
+	
+	if win:
+		GameManager.won_ceo()
+	else:
+		GameManager.lost_ceo()
+
 
 func day_ended(data: Dictionary):
 	var tasks = data["tasks"]
@@ -126,7 +152,7 @@ func _on_back_pressed():
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if work_container.visible:
+	if work_container.visible or ceo_container.visible:
 		if promotion_paper.visible or challenge_paper.visible:
 			promotion_delegator.handle_event(event)
 		else:
