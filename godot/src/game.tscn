@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=95 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -61,11 +61,14 @@
 [ext_resource type="Script" path="res://src/duck.gd" id="47_m6qb4"]
 [ext_resource type="Texture2D" uid="uid://dl1vy7elnxhrw" path="res://assets/sprites/Desk_Mouse.png" id="48_edn0k"]
 [ext_resource type="Texture2D" uid="uid://busfi7fbj5jtp" path="res://assets/sprites/Desk_Cat.png" id="48_ic7kw"]
+[ext_resource type="AudioStream" uid="uid://dl0dmhy7ucodo" path="res://assets/sound/カモ.mp3" id="49_0opw7"]
 [ext_resource type="Texture2D" uid="uid://gxkl3pcqm8ch" path="res://assets/sprites/Desk_Note.png" id="49_bjcyb"]
 [ext_resource type="Texture2D" uid="uid://bh6vqkyuoo3dm" path="res://assets/sprites/Desk_Sign.png" id="49_f18oy"]
+[ext_resource type="Script" path="res://src/RandomPitchShift.gd" id="50_j4bts"]
 [ext_resource type="Texture2D" uid="uid://byjv7juagwece" path="res://assets/sprites/Desk_Cosmetic.png" id="50_rmwb1"]
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
 [ext_resource type="Script" path="res://src/shift_overlay.gd" id="59_nhn8c"]
+[ext_resource type="AudioStream" uid="uid://c46f8lfm4voiy" path="res://assets/sound/hit_table.mp3" id="69_pgfnx"]
 
 [sub_resource type="Curve" id="Curve_m11kp"]
 _data = [Vector2(0, 0.701099), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -650,7 +653,7 @@ glow_enabled = true
 glow_bloom = 0.05
 glow_blend_mode = 0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound")]
 top_level = true
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
@@ -663,6 +666,7 @@ boss_combo_label = NodePath("Desk/Computer/BossUI/VBoxContainer2/HBoxContainer2/
 boss_attack_timer = NodePath("BossAttackTimer")
 player_doc_label = NodePath("Desk/Computer/BossUI/VBoxContainer/HBoxContainer/PlayerDocuments")
 player_combo_label = NodePath("Desk/Computer/BossUI/VBoxContainer/HBoxContainer/PlayerCombo")
+boss_hit_sound = NodePath("HitTableSound")
 
 [node name="DifficultyManger" type="Node" parent="."]
 script = ExtResource("2_s81cp")
@@ -1531,11 +1535,16 @@ text = "00"
 
 [node name="Items" type="Node2D" parent="Desk"]
 
-[node name="Duck" type="Sprite2D" parent="Desk/Items"]
+[node name="Duck" type="Sprite2D" parent="Desk/Items" node_paths=PackedStringArray("sound")]
 position = Vector2(91, -35)
 texture = ExtResource("47_0m5o6")
 hframes = 2
 script = ExtResource("47_m6qb4")
+sound = NodePath("AudioStreamPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Desk/Items/Duck"]
+stream = ExtResource("49_0opw7")
+script = ExtResource("50_j4bts")
 
 [node name="Plant" type="Sprite2D" parent="Desk/Items"]
 position = Vector2(-108, -39)
@@ -1693,6 +1702,10 @@ visible = false
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
+[node name="MistakeDebounce" type="Timer" parent="DocumentStack"]
+wait_time = 0.1
+one_shot = true
+
 [node name="ShiftOverlay" type="Node" parent="." node_paths=PackedStringArray("overlay", "delegator")]
 script = ExtResource("59_nhn8c")
 overlay = NodePath("../Overlay")
@@ -1815,6 +1828,11 @@ script = ExtResource("39_lfd1g")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cpt0l")
+
+[node name="HitTableSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("69_pgfnx")
+script = ExtResource("50_j4bts")
+delta = 0.05
 
 [connection signal="finished" from="CanvasLayer/HUD/Day" to="." method="_on_day_finished"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

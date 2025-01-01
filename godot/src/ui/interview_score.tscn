@@ -120,19 +120,23 @@ offset_left = -10.0
 offset_bottom = 2.0
 grow_horizontal = 0
 theme_override_constants/margin_top = -12
+theme_override_constants/margin_right = -3
 
 [node name="UpScroll" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer" instance=ExtResource("4_5kh8s")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_m3b5g")
 word = "K"
+show_underline = false
 
 [node name="MarginContainer" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer/UpScroll" index="1"]
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 
-[node name="TypingLabel" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer/UpScroll/MarginContainer" index="0"]
+[node name="TypingLabel" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer/UpScroll/MarginContainer/VBoxContainer/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
-text = "A"
+
+[node name="ColorRect" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer/UpScroll/MarginContainer/VBoxContainer" index="1"]
+visible = false
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer/ScrollButtons"]
 layout_mode = 1
@@ -146,19 +150,23 @@ offset_top = 1.0
 offset_bottom = 13.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_constants/margin_right = -3
 
 [node name="DownScroll" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2" instance=ExtResource("4_5kh8s")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_0niil")
 word = "J"
+show_underline = false
 
 [node name="MarginContainer" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2/DownScroll" index="1"]
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 
-[node name="TypingLabel" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2/DownScroll/MarginContainer" index="0"]
+[node name="TypingLabel" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2/DownScroll/MarginContainer/VBoxContainer/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
-text = "A"
+
+[node name="ColorRect" parent="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2/DownScroll/MarginContainer/VBoxContainer" index="1"]
+visible = false
 
 [editable path="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer/UpScroll"]
 [editable path="VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2/DownScroll"]

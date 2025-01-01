@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bevwwvcqg3xhh"]
+[gd_scene load_steps=13 format=3 uid="uid://bevwwvcqg3xhh"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_eb7yf"]
 [ext_resource type="Script" path="res://src/ui/folder.gd" id="1_pv7op"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="5_3scs5"]
 [ext_resource type="Texture2D" uid="uid://c5kug4qan8fud" path="res://assets/sprites/Menu_FolderFront.png" id="5_s5drs"]
 [ext_resource type="Script" path="res://src/delegator.gd" id="5_xfvoj"]
-[ext_resource type="Script" path="res://src/ui/esc_button.gd" id="6_d4hqn"]
 
 [sub_resource type="Animation" id="Animation_xpunr"]
 length = 0.001
@@ -272,14 +271,18 @@ grow_vertical = 2
 texture = ExtResource("2_co0qb")
 stretch_mode = 5
 
-[node name="EscButton" type="TextureButton" parent="TextureRect"]
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect"]
 layout_mode = 1
-offset_left = 3.0
-offset_top = 2.5
-offset_right = 15.0
-offset_bottom = 11.5
-texture_normal = ExtResource("5_3scs5")
-script = ExtResource("6_d4hqn")
+offset_right = 12.0
+offset_bottom = 9.0
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="EscButton" type="TextureRect" parent="TextureRect/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("5_3scs5")
 
 [node name="Papers" type="Control" parent="TextureRect"]
 light_mask = 2
@@ -334,5 +337,4 @@ offset_right = 84.0
 offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 color = Color(0, 0, 0, 0.5)

@@ -43,6 +43,7 @@ func _ready() -> void:
 		#else:
 			#game_modes.grab_focus()
 	)
+	exit_label.finished.connect(func(): GameManager.quit_game())
 	
 	folder.closed.connect(func():
 		files_node.move_in()
@@ -94,5 +95,5 @@ func start():
 	
 	if GameManager.has_current_job():
 		stats.open(0.5)
-	if GameManager.has_reached_junior:
+	if GameManager.shown_stress_tutorial:
 		teams_node.move_in(0.7)

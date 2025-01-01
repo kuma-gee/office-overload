@@ -15,6 +15,7 @@ signal document_emptied()
 
 @export var combo_particles01: GPUParticles2D
 @export var combo_particles02: GPUParticles2D
+@onready var mistake_debounce: Timer = $MistakeDebounce
 
 var tw: Tween
 var total_points := 0
@@ -49,7 +50,12 @@ var combo_count := 0:
 		#combo_label.text = "%sx" % combo_multiplier
 
 var tasks := 0
-var wrong_tasks := 0
+var wrong_tasks := 0:
+	set(v):
+		if not mistake_debounce.is_stopped(): return
+		wrong_tasks = v
+		mistake_debounce.start()
+		
 var highest_streak := 0
 var missed_combos := 0
 

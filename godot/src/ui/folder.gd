@@ -35,7 +35,7 @@ func open():
 	grab_focus()
 
 func _gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel") and not delegator.has_focused():
+	if event.is_action_pressed("ui_cancel") and not delegator.has_focused() and not animation_player.is_playing():
 		get_viewport().gui_release_focus()
 		animation_player.play("close_folder")
 	

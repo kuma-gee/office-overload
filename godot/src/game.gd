@@ -30,6 +30,7 @@ extends Node2D
 @export var boss_min_attack_time := 5.0
 @export var boss_attack_count_min := 2
 @export var boss_attack_count_max := 4
+@export var boss_hit_sound: AudioStreamPlayer
 
 @export_category("Crunch")
 @export var max_bgm_pitch := 2.0
@@ -338,8 +339,10 @@ func _setup_boss_attack():
 	boss_attack_documents = randi_range(boss_attack_count_min, boss_attack_count_max)
 	
 	camera_shake.shake()
+	boss_hit_sound.play()
 	await get_tree().create_timer(0.5).timeout
 	camera_shake.shake()
+	boss_hit_sound.play()
 	await get_tree().create_timer(0.5).timeout
 
 	_spawn_boss_attack()

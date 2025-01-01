@@ -766,7 +766,6 @@ volume_db = -10.0
 pitch_scale = 1.2
 
 [node name="UnlockedMode" type="Control" parent="." node_paths=PackedStringArray("particles", "effect", "label")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -781,6 +780,7 @@ effect = NodePath("EffectRoot")
 label = NodePath("Leaderboard/MarginContainer/VBoxContainer/Mode")
 
 [node name="Control2" type="Control" parent="UnlockedMode"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -803,6 +803,7 @@ one_shot = true
 explosiveness = 0.9
 
 [node name="Control3" type="Control" parent="UnlockedMode"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -825,6 +826,7 @@ one_shot = true
 explosiveness = 0.9
 
 [node name="Control4" type="Control" parent="UnlockedMode"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -848,6 +850,7 @@ one_shot = true
 explosiveness = 0.9
 
 [node name="Control5" type="Control" parent="UnlockedMode"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -887,6 +890,20 @@ grow_vertical = 2
 focus_mode = 2
 theme = ExtResource("1_80w1y")
 
+[node name="MarginContainer2" type="MarginContainer" parent="UnlockedMode/Leaderboard"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="EscButton" type="TextureRect" parent="UnlockedMode/Leaderboard/MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("17_74eho")
+expand_mode = 2
+stretch_mode = 2
+script = ExtResource("18_4swmg")
+
 [node name="MarginContainer" type="MarginContainer" parent="UnlockedMode/Leaderboard"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
@@ -908,22 +925,6 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "CRUNCH"
 horizontal_alignment = 1
-
-[node name="EscButton" type="TextureButton" parent="UnlockedMode"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -65.0
-offset_top = 40.0
-offset_right = -53.0
-offset_bottom = 49.0
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = ExtResource("17_74eho")
-script = ExtResource("18_4swmg")
 
 [node name="EffectRoot" type="Node" parent="UnlockedMode"]
 script = ExtResource("4_j7irx")

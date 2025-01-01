@@ -30,11 +30,15 @@ func _ready():
 	if word_type == WordManager.WORK_GROUP:
 		add_easy()
 		
-		if not GameManager.is_intern() or GameManager.get_until_max_performance() <= 5:
+		if GameManager.is_intern() and GameManager.get_performance_within_level() >= 5:
 			add_medium()
-		if not GameManager.is_intern():
-			if not GameManager.is_junior() or GameManager.get_until_max_performance() <= 10:
-				add_hard()
+		elif not GameManager.is_intern():
+			add_medium()
+		
+		if GameManager.is_junior() and GameManager.get_performance_within_level() >= 6:
+			add_hard()
+		elif not GameManager.is_intern() and not GameManager.is_junior():
+			add_hard()
 		
 	else:
 		add_words_from_group()

@@ -30,16 +30,18 @@ func get_label():
 	return label
 
 func close():
-	var offset = (idx - 2) * Vector2.RIGHT * 10
+	var offset = (idx - 2) * Vector2.RIGHT * 5
 	offset += Vector2.DOWN * 50
 	tw = _create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	tw.tween_property(self, "rotation", 0, 0.5)
 	tw.tween_property(self, "position", -size / 2 + offset, 0.5)
+	await tw.finished
 		
 func open():
 	tw = _create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	tw.tween_property(self, "rotation", original_rot, 0.5)
 	tw.tween_property(self, "position", original_pos, 0.5)
+	await tw.finished
 
 func focused():
 	tw = _create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)

@@ -66,10 +66,11 @@ axis_stretch_vertical = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tpjge"]
 
-[node name="StartNew" type="Node2D" node_paths=PackedStringArray("work_label", "prepare_label", "files", "team", "shop_button", "teams_node", "files_node", "settings", "game_modes", "delegator", "folder", "teams", "shop")]
+[node name="StartNew" type="Node2D" node_paths=PackedStringArray("work_label", "prepare_label", "exit_label", "files", "team", "shop_button", "teams_node", "files_node", "settings", "game_modes", "delegator", "folder", "teams", "shop")]
 script = ExtResource("1_25sst")
 work_label = NodePath("WorkDocument/MarginContainer/VBoxContainer/Work")
 prepare_label = NodePath("WorkDocument/MarginContainer/VBoxContainer/Settings")
+exit_label = NodePath("WorkDocument/MarginContainer/VBoxContainer/Exit")
 files = NodePath("Files/Report")
 team = NodePath("Rankings/Team")
 shop_button = NodePath("ShopButton/PrepareDoc/MarginContainer/TypingLabel3")
@@ -429,7 +430,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-focus_mode = 1
 color = Color(0, 0, 0, 0.588235)
 
 [node name="Settings" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("overlay", "sliders", "display_settings", "delegator")]
@@ -659,6 +659,9 @@ size_flags_vertical = 4
 value = 50.0
 show_percentage = false
 
+[node name="Control" type="Control" parent="CanvasLayer/Control/Settings/Audio"]
+layout_mode = 2
+
 [node name="Overlay" type="ColorRect" parent="CanvasLayer/Control/Settings/Audio"]
 visible = false
 layout_mode = 2
@@ -671,10 +674,10 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/Settings/Audio/MarginContainer2"]
+[node name="EscButton" type="TextureRect" parent="CanvasLayer/Control/Settings/Audio/MarginContainer2"]
 layout_mode = 2
-texture_normal = ExtResource("25_pu2hv")
-script = ExtResource("26_ye0hp")
+texture = ExtResource("25_pu2hv")
+stretch_mode = 2
 
 [node name="GameModes" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("delegator")]
 visible = false
@@ -791,21 +794,6 @@ text = "[center]You are offline. Check your steam status[/center]"
 fit_content = true
 autowrap_mode = 0
 
-[node name="EscButton" parent="CanvasLayer/Control/Team/TextureRect" index="1"]
-clip_contents = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -101.5
-offset_top = -26.0
-offset_right = 101.5
-offset_bottom = 0.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_mode = 0
-
 [node name="Papers" parent="CanvasLayer/Control/Team/TextureRect" index="2"]
 light_mask = 1
 offset_left = -6.0
@@ -821,13 +809,14 @@ layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = -114.0
-offset_top = -62.0
-offset_right = 126.0
-offset_bottom = 88.0
+offset_left = -111.0
+offset_top = -59.0
+offset_right = 129.0
+offset_bottom = 91.0
 grow_horizontal = 1
 grow_vertical = 1
 rotation = 0.139626
+pivot_offset = Vector2(120, 90)
 script = ExtResource("35_whsqs")
 board = NodePath("MarginContainer/VBoxContainer/UserScore")
 
@@ -842,11 +831,12 @@ layout_mode = 2
 light_mask = 0
 custom_minimum_size = Vector2(240, 150)
 layout_mode = 1
-offset_left = -125.0
-offset_top = -39.0
-offset_right = 115.0
-offset_bottom = 111.0
+offset_left = -118.0
+offset_top = -51.5
+offset_right = 110.0
+offset_bottom = 98.5
 rotation = -0.174533
+pivot_offset = Vector2(120, 90)
 script = ExtResource("35_whsqs")
 board = NodePath("MarginContainer/VBoxContainer/GlobalScore")
 
@@ -861,11 +851,12 @@ layout_mode = 2
 light_mask = 0
 custom_minimum_size = Vector2(240, 150)
 layout_mode = 1
-offset_left = -116.0
+offset_left = -109.0
 offset_top = -7.0
-offset_right = 124.0
+offset_right = 119.0
 offset_bottom = 143.0
 rotation = 0.0872665
+pivot_offset = Vector2(120, 90)
 script = ExtResource("35_whsqs")
 board = NodePath("MarginContainer/VBoxContainer/FriendsScore")
 
@@ -894,7 +885,6 @@ physics_interpolation_mode = 2
 
 [node name="PanelContainer" parent="CanvasLayer/Control/Team/TextureRect" index="5"]
 physics_interpolation_mode = 0
-visible = false
 
 [node name="ColorRect" parent="CanvasLayer/Control/Team/TextureRect" index="6"]
 light_mask = 2
@@ -902,13 +892,12 @@ layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 20.5
-offset_right = 260.0
-offset_bottom = 170.5
+offset_left = -87.0
+offset_top = -29.0
+offset_right = 346.0
+offset_bottom = 221.0
 grow_horizontal = 1
 grow_vertical = 1
-mouse_filter = 0
 
 [node name="Report" parent="CanvasLayer/Control" instance=ExtResource("29_t2y1x")]
 light_mask = 0
@@ -1187,6 +1176,7 @@ offset_bottom = 10.0
 visible = false
 
 [node name="ShopItemDetails" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("icon", "name_label", "price_label", "desc_label", "purchase_word", "sold_out_label")]
+visible = false
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -1225,36 +1215,38 @@ layout_mode = 2
 [node name="Control" type="Control" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/Control"]
-layout_mode = 1
-offset_right = 18.0
-offset_bottom = 15.0
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/Control"]
+layout_mode = 0
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/Control/MarginContainer2"]
+[node name="EscButton" type="TextureRect" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/Control/MarginContainer3"]
 layout_mode = 2
-texture_normal = ExtResource("25_pu2hv")
+texture = ExtResource("25_pu2hv")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 0
+theme_override_constants/margin_bottom = 3
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Icon" type="TextureRect" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("33_bnvno")
 expand_mode = 2
 stretch_mode = 5
@@ -1297,7 +1289,9 @@ scroll_active = false
 
 [node name="Money" type="MarginContainer" parent="CanvasLayer/Control"]
 layout_mode = 0
-theme_override_constants/margin_left = 8
+offset_right = 19.0
+offset_bottom = 15.0
+theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = -6
 
 [node name="Money" type="PanelContainer" parent="CanvasLayer/Control/Money"]
@@ -1305,14 +1299,14 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Money/Money"]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/Money/Money/MarginContainer"]
 layout_mode = 2
-text = "$10000"
+text = "$100"
 script = ExtResource("34_06bnc")
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]

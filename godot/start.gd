@@ -36,7 +36,7 @@ func _ready():
 	prepare_node.move_in(0.5)
 	files_node.move_in(0.6)
 	
-	if GameManager.has_reached_junior:
+	if GameManager.shown_stress_tutorial:
 		teams_node.move_in(0.7)
 	
 	work_label.type_finish.connect(func():

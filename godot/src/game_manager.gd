@@ -53,7 +53,6 @@ var average_accuracy := 0.0
 var past_wpms := []
 
 var has_played := false
-var has_reached_junior := false
 var performance := 0
 var ceo_blocked := 0
 
@@ -384,9 +383,6 @@ func take_promotion():
 
 	difficulty_level += 1
 	_logger.info("Promoted to %s" % DifficultyResource.Level.keys()[difficulty_level])
-	
-	if difficulty_level >= DifficultyResource.Level.JUNIOR:
-		has_reached_junior = true
 	
 	_save_data()
 
