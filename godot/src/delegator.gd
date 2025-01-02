@@ -27,7 +27,7 @@ func handle_event(event: InputEvent):
 
 		var focused = _get_focused_label()
 		if focused.is_empty():
-			focused = nodes
+			focused = nodes.filter(func(n): return not n.get_label().disabled)
 		
 		var not_handled = []
 		for node in focused:
@@ -52,14 +52,14 @@ func handle_event(event: InputEvent):
 func has_focused():
 	return not _get_focused_label().is_empty()
 
-func _get_labels_starting(key: String, label_nodes: Array):
-	var labels = []
-	for m in label_nodes:
-		var lbl = m.get_label()
-		if lbl.word.begins_with(key) and _is_valid_node(lbl):
-			labels.append(lbl)
-
-	return labels
+#func _get_labels_starting(key: String, label_nodes: Array):
+	#var labels = []
+	#for m in label_nodes:
+		#var lbl = m.get_label()
+		#if lbl.word.begins_with(key) and _is_valid_node(lbl):
+			#labels.append(lbl)
+#
+	#return labels
 
 func _get_focused_label():
 	var labels = []
@@ -71,4 +71,4 @@ func _get_focused_label():
 	return labels
 
 func _is_valid_node(label: TypedWord):
-	return label and label.is_visible_in_tree() and label.word != "" and label.modulate.a >= 1 and not label.active #and not label.disabled
+	return label and label.is_visible_in_tree() and label.word != "" and label.modulate.a >= 1 and not label.active and not label.disabled

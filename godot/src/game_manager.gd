@@ -7,6 +7,7 @@ signal job_quited()
 signal exiting_game()
 signal mode_unlocked(mode)
 signal item_purchased()
+signal coffee_used()
 
 signal logged(line)
 
@@ -315,6 +316,7 @@ func buy_item(item: ShopResource):
 	return true
 
 func is_item_max(item: ShopResource):
+	print(item_count(item.type))
 	return item_count(item.type) >= item.prices.size()
 
 func item_count(item: Shop.Items):
@@ -348,6 +350,7 @@ func use_coffee():
 
 	bought_items.erase(Shop.Items.COFFEE)
 	_save_data()
+	coffee_used.emit()
 	return 100.0
 
 ### Difficulty

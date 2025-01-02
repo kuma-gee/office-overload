@@ -143,6 +143,10 @@ func _ready():
 		if not is_gameover and not work_time.stopped:
 			pause.grab_focus()
 	)
+	key_reader.use_coffee.connect(func():
+		var reduction = GameManager.use_coffee()
+		overload_progress.reduce(reduction)
+	)
 	
 	if not GameManager.has_played:
 		animation_player.play("tutorial")

@@ -7,6 +7,8 @@ extends Control
 @export var desc_label: Label
 @export var purchase_word: TypedWord
 @export var sold_out_label: RichTextLabel
+@export var disabled_overlay: Control
+@export var coffee_ctrl: Control
 
 @onready var delegator: Delegator = $Delegator
 @onready var original_pos := global_position
@@ -25,7 +27,14 @@ var current_item: ShopResource:
 			desc_label.text = tr("%s_DESC" % type_str)
 			purchase_word.visible = not GameManager.is_item_max(current_item)
 			purchase_word.word = tr("PURCHASE") if GameManager.item_count(current_item.type) <= 0 else tr("UPGRADE")
-			sold_out_label.visible = not purchase_word.visible
+			disabled_overlay.visible = GameManager.money < GameManager.item_price(current_item)
+			
+			var is_coffee = current_item.type == Shop.Items.COFFEE
+			sold_out_label.visible = not purchase_word.visible and not is_coffee
+			coffee_ctrl.visible = not purchase_word.visible and is_coffee 
+			
+			purchase_word.disabled = disabled_overlay.visible
+			purchase_word.highlight_first = not disabled_overlay.visible
 
 var tw: Tween
 
@@ -40,6 +49,7 @@ func _ready() -> void:
 		if GameManager.is_item_max(current_item): return
 		
 		GameManager.buy_item(current_item)
+		self.current_item = current_item
 	)
 	sold_out_label.text = "[center]%s[/center]" % tr("SOLD_OUT")
 	
@@ -48,6 +58,7 @@ func _ready() -> void:
 func _open_animation():
 	tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tw.tween_property(self, "position", original_pos, 0.5)
+	show()
 
 func _hide_animation():
 	tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)

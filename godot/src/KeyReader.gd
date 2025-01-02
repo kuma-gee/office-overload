@@ -3,12 +3,17 @@ extends Node
 
 signal pressed_key(key, shift)
 signal pressed_cancel(shift)
+signal use_coffee()
 
 var last_key := ""
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed("ui_cancel"):
 		pressed_cancel.emit(event.shift_pressed)
+		return
+	
+	if event.is_action_pressed("coffee_action") and GameManager.item_count(Shop.Items.COFFEE) > 0:
+		use_coffee.emit()
 		return
 	
 	if event.is_released():

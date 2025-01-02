@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=97 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -66,6 +66,8 @@
 [ext_resource type="Texture2D" uid="uid://bh6vqkyuoo3dm" path="res://assets/sprites/Desk_Sign.png" id="49_f18oy"]
 [ext_resource type="Script" path="res://src/RandomPitchShift.gd" id="50_j4bts"]
 [ext_resource type="Texture2D" uid="uid://byjv7juagwece" path="res://assets/sprites/Desk_Cosmetic.png" id="50_rmwb1"]
+[ext_resource type="Script" path="res://src/plant.gd" id="52_ck1lt"]
+[ext_resource type="Script" path="res://src/coffee.gd" id="53_ngmm3"]
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
 [ext_resource type="Script" path="res://src/shift_overlay.gd" id="59_nhn8c"]
 [ext_resource type="AudioStream" uid="uid://c46f8lfm4voiy" path="res://assets/sound/hit_table.mp3" id="69_pgfnx"]
@@ -99,130 +101,106 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Items/Plant:frame")
+tracks/0/path = NodePath("Messy:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Items/Coffee:frame")
+tracks/1/path = NodePath("Littered:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Messy:visible")
+tracks/2/path = NodePath("Keyboard:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [0]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Littered:visible")
+tracks/3/path = NodePath("../BGM:volume_db")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [-30.0]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Keyboard:frame")
+tracks/4/path = NodePath("../BGM:playing")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [true]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("../BGM:volume_db")
+tracks/5/path = NodePath("Computer:frame")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-30.0]
+"update": 1,
+"values": [1]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("../BGM:playing")
+tracks/6/path = NodePath("Computer/BossUI:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Computer:frame")
+tracks/7/path = NodePath("Computer/SingleUI:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1]
+"values": [true]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Computer/BossUI:visible")
+tracks/8/path = NodePath("Computer/TutorialUI:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Computer/SingleUI:visible")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Computer/TutorialUI:visible")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -321,66 +299,14 @@ resource_name = "littered"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Items/Plant:frame")
+tracks/0/path = NodePath("Littered:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Littered:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Messy:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Items/Coffee:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
-[sub_resource type="Animation" id="Animation_if3j8"]
-resource_name = "messy"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Items/Plant:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -394,17 +320,21 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Items/Coffee:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
+
+[sub_resource type="Animation" id="Animation_if3j8"]
+resource_name = "messy"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Messy:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_ijo53"]
@@ -413,70 +343,46 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Items/Plant:frame")
+tracks/0/path = NodePath("Messy:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Items/Coffee:frame")
+tracks/1/path = NodePath("Littered:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Messy:visible")
+tracks/2/path = NodePath("Computer/SingleUI:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Littered:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Computer/SingleUI:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Computer/TutorialUI:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Computer/TutorialUI:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -1547,21 +1453,24 @@ stream = ExtResource("49_0opw7")
 script = ExtResource("50_j4bts")
 
 [node name="Plant" type="Sprite2D" parent="Desk/Items"]
-position = Vector2(-108, -39)
+position = Vector2(-115, -50)
 texture = ExtResource("27_1a3yr")
 hframes = 3
+frame = 1
+script = ExtResource("52_ck1lt")
 
 [node name="Coffee" type="Sprite2D" parent="Desk/Items"]
 position = Vector2(69, -15)
 texture = ExtResource("28_i6mjb")
 hframes = 2
+script = ExtResource("53_ngmm3")
 
 [node name="Sign" type="Sprite2D" parent="Desk/Items"]
 position = Vector2(133, -62)
 texture = ExtResource("49_f18oy")
 
 [node name="Cat" type="Sprite2D" parent="Desk/Items"]
-position = Vector2(-71, -63)
+position = Vector2(-74, -66)
 texture = ExtResource("48_ic7kw")
 hframes = 2
 
@@ -1570,7 +1479,7 @@ position = Vector2(61, -66)
 texture = ExtResource("50_rmwb1")
 
 [node name="Note" type="Sprite2D" parent="Desk/Items"]
-position = Vector2(-61, -12)
+position = Vector2(-64, -16)
 texture = ExtResource("49_bjcyb")
 
 [node name="Keyboard" type="Sprite2D" parent="Desk"]
