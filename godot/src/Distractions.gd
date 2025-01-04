@@ -69,6 +69,9 @@ func slide_all_out():
 	_hide_overlay()
 
 func maybe_show_distraction():
+	if GameManager.is_ceo():
+		return
+	
 	if shown >= max_count:
 		_logger.info("Max distractions shown, not showing more")
 		return

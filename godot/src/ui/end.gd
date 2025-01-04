@@ -77,7 +77,7 @@ func ceo_ended(user: Dictionary, boss: Dictionary):
 	ceo_boss_tasks.text = "%s" % boss_tasks
 	ceo_player_mistakes.text = "%s" % user_mistakes
 	ceo_boss_mistakes.text = "%s" % boss_mistakes
-	ceo_win_status.text = "You win" if win else "You lose"
+	ceo_win_status.text = "Congratulations!\nYou are the new CEO!" if win else "Your boss is generous enough\nto keep you as manager."
 	_do_open(ceo_container)
 	
 	if win:

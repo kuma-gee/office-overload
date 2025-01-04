@@ -85,7 +85,6 @@ var actual_document_count := 0:
 		var curr_combo_scale = Vector2.ONE + Vector2(combo_count / 10.0, combo_count / 10.0) if combo_count > 1 else Vector2.ONE
 		curr_combo_scale = curr_combo_scale.min(Vector2(2, 2))
 		curr_combo_scale = Vector2.ONE
-		#print(curr_combo_scale)
 		
 		tw.tween_callback(func():
 			doc_count_label.text = "%s" % total_points

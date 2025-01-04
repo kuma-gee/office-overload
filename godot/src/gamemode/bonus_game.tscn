@@ -387,6 +387,7 @@ drunk_overlay = NodePath("../../DrunkOverlay")
 [node name="OverloadSound" type="AudioStreamPlayer" parent="CanvasLayer/Control/MarginContainer/OverloadProgress"]
 stream = ExtResource("6_iyf2x")
 volume_db = -15.0
+bus = &"SFX"
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/MarginContainer/OverloadProgress"]
 custom_minimum_size = Vector2(0, 1)

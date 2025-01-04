@@ -75,13 +75,11 @@ func add_hard():
 enum InvalidType {
 	INVALID,
 	SWAP,
-	CENSOR,
 }
 
 var invalid_chances = {
 	InvalidType.INVALID: 0.5,
 	InvalidType.SWAP: 0.3,
-	#InvalidType.CENSOR: 0.2,
 }
 
 func get_invalid_type():
@@ -122,9 +120,6 @@ func _set_invalid_word(doc: Document, word: String):
 					var temp = word[target_idx]
 					word[target_idx] = word[swap_idx]
 					word[swap_idx] = temp
-		InvalidType.CENSOR:
-			# Words should be at least 4 characters long
-			doc.censored = [randi_range(2, word.length() - 2)]
 
 	doc.word = word
 

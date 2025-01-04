@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=104 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -70,6 +70,9 @@
 [ext_resource type="Script" path="res://src/coffee.gd" id="53_ngmm3"]
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
 [ext_resource type="Script" path="res://src/shift_overlay.gd" id="59_nhn8c"]
+[ext_resource type="Texture2D" uid="uid://cvwxs4si2hdv8" path="res://assets/sprites/CoffeeSpill_Mug.png" id="60_ulb8c"]
+[ext_resource type="Script" path="res://src/spill_mug.gd" id="61_ng12r"]
+[ext_resource type="Texture2D" uid="uid://bu18gjh2nloqs" path="res://assets/sprites/CoffeeSpill_Stain.png" id="61_xrrf4"]
 [ext_resource type="AudioStream" uid="uid://c46f8lfm4voiy" path="res://assets/sound/hit_table.mp3" id="69_pgfnx"]
 
 [sub_resource type="Curve" id="Curve_m11kp"]
@@ -515,6 +518,70 @@ _data = {
 "tutorial": SubResource("Animation_5s4dq")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhwaj"]
+size = Vector2(82, 100)
+
+[sub_resource type="Animation" id="Animation_sjn3n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpillStain:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StainArea:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_sywm1"]
+resource_name = "spill"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpillStain:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StainArea:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3a6b2"]
+_data = {
+"RESET": SubResource("Animation_sjn3n"),
+"spill": SubResource("Animation_sywm1")
+}
+
 [sub_resource type="Curve" id="Curve_bp2je"]
 max_value = 5.0
 _data = [Vector2(0, 2.36264), 0.0, 0.0, 0, 0, Vector2(1, 5), -1.99979, 0.0, 0, 0]
@@ -559,7 +626,7 @@ glow_enabled = true
 glow_bloom = 0.05
 glow_blend_mode = 0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound", "spill_mug")]
 top_level = true
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
@@ -573,6 +640,7 @@ boss_attack_timer = NodePath("BossAttackTimer")
 player_doc_label = NodePath("Desk/Computer/BossUI/VBoxContainer/HBoxContainer/PlayerDocuments")
 player_combo_label = NodePath("Desk/Computer/BossUI/VBoxContainer/HBoxContainer/PlayerCombo")
 boss_hit_sound = NodePath("HitTableSound")
+spill_mug = NodePath("Desk/SpillMug")
 
 [node name="DifficultyManger" type="Node" parent="."]
 script = ExtResource("2_s81cp")
@@ -691,6 +759,7 @@ beep_sound = NodePath("OverloadSound")
 [node name="OverloadSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/MarginContainer/OverloadProgress"]
 stream = ExtResource("12_6mlls")
 volume_db = -15.0
+bus = &"SFX"
 
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/HUD"]
 layout_mode = 1
@@ -827,6 +896,7 @@ timer = NodePath("../../../../../Timer")
 stream = ExtResource("17_xms1k")
 volume_db = -10.0
 pitch_scale = 0.8
+bus = &"SFX"
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Email/Email"]
 layout_mode = 2
@@ -889,10 +959,12 @@ wait_time = 10.0
 [node name="Vibrate" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Phone"]
 stream = ExtResource("19_5t58c")
 volume_db = -20.0
+bus = &"SFX"
 
 [node name="Ring" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Phone"]
 stream = ExtResource("20_2av8q")
 volume_db = -10.0
+bus = &"SFX"
 
 [node name="EffectRoot" type="Node" parent="CanvasLayer/Distractions/Phone"]
 script = ExtResource("20_u0r5t")
@@ -999,6 +1071,7 @@ wait_time = 10.0
 [node name="Popup" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Junior"]
 stream = ExtResource("25_k4kvb")
 volume_db = -10.0
+bus = &"SFX"
 
 [node name="Junior" type="PanelContainer" parent="CanvasLayer/Distractions/Junior"]
 custom_minimum_size = Vector2(50, 50)
@@ -1450,6 +1523,7 @@ sound = NodePath("AudioStreamPlayer")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Desk/Items/Duck"]
 stream = ExtResource("49_0opw7")
+bus = &"SFX"
 script = ExtResource("50_j4bts")
 
 [node name="Plant" type="Sprite2D" parent="Desk/Items"]
@@ -1490,6 +1564,32 @@ hframes = 2
 [node name="Mouse" type="Sprite2D" parent="Desk"]
 position = Vector2(41, -25)
 texture = ExtResource("48_edn0k")
+
+[node name="SpillMug" type="Sprite2D" parent="Desk"]
+position = Vector2(-89, 31)
+texture = ExtResource("60_ulb8c")
+script = ExtResource("61_ng12r")
+
+[node name="SpillStain" type="Sprite2D" parent="Desk/SpillMug"]
+texture = ExtResource("61_xrrf4")
+hframes = 4
+
+[node name="StainArea" type="Area2D" parent="Desk/SpillMug"]
+position = Vector2(1, 9)
+collision_layer = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Desk/SpillMug/StainArea"]
+shape = SubResource("RectangleShape2D_qhwaj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Desk/SpillMug"]
+libraries = {
+"": SubResource("AnimationLibrary_3a6b2")
+}
+
+[node name="Lifetime" type="Timer" parent="Desk/SpillMug"]
+wait_time = 5.0
+one_shot = true
 
 [node name="DocumentStack" type="Node2D" parent="." node_paths=PackedStringArray("doc_count_label", "combo_label", "combo_particles01", "combo_particles02")]
 visible = false
@@ -1718,7 +1818,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="BossAttackTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 8.0
 one_shot = true
 
 [node name="OverloadTimer" type="Timer" parent="."]
@@ -1740,6 +1840,9 @@ environment = SubResource("Environment_cpt0l")
 
 [node name="HitTableSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("69_pgfnx")
+volume_db = -10.0
+pitch_scale = 0.8
+bus = &"SFX"
 script = ExtResource("50_j4bts")
 delta = 0.05
 

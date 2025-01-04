@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d4l3bh8sq5hjr"]
+[gd_scene load_steps=13 format=3 uid="uid://d4l3bh8sq5hjr"]
 
 [ext_resource type="Script" path="res://src/document.gd" id="1_q4ht6"]
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/sprites/Document.png" id="1_qjb0l"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="4_jmrhn"]
 [ext_resource type="AudioStream" uid="uid://c8rl1qr4vjn25" path="res://assets/sound/paper.mp3" id="7_1wga7"]
 [ext_resource type="AudioStream" uid="uid://d3oql1wjpr4ip" path="res://assets/sound/paper-flip.mp3" id="8_hnjsk"]
+[ext_resource type="Script" path="res://src/stain_detector.gd" id="9_fr0li"]
 [ext_resource type="AudioStream" uid="uid://ji7etef3kh3s" path="res://assets/sound/紙を広げる2.mp3" id="9_uw5yq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6slfg"]
@@ -22,6 +23,9 @@ shader_parameter/pattern = 2
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/enable = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gugjj"]
+radius = 23.0868
 
 [node name="Document" type="Node2D"]
 process_mode = 3
@@ -71,5 +75,12 @@ process_mode = 3
 stream = ExtResource("9_uw5yq")
 volume_db = -10.0
 bus = &"SFX"
+
+[node name="StainDetector" type="Area2D" parent="."]
+collision_mask = 0
+script = ExtResource("9_fr0li")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StainDetector"]
+shape = SubResource("CircleShape2D_gugjj")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

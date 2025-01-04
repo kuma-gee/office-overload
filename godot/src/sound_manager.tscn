@@ -13,10 +13,12 @@ script = ExtResource("1_p3jmk")
 
 [node name="ButtonSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_apviw")
+bus = &"SFX"
 
 [node name="PressSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_tyawr")
 volume_db = -5.0
+bus = &"SFX"
 
 [node name="TypeSound" type="AudioStreamPlayer" parent="."]
 process_mode = 3

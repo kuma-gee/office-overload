@@ -65,6 +65,7 @@ horizontal_alignment = 1
 stream = ExtResource("5_k8sob")
 volume_db = -15.0
 autoplay = true
+bus = &"BGM"
 
 [node name="FeatureEffect" type="Node" parent="."]
 script = ExtResource("3_1tsnh")

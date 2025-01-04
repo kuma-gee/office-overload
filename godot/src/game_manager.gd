@@ -93,7 +93,7 @@ func _load_data():
 	if data:
 		cache_properties.load_data(data)
 	
-	#self.difficulty_level = DifficultyResource.Level.INTERN
+	self.difficulty_level = DifficultyResource.Level.CEO
 	#unlocked_modes = Mode.values()
 	
 	_logger.info("Game initialized")
@@ -316,7 +316,6 @@ func buy_item(item: ShopResource):
 	return true
 
 func is_item_max(item: ShopResource):
-	print(item_count(item.type))
 	return item_count(item.type) >= item.prices.size()
 
 func item_count(item: Shop.Items):

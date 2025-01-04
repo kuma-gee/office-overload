@@ -16,12 +16,12 @@ signal typed()
 @onready var paper_move_out = $PaperMoveOut
 @onready var paper_move_in = $PaperMoveIn
 @onready var paper_sort = $PaperSort
+@onready var stain_detector: Area2D = $StainDetector
 
 var is_discarded := false
 
 var mistakes := 0
 var word := ""
-var censored := []
 var target_position := Vector2.ZERO
 var _logger = Logger.new("Document")
 var move_out_pos
@@ -36,7 +36,6 @@ func show_tutorial():
 
 func _ready():
 	typing_label.word = word
-	typing_label.censored = censored
 	typing_label.typing.connect(func(): typed.emit())
 
 	typing_label.type_start.connect(func(): started.emit())
@@ -48,6 +47,24 @@ func _ready():
 	
 	sprite.material.set_shader_parameter("enable", false)
 	sprite.material = sprite.material.duplicate()
+	
+	stain_detector.stained.connect(func(): 
+		print("Stain document")
+		
+		if typing_label.censored.size() > 0:
+			print("Already censored")
+			return
+		
+		# Words should be at least 4 characters long
+		var censored_indexes = []
+		censored_indexes.append(randi_range(2, word.length() - 2))
+		if randf() <= 0.2:
+			var i = randi_range(2, word.length() - 2)
+			if not i in censored_indexes:
+				censored_indexes.append(i)
+			
+		typing_label.censored = censored_indexes
+	)
 	
 	if random_flip:
 		sprite.flip_h = randf() > 0.5

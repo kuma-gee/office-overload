@@ -31,6 +31,7 @@ extends Node2D
 @export var boss_attack_count_min := 2
 @export var boss_attack_count_max := 4
 @export var boss_hit_sound: AudioStreamPlayer
+@export var spill_mug: SpillMug
 
 @export_category("Crunch")
 @export var max_bgm_pitch := 2.0
@@ -92,7 +93,7 @@ func _ready():
 	
 	if GameManager.is_ceo():
 		animation_player.play("ceo")
-		work_time.hour_in_seconds = 1
+		work_time.hour_in_seconds = 5
 	
 	if not GameManager.is_intern() or GameManager.is_crunch_mode():
 		overload_progress.filled.connect(func(): overload_timer.start())
@@ -221,12 +222,13 @@ func _spawn():
 	_spawn_document()
 	
 	if GameManager.is_work_mode():
-		if not GameManager.is_intern():
+		if not GameManager.is_intern() and not GameManager.is_ceo():
 			var day_multipler = min(remap(GameManager.performance, GameManager.get_min_performance(), GameManager.get_max_performance(), 1.0, 0.5), 1.0)
 			var document_multipler = max(remap(documents.size(), 3, 15, 1.0, 5.0), 1.0)
 			spawn_timer.start(GameManager.difficulty.base_document_time * day_multipler * document_multipler)
 			
 		if (GameManager.is_ceo() or (GameManager.is_intern() and GameManager.get_until_max_performance() <= 5)) and documents.size() < min_documents:
+			await get_tree().create_timer(0.5).timeout
 			_spawn()
 	else:
 		var t = _crunch_mode_spawn_time()
@@ -242,10 +244,10 @@ func _crunch_mode_spawn_time(doc_count: int = document_stack.actual_document_cou
 
 
 func _spawn_document(await_start = false):
-	if GameManager.is_ceo() and boss_attack_timer.is_stopped() and document_stack.total_points > boss_points and boss_attack_documents <= 0:
+	if GameManager.is_ceo() and boss_attack_timer.is_stopped() and document_stack.total_points > boss_points and not is_attacking and boss_attack_documents <= 0:
 		_setup_boss_attack()
 	else:
-		if boss_attack_documents > 0:
+		if boss_attack_documents > 0 and GameManager.is_ceo():
 			var doc = doc_spawner.spawn_invalid_document()
 			_add_document(doc, await_start)
 			boss_attack_documents -= 1
@@ -338,9 +340,11 @@ var boss_processing := 0.0
 var boss_current_speed := boss_process_speed
 var boss_mistakes := 0
 var boss_attack_documents := 0
+var boss_attacked := 0
+var is_attacking := false
 
 func _setup_boss_attack():
-	boss_attack_documents = randi_range(boss_attack_count_min, boss_attack_count_max)
+	is_attacking = true
 	
 	camera_shake.shake()
 	boss_hit_sound.play()
@@ -349,14 +353,25 @@ func _setup_boss_attack():
 	boss_hit_sound.play()
 	await get_tree().create_timer(0.5).timeout
 
-	_spawn_boss_attack()
+	if not spill_mug.active and (boss_attacked == 1 or randf() <= 0.3):
+		_spill_boss_attack()
+		boss_attack_documents = 0
+	else:
+		boss_attack_documents = randi_range(boss_attack_count_min, boss_attack_count_max)
+		_spawn_boss_attack()
+	
+	boss_attacked += 1
+	is_attacking = false
+
+func _spill_boss_attack():
+	spill_mug.spill()
 
 func _spawn_boss_attack():
 	if boss_attack_documents <= 0: return
 	
 	for _i in range(boss_attack_documents):
 		_spawn() # call normal spawn function to reset the normal document spawning
-		await get_tree().create_timer(0.25).timeout
+		await get_tree().create_timer(0.3).timeout
 
 func _start_boss_attack_timer():
 	var doc_diff = document_stack.total_points - boss_points

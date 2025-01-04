@@ -57,6 +57,7 @@ node = NodePath("../../ColorRect")
 stream = ExtResource("7_fg57t")
 volume_db = -10.0
 pitch_scale = 1.2
+bus = &"SFX"
 
 [node name="BurnoutPaper" type="PanelContainer" parent="." node_paths=PackedStringArray("yes_button", "no_button")]
 custom_minimum_size = Vector2(120, 160)

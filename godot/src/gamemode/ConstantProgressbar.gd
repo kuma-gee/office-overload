@@ -38,7 +38,6 @@ func typed():
 	
 	if time > 0:
 		drunk_amount += time
-		print(drunk_amount)
 	
 
 func _process(delta):
