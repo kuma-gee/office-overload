@@ -346,22 +346,26 @@ var is_attacking := false
 func _setup_boss_attack():
 	is_attacking = true
 	
-	camera_shake.shake()
-	boss_hit_sound.play()
-	await get_tree().create_timer(0.5).timeout
-	camera_shake.shake()
-	boss_hit_sound.play()
-	await get_tree().create_timer(0.5).timeout
+	await _slam_desk()
+	await _slam_desk()
 
-	if not spill_mug.active and (boss_attacked == 1 or randf() <= 0.3):
+	if not spill_mug.active and (boss_attacked == 1 or randf() <= 1.0):
 		_spill_boss_attack()
 		boss_attack_documents = 0
+		_start_boss_attack_timer()
 	else:
 		boss_attack_documents = randi_range(boss_attack_count_min, boss_attack_count_max)
 		_spawn_boss_attack()
 	
 	boss_attacked += 1
 	is_attacking = false
+
+func _slam_desk():
+	camera_shake.shake()
+	boss_hit_sound.play()
+	for item in get_tree().get_nodes_in_group(GameDeskItem.GROUP):
+		item.slammed()
+	await get_tree().create_timer(0.5).timeout
 
 func _spill_boss_attack():
 	spill_mug.spill()

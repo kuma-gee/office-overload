@@ -1,5 +1,5 @@
 class_name Duck
-extends Sprite2D
+extends GameDeskItem
 
 @export var sound: AudioStreamPlayer
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=105 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
@@ -68,6 +68,7 @@
 [ext_resource type="Texture2D" uid="uid://byjv7juagwece" path="res://assets/sprites/Desk_Cosmetic.png" id="50_rmwb1"]
 [ext_resource type="Script" path="res://src/plant.gd" id="52_ck1lt"]
 [ext_resource type="Script" path="res://src/coffee.gd" id="53_ngmm3"]
+[ext_resource type="Script" path="res://src/desk_item.gd" id="55_fen05"]
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
 [ext_resource type="Script" path="res://src/shift_overlay.gd" id="59_nhn8c"]
 [ext_resource type="Texture2D" uid="uid://cvwxs4si2hdv8" path="res://assets/sprites/CoffeeSpill_Mug.png" id="60_ulb8c"]
@@ -547,6 +548,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpillStain:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_sywm1"]
 resource_name = "spill"
@@ -570,10 +583,22 @@ tracks/1/path = NodePath("StainArea:monitoring")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true]
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpillStain:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3a6b2"]
@@ -1426,6 +1451,7 @@ worktime = NodePath("HBoxContainer/WorkTime")
 point_light = NodePath("../PointLight2D")
 canvas_modulate = NodePath("../../CanvasModulate")
 overload_progress = NodePath("../../CanvasLayer/HUD/MarginContainer/OverloadProgress")
+weight = 1.5
 
 [node name="ClockLight1" type="PointLight2D" parent="Desk/Clock"]
 position = Vector2(-10.5, 2.25806)
@@ -1520,6 +1546,7 @@ texture = ExtResource("47_0m5o6")
 hframes = 2
 script = ExtResource("47_m6qb4")
 sound = NodePath("AudioStreamPlayer")
+weight = 0.5
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Desk/Items/Duck"]
 stream = ExtResource("49_0opw7")
@@ -1532,6 +1559,7 @@ texture = ExtResource("27_1a3yr")
 hframes = 3
 frame = 1
 script = ExtResource("52_ck1lt")
+weight = 1.5
 
 [node name="Coffee" type="Sprite2D" parent="Desk/Items"]
 position = Vector2(69, -15)
@@ -1542,33 +1570,44 @@ script = ExtResource("53_ngmm3")
 [node name="Sign" type="Sprite2D" parent="Desk/Items"]
 position = Vector2(133, -62)
 texture = ExtResource("49_f18oy")
+script = ExtResource("55_fen05")
 
 [node name="Cat" type="Sprite2D" parent="Desk/Items"]
 position = Vector2(-74, -66)
 texture = ExtResource("48_ic7kw")
 hframes = 2
+script = ExtResource("55_fen05")
+weight = 2.0
 
 [node name="Cosmetic" type="Sprite2D" parent="Desk/Items"]
 position = Vector2(61, -66)
 texture = ExtResource("50_rmwb1")
+script = ExtResource("55_fen05")
 
 [node name="Note" type="Sprite2D" parent="Desk/Items"]
 position = Vector2(-64, -16)
 texture = ExtResource("49_bjcyb")
+script = ExtResource("55_fen05")
 
 [node name="Keyboard" type="Sprite2D" parent="Desk"]
 position = Vector2(0, -33)
 texture = ExtResource("31_x6efq")
 hframes = 2
+script = ExtResource("55_fen05")
+weight = 1.5
 
 [node name="Mouse" type="Sprite2D" parent="Desk"]
 position = Vector2(41, -25)
 texture = ExtResource("48_edn0k")
+script = ExtResource("55_fen05")
 
-[node name="SpillMug" type="Sprite2D" parent="Desk"]
+[node name="SpillMug" type="Node2D" parent="Desk"]
 position = Vector2(-89, 31)
-texture = ExtResource("60_ulb8c")
 script = ExtResource("61_ng12r")
+
+[node name="Mug" type="Sprite2D" parent="Desk/SpillMug"]
+texture = ExtResource("60_ulb8c")
+script = ExtResource("55_fen05")
 
 [node name="SpillStain" type="Sprite2D" parent="Desk/SpillMug"]
 texture = ExtResource("61_xrrf4")
@@ -1588,7 +1627,7 @@ libraries = {
 }
 
 [node name="Lifetime" type="Timer" parent="Desk/SpillMug"]
-wait_time = 5.0
+wait_time = 6.0
 one_shot = true
 
 [node name="DocumentStack" type="Node2D" parent="." node_paths=PackedStringArray("doc_count_label", "combo_label", "combo_particles01", "combo_particles02")]

@@ -1,5 +1,5 @@
 class_name SpillMug
-extends Sprite2D
+extends Node2D
 
 @onready var stain_area: Area2D = $StainArea
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -22,7 +22,7 @@ func _ready() -> void:
 func hide_spill():
 	tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tw.tween_property(spill_stain, "modulate", Color.TRANSPARENT, 2.0).set_ease(Tween.EASE_IN_OUT)
-	tw.tween_callback(func(): stain_area.monitoring = false)
+	tw.tween_callback(func(): animation_player.play("RESET"))
 	tw.tween_property(self, "position", hide_pos, 0.5)
 	active = false
 

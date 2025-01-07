@@ -63,9 +63,9 @@ horizontal_alignment = 1
 
 [node name="Start" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_k8sob")
-volume_db = -15.0
+volume_db = -20.0
 autoplay = true
-bus = &"BGM"
+bus = &"SFX"
 
 [node name="FeatureEffect" type="Node" parent="."]
 script = ExtResource("3_1tsnh")
