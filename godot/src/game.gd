@@ -132,7 +132,7 @@ func _ready():
 		if not documents.is_empty():
 			if documents[0].handle_key(key):
 				document_stack.add_combo()
-			else:
+			elif not work_time.stopped:
 				document_stack.add_mistake()
 				_update_score()
 	)

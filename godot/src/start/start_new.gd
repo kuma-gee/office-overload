@@ -66,6 +66,9 @@ var is_starting := false
 func _ready() -> void:
 	start()
 	
+	if GameManager.finished_game:
+		GameManager.difficulty_level = DifficultyResource.Level.CEO
+	
 	work_label.finished.connect(func():
 		if GameManager.finished_game:
 			ceo_level_select.grab_focus()

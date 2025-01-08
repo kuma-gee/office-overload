@@ -90,9 +90,6 @@ func _load_data():
 	if data:
 		cache_properties.load_data(data)
 	
-	self.difficulty_level = DifficultyResource.Level.CEO
-	#unlocked_modes = Mode.values()
-	
 	_logger.info("Game initialized")
 	init = true
 	initialized.emit()
@@ -147,6 +144,7 @@ func reset_values():
 	past_wpms = []
 
 	ceo_blocked = 0
+	finished_game = false
 	
 	job_quited.emit()
 	_save_data()

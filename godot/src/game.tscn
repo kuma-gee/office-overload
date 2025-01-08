@@ -1447,7 +1447,6 @@ position = Vector2(88, -74)
 texture = ExtResource("13_dyrwf")
 hframes = 2
 script = ExtResource("14_stuan")
-weight = 1.5
 worktime = NodePath("HBoxContainer/WorkTime")
 point_light = NodePath("../PointLight2D")
 canvas_modulate = NodePath("../../CanvasModulate")

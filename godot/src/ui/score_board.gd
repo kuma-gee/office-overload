@@ -84,8 +84,8 @@ func parse_details(data: Dictionary):
 	if not "details" in data: return []
 	
 	var details_data = data.get("details") as PackedInt32Array
-	var str = bytes_to_var(details_data.to_byte_array())
-	return str.split(";")
+	var x = bytes_to_var(details_data.to_byte_array())
+	return x.split(";")
 
 func parse_data(data: Dictionary, key: String, details: Array):
 	if key == "steam_id":

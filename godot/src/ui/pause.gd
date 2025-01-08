@@ -15,7 +15,6 @@ func _ready() -> void:
 	continue_btn.finished.connect(func(): get_viewport().gui_release_focus())
 	quit_btn.finished.connect(func():
 		GameManager.back_to_menu()
-		#GameManager.reset_values()
 	)
 
 func _on_focused():

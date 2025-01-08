@@ -4,10 +4,15 @@ extends Control
 @onready var gameover_effect = $GameoverEffect
 @onready var audio_stream_player = $AudioStreamPlayer
 @onready var delegator: Delegator = $Delegator
-@onready var burnout_paper: PromotionPaper = $BurnoutPaper
+@onready var burnout_paper: EndPaper = $BurnoutPaper
 
 @export var restart: TypingButton
 @export var menu: TypingButton
+@export var ceo_quit: TypingButton
+@export var ceo_keep: TypingButton
+
+@export var default_options: Control
+@export var ceo_options: Control
 
 @export var title: Label
 @export var desc: Label
@@ -22,6 +27,23 @@ func _ready():
 	
 	restart.finished.connect(func(): GameManager.restart())
 	menu.finished.connect(func(): GameManager.back_to_menu())
+	ceo_quit.finished.connect(func():
+		GameManager.reset_values()
+		_show_default_options()
+	)
+	ceo_keep.finished.connect(func():
+		restart.word = "restart"
+		restart.update()
+		_show_default_options()
+	)
+
+func _show_default_options():
+	ceo_options.hide()
+	default_options.show()
+
+func _show_ceo_options():
+	ceo_options.show()
+	default_options.hide()
 
 func burnout():
 	title.text = "Burned out!"
@@ -30,7 +52,7 @@ func burnout():
 
 func fired():
 	title.text = "Fired!"
-	desc.text = "You didn't finish your tasks on time."
+	desc.text = "You didn't finish your\ntasks on time."
 	set_fields()
 	
 func set_fields():
@@ -38,11 +60,16 @@ func set_fields():
 	days.text = "%s" % GameManager.day
 	speed.text = "%.0f" % GameManager.get_wpm()
 	acc.text = "%.0f%%" % GameManager.get_accuracy()
+
+	if GameManager.finished_game:
+		desc.text = "You are the ceo.\nDo you really want to quit?"
+		_show_ceo_options()
+	else:
+		GameManager.reset_values()
+		_show_default_options()
 	
 	_do_show()
 	audio_stream_player.play()
-
-	GameManager.reset_values()
 
 func _do_show():
 	gameover_effect.do_effect()

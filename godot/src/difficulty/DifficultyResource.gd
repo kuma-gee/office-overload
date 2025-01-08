@@ -9,7 +9,7 @@ enum Level {
 	CEO,
 }
 
-@export var level := Level.JUNIOR
+@export var level := Level.INTERN
 @export var bgm_speed := 1.0
 @export var money_multiplier := 0.0
 @export var max_performance := 0

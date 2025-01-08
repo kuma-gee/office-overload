@@ -66,22 +66,13 @@ size_flags_horizontal = 4
 layout_mode = 2
 word = "User"
 
-[node name="TypingLabel" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/User/MarginContainer/VBoxContainer/MarginContainer" index="0"]
-reset_on_finish = false
-
 [node name="Friends" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer" instance=ExtResource("1_brac4")]
 layout_mode = 2
 word = "Friends"
 
-[node name="TypingLabel" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/Friends/MarginContainer/VBoxContainer/MarginContainer" index="0"]
-reset_on_finish = false
-
 [node name="Global" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer" instance=ExtResource("1_brac4")]
 layout_mode = 2
 word = "Global"
-
-[node name="TypingLabel" parent="Leaderboard/VBoxContainer/MarginContainer/Boards/HBoxContainer/Global/MarginContainer/VBoxContainer/MarginContainer" index="0"]
-reset_on_finish = false
 
 [node name="MarginContainer" type="MarginContainer" parent="Leaderboard/VBoxContainer/MarginContainer/Boards"]
 layout_mode = 2

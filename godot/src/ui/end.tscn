@@ -231,7 +231,6 @@ layout_mode = 2
 size_flags_horizontal = 6
 frequency = 0.0
 height = 0.0
-reset_on_finish = false
 enable_mistake_effect = false
 
 [node name="Control3" type="Control" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer"]
