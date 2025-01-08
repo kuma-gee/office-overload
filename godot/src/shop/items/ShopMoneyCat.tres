@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ShopResource" load_steps=3 format=3 uid="uid://cknbhy310c08l"]
 
 [ext_resource type="Texture2D" uid="uid://cepl8rsfj408t" path="res://assets/sprites/Icon_Money.png" id="1_2avux"]
-[ext_resource type="Script" path="res://src/shop/shop_resource.gd" id="2_17heg"]
+[ext_resource type="Script" path="res://src/shop/items/shop_resource.gd" id="2_17heg"]
 
 [resource]
 script = ExtResource("2_17heg")

@@ -25,7 +25,14 @@ signal type_wrong()
 @onready var shake_timer: Timer = $ShakeTimer
 
 @export_category("Type Effect")
-@export var outline_all := false
+@export var fill_all := false:
+	set(v):
+		fill_all = v
+		update_word()
+@export var outline_all := false:
+	set(v):
+		outline_all = v
+		update_word()
 @export var highlight_all := false:
 	set(v):
 		highlight_all = v
@@ -110,6 +117,10 @@ func get_remaining_word():
 func update_word():
 	if active:
 		text = "[outline_color=%s][color=%s]%s[/color][/outline_color]" % [highlight_color.to_html(), typed_color.to_html(), word]
+		return
+	
+	if fill_all:
+		text = "[color=%s]%s[/color]" % [typed_color.to_html(), word]
 		return
 	
 	var until = typed.length()

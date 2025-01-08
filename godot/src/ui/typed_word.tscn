@@ -22,7 +22,7 @@ theme_override_colors/font_outline_color = Color(1, 1, 1, 0)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5][/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]sd[/outline_size][/outline_color][/color][/center][/outline_color]"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -34,7 +34,7 @@ untyped_color = Color(0.435294, 0.423529, 0.439216, 1)
 typed_color = Color(0.207843, 0.207843, 0.25098, 1)
 untyped_outline_size = 5
 highlight_first = true
-word = "a"
+word = "asd"
 
 [node name="ShakeTimer" type="Timer" parent="."]
 wait_time = 0.2

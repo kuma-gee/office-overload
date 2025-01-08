@@ -144,6 +144,7 @@ offset_bottom = -3.0
 [node name="TypingLabel" parent="VBoxContainer/CenterContainer2/Control/Control/PanelContainer" instance=ExtResource("3_0obvy")]
 light_mask = 0
 layout_mode = 2
+fill_all = null
 
 [node name="SoldOut" type="CenterContainer" parent="VBoxContainer"]
 layout_mode = 2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://cdafk4ywr2fbg"]
+[gd_scene load_steps=61 format=3 uid="uid://cdafk4ywr2fbg"]
 
 [ext_resource type="Script" path="res://src/ui/Stats.gd" id="1_1pk7f"]
 [ext_resource type="Script" path="res://src/start/start_new.gd" id="1_25sst"]
@@ -18,14 +18,19 @@
 [ext_resource type="Script" path="res://src/base-system/menu/Settings.gd" id="14_efhj6"]
 [ext_resource type="Script" path="res://src/shop/shop.gd" id="14_nnqu0"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="15_17vat"]
-[ext_resource type="PackedScene" uid="uid://cn8lfhdkylik" path="res://src/shop/shop_item.tscn" id="15_a4ld2"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="16_xmdsl"]
 [ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="17_s6hs1"]
 [ext_resource type="Script" path="res://src/base-system/menu/AudioSettings.gd" id="18_ikgcj"]
+[ext_resource type="PackedScene" uid="uid://dbph2sk0jrwh7" path="res://src/shop/shop_paper.tscn" id="18_ui332"]
+[ext_resource type="Resource" uid="uid://dp0o71wq7b1ck" path="res://src/shop/items/ShopPlant.tres" id="19_nxoxl"]
 [ext_resource type="Script" path="res://src/base-system/menu/DisplaySettings.gd" id="19_t18oa"]
+[ext_resource type="Resource" uid="uid://d1psgsomevtk1" path="res://src/shop/items/ShopRubberDuck.tres" id="20_jt336"]
 [ext_resource type="Script" path="res://src/ui/typing_slider.gd" id="20_yx3sx"]
 [ext_resource type="Script" path="res://src/base-system/menu/AudioSlider.gd" id="21_44ua4"]
+[ext_resource type="Resource" uid="uid://c26iy7v60mwce" path="res://src/shop/items/ShopCoffee.tres" id="21_cmmll"]
 [ext_resource type="Script" path="res://src/ui/fullscreen_button.gd" id="22_jx87d"]
+[ext_resource type="Resource" uid="uid://xxpklh6gysxc" path="res://src/shop/items/ShopNotDisturb.tres" id="22_kdipq"]
+[ext_resource type="Resource" uid="uid://cknbhy310c08l" path="res://src/shop/items/ShopMoneyCat.tres" id="23_hhmej"]
 [ext_resource type="Script" path="res://src/ui/fullscreen_checkbox.gd" id="23_xaoub"]
 [ext_resource type="Script" path="res://src/ui/cloud_settings.gd" id="24_6ge0a"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="25_pu2hv"]
@@ -33,8 +38,6 @@
 [ext_resource type="PackedScene" uid="uid://bevwwvcqg3xhh" path="res://src/ui/folder.tscn" id="29_t2y1x"]
 [ext_resource type="Script" path="res://src/start/ceo_level_select.gd" id="30_ctfxw"]
 [ext_resource type="Script" path="res://src/ui/leaderboad.gd" id="30_m1awn"]
-[ext_resource type="Script" path="res://src/shop/shop_item_details.gd" id="32_dn4hy"]
-[ext_resource type="Texture2D" uid="uid://gdjrbxg43sj4" path="res://icon.png" id="33_bnvno"]
 [ext_resource type="Script" path="res://src/shop/money_label.gd" id="34_06bnc"]
 [ext_resource type="PackedScene" uid="uid://du0v5of5joaem" path="res://src/ui/menu_paper.tscn" id="34_wy63k"]
 [ext_resource type="Script" path="res://src/ui/score_paper.gd" id="35_whsqs"]
@@ -45,7 +48,6 @@
 [ext_resource type="Script" path="res://src/ui/resignation.gd" id="39_cuxap"]
 [ext_resource type="Script" path="res://addons/graph_2d/graph_2d.gd" id="40_i77at"]
 [ext_resource type="Script" path="res://addons/graph_2d/custom_nodes/coordinate.gd" id="41_f7xlp"]
-[ext_resource type="Texture2D" uid="uid://dmrxb8h6ge88v" path="res://assets/sprites/Ctrl.png" id="45_0e8t7"]
 [ext_resource type="AudioStream" uid="uid://7ix2fpbkls0p" path="res://assets/sound/Talk_with_me.mp3" id="46_0cyp8"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_an0ir"]
@@ -234,15 +236,15 @@ reset_on_finish = true
 word = "shop"
 
 [node name="Stats" type="PanelContainer" parent="." node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy", "score_container", "score")]
-custom_minimum_size = Vector2(120, 160)
+custom_minimum_size = Vector2(110, 140)
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -145.0
-offset_top = -55.0
+offset_left = -135.0
+offset_top = -40.0
 offset_right = -25.0
-offset_bottom = 105.0
+offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 0
 rotation = -0.0872665
@@ -364,10 +366,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 24.0
-offset_top = -58.0
-offset_right = 134.0
-offset_bottom = 90.0
+offset_left = 19.0
+offset_top = -35.0
+offset_right = 129.0
+offset_bottom = 105.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.139626
@@ -387,14 +389,17 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Control" type="Control" parent="WorkDocument/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
+[node name="MarginContainer" type="MarginContainer" parent="WorkDocument/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
 
-[node name="Title" type="Sprite2D" parent="WorkDocument/MarginContainer/VBoxContainer/Control"]
-position = Vector2(50.8782, 15.8604)
-scale = Vector2(0.75, 0.75)
+[node name="TextureRect" type="TextureRect" parent="WorkDocument/MarginContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 texture = ExtResource("4_h3t2k")
+expand_mode = 2
+stretch_mode = 5
 
 [node name="Work" parent="WorkDocument/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
 layout_mode = 2
@@ -434,9 +439,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = 107.0
-offset_right = 110.0
-offset_bottom = 254.0
+offset_left = -5.0
+offset_top = 138.0
+offset_right = 105.0
+offset_bottom = 285.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.139626
@@ -521,74 +527,113 @@ text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff]
 reset_on_finish = true
 word = "report"
 
-[node name="Shop" type="Control" parent="." node_paths=PackedStringArray("container", "delegator", "money_container", "details")]
+[node name="Shop" type="Control" parent="." node_paths=PackedStringArray("delegator", "paper_container")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 355.0
 offset_right = 355.0
 theme = ExtResource("2_xj832")
 script = ExtResource("14_nnqu0")
-container = NodePath("MarginContainer/CenterContainer/MarginContainer/GridContainer")
-item_scene = ExtResource("15_a4ld2")
 delegator = NodePath("ShopDelegator")
-money_container = NodePath("../CanvasLayer/Control/Money")
-details = NodePath("../CanvasLayer/Control/ShopItemDetails")
-
-[node name="MarginContainer" type="MarginContainer" parent="Shop"]
-custom_minimum_size = Vector2(320, 180)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="Shop/MarginContainer"]
-layout_mode = 2
-color = Color(0.929412, 0.894118, 0.854902, 1)
-
-[node name="CenterContainer" type="CenterContainer" parent="Shop/MarginContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Shop/MarginContainer/CenterContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="GridContainer" type="GridContainer" parent="Shop/MarginContainer/CenterContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/h_separation = 12
-theme_override_constants/v_separation = 12
-columns = 3
-
-[node name="ShopItem" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("15_a4ld2")]
-layout_mode = 2
-
-[node name="ShopItem2" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("15_a4ld2")]
-layout_mode = 2
-
-[node name="ShopItem3" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("15_a4ld2")]
-layout_mode = 2
-
-[node name="ShopItem4" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("15_a4ld2")]
-layout_mode = 2
-
-[node name="ShopItem7" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("15_a4ld2")]
-layout_mode = 2
-
-[node name="ShopItem8" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("15_a4ld2")]
-layout_mode = 2
+paper_container = NodePath("Papers")
 
 [node name="ShopDelegator" type="Node" parent="Shop"]
 script = ExtResource("5_o5vtn")
+
+[node name="PointLight2D2" type="PointLight2D" parent="Shop"]
+position = Vector2(2, 4)
+blend_mode = 2
+texture = ExtResource("3_ep5ga")
+
+[node name="ColorRect" type="ColorRect" parent="Shop"]
+layout_mode = 2
+offset_left = -160.0
+offset_top = -97.0
+offset_right = 160.0
+offset_bottom = 97.0
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="Money" type="MarginContainer" parent="Shop"]
+custom_minimum_size = Vector2(60, 34)
+offset_left = -153.0
+offset_top = -92.0
+offset_right = -93.0
+offset_bottom = -58.0
+rotation = -0.174533
+pivot_offset = Vector2(30, 17)
+theme = ExtResource("2_xj832")
+
+[node name="Money" type="PanelContainer" parent="Shop/Money"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop/Money/Money"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Shop/Money/Money/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Shop/Money/Money/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Budget"
+label_settings = ExtResource("5_qryb2")
+
+[node name="Label2" type="Label" parent="Shop/Money/Money/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "$100"
+script = ExtResource("34_06bnc")
+
+[node name="Papers" type="Control" parent="Shop"]
+anchors_preset = 0
+offset_top = 78.0
+offset_bottom = 78.0
+
+[node name="MoneyCatItem" parent="Shop/Papers" instance=ExtResource("18_ui332")]
+layout_mode = 1
+offset_left = -48.0
+offset_top = -84.0
+offset_right = 52.0
+offset_bottom = 51.0
+item = ExtResource("23_hhmej")
+
+[node name="NotDisturbItem" parent="Shop/Papers" instance=ExtResource("18_ui332")]
+layout_mode = 1
+offset_left = 29.0
+offset_top = -57.0
+offset_right = 129.0
+offset_bottom = 78.0
+rotation = 0.10472
+item = ExtResource("22_kdipq")
+
+[node name="RubberDuckItem" parent="Shop/Papers" instance=ExtResource("18_ui332")]
+layout_mode = 1
+offset_left = -130.0
+offset_top = -70.0
+offset_right = -30.0
+offset_bottom = 65.0
+rotation = -0.10472
+item = ExtResource("20_jt336")
+
+[node name="CoffeeItem" parent="Shop/Papers" instance=ExtResource("18_ui332")]
+layout_mode = 1
+offset_left = -103.0
+offset_top = -8.0
+offset_right = -3.0
+offset_bottom = 127.0
+rotation = -0.174533
+item = ExtResource("21_cmmll")
+
+[node name="PlantItem" parent="Shop/Papers" instance=ExtResource("18_ui332")]
+layout_mode = 1
+offset_left = -15.0
+offset_top = 12.0
+offset_right = 85.0
+offset_bottom = 147.0
+rotation = 0.0872665
+item = ExtResource("19_nxoxl")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -613,6 +658,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.588235)
 
 [node name="Settings" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("overlay", "sliders", "display_settings", "_audio", "delegator")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1030,6 +1076,7 @@ board = NodePath("MarginContainer/VBoxContainer/UserScore")
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]f[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]ellows[/outline_size][/outline_color][/color][/center][/outline_color]"
+fill_all = false
 word = "fellows"
 
 [node name="UserScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer" index="1" instance=ExtResource("36_vfedp")]
@@ -1050,6 +1097,7 @@ board = NodePath("MarginContainer/VBoxContainer/GlobalScore")
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Top1/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]t[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]opspot[/outline_size][/outline_color][/color][/center][/outline_color]"
+fill_all = false
 word = "topspot"
 
 [node name="GlobalScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Top1/MarginContainer/VBoxContainer" index="1" instance=ExtResource("36_vfedp")]
@@ -1070,6 +1118,7 @@ board = NodePath("MarginContainer/VBoxContainer/FriendsScore")
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Team2/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]t[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eammates[/outline_size][/outline_color][/color][/center][/outline_color]"
+fill_all = false
 word = "teammates"
 
 [node name="FriendsScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Team2/MarginContainer/VBoxContainer" index="1" instance=ExtResource("36_vfedp")]
@@ -1134,6 +1183,7 @@ loading_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxCont
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]f[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eedback[/outline_size][/outline_color][/color][/center][/outline_color]"
+fill_all = false
 word = "feedback"
 
 [node name="Limit" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
@@ -1214,6 +1264,7 @@ nodes = [NodePath("../MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftBu
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]p[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]erformance[/outline_size][/outline_color][/color][/center][/outline_color]"
+fill_all = false
 word = "performance"
 
 [node name="Graph2D" type="Control" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer" index="1" node_paths=PackedStringArray("coordinate")]
@@ -1276,7 +1327,7 @@ theme_override_constants/margin_right = 1
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer/VBoxContainer/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
-text = "[outline_color=ffffffff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=2][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2][/outline_size][/outline_color][/color][/outline_color]"
+text = "[outline_color=ffffffff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=2][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2]sd[/outline_size][/outline_color][/color][/outline_color]"
 untyped_outline_size = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"]
@@ -1318,7 +1369,7 @@ theme_override_constants/margin_right = 1
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton/MarginContainer/VBoxContainer/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
-text = "[outline_color=ffffffff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=2][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2][/outline_size][/outline_color][/color][/outline_color]"
+text = "[outline_color=ffffffff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=2][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2]sd[/outline_size][/outline_color][/color][/outline_color]"
 untyped_outline_size = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton"]
@@ -1349,6 +1400,7 @@ nodes = [NodePath("../MarginContainer/VBoxContainer/VBoxContainer/Signature")]
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]r[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]esignation[/outline_size][/outline_color][/color][/center][/outline_color]"
+fill_all = false
 word = "resignation"
 
 [node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="1"]
@@ -1382,160 +1434,6 @@ offset_bottom = 10.0
 
 [node name="PanelContainer" parent="CanvasLayer/Control/Report/TextureRect" index="4"]
 visible = false
-
-[node name="ShopItemDetails" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("icon", "name_label", "price_label", "desc_label", "purchase_word", "sold_out_label", "disabled_overlay", "coffee_ctrl")]
-visible = false
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -80.0
-offset_top = -58.0
-offset_right = 2.0
-offset_bottom = 60.0
-grow_horizontal = 0
-grow_vertical = 2
-script = ExtResource("32_dn4hy")
-icon = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/Icon")
-name_label = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/Name")
-price_label = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer/Price")
-desc_label = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/Desc")
-purchase_word = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/BuyWord")
-sold_out_label = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/SoldOut")
-disabled_overlay = NodePath("PanelContainer/ColorRect")
-coffee_ctrl = NodePath("PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/HBoxContainer")
-
-[node name="Delegator" type="Node" parent="CanvasLayer/Control/ShopItemDetails" node_paths=PackedStringArray("nodes")]
-script = ExtResource("5_o5vtn")
-nodes = [NodePath("../PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/BuyWord")]
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control/ShopItemDetails"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 8
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("33_bnvno")
-expand_mode = 2
-stretch_mode = 5
-
-[node name="Name" type="Label" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
-layout_mode = 2
-text = "ITEM_NAME"
-label_settings = ExtResource("5_qryb2")
-horizontal_alignment = 1
-
-[node name="Price" type="Label" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
-layout_mode = 2
-text = "PRICE"
-horizontal_alignment = 1
-
-[node name="Desc" type="Label" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
-layout_mode = 2
-text = "ITEM_NAME_DESCadsadsadadsadsa"
-label_settings = ExtResource("3_0j057")
-horizontal_alignment = 1
-autowrap_mode = 3
-
-[node name="Control" type="Control" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="BuyWord" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2" instance=ExtResource("11_cjr5n")]
-visible = false
-layout_mode = 2
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]p[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]urchase[/outline_size][/outline_color][/color][/center][/outline_color]"
-word = "purchase"
-
-[node name="SoldOut" type="RichTextLabel" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
-visible = false
-layout_mode = 2
-bbcode_enabled = true
-text = "Sold OUT"
-fit_content = true
-scroll_active = false
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/HBoxContainer"]
-layout_mode = 2
-text = "Use with"
-
-[node name="CtrlKey" type="TextureRect" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer2/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("45_0e8t7")
-stretch_mode = 3
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer"]
-layout_mode = 2
-color = Color(0, 0, 0, 0.5)
-
-[node name="Control" type="Control" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer"]
-layout_mode = 2
-
-[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/Control"]
-layout_mode = 0
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="EscButton" type="TextureRect" parent="CanvasLayer/Control/ShopItemDetails/PanelContainer/Control/MarginContainer3"]
-layout_mode = 2
-texture = ExtResource("25_pu2hv")
-
-[node name="Money" type="MarginContainer" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_right = 19.0
-offset_bottom = 15.0
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = -6
-
-[node name="Money" type="PanelContainer" parent="CanvasLayer/Control/Money"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Money/Money"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/Money/Money/MarginContainer"]
-layout_mode = 2
-text = "$100"
-script = ExtResource("34_06bnc")
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("46_0cyp8")

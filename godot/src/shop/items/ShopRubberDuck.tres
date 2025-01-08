@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ShopResource" load_steps=3 format=3 uid="uid://d1psgsomevtk1"]
 
 [ext_resource type="Texture2D" uid="uid://bniw72y8o6esm" path="res://assets/sprites/Icon_RubberDuck.png" id="1_wxeb2"]
-[ext_resource type="Script" path="res://src/shop/shop_resource.gd" id="2_qes2m"]
+[ext_resource type="Script" path="res://src/shop/items/shop_resource.gd" id="2_qes2m"]
 
 [resource]
 script = ExtResource("2_qes2m")
