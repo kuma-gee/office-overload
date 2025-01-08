@@ -62,6 +62,9 @@ func _ready():
 		
 		if GameManager.is_work_mode():
 			GameManager.upload_work_scores()
+			
+			if GameManager.is_senior():
+				GameManager.unlock_mode(GameManager.Mode.Crunch)
 	)
 
 func ceo_ended(user: Dictionary, boss: Dictionary):

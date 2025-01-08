@@ -8,6 +8,17 @@ signal unhandled_key(key)
 
 var last_event: InputEvent
 
+func unfocus():
+	for node in nodes:
+		if node and node.has_method("get_label") and node.get_label():
+			node.get_label().highlight_first = false
+			node.get_label().reset()
+
+func focus():
+	for node in nodes:
+		if node and node.has_method("get_label") and node.get_label():
+			node.get_label().highlight_first = true
+
 func reset():
 	for node in nodes:
 		if node and node.has_method("get_label") and node.get_label():

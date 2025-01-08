@@ -1,8 +1,11 @@
 extends Node2D
 
 @export var work_label: TypingButton
-@export var prepare_label: TypingButton
+@export var settings_label: TypingButton
 @export var exit_label: TypingButton
+@export var crunch_mode: TypingButton
+@export var multiplayer_mode: TypingButton
+
 @export var files: TypedWord
 @export var team: TypedWord
 @export var shop_button: TypedWord
@@ -13,15 +16,42 @@ extends Node2D
 
 @export_category("Nodes") # onready does not work on web builds?? 
 @export var settings: Settings
-@export var game_modes: GameModesDialog
-@export var delegator: Delegator
 @export var folder: Folder
 @export var teams: Folder
 @export var shop: Shop
+@export var game_modes_key: Control
+@export var crunch_mode_container: Control
+@export var multiplayer_mode_container: Control
+@export var ceo_level_select: Control
+
+@export_category("Delegators")
+@export var delegator: Delegator
+@export var shift_delegator: Delegator
 
 @onready var point_light_2d: PointLight2D = $PointLight2D
 @onready var stats: DocumentUI = $Stats
 @onready var work_document: DocumentUI = $WorkDocument
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+enum DelegateMode {
+	Default,
+	Shift,
+}
+
+@onready var delegator_map = {
+	DelegateMode.Default: delegator,
+	DelegateMode.Shift: shift_delegator,
+}
+
+var mode := DelegateMode.Default:
+	set(v):
+		mode = v
+		
+		for m in delegator_map.keys():
+			if m == mode:
+				delegator_map[m].focus()
+			else:
+				delegator_map[m].unfocus()
 
 var is_shop := false:
 	set(v):
@@ -30,50 +60,42 @@ var is_shop := false:
 			shop.open()
 		else:
 			shop.close()
+
 var is_starting := false
 
 func _ready() -> void:
 	start()
 	
 	work_label.finished.connect(func():
-		#var modes = GameManager.get_unlocked_modes()
-		#if modes.size() == 1 or Env.is_demo():
+		if GameManager.finished_game:
+			ceo_level_select.grab_focus()
+		else:
 			GameManager.start(GameManager.Mode.Work)
-			work_label.reset()
-		#else:
-			#game_modes.grab_focus()
 	)
+	
+	crunch_mode.finished.connect(func(): GameManager.start(GameManager.Mode.Crunch))
 	exit_label.finished.connect(func(): GameManager.quit_game())
 	
-	folder.closed.connect(func():
-		files_node.move_in()
-	)
-	teams.closed.connect(func():
-		teams_node.move_in()
-	)
-
-	prepare_label.finished.connect(func(): settings.grab_focus())
+	settings_label.finished.connect(func(): settings.grab_focus())
+	folder.closed.connect(func(): files_node.move_in())
+	teams.closed.connect(func(): teams_node.move_in())
 	
 	files.type_finish.connect(func():
 		await files_node.move_open()
 		folder.open()
-		files.reset()
 	)
 	team.type_finish.connect(func():
 		await teams_node.move_open()
 		teams.open()
-		team.reset()
 	)
-	shop_button.type_finish.connect(func():
-		is_shop = true
-		shop_button.reset()
-	)
+	shop_button.type_finish.connect(func(): is_shop = true)
 	shop.closed.connect(func(): is_shop = false)
 	
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.keycode == KEY_TAB:
-		start()
+	game_modes_key.visible = GameManager.unlocked_modes.size() > 1
+	crunch_mode_container.visible = GameManager.is_mode_unlocked(GameManager.Mode.Crunch)
+	multiplayer_mode_container.visible = GameManager.is_mode_unlocked(GameManager.Mode.Multiplayer)
 	
+func _unhandled_input(event: InputEvent) -> void:
 	if is_starting: return
 	if get_viewport().gui_get_focus_owner() != null: return
 	
@@ -81,8 +103,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		shop.handle_input(event)
 		return
 	
-	delegator.handle_event(event)
-
+	if game_modes_key.visible:
+		if event.is_action_pressed("special_mode") and mode != DelegateMode.Shift:
+			animation_player.play("alt_page")
+			mode = DelegateMode.Shift
+		elif event.is_action_released("special_mode") and mode == DelegateMode.Shift:
+			animation_player.play_backwards("alt_page")
+			mode = DelegateMode.Default
+	
+	var deleg = delegator_map[mode]
+	deleg.handle_event(event)
 	
 func start():
 	point_light_2d.enabled = false

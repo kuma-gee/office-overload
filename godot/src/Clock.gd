@@ -27,7 +27,6 @@ var light = 1.0:
 			overload_progress.darken()
 
 func _ready():
-	super._ready()
 	if canvas_modulate:
 		canvas_modulate.color = Color.WHITE
 		canvas_modulate.show()

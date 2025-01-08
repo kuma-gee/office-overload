@@ -1447,11 +1447,11 @@ position = Vector2(88, -74)
 texture = ExtResource("13_dyrwf")
 hframes = 2
 script = ExtResource("14_stuan")
+weight = 1.5
 worktime = NodePath("HBoxContainer/WorkTime")
 point_light = NodePath("../PointLight2D")
 canvas_modulate = NodePath("../../CanvasModulate")
 overload_progress = NodePath("../../CanvasLayer/HUD/MarginContainer/OverloadProgress")
-weight = 1.5
 
 [node name="ClockLight1" type="PointLight2D" parent="Desk/Clock"]
 position = Vector2(-10.5, 2.25806)

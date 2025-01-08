@@ -7,7 +7,7 @@ const CONFIG_FILE = "user://settings.cfg"
 @export var sliders: Array[TypingSlider] = []
 
 @export var display_settings: DisplaySettings
-@onready var _audio := $Audio
+@export var _audio: AudioSettings
 
 @onready var settings := [_audio, display_settings]
 
@@ -53,7 +53,8 @@ func _load_settings():
 	
 	_logger.debug("Loading settings")
 	for setting in settings:
-		setting.load_settings(_config)
+		if setting:
+			setting.load_settings(_config)
 
 func _exit_tree():
 	_save_config()
@@ -63,7 +64,8 @@ func _save_config():
 	
 	_logger.debug("Saving settings")
 	for setting in settings:
-		setting.save_settings(_config)
+		if setting:
+			setting.save_settings(_config)
 	_config.save(CONFIG_FILE)
 
 func _gui_input(event):

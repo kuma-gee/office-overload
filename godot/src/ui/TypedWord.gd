@@ -10,6 +10,8 @@ signal type_wrong()
 @export var shake_amount := 20
 @export var frequency := 8.0
 @export var height := 2.0
+@export var reset_on_finish := false
+
 @export var untyped_color := Color.BLACK
 @export var highlight_color := Color.WHITE
 @export var typed_color := Color.WHITE
@@ -22,6 +24,7 @@ signal type_wrong()
 
 @onready var shake_timer: Timer = $ShakeTimer
 
+@export_category("Type Effect")
 @export var outline_all := false
 @export var highlight_all := false:
 	set(v):
@@ -88,6 +91,9 @@ func _ready():
 	self.focused = false
 	add_theme_constant_override("outline_size", 5)
 	shake_timer.timeout.connect(func(): self.current_shake = 0)
+	
+	if reset_on_finish:
+		type_finish.connect(func(): reset())
 
 #func _gui_input(event: InputEvent) -> void:
 	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -151,6 +157,7 @@ func _wrap_typed(until: int, w: String, highlight = false):
 	var highlight_text = ""
 	if highlight:
 		highlight_text = "highlight_falloff=%s highlight_normal=%s" % [20., typed_color.to_html()]
+	
 	return "[typed until=%s height=%s frequency=%s %s]%s[/typed]" % [until, height, frequency, highlight_text, w]
 
 func _wrap_center(w: String):

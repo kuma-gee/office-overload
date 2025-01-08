@@ -43,7 +43,6 @@ func set_fields():
 	audio_stream_player.play()
 
 	GameManager.reset_values()
-	GameManager.unlock_mode(GameManager.Mode.Interview)
 
 func _do_show():
 	gameover_effect.do_effect()

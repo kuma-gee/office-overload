@@ -3,12 +3,12 @@ extends MarginContainer
 
 const DESC = {
 	GameManager.Mode.Work: "Get tasks based on your skill and improve until you become the next ceo.",
-	GameManager.Mode.Meeting: "Schedule a meeting with your teams and discuss to reduce the number of distractions.",
-	GameManager.Mode.AfterworkBeer: "Relax and have a beer with your team after a long day of work.",
-	GameManager.Mode.MorningCoffee: "Start your day with a cup of coffee that helps reduce your stress level.",
+	#GameManager.Mode.Meeting: "Schedule a meeting with your teams and discuss to reduce the number of distractions.",
+	#GameManager.Mode.AfterworkBeer: "Relax and have a beer with your team after a long day of work.",
+	#GameManager.Mode.MorningCoffee: "Start your day with a cup of coffee that helps reduce your stress level.",
 
 	GameManager.Mode.Crunch: "Work until you burn out. (endless)",
-	GameManager.Mode.Interview: "Tests your skills. (timed)",
+	#GameManager.Mode.Interview: "Tests your skills. (timed)",
 	
 	GameManager.Mode.Multiplayer: "Challenge other co-workers",
 }

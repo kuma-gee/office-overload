@@ -208,10 +208,7 @@ func _finished(is_burn_out = false, is_fired = false):
 			else:
 				end.day_ended(data)
 			
-	elif GameManager.is_interview_mode():
-		GameManager.finished_interview(document_stack.actual_document_count, work_time.timed_mode_seconds)
-		end.interview_ended(document_stack.total)
-	else:
+	elif GameManager.is_crunch_mode():
 		GameManager.finished_crunch(document_stack.actual_document_count)
 		end.crunch_ended(document_stack.total, work_time.hour)
 		

@@ -68,9 +68,6 @@ var bought_items: Array[Shop.Items]= []
 var money := 0
 
 ### Maybe Save? ###
-var last_interview_wpm := 0.0
-var last_interview_accuracy := 0.0
-
 var last_crunch_tasks := 0
 var last_crunch_time := 0.0
 var last_crunch_wpm := 0.0
@@ -114,21 +111,22 @@ func quit_game():
 	await SceneManager.fade_complete
 	get_tree().quit()
 
-func start(mode: Mode = current_mode):
-	if not is_mode_unlocked(mode):
-		return
-		
+func start(mode: Mode = current_mode, lvl = difficulty_level):
 	current_mode = mode
 	if Env.is_demo():
 		current_mode = Mode.Work
+
+	if not is_mode_unlocked(current_mode):
+		return
+	
+	difficulty_level = lvl
+	if finished_game:
+		performance = difficulty.max_performance
 	
 	wpm_calculator.reset()
 	game_started.emit()
 	
-	if mode == Mode.Work:
-		SceneManager.change_scene("res://src/game.tscn")
-	else:
-		SceneManager.change_scene("res://src/gamemode/bonus_game.tscn")
+	SceneManager.change_scene("res://src/game.tscn")
 
 func restart():
 	start()
@@ -241,14 +239,6 @@ func calculate_score(wpm: float = average_wpm, acc: float = average_accuracy, le
 	var score = wpm * acc * level * (log(day+1)/log(10)) # +1 in log, so it doesn't return 0
 	return score
 
-func finished_interview(tasks: int, time_in_sec: int):
-	last_interview_wpm = wpm_calculator.get_average_wpm()
-	last_interview_accuracy = wpm_calculator.get_average_accuracy()
-	wpm_calculator.reset()
-	
-	_upload_timed_scores(last_interview_wpm, last_crunch_accuracy, tasks)
-	round_ended.emit()
-
 func _upload_timed_scores(wpm: float, acc: float, count: int):
 	var score = wpm * acc * count
 	var board = get_leaderboard_for_mode()
@@ -298,7 +288,8 @@ func get_min_performance():
 func get_max_performance():
 	return difficulty.max_performance
 
-### Items
+
+#region ITEMS
 func buy_item(item: ShopResource):
 	if is_item_max(item):
 		_logger.warn("Item %s already at max upgrade" % Shop.Items.keys()[item.type])
@@ -351,8 +342,9 @@ func use_coffee():
 	_save_data()
 	coffee_used.emit()
 	return 100.0
+#endregion
 
-### Difficulty
+#region DIFFICULTY
 enum PromotionTip {
 	WPM,
 	Documents,
@@ -361,24 +353,8 @@ enum PromotionTip {
 }
 
 func can_have_promotion():
-	if is_max_promotion(): return false #PromotionTip.Max
-
-	#var next = difficulty_level + 1
-	#var diff = DIFFICULTIES[next] as DifficultyResource
-	
-	if performance < difficulty.max_performance:
-		return false #PromotionTip.Documents
-
-	#if get_wpm() < diff.min_average_wpm:
-		#return PromotionTip.WPM
-#
-	#if completed_documents < diff.minimum_documents:
-		#return PromotionTip.Documents
-#
-	#if average_accuracy < diff.min_accuracy:
-		#return PromotionTip.Accuracy
-	
-	return true
+	if is_max_promotion(): return false
+	return performance >= difficulty.max_performance
 	
 func take_promotion():
 	if is_max_promotion(): return
@@ -394,6 +370,9 @@ func demote():
 
 func is_max_promotion():
 	if Env.is_demo() and is_senior():
+		return true
+	
+	if finished_game:
 		return true
 
 	var next = difficulty_level + 1
@@ -435,37 +414,20 @@ func won_ceo():
 	finished_game = true
 	unlock_mode(Mode.Multiplayer)
 	round_ended.emit()
+#endregion
 
-### Modes
+#region MODES
 enum Mode {
 	Work,
 	Crunch,
-	Interview,
-
-	Meeting,
-	AfterworkBeer,
-	MorningCoffee,
-
 	Multiplayer, # TODO: add multiplayer, after release?
 }
 
-var MODE_CONDITION = {
-	Mode.Meeting: func(): return is_senior(),
-	Mode.AfterworkBeer: func(): return true, # TODO: check if overtime stress is high
-	Mode.MorningCoffee: func(): return is_junior(),
-}
 
 var MODE_TITLE = {
 	Mode.Work: "Work Day",
 	Mode.Crunch: "Crunch Time",
-	Mode.Interview: "Job Interview",
-	Mode.Meeting: "Meeting",
-	Mode.AfterworkBeer: "Afterwork Beer",
-	Mode.MorningCoffee: "Morning Coffee",
 }
-
-func is_interview_mode():
-	return current_mode == Mode.Interview
 
 func is_work_mode():
 	return current_mode == Mode.Work
@@ -473,26 +435,12 @@ func is_work_mode():
 func is_crunch_mode():
 	return current_mode == Mode.Crunch
 
-func is_meeting_mode():
-	return current_mode == Mode.Meeting
-
-func is_afterwork_mode():
-	return current_mode == Mode.AfterworkBeer
-
-func is_morning_mode():
-	return current_mode == Mode.MorningCoffee
-
 func is_mode_unlocked(mode: Mode):
 	if Env.is_demo():
 		return mode == Mode.Work
 
 	if not mode in unlocked_modes:
 		return false
-
-	#if mode in MODE_CONDITION:
-		#var condition = MODE_CONDITION.get(mode)
-		#if not condition.call():
-			#return false
 	
 	return true
 
@@ -526,3 +474,4 @@ func get_leaderboard_for_mode():
 			_: return SteamManager.STORY_LEADERBOARD
 	
 	return SteamManager.DEMO_LEADERBOARD
+#endregion

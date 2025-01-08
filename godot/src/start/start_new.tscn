@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://cdafk4ywr2fbg"]
+[gd_scene load_steps=59 format=3 uid="uid://cdafk4ywr2fbg"]
 
 [ext_resource type="Script" path="res://src/ui/Stats.gd" id="1_1pk7f"]
 [ext_resource type="Script" path="res://src/start/start_new.gd" id="1_25sst"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bl06rcj3vftvg" path="res://assets/sprites/Folder.png" id="9_h10wu"]
 [ext_resource type="Script" path="res://src/start/desk_item.gd" id="10_vvvnb"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="11_cjr5n"]
+[ext_resource type="Texture2D" uid="uid://bstvwnc3xppv1" path="res://assets/sprites/Shift.png" id="13_eyssn"]
 [ext_resource type="Script" path="res://src/base-system/menu/Settings.gd" id="14_efhj6"]
 [ext_resource type="Script" path="res://src/shop/shop.gd" id="14_nnqu0"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="15_17vat"]
@@ -28,10 +29,9 @@
 [ext_resource type="Script" path="res://src/ui/fullscreen_checkbox.gd" id="23_xaoub"]
 [ext_resource type="Script" path="res://src/ui/cloud_settings.gd" id="24_6ge0a"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="25_pu2hv"]
-[ext_resource type="Script" path="res://src/ui/esc_button.gd" id="26_ye0hp"]
-[ext_resource type="Script" path="res://src/ui/GameModes.gd" id="27_r358n"]
-[ext_resource type="PackedScene" uid="uid://wtd5yqsbnpf0" path="res://src/ui/game_mode.tscn" id="28_2yc81"]
+[ext_resource type="Script" path="res://src/ui/LevelSelectButton.gd" id="26_lp1fu"]
 [ext_resource type="PackedScene" uid="uid://bevwwvcqg3xhh" path="res://src/ui/folder.tscn" id="29_t2y1x"]
+[ext_resource type="Script" path="res://src/start/ceo_level_select.gd" id="30_ctfxw"]
 [ext_resource type="Script" path="res://src/ui/leaderboad.gd" id="30_m1awn"]
 [ext_resource type="Script" path="res://src/shop/shop_item_details.gd" id="32_dn4hy"]
 [ext_resource type="Texture2D" uid="uid://gdjrbxg43sj4" path="res://icon.png" id="33_bnvno"]
@@ -67,26 +67,121 @@ axis_stretch_vertical = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tpjge"]
 
-[node name="StartNew" type="Node2D" node_paths=PackedStringArray("work_label", "prepare_label", "exit_label", "files", "team", "shop_button", "teams_node", "files_node", "settings", "game_modes", "delegator", "folder", "teams", "shop")]
+[sub_resource type="Animation" id="Animation_6fel6"]
+resource_name = "alt_page"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.493545, 0.493546, 0.493546, 1), Color(0.2, 0.2, 0.2, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WorkDocument:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(24, -58), Vector2(0, 107)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AltPage:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 107), Vector2(24, -58)]
+}
+
+[sub_resource type="Animation" id="Animation_6q6rn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.493545, 0.493546, 0.493546, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WorkDocument:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(19, -35)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AltPage:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-5, 138)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bge4k"]
+_data = {
+"RESET": SubResource("Animation_6q6rn"),
+"alt_page": SubResource("Animation_6fel6")
+}
+
+[node name="StartNew" type="Node2D" node_paths=PackedStringArray("work_label", "settings_label", "exit_label", "crunch_mode", "multiplayer_mode", "files", "team", "shop_button", "teams_node", "files_node", "settings", "folder", "teams", "shop", "game_modes_key", "crunch_mode_container", "multiplayer_mode_container", "ceo_level_select", "delegator", "shift_delegator")]
 script = ExtResource("1_25sst")
 work_label = NodePath("WorkDocument/MarginContainer/VBoxContainer/Work")
-prepare_label = NodePath("WorkDocument/MarginContainer/VBoxContainer/Settings")
+settings_label = NodePath("WorkDocument/MarginContainer/VBoxContainer/Settings")
 exit_label = NodePath("WorkDocument/MarginContainer/VBoxContainer/Exit")
+crunch_mode = NodePath("AltPage/MarginContainer/VBoxContainer/Crunch/Crunch")
+multiplayer_mode = NodePath("AltPage/MarginContainer/VBoxContainer/Multiplayer/Multiplayer")
 files = NodePath("Files/Report")
 team = NodePath("Rankings/Team")
 shop_button = NodePath("ShopButton/PrepareDoc/MarginContainer/TypingLabel3")
 teams_node = NodePath("Rankings")
 files_node = NodePath("Files")
 settings = NodePath("CanvasLayer/Control/Settings")
-game_modes = NodePath("CanvasLayer/Control/GameModes")
-delegator = NodePath("Delegator")
 folder = NodePath("CanvasLayer/Control/Report")
 teams = NodePath("CanvasLayer/Control/Team")
 shop = NodePath("Shop")
+game_modes_key = NodePath("WorkDocument/MarginContainer/VBoxContainer/GameModesKey")
+crunch_mode_container = NodePath("AltPage/MarginContainer/VBoxContainer/Crunch")
+multiplayer_mode_container = NodePath("AltPage/MarginContainer/VBoxContainer/Multiplayer")
+ceo_level_select = NodePath("CanvasLayer/Control/CeoLevelSelect")
+delegator = NodePath("Delegator")
+shift_delegator = NodePath("ShiftDelegator")
 
 [node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("5_o5vtn")
 nodes = [NodePath("../WorkDocument/MarginContainer/VBoxContainer/Work"), NodePath("../WorkDocument/MarginContainer/VBoxContainer/Settings"), NodePath("../WorkDocument/MarginContainer/VBoxContainer/Exit"), NodePath("../Rankings/Team"), NodePath("../Files/Report"), NodePath("../ShopButton/PrepareDoc/MarginContainer/TypingLabel3")]
+
+[node name="ShiftDelegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
+script = ExtResource("5_o5vtn")
+nodes = [NodePath("../AltPage/MarginContainer/VBoxContainer/Crunch/Crunch"), NodePath("../AltPage/MarginContainer/VBoxContainer/Multiplayer/Multiplayer")]
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(56, 48)
@@ -135,6 +230,7 @@ theme_override_constants/margin_left = -2
 [node name="TypingLabel3" parent="ShopButton/PrepareDoc/MarginContainer" instance=ExtResource("11_cjr5n")]
 layout_mode = 2
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]s[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]hop[/outline_size][/outline_color][/color][/center][/outline_color]"
+reset_on_finish = true
 word = "shop"
 
 [node name="Stats" type="PanelContainer" parent="." node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy", "score_container", "score")]
@@ -262,16 +358,16 @@ position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
 [node name="WorkDocument" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(120, 160)
+custom_minimum_size = Vector2(110, 140)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 19.0
-offset_top = -35.0
-offset_right = 139.0
-offset_bottom = 125.0
+offset_left = 24.0
+offset_top = -58.0
+offset_right = 134.0
+offset_bottom = 90.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.139626
@@ -296,7 +392,7 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
 [node name="Title" type="Sprite2D" parent="WorkDocument/MarginContainer/VBoxContainer/Control"]
-position = Vector2(57, 15)
+position = Vector2(50.8782, 15.8604)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("4_h3t2k")
 
@@ -312,6 +408,87 @@ word = "settings"
 layout_mode = 2
 word = "exit"
 
+[node name="Control2" type="Control" parent="WorkDocument/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GameModesKey" type="HBoxContainer" parent="WorkDocument/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="Label" type="Label" parent="WorkDocument/MarginContainer/VBoxContainer/GameModesKey"]
+layout_mode = 2
+text = "game modes"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="WorkDocument/MarginContainer/VBoxContainer/GameModesKey"]
+layout_mode = 2
+texture = ExtResource("13_eyssn")
+stretch_mode = 3
+
+[node name="AltPage" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(110, 140)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 107.0
+offset_right = 110.0
+offset_bottom = 254.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.139626
+pivot_offset = Vector2(60, 80)
+theme = ExtResource("2_xj832")
+script = ExtResource("8_4jrgk")
+move_dir = Vector2(0.2, -1)
+
+[node name="MarginContainer" type="MarginContainer" parent="AltPage"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AltPage/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="AltPage/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 12
+text = "Game modes"
+horizontal_alignment = 1
+
+[node name="Crunch" type="VBoxContainer" parent="AltPage/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Crunch" parent="AltPage/MarginContainer/VBoxContainer/Crunch" instance=ExtResource("7_plxua")]
+layout_mode = 2
+word = "crunch"
+
+[node name="Label" type="Label" parent="AltPage/MarginContainer/VBoxContainer/Crunch"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Work endlessly until you burn out"
+autowrap_mode = 3
+
+[node name="Multiplayer" type="VBoxContainer" parent="AltPage/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Multiplayer" parent="AltPage/MarginContainer/VBoxContainer/Multiplayer" instance=ExtResource("7_plxua")]
+layout_mode = 2
+word = "multiplayer"
+
+[node name="Label" type="Label" parent="AltPage/MarginContainer/VBoxContainer/Multiplayer"]
+layout_mode = 2
+text = "Challenge other co-workers"
+autowrap_mode = 3
+
 [node name="Rankings" type="Sprite2D" parent="."]
 position = Vector2(-12, 59)
 rotation = 0.279253
@@ -325,6 +502,7 @@ offset_right = -3.5
 offset_bottom = -3.5
 theme_override_font_sizes/normal_font_size = 12
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]t[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eams[/outline_size][/outline_color][/color][/center][/outline_color]"
+reset_on_finish = true
 word = "teams"
 
 [node name="Files" type="Sprite2D" parent="."]
@@ -340,6 +518,7 @@ offset_right = -3.5
 offset_bottom = -3.5
 theme_override_font_sizes/normal_font_size = 12
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]r[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eport[/outline_size][/outline_color][/color][/center][/outline_color]"
+reset_on_finish = true
 word = "report"
 
 [node name="Shop" type="Control" parent="." node_paths=PackedStringArray("container", "delegator", "money_container", "details")]
@@ -351,7 +530,7 @@ theme = ExtResource("2_xj832")
 script = ExtResource("14_nnqu0")
 container = NodePath("MarginContainer/CenterContainer/MarginContainer/GridContainer")
 item_scene = ExtResource("15_a4ld2")
-delegator = NodePath("Delegator")
+delegator = NodePath("ShopDelegator")
 money_container = NodePath("../CanvasLayer/Control/Money")
 details = NodePath("../CanvasLayer/Control/ShopItemDetails")
 
@@ -408,7 +587,7 @@ layout_mode = 2
 [node name="ShopItem8" parent="Shop/MarginContainer/CenterContainer/MarginContainer/GridContainer" instance=ExtResource("15_a4ld2")]
 layout_mode = 2
 
-[node name="Delegator" type="Node" parent="Shop"]
+[node name="ShopDelegator" type="Node" parent="Shop"]
 script = ExtResource("5_o5vtn")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -433,7 +612,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.588235)
 
-[node name="Settings" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("overlay", "sliders", "display_settings", "delegator")]
+[node name="Settings" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("overlay", "sliders", "display_settings", "_audio", "delegator")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -446,6 +625,7 @@ script = ExtResource("14_efhj6")
 overlay = NodePath("Audio/Overlay")
 sliders = [NodePath("Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider"), NodePath("Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider"), NodePath("Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider")]
 display_settings = NodePath("Audio/MarginContainer/DisplaySettings")
+_audio = NodePath("Audio")
 delegator = NodePath("Delegator")
 
 [node name="Delegator" type="Node" parent="CanvasLayer/Control/Settings" node_paths=PackedStringArray("nodes")]
@@ -466,7 +646,7 @@ script = ExtResource("17_s6hs1")
 node = NodePath("../../../MenuOverlay")
 
 [node name="Audio" type="PanelContainer" parent="CanvasLayer/Control/Settings"]
-custom_minimum_size = Vector2(100, 160)
+custom_minimum_size = Vector2(130, 150)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -474,9 +654,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -78.0
-offset_top = -80.0
+offset_top = -73.0
 offset_right = 81.0
-offset_bottom = 80.0
+offset_bottom = 67.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("18_ikgcj")
@@ -499,7 +679,7 @@ layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 10
-text = "Prepare for work"
+text = "settings"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="GridContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings"]
@@ -680,7 +860,7 @@ layout_mode = 2
 texture = ExtResource("25_pu2hv")
 stretch_mode = 2
 
-[node name="GameModes" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("delegator")]
+[node name="CeoLevelSelect" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("delegator")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -690,85 +870,112 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
 mouse_filter = 2
-script = ExtResource("27_r358n")
-delegator = NodePath("Delegator")
+script = ExtResource("30_ctfxw")
+delegator = NodePath("LevelSelectDelegator")
 
-[node name="Delegator" type="Node" parent="CanvasLayer/Control/GameModes" node_paths=PackedStringArray("nodes")]
+[node name="LevelSelectDelegator" type="Node" parent="CanvasLayer/Control/CeoLevelSelect" node_paths=PackedStringArray("nodes")]
 script = ExtResource("5_o5vtn")
-nodes = [NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode"), null, NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode2"), null, NodePath("../Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/GameMode5")]
+nodes = [NodePath("../CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Intern"), NodePath("../CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Junior"), NodePath("../CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Senior"), NodePath("../CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Manager"), NodePath("../CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/CEO")]
 
-[node name="EffectRoot" type="Node" parent="CanvasLayer/Control/GameModes"]
+[node name="EffectRoot" type="Node" parent="CanvasLayer/Control/CeoLevelSelect"]
 script = ExtResource("15_17vat")
 ease = 1
 duration = 0.5
 
-[node name="Slide" type="Node" parent="CanvasLayer/Control/GameModes/EffectRoot" node_paths=PackedStringArray("node")]
+[node name="Slide" type="Node" parent="CanvasLayer/Control/CeoLevelSelect/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("16_xmdsl")
 node = NodePath("../..")
 
-[node name="Fade" type="Node" parent="CanvasLayer/Control/GameModes/EffectRoot" node_paths=PackedStringArray("node")]
+[node name="Fade" type="Node" parent="CanvasLayer/Control/CeoLevelSelect/EffectRoot" node_paths=PackedStringArray("node")]
 script = ExtResource("17_s6hs1")
 node = NodePath("../../../MenuOverlay")
 
-[node name="Modes" type="PanelContainer" parent="CanvasLayer/Control/GameModes"]
-custom_minimum_size = Vector2(240, 150)
+[node name="CeoLevelSelect" type="PanelContainer" parent="CanvasLayer/Control/CeoLevelSelect"]
+custom_minimum_size = Vector2(130, 150)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -120.0
+offset_left = -65.0
 offset_top = -75.0
-offset_right = 120.0
+offset_right = 65.0
 offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(60, 80)
+theme = ExtResource("2_xj832")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/GameModes/Modes"]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="EscButton" type="TextureRect" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("25_pu2hv")
+stretch_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 5
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Work Mode"
-label_settings = ExtResource("5_qryb2")
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 10
+text = "Select Level"
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="GameMode" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("28_2yc81")]
+[node name="Intern" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
 layout_mode = 2
-mode = 0
+script = ExtResource("26_lp1fu")
+level = 0
 
-[node name="GameMode2" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("28_2yc81")]
+[node name="Junior" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
 layout_mode = 2
+script = ExtResource("26_lp1fu")
+level = 1
+word = "junior"
 
-[node name="GameMode5" parent="CanvasLayer/Control/GameModes/Modes/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("28_2yc81")]
+[node name="Senior" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
 layout_mode = 2
-mode = 6
+script = ExtResource("26_lp1fu")
+level = 2
+word = "senior"
 
-[node name="EscButton" type="TextureButton" parent="CanvasLayer/Control/GameModes"]
-layout_mode = 0
-offset_left = 36.0
-offset_top = 12.0
-offset_right = 48.0
-offset_bottom = 21.0
-texture_normal = ExtResource("25_pu2hv")
-script = ExtResource("26_ye0hp")
+[node name="Manager" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
+layout_mode = 2
+script = ExtResource("26_lp1fu")
+level = 3
+word = "manager"
+
+[node name="CEO" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
+layout_mode = 2
+script = ExtResource("26_lp1fu")
+level = 4
+word = "CEO"
 
 [node name="Team" parent="CanvasLayer/Control" node_paths=PackedStringArray("user_board", "friends_board", "global_board", "steam_offline") instance=ExtResource("29_t2y1x")]
 layout_mode = 1
@@ -823,6 +1030,7 @@ board = NodePath("MarginContainer/VBoxContainer/UserScore")
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]f[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]ellows[/outline_size][/outline_color][/color][/center][/outline_color]"
+reset_on_finish = false
 word = "fellows"
 
 [node name="UserScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer" index="1" instance=ExtResource("36_vfedp")]
@@ -843,6 +1051,7 @@ board = NodePath("MarginContainer/VBoxContainer/GlobalScore")
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Top1/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]t[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]opspot[/outline_size][/outline_color][/color][/center][/outline_color]"
+reset_on_finish = false
 word = "topspot"
 
 [node name="GlobalScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Top1/MarginContainer/VBoxContainer" index="1" instance=ExtResource("36_vfedp")]
@@ -863,6 +1072,7 @@ board = NodePath("MarginContainer/VBoxContainer/FriendsScore")
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Team2/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]t[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eammates[/outline_size][/outline_color][/color][/center][/outline_color]"
+reset_on_finish = false
 word = "teammates"
 
 [node name="FriendsScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Team2/MarginContainer/VBoxContainer" index="1" instance=ExtResource("36_vfedp")]
@@ -927,6 +1137,7 @@ loading_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxCont
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]f[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eedback[/outline_size][/outline_color][/color][/center][/outline_color]"
+reset_on_finish = false
 word = "feedback"
 
 [node name="Limit" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
@@ -1007,6 +1218,7 @@ nodes = [NodePath("../MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftBu
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]p[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]erformance[/outline_size][/outline_color][/color][/center][/outline_color]"
+reset_on_finish = false
 word = "performance"
 
 [node name="Graph2D" type="Control" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer" index="1" node_paths=PackedStringArray("coordinate")]
@@ -1142,6 +1354,7 @@ nodes = [NodePath("../MarginContainer/VBoxContainer/VBoxContainer/Signature")]
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]r[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]esignation[/outline_size][/outline_color][/color][/center][/outline_color]"
+reset_on_finish = false
 word = "resignation"
 
 [node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="1"]
@@ -1177,6 +1390,7 @@ offset_bottom = 10.0
 visible = false
 
 [node name="ShopItemDetails" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("icon", "name_label", "price_label", "desc_label", "purchase_word", "sold_out_label", "disabled_overlay", "coffee_ctrl")]
+visible = false
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -1334,6 +1548,11 @@ stream = ExtResource("46_0cyp8")
 volume_db = -50.0
 autoplay = true
 bus = &"BGM"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bge4k")
+}
 
 [editable path="CanvasLayer/Control/Team"]
 [editable path="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3"]
