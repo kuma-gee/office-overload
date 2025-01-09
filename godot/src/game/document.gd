@@ -17,10 +17,20 @@ signal typed()
 @onready var paper_move_in = $PaperMoveIn
 @onready var paper_sort = $PaperSort
 @onready var stain_detector: Area2D = $StainDetector
+@onready var mistake_lines: Control = $Sprite2D/MistakeLines
+@onready var mistake_throttle_timer: Timer = $MistakeThrottleTimer
 
 var is_discarded := false
 
-var mistakes := 0
+var mistakes := 0:
+	set(v):
+		mistakes = v
+		
+		if mistake_throttle_timer.is_stopped():
+			var lines = mistake_lines.get_children().filter(func(c): return not c.visible)
+			if lines.is_empty(): return
+			lines.pick_random().show()
+
 var word := ""
 var target_position := Vector2.ZERO
 var _logger = Logger.new("Document")
@@ -35,6 +45,9 @@ func show_tutorial():
 		#typing_label.jump_first = true
 
 func _ready():
+	for c in mistake_lines.get_children():
+		c.hide()
+	
 	typing_label.word = word
 	typing_label.typing.connect(func(): typed.emit())
 

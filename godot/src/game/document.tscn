@@ -26,6 +26,10 @@ radius = 23.0868
 process_mode = 3
 script = ExtResource("1_q4ht6")
 
+[node name="MistakeThrottleTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_pxbm0")
 texture = ExtResource("1_qjb0l")
@@ -40,7 +44,152 @@ text = "[outline_color=ffffffff][center][typed until=0 height=2 frequency=8 high
 height = 2.0
 highlight_first = false
 
+[node name="MistakeLines" type="Control" parent="Sprite2D"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -21.0
+offset_top = 29.0
+offset_right = 19.0
+offset_bottom = 69.0
+
+[node name="ColorRect" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 33.0
+offset_top = -34.0
+offset_right = 38.0
+offset_bottom = -32.0
+rotation = 1.309
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ColorRect9" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 28.0
+offset_top = -41.0
+offset_right = 34.0
+offset_bottom = -39.0
+rotation = 1.83259
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 13.0
+offset_top = -22.0
+offset_right = 18.0
+offset_bottom = -20.0
+rotation = 1.83259
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 15.0
+offset_top = -46.0
+offset_right = 20.0
+offset_bottom = -44.0
+rotation = 0.785397
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 27.0
+offset_top = -17.0
+offset_right = 32.0
+offset_bottom = -15.0
+rotation = 1.0472
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ColorRect5" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 29.0
+offset_top = -53.0
+offset_right = 34.0
+offset_bottom = -51.0
+rotation = 1.0472
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ColorRect8" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 18.0
+offset_top = -51.0
+offset_right = 23.0
+offset_bottom = -47.0
+rotation = 2.09439
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ColorRect7" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 26.0
+offset_top = -30.0
+offset_right = 31.0
+offset_bottom = -26.0
+rotation = 1.0472
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ColorRect6" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 14.0
+offset_top = -34.0
+offset_right = 19.0
+offset_bottom = -31.0
+rotation = 1.83259
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ColorRect10" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 19.0
+offset_top = -10.0
+offset_right = 24.0
+offset_bottom = -7.00001
+rotation = 1.83259
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ColorRect11" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 37.0
+offset_top = -46.0
+offset_right = 42.0
+offset_bottom = -43.0
+rotation = 1.83259
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ColorRect12" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 36.0
+offset_top = -22.0
+offset_right = 41.0
+offset_bottom = -19.0
+rotation = 1.57079
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ColorRect13" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 9.0
+offset_top = -41.0
+offset_right = 14.0
+offset_bottom = -38.0
+rotation = 1.57079
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ColorRect14" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 31.0
+offset_top = -10.0
+offset_right = 36.0
+offset_bottom = -7.0
+rotation = 1.57079
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ColorRect15" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 27.0
+offset_top = -23.0
+offset_right = 32.0
+offset_bottom = -20.0
+rotation = 1.83259
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ColorRect16" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 7.0
+offset_top = -17.0
+offset_right = 12.0
+offset_bottom = -14.0
+rotation = 1.309
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ColorRect17" type="ColorRect" parent="Sprite2D/MistakeLines"]
+offset_left = 27.0
+offset_top = -47.0
+offset_right = 32.0
+offset_bottom = -44.0
+rotation = 1.57079
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
 scale = Vector2(2.5, 3.2)
 
 [node name="Control" type="Control" parent="."]
@@ -70,6 +219,7 @@ volume_db = -10.0
 bus = &"SFX"
 
 [node name="StainDetector" type="Area2D" parent="."]
+visible = false
 collision_mask = 0
 script = ExtResource("9_fr0li")
 
