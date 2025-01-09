@@ -351,7 +351,8 @@ func _setup_boss_attack():
 		boss_attack_documents = 0
 		_start_boss_attack_timer()
 	else:
-		boss_attack_documents = randi_range(boss_attack_count_min, boss_attack_count_max)
+		boss_attack_documents = randi_range(boss_attack_count_min, floor(boss_attack_count_max * GameManager.get_distraction_reduction())) 
+		boss_attack_documents = floor(boss_attack_documents)
 		_spawn_boss_attack()
 	
 	boss_attacked += 1

@@ -331,18 +331,35 @@ func item_price(item: ShopResource):
 	var item_bought = item_count(item.type)
 	return item.prices[min(item_bought, item.prices.size() - 1)]
 
+const PLANT_STRESS_REDUCTION = [0.1, 0.25, 0.4]
+const MONEY_INCREASE = [0.1, 0.2]
+const ASSISTANT_REDUCTION = [0.1, 0.25]
+
+func get_item_value(item: Shop.Items, count = item_count(item)):
+	var arr = []
+	match item:
+		Shop.Items.PLANT: arr = PLANT_STRESS_REDUCTION
+		Shop.Items.MONEY_CAT: arr = MONEY_INCREASE
+		Shop.Items.ASSISTANT: arr = ASSISTANT_REDUCTION
+	
+	var i = count - 1
+	if arr.is_empty() or i < 0: return 0.0
+	if i >= arr.size(): return arr[arr.size() - 1]
+
+	return arr[i]
+
 func get_stress_reduction():
-	if not Shop.Items.PLANT in bought_items:
-		return 1.0
-	return 0.8
+	var reduction = get_item_value(Shop.Items.PLANT)
+	return 1.0 - reduction
 
 func get_money_bonus():
-	if not Shop.Items.MONEY_CAT in bought_items:
-		return 1.0 * difficulty.money_multiplier
-	return 1.2 * difficulty.money_multiplier
+	var multiplier = difficulty.money_multiplier
+	multiplier += get_item_value(Shop.Items.MONEY_CAT)
+	return 1.0 + multiplier
 
 func get_distraction_reduction():
-	return 1.0 - item_count(Shop.Items.ASSISTANT) * 0.2
+	var reduction = get_item_value(Shop.Items.ASSISTANT)
+	return 1.0 - reduction
 
 func has_coffee():
 	return Shop.Items.COFFEE in bought_items

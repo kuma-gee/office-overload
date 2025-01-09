@@ -32,4 +32,6 @@ func spill():
 	tw.tween_property(self, "position", orig_pos, 0.5)
 	await tw.finished
 	animation_player.play("spill")
+	
+	var time = lifetime.wait_time * GameManager.get_distraction_reduction()
 	lifetime.start()

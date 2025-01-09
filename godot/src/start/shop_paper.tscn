@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dbph2sk0jrwh7"]
+[gd_scene load_steps=9 format=3 uid="uid://dbph2sk0jrwh7"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_vkbbw"]
 [ext_resource type="Script" path="res://src/start/shop_paper.gd" id="2_ipdik"]
@@ -6,10 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://btpfvi2cluwcj" path="res://assets/sprites/Icon_Plant.png" id="4_ia1nw"]
 [ext_resource type="Texture2D" uid="uid://dmrxb8h6ge88v" path="res://assets/sprites/Ctrl.png" id="5_50sr6"]
 [ext_resource type="Script" path="res://src/delegator.gd" id="6_ebu83"]
+[ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="6_phsls"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="7_tygfg"]
 
-[node name="ShopPaper" type="PanelContainer" node_paths=PackedStringArray("desc_label", "price_label", "icon_tex", "ctrl_hint", "sold_out", "no_money", "buy_button", "title_button", "delegator")]
-custom_minimum_size = Vector2(100, 120)
+[node name="ShopPaper" type="PanelContainer" node_paths=PackedStringArray("desc_label", "price_label", "value_label", "icon_tex", "ctrl_hint", "sold_out", "no_money", "buy_button", "title_button", "delegator")]
+custom_minimum_size = Vector2(120, 120)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -25,11 +26,12 @@ pivot_offset = Vector2(50, 67)
 focus_mode = 2
 theme = ExtResource("1_vkbbw")
 script = ExtResource("2_ipdik")
-desc_label = NodePath("MarginContainer/VBoxContainer/Desc")
-price_label = NodePath("MarginContainer/VBoxContainer/Price")
-icon_tex = NodePath("MarginContainer/VBoxContainer/TextureRect")
+desc_label = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Desc")
+price_label = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Price")
+value_label = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Value")
+icon_tex = NodePath("MarginContainer/VBoxContainer/VBoxContainer/TextureRect")
 ctrl_hint = NodePath("MarginContainer/VBoxContainer/MarginContainer/CtrlHint")
-sold_out = NodePath("MarginContainer/VBoxContainer/TextureRect/SoldOut")
+sold_out = NodePath("MarginContainer/VBoxContainer/VBoxContainer/TextureRect/SoldOut")
 no_money = NodePath("MarginContainer/VBoxContainer/MarginContainer/NoMoney")
 buy_button = NodePath("MarginContainer/VBoxContainer/MarginContainer/Buy")
 title_button = NodePath("MarginContainer/VBoxContainer/Work")
@@ -55,18 +57,22 @@ theme_override_constants/separation = 5
 layout_mode = 2
 word = "work"
 
-[node name="Price" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Price" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "$100"
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 texture = ExtResource("4_ia1nw")
 stretch_mode = 3
 
-[node name="SoldOut" type="CenterContainer" parent="MarginContainer/VBoxContainer/TextureRect"]
+[node name="SoldOut" type="CenterContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/TextureRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -74,10 +80,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/TextureRect/SoldOut"]
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/VBoxContainer/TextureRect/SoldOut"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/TextureRect/SoldOut/Control"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/TextureRect/SoldOut/Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -93,13 +99,22 @@ grow_vertical = 2
 rotation = -0.523599
 pivot_offset = Vector2(19, 5)
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/TextureRect/SoldOut/Control/PanelContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/TextureRect/SoldOut/Control/PanelContainer"]
 layout_mode = 2
 text = "SOLD_OUT"
 
-[node name="Desc" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Desc" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 6
 text = "Reduces stress"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 6
+text = "-20%"
+label_settings = ExtResource("6_phsls")
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -117,7 +132,7 @@ show_underline = false
 
 [node name="NoMoney" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
-text = "No money"
+text = "out of budget"
 horizontal_alignment = 1
 
 [node name="CtrlHint" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
@@ -146,3 +161,6 @@ theme_override_constants/margin_bottom = 3
 layout_mode = 2
 texture = ExtResource("7_tygfg")
 stretch_mode = 2
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2

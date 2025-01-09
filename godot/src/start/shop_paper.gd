@@ -5,6 +5,7 @@ extends FocusedDocument
 
 @export var desc_label: Label
 @export var price_label: Label
+@export var value_label: Label
 @export var icon_tex: TextureRect
 @export var ctrl_hint: Control
 @export var sold_out: Control
@@ -19,19 +20,31 @@ func _ready() -> void:
 	icon_tex.texture = item.icon
 	var type_str = Shop.Items.keys()[item.type]
 	title_button.update(tr(type_str))
+	desc_label.text = tr("%s_DESC" % type_str)
+
+	_update()
+	GameManager.item_purchased.connect(func(): _update())
+
+func _update():
+	var count = GameManager.item_count(item.type)
+	var value = GameManager.get_item_value(item.type, count + 1)
+	value_label.visible = value > 0
+	if value > 0:
+		var sign = "+" if item.type in [Shop.Items.MONEY_CAT] else "-"
+		value_label.text = "%s%.0f%%" % [sign, value * 100]
 
 	var price = GameManager.item_price(item)
+	var disabled = GameManager.money < price
 	price_label.text = "$%s" % price
-	desc_label.text = tr("%s_DESC" % type_str)
-	no_money.visible = GameManager.money < price
+	no_money.visible = disabled
 	
-	buy_button.visible = not GameManager.is_item_max(item) and not no_money.visible
-	buy_button.get_label().word = tr("PURCHASE") if GameManager.item_count(item.type) <= 0 else tr("UPGRADE")
-	var disabled = GameManager.money < GameManager.item_price(item)
+	var is_max = GameManager.is_item_max(item)
+	buy_button.visible = not is_max and not disabled
+	buy_button.get_label().word = tr("PURCHASE") if count <= 0 else tr("UPGRADE")
 	
 	var is_coffee = item.type == Shop.Items.COFFEE
-	sold_out.visible = not buy_button.visible
-	ctrl_hint.visible = not buy_button.visible and is_coffee
+	sold_out.visible = is_max and not is_coffee
+	ctrl_hint.visible = is_max and is_coffee
 	
-	buy_button.get_label().disabled = disabled
-	buy_button.get_label().highlight_first = not disabled
+	#buy_button.get_label().disabled = disabled
+	#buy_button.get_label().highlight_first = not disabled

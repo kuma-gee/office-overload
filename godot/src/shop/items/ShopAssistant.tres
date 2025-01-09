@@ -7,4 +7,4 @@
 script = ExtResource("2_7r2uh")
 type = 3
 icon = ExtResource("1_xf20s")
-prices = Array[int]([1000, 1500])
+prices = Array[int]([1000, 1800])

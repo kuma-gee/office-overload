@@ -14,6 +14,7 @@ var focus_tw: Tween
 
 func _ready() -> void:
 	focus_mode = FOCUS_ALL
+	mouse_filter = MOUSE_FILTER_IGNORE
 	
 	title_button.finished.connect(func(): grab_focus())
 	focus_entered.connect(func():

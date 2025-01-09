@@ -244,13 +244,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -112.0
-offset_top = -73.0
-offset_right = -2.0
-offset_bottom = 67.0
+offset_left = -105.0
+offset_top = -82.0
+offset_right = 5.0
+offset_bottom = 58.0
 grow_horizontal = 2
 grow_vertical = 2
-rotation = -0.0698132
 pivot_offset = Vector2(60, 80)
 theme = ExtResource("2_xj832")
 script = ExtResource("6_q1q4c")
@@ -301,16 +300,19 @@ item = ExtResource("23_hhmej")
 layout_mode = 2
 item = ExtResource("22_kdipq")
 
+[node name="Control" type="Control" parent="ItemsPaper"]
+layout_mode = 2
+
 [node name="Stats" type="PanelContainer" parent="." node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy", "score_container", "score")]
 custom_minimum_size = Vector2(110, 140)
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -156.0
-offset_top = -37.0
-offset_right = -46.0
-offset_bottom = 103.0
+offset_left = -148.0
+offset_top = -41.0
+offset_right = -38.0
+offset_bottom = 99.0
 grow_horizontal = 2
 grow_vertical = 0
 rotation = -0.0872665
@@ -347,7 +349,7 @@ theme_override_constants/separation = 5
 [node name="Label" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 8
 text = "Current Job"
 horizontal_alignment = 1
 
@@ -389,7 +391,6 @@ theme_override_constants/separation = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Skill"
-label_settings = ExtResource("5_qryb2")
 
 [node name="WPM" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -412,7 +413,6 @@ theme_override_constants/separation = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "SCore"
-label_settings = ExtResource("5_qryb2")
 
 [node name="Score2" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer3"]
 layout_mode = 2
@@ -557,7 +557,7 @@ text = "Challenge other co-workers"
 autowrap_mode = 3
 
 [node name="Rankings" type="Sprite2D" parent="."]
-position = Vector2(134, 71)
+position = Vector2(-33, 67)
 rotation = 0.279253
 texture = ExtResource("9_h10wu")
 script = ExtResource("10_vvvnb")
@@ -572,7 +572,7 @@ reset_on_finish = true
 word = "teams"
 
 [node name="Files" type="Sprite2D" parent="."]
-position = Vector2(135, 26)
+position = Vector2(129, 67)
 rotation = -0.174533
 texture = ExtResource("9_h10wu")
 script = ExtResource("10_vvvnb")

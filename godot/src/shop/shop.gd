@@ -27,7 +27,6 @@ func _ready() -> void:
 		delegator.nodes.append(c)
 
 func handle_input(event: InputEvent) -> void:
-	print("Handle")
 	if event.is_action_pressed("ui_cancel") and not delegator.has_focused():
 		closed.emit()
 	
