@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wmdeiblvsffh"
-path="res://.godot/imported/Lock.png-735e0a3f36d7fdcf6d461a99c8d9166f.ctex"
+uid="uid://t0vtdco1mbgy"
+path="res://.godot/imported/Icon_Assistant.png-6c9a49e352ba4971aa4bb3a1c01799dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Lock.png"
-dest_files=["res://.godot/imported/Lock.png-735e0a3f36d7fdcf6d461a99c8d9166f.ctex"]
+source_file="res://assets/sprites/Icon_Assistant.png"
+dest_files=["res://.godot/imported/Icon_Assistant.png-6c9a49e352ba4971aa4bb3a1c01799dd.ctex"]
 
 [params]
 

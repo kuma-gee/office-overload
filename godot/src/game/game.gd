@@ -76,7 +76,7 @@ func _ready():
 	_update_score()
 
 	for i in range(items_root.get_child_count()):
-		items_root.get_child(i).visible = i in GameManager.bought_items
+		items_root.get_child(i).visible = GameManager.is_item_used(i)
 	
 	boss_combo = 0
 	overload_progress.game = self

@@ -1,31 +1,30 @@
 [gd_scene load_steps=105 format=3 uid="uid://di8g8e6s34cik"]
 
-[ext_resource type="Script" path="res://src/game.gd" id="1_ptsas"]
-[ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/document.tscn" id="2_35x6g"]
+[ext_resource type="Script" path="res://src/game/game.gd" id="1_ptsas"]
+[ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/game/document.tscn" id="2_35x6g"]
 [ext_resource type="Script" path="res://src/base-system/CameraShake.gd" id="2_40dk3"]
 [ext_resource type="Texture2D" uid="uid://h14bp6b8w6i8" path="res://assets/sprites/Progress_Under.png" id="2_s1wqh"]
-[ext_resource type="Script" path="res://src/difficulty_manger.gd" id="2_s81cp"]
 [ext_resource type="PackedScene" uid="uid://dffjinparflk0" path="res://src/ui/day.tscn" id="3_4j615"]
 [ext_resource type="Texture2D" uid="uid://df8a7xriw1acm" path="res://assets/sprites/Progress_Fill.png" id="3_6o0s1"]
 [ext_resource type="Script" path="res://src/base-system/FrameFreeze.gd" id="3_o6tfp"]
-[ext_resource type="Script" path="res://src/DocSpawner.gd" id="4_macw6"]
+[ext_resource type="Script" path="res://src/game/DocSpawner.gd" id="4_macw6"]
 [ext_resource type="Texture2D" uid="uid://wg2sutgl31vb" path="res://assets/sprites/Progress_Break.png" id="4_nv7v1"]
 [ext_resource type="Shader" path="res://src/base-system/shaders/hit.gdshader" id="4_tfr35"]
-[ext_resource type="Script" path="res://src/ProgressBroken.gd" id="5_b1x4w"]
+[ext_resource type="Script" path="res://src/game/ProgressBroken.gd" id="5_b1x4w"]
 [ext_resource type="AudioStream" uid="uid://wbinc813ks6f" path="res://assets/sound/ガラスが割れる3.mp3" id="6_g6nin"]
 [ext_resource type="Texture2D" uid="uid://mgxmnunxgvxi" path="res://assets/sprites/Progress_Front.png" id="7_8fqhj"]
-[ext_resource type="Script" path="res://src/WorkTime.gd" id="7_ruuy4"]
+[ext_resource type="Script" path="res://src/game/WorkTime.gd" id="7_ruuy4"]
 [ext_resource type="PackedScene" uid="uid://dw4ed4dspm22v" path="res://src/ui/gameover.tscn" id="8_lpofg"]
 [ext_resource type="PackedScene" uid="uid://kdu7e637eapn" path="res://src/ui/end.tscn" id="9_dbvje"]
 [ext_resource type="Script" path="res://src/base-system/AutoProgressbar.gd" id="9_ul3fx"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="10_am0oy"]
 [ext_resource type="Script" path="res://src/base-system/ExtendedTimer.gd" id="10_sr2sn"]
-[ext_resource type="AudioStream" uid="uid://cbl54cvxxt3ij" path="res://assets/sound/beep.mp3" id="12_6mlls"]
-[ext_resource type="Script" path="res://src/DocumentStack.gd" id="12_n73rb"]
+[ext_resource type="AudioStream" uid="uid://cbl54cvxxt3ij" path="res://src/game/beep.mp3" id="12_6mlls"]
+[ext_resource type="Script" path="res://src/game/DocumentStack.gd" id="12_n73rb"]
 [ext_resource type="AudioStream" uid="uid://dykrksjnisr7f" path="res://assets/sound/柱時計の鐘.mp3" id="12_y1afc"]
 [ext_resource type="Texture2D" uid="uid://b3m7b3wyx4tpw" path="res://assets/sprites/Clock.png" id="13_dyrwf"]
-[ext_resource type="Script" path="res://src/Distractions.gd" id="14_s1o3m"]
-[ext_resource type="Script" path="res://src/Clock.gd" id="14_stuan"]
+[ext_resource type="Script" path="res://src/game/Distractions.gd" id="14_s1o3m"]
+[ext_resource type="Script" path="res://src/game/Clock.gd" id="14_stuan"]
 [ext_resource type="Texture2D" uid="uid://c7y3y52oh6sbg" path="res://assets/sprites/MonitorLight.png" id="14_uyjhq"]
 [ext_resource type="Script" path="res://src/ui/DistractionWindow.gd" id="15_ffym8"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="15_r4fui"]
@@ -37,7 +36,7 @@
 [ext_resource type="Script" path="res://src/ManualLoopAudio.gd" id="18_f0kcb"]
 [ext_resource type="AudioStream" uid="uid://dc1fhbgjs375l" path="res://assets/sound/携帯電話のバイブレーション1.mp3" id="19_5t58c"]
 [ext_resource type="AudioStream" uid="uid://bpxm5pscsli23" path="res://assets/sound/鳩時計1.mp3" id="19_mkiih"]
-[ext_resource type="Script" path="res://src/BlinkText.gd" id="20_0ygyh"]
+[ext_resource type="Script" path="res://src/game/BlinkText.gd" id="20_0ygyh"]
 [ext_resource type="AudioStream" uid="uid://bmtpsyxjqkjxv" path="res://assets/sound/携帯電話の着信音1.mp3" id="20_2av8q"]
 [ext_resource type="Texture2D" uid="uid://7rmhhytuv24r" path="res://assets/sprites/Email.png" id="20_hn5id"]
 [ext_resource type="Script" path="res://src/delegator.gd" id="20_tcix1"]
@@ -58,21 +57,22 @@
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
 [ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
 [ext_resource type="Texture2D" uid="uid://cahg70l0ct3i3" path="res://assets/sprites/Desk_Duck.png" id="47_0m5o6"]
-[ext_resource type="Script" path="res://src/duck.gd" id="47_m6qb4"]
+[ext_resource type="Script" path="res://src/game/duck.gd" id="47_m6qb4"]
 [ext_resource type="Texture2D" uid="uid://dl1vy7elnxhrw" path="res://assets/sprites/Desk_Mouse.png" id="48_edn0k"]
 [ext_resource type="Texture2D" uid="uid://busfi7fbj5jtp" path="res://assets/sprites/Desk_Cat.png" id="48_ic7kw"]
 [ext_resource type="AudioStream" uid="uid://dl0dmhy7ucodo" path="res://assets/sound/カモ.mp3" id="49_0opw7"]
 [ext_resource type="Texture2D" uid="uid://gxkl3pcqm8ch" path="res://assets/sprites/Desk_Note.png" id="49_bjcyb"]
-[ext_resource type="Texture2D" uid="uid://bh6vqkyuoo3dm" path="res://assets/sprites/Desk_Sign.png" id="49_f18oy"]
 [ext_resource type="Script" path="res://src/RandomPitchShift.gd" id="50_j4bts"]
 [ext_resource type="Texture2D" uid="uid://byjv7juagwece" path="res://assets/sprites/Desk_Cosmetic.png" id="50_rmwb1"]
-[ext_resource type="Script" path="res://src/plant.gd" id="52_ck1lt"]
-[ext_resource type="Script" path="res://src/coffee.gd" id="53_ngmm3"]
-[ext_resource type="Script" path="res://src/desk_item.gd" id="55_fen05"]
+[ext_resource type="Script" path="res://src/game/plant.gd" id="52_ck1lt"]
+[ext_resource type="Script" path="res://src/game/coffee.gd" id="53_ngmm3"]
+[ext_resource type="Texture2D" uid="uid://t0vtdco1mbgy" path="res://assets/sprites/Icon_Assistant.png" id="54_ppwkm"]
+[ext_resource type="Script" path="res://src/game/desk_item.gd" id="55_fen05"]
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
-[ext_resource type="Script" path="res://src/shift_overlay.gd" id="59_nhn8c"]
+[ext_resource type="Script" path="res://src/game/assistant.gd" id="55_y6wgh"]
+[ext_resource type="Script" path="res://src/game/shift_overlay.gd" id="59_nhn8c"]
 [ext_resource type="Texture2D" uid="uid://cvwxs4si2hdv8" path="res://assets/sprites/CoffeeSpill_Mug.png" id="60_ulb8c"]
-[ext_resource type="Script" path="res://src/spill_mug.gd" id="61_ng12r"]
+[ext_resource type="Script" path="res://src/game/spill_mug.gd" id="61_ng12r"]
 [ext_resource type="Texture2D" uid="uid://bu18gjh2nloqs" path="res://assets/sprites/CoffeeSpill_Stain.png" id="61_xrrf4"]
 [ext_resource type="AudioStream" uid="uid://c46f8lfm4voiy" path="res://assets/sound/hit_table.mp3" id="69_pgfnx"]
 
@@ -654,21 +654,34 @@ glow_blend_mode = 0
 [node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound", "spill_mug")]
 top_level = true
 script = ExtResource("1_ptsas")
+overload_reduce = null
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
 items_root = NodePath("Desk/Items")
 single_player_doc_label = NodePath("Desk/Computer/SingleUI/PlayerDocuments")
 single_player_combo_label = NodePath("Desk/Computer/SingleUI/PlayerCombo")
 duck = NodePath("Desk/Items/Duck")
+min_documents = null
+boss_process_speed = null
+boss_process_speed_variation = null
+boss_max_combo_count = null
+boss_min_combo_count = null
+boss_combo_failure_rate = null
 boss_doc_label = NodePath("Desk/Computer/BossUI/VBoxContainer2/HBoxContainer2/Doc")
 boss_combo_label = NodePath("Desk/Computer/BossUI/VBoxContainer2/HBoxContainer2/Combo")
 boss_attack_timer = NodePath("BossAttackTimer")
 player_doc_label = NodePath("Desk/Computer/BossUI/VBoxContainer/HBoxContainer/PlayerDocuments")
 player_combo_label = NodePath("Desk/Computer/BossUI/VBoxContainer/HBoxContainer/PlayerCombo")
+boss_document_max_diff_timer = null
+boss_max_attack_time = null
+boss_min_attack_time = null
+boss_attack_count_min = null
+boss_attack_count_max = null
 boss_hit_sound = NodePath("HitTableSound")
 spill_mug = NodePath("Desk/SpillMug")
-
-[node name="DifficultyManger" type="Node" parent="."]
-script = ExtResource("2_s81cp")
+max_bgm_pitch = null
+max_bgm_pitch_time = null
+crunch_start_spawn_time = null
+crunch_min_spawn_time = null
 
 [node name="CameraShake" type="Node" parent="."]
 process_mode = 3
@@ -1566,10 +1579,17 @@ texture = ExtResource("28_i6mjb")
 hframes = 2
 script = ExtResource("53_ngmm3")
 
-[node name="Sign" type="Sprite2D" parent="Desk/Items"]
+[node name="Assistant" type="Sprite2D" parent="Desk/Items"]
 position = Vector2(133, -62)
-texture = ExtResource("49_f18oy")
+texture = ExtResource("54_ppwkm")
+script = ExtResource("55_y6wgh")
+weight = 1.3
+
+[node name="SecondAssistant" type="Sprite2D" parent="Desk/Items/Assistant"]
+position = Vector2(14, -8)
+texture = ExtResource("54_ppwkm")
 script = ExtResource("55_fen05")
+weight = 1.6
 
 [node name="Cat" type="Sprite2D" parent="Desk/Items"]
 position = Vector2(-74, -66)
@@ -1882,7 +1902,6 @@ volume_db = -10.0
 pitch_scale = 0.8
 bus = &"SFX"
 script = ExtResource("50_j4bts")
-delta = 0.05
 
 [connection signal="finished" from="CanvasLayer/HUD/Day" to="." method="_on_day_finished"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

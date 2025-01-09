@@ -31,6 +31,7 @@ extends Node2D
 @onready var point_light_2d: PointLight2D = $PointLight2D
 @onready var stats: DocumentUI = $Stats
 @onready var work_document: DocumentUI = $WorkDocument
+@onready var items_paper: FocusedDocument = $ItemsPaper
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 enum DelegateMode {
@@ -60,6 +61,9 @@ var is_shop := false:
 			shop.open()
 		else:
 			shop.close()
+			
+			if GameManager.bought_items.size() > 0 and not items_paper.is_open():
+				items_paper.open(0.9)
 
 var is_starting := false
 
@@ -98,6 +102,9 @@ func _ready() -> void:
 	crunch_mode_container.visible = GameManager.is_mode_unlocked(GameManager.Mode.Crunch)
 	multiplayer_mode_container.visible = GameManager.is_mode_unlocked(GameManager.Mode.Multiplayer)
 	
+	items_paper.opened.connect(func(): delegator.unfocus())
+	items_paper.closed.connect(func(): delegator.focus())
+	
 func _unhandled_input(event: InputEvent) -> void:
 	if is_starting: return
 	if get_viewport().gui_get_focus_owner() != null: return
@@ -124,9 +131,12 @@ func start():
 	)
 	
 	work_document.open(0.5, 10 if not GameManager.has_played else 0.0)
+	if GameManager.bought_items.size() > 0:
+		items_paper.open(0.9)
+	
 	files_node.move_in(0.6)
 	
 	if GameManager.has_current_job():
-		stats.open(0.5)
+		stats.open(0.7)
 	if GameManager.shown_stress_tutorial:
 		teams_node.move_in(0.7)

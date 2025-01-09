@@ -1,8 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b4y3x3kdjhu72"]
-
-[ext_resource type="Shader" path="res://src/item_shadow.gdshader" id="1_tq72j"]
-
-[resource]
-shader = ExtResource("1_tq72j")
-shader_parameter/color = Color(0.435294, 0.423529, 0.439216, 1)
-shader_parameter/blur = 0.0

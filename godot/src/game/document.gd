@@ -79,9 +79,9 @@ func move_to(pos, move_in = false, return_pos = null):
 	tween.tween_property(self, "global_rotation", random_rot, 1.0)
 	
 	if move_in:
-		paper_move_in.play()
+		paper_move_in.play_random_pitched()
 	else:
-		paper_move_out.play()
+		paper_move_out.play_random_pitched()
 
 func return_to():
 	if move_out_pos:

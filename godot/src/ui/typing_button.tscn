@@ -1,23 +1,19 @@
 [gd_scene load_steps=5 format=3 uid="uid://cgwassol31f0l"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_jl3i8"]
-[ext_resource type="Script" path="res://src/ui/TypingButton.gd" id="1_vmnp8"]
+[ext_resource type="Script" path="res://src/ui/TypingButton.gd" id="2_8pn7x"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="3_w7wv5"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_af0u4"]
 
-[node name="TypingButton" type="PanelContainer" node_paths=PackedStringArray("typing_label", "button", "underline", "center_container", "panel", "container")]
+[node name="TypingButton" type="PanelContainer" node_paths=PackedStringArray("typing_label", "underline")]
 offset_right = 27.0
 offset_bottom = 15.0
 theme = ExtResource("1_jl3i8")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_af0u4")
-script = ExtResource("1_vmnp8")
+script = ExtResource("2_8pn7x")
 typing_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/TypingLabel")
-button = NodePath("MarginContainer/TextureButton")
 underline = NodePath("MarginContainer/VBoxContainer/ColorRect")
-center_container = NodePath("CenterPanel")
-panel = NodePath("CenterPanel/Panel")
-container = NodePath("MarginContainer")
 
 [node name="CenterPanel" type="CenterContainer" parent="."]
 visible = false
@@ -42,7 +38,7 @@ theme_override_constants/margin_right = 3
 
 [node name="TypingLabel" parent="MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource("3_w7wv5")]
 layout_mode = 2
-text = "[outline_color=ffffffff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5][/outline_size][/outline_color][/color][/outline_color]"
+text = "[outline_color=ffffffff][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]sd[/outline_size][/outline_color][/color][/outline_color]"
 center = false
 
 [node name="ColorRect" type="ColorRect" parent="MarginContainer/VBoxContainer"]

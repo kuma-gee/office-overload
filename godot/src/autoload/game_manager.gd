@@ -7,10 +7,12 @@ signal job_quited()
 signal exiting_game()
 signal mode_unlocked(mode)
 signal item_purchased()
+signal item_used_toggled(item: Shop.Items)
 signal coffee_used()
 
 signal logged(line)
 
+const GAME_SCENE = "res://src/game/game.tscn"
 const DIFFICULTIES = {
 	DifficultyResource.Level.INTERN: preload("res://src/difficulty/Intern.tres"),
 	DifficultyResource.Level.JUNIOR: preload("res://src/difficulty/Junior.tres"),
@@ -64,7 +66,8 @@ var shown_stress_tutorial := false # junior
 
 var finished_game := false
 var unlocked_modes = [Mode.Work]
-var bought_items: Array[Shop.Items]= []
+var bought_items: Array[Shop.Items] = []
+var used_items: Array[Shop.Items] = []
 var money := 0
 
 ### Maybe Save? ###
@@ -123,7 +126,7 @@ func start(mode: Mode = current_mode, lvl = difficulty_level):
 	wpm_calculator.reset()
 	game_started.emit()
 	
-	SceneManager.change_scene("res://src/game.tscn")
+	SceneManager.change_scene(GAME_SCENE)
 
 func restart():
 	start()
@@ -300,9 +303,23 @@ func buy_item(item: ShopResource):
 
 	money -= price
 	bought_items.append(item.type)
+	if item.type not in used_items:
+		used_items.append(item.type)
+	
 	item_purchased.emit()
 	_save_data()
 	return true
+
+func is_item_used(item: Shop.Items):
+	return item in used_items and item in bought_items
+
+func toggle_item_used(item: Shop.Items):
+	if item in used_items:
+		used_items.erase(item)
+	else:
+		used_items.append(item)
+	
+	item_used_toggled.emit(item)
 
 func is_item_max(item: ShopResource):
 	return item_count(item.type) >= item.prices.size()
@@ -325,9 +342,7 @@ func get_money_bonus():
 	return 1.2 * difficulty.money_multiplier
 
 func get_distraction_reduction():
-	if not Shop.Items.DO_NOT_DISTURB in bought_items:
-		return 1.0
-	return 0.8
+	return 1.0 - item_count(Shop.Items.ASSISTANT) * 0.2
 
 func has_coffee():
 	return Shop.Items.COFFEE in bought_items

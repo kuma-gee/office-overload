@@ -42,7 +42,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/normal_font_size = 12
-fill_all = null
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 2

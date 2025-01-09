@@ -1,7 +1,5 @@
 extends Control
 
-const GAME_SCENE = "res://src/game.tscn"
-
 @onready var start_timer: Timer = $StartTimer
 
 var logger := Logger.new("Loading")
@@ -9,8 +7,8 @@ var loading_scene := ""
 var loaded := false
 
 func _ready() -> void:
-	ResourceLoader.load_threaded_request(GAME_SCENE)
-	loading_scene = GAME_SCENE
+	ResourceLoader.load_threaded_request(GameManager.GAME_SCENE)
+	loading_scene = GameManager.GAME_SCENE
 
 	start_timer.timeout.connect(func(): start_game())
 

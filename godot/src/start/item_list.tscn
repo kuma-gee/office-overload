@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdstvuujt4uj1"]
+
+[ext_resource type="Script" path="res://src/start/item_list.gd" id="1_gux3p"]
+[ext_resource type="Texture2D" uid="uid://btpfvi2cluwcj" path="res://assets/sprites/Icon_Plant.png" id="1_xwkff"]
+[ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="2_3m3ut"]
+
+[node name="ItemList" type="HBoxContainer" node_paths=PackedStringArray("label", "checkbox", "texture")]
+script = ExtResource("1_gux3p")
+label = NodePath("TypingLabel")
+checkbox = NodePath("HBoxContainer/MarginContainer/CheckBox")
+texture = NodePath("HBoxContainer/TextureRect")
+
+[node name="TypingLabel" parent="." instance=ExtResource("2_3m3ut")]
+layout_mode = 2
+size_flags_vertical = 4
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffff00][outline_size=5][color=353540ff]p[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]lant[/outline_size][/outline_color][/color][/center][/outline_color]"
+reset_on_finish = true
+word = "plant"
+
+[node name="Control3" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+texture = ExtResource("1_xwkff")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = -4
+theme_override_constants/margin_bottom = -4
+
+[node name="CheckBox" type="CheckBox" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4

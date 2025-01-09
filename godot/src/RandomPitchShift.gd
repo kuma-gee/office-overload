@@ -1,7 +1,7 @@
 class_name RandomPitchShift
 extends AudioStreamPlayer
 
-@export var delta := 0.1
+@export var delta := 0.05
 @onready var original_pitch := pitch_scale
 
 func play_random_pitched():

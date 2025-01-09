@@ -7,6 +7,9 @@ extends Control
 
 var tw: Tween
 
+func is_open():
+	return global_position == orig_pos
+
 func open(delay = 0.0, offset_x := 0.0):
 	var offset = Vector2.LEFT * offset_x
 	var dir = move_dir * size.y

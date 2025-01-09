@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_j7irx"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_d7wj0"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="5_rckpx"]
-[ext_resource type="Script" path="res://src/delegator.gd" id="7_ls5ot"]
 [ext_resource type="Script" path="res://src/ui/break_button.gd" id="7_mgfnm"]
 [ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="8_f3tsx"]
 [ext_resource type="Texture2D" uid="uid://c0ufovhq76t52" path="res://assets/sprites/Grade.png" id="8_fgvoi"]
@@ -19,6 +18,7 @@
 [ext_resource type="Script" path="res://src/ui/promotion_paper.gd" id="11_r0shu"]
 [ext_resource type="LabelSettings" uid="uid://fiyuuqq6ppow" path="res://theme/text_small_outline.tres" id="12_wqs3t"]
 [ext_resource type="AudioStream" uid="uid://ctlbf2imxt5tn" path="res://assets/sound/呪いの旋律.mp3" id="13_26xkb"]
+[ext_resource type="Script" path="res://src/delegator.gd" id="16_8aqif"]
 [ext_resource type="Script" path="res://src/ui/unlocked_mode.gd" id="16_hp113"]
 [ext_resource type="Script" path="res://src/ui/challenge_paper.gd" id="17_xva3p"]
 
@@ -232,7 +232,6 @@ size_flags_horizontal = 6
 frequency = 0.0
 height = 0.0
 enable_mistake_effect = false
-fill_all = null
 
 [node name="Control3" type="Control" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer"]
 visible = false
@@ -272,7 +271,7 @@ custom_minimum_size = Vector2(120, 160)
 layout_mode = 2
 
 [node name="DayDelegator" type="Node" parent="CenterContainer/PanelContainer" node_paths=PackedStringArray("nodes")]
-script = ExtResource("7_ls5ot")
+script = ExtResource("16_8aqif")
 nodes = [NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/NextDayButton"), NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/Break")]
 
 [node name="Work" type="MarginContainer" parent="CenterContainer/PanelContainer"]
@@ -605,7 +604,7 @@ script = ExtResource("7_mgfnm")
 word = "Home"
 
 [node name="PromotionDelegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
-script = ExtResource("7_ls5ot")
+script = ExtResource("16_8aqif")
 nodes = [NodePath("../PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionYes"), NodePath("../PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionNo"), NodePath("../ChallengePaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionYes"), NodePath("../ChallengePaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionNo")]
 
 [node name="PromotionPaper" type="PanelContainer" parent="." node_paths=PackedStringArray("yes_button", "no_button")]

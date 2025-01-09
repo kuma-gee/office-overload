@@ -2,7 +2,7 @@ class_name GameDeskItem
 extends Sprite2D
 
 const GROUP = "GameDeskItem"
-const ITEM_SHADOW = preload("res://src/item_shadow.tres")
+#const ITEM_SHADOW = preload("res://src/item_shadow.tres")
 
 @export var weight := 1.0
 @onready var orig_pos = position

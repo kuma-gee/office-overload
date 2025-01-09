@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bes61socob36q"]
 
 [ext_resource type="AudioStream" uid="uid://b4rig48kfrcn8" path="res://assets/sound/カーソル移動9.mp3" id="1_apviw"]
-[ext_resource type="Script" path="res://src/sound_manager.gd" id="1_p3jmk"]
+[ext_resource type="Script" path="res://src/autoload/sound_manager.gd" id="1_p3jmk"]
 [ext_resource type="AudioStream" uid="uid://cgk8o2wdpoc4l" path="res://assets/sound/決定ボタンを押す7.mp3" id="2_tyawr"]
 [ext_resource type="AudioStream" uid="uid://b73fxq2acr5ft" path="res://assets/sound/keyboard.mp3" id="4_l2rpn"]
 [ext_resource type="Script" path="res://src/RandomPitchShift.gd" id="5_68h3t"]

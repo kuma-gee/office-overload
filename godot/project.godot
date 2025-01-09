@@ -25,9 +25,9 @@ driver/mix_rate=48000
 
 Env="*res://src/env/Env.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
-SoundManager="*res://src/sound_manager.tscn"
-GameManager="*res://src/game_manager.tscn"
-SteamManager="*res://src/steam_manager.gd"
+SoundManager="*res://src/autoload/sound_manager.tscn"
+GameManager="*res://src/autoload/game_manager.tscn"
+SteamManager="*res://src/autoload/steam_manager.gd"
 FeedbackManager="*res://src/autoload/feedback_manager.tscn"
 DebugWindow="*res://src/autoload/debug_window.tscn"
 SteamCloud="*res://src/autoload/SteamCloud.gd"

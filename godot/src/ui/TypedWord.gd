@@ -150,7 +150,7 @@ func _wrap_word(until: int, highlight_letter = false):
 	#var highlight_end = "[/color][/outline_color]"
 	
 	var not_highlight_char = _outline(_outline_size(censored_word.substr(until, 1), untyped_outline_size), highlight_color if highlight_first else Color.TRANSPARENT)
-	var first_highlight = _outline(_outline_size(_color(censored_word.substr(until, 1), typed_color), untyped_outline_size), highlight_color if focused else Color.TRANSPARENT)
+	var first_highlight = _outline(_outline_size(_color(censored_word.substr(until, 1), typed_color), untyped_outline_size), highlight_color)
 	var first_jump = _wrap_typed(1, first_highlight)
 	return "[color=%s]%s[/color][color=%s][shake rate=%s level=%s]%s[/shake]%s[/color]" % [
 		typed_color.to_html(),
