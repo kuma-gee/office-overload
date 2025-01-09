@@ -50,7 +50,6 @@
 [ext_resource type="AudioStream" uid="uid://dl1bac3viudub" path="res://assets/sound/パパッ.mp3" id="25_k4kvb"]
 [ext_resource type="Texture2D" uid="uid://fhvvkmwkvr5c" path="res://assets/sprites/Desk_Plant.png" id="27_1a3yr"]
 [ext_resource type="Texture2D" uid="uid://ctoyv3g7nvrwf" path="res://assets/sprites/Desk_Coffee.png" id="28_i6mjb"]
-[ext_resource type="Texture2D" uid="uid://c7bni1sdaaaqn" path="res://assets/sprites/Desk_Keyboard.png" id="31_x6efq"]
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="32_eoisl"]
 [ext_resource type="Texture2D" uid="uid://bstvwnc3xppv1" path="res://assets/sprites/Shift.png" id="33_qq0id"]
 [ext_resource type="PackedScene" uid="uid://cuh77fo8okhk7" path="res://src/ui/pause.tscn" id="37_b7g85"]
@@ -70,6 +69,7 @@
 [ext_resource type="Script" path="res://src/game/desk_item.gd" id="55_fen05"]
 [ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
 [ext_resource type="Script" path="res://src/game/assistant.gd" id="55_y6wgh"]
+[ext_resource type="PackedScene" uid="uid://d0gtt2fgdaddt" path="res://src/game/keyboard.tscn" id="59_jp8mc"]
 [ext_resource type="Script" path="res://src/game/shift_overlay.gd" id="59_nhn8c"]
 [ext_resource type="Texture2D" uid="uid://cvwxs4si2hdv8" path="res://assets/sprites/CoffeeSpill_Mug.png" id="60_ulb8c"]
 [ext_resource type="Script" path="res://src/game/spill_mug.gd" id="61_ng12r"]
@@ -1595,12 +1595,7 @@ position = Vector2(-64, -16)
 texture = ExtResource("49_bjcyb")
 script = ExtResource("55_fen05")
 
-[node name="Keyboard" type="Sprite2D" parent="Desk"]
-position = Vector2(0, -33)
-texture = ExtResource("31_x6efq")
-hframes = 2
-script = ExtResource("55_fen05")
-weight = 1.5
+[node name="Keyboard" parent="Desk" instance=ExtResource("59_jp8mc")]
 
 [node name="Mouse" type="Sprite2D" parent="Desk"]
 position = Vector2(41, -25)
