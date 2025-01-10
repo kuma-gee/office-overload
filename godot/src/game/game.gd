@@ -30,6 +30,7 @@ extends Node2D
 @export var boss_min_attack_time := 5.0
 @export var boss_attack_count_min := 2
 @export var boss_attack_count_max := 4
+@export var spill_mug_chance := 0.3
 @export var boss_hit_sound: AudioStreamPlayer
 @export var spill_mug: SpillMug
 
@@ -241,7 +242,7 @@ func _crunch_mode_spawn_time(doc_count: int = document_stack.actual_document_cou
 
 
 func _spawn_document(await_start = false):
-	if GameManager.is_ceo() and boss_attack_timer.is_stopped() and document_stack.total_points > boss_points and not is_attacking and boss_attack_documents <= 0:
+	if GameManager.is_ceo() and boss_attack_timer.is_stopped() and _boss_doc_diff() < 0 and not is_attacking and boss_attack_documents <= 0:
 		_setup_boss_attack()
 	else:
 		if boss_attack_documents > 0 and GameManager.is_ceo():
@@ -346,12 +347,17 @@ func _setup_boss_attack():
 	await _slam_desk()
 	await _slam_desk()
 
-	if not spill_mug.active and (boss_attacked == 1 or randf() <= 1.0):
+	if not spill_mug.active and (boss_attacked == 1 or randf() <= spill_mug_chance):
 		_spill_boss_attack()
 		boss_attack_documents = 0
 		_start_boss_attack_timer()
 	else:
-		boss_attack_documents = randi_range(boss_attack_count_min, floor(boss_attack_count_max * GameManager.get_distraction_reduction())) 
+		var min = boss_attack_count_min
+		var max = boss_attack_count_max * GameManager.get_distraction_reduction()
+		var p = _get_attack_percentage()
+		min += (max - min) * p
+
+		boss_attack_documents = randi_range(floor(min), floor(max))
 		boss_attack_documents = floor(boss_attack_documents)
 		_spawn_boss_attack()
 	
@@ -375,13 +381,23 @@ func _spawn_boss_attack():
 		_spawn() # call normal spawn function to reset the normal document spawning
 		await get_tree().create_timer(0.3).timeout
 
+func _boss_doc_diff():
+	return (document_stack.tasks - document_stack.wrong_tasks) - (boss_documents - boss_mistakes)
+
+func _get_attack_percentage():
+	var diff = _boss_doc_diff()
+	if diff < 4:
+		return 0.0
+	elif diff < 8:
+		return 0.5
+	else:
+		return 0.8
+
 func _start_boss_attack_timer():
-	var doc_diff = document_stack.total_points - boss_points
-	var p = clamp(doc_diff / boss_document_max_diff_timer, 0.0, 1.0)
-		
+	var p = _get_attack_percentage()
 	var time_diff = boss_max_attack_time - boss_min_attack_time
 	var time = boss_min_attack_time + time_diff * (1-p)
-	boss_attack_timer.start()
+	boss_attack_timer.start(time)
 
 func _ceo_game_ended():
 	end.ceo_ended({"tasks": document_stack.tasks, "mistakes": document_stack.wrong_tasks}, {"tasks": boss_documents, "mistakes": boss_mistakes})

@@ -147,7 +147,6 @@ offset_top = -2.0
 offset_right = -24.0
 offset_bottom = -2.0
 script = ExtResource("3_j7gvb")
-run = null
 color = Color(0.207843, 0.207843, 0.25098, 1)
 count = 12
 

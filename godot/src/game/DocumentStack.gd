@@ -28,26 +28,6 @@ var combo_count := 0:
 		
 		combo_label.visible = combo_count > 0
 		combo_label.text = "%sx" % combo_count
-		#for p in [combo_particles01, combo_particles02]:
-			#p.emitting = combo_label.visible
-			#p.amount = clamp(2 * ceil(combo_count / 3), 2, 16)
-		
-		#if combo_count <= 1:
-			#combo_multiplier = 1
-			#combo_particles.emitting = false
-		#else:
-			#var extra_mult = ceil((combo_count-1) / combo_multiplier_divider)
-			#combo_multiplier = 2 + extra_mult
-			#combo_label.show()
-			#combo_particles.emitting = true
-			#combo_particles.speed_scale = 1 + 0.1 * extra_mult
-
-#var combo_multiplier := 1:
-	#set(v):
-		#combo_multiplier = v
-		#if not combo_label: return
-		#
-		#combo_label.text = "%sx" % combo_multiplier
 
 var tasks := 0
 var wrong_tasks := 0:

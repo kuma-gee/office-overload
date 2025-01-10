@@ -3,9 +3,11 @@ extends Marker2D
 
 @export var document_scene: PackedScene
 @export var word_generator: WordGenerator
+@export var spill_mug: SpillMug
 @export var center_offset := 50
 @export var verfical_offset := 0.0
 @export var move_back := false
+
 @export_enum(WordManager.WORK_GROUP, WordManager.AFTERWORK_GROUP, WordManager.MEETING_GROUP) var word_type := WordManager.WORK_GROUP
 
 @export var spawn_vertical_offset := 0
@@ -84,10 +86,8 @@ var invalid_chances = {
 
 func get_invalid_type():
 	var available = [InvalidType.INVALID]
-	if GameManager.get_performance_within_level() >= 5:
+	if GameManager.get_performance_within_level() >= 5 or (GameManager.is_ceo() and not spill_mug.active):
 		available.append(InvalidType.SWAP)
-	#elif GameManager.is_ceo():
-		#available.append(InvalidType.CENSOR)
 	
 	var r = randf()
 	for type in available:
