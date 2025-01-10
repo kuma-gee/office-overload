@@ -229,7 +229,6 @@ explosiveness = 0.9
 [node name="TypingLabel" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer" instance=ExtResource("8_whfhi")]
 layout_mode = 2
 size_flags_horizontal = 6
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]sd[/outline_size][/outline_color][/color][/center][/outline_color]"
 frequency = 0.0
 height = 0.0
 enable_mistake_effect = false

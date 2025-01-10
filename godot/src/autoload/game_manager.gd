@@ -12,6 +12,7 @@ signal coffee_used()
 
 signal logged(line)
 
+const ASSISTANT_COST = 150
 const GAME_SCENE = "res://src/game/game.tscn"
 const DIFFICULTIES = {
 	DifficultyResource.Level.INTERN: preload("res://src/difficulty/Intern.tres"),
@@ -310,6 +311,11 @@ func buy_item(item: ShopResource):
 	_save_data()
 	return true
 
+func pay_assistant():
+	if is_item_used(Shop.Items.ASSISTANT):
+		money -= get_assistant_cost()
+		_save_data()
+
 func is_item_used(item: Shop.Items):
 	return item in used_items and item in bought_items
 
@@ -335,6 +341,9 @@ const PLANT_STRESS_REDUCTION = [0.1, 0.25, 0.4]
 const MONEY_INCREASE = [0.1, 0.2]
 const ASSISTANT_REDUCTION = [0.1, 0.25]
 
+func get_assistant_cost():
+	return item_count(Shop.Items.ASSISTANT) * ASSISTANT_COST
+
 func get_item_value(item: Shop.Items, count = item_count(item)):
 	var arr = []
 	match item:
@@ -355,7 +364,7 @@ func get_stress_reduction():
 func get_money_bonus():
 	var multiplier = difficulty.money_multiplier
 	multiplier += get_item_value(Shop.Items.MONEY_CAT)
-	return 1.0 + multiplier
+	return multiplier
 
 func get_distraction_reduction():
 	var reduction = get_item_value(Shop.Items.ASSISTANT)

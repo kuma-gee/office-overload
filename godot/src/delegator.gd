@@ -17,7 +17,8 @@ func unfocus():
 func focus():
 	for node in nodes:
 		if node and node.has_method("get_label") and node.get_label():
-			node.get_label().highlight_first = true
+			if not node.get_label().disabled:
+				node.get_label().highlight_first = true
 
 func reset():
 	for node in nodes:

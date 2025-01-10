@@ -1,44 +1,97 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdstvuujt4uj1"]
+[gd_scene load_steps=5 format=3 uid="uid://cdstvuujt4uj1"]
 
 [ext_resource type="Script" path="res://src/start/item_list.gd" id="1_gux3p"]
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_l7rv2"]
 [ext_resource type="Texture2D" uid="uid://btpfvi2cluwcj" path="res://assets/sprites/Icon_Plant.png" id="1_xwkff"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="2_3m3ut"]
 
-[node name="ItemList" type="HBoxContainer" node_paths=PackedStringArray("label", "checkbox", "texture")]
+[node name="ItemList" type="VBoxContainer" node_paths=PackedStringArray("label", "checkbox", "texture", "count", "value_label")]
+offset_right = 76.0
+offset_bottom = 20.0
+theme = ExtResource("1_l7rv2")
+theme_override_constants/separation = 0
 script = ExtResource("1_gux3p")
-label = NodePath("TypingLabel")
-checkbox = NodePath("HBoxContainer/MarginContainer/CheckBox")
-texture = NodePath("HBoxContainer/TextureRect")
+label = NodePath("HBoxContainer3/TypingLabel")
+checkbox = NodePath("HBoxContainer3/HBoxContainer/MarginContainer/CheckBox")
+texture = NodePath("HBoxContainer3/HBoxContainer/TextureRect")
+count = NodePath("MarginContainer3/HBoxContainer/MarginContainer/HBoxContainer/Count")
+value_label = NodePath("MarginContainer3/HBoxContainer/MarginContainer2/HBoxContainer/Value")
 
-[node name="TypingLabel" parent="." instance=ExtResource("2_3m3ut")]
+[node name="HBoxContainer3" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TypingLabel" parent="HBoxContainer3" instance=ExtResource("2_3m3ut")]
 layout_mode = 2
 size_flags_vertical = 4
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]p[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]lant[/outline_size][/outline_color][/color][/center][/outline_color]"
 reset_on_finish = true
 word = "plant"
 
-[node name="Control3" type="Control" parent="."]
+[node name="Control3" type="Control" parent="HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer3"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 texture = ExtResource("1_xwkff")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer3/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_right = -4
 theme_override_constants/margin_bottom = -4
 
-[node name="CheckBox" type="CheckBox" parent="HBoxContainer/MarginContainer"]
+[node name="CheckBox" type="CheckBox" parent="HBoxContainer3/HBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer3/HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_top = -4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer3"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer3/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer3/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Value" type="Label" parent="MarginContainer3/HBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 6
+text = "-30%"
+
+[node name="Control3" type="Control" parent="MarginContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer3/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer3/HBoxContainer/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Count" type="Label" parent="MarginContainer3/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 6
+text = "1/3"

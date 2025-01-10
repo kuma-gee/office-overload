@@ -16,6 +16,7 @@ signal closed()
 
 @export var delegator: Delegator
 @export var paper_container: Control
+@export var money_container: Control
 
 @onready var camera := get_viewport().get_camera_2d()
 

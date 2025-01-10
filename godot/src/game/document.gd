@@ -19,6 +19,7 @@ signal typed()
 @onready var stain_detector: Area2D = $StainDetector
 @onready var mistake_lines: Control = $Sprite2D/MistakeLines
 @onready var mistake_throttle_timer: Timer = $MistakeThrottleTimer
+@onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 
 var is_discarded := false
 
@@ -45,6 +46,7 @@ func show_tutorial():
 		#typing_label.jump_first = true
 
 func _ready():
+	visible_on_screen_notifier_2d.show()
 	for c in mistake_lines.get_children():
 		c.hide()
 	

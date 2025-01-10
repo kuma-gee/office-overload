@@ -75,6 +75,8 @@ func _ready():
 	randomize()
 	get_tree().paused = false
 	_update_score()
+	
+	GameManager.pay_assistant()
 
 	for i in range(items_root.get_child_count()):
 		items_root.get_child(i).visible = GameManager.is_item_used(i)

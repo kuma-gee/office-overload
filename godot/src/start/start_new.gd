@@ -32,6 +32,7 @@ extends Node2D
 @onready var stats: DocumentUI = $Stats
 @onready var work_document: DocumentUI = $WorkDocument
 @onready var items_paper: FocusedDocument = $ItemsPaper
+@onready var main_money: DocumentUI = $MainMoney
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 enum DelegateMode {
@@ -130,11 +131,12 @@ func start():
 		point_light_2d.enabled = true
 	)
 	
-	work_document.open(0.5, 10 if not GameManager.has_played else 0.0)
+	work_document.open(0.5)
 	if GameManager.bought_items.size() > 0:
 		items_paper.open(0.9)
 	
 	files_node.move_in(0.6)
+	main_money.open(1.0)
 	
 	if GameManager.has_current_job():
 		stats.open(0.7)
