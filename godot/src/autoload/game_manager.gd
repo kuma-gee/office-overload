@@ -58,7 +58,6 @@ var past_wpms := []
 
 var has_played := false
 var performance := 0
-var ceo_blocked := 0
 
 var shown_ceo_tutorial := false # ceo
 var shown_discard_tutorial := false # manager
@@ -147,7 +146,6 @@ func reset_values():
 	total_completed_words = 0
 	past_wpms = []
 
-	ceo_blocked = 0
 	finished_game = false
 	
 	job_quited.emit()
@@ -182,7 +180,6 @@ func finished_day(data: Dictionary):
 	
 	money += data["money"]
 	performance = clamp(performance + grade.points, 0, difficulty.max_performance)
-	ceo_blocked -= grade.points
 	
 	#past_performance.append(performance)
 	#if past_performance.size() > keep_past_wpms:
@@ -445,8 +442,11 @@ func get_level_text(lvl = difficulty_level, abbreviate = -1):
 	return txt
 
 func lost_ceo():
-	ceo_blocked = 10
-	demote()
+	difficulty_level = DifficultyResource.Level.SENIOR
+	var min = get_min_performance()
+	var max = get_max_performance()
+	performance = min + (max - min) / 2
+	_save_data()
 	round_ended.emit()
 
 func won_ceo():
@@ -498,6 +498,8 @@ func unlock_mode(mode: Mode):
 	if Env.is_demo():
 		_logger.warn("Cannot unlock new modes in demo")
 		return
+	
+	if mode in unlocked_modes: return
 
 	unlocked_modes.append(mode)
 	mode_unlocked.emit(mode)

@@ -157,17 +157,7 @@ func _show_overlay():
 
 func _input(event):
 	if not event is InputEventKey: return
-	
-	# var key_ev = event as InputEventKey
-	# if key_ev.is_action_released("special_mode"):
-	# 	_hide_overlay()
-	
 	if not _has_active_distraction(): return
-	
-	# if key_ev.is_action_pressed("special_mode"):
-	# 	_show_overlay()
-	
-	# if not Input.is_action_pressed("special_mode"): return
 	
 	var handled = delegator.handle_event(event)
 	if event is InputEventKey and not delegator.has_focused() and not handled:

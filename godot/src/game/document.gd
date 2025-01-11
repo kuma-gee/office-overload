@@ -36,6 +36,7 @@ var word := ""
 var target_position := Vector2.ZERO
 var _logger = Logger.new("Document")
 var move_out_pos
+var original_word = ""
 
 func get_label():
 	return typing_label
@@ -63,11 +64,11 @@ func _ready():
 	sprite.material.set_shader_parameter("enable", false)
 	sprite.material = sprite.material.duplicate()
 	
-	stain_detector.stained.connect(func(): 
-		print("Stain document")
+	stain_detector.stained.connect(func():
+		if original_word != word:
+			typing_label.word = original_word
 		
 		if typing_label.censored.size() > 0:
-			print("Already censored")
 			return
 		
 		# Words should be at least 4 characters long

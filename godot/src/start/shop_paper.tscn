@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dbph2sk0jrwh7"]
+[gd_scene load_steps=8 format=3 uid="uid://dbph2sk0jrwh7"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_vkbbw"]
 [ext_resource type="Script" path="res://src/start/shop_paper.gd" id="2_ipdik"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://btpfvi2cluwcj" path="res://assets/sprites/Icon_Plant.png" id="4_ia1nw"]
 [ext_resource type="Texture2D" uid="uid://dmrxb8h6ge88v" path="res://assets/sprites/Ctrl.png" id="5_50sr6"]
 [ext_resource type="Script" path="res://src/delegator.gd" id="6_ebu83"]
-[ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="6_phsls"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="7_tygfg"]
 
 [node name="ShopPaper" type="PanelContainer" node_paths=PackedStringArray("desc_label", "price_label", "value_label", "icon_tex", "ctrl_hint", "sold_out", "no_money", "buy_button", "title_button", "delegator")]
@@ -112,9 +111,10 @@ autowrap_mode = 3
 
 [node name="Value" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 6
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 8
 text = "-20%"
-label_settings = ExtResource("6_phsls")
 horizontal_alignment = 1
 autowrap_mode = 3
 

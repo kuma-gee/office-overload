@@ -95,7 +95,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(7, -44)]
+"values": [Vector2(7, -52)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -135,7 +135,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(7, -44), Vector2(-15, 105)]
+"values": [Vector2(7, -52), Vector2(-15, 105)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -147,7 +147,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-15, 105), Vector2(7, -44)]
+"values": [Vector2(-15, 105), Vector2(7, -52)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bge4k"]
@@ -211,10 +211,10 @@ color = Color(0.929412, 0.894118, 0.854902, 1)
 
 [node name="MainMoney" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(60, 34)
-offset_left = -143.0
-offset_top = -81.0
-offset_right = -83.0
-offset_bottom = -47.0
+offset_left = -147.0
+offset_top = -84.0
+offset_right = -87.0
+offset_bottom = -50.0
 rotation = -0.174533
 pivot_offset = Vector2(30, 17)
 theme = ExtResource("2_xj832")
@@ -237,7 +237,6 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MainMoney/Money/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Saving"
-label_settings = ExtResource("5_qryb2")
 
 [node name="Label2" type="Label" parent="MainMoney/Money/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -254,7 +253,7 @@ anchor_bottom = 0.5
 offset_left = -105.0
 offset_top = -82.0
 offset_right = 5.0
-offset_bottom = 58.0
+offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(60, 80)
@@ -356,7 +355,7 @@ theme_override_constants/separation = 5
 [node name="Label" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 10
 text = "Current Job"
 horizontal_alignment = 1
 
@@ -435,9 +434,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 7.0
-offset_top = -44.0
+offset_top = -52.0
 offset_right = 117.0
-offset_bottom = 96.0
+offset_bottom = 88.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.139626
@@ -510,7 +509,7 @@ anchor_bottom = 0.5
 offset_left = -5.0
 offset_top = 138.0
 offset_right = 105.0
-offset_bottom = 285.0
+offset_bottom = 855.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.139626
@@ -533,8 +532,7 @@ theme_override_constants/separation = 5
 [node name="Label" type="Label" parent="AltPage/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "Game modes"
 horizontal_alignment = 1
 

@@ -35,7 +35,6 @@ func get_random_word(tag = null):
 
 	if arr.is_empty():
 		return ""
-	print("Getting word from %s" % [tag])
 
 	var word = arr.pick_random()
 	while word in last_words:

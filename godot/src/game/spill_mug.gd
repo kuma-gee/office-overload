@@ -24,7 +24,7 @@ func hide_spill():
 	tw.tween_property(spill_stain, "modulate", Color.TRANSPARENT, 2.0).set_ease(Tween.EASE_IN_OUT)
 	tw.tween_callback(func(): animation_player.play("RESET"))
 	tw.tween_property(self, "position", hide_pos, 0.5)
-	active = false
+	tw.tween_callback(func(): active = false)
 
 func spill():
 	active = true

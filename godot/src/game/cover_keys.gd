@@ -10,6 +10,10 @@ extends Control
 @export var count := 0
 @export var rect_size := Vector2(3, 3)
 
+func _ready() -> void:
+	for c in get_children():
+		c.hide()
+
 func do_run():
 	for c in get_children():
 		c.queue_free()

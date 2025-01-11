@@ -1,6 +1,7 @@
 class_name ShiftOverlay
 extends Node
 
+@export var game: Game
 @export var overlay: ColorRect
 @export var delegator: Delegator
 
@@ -11,6 +12,7 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if not event is InputEventKey or not (GameManager.is_manager() or GameManager.is_ceo()): return
+	if game.is_gameover: return
 
 	var key_ev = event as InputEventKey
 	if key_ev.is_action_released("special_mode"):

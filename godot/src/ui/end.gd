@@ -62,10 +62,12 @@ func _ready():
 		
 		if GameManager.is_work_mode():
 			GameManager.upload_work_scores()
-			
-			if GameManager.is_senior():
-				GameManager.unlock_mode(GameManager.Mode.Crunch)
+			_unlock_crunch_mode()
 	)
+
+func _unlock_crunch_mode():
+	if GameManager.is_senior() or GameManager.is_manager() or GameManager.is_ceo():
+		GameManager.unlock_mode(GameManager.Mode.Crunch)
 
 func ceo_ended(user: Dictionary, boss: Dictionary):
 	var user_tasks = user["tasks"]
@@ -80,7 +82,7 @@ func ceo_ended(user: Dictionary, boss: Dictionary):
 	ceo_boss_tasks.text = "%s" % boss_tasks
 	ceo_player_mistakes.text = "%s" % user_mistakes
 	ceo_boss_mistakes.text = "%s" % boss_mistakes
-	ceo_win_status.text = "Congratulations!\nYou are the new CEO!" if win else "Your boss is generous enough\nto keep you as manager."
+	ceo_win_status.text = "Congratulations!\nYou are the new CEO!" if win else "You got demoted\nto senior."
 	_do_open(ceo_container)
 	
 	if win:
@@ -106,17 +108,15 @@ func day_ended(data: Dictionary):
 	var promo = GameManager.can_have_promotion() and data["grade"].points > 0
 	if promo:
 		if GameManager.is_manager():
-			if GameManager.ceo_blocked <= 0:
-				challenge_paper.open(0.2)
+			challenge_paper.open(0.2)
 		else:
 			promotion_paper.open(0.2)
 	
-	#promotion_tip_text.text = _promotion_tip_text(null)
-
 	_do_open(work_container)
 	
 	if GameManager.is_work_mode() and not promo:
 		GameManager.upload_work_scores()
+		_unlock_crunch_mode()
 
 func _promotion_tip_text(tip) -> String:
 	match tip:

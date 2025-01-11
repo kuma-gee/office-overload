@@ -98,6 +98,7 @@ func get_invalid_type():
 	return InvalidType.INVALID
 
 func _set_invalid_word(doc: Document, word: String):
+	var original_word = word
 	var invalid_type = get_invalid_type()
 	match invalid_type:
 		InvalidType.INVALID:
@@ -121,6 +122,7 @@ func _set_invalid_word(doc: Document, word: String):
 					word[target_idx] = word[swap_idx]
 					word[swap_idx] = temp
 
+	doc.original_word = original_word
 	doc.word = word
 
 func spawn_invalid_document(type: InvalidType = get_invalid_type()):

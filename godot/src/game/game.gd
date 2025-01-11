@@ -244,7 +244,8 @@ func _crunch_mode_spawn_time(doc_count: int = document_stack.actual_document_cou
 
 
 func _spawn_document(await_start = false):
-	if GameManager.is_ceo() and boss_attack_timer.is_stopped() and _boss_doc_diff() < 0 and not is_attacking and boss_attack_documents <= 0:
+	#print("%s, %s, %s, %s, %s, %s" % [GameManager.is_ceo(), boss_attack_timer.is_stopped(), boss_attack_timer.time_left, _boss_doc_diff(), is_attacking, boss_attack_documents])
+	if GameManager.is_ceo() and boss_attack_timer.is_stopped() and _boss_doc_diff() > 0 and not is_attacking and boss_attack_documents <= 0:
 		_setup_boss_attack()
 	else:
 		if boss_attack_documents > 0 and GameManager.is_ceo():
@@ -400,6 +401,7 @@ func _start_boss_attack_timer():
 	var time_diff = boss_max_attack_time - boss_min_attack_time
 	var time = boss_min_attack_time + time_diff * (1-p)
 	boss_attack_timer.start(time)
+	print("Boss attack time: %s" % time)
 
 func _ceo_game_ended():
 	end.ceo_ended({"tasks": document_stack.tasks, "mistakes": document_stack.wrong_tasks}, {"tasks": boss_documents, "mistakes": boss_mistakes})

@@ -7,7 +7,7 @@ var version := Build.VERSION
 
 var _logger := Logger.new("Env")
 
-var _live := false
+var _live := true
 var _enable_steam := true
 
 func _ready():
@@ -28,7 +28,7 @@ func _ready():
 		_logger.debug("Using hash %s" % hash)
 		_live = hash == Build.GAME_HASH
 	
-	if _enable_steam and Build.STEAM_APP != APP_ID:
+	if _enable_steam and Build.STEAM_APP != APP_ID and not is_editor():
 		_live = false
 		_logger.warn("This build isn't designed to be used live")
 	

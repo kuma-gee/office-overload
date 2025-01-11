@@ -1752,8 +1752,9 @@ texture = ExtResource("24_g7dws")
 wait_time = 0.1
 one_shot = true
 
-[node name="ShiftOverlay" type="Node" parent="." node_paths=PackedStringArray("overlay", "delegator")]
+[node name="ShiftOverlay" type="Node" parent="." node_paths=PackedStringArray("game", "overlay", "delegator")]
 script = ExtResource("59_nhn8c")
+game = NodePath("..")
 overlay = NodePath("../Overlay")
 delegator = NodePath("ShiftDelegator")
 
@@ -1816,11 +1817,12 @@ vertical_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="DocSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("word_generator", "positions")]
+[node name="DocSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("word_generator", "spill_mug", "positions")]
 position = Vector2(-200, 22)
 script = ExtResource("4_macw6")
 document_scene = ExtResource("2_35x6g")
 word_generator = NodePath("WordGenerator")
+spill_mug = NodePath("../Desk/SpillMug")
 center_offset = 10
 positions = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3")]
 
