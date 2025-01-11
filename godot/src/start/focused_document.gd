@@ -13,6 +13,7 @@ signal closed()
 var focus_tw: Tween
 
 func _ready() -> void:
+	super._ready()
 	focus_mode = FOCUS_ALL
 	mouse_filter = MOUSE_FILTER_IGNORE
 	

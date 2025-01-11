@@ -104,13 +104,25 @@ extends GameDeskItem
 	KEY_BRACKETRIGHT: bracket_right,
 }
 
+var highlight_tw: Tween
+
 func _ready() -> void:
 	for rect in KEY_MAP.values():
 		rect.hide()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
+		if highlight_tw:
+			highlight_tw.kill()
+		
 		var key = event as InputEventKey
 		var rect = KEY_MAP.get(key.keycode)
 		if rect:
 			rect.visible = key.pressed
+
+func highlight_key(key: int):
+	if key in KEY_MAP:
+		var rect = KEY_MAP.get(key)
+		highlight_tw = create_tween().set_loops()
+		highlight_tw.tween_callback(func(): rect.show()).set_delay(0.5)
+		highlight_tw.tween_callback(func(): rect.hide()).set_delay(1.0)

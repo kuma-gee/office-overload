@@ -45,6 +45,9 @@ func _update():
 	var is_coffee = item.type == Shop.Items.COFFEE
 	sold_out.visible = is_max and not is_coffee
 	ctrl_hint.visible = is_max and is_coffee
+
+func _process(delta: float) -> void:
+	size.y = 0 # without this paper is stretched very long, for whatever reason
 	
 	#buy_button.get_label().disabled = disabled
 	#buy_button.get_label().highlight_first = not disabled

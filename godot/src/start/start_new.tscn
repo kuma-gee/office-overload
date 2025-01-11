@@ -649,7 +649,6 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Shop/Money/Money/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Budget"
-label_settings = ExtResource("5_qryb2")
 
 [node name="Label2" type="Label" parent="Shop/Money/Money/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -681,7 +680,6 @@ item = ExtResource("22_kdipq")
 [node name="RubberDuckItem" parent="Shop/Papers" instance=ExtResource("18_ui332")]
 layout_mode = 1
 offset_left = -130.0
-offset_top = -70.0
 offset_right = -30.0
 offset_bottom = 65.0
 rotation = -0.10472

@@ -9,6 +9,9 @@ extends Control
 var tw: Tween
 var was_opened := false
 
+func _ready() -> void:
+	hide()
+
 func is_open():
 	return was_opened
 
@@ -23,6 +26,7 @@ func open(delay = 0.0):
 	tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 	tw.tween_property(self, "global_position", orig_pos, 1.0).set_delay(delay)
 	was_opened = true
+	show()
 
 func close():
 	tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)

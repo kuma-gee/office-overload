@@ -334,7 +334,7 @@ func item_price(item: ShopResource):
 	var item_bought = item_count(item.type)
 	return item.prices[min(item_bought, item.prices.size() - 1)]
 
-const PLANT_STRESS_REDUCTION = [0.1, 0.25, 0.4]
+const PLANT_STRESS_REDUCTION = [0.1, 0.2, 0.25]
 const MONEY_INCREASE = [0.1, 0.2]
 const ASSISTANT_REDUCTION = [0.1, 0.25]
 

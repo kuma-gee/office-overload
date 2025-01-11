@@ -151,9 +151,6 @@ func _ready():
 		var reduction = GameManager.use_coffee()
 		overload_progress.reduce(reduction)
 	)
-	
-	if not GameManager.has_played:
-		animation_player.play("tutorial")
 
 func _on_day_finished():
 	if GameManager.is_work_mode():
@@ -161,10 +158,10 @@ func _on_day_finished():
 	else:
 		bgm.pitch_scale = 1.0
 	
-	if GameManager.day >= 1 and GameManager.is_work_mode():
-		_start_game()
-	else:
-		_spawn_document(true)
+	#if GameManager.day >= 1 and GameManager.is_work_mode():
+		#_start_game()
+	#else:
+	_spawn_document(true)
 
 func _start_game():
 	if not GameManager.is_ceo():
@@ -317,6 +314,9 @@ func _add_document(doc: Document, await_start := false):
 		
 	if await_start or documents.size() == 0:
 		doc.show_tutorial()
+	
+	if await_start and not GameManager.has_played:
+		keyboard.highlight_key(OS.find_keycode_from_string(doc.word[0]))
 	
 	documents.append(doc)
 
