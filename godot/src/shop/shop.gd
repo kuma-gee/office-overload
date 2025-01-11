@@ -7,7 +7,6 @@ enum Items {
 	COFFEE,
 	ASSISTANT,
 	MONEY_CAT,
-	COSMETIC,
 }
 
 const ITEM_FOLDER = "res://src/shop/items/"
