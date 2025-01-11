@@ -383,6 +383,7 @@ text = "Level"
 label_settings = ExtResource("3_0j057")
 
 [node name="Documents" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Doc"

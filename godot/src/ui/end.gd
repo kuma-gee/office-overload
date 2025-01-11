@@ -4,6 +4,7 @@ extends Control
 
 @export var open_sound: AudioStreamPlayer
 @export var gameover_sound: AudioStreamPlayer
+@export var performance_progress: TextureProgressBar
 
 #@export_category("Interview Mode")
 #@export var interview_finished: Label
@@ -29,6 +30,7 @@ extends Control
 @export var wpm_label: Label
 @export var money_label: Label
 @export var bonus_label: Label
+@export var money_used: Label
 
 @export_category("CEO")
 @export var ceo_player_tasks: Label
@@ -104,6 +106,13 @@ func day_ended(data: Dictionary):
 	distraction_label.text = "%s" % wrong
 	wpm_label.text = "%0.f" % data["wpm"]
 	bonus_label.text = "x%s" % GameManager.difficulty.money_multiplier
+	
+	money_used.visible = GameManager.get_assistant_cost() > 0
+	money_used.text = "-$%s" % GameManager.get_assistant_cost()
+	
+	performance_progress.min_value = GameManager.get_min_performance()
+	performance_progress.max_value = GameManager.get_max_performance()
+	performance_progress.value = GameManager.performance
 
 	var promo = GameManager.can_have_promotion() and data["grade"].points > 0
 	if promo:
