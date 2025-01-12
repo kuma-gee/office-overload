@@ -33,7 +33,6 @@ var init := false
 
 ### Persisted ###
 var day := 0
-var completed_documents := 0
 var total_overtime := 0
 var difficulty_level := DifficultyResource.Level.INTERN:
 	set(v):
@@ -136,7 +135,6 @@ func back_to_menu():
 
 func reset_values():
 	day = 0
-	completed_documents = 0
 	total_overtime = 0
 	difficulty_level = DifficultyResource.Level.INTERN
 	performance = 0
@@ -163,8 +161,10 @@ func finished_day(data: Dictionary):
 	data["wpm"] = wpm
 	data["acc"] = acc
 
-	average_wpm = ((average_wpm * previous_size) + (wpm * current_size)) / (previous_size + current_size)
+	average_wpm = roundf(((average_wpm * previous_size) + (wpm * current_size)) / (previous_size + current_size))
 	average_accuracy = ((average_accuracy * previous_size) + (acc * current_size)) / (previous_size + current_size)
+	average_accuracy = snappedf(average_accuracy, 0.01)
+	
 	past_wpms.append(average_wpm)
 	if past_wpms.size() > keep_past_wpms:
 		past_wpms.pop_front()
@@ -368,13 +368,15 @@ func get_distraction_reduction():
 	return 1.0 - reduction
 
 func has_coffee():
-	return Shop.Items.COFFEE in bought_items
+	return Shop.Items.COFFEE in bought_items and Shop.Items.COFFEE in used_items
 
 func use_coffee():
 	if not has_coffee():
 		return 0.0
 
 	bought_items.erase(Shop.Items.COFFEE)
+	used_items.erase(Shop.Items.COFFEE)
+	
 	_save_data()
 	coffee_used.emit()
 	return 100.0

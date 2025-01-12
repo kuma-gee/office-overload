@@ -5,6 +5,7 @@ extends Control
 @export var open_sound: AudioStreamPlayer
 @export var gameover_sound: AudioStreamPlayer
 @export var performance_progress: TextureProgressBar
+@export var level_label: Label
 
 #@export_category("Interview Mode")
 #@export var interview_finished: Label
@@ -57,7 +58,9 @@ func _ready():
 	
 	hide()
 	next_day.finished.connect(func(): GameManager.start())
-	GameManager.mode_unlocked.connect(func(mode): unlocked_container.unlocked_mode(mode))
+	GameManager.mode_unlocked.connect(func(mode):
+		unlocked_container.unlocked_mode(mode)
+	)
 	
 	promotion_paper.accepted.connect(func():
 		promotion_status.open()
@@ -78,13 +81,17 @@ func ceo_ended(user: Dictionary, boss: Dictionary):
 	var boss_mistakes = boss["mistakes"]
 	var user_points = user_tasks - user_mistakes
 	var boss_points = boss_tasks - boss_mistakes
-	var win = user_tasks > boss_points
+	var win = user_points > boss_points
 	
 	ceo_player_tasks.text = "%s" % user_tasks
 	ceo_boss_tasks.text = "%s" % boss_tasks
 	ceo_player_mistakes.text = "%s" % user_mistakes
 	ceo_boss_mistakes.text = "%s" % boss_mistakes
-	ceo_win_status.text = "Congratulations!\nYou are the new CEO!" if win else "You got demoted\nto senior."
+	if GameManager.finished_game:
+		ceo_win_status.text = "Congratulations!\nYou proved your CEO skills!" if win else "You should practice\nyour skills more."
+	else:
+		ceo_win_status.text = "Congratulations!\nYou are the new CEO!" if win else "You got demoted\nto senior."
+		
 	_do_open(ceo_container)
 	
 	if win:
@@ -113,6 +120,10 @@ func day_ended(data: Dictionary):
 	performance_progress.min_value = GameManager.get_min_performance()
 	performance_progress.max_value = GameManager.get_max_performance()
 	performance_progress.value = GameManager.performance
+	
+	if GameManager.next_difficulty:
+		level_label.text = GameManager.get_level_text(GameManager.next_difficulty.level)
+	level_label.visible = performance_progress.value == performance_progress.max_value
 
 	var promo = GameManager.can_have_promotion() and data["grade"].points > 0
 	if promo:

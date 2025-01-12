@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://cdafk4ywr2fbg"]
+[gd_scene load_steps=62 format=3 uid="uid://cdafk4ywr2fbg"]
 
 [ext_resource type="Script" path="res://src/ui/Stats.gd" id="1_1pk7f"]
 [ext_resource type="Script" path="res://src/start/start_new.gd" id="1_25sst"]
@@ -52,11 +52,6 @@
 [ext_resource type="Script" path="res://addons/graph_2d/custom_nodes/coordinate.gd" id="41_f7xlp"]
 [ext_resource type="AudioStream" uid="uid://7ix2fpbkls0p" path="res://assets/sound/Talk_with_me.mp3" id="46_0cyp8"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_an0ir"]
-texture = ExtResource("5_gs4c1")
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pnf0e"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4m4d5"]
@@ -109,6 +104,30 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(-5, 138)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AltPage:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("WorkDocument:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_6fel6"]
 resource_name = "alt_page"
@@ -149,6 +168,30 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(-15, 105), Vector2(7, -52)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AltPage:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("WorkDocument:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bge4k"]
 _data = {
@@ -165,7 +208,7 @@ crunch_mode = NodePath("AltPage/MarginContainer/VBoxContainer/Crunch/Crunch")
 multiplayer_mode = NodePath("AltPage/MarginContainer/VBoxContainer/Multiplayer/Multiplayer")
 files = NodePath("Files/Report")
 team = NodePath("Rankings/Team")
-shop_button = NodePath("ShopButton/PrepareDoc/MarginContainer/TypingLabel3")
+shop_button = NodePath("ShopButton/Sprite2D/ShopButton")
 teams_node = NodePath("Rankings")
 files_node = NodePath("Files")
 settings = NodePath("CanvasLayer/Control/Settings")
@@ -181,7 +224,7 @@ shift_delegator = NodePath("ShiftDelegator")
 
 [node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("7_pvyq5")
-nodes = [NodePath("../WorkDocument/MarginContainer/VBoxContainer/Work"), NodePath("../WorkDocument/MarginContainer/VBoxContainer/Settings"), NodePath("../WorkDocument/MarginContainer/VBoxContainer/Exit"), NodePath("../Rankings/Team"), NodePath("../Files/Report"), NodePath("../ShopButton/PrepareDoc/MarginContainer/TypingLabel3"), NodePath("../ItemsPaper")]
+nodes = [NodePath("../WorkDocument/MarginContainer/VBoxContainer/Work"), NodePath("../WorkDocument/MarginContainer/VBoxContainer/Settings"), NodePath("../WorkDocument/MarginContainer/VBoxContainer/Exit"), NodePath("../Rankings/Team"), NodePath("../Files/Report"), NodePath("../ShopButton/Sprite2D/ShopButton"), NodePath("../ItemsPaper/PanelContainer/MarginContainer/VBoxContainer/Items")]
 
 [node name="ShiftDelegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("7_pvyq5")
@@ -238,13 +281,14 @@ layout_mode = 2
 layout_mode = 2
 text = "Saving"
 
-[node name="Label2" type="Label" parent="MainMoney/Money/MarginContainer/VBoxContainer"]
+[node name="Money" type="Label" parent="MainMoney/Money/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "$100"
+label_settings = ExtResource("3_0j057")
 script = ExtResource("34_06bnc")
 
-[node name="ItemsPaper" type="PanelContainer" parent="." node_paths=PackedStringArray("container", "title_button", "delegator")]
-custom_minimum_size = Vector2(110, 152)
+[node name="ItemsPaper" type="Control" parent="." node_paths=PackedStringArray("container", "title_button", "delegator")]
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -259,55 +303,65 @@ grow_vertical = 2
 pivot_offset = Vector2(60, 80)
 theme = ExtResource("2_xj832")
 script = ExtResource("6_q1q4c")
-container = NodePath("MarginContainer/VBoxContainer/VBoxContainer")
-title_button = NodePath("MarginContainer/VBoxContainer/Items")
+container = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer")
+title_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/Items")
 delegator = NodePath("Delegator")
-offset_y = 80
 
 [node name="Delegator" type="Node" parent="ItemsPaper"]
 script = ExtResource("7_pvyq5")
 
-[node name="MarginContainer" type="MarginContainer" parent="ItemsPaper"]
+[node name="PanelContainer" type="PanelContainer" parent="ItemsPaper"]
+custom_minimum_size = Vector2(110, 152)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="ItemsPaper/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ItemsPaper/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ItemsPaper/PanelContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Items" parent="ItemsPaper/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
+[node name="Items" parent="ItemsPaper/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
 layout_mode = 2
 word = "items"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ItemsPaper/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ItemsPaper/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="Plant" parent="ItemsPaper/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("9_l0av4")]
+[node name="Plant" parent="ItemsPaper/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("9_l0av4")]
 layout_mode = 2
 item = ExtResource("19_nxoxl")
 
-[node name="Coffee" parent="ItemsPaper/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("9_l0av4")]
+[node name="Coffee" parent="ItemsPaper/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("9_l0av4")]
 layout_mode = 2
 item = ExtResource("21_cmmll")
 
-[node name="RubberDuck" parent="ItemsPaper/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("9_l0av4")]
+[node name="RubberDuck" parent="ItemsPaper/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("9_l0av4")]
 layout_mode = 2
 item = ExtResource("20_jt336")
 
-[node name="MoneyCat" parent="ItemsPaper/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("9_l0av4")]
+[node name="MoneyCat" parent="ItemsPaper/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("9_l0av4")]
 layout_mode = 2
 item = ExtResource("23_hhmej")
 
-[node name="Assistant" parent="ItemsPaper/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("9_l0av4")]
+[node name="Assistant" parent="ItemsPaper/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("9_l0av4")]
 layout_mode = 2
 item = ExtResource("22_kdipq")
 
 [node name="Control" type="Control" parent="ItemsPaper"]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Stats" type="PanelContainer" parent="." node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy", "score_container", "score")]
 custom_minimum_size = Vector2(110, 140)
@@ -510,7 +564,7 @@ anchor_bottom = 0.5
 offset_left = -5.0
 offset_top = 138.0
 offset_right = 105.0
-offset_bottom = 855.0
+offset_bottom = 278.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.139626
@@ -578,7 +632,7 @@ reset_on_finish = true
 word = "teams"
 
 [node name="Files" type="Sprite2D" parent="."]
-position = Vector2(129, 67)
+position = Vector2(129, 70)
 rotation = -0.174533
 texture = ExtResource("9_h10wu")
 script = ExtResource("10_vvvnb")
@@ -658,8 +712,8 @@ script = ExtResource("34_06bnc")
 
 [node name="Papers" type="Control" parent="Shop"]
 anchors_preset = 0
-offset_top = 78.0
-offset_bottom = 78.0
+offset_top = 9.0
+offset_bottom = 9.0
 
 [node name="MoneyCatItem" parent="Shop/Papers" instance=ExtResource("18_ui332")]
 layout_mode = 1
@@ -680,54 +734,43 @@ item = ExtResource("22_kdipq")
 
 [node name="RubberDuckItem" parent="Shop/Papers" instance=ExtResource("18_ui332")]
 layout_mode = 1
-offset_left = -130.0
-offset_right = -30.0
-offset_bottom = 65.0
+offset_left = -133.0
+offset_top = -64.0
+offset_right = -33.0
+offset_bottom = 71.0
 rotation = -0.10472
 item = ExtResource("20_jt336")
 
 [node name="CoffeeItem" parent="Shop/Papers" instance=ExtResource("18_ui332")]
 layout_mode = 1
-offset_left = -103.0
-offset_top = -8.0
-offset_right = -3.0
-offset_bottom = 127.0
+offset_left = -101.0
+offset_top = -18.0
+offset_right = -0.999985
+offset_bottom = 117.0
 rotation = -0.174533
 item = ExtResource("21_cmmll")
 
 [node name="PlantItem" parent="Shop/Papers" instance=ExtResource("18_ui332")]
 layout_mode = 1
-offset_left = -15.0
-offset_top = 12.0
-offset_right = 85.0
-offset_bottom = 147.0
+offset_left = -14.0
+offset_top = 5.0
+offset_right = 86.0
+offset_bottom = 140.0
 rotation = 0.0872665
 item = ExtResource("19_nxoxl")
 
 [node name="ShopButton" type="Node2D" parent="."]
-position = Vector2(131, -71)
+position = Vector2(133, -76)
 
-[node name="PrepareDoc" type="PanelContainer" parent="ShopButton"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -29.0
-offset_top = -9.0
-offset_right = 21.0
-offset_bottom = 8.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_xj832")
-theme_override_styles/panel = SubResource("StyleBoxTexture_an0ir")
+[node name="Sprite2D" type="Sprite2D" parent="ShopButton"]
+texture = ExtResource("5_gs4c1")
 
-[node name="MarginContainer" type="MarginContainer" parent="ShopButton/PrepareDoc"]
-layout_mode = 2
-theme_override_constants/margin_left = -2
-
-[node name="TypingLabel3" parent="ShopButton/PrepareDoc/MarginContainer" instance=ExtResource("11_cjr5n")]
-layout_mode = 2
+[node name="ShopButton" parent="ShopButton/Sprite2D" instance=ExtResource("11_cjr5n")]
+offset_left = -33.5
+offset_top = -13.0
+offset_right = -3.5
+offset_bottom = 3.0
+theme_override_font_sizes/normal_font_size = 8
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]s[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]hop[/outline_size][/outline_color][/color][/center][/outline_color]"
 reset_on_finish = true
 word = "shop"
@@ -1004,7 +1047,6 @@ texture = ExtResource("25_pu2hv")
 stretch_mode = 2
 
 [node name="CeoLevelSelect" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("delegator")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1053,7 +1095,7 @@ theme = ExtResource("2_xj832")
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect"]
 layout_mode = 2
 theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 6
+theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
@@ -1076,7 +1118,7 @@ theme_override_constants/separation = 5
 [node name="Label" type="Label" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 8
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 10
 text = "Select Level"
 horizontal_alignment = 1

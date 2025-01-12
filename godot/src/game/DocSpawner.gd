@@ -122,7 +122,6 @@ func _set_invalid_word(doc: Document, word: String):
 					word[target_idx] = word[swap_idx]
 					word[swap_idx] = temp
 
-	doc.original_word = original_word
 	doc.word = word
 
 func spawn_invalid_document(type: InvalidType = get_invalid_type()):
@@ -130,6 +129,8 @@ func spawn_invalid_document(type: InvalidType = get_invalid_type()):
 	var word = word_generator.get_random_word()
 	if word == "":
 		return
+		
+	doc.original_word = word
 	_set_invalid_word(doc, word)
 
 	doc.global_position = global_position
@@ -152,7 +153,8 @@ func spawn_document(invalid_word_chance := 0.0):
 	if word == "":
 		_logger.warn("No words available for document")
 		return null
-
+	
+	doc.original_word = word
 	if randf() < invalid_word_accum and invalid_skipped > 0:
 		_set_invalid_word(doc, word)
 		invalid_word_accum = 0.0

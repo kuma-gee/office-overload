@@ -143,7 +143,7 @@ func _color(w: String, color: Color):
 func _wrap_word(until: int, highlight_letter = false):
 	var censored_word = word
 	for i in censored:
-		if i < until: continue
+		if i < until or i >= censored_word.length(): continue
 		censored_word[i] = "_"
 
 	#var highlight_start = "[outline_color=%s][color=%s]" % [Color.TRANSPARENT.to_html(), typed_color.to_html()]

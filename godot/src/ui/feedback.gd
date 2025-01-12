@@ -52,7 +52,7 @@ func _ready() -> void:
 	FeedbackManager.request_throttled.connect(func(s: float): _show_status("Please wait %.0f s before sending another feedback" % s))
 	FeedbackManager.request_running.connect(func(): loading = true)
 	FeedbackManager.request_successful.connect(func():
-		_show_status("Thank you for your feedback!")
+		#_show_status("Thank you for your feedback!") # paper will be send, so this won't be visible anyway
 		was_sent = true
 		send()
 	)

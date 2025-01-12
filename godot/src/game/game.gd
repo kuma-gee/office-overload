@@ -12,7 +12,7 @@ extends Node2D
 
 @export_category("Boss")
 @export var min_documents := 2
-@export var boss_process_speed := 2.5
+@export var boss_process_speed := 2.2
 @export var boss_process_speed_variation := 0.3
 @export var boss_max_combo_count := 15
 @export var boss_min_combo_count := 6
@@ -245,7 +245,7 @@ func _spawn_document(await_start = false):
 	if GameManager.is_ceo() and boss_attack_timer.is_stopped() and _boss_doc_diff() > 0 and not is_attacking and boss_attack_documents <= 0:
 		_setup_boss_attack()
 	else:
-		if boss_attack_documents > 0 and GameManager.is_ceo():
+		if GameManager.is_ceo() and boss_attack_documents > 0:
 			var doc = doc_spawner.spawn_invalid_document()
 			_add_document(doc, await_start)
 			boss_attack_documents -= 1
@@ -269,6 +269,7 @@ func _add_document(doc: Document, await_start := false):
 	doc.started.connect(func(): GameManager.start_type())
 	doc.finished.connect(func():
 		GameManager.finish_type(doc.word, doc.mistakes)
+		print(doc.mistakes)
 		
 		if doc.is_discarded:
 			doc.move_to(doc.global_position + Vector2.DOWN * 200)
@@ -350,7 +351,7 @@ func _setup_boss_attack():
 	await _slam_desk()
 	await _slam_desk()
 
-	if not spill_mug.active and (boss_attacked == 1 or randf() <= spill_mug_chance):
+	if not spill_mug.active and boss_attacked != 0 and (boss_attacked == 1 or randf() <= spill_mug_chance):
 		_spill_boss_attack()
 		boss_attack_documents = 0
 		_start_boss_attack_timer()
@@ -401,7 +402,6 @@ func _start_boss_attack_timer():
 	var time_diff = boss_max_attack_time - boss_min_attack_time
 	var time = boss_min_attack_time + time_diff * (1-p)
 	boss_attack_timer.start(time)
-	print("Boss attack time: %s" % time)
 
 func _ceo_game_ended():
 	end.ceo_ended({"tasks": document_stack.tasks, "mistakes": document_stack.wrong_tasks}, {"tasks": boss_documents, "mistakes": boss_mistakes})
@@ -428,4 +428,4 @@ func _process(delta: float) -> void:
 			boss_combo += 1
 
 		boss_current_speed = randf_range(boss_process_speed * (1 - boss_process_speed_variation), boss_process_speed * (1 + boss_process_speed_variation))
-		print("Boss Finished, next speed %s" % boss_current_speed)
+		#print("Boss Finished, next speed %s" % boss_current_speed)

@@ -8,8 +8,8 @@
 [ext_resource type="Script" path="res://src/delegator.gd" id="6_ebu83"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="7_tygfg"]
 
-[node name="ShopPaper" type="PanelContainer" node_paths=PackedStringArray("desc_label", "price_label", "value_label", "icon_tex", "ctrl_hint", "sold_out", "no_money", "buy_button", "title_button", "delegator")]
-custom_minimum_size = Vector2(120, 140)
+[node name="ShopPaper" type="Control" node_paths=PackedStringArray("desc_label", "price_label", "value_label", "icon_tex", "ctrl_hint", "sold_out", "no_money", "esc_tex", "buy_button", "title_button", "delegator")]
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -25,53 +25,60 @@ pivot_offset = Vector2(60, 70)
 focus_mode = 2
 theme = ExtResource("1_vkbbw")
 script = ExtResource("2_ipdik")
-desc_label = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Desc")
-price_label = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Price")
-value_label = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Value")
-icon_tex = NodePath("MarginContainer/VBoxContainer/VBoxContainer/TextureRect")
-ctrl_hint = NodePath("MarginContainer/VBoxContainer/MarginContainer/CtrlHint")
-sold_out = NodePath("MarginContainer/VBoxContainer/VBoxContainer/TextureRect/SoldOut")
-no_money = NodePath("MarginContainer/VBoxContainer/MarginContainer/NoMoney")
-buy_button = NodePath("MarginContainer/VBoxContainer/MarginContainer/Buy")
-title_button = NodePath("MarginContainer/VBoxContainer/Work")
+desc_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Desc")
+price_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Price")
+value_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Value")
+icon_tex = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/TextureRect")
+ctrl_hint = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CtrlHint")
+sold_out = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/TextureRect/SoldOut")
+no_money = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer/NoMoney")
+esc_tex = NodePath("PanelContainer/Esc")
+buy_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Buy")
+title_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/Work")
 delegator = NodePath("Delegator")
 include_rotation = true
 
 [node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("6_ebu83")
-nodes = [NodePath("../MarginContainer/VBoxContainer/MarginContainer/Buy")]
+nodes = [NodePath("../PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Buy")]
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(120, 140)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Work" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_8orlk")]
+[node name="Work" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_8orlk")]
 layout_mode = 2
 word = "work"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="Price" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Price" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "$100"
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 texture = ExtResource("4_ia1nw")
 stretch_mode = 3
 
-[node name="SoldOut" type="CenterContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/TextureRect"]
+[node name="SoldOut" type="CenterContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/TextureRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,10 +86,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/VBoxContainer/TextureRect/SoldOut"]
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/TextureRect/SoldOut"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/TextureRect/SoldOut/Control"]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/TextureRect/SoldOut/Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -98,18 +105,18 @@ grow_vertical = 2
 rotation = -0.523599
 pivot_offset = Vector2(19, 5)
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/TextureRect/SoldOut/Control/PanelContainer"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/TextureRect/SoldOut/Control/PanelContainer"]
 layout_mode = 2
-text = "SOLD_OUT"
+text = "Sold out"
 
-[node name="Desc" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Desc" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 6
 text = "Reduces stress"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Value" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 4
@@ -118,38 +125,38 @@ text = "-20%"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Buy" parent="MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource("3_8orlk")]
+[node name="Buy" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource("3_8orlk")]
 layout_mode = 2
 word = "purchase"
 show_underline = false
 
-[node name="NoMoney" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer"]
+[node name="NoMoney" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 text = "out of budget"
 horizontal_alignment = 1
 
-[node name="CtrlHint" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+[node name="CtrlHint" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/CtrlHint"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CtrlHint"]
 layout_mode = 2
 text = "Use with"
 
-[node name="CtrlKey" type="TextureRect" parent="MarginContainer/VBoxContainer/MarginContainer/CtrlHint"]
+[node name="CtrlKey" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CtrlHint"]
 layout_mode = 2
 texture = ExtResource("5_50sr6")
 stretch_mode = 3
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
+[node name="Esc" type="MarginContainer" parent="PanelContainer"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 3
@@ -157,10 +164,15 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer2"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/Esc"]
 layout_mode = 2
 texture = ExtResource("7_tygfg")
 stretch_mode = 2
 
 [node name="Control" type="Control" parent="."]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

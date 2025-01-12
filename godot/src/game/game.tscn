@@ -1,4 +1,4 @@
-[gd_scene load_steps=105 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=104 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/game/document.tscn" id="2_35x6g"]
@@ -51,7 +51,6 @@
 [ext_resource type="Texture2D" uid="uid://fhvvkmwkvr5c" path="res://assets/sprites/Desk_Plant.png" id="27_1a3yr"]
 [ext_resource type="Texture2D" uid="uid://ctoyv3g7nvrwf" path="res://assets/sprites/Desk_Coffee.png" id="28_i6mjb"]
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="32_eoisl"]
-[ext_resource type="Texture2D" uid="uid://bstvwnc3xppv1" path="res://assets/sprites/Shift.png" id="33_qq0id"]
 [ext_resource type="PackedScene" uid="uid://cuh77fo8okhk7" path="res://src/ui/pause.tscn" id="37_b7g85"]
 [ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
 [ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
@@ -806,7 +805,7 @@ visible = false
 script = ExtResource("20_tcix1")
 nodes = [NodePath("../..")]
 
-[node name="Distractions" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "shift_button", "work_time")]
+[node name="Distractions" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "work_time")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -818,7 +817,6 @@ mouse_filter = 2
 theme = ExtResource("10_am0oy")
 script = ExtResource("14_s1o3m")
 overlay = NodePath("../../Overlay")
-shift_button = NodePath("../ShiftButton")
 work_time = NodePath("../../Desk/Clock/HBoxContainer/WorkTime")
 
 [node name="ShakeEffect" type="Node" parent="CanvasLayer/Distractions"]
@@ -1165,44 +1163,6 @@ material = SubResource("ShaderMaterial_8da6s")
 layout_mode = 2
 script = ExtResource("24_7p44n")
 timer = NodePath("../../../../../Timer")
-
-[node name="ShiftButton" type="Control" parent="CanvasLayer"]
-visible = false
-layout_mode = 3
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-grow_vertical = 0
-script = ExtResource("15_ffym8")
-slide_dir = Vector2(0, -30)
-
-[node name="ShiftShake" type="Node" parent="CanvasLayer/ShiftButton"]
-script = ExtResource("20_u0r5t")
-duration = 0.5
-
-[node name="Shake" type="Node" parent="CanvasLayer/ShiftButton/ShiftShake" node_paths=PackedStringArray("node")]
-script = ExtResource("21_os6oe")
-node = NodePath("../../MarginContainer")
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ShiftButton"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -24.0
-offset_right = 24.0
-grow_vertical = 0
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 2
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ShiftButton/MarginContainer"]
-custom_minimum_size = Vector2(0, 16)
-layout_mode = 2
-texture = ExtResource("33_qq0id")
-expand_mode = 2
-stretch_mode = 5
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("37_b7g85")]
 visible = false
@@ -1818,7 +1778,7 @@ vertical_alignment = 1
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="DocSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("word_generator", "spill_mug", "positions")]
-position = Vector2(-200, 22)
+position = Vector2(-232, 22)
 script = ExtResource("4_macw6")
 document_scene = ExtResource("2_35x6g")
 word_generator = NodePath("WordGenerator")
@@ -1830,13 +1790,13 @@ positions = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3")]
 script = ExtResource("55_o651g")
 
 [node name="Marker2D" type="Marker2D" parent="DocSpawner"]
-position = Vector2(140, 0)
+position = Vector2(172, 0)
 
 [node name="Marker2D2" type="Marker2D" parent="DocSpawner"]
-position = Vector2(200, 0)
+position = Vector2(232, 0)
 
 [node name="Marker2D3" type="Marker2D" parent="DocSpawner"]
-position = Vector2(260, 0)
+position = Vector2(292, 0)
 
 [node name="Overlay" type="ColorRect" parent="."]
 visible = false

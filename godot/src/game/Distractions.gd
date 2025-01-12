@@ -15,7 +15,6 @@ const TYPE_MAP = {
 
 @export var distraction_timeout := 10
 @export var overlay: Control
-@export var shift_button: DistractionItem
 @export var work_time: WorkTime
 
 @onready var delegator = $Delegator
@@ -108,9 +107,6 @@ func show_distraction():
 		distraction.set_word(word, distraction_timeout)
 		_show_overlay()
 	
-	if not shift_button.is_open:
-		shift_button.slide_in_full()
-
 func _get_random_distraction_word(type: Type):
 	var group = TYPE_MAP[type]
 	var available = WordManager.get_words(group) # TODO: use WordGenerator??
@@ -139,9 +135,6 @@ func _hide_overlay():
 	
 	delegator.reset()
 	
-	if _has_active_distraction():
-		shift_button.slide_in_full()
-
 func _show_overlay():
 	if tw and tw.is_running() or overlay.modulate == Color.WHITE:
 		return
@@ -153,8 +146,6 @@ func _show_overlay():
 		if m.is_open:
 			m.slide_in_full()
 	
-	shift_button.slide_out()
-
 func _input(event):
 	if not event is InputEventKey: return
 	if not _has_active_distraction(): return

@@ -21,7 +21,7 @@ func _ready() -> void:
 	focus_entered.connect(func():
 		if focus_tw and focus_tw.is_running(): return
 		focus_tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
-		focus_tw.tween_property(self, "position", Vector2(-size.x / 2, -size.y + offset_y), 0.5)
+		focus_tw.tween_property(self, "position", Vector2(-size.x / 2, -(size.y / 2) + offset_y), 0.5)
 		focus_tw.tween_property(self, "rotation", 0, 0.5)
 		focus_tw.tween_callback(func(): z_index = 10)
 		title_button.get_label().fill_all = true

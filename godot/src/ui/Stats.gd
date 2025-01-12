@@ -26,7 +26,7 @@ func _update():
 	job_container.visible = GameManager.has_current_job()
 	day.text = "Day: %s" % GameManager.day
 	level.text = "Level: %s" % GameManager.get_level_text()
-	documents.text = "Finished Documents: %s" % GameManager.completed_documents
+	#documents.text = "Finished Documents: %s" % GameManager.completed_documents
 
 	skill_container.visible = GameManager.get_wpm() > 0
 	wpm.text = "%.0f speed" % GameManager.get_wpm()

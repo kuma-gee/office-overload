@@ -34,3 +34,10 @@ func close():
 
 func _close_position():
 	return orig_pos - move_dir * size.y + Vector2.DOWN * extra_distance
+
+func send():
+	tw = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tw.tween_property(self, "position", position + Vector2.UP * 200, 0.5)
+	await tw.finished
+	hide()
+	

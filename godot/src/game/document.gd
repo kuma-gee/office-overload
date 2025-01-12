@@ -59,16 +59,16 @@ func _ready():
 		remove_from_group(ACTIVE_GROUP)
 		finished.emit()
 	)
-	#typing_label.position += Vector2.DOWN * 50
+	typing_label.type_wrong.connect(func(): mistakes += 1)
 	
 	sprite.material.set_shader_parameter("enable", false)
 	sprite.material = sprite.material.duplicate()
 	
 	stain_detector.stained.connect(func():
-		if original_word != word:
+		if original_word != word and original_word != "":
 			typing_label.word = original_word
 		
-		if typing_label.censored.size() > 0:
+		if typing_label.censored.size() > 0 or word.length() < 4:
 			return
 		
 		# Words should be at least 4 characters long
@@ -105,8 +105,8 @@ func return_to():
 
 func handle_key(key: String):
 	var hit = typing_label.handle_key(key)
-	if not hit:
-		mistakes += 1
+	#if not hit:
+		#mistakes += 1
 	return hit
 
 func highlight():

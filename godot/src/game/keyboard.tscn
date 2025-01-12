@@ -57,12 +57,14 @@ color = Color(0.207843, 0.207843, 0.25098, 1)
 count = 12
 
 [node name="1" type="ColorRect" parent="123"]
+visible = false
 layout_mode = 0
 offset_right = 3.0
 offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="2" type="ColorRect" parent="123"]
+visible = false
 layout_mode = 0
 offset_left = 3.0
 offset_right = 6.0
@@ -70,6 +72,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="3" type="ColorRect" parent="123"]
+visible = false
 layout_mode = 0
 offset_left = 6.0
 offset_right = 9.0
@@ -77,6 +80,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="4" type="ColorRect" parent="123"]
+visible = false
 layout_mode = 0
 offset_left = 9.0
 offset_right = 12.0
@@ -84,6 +88,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="5" type="ColorRect" parent="123"]
+visible = false
 layout_mode = 0
 offset_left = 12.0
 offset_right = 15.0
@@ -91,6 +96,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="6" type="ColorRect" parent="123"]
+visible = false
 layout_mode = 0
 offset_left = 15.0
 offset_right = 18.0
@@ -98,6 +104,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="7" type="ColorRect" parent="123"]
+visible = false
 layout_mode = 0
 offset_left = 18.0
 offset_right = 21.0
@@ -105,6 +112,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="8" type="ColorRect" parent="123"]
+visible = false
 layout_mode = 0
 offset_left = 21.0
 offset_right = 24.0
@@ -112,6 +120,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="9" type="ColorRect" parent="123"]
+visible = false
 layout_mode = 0
 offset_left = 24.0
 offset_right = 27.0
@@ -119,6 +128,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="0" type="ColorRect" parent="123"]
+visible = false
 layout_mode = 0
 offset_left = 27.0
 offset_right = 30.0
@@ -126,6 +136,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="minus" type="ColorRect" parent="123"]
+visible = false
 layout_mode = 0
 offset_left = 30.0
 offset_right = 33.0
@@ -133,6 +144,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="equal" type="ColorRect" parent="123"]
+visible = false
 layout_mode = 0
 offset_left = 33.0
 offset_right = 36.0
@@ -151,12 +163,14 @@ color = Color(0.207843, 0.207843, 0.25098, 1)
 count = 12
 
 [node name="q" type="ColorRect" parent="QWE"]
+visible = false
 layout_mode = 0
 offset_right = 3.0
 offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="w" type="ColorRect" parent="QWE"]
+visible = false
 layout_mode = 0
 offset_left = 3.0
 offset_right = 6.0
@@ -164,6 +178,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="e" type="ColorRect" parent="QWE"]
+visible = false
 layout_mode = 0
 offset_left = 6.0
 offset_right = 9.0
@@ -171,6 +186,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="r" type="ColorRect" parent="QWE"]
+visible = false
 layout_mode = 0
 offset_left = 9.0
 offset_right = 12.0
@@ -178,6 +194,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="t" type="ColorRect" parent="QWE"]
+visible = false
 layout_mode = 0
 offset_left = 12.0
 offset_right = 15.0
@@ -185,6 +202,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="y" type="ColorRect" parent="QWE"]
+visible = false
 layout_mode = 0
 offset_left = 15.0
 offset_right = 18.0
@@ -192,6 +210,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="u" type="ColorRect" parent="QWE"]
+visible = false
 layout_mode = 0
 offset_left = 18.0
 offset_right = 21.0
@@ -199,6 +218,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="i" type="ColorRect" parent="QWE"]
+visible = false
 layout_mode = 0
 offset_left = 21.0
 offset_right = 24.0
@@ -206,6 +226,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="o" type="ColorRect" parent="QWE"]
+visible = false
 layout_mode = 0
 offset_left = 24.0
 offset_right = 27.0
@@ -213,6 +234,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="p" type="ColorRect" parent="QWE"]
+visible = false
 layout_mode = 0
 offset_left = 27.0
 offset_right = 30.0
@@ -220,6 +242,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="bracket_left" type="ColorRect" parent="QWE"]
+visible = false
 layout_mode = 0
 offset_left = 30.0
 offset_right = 33.0
@@ -227,6 +250,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="bracket_right" type="ColorRect" parent="QWE"]
+visible = false
 layout_mode = 0
 offset_left = 33.0
 offset_right = 36.0
@@ -245,12 +269,14 @@ color = Color(0.207843, 0.207843, 0.25098, 1)
 count = 12
 
 [node name="a" type="ColorRect" parent="ASD"]
+visible = false
 layout_mode = 0
 offset_right = 3.0
 offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="s" type="ColorRect" parent="ASD"]
+visible = false
 layout_mode = 0
 offset_left = 3.0
 offset_right = 6.0
@@ -258,6 +284,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="d" type="ColorRect" parent="ASD"]
+visible = false
 layout_mode = 0
 offset_left = 6.0
 offset_right = 9.0
@@ -265,6 +292,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="f" type="ColorRect" parent="ASD"]
+visible = false
 layout_mode = 0
 offset_left = 9.0
 offset_right = 12.0
@@ -272,6 +300,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="g" type="ColorRect" parent="ASD"]
+visible = false
 layout_mode = 0
 offset_left = 12.0
 offset_right = 15.0
@@ -279,6 +308,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="h" type="ColorRect" parent="ASD"]
+visible = false
 layout_mode = 0
 offset_left = 15.0
 offset_right = 18.0
@@ -286,6 +316,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="j" type="ColorRect" parent="ASD"]
+visible = false
 layout_mode = 0
 offset_left = 18.0
 offset_right = 21.0
@@ -293,6 +324,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="k" type="ColorRect" parent="ASD"]
+visible = false
 layout_mode = 0
 offset_left = 21.0
 offset_right = 24.0
@@ -300,6 +332,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="l" type="ColorRect" parent="ASD"]
+visible = false
 layout_mode = 0
 offset_left = 24.0
 offset_right = 27.0
@@ -307,6 +340,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="semicolon" type="ColorRect" parent="ASD"]
+visible = false
 layout_mode = 0
 offset_left = 27.0
 offset_right = 30.0
@@ -314,6 +348,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="single_quote" type="ColorRect" parent="ASD"]
+visible = false
 layout_mode = 0
 offset_left = 30.0
 offset_right = 33.0
@@ -321,6 +356,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="backslash" type="ColorRect" parent="ASD"]
+visible = false
 layout_mode = 0
 offset_left = 33.0
 offset_right = 36.0
@@ -339,12 +375,14 @@ color = Color(0.207843, 0.207843, 0.25098, 1)
 count = 10
 
 [node name="z" type="ColorRect" parent="ZXC"]
+visible = false
 layout_mode = 0
 offset_right = 3.0
 offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="x" type="ColorRect" parent="ZXC"]
+visible = false
 layout_mode = 0
 offset_left = 3.0
 offset_right = 6.0
@@ -352,6 +390,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="c" type="ColorRect" parent="ZXC"]
+visible = false
 layout_mode = 0
 offset_left = 6.0
 offset_right = 9.0
@@ -359,6 +398,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="v" type="ColorRect" parent="ZXC"]
+visible = false
 layout_mode = 0
 offset_left = 9.0
 offset_right = 12.0
@@ -366,6 +406,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="b" type="ColorRect" parent="ZXC"]
+visible = false
 layout_mode = 0
 offset_left = 12.0
 offset_right = 15.0
@@ -373,6 +414,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="n" type="ColorRect" parent="ZXC"]
+visible = false
 layout_mode = 0
 offset_left = 15.0
 offset_right = 18.0
@@ -380,6 +422,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="m" type="ColorRect" parent="ZXC"]
+visible = false
 layout_mode = 0
 offset_left = 18.0
 offset_right = 21.0
@@ -387,6 +430,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="comma" type="ColorRect" parent="ZXC"]
+visible = false
 layout_mode = 0
 offset_left = 21.0
 offset_right = 24.0
@@ -394,6 +438,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="period" type="ColorRect" parent="ZXC"]
+visible = false
 layout_mode = 0
 offset_left = 24.0
 offset_right = 27.0
@@ -401,6 +446,7 @@ offset_bottom = 3.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [node name="slash" type="ColorRect" parent="ZXC"]
+visible = false
 layout_mode = 0
 offset_left = 27.0
 offset_right = 30.0
