@@ -72,7 +72,7 @@ func load_data(board: String = GameManager.get_leaderboard_for_mode()): # should
 	loaded = true
 	
 	loading_label.show()
-	var result = await SteamManager.load_score(board, score_type)
+	var result = await SteamLeaderboard.load_score(board, score_type)
 	show_data(result)
 
 func get_day_title():

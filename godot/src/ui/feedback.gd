@@ -1,16 +1,12 @@
 class_name FeedbackUI
 extends MenuPaper
 
-signal closed()
-
 @export var form: TextEdit
 @export var limit_label: Label
 @export var max_limit := 200
 
 @export var status_label: Label
 @export var loading_label: Control
-
-#@onready var effect_root: EffectRoot = $EffectRoot
 
 const KEY_MAPS = {
 	KEY_ENTER: "\n",
@@ -38,16 +34,7 @@ func _ready() -> void:
 	connect_focus(form)
 	_reset()
 	
-	#form.focus_entered.connect(func():
-		#if not _is_open():
-			#effect_root.do_effect()
-	#)
-	#form.focus_exited.connect(func():
-		#if _is_open():
-			#effect_root.reverse_effect()
-	#)
 	form.gui_input.connect(func(ev): handle_event(ev))
-	#closed.connect(func(): get_viewport().gui_release_focus())
 
 	FeedbackManager.request_throttled.connect(func(s: float): _show_status("Please wait %.0f s before sending another feedback" % s))
 	FeedbackManager.request_running.connect(func(): loading = true)
@@ -56,7 +43,7 @@ func _ready() -> void:
 		was_sent = true
 		send()
 	)
-	FeedbackManager.request_failed.connect(func(): _show_status("Failed to send feedback. Try again later."))
+	FeedbackManager.request_failed.connect(func(_err): _show_status("Failed to send feedback. Try again later."))
 
 func _show_status(text: String):
 	loading = false
@@ -78,13 +65,6 @@ func handle_event(event: InputEvent) -> void:
 	if form.text.length() >= max_limit:
 		form.text = form.text.substr(0, max_limit)
 		get_viewport().set_input_as_handled()
-
-#func open():
-	#if was_sent:
-		#_reset()
-	#
-	#show()
-	#form.grab_focus()
 
 func _reset():
 	form.text = ""

@@ -232,7 +232,7 @@ func upload_work_scores(wpm: float = average_wpm, acc: float = average_accuracy,
 	
 	var score = calculate_score(wpm, acc, level)
 	var board = get_leaderboard_for_mode()
-	SteamManager.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], day, -level]))
+	SteamLeaderboard.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], day, -level]))
 
 func calculate_score(wpm: float = average_wpm, acc: float = average_accuracy, level: int = difficulty_level):
 	var score = wpm * acc * level * (log(day+1)/log(10)) # +1 in log, so it doesn't return 0
@@ -241,7 +241,7 @@ func calculate_score(wpm: float = average_wpm, acc: float = average_accuracy, le
 func _upload_timed_scores(wpm: float, acc: float, count: int):
 	var score = wpm * acc * count
 	var board = get_leaderboard_for_mode()
-	SteamManager.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count]))
+	SteamLeaderboard.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count]))
 
 func finished_crunch(tasks: int):
 	last_crunch_wpm = wpm_calculator.get_average_wpm()
@@ -257,7 +257,7 @@ func finished_crunch(tasks: int):
 func _upload_endless_scores(wpm: float, acc: float, count: int):
 	var score = wpm * acc * count
 	var board = get_leaderboard_for_mode()
-	SteamManager.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count]))
+	SteamLeaderboard.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count]))
 
 func start_type():
 	wpm_calculator.start_type()
@@ -399,6 +399,13 @@ func take_promotion():
 
 	difficulty_level += 1
 	_logger.info("Promoted to %s" % DifficultyResource.Level.keys()[difficulty_level])
+
+	if is_junior():
+		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.JUNIOR)
+	elif is_senior():
+		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.SENIOR)
+	elif is_manager():
+		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.MANAGER)
 	
 	_save_data()
 
@@ -455,6 +462,9 @@ func won_ceo():
 	finished_game = true
 	unlock_mode(Mode.Multiplayer)
 	round_ended.emit()
+
+	SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.CEO)
+
 #endregion
 
 #region MODES
@@ -468,6 +478,7 @@ enum Mode {
 var MODE_TITLE = {
 	Mode.Work: "Work Day",
 	Mode.Crunch: "Crunch Time",
+	Mode.Multiplayer: "Multiplayer",
 }
 
 func is_work_mode():
@@ -509,12 +520,13 @@ func unlock_mode(mode: Mode):
 	_save_data()
 
 func get_leaderboard_for_mode():
-	if not Env.is_demo():
-		match GameManager.current_mode:
-			#GameManager.Mode.Work: return SteamManager.STORY_LEADERBOARD
-			#GameManager.Mode.Crunch: return SteamManager.ENDLESS_LEADERBOARD
-			#GameManager.Mode.Interview: return SteamManager.TIMED_LEADERBOARD
-			_: return SteamManager.STORY_LEADERBOARD
+	if Env.is_demo():
+		return SteamManager.DEMO_LEADERBOARD
+
+	match GameManager.current_mode:
+		GameManager.Mode.Crunch: return SteamManager.ENDLESS_LEADERBOARD
+		GameManager.Mode.Multiplayer: return SteamManager.MULTIPLAYER_LEADERBOARD
 	
-	return SteamManager.DEMO_LEADERBOARD
+	return SteamManager.STORY_LEADERBOARD
+	
 #endregion

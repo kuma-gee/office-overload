@@ -4,32 +4,18 @@ signal initialized()
 
 const CLOUD_FILE = "save.dat"
 
-var steam
 var logger := Logger.new("SteamCloud")
 var is_uploading := false
 
 func _ready() -> void:
-	if not Engine.has_singleton("Steam"):
-		initialized.emit()
-		logger.debug("Steam single does not exist")
-		return
-
-	steam = Engine.get_singleton("Steam")
-	if not is_steam_cloud_enabled():
-		initialized.emit()
-		logger.debug("Steam cloud is not enabled")
-		return
-	
-	if SteamManager.check_steam_available():
-		download_from_cloud()
-	
-	SteamManager.steam_status_changed.connect(func():
-		if SteamManager.check_steam_available():
+	SteamManager.steam_loaded.connect(func():
+		if SteamManager.is_steam_available():
 			download_from_cloud()
+			SteamManager.steam.file_write_async_complete.connect(_on_file_write_async_complete)
+			SteamManager.steam.file_read_async_complete.connect(_on_file_read_async_complete)
+		else:
+			initialized.emit()
 	)
-
-	steam.file_write_async_complete.connect(_on_file_write_async_complete)
-	steam.file_read_async_complete.connect(_on_file_read_async_complete)
 
 func _on_file_write_async_complete(result: int):
 	if result == Steam.RESULT_OK:
@@ -40,7 +26,8 @@ func _on_file_write_async_complete(result: int):
 	var quota = get_used_quota()
 	logger.info("Cloud storage used: %f" % quota)
 	if quota > 0.9:
-		logger.warn("Cloud storage is almost full. Consider contacting the dev via the feedback form")
+		logger.warn("Cloud storage is almost full. Contacting the dev via the feedback form")
+		FeedbackManager.send_feedback("Steam cloud storage is almost full for a user. Used: %f" % quota, true)
 
 	is_uploading = false
 
@@ -62,10 +49,10 @@ func _get_save_file():
 	return SaveManager.SAVE_FILE % 0
 
 func is_steam_cloud_enabled():
-	return steam and steam.isCloudEnabledForAccount() and steam.isCloudEnabledForApp() and SteamManager.is_successful_initialized
+	return SteamManager.is_steam_available() and SteamManager.steam.isCloudEnabledForAccount() and SteamManager.steam.isCloudEnabledForApp()
 
 func get_used_quota():
-	var data = steam.getQuota()
+	var data = SteamManager.steam.getQuota()
 	var total = data["total_bytes"]
 	var available = data["available_bytes"]
 	return (total - available) / float(total)
@@ -76,13 +63,13 @@ func download_from_cloud():
 		initialized.emit()
 		return
 		
-	if not steam.fileExists(CLOUD_FILE):
+	if not SteamManager.steam.fileExists(CLOUD_FILE):
 		logger.warn("No save file found in the cloud.")
 		initialized.emit()
 		return
 
 	logger.info("Downloading save file from steam cloud")
-	steam.fileReadAsync(CLOUD_FILE, 0, steam.getFileSize(CLOUD_FILE))
+	SteamManager.steam.fileReadAsync(CLOUD_FILE, 0, SteamManager.steam.getFileSize(CLOUD_FILE))
 
 func upload_to_cloud():
 	if not is_steam_cloud_enabled():
@@ -94,7 +81,7 @@ func upload_to_cloud():
 		logger.warn("Save files does not exist.")
 		return
 	
-	if not steam.fileExists(CLOUD_FILE):
+	if not SteamManager.steam.fileExists(CLOUD_FILE):
 		_upload_file(file)
 	else:
 		var last_modified = FileAccess.get_modified_time(file)
@@ -102,7 +89,7 @@ func upload_to_cloud():
 			logger.warn("Failed to get last modified time of save file. Not uploading current save file.")
 			return
 		
-		var cloud_timestamp = steam.getFileTimestamp(file)
+		var cloud_timestamp = SteamManager.steam.getFileTimestamp(file)
 		if last_modified == cloud_timestamp:
 			logger.info("No changes has been made since the last sync")
 			return
@@ -114,5 +101,5 @@ func upload_to_cloud():
 
 func _upload_file(file: String):
 	logger.info("Uploading %s to steam cloud" % file)
-	steam.fileWrite(CLOUD_FILE, FileAccess.get_file_as_bytes(file))
+	SteamManager.steam.fileWrite(CLOUD_FILE, FileAccess.get_file_as_bytes(file))
 	logger.info("File upload completed successfully")
