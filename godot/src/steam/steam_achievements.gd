@@ -37,6 +37,9 @@ func _create_one_shot_timer():
 	return timer
 
 func unlock(achieve: String):
+	if Env.is_demo():
+		return
+	
 	if achieve in achievements and achievements[achieve]:
 		_logger.debug("Achievement %s has already been unlocked" % achieve)
 		return
