@@ -32,7 +32,6 @@ SteamLeaderboard="*res://src/steam/steam_leaderboard.gd"
 SteamCloud="*res://src/steam/steam_cloud.gd"
 SteamManager="*res://src/steam/steam_manager.gd"
 FeedbackManager="*res://src/autoload/feedback_manager.tscn"
-DebugWindow="*res://src/autoload/debug_window.tscn"
 WordManager="*res://src/autoload/word_manager.gd"
 DataLoader="*res://src/autoload/data_loader.gd"
 

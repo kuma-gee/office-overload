@@ -72,11 +72,11 @@ func maybe_show_distraction():
 		return
 	
 	if shown >= max_count:
-		_logger.info("Max distractions shown, not showing more")
+		_logger.debug("Max distractions shown, not showing more")
 		return
 
 	var distractions_left_to_show = min_count - shown
-	_logger.info("%s distractions left to show: %s" % [distractions_left_to_show, distraction_accumulator])
+	_logger.debug("%s distractions left to show: %s" % [distractions_left_to_show, distraction_accumulator])
 
 	var skip_count = [4, 3, 2, 2, 1, 0, 0, 0, 0] if GameManager.get_performance_within_level() == 0 else [3, 3, 2, 2, 1, 1, 1, 0, 0]
 	var distraction_random = randf() - distraction_accumulator

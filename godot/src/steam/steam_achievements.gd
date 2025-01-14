@@ -1,5 +1,7 @@
 extends Node
 
+signal achievements_synched()
+
 const ACHIEVEMENT = {
 	CEO = "CEO", # CEO
 	MANAGER = "MANAGER", # MGR
@@ -16,9 +18,6 @@ func _ready():
 	SteamManager.init_successful.connect(func():
 		SteamManager.steam.user_achievement_stored.connect(_on_achievement_stored)
 		_sync_achievements()
-
-		# var stats_status = steam.requestCurrentStats()
-		# _logger.info("Requesting steam stats: %s" % stats_status)
 
 		_steam_update_timer = _create_one_shot_timer()
 		_steam_update_timer.timeout.connect(func():
@@ -51,14 +50,17 @@ func unlock(achieve: String):
 	else:
 		_logger.warn("Failed to set achievement: %s" % achieve)
 	
-	_steam_update_timer.start(0.2)
+	if _steam_update_timer:
+		_steam_update_timer.start(0.2)
 
 func _sync_achievements():
 	for key in ACHIEVEMENT.keys():
 		var achieve = ACHIEVEMENT[key]
 		achievements[achieve] = _get_achievement(achieve)
 		_logger.info("Steam Achievement %s: %s" % [achieve, achievements[achieve]])
+	
 	_logger.info("Synced Achievements: %s" % achievements)
+	achievements_synched.emit()
 
 func _get_achievement(value: String) -> bool:
 	var this_achievement: Dictionary = SteamManager.steam.getAchievement(value)

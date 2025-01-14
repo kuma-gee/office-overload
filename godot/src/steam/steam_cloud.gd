@@ -37,7 +37,9 @@ func _on_file_read_async_complete(dict: Dictionary):
 		var file = FileAccess.open(_get_save_file(), FileAccess.WRITE)
 		if file:
 			file.store_buffer(data)
-			logger.info("File download completed successfully")
+			file.close()
+			
+			logger.info("File download completed successfully: %s" % data.size())
 		else:
 			logger.error("Failed to open file for writing")
 	else:
@@ -46,7 +48,7 @@ func _on_file_read_async_complete(dict: Dictionary):
 	initialized.emit()
 
 func _get_save_file():
-	return SaveManager.SAVE_FILE % 0
+	return SaveManager.SAVE_FILE % SteamManager.get_steam_id()
 
 func is_steam_cloud_enabled():
 	return SteamManager.is_steam_available() and SteamManager.steam.isCloudEnabledForAccount() and SteamManager.steam.isCloudEnabledForApp()
@@ -59,12 +61,12 @@ func get_used_quota():
 
 func download_from_cloud():
 	if not is_steam_cloud_enabled():
-		logger.warn("Steam not initialized.")
+		logger.warn("Steam Cloud not enabled. Skipping file download")
 		initialized.emit()
 		return
 		
 	if not SteamManager.steam.fileExists(CLOUD_FILE):
-		logger.warn("No save file found in the cloud.")
+		logger.warn("No save file found in the cloud. Skipping file download")
 		initialized.emit()
 		return
 
@@ -73,14 +75,15 @@ func download_from_cloud():
 
 func upload_to_cloud():
 	if not is_steam_cloud_enabled():
-		logger.warn("Steam not initialized.")
+		logger.warn("Steam Cloud not enabled. Skipping file upload")
 		return
 	
 	var file = _get_save_file()
 	if not FileAccess.file_exists(file):
-		logger.warn("Save files does not exist.")
+		logger.warn("Save files does not exist. Skipping file upload")
 		return
 	
+	SteamManager.steam.setSyncPlatforms(CLOUD_FILE, SteamManager.steam.REMOTE_STORAGE_PLATFORM_ALL)
 	if not SteamManager.steam.fileExists(CLOUD_FILE):
 		_upload_file(file)
 	else:
@@ -89,7 +92,7 @@ func upload_to_cloud():
 			logger.warn("Failed to get last modified time of save file. Not uploading current save file.")
 			return
 		
-		var cloud_timestamp = SteamManager.steam.getFileTimestamp(file)
+		var cloud_timestamp = SteamManager.steam.getFileTimestamp(CLOUD_FILE)
 		if last_modified == cloud_timestamp:
 			logger.info("No changes has been made since the last sync")
 			return

@@ -26,7 +26,7 @@ func _load_steam():
 	
 	var init = steam.steamInit(false, Build.STEAM_APP)
 	is_successful_initialized = init.status == 1
-	_logger.info("Steam initialized? %s" % init)
+	_logger.info("Steam App %s initialized? %s" % [Build.STEAM_APP, init])
 	
 	if is_successful_initialized:
 		init_successful.emit()
@@ -48,4 +48,5 @@ func get_steam_username(id: int):
 	return steam.getFriendPersonaName(id)
 
 func get_steam_id():
+	if not is_steam_available(): return 0
 	return steam.getSteamID()

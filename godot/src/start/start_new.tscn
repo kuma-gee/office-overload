@@ -284,7 +284,6 @@ text = "Saving"
 [node name="Money" type="Label" parent="MainMoney/Money/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "$100"
-label_settings = ExtResource("3_0j057")
 script = ExtResource("34_06bnc")
 
 [node name="ItemsPaper" type="Control" parent="." node_paths=PackedStringArray("container", "title_button", "delegator")]

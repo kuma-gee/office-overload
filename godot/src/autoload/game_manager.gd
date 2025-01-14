@@ -55,9 +55,9 @@ var average_wpm := 0.0
 var average_accuracy := 0.0
 var past_wpms := []
 
-var has_played := false
 var performance := 0
 
+var has_played := false
 var shown_ceo_tutorial := false # ceo
 var shown_discard_tutorial := false # manager
 var shown_distraction_tutorial := false # senior
@@ -86,9 +86,10 @@ var _logger = Logger.new("GameManager")
 func _ready():
 	self.difficulty_level = difficulty_level
 	SteamCloud.initialized.connect(_load_data)
+	SteamManager.init_successful.connect(_check_achievements)
 	
 func _load_data():
-	var data = save_manager.load_from_slot(0)
+	var data = save_manager.load_from_slot(SteamManager.get_steam_id())
 	if data:
 		cache_properties.load_data(data)
 	
@@ -101,7 +102,7 @@ func _exit_tree() -> void:
 
 func _save_data():
 	var data = cache_properties.save_data()
-	save_manager.save_to_slot(0, data)
+	save_manager.save_to_slot(SteamManager.get_steam_id(), data)
 	SteamCloud.upload_to_cloud()
 
 func quit_game():
@@ -235,7 +236,11 @@ func upload_work_scores(wpm: float = average_wpm, acc: float = average_accuracy,
 	SteamLeaderboard.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], day, -level]))
 
 func calculate_score(wpm: float = average_wpm, acc: float = average_accuracy, level: int = difficulty_level):
-	var score = wpm * acc * level * (log(day+1)/log(10)) # +1 in log, so it doesn't return 0
+	var lvl = level
+	if level == DifficultyResource.Level.CEO and not finished_game:
+		lvl = DifficultyResource.Level.MANAGER
+
+	var score = wpm * acc * lvl * (log(day+1)/log(10)) # +1 in log, so it doesn't return 0
 	return score
 
 func _upload_timed_scores(wpm: float, acc: float, count: int):
@@ -399,15 +404,17 @@ func take_promotion():
 
 	difficulty_level += 1
 	_logger.info("Promoted to %s" % DifficultyResource.Level.keys()[difficulty_level])
-
+	
+	_check_achievements()
+	_save_data()
+	
+func _check_achievements():
 	if is_junior():
 		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.JUNIOR)
 	elif is_senior():
 		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.SENIOR)
 	elif is_manager():
 		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.MANAGER)
-	
-	_save_data()
 
 func demote():
 	difficulty_level -= 1
@@ -521,12 +528,12 @@ func unlock_mode(mode: Mode):
 
 func get_leaderboard_for_mode():
 	if Env.is_demo():
-		return SteamManager.DEMO_LEADERBOARD
+		return SteamLeaderboard.DEMO_BOARD
 
 	match GameManager.current_mode:
-		GameManager.Mode.Crunch: return SteamManager.ENDLESS_LEADERBOARD
-		GameManager.Mode.Multiplayer: return SteamManager.MULTIPLAYER_LEADERBOARD
+		GameManager.Mode.Crunch: return SteamLeaderboard.ENDLESS_BOARD
+		GameManager.Mode.Multiplayer: return SteamLeaderboard.MULTIPLAYER_BOARD
 	
-	return SteamManager.STORY_LEADERBOARD
+	return SteamLeaderboard.STORY_BOARD
 	
 #endregion

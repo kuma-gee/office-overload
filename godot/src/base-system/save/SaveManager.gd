@@ -18,7 +18,7 @@ func save_to_slot(slot: int, data):
 		logger.error("Failed to save data to %s: %s" % [file_name, file.get_open_error()])
 	else:
 		file.store_var(data)
-		logger.debug("Save %s" % str(data))
+		logger.debug("Save to %s: %s" % [file_name, str(data)])
 	file.close()
 
 func load_from_slot(slot: int):
@@ -30,7 +30,7 @@ func load_from_slot(slot: int):
 	else:
 		data = file.get_var()
 		if data:
-			logger.debug("Load %s" % str(data))
+			logger.debug("Load from %s: %s" % [file_name, str(data)])
 		file.close()
 
 	return data

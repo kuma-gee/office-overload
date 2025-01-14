@@ -37,15 +37,16 @@ func _ready():
 
 func _load_all_leaderboard():
 	if Env.is_demo():
-		loading_handles = DEMO_LEADERBOARDS
+		loading_handles = DEMO_LEADERBOARDS.duplicate()
 	else:
-		loading_handles = DEFAULT_LEADERBOARDS
+		loading_handles = DEFAULT_LEADERBOARDS.duplicate()
 	
 	_load_leaderboard_handle()
 
 func _load_leaderboard_handle():
 	if loading_handles.is_empty():
 		handler_loaded = true
+		_logger.info("Steam leaderboard handles loaded")
 		leaderboard_handler_loaded.emit()
 		return
 	

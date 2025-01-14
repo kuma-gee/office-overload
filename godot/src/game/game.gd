@@ -269,7 +269,6 @@ func _add_document(doc: Document, await_start := false):
 	doc.started.connect(func(): GameManager.start_type())
 	doc.finished.connect(func():
 		GameManager.finish_type(doc.word, doc.mistakes)
-		print(doc.mistakes)
 		
 		if doc.is_discarded:
 			doc.move_to(doc.global_position + Vector2.DOWN * 200)
