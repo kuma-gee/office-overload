@@ -4,7 +4,7 @@ extends GameDeskItem
 @export var sound: AudioStreamPlayer
 
 func play():
-	if not visible: return
+	if not visible or GameManager.is_crunch_mode(): return
 	
 	sound.play()
 	frame = 1

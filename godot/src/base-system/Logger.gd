@@ -36,7 +36,6 @@ func _log_for_level(level: int, msg: String):
 	if level <= Env.log_level:
 		var text = "[%s] [color=%s]%s[/color] %s: %s" % [_now(), COLORS[level].to_html(), Level.keys()[level], name, msg]
 		print_rich(text)
-		GameManager.logged.emit(text)
 
 func _now() -> String:
 	var dt = Time.get_datetime_dict_from_system()

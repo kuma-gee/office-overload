@@ -15,7 +15,7 @@ func save_to_slot(slot: int, data):
 	var file_name = SAVE_FILE % slot
 	var file = FileAccess.open(file_name, FileAccess.WRITE)
 	if file == null:
-		logger.error("Failed to save data to %s: %s" % [file_name, file.get_open_error()])
+		logger.error("Failed to save data to %s: %s" % [file_name, FileAccess.get_open_error()])
 	else:
 		file.store_var(data)
 		logger.debug("Save to %s: %s" % [file_name, str(data)])

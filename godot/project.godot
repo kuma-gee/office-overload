@@ -120,7 +120,7 @@ coffee_action={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://translations.csv")
+locale/translations=PackedStringArray("res://translations.en.translation")
 
 [layer_names]
 

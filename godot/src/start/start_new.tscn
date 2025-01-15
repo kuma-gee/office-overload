@@ -252,40 +252,6 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.929412, 0.894118, 0.854902, 1)
 
-[node name="MainMoney" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(60, 34)
-offset_left = -147.0
-offset_top = -84.0
-offset_right = -87.0
-offset_bottom = -50.0
-rotation = -0.174533
-pivot_offset = Vector2(30, 17)
-theme = ExtResource("2_xj832")
-script = ExtResource("8_4jrgk")
-extra_distance = 100.0
-
-[node name="Money" type="PanelContainer" parent="MainMoney"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MainMoney/Money"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMoney/Money/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MainMoney/Money/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Saving"
-
-[node name="Money" type="Label" parent="MainMoney/Money/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "$100"
-script = ExtResource("34_06bnc")
-
 [node name="ItemsPaper" type="Control" parent="." node_paths=PackedStringArray("container", "title_button", "delegator")]
 layout_mode = 3
 anchors_preset = 8
@@ -362,16 +328,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Stats" type="PanelContainer" parent="." node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy", "score_container", "score")]
+[node name="Stats" type="PanelContainer" parent="." node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy", "score_points")]
 custom_minimum_size = Vector2(110, 140)
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -148.0
-offset_top = -41.0
+offset_top = -47.0
 offset_right = -38.0
-offset_bottom = 99.0
+offset_bottom = 93.0
 grow_horizontal = 2
 grow_vertical = 0
 rotation = -0.0872665
@@ -386,8 +352,7 @@ documents = NodePath("MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/
 skill_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer2")
 wpm = NodePath("MarginContainer/VBoxContainer/VBoxContainer2/WPM")
 accuracy = NodePath("MarginContainer/VBoxContainer/VBoxContainer2/Accuracy")
-score_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer3")
-score = NodePath("MarginContainer/VBoxContainer/VBoxContainer3/Score")
+score_points = NodePath("MarginContainer/VBoxContainer/VBoxContainer2/ScorePoints")
 move_dir = Vector2(-0.2, -1)
 
 [node name="MarginContainer" type="MarginContainer" parent="Stats"]
@@ -464,7 +429,14 @@ theme_override_font_sizes/font_size = 8
 text = "Accuracy"
 label_settings = ExtResource("3_0j057")
 
+[node name="ScorePoints" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "123"
+label_settings = ExtResource("3_0j057")
+
 [node name="VBoxContainer3" type="VBoxContainer" parent="Stats/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
@@ -472,13 +444,47 @@ theme_override_constants/separation = 2
 [node name="Score" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
-text = "SCore"
+text = "Score"
 
-[node name="Score2" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer3"]
+[node name="ScoreWPM" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Words/m"
 label_settings = ExtResource("3_0j057")
+
+[node name="MainMoney" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(60, 34)
+offset_left = -151.0
+offset_top = 47.0
+offset_right = -91.0
+offset_bottom = 81.0
+rotation = -0.174533
+pivot_offset = Vector2(30, 17)
+theme = ExtResource("2_xj832")
+script = ExtResource("8_4jrgk")
+extra_distance = 100.0
+
+[node name="Money" type="PanelContainer" parent="MainMoney"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMoney/Money"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMoney/Money/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainMoney/Money/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Saving"
+
+[node name="Money" type="Label" parent="MainMoney/Money/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "$100"
+script = ExtResource("34_06bnc")
 
 [node name="WorkDocument" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(110, 140)
@@ -600,7 +606,7 @@ word = "crunch"
 [node name="Label" type="Label" parent="AltPage/MarginContainer/VBoxContainer/Crunch"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
-text = "Work endlessly until you burn out"
+text = "Work endlessly until you burn out without the items"
 autowrap_mode = 3
 
 [node name="Multiplayer" type="VBoxContainer" parent="AltPage/MarginContainer/VBoxContainer"]
@@ -616,8 +622,8 @@ text = "Challenge other co-workers"
 autowrap_mode = 3
 
 [node name="Rankings" type="Sprite2D" parent="."]
-position = Vector2(-33, 67)
-rotation = 0.279253
+position = Vector2(-32, 68)
+rotation = 0.139626
 texture = ExtResource("9_h10wu")
 script = ExtResource("10_vvvnb")
 
@@ -632,7 +638,7 @@ word = "teams"
 
 [node name="Files" type="Sprite2D" parent="."]
 position = Vector2(129, 70)
-rotation = -0.174533
+rotation = -0.10472
 texture = ExtResource("9_h10wu")
 script = ExtResource("10_vvvnb")
 
@@ -1046,6 +1052,7 @@ texture = ExtResource("25_pu2hv")
 stretch_mode = 2
 
 [node name="CeoLevelSelect" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("delegator")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1167,22 +1174,25 @@ script = ExtResource("30_m1awn")
 user_board = NodePath("TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/UserScore")
 friends_board = NodePath("TextureRect/Papers/Team2/MarginContainer/VBoxContainer/FriendsScore")
 global_board = NodePath("TextureRect/Papers/Top1/MarginContainer/VBoxContainer/GlobalScore")
-steam_offline = NodePath("TextureRect/Offline")
+steam_offline = NodePath("TextureRect/PanelContainer2")
 
-[node name="Offline" type="RichTextLabel" parent="CanvasLayer/Control/Team/TextureRect" index="0"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -101.5
-offset_top = -26.0
-offset_right = 101.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/Control/Team/TextureRect" index="0"]
+layout_mode = 0
+offset_left = 62.0
+offset_top = 43.5
+offset_right = 248.0
+offset_bottom = 131.5
+rotation = 0.0698132
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Team/TextureRect/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_top = 8
+
+[node name="Offline" type="RichTextLabel" parent="CanvasLayer/Control/Team/TextureRect/PanelContainer2/MarginContainer"]
+layout_mode = 2
 bbcode_enabled = true
-text = "[center]You are offline. Check your steam status[/center]"
+text = "[center]You are offline.
+Check your steam status[/center]"
 fit_content = true
 autowrap_mode = 0
 

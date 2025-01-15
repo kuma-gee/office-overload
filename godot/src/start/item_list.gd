@@ -37,6 +37,7 @@ func _update_status():
 	
 	var lbl = get_label()
 	lbl.disabled = not _can_enable()
+	_update_checkbox()
 
 func _is_assistant():
 	return item.type == Shop.Items.ASSISTANT

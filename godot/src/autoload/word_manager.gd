@@ -25,14 +25,6 @@ enum Type {
 var all_words := {}
 var _logger = Logger.new("WordManager")
 
-func _open_words_file():
-	if FileAccess.file_exists(LOCAL_WORD_FILE):
-		_logger.info("Loading local word file %s" % LOCAL_WORD_FILE)
-		return FileAccess.open(LOCAL_WORD_FILE, FileAccess.READ)
-	
-	_logger.info("Loading default word file %s" % WORD_FILE)
-	return FileAccess.open(WORD_FILE, FileAccess.READ)
-
 func _ready():
 	for line in DataLoader.load_csv("words.csv", ["word", "group"]):
 		var group = line["group"]

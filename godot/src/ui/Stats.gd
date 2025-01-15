@@ -12,8 +12,7 @@ extends DocumentUI
 @export var accuracy: Label
 
 @export_category("Score")
-@export var score_container: Control
-@export var score: Label
+@export var score_points: Label
 
 func _ready():
 	visibility_changed.connect(func(): _update())
@@ -31,17 +30,4 @@ func _update():
 	skill_container.visible = GameManager.get_wpm() > 0
 	wpm.text = "%.0f speed" % GameManager.get_wpm()
 	accuracy.text = "%.0f%% accuracy" % GameManager.get_accuracy()
-
-	score_container.visible = false #GameManager.has_current_job() # disable for now
-	score.text = "%.0f" % GameManager.calculate_score()
-	
-			##var wpm_str = "%.0f/%.0f%%" % [GameManager.average_wpm, GameManager.average_accuracy * 100]
-			##var score_str = "%.0f" % GameManager.calculate_score()
-			##
-			##local_score_label.text = "[center]Current Score: %s with WPM %s, %s %s as %s[/center]" % [
-				##_bbcode_outline(score_str),
-				##_bbcode_outline(wpm_str),
-				##board.get_day_title(),
-				##GameManager.day,
-				##GameManager.get_level_text(GameManager.difficulty_level)
-			##]
+	score_points.text = "%.0f Score" % GameManager.calculate_score()

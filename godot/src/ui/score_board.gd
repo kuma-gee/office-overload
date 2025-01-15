@@ -27,7 +27,7 @@ const TEXT_OUTLINE = preload("res://theme/text_outline.tres")
 @export var empty_label: Control
 
 var loaded := false
-var score_type: int
+var score_type := Steam.LEADERBOARD_DATA_REQUEST_USERS
 var loaded_board := ""
 
 func _ready() -> void:
@@ -39,15 +39,6 @@ func _ready() -> void:
 	for i in container.get_child_count():
 		container.get_child(i).visible = i < keys.size()
 	container.columns = keys.size()
-	
-	#var bar = scroll_container.get_v_scroll_bar()
-	#bar.reparent(scroll_button_container)
-	#_update_scrollbar()
-	#scroll_container.scroll_ended.connect(func(): _update_scrollbar())
-
-# Doesn't work, it always gets overwritten by the scroll container probably
-#func _process(delta: float) -> void:
-	#_update_scrollbar()
 
 func active():
 	up_scroll.get_label().highlight_first = true
@@ -67,7 +58,7 @@ func _update_scrollbar():
 func is_friends_board():
 	return score_type == SteamManager.steam.LEADERBOARD_DATA_REQUEST_FRIENDS
 
-func load_data(board: String = GameManager.get_leaderboard_for_mode()): # should only be one right now
+func load_data(board: String = GameManager.get_leaderboard_for_mode()):
 	if loaded: return
 	loaded = true
 	

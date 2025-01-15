@@ -10,10 +10,10 @@ signal item_purchased()
 signal item_used_toggled(item: Shop.Items)
 signal coffee_used()
 
-signal logged(line)
-
 const ASSISTANT_COST = 150
 const GAME_SCENE = "res://src/game/game.tscn"
+const START_SCENE = "res://src/start/start_new.tscn"
+
 const DIFFICULTIES = {
 	DifficultyResource.Level.INTERN: preload("res://src/difficulty/Intern.tres"),
 	DifficultyResource.Level.JUNIOR: preload("res://src/difficulty/Junior.tres"),
@@ -69,12 +69,6 @@ var bought_items: Array[Shop.Items] = []
 var used_items: Array[Shop.Items] = []
 var money := 0
 
-### Maybe Save? ###
-var last_crunch_tasks := 0
-var last_crunch_time := 0.0
-var last_crunch_wpm := 0.0
-var last_crunch_accuracy := 0.0
-
 ### Dynamic ###
 var difficulty: DifficultyResource
 var next_difficulty: DifficultyResource
@@ -98,12 +92,15 @@ func _load_data():
 	initialized.emit()
 
 func _exit_tree() -> void:
-	_save_data()
+	_save_data(true)
 
-func _save_data():
+func _save_data(await_finished = false):
 	var data = cache_properties.save_data()
 	save_manager.save_to_slot(SteamManager.get_steam_id(), data)
-	SteamCloud.upload_to_cloud()
+	if await_finished:
+		await SteamCloud.upload_to_cloud()
+	else:
+		SteamCloud.upload_to_cloud()
 
 func quit_game():
 	exiting_game.emit()
@@ -182,9 +179,6 @@ func finished_day(data: Dictionary):
 	money += data["money"]
 	performance = clamp(performance + grade.points, 0, difficulty.max_performance)
 	
-	#past_performance.append(performance)
-	#if past_performance.size() > keep_past_wpms:
-		#past_performance.pop_front()
 	_logger.debug("Performance: %s with %s" % [performance, data])
 	
 	# completed_documents += tasks
@@ -195,25 +189,6 @@ func finished_day(data: Dictionary):
 
 	_save_data()
 	round_ended.emit()
-
-# deprecated??
-func calculate_performance(data: Dictionary):
-	var total = data["total"]
-	var wrong = data["wrong"]
-	#var overtime = data["overtime"]
-	#var stress = data["stress"]
-	#var acc = data["acc"]
-	
-	var wrong_points = pow(wrong, 1.2)
-	
-	var points = total
-	points -= wrong_points
-	data["points"] = points
-	
-	var grade = get_grade_for(data)
-	data["grade"] = grade
-	
-	return points
 
 func get_grade_for(data: Dictionary):
 	var wrong = data["wrong"]
@@ -232,7 +207,7 @@ func upload_work_scores(wpm: float = average_wpm, acc: float = average_accuracy,
 	if is_intern(): return
 	
 	var score = calculate_score(wpm, acc, level)
-	var board = get_leaderboard_for_mode()
+	var board = get_leaderboard_for_mode(GameManager.Mode.Work)
 	SteamLeaderboard.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], day, -level]))
 
 func calculate_score(wpm: float = average_wpm, acc: float = average_accuracy, level: int = difficulty_level):
@@ -240,29 +215,28 @@ func calculate_score(wpm: float = average_wpm, acc: float = average_accuracy, le
 	if level == DifficultyResource.Level.CEO and not finished_game:
 		lvl = DifficultyResource.Level.MANAGER
 
-	var score = wpm * acc * lvl * (log(day+1)/log(10)) # +1 in log, so it doesn't return 0
-	return score
+	return wpm * acc * lvl * (log(day+1)/log(10)) # +1 in log, so it doesn't return 0
 
-func _upload_timed_scores(wpm: float, acc: float, count: int):
-	var score = wpm * acc * count
-	var board = get_leaderboard_for_mode()
-	SteamLeaderboard.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count]))
-
-func finished_crunch(tasks: int):
-	last_crunch_wpm = wpm_calculator.get_average_wpm()
-	last_crunch_accuracy = wpm_calculator.get_average_accuracy()
+func finished_crunch(tasks: int, hours: int, combo: int):
+	var data = {}
+	data["wpm"] = wpm_calculator.get_average_wpm()
+	data["acc"] = wpm_calculator.get_average_accuracy()
 	wpm_calculator.reset()
 	
-	last_crunch_tasks = tasks
-	last_crunch_time = 0.0
-	
-	_upload_endless_scores(last_crunch_wpm, last_crunch_accuracy, tasks)
+	data["combo"] = combo
+	data["hours"] = hours
+	data["tasks"] = tasks
+	data["score"] = _upload_endless_scores(data["wpm"], data["acc"], data["tasks"])
 	round_ended.emit()
+	return data
 
 func _upload_endless_scores(wpm: float, acc: float, count: int):
-	var score = wpm * acc * count
-	var board = get_leaderboard_for_mode()
-	SteamLeaderboard.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count]))
+	var score = int(floor(wpm * acc * count))
+	if not Env.is_demo():
+		var board = get_leaderboard_for_mode(GameManager.Mode.Crunch)
+		SteamLeaderboard.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count]))
+	
+	return score
 
 func start_type():
 	wpm_calculator.start_type()
@@ -360,6 +334,8 @@ func get_item_value(item: Shop.Items, count = item_count(item)):
 	return arr[i]
 
 func get_stress_reduction():
+	if is_crunch_mode(): return 1.0
+	
 	var reduction = get_item_value(Shop.Items.PLANT)
 	return 1.0 - reduction
 
@@ -369,10 +345,13 @@ func get_money_bonus():
 	return multiplier
 
 func get_distraction_reduction():
+	if is_crunch_mode(): return 1.0
+	
 	var reduction = get_item_value(Shop.Items.ASSISTANT)
 	return 1.0 - reduction
 
 func has_coffee():
+	if is_crunch_mode(): return false
 	return Shop.Items.COFFEE in bought_items and Shop.Items.COFFEE in used_items
 
 func use_coffee():
@@ -526,11 +505,11 @@ func unlock_mode(mode: Mode):
 	_logger.info("Unlocked Mode %s" % Mode.keys()[mode])
 	_save_data()
 
-func get_leaderboard_for_mode():
+func get_leaderboard_for_mode(mode = GameManager.current_mode):
 	if Env.is_demo():
 		return SteamLeaderboard.DEMO_BOARD
 
-	match GameManager.current_mode:
+	match mode:
 		GameManager.Mode.Crunch: return SteamLeaderboard.ENDLESS_BOARD
 		GameManager.Mode.Multiplayer: return SteamLeaderboard.MULTIPLAYER_BOARD
 	

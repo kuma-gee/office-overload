@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=105 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/game/document.tscn" id="2_35x6g"]
@@ -209,6 +209,18 @@ tracks/8/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Computer/CrunchUI:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_y2k32"]
 resource_name = "ceo"
@@ -291,6 +303,18 @@ tracks/6/path = NodePath("Computer/TutorialUI:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Computer/CrunchUI:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -386,6 +410,18 @@ tracks/3/path = NodePath("Computer/TutorialUI:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Computer/CrunchUI:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -505,10 +541,62 @@ tracks/2/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_027j0"]
+resource_name = "crunch"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Computer/SingleUI:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Computer/CrunchUI:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Computer/TutorialUI:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Computer/BossUI:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vs0lt"]
 _data = {
 "RESET": SubResource("Animation_mdfl2"),
 "ceo": SubResource("Animation_y2k32"),
+"crunch": SubResource("Animation_027j0"),
 "littered": SubResource("Animation_qam2k"),
 "messy": SubResource("Animation_if3j8"),
 "normal": SubResource("Animation_ijo53"),
@@ -650,7 +738,7 @@ glow_enabled = true
 glow_bloom = 0.05
 glow_blend_mode = 0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound", "spill_mug")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound", "spill_mug", "crunch_documents")]
 top_level = true
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
@@ -665,6 +753,7 @@ player_doc_label = NodePath("Desk/Computer/BossUI/VBoxContainer/HBoxContainer/Pl
 player_combo_label = NodePath("Desk/Computer/BossUI/VBoxContainer/HBoxContainer/PlayerCombo")
 boss_hit_sound = NodePath("HitTableSound")
 spill_mug = NodePath("Desk/SpillMug")
+crunch_documents = NodePath("Desk/Computer/CrunchUI/PlayerDocuments")
 
 [node name="CameraShake" type="Node" parent="."]
 process_mode = 3
@@ -1298,6 +1387,28 @@ theme_override_font_sizes/font_size = 8
 text = "0"
 horizontal_alignment = 1
 
+[node name="CrunchUI" type="VBoxContainer" parent="Desk/Computer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.5
+offset_top = -37.5
+offset_right = -45.5
+offset_bottom = -17.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="PlayerDocuments" type="Label" parent="Desk/Computer/CrunchUI"]
+layout_mode = 2
+theme = ExtResource("10_am0oy")
+theme_override_font_sizes/font_size = 12
+text = "0"
+horizontal_alignment = 1
+
 [node name="TutorialUI" type="VBoxContainer" parent="Desk/Computer"]
 visible = false
 anchors_preset = 8
@@ -1790,13 +1901,13 @@ positions = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3")]
 script = ExtResource("55_o651g")
 
 [node name="Marker2D" type="Marker2D" parent="DocSpawner"]
-position = Vector2(172, 0)
+position = Vector2(188, 0)
 
 [node name="Marker2D2" type="Marker2D" parent="DocSpawner"]
 position = Vector2(232, 0)
 
 [node name="Marker2D3" type="Marker2D" parent="DocSpawner"]
-position = Vector2(292, 0)
+position = Vector2(281, 0)
 
 [node name="Overlay" type="ColorRect" parent="."]
 visible = false

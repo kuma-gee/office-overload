@@ -47,7 +47,7 @@ func _show_ceo_options():
 
 func burnout():
 	title.text = "Burned out!"
-	desc.text = "You quit your work."
+	desc.text = "You quit the job."
 	set_fields()
 
 func fired():

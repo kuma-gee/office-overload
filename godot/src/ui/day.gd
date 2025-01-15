@@ -22,6 +22,10 @@ func _ready():
 	shift_tex.hide()
 	feature_container.hide()
 	
+	if not GameManager.is_work_mode():
+		_start_day()
+		return
+	
 	if GameManager.is_junior() and not GameManager.shown_stress_tutorial:
 		feature_title.text = "Stress Level"
 		feature_text.text = "As a full-fledged employee, you have a stress level.\nKeep it low to prevent a burnout!"

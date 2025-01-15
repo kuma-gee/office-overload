@@ -1,11 +1,12 @@
 extends Node
 
 signal initialized()
+signal write_finished()
 
 const CLOUD_FILE = "save.dat"
 
 var logger := Logger.new("SteamCloud")
-var is_uploading := false
+var usage_feedback_sent := false
 
 func _ready() -> void:
 	SteamManager.steam_loaded.connect(func():
@@ -27,9 +28,11 @@ func _on_file_write_async_complete(result: int):
 	logger.info("Cloud storage used: %f" % quota)
 	if quota > 0.9:
 		logger.warn("Cloud storage is almost full. Contacting the dev via the feedback form")
-		FeedbackManager.send_feedback("Steam cloud storage is almost full for a user. Used: %f" % quota, true)
-
-	is_uploading = false
+		if not usage_feedback_sent:
+			FeedbackManager.send_feedback("Steam cloud storage is almost full for a user. Used: %f" % quota, true)
+			usage_feedback_sent = true
+	
+	write_finished.emit()
 
 func _on_file_read_async_complete(dict: Dictionary):
 	if dict["result"] == Steam.RESULT_OK and dict["complete"]:
@@ -69,6 +72,12 @@ func download_from_cloud():
 		logger.warn("No save file found in the cloud. Skipping file download")
 		initialized.emit()
 		return
+	
+	var cloud_diff = _cloud_save_time_diff()
+	if cloud_diff < 0:
+		logger.info("Cloud file is older than the current local save file. Skipping download")
+		initialized.emit()
+		return
 
 	logger.info("Downloading save file from steam cloud")
 	SteamManager.steam.fileReadAsync(CLOUD_FILE, 0, SteamManager.steam.getFileSize(CLOUD_FILE))
@@ -83,26 +92,33 @@ func upload_to_cloud():
 		logger.warn("Save files does not exist. Skipping file upload")
 		return
 	
-	SteamManager.steam.setSyncPlatforms(CLOUD_FILE, SteamManager.steam.REMOTE_STORAGE_PLATFORM_ALL)
+	# For some reason cross platform sync does not work? Files are different?
+	# This doesn't work either, but this should normally be the default anyway
+	# SteamManager.steam.setSyncPlatforms(CLOUD_FILE, SteamManager.steam.REMOTE_STORAGE_PLATFORM_ALL)
+
 	if not SteamManager.steam.fileExists(CLOUD_FILE):
-		_upload_file(file)
+		await _upload_file(file)
 	else:
-		var last_modified = FileAccess.get_modified_time(file)
-		if last_modified == 0:
-			logger.warn("Failed to get last modified time of save file. Not uploading current save file.")
-			return
-		
-		var cloud_timestamp = SteamManager.steam.getFileTimestamp(CLOUD_FILE)
-		if last_modified == cloud_timestamp:
+		var cloud_diff = _cloud_save_time_diff()
+		if cloud_diff == 0:
 			logger.info("No changes has been made since the last sync")
 			return
 			
-		if last_modified > cloud_timestamp:
-			_upload_file(file)
-		else:
-			logger.debug("Local file is older than the current uploaded save file. Skipping upload")
+		if cloud_diff > 0:
+			logger.info("Local file is older than the current uploaded save file. Skipping upload")
+			return
+
+		await _upload_file(file)
+
+func _cloud_save_time_diff():
+	var cloud_timestamp = SteamManager.steam.getFileTimestamp(CLOUD_FILE)
+	var last_modified = FileAccess.get_modified_time(_get_save_file())
+	if last_modified == 0:
+		logger.warn("Failed to get last modified time of save file. Not uploading current save file.")
+
+	return cloud_timestamp - last_modified
 
 func _upload_file(file: String):
 	logger.info("Uploading %s to steam cloud" % file)
-	SteamManager.steam.fileWrite(CLOUD_FILE, FileAccess.get_file_as_bytes(file))
-	logger.info("File upload completed successfully")
+	SteamManager.steam.fileWriteAsync(CLOUD_FILE, FileAccess.get_file_as_bytes(file))
+	await write_finished

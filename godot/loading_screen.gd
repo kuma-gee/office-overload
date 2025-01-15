@@ -1,16 +1,31 @@
 extends Control
 
+signal scene_load_finished(scene: String)
+
 @onready var start_timer: Timer = $StartTimer
+
+@onready var SCENES_TO_LOAD = [GameManager.START_SCENE, GameManager.GAME_SCENE]
 
 var logger := Logger.new("Loading")
 var loading_scene := ""
 var loaded := false
 
 func _ready() -> void:
-	ResourceLoader.load_threaded_request(GameManager.GAME_SCENE)
-	loading_scene = GameManager.GAME_SCENE
-
 	start_timer.timeout.connect(func(): start_game())
+
+	_start_load_scene(SCENES_TO_LOAD.pop_front())
+	scene_load_finished.connect(func(_s):
+		if SCENES_TO_LOAD.is_empty():
+			loaded = true
+			return
+
+		_start_load_scene(SCENES_TO_LOAD.pop_front())
+	)
+
+func _start_load_scene(scene: String):
+	ResourceLoader.load_threaded_request(scene)
+	loading_scene = scene
+	logger.info("Start loading scene: %s" % scene)
 
 func _process(delta: float) -> void:
 	if not loading_scene: return
@@ -29,9 +44,10 @@ func _process(delta: float) -> void:
 	elif status == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
 		logger.error("Failed to load invalid resource")
 	elif status == ResourceLoader.THREAD_LOAD_LOADED:
-		logger.info("Loading finished")
+		logger.info("Loading finished for %s" % loading_scene)
+		scene_load_finished.emit(loading_scene)
+
 		_show_progress(1.0)
-		loaded = true
 	else:
 		_show_progress(progress[0])
 

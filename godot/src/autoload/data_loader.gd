@@ -6,11 +6,11 @@ const RES_FORMAT = "res://%s"
 var _logger = Logger.new("DataLoader")
 var items = []
 
-func _ready() -> void:
-	var trans = Translation.new()
-	for line in load_csv("translations.csv", ["key", "value"]):
-		trans.add_message(line["key"], line["value"])
-	TranslationServer.add_translation(trans)
+# func _ready() -> void:
+# 	var trans = Translation.new()
+# 	for line in load_csv("translations.csv", ["key", "value"]):
+# 		trans.add_message(line["key"], line["value"])
+# 	TranslationServer.add_translation(trans)
 
 func load_file(path: String):
 	var local = LOCAL_FORMAT % path

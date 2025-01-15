@@ -22,6 +22,7 @@ const MORNING_TIME = 8
 
 @onready var hour = start_hour : set = _set_hour
 
+var hours_passed := 0
 var stopped = true
 
 func _ready():
@@ -32,6 +33,8 @@ func _ready():
 		if stopped or get_tree().paused: return
 		
 		self.hour += 1
+		hours_passed += 1
+
 		if is_day_ended() and overtime_sound and GameManager.is_work_mode():
 			overtime_sound.play()
 	)

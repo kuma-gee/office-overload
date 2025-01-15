@@ -39,6 +39,7 @@ extends Node2D
 @export var max_bgm_pitch_time := 0.4
 @export var crunch_start_spawn_time := 4.
 @export var crunch_min_spawn_time := 0.4
+@export var crunch_documents: Label
 
 @onready var doc_spawner = $DocSpawner
 @onready var spawn_timer = $SpawnTimer
@@ -79,7 +80,7 @@ func _ready():
 	GameManager.pay_assistant()
 
 	for i in range(items_root.get_child_count()):
-		items_root.get_child(i).visible = GameManager.is_item_used(i)
+		items_root.get_child(i).visible = GameManager.is_item_used(i) and not GameManager.is_crunch_mode()
 	
 	boss_combo = 0
 	overload_progress.game = self
@@ -94,7 +95,9 @@ func _ready():
 		key_reader.process_mode = Node.PROCESS_MODE_DISABLED
 	)
 	
-	if GameManager.is_ceo():
+	if GameManager.is_crunch_mode():
+		animation_player.play("crunch")
+	elif GameManager.is_ceo():
 		animation_player.play("ceo")
 		work_time.hour_in_seconds = 5
 	
@@ -164,12 +167,13 @@ func _on_day_finished():
 	_spawn_document(true)
 
 func _start_game():
-	if not GameManager.is_ceo():
+	if not GameManager.is_ceo() and GameManager.is_work_mode():
 		animation_player.play("normal")
 	
 	key_reader.process_mode = Node.PROCESS_MODE_ALWAYS
 	work_time.start()
 	overload_progress.start()
+	_update_score()
 	
 	get_tree().create_timer(0.5).timeout.connect(func():
 		animation_player.play("start_bgm")
@@ -209,8 +213,8 @@ func _finished(is_burn_out = false, is_fired = false):
 				end.day_ended(data)
 			
 	elif GameManager.is_crunch_mode():
-		GameManager.finished_crunch(document_stack.actual_document_count)
-		end.crunch_ended(document_stack.total, work_time.hour)
+		var data = GameManager.finished_crunch(document_stack.actual_document_count, work_time.hours_passed, document_stack.highest_streak)
+		end.crunch_ended(data)
 		
 func _spawn():
 	if (work_time.is_day_ended() and GameManager.is_work_mode()) or is_gameover:
@@ -264,6 +268,8 @@ func _update_score():
 	single_player_doc_label.text = "$%s" % document_stack.total_points
 	single_player_combo_label.text = "%sx" % document_stack.combo_count
 	single_player_combo_label.visible = document_stack.combo_count > 0
+	
+	crunch_documents.text = "%s" % document_stack.actual_document_count
 
 func _add_document(doc: Document, await_start := false):
 	doc.started.connect(func(): GameManager.start_type())

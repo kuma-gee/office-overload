@@ -2,6 +2,8 @@ class_name MenuPaper
 extends Control
 
 @export var label: TypedWord
+@export var move_dir := Vector2.UP * 100
+@export var duration := 1.0
 
 @onready var original_pos = position
 @onready var original_rot = rotation
@@ -44,23 +46,25 @@ func open():
 	await tw.finished
 
 func focused():
+	var t = duration / 2
 	tw = _create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	tw.tween_property(self, "rotation", 0, 0.5)
-	tw.parallel().tween_property(self, "position", -size/2 + Vector2.UP * 100, 0.5)
-	tw.parallel().tween_callback(func(): z_index = 100).set_delay(0.3)
+	tw.tween_property(self, "rotation", 0, t)
+	tw.parallel().tween_property(self, "position", -size/2 + move_dir, t)
+	tw.parallel().tween_callback(func(): z_index = 100).set_delay(t / 2)
 	
 	tw.tween_property(self, "position", -size/2, 0.5)
 	label.highlight_first = false
 	label.focused = true
 
 func defocused():
+	var t = duration / 2
 	tw = _create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	
-	tw.tween_property(self, "position", -size/2 + Vector2.UP * 100, 0.5)
+	tw.tween_property(self, "position", -size/2 + move_dir, t)
 	
 	tw.tween_callback(func(): z_index = 0)
-	tw.tween_property(self, "rotation", original_rot, 0.5)
-	tw.parallel().tween_property(self, "position", original_pos, 0.5)
+	tw.tween_property(self, "rotation", original_rot, t)
+	tw.parallel().tween_property(self, "position", original_pos, t)
 	label.highlight_first = true
 	label.focused = false
 	label.active = false
