@@ -7,18 +7,20 @@ enum Type {
 	JUNIOR,
 }
 
-const TYPE_MAP = {
-	Type.EMAIL: WordManager.EMAIL_GROUP,
-	Type.PHONE: WordManager.PHONE_GROUP,
-	Type.JUNIOR: WordManager.JUNIOR_GROUP,
-}
-
-@export var distraction_timeout := 10
 @export var overlay: Control
 @export var work_time: WorkTime
 
 @onready var delegator = $Delegator
 @onready var shake_effect: EffectRoot = $ShakeEffect
+@onready var email_words: WordGenerator = $EmailWords
+@onready var phone_words: WordGenerator = $PhoneWords
+@onready var junior_words: WordGenerator = $JuniorWords
+
+@onready var TYPE_MAP = {
+	Type.EMAIL: email_words,
+	Type.PHONE: phone_words,
+	Type.JUNIOR: junior_words,
+}
 
 @onready var email = $Email
 @onready var phone = $Phone
@@ -29,7 +31,7 @@ var _logger = Logger.new("Distraction")
 
 var tw: Tween
 var distraction_accumulator = 0.0
-var missed := 0
+#var missed := 0
 var last_menu = null
 
 var shown := 0
@@ -42,6 +44,10 @@ var skipped_since_last_distraction := 0
 
 func _ready():
 	_logger.info("Performance: %s, within %s, left: %s" % [GameManager.performance, GameManager.get_performance_within_level(), GameManager.get_until_max_performance()])
+
+	email_words.add_words(WordManager.get_words(WordManager.EMAIL_GROUP))
+	phone_words.add_words(WordManager.get_words(WordManager.PHONE_GROUP))
+	junior_words.add_words(WordManager.get_words(WordManager.JUNIOR_GROUP))
 	
 	overlay.modulate = Color.TRANSPARENT
 	delegator.nodes = menus
@@ -54,7 +60,7 @@ func _ready():
 				_hide_overlay()
 			delegator.reset()
 		)
-		m.timeout.connect(func(): missed += 1)
+		#m.timeout.connect(func(): missed += 1)
 
 	_logger.info("Showing %s - %s number of distractions today" % [min_count, max_count])
 
@@ -104,16 +110,12 @@ func show_distraction():
 	
 	var word = _get_random_distraction_word(distraction.type)
 	if word:
-		distraction.set_word(word, distraction_timeout)
+		distraction.set_word(word)
 		_show_overlay()
 	
 func _get_random_distraction_word(type: Type):
-	var group = TYPE_MAP[type]
-	var available = WordManager.get_words(group) # TODO: use WordGenerator??
-	if available.is_empty():
-		_logger.warn("No words available for distraction %s" % group)
-		return ""
-	return available.pick_random()
+	var gen = TYPE_MAP[type]
+	return gen.get_random_word()
 
 func _get_active_words():
 	var result = []

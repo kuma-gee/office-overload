@@ -30,4 +30,7 @@ func _update():
 	skill_container.visible = GameManager.get_wpm() > 0
 	wpm.text = "%.0f speed" % GameManager.get_wpm()
 	accuracy.text = "%.0f%% accuracy" % GameManager.get_accuracy()
-	score_points.text = "%.0f Score" % GameManager.calculate_score()
+	
+	var score = GameManager.calculate_score()
+	score_points.visible = score > 0
+	score_points.text = "%.0f Score" % score

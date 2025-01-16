@@ -7,7 +7,7 @@ var version := Build.VERSION
 
 var _logger := Logger.new("Env")
 
-var _live := true
+var _live := false
 var _enable_steam := true
 
 func _ready():

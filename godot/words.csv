@@ -40,6 +40,7 @@ business,WORK
 employee,WORK
 benefits,WORK
 vacation,WORK
+holiday,WORK
 deadline,WORK
 workload,WORK
 overload,WORK
@@ -71,6 +72,16 @@ reminder,EMAIL
 deadline,EMAIL
 confirmation,EMAIL
 response,EMAIL
+sickleave,EMAIL
+recipient,EMAIL
+forward,EMAIL
+reply,EMAIL
+inbox,EMAIL
+draft,EMAIL
+template,EMAIL
+carboncopy,EMAIL
+mailbox,EMAIL
+unread,EMAIL
 
 voicemail,PHONE
 reception,PHONE
@@ -81,6 +92,13 @@ ring,PHONE
 decline,PHONE
 ignore,PHONE
 answer,PHONE
+dialing,PHONE
+intercom,PHONE
+hangup,PHONE
+transfer,PHONE
+silent,PHONE
+disconnect,PHONE
+keypad,PHONE
 
 guidance,JUNIOR
 advice,JUNIOR
@@ -92,6 +110,12 @@ assist,JUNIOR
 feedback,JUNIOR
 explain,JUNIOR
 instruct,JUNIOR
+approve,JUNIOR
+training,JUNIOR
+delegate,JUNIOR
+permission,JUNIOR
+resources,JUNIOR
+updates,JUNIOR
 
 tomato,INVALID
 potato,INVALID
@@ -118,6 +142,9 @@ tiramisu,INVALID
 chocolate,INVALID
 fries,INVALID
 cupcake,INVALID
+lollipop,INVALID
+candy,INVALID
+steak,INVALID
 
 can,AFTERWORK
 beer,AFTERWORK

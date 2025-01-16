@@ -40,7 +40,9 @@ func open() -> void:
 		var delays = [0.5, 0.7, 0.7, 1.0, 0.9]
 		for c in paper_container.get_children():
 			if c is ShopPaper:
-				var i = randi_range(0, delays.size() - 1)
+				if not GameManager.is_item_available(c.item.type): continue
+				
+				var i = 0 #randi_range(0, delays.size() - 1)
 				if delays.is_empty():
 					c.open(1.0)
 				else:

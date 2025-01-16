@@ -19,6 +19,7 @@ func _ready() -> void:
 	buy_button.finished.connect(func():
 		GameManager.buy_item(item)
 		await send()
+		_update()
 		open(0.2)
 	)
 	
@@ -31,7 +32,7 @@ func _ready() -> void:
 	focus_exited.connect(func(): esc_tex.hide())
 
 	_update()
-	GameManager.item_purchased.connect(func(): _update())
+	#GameManager.item_purchased.connect(func(): _update())
 	esc_tex.hide()
 
 func _update():

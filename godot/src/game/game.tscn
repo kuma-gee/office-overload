@@ -1,4 +1,4 @@
-[gd_scene load_steps=105 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=102 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/game/document.tscn" id="2_35x6g"]
@@ -43,8 +43,6 @@
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="20_u0r5t"]
 [ext_resource type="Script" path="res://src/base-system/effect/Shake.gd" id="21_os6oe"]
 [ext_resource type="Texture2D" uid="uid://r6b75n40gyxy" path="res://assets/sprites/Desk_Computer.png" id="21_tywuk"]
-[ext_resource type="Shader" path="res://shader/fill.gdshader" id="23_cnswi"]
-[ext_resource type="Script" path="res://src/ui/fill_timer.gd" id="24_7p44n"]
 [ext_resource type="Curve" uid="uid://c5dolop3rdetn" path="res://src/dust_damp.tres" id="24_ecpli"]
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/sprites/Document.png" id="24_g7dws"]
 [ext_resource type="AudioStream" uid="uid://dl1bac3viudub" path="res://assets/sound/パパッ.mp3" id="25_k4kvb"]
@@ -89,11 +87,6 @@ shader_parameter/enable = true
 shader_parameter/hit_color = Color(0.207843, 0.207843, 0.25098, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e6mqw"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8da6s"]
-shader = ExtResource("23_cnswi")
-shader_parameter/fill = 0.64
-shader_parameter/not_fill_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1mklb"]
 
@@ -321,6 +314,57 @@ tracks/7/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_027j0"]
+resource_name = "crunch"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Computer/SingleUI:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Computer/CrunchUI:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Computer/TutorialUI:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Computer/BossUI:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="Animation" id="Animation_qam2k"]
 resource_name = "littered"
 tracks/0/type = "value"
@@ -539,57 +583,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_027j0"]
-resource_name = "crunch"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Computer/SingleUI:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Computer/CrunchUI:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Computer/TutorialUI:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Computer/BossUI:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vs0lt"]
@@ -895,7 +888,6 @@ script = ExtResource("20_tcix1")
 nodes = [NodePath("../..")]
 
 [node name="Distractions" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "work_time")]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -907,6 +899,15 @@ theme = ExtResource("10_am0oy")
 script = ExtResource("14_s1o3m")
 overlay = NodePath("../../Overlay")
 work_time = NodePath("../../Desk/Clock/HBoxContainer/WorkTime")
+
+[node name="EmailWords" type="Node" parent="CanvasLayer/Distractions"]
+script = ExtResource("55_o651g")
+
+[node name="PhoneWords" type="Node" parent="CanvasLayer/Distractions"]
+script = ExtResource("55_o651g")
+
+[node name="JuniorWords" type="Node" parent="CanvasLayer/Distractions"]
+script = ExtResource("55_o651g")
 
 [node name="ShakeEffect" type="Node" parent="CanvasLayer/Distractions"]
 script = ExtResource("20_u0r5t")
@@ -928,7 +929,7 @@ node = NodePath("../../Email/Email")
 script = ExtResource("20_tcix1")
 nodes = [NodePath("../Email"), NodePath("../Phone"), NodePath("../Junior")]
 
-[node name="Email" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "timer", "sounds")]
+[node name="Email" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "sounds")]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -937,12 +938,8 @@ grow_horizontal = 2
 script = ExtResource("15_ffym8")
 tween_trans = 10
 label = NodePath("Email/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TypingLabel")
-timer = NodePath("Timer")
 slide_dir = Vector2(0, 100)
 sounds = [NodePath("Email/Notification")]
-
-[node name="Timer" type="Timer" parent="CanvasLayer/Distractions/Email"]
-wait_time = 10.0
 
 [node name="Email" type="PanelContainer" parent="CanvasLayer/Distractions/Email"]
 custom_minimum_size = Vector2(150, 40)
@@ -969,37 +966,6 @@ theme_override_constants/margin_top = -30
 layout_mode = 2
 texture = ExtResource("20_hn5id")
 stretch_mode = 2
-
-[node name="Countdown" type="MarginContainer" parent="CanvasLayer/Distractions/Email/Email"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_constants/margin_top = -8
-
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/Distractions/Email/Email/Countdown"]
-custom_minimum_size = Vector2(80, 4)
-layout_mode = 2
-size_flags_vertical = 0
-color = Color(0.207843, 0.207843, 0.25098, 1)
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Email/Email/Countdown/ColorRect2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 1
-theme_override_constants/margin_top = 1
-theme_override_constants/margin_right = 1
-theme_override_constants/margin_bottom = 1
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Distractions/Email/Email/Countdown/ColorRect2/MarginContainer" node_paths=PackedStringArray("timer")]
-material = SubResource("ShaderMaterial_8da6s")
-layout_mode = 2
-script = ExtResource("24_7p44n")
-timer = NodePath("../../../../../Timer")
 
 [node name="Notification" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Email/Email"]
 stream = ExtResource("17_xms1k")
@@ -1041,9 +1007,8 @@ layout_mode = 2
 
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 12
 
-[node name="Phone" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "effect_root", "timer", "sounds")]
+[node name="Phone" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "effect_root", "sounds")]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1058,12 +1023,8 @@ script = ExtResource("15_ffym8")
 label = NodePath("Phone/MarginContainer/VBoxContainer/TypingLabel")
 type = 1
 effect_root = NodePath("EffectRoot")
-timer = NodePath("Timer")
 slide_dir = Vector2(0, -120)
 sounds = [NodePath("Vibrate"), NodePath("Ring")]
-
-[node name="Timer" type="Timer" parent="CanvasLayer/Distractions/Phone"]
-wait_time = 10.0
 
 [node name="Vibrate" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Phone"]
 stream = ExtResource("19_5t58c")
@@ -1117,51 +1078,14 @@ theme_override_constants/margin_bottom = 3
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="Label" type="Label" parent="CanvasLayer/Distractions/Phone/Phone/MarginContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Phone"
-label_settings = ExtResource("16_3sqd2")
-horizontal_alignment = 1
-
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Phone/Phone/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
 size_flags_horizontal = 1
-theme_override_font_sizes/normal_font_size = 12
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]v[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]oicemail[/outline_size][/outline_color][/color][/center][/outline_color]"
 autowrap_mode = 3
+word = "voicemail"
 
-[node name="Countdown" type="MarginContainer" parent="CanvasLayer/Distractions/Phone/Phone"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_constants/margin_top = 10
-
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/Distractions/Phone/Phone/Countdown"]
-custom_minimum_size = Vector2(60, 4)
-layout_mode = 2
-size_flags_vertical = 0
-color = Color(0.207843, 0.207843, 0.25098, 1)
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Phone/Phone/Countdown/ColorRect2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 1
-theme_override_constants/margin_top = 1
-theme_override_constants/margin_right = 1
-theme_override_constants/margin_bottom = 1
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Distractions/Phone/Phone/Countdown/ColorRect2/MarginContainer" node_paths=PackedStringArray("timer")]
-material = SubResource("ShaderMaterial_8da6s")
-layout_mode = 2
-script = ExtResource("24_7p44n")
-timer = NodePath("../../../../../Timer")
-
-[node name="Junior" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "timer", "sounds")]
+[node name="Junior" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "sounds")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -1170,12 +1094,8 @@ grow_vertical = 0
 script = ExtResource("15_ffym8")
 label = NodePath("Junior/MarginContainer/VBoxContainer/TypingLabel")
 type = 2
-timer = NodePath("Timer")
 slide_dir = Vector2(0, -100)
 sounds = [NodePath("Popup")]
-
-[node name="Timer" type="Timer" parent="CanvasLayer/Distractions/Junior"]
-wait_time = 10.0
 
 [node name="Popup" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Junior"]
 stream = ExtResource("25_k4kvb")
@@ -1220,38 +1140,6 @@ horizontal_alignment = 1
 
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 12
-
-[node name="Countdown" type="MarginContainer" parent="CanvasLayer/Distractions/Junior/Junior"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_constants/margin_top = 8
-
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/Distractions/Junior/Junior/Countdown"]
-custom_minimum_size = Vector2(60, 4)
-layout_mode = 2
-size_flags_vertical = 0
-color = Color(0.207843, 0.207843, 0.25098, 1)
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Junior/Junior/Countdown/ColorRect2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 1
-theme_override_constants/margin_top = 1
-theme_override_constants/margin_right = 1
-theme_override_constants/margin_bottom = 1
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Distractions/Junior/Junior/Countdown/ColorRect2/MarginContainer" node_paths=PackedStringArray("timer")]
-material = SubResource("ShaderMaterial_8da6s")
-layout_mode = 2
-script = ExtResource("24_7p44n")
-timer = NodePath("../../../../../Timer")
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("37_b7g85")]
 visible = false
@@ -1608,7 +1496,7 @@ text = "00"
 [node name="Items" type="Node2D" parent="Desk"]
 
 [node name="Duck" type="Sprite2D" parent="Desk/Items" node_paths=PackedStringArray("sound")]
-position = Vector2(91, -35)
+position = Vector2(94, -36)
 texture = ExtResource("47_0m5o6")
 hframes = 2
 script = ExtResource("47_m6qb4")
@@ -1629,7 +1517,7 @@ script = ExtResource("52_ck1lt")
 weight = 1.5
 
 [node name="Coffee" type="Sprite2D" parent="Desk/Items"]
-position = Vector2(69, -15)
+position = Vector2(69, -22)
 texture = ExtResource("28_i6mjb")
 hframes = 2
 script = ExtResource("53_ngmm3")

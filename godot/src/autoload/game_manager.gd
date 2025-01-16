@@ -10,7 +10,6 @@ signal item_purchased()
 signal item_used_toggled(item: Shop.Items)
 signal coffee_used()
 
-const ASSISTANT_COST = 150
 const GAME_SCENE = "res://src/game/game.tscn"
 const START_SCENE = "res://src/start/start_new.tscn"
 
@@ -268,6 +267,15 @@ func get_max_performance():
 
 
 #region ITEMS
+const PLANT_STRESS_REDUCTION = [0.1, 0.2, 0.25]
+const MONEY_INCREASE = [0.1, 0.2]
+const ASSISTANT_REDUCTION = [0.1, 0.25]
+const ASSISTANT_COST = 150
+const DEMO_ITEMS = [Shop.Items.PLANT, Shop.Items.COFFEE]
+
+func is_item_available(item: Shop.Items):
+	return not Env.is_demo() or item in DEMO_ITEMS
+
 func buy_item(item: ShopResource):
 	if is_item_max(item):
 		_logger.warn("Item %s already at max upgrade" % Shop.Items.keys()[item.type])
@@ -293,7 +301,7 @@ func pay_assistant():
 		_save_data()
 
 func is_item_used(item: Shop.Items):
-	return item in used_items and item in bought_items
+	return item in used_items and item in bought_items and is_item_available(item)
 
 func toggle_item_used(item: Shop.Items):
 	if item in used_items:
@@ -307,15 +315,12 @@ func is_item_max(item: ShopResource):
 	return item_count(item.type) >= item.prices.size()
 
 func item_count(item: Shop.Items):
+	if not is_item_available(item): return 0
 	return bought_items.count(item)
 
 func item_price(item: ShopResource):
 	var item_bought = item_count(item.type)
 	return item.prices[min(item_bought, item.prices.size() - 1)]
-
-const PLANT_STRESS_REDUCTION = [0.1, 0.2, 0.25]
-const MONEY_INCREASE = [0.1, 0.2]
-const ASSISTANT_REDUCTION = [0.1, 0.25]
 
 func get_assistant_cost():
 	return item_count(Shop.Items.ASSISTANT) * ASSISTANT_COST

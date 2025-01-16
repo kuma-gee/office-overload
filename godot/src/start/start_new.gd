@@ -99,7 +99,7 @@ func _ready() -> void:
 	shop_button.type_finish.connect(func(): is_shop = true)
 	shop.closed.connect(func(): is_shop = false)
 	
-	game_modes_key.visible = GameManager.unlocked_modes.size() > 1
+	game_modes_key.visible = GameManager.unlocked_modes.size() > 1 and not Env.is_demo()
 	crunch_mode_container.visible = GameManager.is_mode_unlocked(GameManager.Mode.Crunch)
 	multiplayer_mode_container.visible = GameManager.is_mode_unlocked(GameManager.Mode.Multiplayer)
 	

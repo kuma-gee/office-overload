@@ -34,4 +34,4 @@ func spill():
 	animation_player.play("spill")
 	
 	var time = lifetime.wait_time * GameManager.get_distraction_reduction()
-	lifetime.start()
+	lifetime.start(time)

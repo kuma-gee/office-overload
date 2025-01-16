@@ -329,7 +329,6 @@ script = ExtResource("16_8aqif")
 nodes = [NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/NextDayButton"), NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Retry"), NodePath("../../../Control/MenuPaper/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel")]
 
 [node name="Work" type="MarginContainer" parent="CenterContainer/PanelContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
@@ -477,15 +476,38 @@ texture_under = ExtResource("14_3eu2v")
 texture_over = ExtResource("15_m5sj3")
 texture_progress = ExtResource("16_cvyoc")
 
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.5
+offset_top = 2.50002
+offset_right = -16.5
+offset_bottom = 25.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_80w1y")
+text = "end of demo"
+
 [node name="LevelText" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D"]
-offset_left = -11.0
-offset_top = 20.0
-offset_right = 11.0
-offset_bottom = 26.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = 0.5
+offset_right = -4.0
+offset_bottom = 6.5
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_80w1y")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 5
-text = "Senior"
+text = "end of demo"
 horizontal_alignment = 1
 
 [node name="VBoxContainer5" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
@@ -560,6 +582,7 @@ layout_mode = 2
 word = "Next Day"
 
 [node name="Crunch" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
