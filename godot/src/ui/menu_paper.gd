@@ -51,6 +51,7 @@ func focused():
 	tw.tween_property(self, "rotation", 0, t)
 	tw.parallel().tween_property(self, "position", -size/2 + move_dir, t)
 	tw.parallel().tween_callback(func(): z_index = 100).set_delay(t / 2)
+	SoundManager.play_paper_open()
 	
 	tw.tween_property(self, "position", -size/2, 0.5)
 	label.highlight_first = false
@@ -65,6 +66,8 @@ func defocused():
 	tw.tween_callback(func(): z_index = 0)
 	tw.tween_property(self, "rotation", original_rot, t)
 	tw.parallel().tween_property(self, "position", original_pos, t)
+	SoundManager.play_paper_close()
+	
 	label.highlight_first = true
 	label.focused = false
 	label.active = false

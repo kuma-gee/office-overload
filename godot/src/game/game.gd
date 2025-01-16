@@ -62,6 +62,7 @@ extends Node2D
 @onready var key_reader = $KeyReader
 @onready var pause: Pause = $CanvasLayer/Pause
 @onready var day: Day = $CanvasLayer/HUD/Day
+@onready var drink_sound: RandomPitchShift = $DrinkSound
 
 @onready var camera_shake: CameraShake = $CameraShake
 @onready var frame_freeze: FrameFreeze = $FrameFreeze
@@ -160,6 +161,7 @@ func _ready():
 	key_reader.use_coffee.connect(func():
 		var reduction = GameManager.use_coffee()
 		overload_progress.reduce(reduction)
+		drink_sound.play_random_pitched()
 	)
 
 func is_time_running():

@@ -271,6 +271,7 @@ script = ExtResource("6_q1q4c")
 container = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer")
 title_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/Items")
 delegator = NodePath("Delegator")
+play_sound = false
 
 [node name="Delegator" type="Node" parent="ItemsPaper"]
 script = ExtResource("7_pvyq5")
@@ -464,6 +465,7 @@ pivot_offset = Vector2(30, 17)
 theme = ExtResource("2_xj832")
 script = ExtResource("8_4jrgk")
 extra_distance = 100.0
+play_sound = false
 
 [node name="Money" type="PanelContainer" parent="MainMoney"]
 layout_mode = 2
@@ -570,7 +572,7 @@ anchor_bottom = 0.5
 offset_left = -5.0
 offset_top = 138.0
 offset_right = 105.0
-offset_bottom = 278.0
+offset_bottom = 1053.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.139626
@@ -718,8 +720,6 @@ script = ExtResource("34_06bnc")
 
 [node name="Papers" type="Control" parent="Shop"]
 anchors_preset = 0
-offset_top = 9.0
-offset_bottom = 9.0
 
 [node name="MoneyCatItem" parent="Shop/Papers" instance=ExtResource("18_ui332")]
 layout_mode = 1
@@ -1171,6 +1171,8 @@ word = "CEO"
 
 [node name="Team" parent="CanvasLayer/Control" node_paths=PackedStringArray("user_board", "friends_board", "global_board", "steam_offline") instance=ExtResource("29_t2y1x")]
 layout_mode = 1
+offset_top = 82.0
+offset_bottom = 82.0
 script = ExtResource("30_m1awn")
 user_board = NodePath("TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/UserScore")
 friends_board = NodePath("TextureRect/Papers/Team2/MarginContainer/VBoxContainer/FriendsScore")
@@ -1306,6 +1308,8 @@ grow_vertical = 1
 [node name="Report" parent="CanvasLayer/Control" instance=ExtResource("29_t2y1x")]
 light_mask = 0
 layout_mode = 1
+offset_top = 82.0
+offset_bottom = 82.0
 
 [node name="TextureRect" parent="CanvasLayer/Control/Report" index="2"]
 light_mask = 0

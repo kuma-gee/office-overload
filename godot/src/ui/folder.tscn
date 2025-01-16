@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bevwwvcqg3xhh"]
+[gd_scene load_steps=14 format=3 uid="uid://bevwwvcqg3xhh"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_eb7yf"]
 [ext_resource type="Script" path="res://src/ui/folder.gd" id="1_pv7op"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="5_3scs5"]
 [ext_resource type="Texture2D" uid="uid://c5kug4qan8fud" path="res://assets/sprites/Menu_FolderFront.png" id="5_s5drs"]
 [ext_resource type="Script" path="res://src/delegator.gd" id="5_xfvoj"]
+[ext_resource type="AudioStream" uid="uid://4fnv3b5m30j5" path="res://assets/sound/folder_open.mp3" id="8_xu26d"]
 
 [sub_resource type="Animation" id="Animation_xpunr"]
 length = 0.001
@@ -69,6 +70,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_om7um"]
@@ -137,6 +150,18 @@ tracks/4/keys = {
 "method": &"close_finished"
 }]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_gi17e"]
 resource_name = "open_folder"
@@ -202,6 +227,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_ebrw4"]
 resource_name = "show_overlay"
@@ -235,8 +272,8 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = 82.0
-offset_bottom = 82.0
+offset_top = -90.0
+offset_bottom = -90.0
 grow_horizontal = 2
 grow_vertical = 0
 focus_mode = 2
@@ -338,3 +375,6 @@ offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_xu26d")

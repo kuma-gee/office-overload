@@ -109,6 +109,7 @@ func add_document(mistake := false, wrong := false, is_discarded := false, word 
 		if wrong:
 			wrong_tasks += ceil(word.length() / 2.0)
 			combo_count = 0
+			SoundManager.play_type_mistake()
 		else:
 			tasks += 1
 			total_points += 1 + 1 * combo_count

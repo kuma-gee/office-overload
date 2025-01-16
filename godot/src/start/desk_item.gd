@@ -13,10 +13,12 @@ func move_in(delay = 0.2):
 	await get_tree().create_timer(delay).timeout
 	tw = _create_tw()
 	tw.tween_property(self, "position", orig_pos, 0.5)
+	SoundManager.play_folder_slide()
 
 func move_open():
 	tw = _create_tw()
 	tw.tween_property(self, "position", orig_pos + Vector2.DOWN * 100, 0.5)
+	SoundManager.play_folder_slide()
 	await get_tree().create_timer(0.2).timeout
 
 func _create_tw():

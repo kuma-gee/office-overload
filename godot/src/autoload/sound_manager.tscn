@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bes61socob36q"]
+[gd_scene load_steps=11 format=3 uid="uid://bes61socob36q"]
 
 [ext_resource type="AudioStream" uid="uid://b4rig48kfrcn8" path="res://assets/sound/カーソル移動9.mp3" id="1_apviw"]
 [ext_resource type="Script" path="res://src/autoload/sound_manager.gd" id="1_p3jmk"]
@@ -7,6 +7,9 @@
 [ext_resource type="Script" path="res://src/RandomPitchShift.gd" id="5_68h3t"]
 [ext_resource type="AudioStream" uid="uid://cm3x4msnqk7wr" path="res://assets/sound/ビープ音4.mp3" id="5_q4xm8"]
 [ext_resource type="Script" path="res://src/MistakeSound.gd" id="7_payas"]
+[ext_resource type="AudioStream" uid="uid://c8rl1qr4vjn25" path="res://assets/sound/paper.mp3" id="8_j7rdy"]
+[ext_resource type="AudioStream" uid="uid://ji7etef3kh3s" path="res://assets/sound/紙を広げる2.mp3" id="9_ahq7n"]
+[ext_resource type="AudioStream" uid="uid://4fnv3b5m30j5" path="res://assets/sound/folder_open.mp3" id="11_5s3xk"]
 
 [node name="SoundManager" type="Node"]
 script = ExtResource("1_p3jmk")
@@ -26,7 +29,6 @@ stream = ExtResource("4_l2rpn")
 volume_db = -5.0
 bus = &"SFX"
 script = ExtResource("5_68h3t")
-delta = 0.05
 
 [node name="TypeMistakeSound" type="AudioStreamPlayer" parent="."]
 process_mode = 3
@@ -34,3 +36,51 @@ stream = ExtResource("5_q4xm8")
 volume_db = -10.0
 bus = &"SFX"
 script = ExtResource("7_payas")
+
+[node name="PaperOpen" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("9_ahq7n")
+volume_db = -15.0
+bus = &"SFX"
+script = ExtResource("5_68h3t")
+
+[node name="PaperClose" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("9_ahq7n")
+volume_db = -15.0
+pitch_scale = 0.8
+bus = &"SFX"
+script = ExtResource("5_68h3t")
+
+[node name="PaperMoveIn" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("8_j7rdy")
+volume_db = -5.0
+bus = &"SFX"
+script = ExtResource("5_68h3t")
+
+[node name="FolderSlide" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+pitch_scale = 0.8
+bus = &"SFX"
+script = ExtResource("5_68h3t")
+
+[node name="FolderOpen" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("11_5s3xk")
+bus = &"SFX"
+script = ExtResource("5_68h3t")
+
+[node name="SFXPool" type="Node" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SFXPool"]
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="SFXPool"]
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="SFXPool"]
+
+[node name="AudioStreamPlayer4" type="AudioStreamPlayer" parent="SFXPool"]
+
+[node name="AudioStreamPlayer5" type="AudioStreamPlayer" parent="SFXPool"]
+
+[node name="AudioStreamPlayer6" type="AudioStreamPlayer" parent="SFXPool"]

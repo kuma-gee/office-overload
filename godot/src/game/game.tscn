@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=103 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/game/document.tscn" id="2_35x6g"]
@@ -72,6 +72,7 @@
 [ext_resource type="Script" path="res://src/game/spill_mug.gd" id="61_ng12r"]
 [ext_resource type="Texture2D" uid="uid://bu18gjh2nloqs" path="res://assets/sprites/CoffeeSpill_Stain.png" id="61_xrrf4"]
 [ext_resource type="AudioStream" uid="uid://c46f8lfm4voiy" path="res://assets/sound/hit_table.mp3" id="69_pgfnx"]
+[ext_resource type="AudioStream" uid="uid://bm3cp0ymtlemd" path="res://assets/sound/飲む.mp3" id="73_2e4bi"]
 
 [sub_resource type="Curve" id="Curve_m11kp"]
 _data = [Vector2(0, 0.701099), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -1840,6 +1841,12 @@ environment = SubResource("Environment_cpt0l")
 stream = ExtResource("69_pgfnx")
 volume_db = -10.0
 pitch_scale = 0.8
+bus = &"SFX"
+script = ExtResource("50_j4bts")
+
+[node name="DrinkSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("73_2e4bi")
+volume_db = -10.0
 bus = &"SFX"
 script = ExtResource("50_j4bts")
 
