@@ -9,9 +9,9 @@ extends Control
 
 @export_category("Crunch Mode")
 @export var crunch_tasks: Label
-@export var crunch_combo: Label
 @export var crunch_time: Label
 @export var crunch_wpm: Label
+@export var crunch_acc: Label
 @export var crunch_score: Label
 @export var retry_button: TypingButton
 @export var highscore_board: Control
@@ -145,13 +145,10 @@ func _work_day_finished():
 
 func crunch_ended(data: Dictionary):
 	crunch_tasks.text = "%s" % data["tasks"]
-	crunch_combo.text = "%sx" % data["combo"]
 	crunch_time.text = "%sh" % data["hours"]
-	crunch_wpm.text = "%.0f / %.0f%%" % [data["wpm"], data["acc"] * 100]
+	crunch_wpm.text = "%.0f / %.0f%%" % data["wpm"]
+	crunch_acc.text = "%.0f%%" % [data["acc"] * 100]
 	crunch_score.text = "%s" % data["score"]
-	
-	#if not Env.is_demo() and SteamManager.is_steam_available():
-		#highscore_board.slide_in(0.3)
 	
 	_do_open(crunch_container, gameover_sound)
 
@@ -171,7 +168,3 @@ func _unhandled_input(event: InputEvent) -> void:
 			promotion_delegator.handle_event(event)
 		else:
 			day_delegator.handle_event(event)
-	#elif interview_container.visible:
-		#interview_delegator.handle_event(event)
-	#elif crunch_container.visible:
-		#crunch_delegator.handle_event(event)

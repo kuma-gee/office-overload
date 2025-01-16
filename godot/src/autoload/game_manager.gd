@@ -226,15 +226,15 @@ func finished_crunch(tasks: int, hours: int, combo: int):
 	data["combo"] = combo
 	data["hours"] = hours
 	data["tasks"] = tasks
-	data["score"] = _upload_endless_scores(data["wpm"], data["acc"], data["tasks"])
+	data["score"] = _upload_endless_scores(data["wpm"], data["acc"], data["tasks"], data["hours"])
 	round_ended.emit()
 	return data
 
-func _upload_endless_scores(wpm: float, acc: float, count: int):
+func _upload_endless_scores(wpm: float, acc: float, count: int, hours: int):
 	var score = int(floor(wpm * acc * count))
 	if not Env.is_demo():
 		var board = get_leaderboard_for_mode(GameManager.Mode.Crunch)
-		SteamLeaderboard.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count]))
+		SteamLeaderboard.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count, hours]))
 	
 	return score
 

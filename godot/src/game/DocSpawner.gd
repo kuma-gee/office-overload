@@ -23,13 +23,13 @@ var last_position: Node2D
 var word_type_chance := {}
 
 func _ready():
-	word_type_chance = {
-		WordManager.Type.EASY: GameManager.difficulty.easy_words,
-		WordManager.Type.MEDIUM: GameManager.difficulty.medium_words,
-		WordManager.Type.HARD: GameManager.difficulty.hard_words,
-	}
-	
-	if word_type == WordManager.WORK_GROUP:
+	if word_type == WordManager.WORK_GROUP and GameManager.is_work_mode():
+		word_type_chance = {
+			WordManager.Type.EASY: GameManager.difficulty.easy_words,
+			WordManager.Type.MEDIUM: GameManager.difficulty.medium_words,
+			WordManager.Type.HARD: GameManager.difficulty.hard_words,
+		}
+
 		add_easy()
 		
 		if GameManager.is_intern() and GameManager.get_performance_within_level() >= 5:
@@ -44,6 +44,19 @@ func _ready():
 		
 	else:
 		add_words_from_group()
+		set_difficulty(0.0)
+
+func set_difficulty(v: float):
+	if v < 0.1:
+		word_type_chance = {WordManager.Type.EASY: 1.0, WordManager.Type.MEDIUM: 0.0, WordManager.Type.HARD: 0.0, }
+	elif v < 0.3:
+		word_type_chance = {WordManager.Type.EASY: 0.7, WordManager.Type.MEDIUM: 0.3, WordManager.Type.HARD: 0.0, }
+	elif v < 0.6:
+		word_type_chance = {WordManager.Type.EASY: 0.5, WordManager.Type.MEDIUM: 0.4, WordManager.Type.HARD: 0.1, }
+	elif v < 0.9:
+		word_type_chance = {WordManager.Type.EASY: 0.3, WordManager.Type.MEDIUM: 0.5, WordManager.Type.HARD: 0.2, }
+	else:
+		word_type_chance = {WordManager.Type.EASY: 0.2, WordManager.Type.MEDIUM: 0.6, WordManager.Type.HARD: 0.2, }
 	
 func add_words_from_group():
 	var words = WordManager.get_words(word_type)

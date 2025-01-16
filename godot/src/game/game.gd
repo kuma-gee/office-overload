@@ -38,7 +38,8 @@ extends Node2D
 @export var max_bgm_pitch := 2.0
 @export var max_bgm_pitch_time := 0.4
 @export var crunch_start_spawn_time := 4.
-@export var crunch_min_spawn_time := 0.4
+@export var crunch_min_spawn_time := 0.5
+@export var crunch_max_difficulty_count := 80
 @export var crunch_documents: Label
 
 @onready var doc_spawner = $DocSpawner
@@ -124,17 +125,20 @@ func _ready():
 			_finished()
 		day_ended = true
 	)
-	work_time.time_changed.connect(func(t):
+	work_time.time_changed.connect(func(_t):
 		if day_ended and work_time.is_day_ended() and GameManager.is_intern():
 			_finished()
 	)
 	
-	shift_delegator.unhandled_key.connect(func(key):
+	shift_delegator.unhandled_key.connect(func(_key):
+		if not is_time_running():
+			return
+
 		if get_label():
 			document_stack.add_mistake()
 			_update_score()
 	)
-	key_reader.pressed_key.connect(func(key, shift):
+	key_reader.pressed_key.connect(func(key, _shift):
 		if not documents.is_empty():
 			if documents[0].handle_key(key):
 				document_stack.add_combo()
@@ -142,18 +146,24 @@ func _ready():
 				document_stack.add_mistake()
 				_update_score()
 	)
-	key_reader.pressed_cancel.connect(func(shift):
+	key_reader.pressed_cancel.connect(func(_shift):
+		if not is_time_running():
+			return
+
 		if day.is_feature_open():
 			day.close_feature()
 			return
 		
-		if not is_gameover and not work_time.stopped:
+		if not is_gameover:
 			pause.grab_focus()
 	)
 	key_reader.use_coffee.connect(func():
 		var reduction = GameManager.use_coffee()
 		overload_progress.reduce(reduction)
 	)
+
+func is_time_running():
+	return not work_time.stopped and not is_gameover
 
 func _on_day_finished():
 	if GameManager.is_work_mode():
@@ -187,8 +197,6 @@ func _start_game():
 	_spawn()
 	
 func _finished(is_burn_out = false, is_fired = false):
-	#self.is_gameover = is_burn_out or is_fired
-	
 	if GameManager.is_work_mode():
 		distractions.slide_all_out()
 		
@@ -213,8 +221,7 @@ func _finished(is_burn_out = false, is_fired = false):
 				end.day_ended(data)
 			
 	elif GameManager.is_crunch_mode():
-		var data = GameManager.finished_crunch(document_stack.actual_document_count, work_time.hours_passed, document_stack.highest_streak)
-		end.crunch_ended(data)
+		_on_crunch_ended()
 		
 func _spawn():
 	if (work_time.is_day_ended() and GameManager.is_work_mode()) or is_gameover:
@@ -232,20 +239,14 @@ func _spawn():
 			await get_tree().create_timer(0.5).timeout
 			_spawn()
 	else:
-		var t = _crunch_mode_spawn_time()
-		spawn_timer.start(t)
-		
-		var pitch = remap(document_stack.actual_document_count, 1.0, 80, 1.0, max_bgm_pitch)
-		bgm.pitch_scale = snappedf(pitch, 0.25)
-		print(t, " - ", pitch, " -> ", bgm.pitch_scale)
-
-func _crunch_mode_spawn_time(doc_count: int = document_stack.actual_document_count):
-	var x = max(doc_count, 1)
-	return max(crunch_start_spawn_time - (log(x) / log(10)) * 1.8, crunch_min_spawn_time)
-
+		_update_crunch_values()
 
 func _spawn_document(await_start = false):
-	#print("%s, %s, %s, %s, %s, %s" % [GameManager.is_ceo(), boss_attack_timer.is_stopped(), boss_attack_timer.time_left, _boss_doc_diff(), is_attacking, boss_attack_documents])
+	if GameManager.is_crunch_mode():
+		var doc = doc_spawner.spawn_document() as Document
+		_add_document(doc, await_start)
+		return
+
 	if GameManager.is_ceo() and boss_attack_timer.is_stopped() and _boss_doc_diff() > 0 and not is_attacking and boss_attack_documents <= 0:
 		_setup_boss_attack()
 	else:
@@ -330,8 +331,33 @@ func get_label():
 	if documents.is_empty(): return null
 	return documents[0].get_label()
 
+#region CRUNCH
+func _update_crunch_values():
+	var t = _crunch_mode_spawn_time()
+	spawn_timer.start(t)
 
-#### CEO ####
+	var d = _crunch_difficulty()
+	doc_spawner.set_difficulty(d)
+	
+	# TODO: change at specific times for smoother transition ??
+	var pitch = remap(document_stack.actual_document_count, 1.0, 80, 1.0, max_bgm_pitch)
+	bgm.pitch_scale = snappedf(pitch, 0.25)
+	print(t, " - ", pitch, " -> ", bgm.pitch_scale)
+
+func _crunch_mode_spawn_time(doc_count: int = document_stack.actual_document_count):
+	var x = max(doc_count, 1)
+	return max(crunch_start_spawn_time - (log(x) / log(10)) * 1.3, crunch_min_spawn_time)
+
+func _crunch_difficulty(doc_count: int = document_stack.actual_document_count):
+	return clamp(float(doc_count) / crunch_max_difficulty_count, 0.0, 1.0)
+
+func _on_crunch_ended():
+	var data = GameManager.finished_crunch(document_stack.actual_document_count, work_time.hours_passed, document_stack.highest_streak)
+	end.crunch_ended(data)
+#endregion
+
+
+#region CEO
 var boss_documents := 0
 var boss_points := 0:
 	set(v):
@@ -412,7 +438,7 @@ func _ceo_game_ended():
 	end.ceo_ended({"tasks": document_stack.tasks, "mistakes": document_stack.wrong_tasks}, {"tasks": boss_documents, "mistakes": boss_mistakes})
 
 func _process(delta: float) -> void:
-	if is_gameover or not GameManager.is_ceo() or work_time.stopped: return
+	if is_gameover or not GameManager.is_ceo() or not is_time_running(): return
 	
 	boss_processing += delta
 	if boss_processing >= boss_current_speed: #and start_stack.has_documents():
@@ -434,3 +460,4 @@ func _process(delta: float) -> void:
 
 		boss_current_speed = randf_range(boss_process_speed * (1 - boss_process_speed_variation), boss_process_speed * (1 + boss_process_speed_variation))
 		#print("Boss Finished, next speed %s" % boss_current_speed)
+#endregion

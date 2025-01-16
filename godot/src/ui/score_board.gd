@@ -11,6 +11,9 @@ const TEXT_OUTLINE = preload("res://theme/text_outline.tres")
 	"details.1",
 	"details.2",
 ]
+@export var details_title: Array[String] = ["WPM", "Day", "Level"]
+@export var detail_labels: Array[Label] = []
+
 @export var container: GridContainer
 @export var scroll_container: ScrollContainer
 @export var up_scroll: TypingButton
@@ -19,9 +22,6 @@ const TEXT_OUTLINE = preload("res://theme/text_outline.tres")
 @export var scroll_button_container: Control
 
 @onready var buttons: Array[TypingButton] = [up_scroll, down_scroll]
-
-@export var use_days := true
-@export var day_label: Label
 
 @export var loading_label: Control
 @export var empty_label: Control
@@ -39,6 +39,10 @@ func _ready() -> void:
 	for i in container.get_child_count():
 		container.get_child(i).visible = i < keys.size()
 	container.columns = keys.size()
+	
+	for i in details_title.size():
+		var lbl = detail_labels[i]
+		lbl.text = "%s" % details_title[i]
 
 func active():
 	up_scroll.get_label().highlight_first = true
@@ -66,11 +70,6 @@ func load_data(board: String = GameManager.get_leaderboard_for_mode()):
 	var result = await SteamLeaderboard.load_score(board, score_type)
 	show_data(result)
 
-func get_day_title():
-	if use_days:
-		return "Day"
-	return "Docs"
-
 func parse_details(data: Dictionary):
 	if not "details" in data: return []
 	
@@ -85,7 +84,6 @@ func parse_data(data: Dictionary, key: String, details: Array):
 		return "%s" % _get_recursive(data, key, details)
 
 func show_data(data: Array):
-	day_label.text = get_day_title()
 	loading_label.hide()
 	empty_label.visible = data.is_empty()
 	

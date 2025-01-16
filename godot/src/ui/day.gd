@@ -28,23 +28,23 @@ func _ready():
 	
 	if GameManager.is_junior() and not GameManager.shown_stress_tutorial:
 		feature_title.text = "Stress Level"
-		feature_text.text = "As a full-fledged employee, you have a stress level.\nKeep it low to prevent a burnout!"
+		feature_text.text = "As a junior, you have a stress level\nKeep it low to prevent a burnout!"
 		GameManager.shown_stress_tutorial = true
 		_show_feature()
 	elif GameManager.is_senior() and not GameManager.shown_distraction_tutorial:
 		feature_title.text = "Distractions"
-		feature_text.text = "As a senior employee, you will be distracted by other people. Handle them while keep doing your work!"
+		feature_text.text = "As a senior, you will be distracted by others\nHandle them while keep doing your work!"
 		GameManager.shown_distraction_tutorial = true
 		_show_feature()
 	elif GameManager.is_manager() and not GameManager.shown_discard_tutorial:
 		feature_title.text = "Invalid Words"
-		feature_text.text = "As a manager, you need to deal with invalid words. Discard them by holding"
+		feature_text.text = "As a manager, you need to sort out invalid documents\nDiscard them by holding"
 		shift_tex.show()
 		GameManager.shown_discard_tutorial = true
 		_show_feature()
 	elif GameManager.is_ceo() and not GameManager.shown_ceo_tutorial:
 		feature_title.text = "Challenge"
-		feature_text.text = "You challenge your boss for the position. Finish more documents within the time!"
+		feature_text.text = "You challenge your boss for the position\nFinish more documents within the time!"
 		GameManager.shown_ceo_tutorial = true
 		_show_feature()
 	else:
@@ -62,14 +62,8 @@ func _process(delta: float) -> void:
 	feature_container.size.y = 180 # the size gets a weird value when running the game
 
 func _show_feature():
-	#feature_container.position.y = 0
 	feature_container.show()
-	#feature_container.size.y = 0
-	
 	feature_effect.do_effect()
-	#tw = create_tween()
-	#print(feature_container.size.y)
-	#tw.tween_property(feature_container, "position:y", -360, 0.5)
 
 func _start_day():
 	if GameManager.is_work_mode():

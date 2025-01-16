@@ -1287,6 +1287,7 @@ physics_interpolation_mode = 2
 
 [node name="PanelContainer" parent="CanvasLayer/Control/Team/TextureRect" index="5"]
 physics_interpolation_mode = 0
+visible = false
 
 [node name="ColorRect" parent="CanvasLayer/Control/Team/TextureRect" index="6"]
 light_mask = 2

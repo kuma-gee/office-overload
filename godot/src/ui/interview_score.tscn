@@ -10,7 +10,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0niil"]
 
-[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("container", "scroll_container", "up_scroll", "down_scroll", "scroll_button_container", "day_label", "loading_label", "empty_label")]
+[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("detail_labels", "container", "scroll_container", "up_scroll", "down_scroll", "scroll_button_container", "loading_label", "empty_label")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -20,12 +20,12 @@ size_flags_vertical = 3
 theme = ExtResource("1_1wirg")
 theme_override_constants/margin_bottom = 10
 script = ExtResource("2_hvdfi")
+detail_labels = [NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore/Wpm"), NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore/DocsDays"), NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore/Level")]
 container = NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore")
 scroll_container = NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer")
 up_scroll = NodePath("VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer/UpScroll")
 down_scroll = NodePath("VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2/DownScroll")
 scroll_button_container = NodePath("VBoxContainer/HBoxContainer/ScrollButtons")
-day_label = NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore/DocsDays")
 loading_label = NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Loading")
 empty_label = NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Empty")
 
@@ -82,7 +82,7 @@ label_settings = ExtResource("3_jt1on")
 
 [node name="DocsDays" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore"]
 layout_mode = 2
-text = "Docs"
+text = "Day"
 label_settings = ExtResource("3_jt1on")
 
 [node name="Level" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore"]
