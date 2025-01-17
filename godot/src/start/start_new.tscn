@@ -1364,6 +1364,7 @@ theme_override_colors/font_placeholder_color = Color(0.208, 0.208, 0.251, 0.3)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_31qb0")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_18vcd")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_1gmyi")
+text = "asd"
 placeholder_text = "Let us know of any suggestions or problems"
 context_menu_enabled = false
 wrap_mode = 1

@@ -46,10 +46,16 @@ func get_words(group: String, type: Type = Type.ALL) -> Array:
 	
 	var words = all_words[group]
 	if type == Type.EASY:
-		return words.filter(func(w): return w.length() < medium_word_length)
+		var x = words.filter(func(w): return w.length() < medium_word_length)
+		print("Returning EASY %s" % [x])
+		return x
 	elif type == Type.MEDIUM:
-		return words.filter(func(w): return w.length() >= medium_word_length and w.length() < hard_word_length)
+		var x = words.filter(func(w): return w.length() >= medium_word_length and w.length() < hard_word_length)
+		print("Returning MEDIUM %s" % [x])
+		return x
 	elif type == Type.HARD:
-		return words.filter(func(w): return w.length() >= hard_word_length)
+		var x = words.filter(func(w): return w.length() >= hard_word_length)
+		print("Returning HARD %s" % [x])
+		return x
 
 	return words

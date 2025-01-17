@@ -52,15 +52,19 @@ func set_difficulty(v: float):
 	elif v < 0.3:
 		word_type_chance = {WordManager.Type.EASY: 0.7, WordManager.Type.MEDIUM: 0.3, WordManager.Type.HARD: 0.0, }
 	elif v < 0.6:
-		word_type_chance = {WordManager.Type.EASY: 0.5, WordManager.Type.MEDIUM: 0.4, WordManager.Type.HARD: 0.1, }
+		word_type_chance = {WordManager.Type.EASY: 0.4, WordManager.Type.MEDIUM: 0.5, WordManager.Type.HARD: 0.1, }
 	elif v < 0.9:
-		word_type_chance = {WordManager.Type.EASY: 0.3, WordManager.Type.MEDIUM: 0.5, WordManager.Type.HARD: 0.2, }
+		word_type_chance = {WordManager.Type.EASY: 0.2, WordManager.Type.MEDIUM: 0.5, WordManager.Type.HARD: 0.3, }
 	else:
-		word_type_chance = {WordManager.Type.EASY: 0.2, WordManager.Type.MEDIUM: 0.6, WordManager.Type.HARD: 0.2, }
+		word_type_chance = {WordManager.Type.EASY: 0.1, WordManager.Type.MEDIUM: 0.5, WordManager.Type.HARD: 0.4, }
+	
+	print(word_type_chance)
 	
 func add_words_from_group():
-	var words = WordManager.get_words(word_type)
-	word_generator.add_words(words)
+	for type in [WordManager.Type.EASY, WordManager.Type.MEDIUM, WordManager.Type.HARD]:
+		var words = WordManager.get_words(word_type, type)
+		word_generator.add_words(words, type)
+	
 	mode = WordManager.Type.ALL
 
 func is_invalid_word(word: String):
@@ -154,9 +158,10 @@ func get_word_tag():
 	var r = randf()
 	var accum = 0.0
 	for type in word_type_chance.keys():
-		if r <= word_type_chance[type]:
-			return type
 		accum += word_type_chance[type]
+		
+		if r <= accum:
+			return type
 	
 	return WordManager.Type.ALL
 

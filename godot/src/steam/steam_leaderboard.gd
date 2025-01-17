@@ -15,7 +15,7 @@ const DEMO_LEADERBOARDS = [
 ]
 
 signal leaderboard_loaded(board: String, result: Array)
-signal leaderboard_uploaded(board: String, score: Dictionary)
+signal leaderboard_uploaded(success: bool)
 signal leaderboard_handler_loaded()
 
 var leaderboard_handles: Dictionary = {}
@@ -82,10 +82,10 @@ func _on_leaderboard_score_uploaded(success: int, this_handle: int, this_score: 
 	is_uploading = false
 	if success == 1:
 		_logger.info("Successfully uploaded scores for %s!" % board)
-		leaderboard_uploaded.emit(board, this_score)
+		leaderboard_uploaded.emit(true)
 	else:
 		_logger.error("Failed to upload scores for %s!" % board)
-		leaderboard_uploaded.emit(board, null)
+		leaderboard_uploaded.emit(false)
 	
 
 func load_score(board: String, type: int):

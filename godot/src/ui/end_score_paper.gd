@@ -12,7 +12,7 @@ func _ready() -> void:
 	for n in board.buttons:
 		delegator.nodes.append(n)
 		
-	SteamLeaderboard.leaderboard_uploaded.connect(func(board, score):
+	SteamLeaderboard.leaderboard_uploaded.connect(func(success):
 		slide_in()
 	)
 

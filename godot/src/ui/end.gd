@@ -15,6 +15,7 @@ extends Control
 @export var crunch_score: Label
 @export var retry_button: TypingButton
 @export var highscore_board: Control
+@export var crunch_offline: Control
 
 @export_category("Work Mode")
 @export var next_day: TypingButton
@@ -149,9 +150,11 @@ func _work_day_finished():
 func crunch_ended(data: Dictionary):
 	crunch_tasks.text = "%s" % data["tasks"]
 	crunch_time.text = "%sh" % data["hours"]
-	crunch_wpm.text = "%.0f / %.0f%%" % data["wpm"]
+	crunch_wpm.text = "%.0f" % data["wpm"]
 	crunch_acc.text = "%.0f%%" % [data["acc"] * 100]
 	crunch_score.text = "%s" % data["score"]
+	
+	crunch_offline.visible = false #not GameManager.unsaved_crunch_score.is_empty()
 	
 	_do_open(crunch_container, gameover_sound)
 

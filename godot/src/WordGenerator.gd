@@ -12,7 +12,7 @@ func add_words(words: Array, tag = null):
 		if not w in self.words:
 			self.words.append(w)
 	
-	if tag:
+	if tag != null:
 		tagged_words[tag] = words
 
 func remove_words_less(char_count: int):
@@ -28,7 +28,7 @@ func _normalize(words: Array):
 
 func get_random_word(tag = null):
 	var arr = []
-	if tag and tag in tagged_words:
+	if tag != null and tag in tagged_words:
 		arr.append_array(tagged_words[tag])
 	elif not words.is_empty():
 		arr.append_array(words)

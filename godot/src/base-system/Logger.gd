@@ -34,7 +34,8 @@ func debug(msg: String):
 
 func _log_for_level(level: int, msg: String):
 	if level <= Env.log_level:
-		var text = "[%s] [color=%s]%s[/color] %s: %s" % [_now(), COLORS[level].to_html(), Level.keys()[level], name, msg]
+		var text = "[%s] %s %s: %s" % [_now(), Level.keys()[level], name, msg]
+		#var text = "[%s] [color=%s]%s[/color] %s: %s" % [_now(), COLORS[level].to_html(), Level.keys()[level], name, msg]
 		print_rich(text)
 
 func _now() -> String:

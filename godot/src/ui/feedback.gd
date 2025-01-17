@@ -61,10 +61,16 @@ func handle_event(event: InputEvent) -> void:
 			if key_event.shift_pressed and key_event.keycode == KEY_ENTER:
 				FeedbackManager.send_feedback(form.text.to_lower())
 
-	limit_label.text = "%s / %s" % [form.text.length(), max_limit]
-	if form.text.length() >= max_limit:
+		var key = KeyReader.get_key_of_event(event)
+		if key and has_reached_limit():
+			get_viewport().set_input_as_handled()
+	
+	if form.text.length() > max_limit:
 		form.text = form.text.substr(0, max_limit)
-		get_viewport().set_input_as_handled()
+	limit_label.text = "%s / %s" % [form.text.length(), max_limit]
+
+func has_reached_limit():
+	return form.text.length() >= max_limit
 
 func _reset():
 	form.text = ""

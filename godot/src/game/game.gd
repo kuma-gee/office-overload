@@ -127,6 +127,7 @@ func _ready():
 		day_ended = true
 	)
 	work_time.time_changed.connect(func(_t):
+		if GameManager.is_crunch_mode(): return
 		if day_ended and work_time.is_day_ended() and GameManager.is_intern():
 			_finished()
 	)
@@ -301,7 +302,7 @@ func _add_document(doc: Document, await_start := false):
 			
 			if documents.size() < min_documents:
 				_spawn()
-		elif work_time.is_day_ended():
+		elif work_time.is_day_ended() and GameManager.is_work_mode():
 			_finished()
 		else:
 			if await_start:
@@ -337,18 +338,18 @@ func get_label():
 func _update_crunch_values():
 	var t = _crunch_mode_spawn_time()
 	spawn_timer.start(t)
+	print("Time: %s" % t)
 
 	var d = _crunch_difficulty()
 	doc_spawner.set_difficulty(d)
 	
 	# TODO: change at specific times for smoother transition ??
-	var pitch = remap(document_stack.actual_document_count, 1.0, 80, 1.0, max_bgm_pitch)
+	var pitch = min(remap(document_stack.actual_document_count, 1.0, crunch_max_difficulty_count, 1.0, max_bgm_pitch), max_bgm_pitch)
 	bgm.pitch_scale = snappedf(pitch, 0.25)
-	print(t, " - ", pitch, " -> ", bgm.pitch_scale)
 
 func _crunch_mode_spawn_time(doc_count: int = document_stack.actual_document_count):
 	var x = max(doc_count, 1)
-	return max(crunch_start_spawn_time - (log(x) / log(10)) * 1.3, crunch_min_spawn_time)
+	return max(crunch_start_spawn_time - (log(x) / log(10)) * 1.5, crunch_min_spawn_time)
 
 func _crunch_difficulty(doc_count: int = document_stack.actual_document_count):
 	return clamp(float(doc_count) / crunch_max_difficulty_count, 0.0, 1.0)

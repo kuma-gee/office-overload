@@ -68,6 +68,8 @@ var bought_items: Array[Shop.Items] = []
 var used_items: Array[Shop.Items] = []
 var money := 0
 
+#var unsaved_crunch_score: Dictionary = {}
+
 ### Dynamic ###
 var difficulty: DifficultyResource
 var next_difficulty: DifficultyResource
@@ -79,7 +81,10 @@ var _logger = Logger.new("GameManager")
 func _ready():
 	self.difficulty_level = difficulty_level
 	SteamCloud.initialized.connect(_load_data)
-	SteamManager.init_successful.connect(_check_achievements)
+	SteamManager.init_successful.connect(func():
+		_check_achievements()
+		_upload_existing_unsaved_crunch()
+	)
 	
 func _load_data():
 	var data = save_manager.load_from_slot(SteamManager.get_steam_id())
@@ -222,10 +227,13 @@ func finished_crunch(tasks: int, hours: int, combo: int):
 	data["acc"] = wpm_calculator.get_average_accuracy()
 	wpm_calculator.reset()
 	
-	data["combo"] = combo
 	data["hours"] = hours
 	data["tasks"] = tasks
 	data["score"] = _upload_endless_scores(data["wpm"], data["acc"], data["tasks"], data["hours"])
+	
+	#if not SteamManager.is_steam_available():
+		#unsaved_crunch_score = data
+	
 	round_ended.emit()
 	return data
 
@@ -236,6 +244,18 @@ func _upload_endless_scores(wpm: float, acc: float, count: int, hours: int):
 		SteamLeaderboard.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count, hours]))
 	
 	return score
+
+func _upload_existing_unsaved_crunch():
+	pass
+	#var data = unsaved_crunch_score
+	#if not data.is_empty():
+		#_upload_endless_scores(data["wpm"], data["acc"], data["tasks"], data["hours"])
+		#var success = await SteamLeaderboard.leaderboard_uploaded
+		#if success:
+			#unsaved_crunch_score = {}
+			#_logger.info("Previous crunch score uploadaed successfully!")
+		#else:
+			#_logger.error("Failed to upload previous crunch score")
 
 func start_type():
 	wpm_calculator.start_type()
