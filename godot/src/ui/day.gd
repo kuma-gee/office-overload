@@ -16,6 +16,7 @@ signal finished()
 @onready var feature_effect: EffectRoot = $FeatureEffect
 
 var tw: Tween
+var feature_open := false
 
 func _ready():
 	level_label.hide()
@@ -51,12 +52,13 @@ func _ready():
 		_start_day()
 
 func close_feature():
+	feature_open = false
 	feature_effect.reverse_effect()
 	await get_tree().create_timer(0.5).timeout
 	_start_day()
 
 func is_feature_open():
-	return feature_container.visible
+	return feature_open
 
 func _process(delta: float) -> void:
 	feature_container.size.y = 180 # the size gets a weird value when running the game
@@ -64,6 +66,7 @@ func _process(delta: float) -> void:
 func _show_feature():
 	feature_container.show()
 	feature_effect.do_effect()
+	feature_open = true
 
 func _start_day():
 	if GameManager.is_work_mode():

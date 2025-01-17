@@ -7,6 +7,7 @@ signal started()
 signal finished()
 signal typed()
 
+@export var max_mistakes := 20
 @export var rotation_offset := PI/20
 @export var random_flip := false
 
@@ -25,7 +26,7 @@ var is_discarded := false
 
 var mistakes := 0:
 	set(v):
-		mistakes = v
+		mistakes = min(v, max_mistakes)
 		
 		if mistake_throttle_timer.is_stopped():
 			var lines = mistake_lines.get_children().filter(func(c): return not c.visible)
@@ -105,8 +106,6 @@ func return_to():
 
 func handle_key(key: String):
 	var hit = typing_label.handle_key(key)
-	#if not hit:
-		#mistakes += 1
 	return hit
 
 func highlight():

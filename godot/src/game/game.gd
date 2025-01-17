@@ -99,9 +99,16 @@ func _ready():
 	
 	if GameManager.is_crunch_mode():
 		animation_player.play("crunch")
-	elif GameManager.is_ceo():
-		animation_player.play("ceo")
-		work_time.hour_in_seconds = 5
+	else:
+		if GameManager.is_ceo():
+			animation_player.play("ceo")
+			work_time.hour_in_seconds = 5
+		elif GameManager.is_senior():
+			animation_player.play("messy")
+		elif GameManager.is_manager():
+			animation_player.play("littered")
+		else:
+			animation_player.play("no_mess")
 	
 	if not GameManager.is_intern() or GameManager.is_crunch_mode():
 		overload_progress.filled.connect(func(): overload_timer.start())
@@ -149,14 +156,11 @@ func _ready():
 				_update_score()
 	)
 	key_reader.pressed_cancel.connect(func(_shift):
-		if not is_time_running():
-			return
-
 		if day.is_feature_open():
 			day.close_feature()
 			return
 		
-		if not is_gameover:
+		if not is_gameover and not day.visible:
 			pause.grab_focus()
 	)
 	key_reader.use_coffee.connect(func():
@@ -288,7 +292,7 @@ func _add_document(doc: Document, await_start := false):
 		overload_progress.reduce(overload_reduce)
 		overload_timer.stop()
 		
-		document_stack.add_document(doc.mistakes > 0, doc_spawner.is_invalid_word(doc.word), doc.is_discarded, doc.word)
+		document_stack.add_document(doc.mistakes, doc_spawner.is_invalid_word(doc.word), doc.is_discarded, doc.word)
 		documents.erase(doc)
 		
 		_update_score()

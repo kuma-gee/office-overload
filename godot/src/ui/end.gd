@@ -37,6 +37,8 @@ extends Control
 @export var ceo_boss_tasks: Label
 @export var ceo_player_mistakes: Label
 @export var ceo_boss_mistakes: Label
+@export var ceo_player_score: Label
+@export var ceo_boss_score: Label
 @export var ceo_win_status: Label
 
 @export_category("Promotion")
@@ -89,10 +91,13 @@ func ceo_ended(user: Dictionary, boss: Dictionary):
 	ceo_boss_tasks.text = "%s" % boss_tasks
 	ceo_player_mistakes.text = "%s" % user_mistakes
 	ceo_boss_mistakes.text = "%s" % boss_mistakes
+	ceo_player_score.text = "%s" % user_points
+	ceo_boss_score.text = "%s" % boss_points
+	
 	if GameManager.finished_game:
 		ceo_win_status.text = "Congratulations!\nYou proved your CEO skills!" if win else "You should practice\nyour skills more."
 	else:
-		ceo_win_status.text = "Congratulations!\nYou are the new CEO!" if win else "You got demoted\nto senior."
+		ceo_win_status.text = "Congratulations!\nYou are the new CEO!" if win else "You lost\nand have been fired."
 		
 	_do_open(ceo_container)
 	
@@ -130,7 +135,7 @@ func day_ended(data: Dictionary):
 			level_label.text = GameManager.get_level_text(GameManager.next_difficulty.level)
 	level_label.visible = performance_progress.value == performance_progress.max_value or (GameManager.is_max_promotion() and GameManager.get_until_max_performance() <= 0)
 
-	var promo = GameManager.can_have_promotion() and data["grade"].points > 0
+	var promo = GameManager.can_have_promotion() # and (data["grade"].points > 0 or GameManager.get_until_max_performance() == 0)
 	if promo:
 		if GameManager.is_manager():
 			challenge_paper.open(0.2)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=105 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/game/document.tscn" id="2_35x6g"]
@@ -71,6 +71,7 @@
 [ext_resource type="Texture2D" uid="uid://cvwxs4si2hdv8" path="res://assets/sprites/CoffeeSpill_Mug.png" id="60_ulb8c"]
 [ext_resource type="Script" path="res://src/game/spill_mug.gd" id="61_ng12r"]
 [ext_resource type="Texture2D" uid="uid://bu18gjh2nloqs" path="res://assets/sprites/CoffeeSpill_Stain.png" id="61_xrrf4"]
+[ext_resource type="PackedScene" uid="uid://ck21swdujwmuh" path="res://src/game/small_doc.tscn" id="63_mwduc"]
 [ext_resource type="AudioStream" uid="uid://c46f8lfm4voiy" path="res://assets/sound/hit_table.mp3" id="69_pgfnx"]
 [ext_resource type="AudioStream" uid="uid://bm3cp0ymtlemd" path="res://assets/sound/飲む.mp3" id="73_2e4bi"]
 
@@ -314,6 +315,30 @@ tracks/7/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Messy:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Littered:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_027j0"]
 resource_name = "crunch"
@@ -408,22 +433,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
-
-[sub_resource type="Animation" id="Animation_ijo53"]
-resource_name = "normal"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Messy:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
@@ -431,7 +440,35 @@ tracks/1/path = NodePath("Littered:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ijo53"]
+resource_name = "normal"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Computer/SingleUI:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Computer/TutorialUI:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
@@ -439,34 +476,10 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Computer/SingleUI:visible")
+tracks/2/path = NodePath("Computer/CrunchUI:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Computer/TutorialUI:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Computer/CrunchUI:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -586,6 +599,33 @@ tracks/2/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_rls1u"]
+resource_name = "no_mess"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Messy:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Littered:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vs0lt"]
 _data = {
 "RESET": SubResource("Animation_mdfl2"),
@@ -593,6 +633,7 @@ _data = {
 "crunch": SubResource("Animation_027j0"),
 "littered": SubResource("Animation_qam2k"),
 "messy": SubResource("Animation_if3j8"),
+"no_mess": SubResource("Animation_rls1u"),
 "normal": SubResource("Animation_ijo53"),
 "silent_bgm": SubResource("Animation_0rw6j"),
 "start_bgm": SubResource("Animation_c5ajb"),
@@ -1143,7 +1184,6 @@ horizontal_alignment = 1
 layout_mode = 2
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("37_b7g85")]
-visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
@@ -1174,24 +1214,43 @@ texture = ExtResource("14_uyjhq")
 visible = false
 
 [node name="Document" type="Sprite2D" parent="Desk/Messy"]
-position = Vector2(-152, -76)
+position = Vector2(-139, -92)
 rotation = 0.829031
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
 [node name="Document2" type="Sprite2D" parent="Desk/Messy"]
-position = Vector2(-90, -79)
+position = Vector2(-94, -83)
 rotation = 1.65981
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
+[node name="Document6" type="Sprite2D" parent="Desk/Messy"]
+position = Vector2(-47, -76)
+rotation = 3.40339
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
 [node name="Document3" type="Sprite2D" parent="Desk/Messy"]
-position = Vector2(141, -79)
-rotation = -0.710349
+position = Vector2(124, -88)
+rotation = -1.57079
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Document4" type="Sprite2D" parent="Desk/Messy"]
+position = Vector2(27, -76)
+rotation = -0.785397
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("24_g7dws")
+
+[node name="Document5" type="Sprite2D" parent="Desk/Messy"]
+position = Vector2(159, -92)
+rotation = -0.785397
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
 [node name="Coffee2" type="Sprite2D" parent="Desk/Messy"]
+visible = false
 position = Vector2(65, -49)
 texture = ExtResource("28_i6mjb")
 hframes = 2
@@ -1237,6 +1296,7 @@ scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
 [node name="Coffee3" type="Sprite2D" parent="Desk/Littered"]
+visible = false
 position = Vector2(90, -56)
 texture = ExtResource("28_i6mjb")
 hframes = 2
@@ -1475,7 +1535,7 @@ bus = &"SFX"
 
 [node name="MarginContainer" type="MarginContainer" parent="Desk/Clock/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 1
+theme_override_constants/margin_top = 0
 
 [node name="Colon" type="Label" parent="Desk/Clock/HBoxContainer/MarginContainer" node_paths=PackedStringArray("blink_timer")]
 layout_mode = 2
@@ -1524,13 +1584,13 @@ hframes = 2
 script = ExtResource("53_ngmm3")
 
 [node name="Assistant" type="Sprite2D" parent="Desk/Items"]
-position = Vector2(133, -62)
+position = Vector2(132, -75)
 texture = ExtResource("54_ppwkm")
 script = ExtResource("55_y6wgh")
 weight = 1.3
 
 [node name="SecondAssistant" type="Sprite2D" parent="Desk/Items/Assistant"]
-position = Vector2(14, -8)
+position = Vector2(14, 4)
 texture = ExtResource("54_ppwkm")
 script = ExtResource("55_fen05")
 weight = 1.6
@@ -1589,14 +1649,13 @@ wait_time = 6.0
 one_shot = true
 
 [node name="DocumentStack" type="Node2D" parent="." node_paths=PackedStringArray("doc_count_label", "combo_label", "combo_particles01", "combo_particles02")]
-visible = false
 position = Vector2(133, -44)
 script = ExtResource("12_n73rb")
 stack_count = 5
 max_stacks = 10
-doc_texture = ExtResource("24_g7dws")
 doc_count_label = NodePath("../MarginContainer/HBoxContainer/DocCount")
 combo_label = NodePath("../MarginContainer/HBoxContainer/Combo")
+doc_scene = ExtResource("63_mwduc")
 combo_particles01 = NodePath("../MarginContainer/HBoxContainer/ComboParticles")
 combo_particles02 = NodePath("../MarginContainer/HBoxContainer/ComboParticles2")
 
@@ -1828,6 +1887,7 @@ script = ExtResource("10_sr2sn")
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("39_xwwgs")
 volume_db = -30.0
+stream_paused = true
 bus = &"BGM"
 script = ExtResource("18_f0kcb")
 

@@ -9,9 +9,9 @@ signal document_emptied()
 @export var stack_offset := 1
 @export var max_stacks := 5
 @export var combo_multiplier_divider := 5
-@export var doc_texture: Texture2D
 @export var doc_count_label: Label
 @export var combo_label: Label
+@export var doc_scene: PackedScene
 
 @export var combo_particles01: GPUParticles2D
 @export var combo_particles02: GPUParticles2D
@@ -81,40 +81,41 @@ func _ready() -> void:
 	actual_document_count = 0
 	_init_documents()
 
-func _create_doc():
-	var sprite = Sprite2D.new()
-	sprite.texture = doc_texture
-	sprite.scale = Vector2(0.7, 0.7)
+func _create_doc(word: String = ""):
+	var sprite = doc_scene.instantiate()
+	sprite.word = word
 	add_child(sprite)
 	return sprite
 
 func has_documents():
 	return get_child_count() > 0
 
-func remove_document():
-	actual_document_count -= 1
-	
-	var should_remove = not (actual_document_count % stack_count == 0 and actual_document_count <= (max_stacks * stack_count))
-	if should_remove and get_child_count() > 0:
-		_move_out_doc(get_child(get_child_count() - 1))
-		
-	if actual_document_count <= 0:
-		document_emptied.emit()
+#func remove_document():
+	#actual_document_count -= 1
+	#
+	#var should_remove = not (actual_document_count % stack_count == 0 and actual_document_count <= (max_stacks * stack_count))
+	#if should_remove and get_child_count() > 0:
+		#_move_out_doc(get_child(get_child_count() - 1))
+		#
+	#if actual_document_count <= 0:
+		#document_emptied.emit()
 
-func add_document(mistake := false, wrong := false, is_discarded := false, word := ""):
-	#var doc = _create_doc()
-	#_move_in_doc(doc)
+func add_document(mistake := 0, wrong := false, is_discarded := false, word := ""):
+	if is_discarded:
+		return
 	
-	if not is_discarded:
-		if wrong:
-			wrong_tasks += ceil(word.length() / 2.0)
-			combo_count = 0
-			SoundManager.play_type_mistake()
-		else:
-			tasks += 1
-			total_points += 1 + 1 * combo_count
-			combo_count += 1
-	
+	var doc = _create_doc(word if wrong else " ".repeat(mistake))
+	_move_in_doc(doc)
+
+	if wrong:
+		wrong_tasks += word.length()
+		combo_count = 0
+		SoundManager.play_type_mistake()
+	else:
+		tasks += 1
+		total_points += 1 + 1 * combo_count
+		combo_count += 1
+
 	actual_document_count += 1
 
 func _init_documents():
@@ -132,8 +133,10 @@ func _move_in_doc(doc):
 	tw.tween_property(doc, "position", target, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_delay(0.1)
 	tw.parallel().tween_callback(_emit_particles).set_delay(0.2)
 	
-	var should_remove = not (actual_document_count % stack_count == 0 and actual_document_count <= (max_stacks * stack_count))
-	tw.finished.connect(func(): if should_remove: doc.queue_free())
+	# keep documents for work mode, because it needs to show the number of mistakes
+	if GameManager.is_crunch_mode():
+		var should_remove = not (actual_document_count % stack_count == 0 and actual_document_count <= (max_stacks * stack_count))
+		tw.finished.connect(func(): if should_remove: doc.queue_free())
 
 func _move_out_doc(doc):
 	var target = Vector2.LEFT * 100

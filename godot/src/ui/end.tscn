@@ -67,7 +67,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/enable = true
 
-[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "performance_progress", "level_label", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_acc", "crunch_score", "retry_button", "highscore_board", "crunch_offline", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "bonus_label", "money_used", "ceo_player_tasks", "ceo_boss_tasks", "ceo_player_mistakes", "ceo_boss_mistakes", "ceo_win_status", "promotion_delegator", "work_container", "ceo_container", "unlocked_container", "crunch_container")]
+[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "performance_progress", "level_label", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_acc", "crunch_score", "retry_button", "highscore_board", "crunch_offline", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "bonus_label", "money_used", "ceo_player_tasks", "ceo_boss_tasks", "ceo_player_mistakes", "ceo_boss_mistakes", "ceo_player_score", "ceo_boss_score", "ceo_win_status", "promotion_delegator", "work_container", "ceo_container", "unlocked_container", "crunch_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -106,6 +106,8 @@ ceo_player_tasks = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VB
 ceo_boss_tasks = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2/BossTasks")
 ceo_player_mistakes = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3/Mistakes")
 ceo_boss_mistakes = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4/BossMistakes")
+ceo_player_score = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/PlayerScore")
+ceo_boss_score = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/BossScore")
 ceo_win_status = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/WinLost")
 promotion_delegator = NodePath("PromotionDelegator")
 work_container = NodePath("CenterContainer/PanelContainer/Work")
@@ -584,6 +586,7 @@ layout_mode = 2
 word = "Next Day"
 
 [node name="Crunch" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
@@ -730,7 +733,6 @@ layout_mode = 2
 word = "retry"
 
 [node name="Ceo" type="MarginContainer" parent="CenterContainer/PanelContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
@@ -844,6 +846,21 @@ text = "100"
 label_settings = ExtResource("9_e1gla")
 horizontal_alignment = 2
 
+[node name="PlayerScore" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "100"
+
+[node name="BossScore" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "100"
+horizontal_alignment = 2
+
 [node name="Control3" type="Control" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -853,7 +870,8 @@ layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 8
-text = "YOU LOST"
+text = "Congratulations!
+You proved your CEO skills!"
 horizontal_alignment = 1
 
 [node name="Control2" type="Control" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer"]
@@ -957,13 +975,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -84.0
+offset_left = -25.0
 offset_top = -62.0
-offset_right = 36.0
+offset_right = 95.0
 offset_bottom = 98.0
 grow_horizontal = 2
 grow_vertical = 2
-rotation = -0.174533
+rotation = 0.174533
 pivot_offset = Vector2(60, 80)
 script = ExtResource("17_xva3p")
 yes_button = NodePath("Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionYes")
@@ -998,8 +1016,9 @@ astonishing"
 
 [node name="Label2" type="Label" parent="ChallengePaper/Work/VBoxContainer/Promotion"]
 layout_mode = 2
-text = "Do you want to
-challenge your boss?"
+text = "Do you want to risk the
+challenge against the
+boss?"
 
 [node name="Control" type="Control" parent="ChallengePaper/Work/VBoxContainer/Promotion"]
 layout_mode = 2

@@ -462,10 +462,12 @@ func get_level_text(lvl = difficulty_level, abbreviate = -1):
 	return txt
 
 func lost_ceo():
-	difficulty_level = DifficultyResource.Level.SENIOR
-	var min = get_min_performance()
-	var max = get_max_performance()
-	performance = min + (max - min) / 2
+	#difficulty_level = DifficultyResource.Level.SENIOR
+	#var min = get_min_performance()
+	#var max = get_max_performance()
+	#performance = min + (max - min) / 2
+	
+	reset_values()
 	_save_data()
 	round_ended.emit()
 

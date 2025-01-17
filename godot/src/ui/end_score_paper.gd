@@ -12,8 +12,9 @@ func _ready() -> void:
 	for n in board.buttons:
 		delegator.nodes.append(n)
 		
-	SteamLeaderboard.leaderboard_uploaded.connect(func(success):
-		slide_in()
+	SteamLeaderboard.leaderboard_uploaded.connect(func(board):
+		if board == SteamLeaderboard.ENDLESS_BOARD:
+			slide_in()
 	)
 
 func slide_in(delay := 0.0):

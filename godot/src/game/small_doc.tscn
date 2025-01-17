@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://ck21swdujwmuh"]
+
+[ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/sprites/Document.png" id="1_w15tr"]
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="2_0b47e"]
+[ext_resource type="Script" path="res://src/game/small_doc.gd" id="2_tjlr8"]
+
+[node name="SmallDoc" type="Sprite2D"]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_w15tr")
+script = ExtResource("2_tjlr8")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.5
+offset_top = -32.5
+offset_right = -20.5
+offset_bottom = -24.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_0b47e")
+text = "-123"

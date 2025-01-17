@@ -8,6 +8,6 @@ grade = "S"
 points = 5
 stress = 1.0
 mistakes = 1
-overtime = 2
+overtime = 4
 accuracy = 0.9
 documents = 15

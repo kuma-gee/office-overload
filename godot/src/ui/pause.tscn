@@ -12,8 +12,8 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6q17f"]
 shader = ExtResource("3_k0t8n")
-shader_parameter/lod = 2.0
-shader_parameter/mix_percentage = 0.7
+shader_parameter/lod = 1.0
+shader_parameter/mix_percentage = 0.5
 
 [node name="Pause" type="Control" node_paths=PackedStringArray("quit_btn", "continue_btn")]
 process_mode = 3
