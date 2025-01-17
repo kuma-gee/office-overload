@@ -51,7 +51,7 @@ func _on_file_read_async_complete(dict: Dictionary):
 	initialized.emit()
 
 func _get_save_file():
-	return SaveManager.SAVE_FILE % SteamManager.get_steam_id()
+	return SaveManager.SAVE_FILE % 0
 
 func is_steam_cloud_enabled():
 	return SteamManager.is_steam_available() and SteamManager.steam.isCloudEnabledForAccount() and SteamManager.steam.isCloudEnabledForApp()

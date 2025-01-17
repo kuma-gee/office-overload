@@ -87,7 +87,7 @@ func _ready():
 	)
 	
 func _load_data():
-	var data = save_manager.load_from_slot(SteamManager.get_steam_id())
+	var data = save_manager.load_from_slot(0)
 	if data:
 		cache_properties.load_data(data)
 	
@@ -100,7 +100,7 @@ func _exit_tree() -> void:
 
 func _save_data(await_finished = false):
 	var data = cache_properties.save_data()
-	save_manager.save_to_slot(SteamManager.get_steam_id(), data)
+	save_manager.save_to_slot(0, data)
 	if await_finished:
 		await SteamCloud.upload_to_cloud()
 	else:
