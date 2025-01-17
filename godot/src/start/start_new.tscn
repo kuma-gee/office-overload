@@ -1544,6 +1544,7 @@ rotation = 0.174533
 script = ExtResource("39_cuxap")
 signature = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Signature")
 text = NodePath("MarginContainer/VBoxContainer/Text")
+max_length = 5
 
 [node name="Delegator" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3" index="0" node_paths=PackedStringArray("nodes")]
 nodes = [NodePath("../MarginContainer/VBoxContainer/VBoxContainer/Signature")]

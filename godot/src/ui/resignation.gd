@@ -2,6 +2,7 @@ extends MenuPaper
 
 @export var signature: TypedWord
 @export var text: RichTextLabel
+@export var max_length := 20
 
 func _ready() -> void:
 	super._ready()
@@ -12,8 +13,14 @@ func _ready() -> void:
 		GameManager.reset_values()
 		send()
 	)
-	
-	if SteamManager.is_successful_initialized:
+
+	focus_entered.connect(func(): _update_sign())
+	_update_sign()
+
+func _update_sign():
+	if SteamManager.is_steam_available():
 		signature.word = SteamManager.get_username()
+		if signature.word.length() > max_length:
+			signature.word = signature.word.substr(0, max_length) + "..."
 	else:
 		signature.word = "Anonymous"
