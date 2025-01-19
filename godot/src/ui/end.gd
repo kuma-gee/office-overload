@@ -129,7 +129,7 @@ func day_ended(data: Dictionary):
 	performance_progress.value = GameManager.performance
 	
 	if GameManager.next_difficulty:
-		if GameManager.is_max_promotion():
+		if GameManager.is_max_promotion() and Env.is_demo():
 			level_label.text = "End of demo"
 		else:
 			level_label.text = GameManager.get_level_text(GameManager.next_difficulty.level)

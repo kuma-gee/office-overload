@@ -1,4 +1,4 @@
-[gd_scene load_steps=105 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=104 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/game/document.tscn" id="2_35x6g"]
@@ -59,7 +59,6 @@
 [ext_resource type="AudioStream" uid="uid://dl0dmhy7ucodo" path="res://assets/sound/カモ.mp3" id="49_0opw7"]
 [ext_resource type="Texture2D" uid="uid://gxkl3pcqm8ch" path="res://assets/sprites/Desk_Note.png" id="49_bjcyb"]
 [ext_resource type="Script" path="res://src/RandomPitchShift.gd" id="50_j4bts"]
-[ext_resource type="Texture2D" uid="uid://byjv7juagwece" path="res://assets/sprites/Desk_Cosmetic.png" id="50_rmwb1"]
 [ext_resource type="Script" path="res://src/game/plant.gd" id="52_ck1lt"]
 [ext_resource type="Script" path="res://src/game/coffee.gd" id="53_ngmm3"]
 [ext_resource type="Texture2D" uid="uid://t0vtdco1mbgy" path="res://assets/sprites/Icon_Assistant.png" id="54_ppwkm"]
@@ -1602,13 +1601,8 @@ hframes = 2
 script = ExtResource("55_fen05")
 weight = 2.0
 
-[node name="Cosmetic" type="Sprite2D" parent="Desk/Items"]
-position = Vector2(61, -66)
-texture = ExtResource("50_rmwb1")
-script = ExtResource("55_fen05")
-
 [node name="Note" type="Sprite2D" parent="Desk/Items"]
-position = Vector2(-64, -16)
+position = Vector2(-63, -21)
 texture = ExtResource("49_bjcyb")
 script = ExtResource("55_fen05")
 

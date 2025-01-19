@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dw4ed4dspm22v"]
+[gd_scene load_steps=10 format=3 uid="uid://dw4ed4dspm22v"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_t4bof"]
 [ext_resource type="Script" path="res://src/ui/gameover.gd" id="2_biwr8"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_s2nja"]
-[ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="3_k17yd"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_ekemn"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="4_vuj6l"]
 [ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="7_chtch"]
@@ -105,7 +104,7 @@ theme_override_constants/separation = 10
 [node name="Desc" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion"]
 layout_mode = 2
 size_flags_vertical = 1
-label_settings = ExtResource("3_k17yd")
+text = "asd"
 horizontal_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="BurnoutPaper/Work/VBoxContainer/Promotion"]
@@ -127,7 +126,6 @@ text = "Days"
 [node name="Days" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer"]
 layout_mode = 2
 text = "12"
-label_settings = ExtResource("3_k17yd")
 horizontal_alignment = 2
 
 [node name="Label2" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer"]
@@ -138,7 +136,6 @@ text = "Level"
 [node name="Level" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer"]
 layout_mode = 2
 text = "JUNIOR"
-label_settings = ExtResource("3_k17yd")
 horizontal_alignment = 2
 
 [node name="Label5" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer"]
@@ -149,7 +146,6 @@ text = "Speed"
 [node name="Speed" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer"]
 layout_mode = 2
 text = "123"
-label_settings = ExtResource("3_k17yd")
 horizontal_alignment = 2
 
 [node name="Label3" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer"]
@@ -159,7 +155,6 @@ text = "Accuracy"
 [node name="Acc" type="Label" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer2/GridContainer"]
 layout_mode = 2
 text = "80%"
-label_settings = ExtResource("3_k17yd")
 horizontal_alignment = 2
 
 [node name="Control" type="Control" parent="BurnoutPaper/Work/VBoxContainer/Promotion"]
@@ -168,7 +163,7 @@ size_flags_vertical = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="BurnoutPaper/Work/VBoxContainer/Promotion"]
 layout_mode = 2
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_bottom = 0
 
 [node name="DefaultOptions" type="HBoxContainer" parent="BurnoutPaper/Work/VBoxContainer/Promotion/MarginContainer"]
 layout_mode = 2

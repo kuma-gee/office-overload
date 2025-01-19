@@ -7,8 +7,8 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_af0u4"]
 
 [node name="TypingButton" type="PanelContainer" node_paths=PackedStringArray("typing_label", "underline")]
-offset_right = 27.0
-offset_bottom = 15.0
+offset_right = 30.0
+offset_bottom = 17.0
 theme = ExtResource("1_jl3i8")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_af0u4")
 script = ExtResource("2_8pn7x")

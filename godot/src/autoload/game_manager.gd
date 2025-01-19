@@ -91,10 +91,6 @@ func _load_data():
 	if data:
 		cache_properties.load_data(data)
 	
-	difficulty_level = DifficultyResource.Level.SENIOR
-	performance = difficulty.max_performance
-	day = 6
-	
 	_logger.info("Game initialized")
 	init = true
 	initialized.emit()

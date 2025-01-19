@@ -84,7 +84,7 @@ func _ready():
 	GameManager.pay_assistant()
 
 	for i in range(items_root.get_child_count()):
-		items_root.get_child(i).visible = GameManager.is_item_used(i) and not GameManager.is_crunch_mode()
+		items_root.get_child(i).visible = (GameManager.is_item_used(i) and not GameManager.is_crunch_mode()) or i >= Shop.Items.size()
 	
 	boss_combo = 0
 	overload_progress.game = self
@@ -206,6 +206,8 @@ func _start_game():
 	_spawn()
 	
 func _finished(is_burn_out = false, is_fired = false):
+	#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
 	if GameManager.is_work_mode():
 		distractions.slide_all_out()
 		
