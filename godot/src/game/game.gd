@@ -75,6 +75,8 @@ var documents = []
 var day_ended := false
 
 func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	
 	randomize()
 	get_tree().paused = false
 	_update_score()
@@ -239,7 +241,7 @@ func _spawn():
 	if GameManager.is_work_mode():
 		if not GameManager.is_intern() and not GameManager.is_ceo():
 			var day_multipler = min(remap(GameManager.performance, GameManager.get_min_performance(), GameManager.get_max_performance(), 1.0, 0.5), 1.0)
-			var document_multipler = max(remap(documents.size(), 3, 15, 1.0, 5.0), 1.0)
+			var document_multipler = max(remap(documents.size(), 2, 15, 1.0, 5.0), 1.0)
 			spawn_timer.start(GameManager.difficulty.base_document_time * day_multipler * document_multipler)
 			
 		if (GameManager.is_ceo() or (GameManager.is_intern() and GameManager.get_until_max_performance() <= 5)) and documents.size() < min_documents:

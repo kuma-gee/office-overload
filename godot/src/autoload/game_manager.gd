@@ -91,6 +91,10 @@ func _load_data():
 	if data:
 		cache_properties.load_data(data)
 	
+	difficulty_level = DifficultyResource.Level.SENIOR
+	performance = difficulty.max_performance
+	day = 6
+	
 	_logger.info("Game initialized")
 	init = true
 	initialized.emit()
@@ -526,6 +530,11 @@ func unlock_mode(mode: Mode):
 		return
 	
 	if mode in unlocked_modes: return
+	
+	if mode == Mode.Multiplayer:
+		_logger.warn("Multiplayer not implemented yet.")
+		unlocked_modes.append(mode)
+		return
 
 	unlocked_modes.append(mode)
 	mode_unlocked.emit(mode)

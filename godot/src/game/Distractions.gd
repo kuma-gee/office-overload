@@ -38,8 +38,8 @@ var shown := 0
 var skipped_since_last_distraction := 0
 
 # Min range: 1 - 2
-# Max range: 6 - 8
-@onready var min_count = clamp(remap(GameManager.performance, GameManager.get_min_performance(), GameManager.get_max_performance() * 0.7, 1, 6), 1, 6)
+# Max range: 8 - 10
+@onready var min_count = clamp(remap(GameManager.performance, GameManager.get_min_performance(), GameManager.get_max_performance() * 0.7, 1, 8), 1, 8)
 @onready var max_count = min_count + (1 if min_count < 3 else 2)
 
 func _ready():
@@ -84,10 +84,10 @@ func maybe_show_distraction():
 	var distractions_left_to_show = min_count - shown
 	_logger.debug("%s distractions left to show: %s" % [distractions_left_to_show, distraction_accumulator])
 
-	var skip_count = [4, 3, 2, 2, 1, 0, 0, 0, 0] if GameManager.get_performance_within_level() == 0 else [3, 3, 2, 2, 1, 1, 1, 0, 0]
+	var skip_count = [4, 3, 2, 2, 1, 0, 0, 0, 0] if GameManager.get_performance_within_level() == 0 else [3, 2, 2, 1, 1, 0, 0, 0, 0]
 	var distraction_random = randf() - distraction_accumulator
 	var chance = GameManager.difficulty.distractions * GameManager.get_distraction_reduction()
-	if distraction_random < chance and skipped_since_last_distraction >= skip_count[shown]:
+	if distraction_random < chance and skipped_since_last_distraction >= skip_count[min(shown, skip_count.size() - 1)]:
 		show_distraction()
 		distraction_accumulator = 0.0
 		skipped_since_last_distraction = 0
