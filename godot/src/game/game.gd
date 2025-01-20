@@ -29,7 +29,7 @@ extends Node2D
 @export var boss_max_attack_time := 10.0
 @export var boss_min_attack_time := 5.0
 @export var boss_attack_count_min := 2
-@export var boss_attack_count_max := 4
+@export var boss_attack_count_max := 5
 @export var spill_mug_chance := 0.3
 @export var boss_hit_sound: AudioStreamPlayer
 @export var spill_mug: SpillMug
@@ -261,14 +261,14 @@ func _spawn_document(await_start = false):
 	if GameManager.is_ceo() and boss_attack_timer.is_stopped() and _boss_doc_diff() > 0 and not is_attacking and boss_attack_documents <= 0:
 		_setup_boss_attack()
 	else:
+		var invalid_chance = GameManager.difficulty.invalid_word_chance
 		if GameManager.is_ceo() and boss_attack_documents > 0:
-			var doc = doc_spawner.spawn_invalid_document()
+			var doc = doc_spawner.spawn_boss_document(invalid_chance)
 			_add_document(doc, await_start)
 			boss_attack_documents -= 1
 			if boss_attack_documents <= 0:
 				_start_boss_attack_timer()
 		else:
-			var invalid_chance = GameManager.difficulty.invalid_word_chance
 			var doc = doc_spawner.spawn_document(invalid_chance) as Document
 			_add_document(doc, await_start)
 
@@ -403,7 +403,7 @@ func _setup_boss_attack():
 		var p = _get_attack_percentage()
 		min += (max - min) * p
 
-		boss_attack_documents = randi_range(floor(min), floor(max))
+		boss_attack_documents = randf_range(min, max)
 		boss_attack_documents = floor(boss_attack_documents)
 		_spawn_boss_attack()
 	
@@ -432,12 +432,12 @@ func _boss_doc_diff():
 
 func _get_attack_percentage():
 	var diff = _boss_doc_diff()
-	if diff < 4:
+	if diff < 3:
 		return 0.0
-	elif diff < 8:
+	elif diff < 6:
 		return 0.5
 	else:
-		return 0.8
+		return 1.0
 
 func _start_boss_attack_timer():
 	var p = _get_attack_percentage()

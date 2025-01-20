@@ -17,6 +17,7 @@ func _ready() -> void:
 	scene_load_finished.connect(func(_s):
 		if SCENES_TO_LOAD.is_empty():
 			loaded = true
+			logger.info("All scenes loaded")
 			return
 
 		_start_load_scene(SCENES_TO_LOAD.pop_front())
@@ -31,6 +32,7 @@ func _process(delta: float) -> void:
 	if not loading_scene: return
 	
 	if loaded:
+		logger.info("Checking game init: %s, %s" % [GameManager.init, start_timer.is_stopped()])
 		if start_timer.is_stopped() and GameManager.init:
 			start_timer.start()
 		
@@ -56,6 +58,7 @@ func _show_progress(progress: float) -> void:
 	#loading_progress.value = progress
 
 func start_game():
+	logger.info("Starting game")
 	loading_scene = ""
 	
 	if GameManager.has_played:

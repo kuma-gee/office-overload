@@ -11,10 +11,8 @@ var _logger = Logger.new("SteamManager")
 func _ready():
 	if Engine.has_singleton("Steam"):
 		steam = Engine.get_singleton("Steam")
-	
 	if not steam:
 		steam = {}
-		return
 	
 	_load_steam()
 	

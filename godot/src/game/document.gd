@@ -75,10 +75,10 @@ func _ready():
 		# Words should be at least 4 characters long
 		var censored_indexes = []
 		censored_indexes.append(randi_range(2, word.length() - 2))
-		if randf() <= 0.2:
-			var i = randi_range(2, word.length() - 2)
-			if not i in censored_indexes:
-				censored_indexes.append(i)
+		# if randf() <= 0.2:
+		# 	var i = randi_range(2, word.length() - 2)
+		# 	if not i in censored_indexes:
+		# 		censored_indexes.append(i)
 			
 		typing_label.censored = censored_indexes
 	)

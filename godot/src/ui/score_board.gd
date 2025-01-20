@@ -26,9 +26,9 @@ const TEXT_OUTLINE = preload("res://theme/text_outline.tres")
 @export var loading_label: Control
 @export var empty_label: Control
 
-var loaded := false
-var score_type := Steam.LEADERBOARD_DATA_REQUEST_USERS
-var loaded_board := ""
+var loaded: bool = false
+var score_type: int = SteamManager.steam.LEADERBOARD_DATA_REQUEST_USERS
+var loaded_board: String = ""
 
 func _ready() -> void:
 	up_scroll.finished.connect(func(): scroll_container.scroll_vertical -= scroll_step)

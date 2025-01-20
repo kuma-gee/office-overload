@@ -16,10 +16,11 @@ func _ready() -> void:
 			SteamManager.steam.file_read_async_complete.connect(_on_file_read_async_complete)
 		else:
 			initialized.emit()
+			logger.info("Steam not available. Skipping cloud sync")
 	)
 
 func _on_file_write_async_complete(result: int):
-	if result == Steam.RESULT_OK:
+	if result == SteamManager.steam.RESULT_OK:
 		logger.info("File upload completed successfully")
 	else:
 		logger.error("Failed to write file to steam cloud. Error code: %d" % result)
@@ -35,7 +36,7 @@ func _on_file_write_async_complete(result: int):
 	write_finished.emit()
 
 func _on_file_read_async_complete(dict: Dictionary):
-	if dict["result"] == Steam.RESULT_OK and dict["complete"]:
+	if dict["result"] == SteamManager.steam.RESULT_OK and dict["complete"]:
 		var data = dict["buffer"] as PackedByteArray
 		var file = FileAccess.open(_get_save_file(), FileAccess.WRITE)
 		if file:

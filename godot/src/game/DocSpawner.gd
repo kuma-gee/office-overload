@@ -114,9 +114,8 @@ func get_invalid_type():
 
 	return InvalidType.INVALID
 
-func _set_invalid_word(doc: Document, word: String):
+func _set_invalid_word(doc: Document, word: String, invalid_type = get_invalid_type()):
 	var original_word = word
-	var invalid_type = get_invalid_type()
 	match invalid_type:
 		InvalidType.INVALID:
 			var invalid = WordManager.get_words(WordManager.INVALID_GROUP)
@@ -141,18 +140,8 @@ func _set_invalid_word(doc: Document, word: String):
 
 	doc.word = word
 
-func spawn_invalid_document(type: InvalidType = get_invalid_type()):
-	var doc = document_scene.instantiate()
-	var word = word_generator.get_random_word()
-	if word == "":
-		return
-		
-	doc.original_word = word
-	_set_invalid_word(doc, word)
-
-	doc.global_position = global_position
-	_move_document_in(doc)
-	return doc
+func spawn_boss_document(invalid_word_chance := 0.0):
+	return spawn_document(invalid_word_chance, WordManager.Type.HARD, InvalidType.INVALID)
 
 func get_word_tag():
 	var r = randf()
@@ -165,16 +154,16 @@ func get_word_tag():
 	
 	return WordManager.Type.ALL
 
-func spawn_document(invalid_word_chance := 0.0):
+func spawn_document(invalid_word_chance := 0.0, tag = get_word_tag(), invalid_type = get_invalid_type()):
 	var doc = document_scene.instantiate()
-	var word = word_generator.get_random_word(get_word_tag())
+	var word = word_generator.get_random_word(tag)
 	if word == "":
 		_logger.warn("No words available for document")
 		return null
 	
 	doc.original_word = word
 	if randf() < invalid_word_accum and invalid_skipped > 0:
-		_set_invalid_word(doc, word)
+		_set_invalid_word(doc, word, invalid_type)
 		invalid_word_accum = 0.0
 		invalid_spawned += 1
 		invalid_skipped = 0
