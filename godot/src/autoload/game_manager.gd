@@ -90,6 +90,9 @@ func _load_data():
 	var data = save_manager.load_from_slot(0)
 	if data:
 		cache_properties.load_data(data)
+		
+	if day == 0:
+		reset_values()
 	
 	# difficulty_level = DifficultyResource.Level.CEO
 	# money = 1246

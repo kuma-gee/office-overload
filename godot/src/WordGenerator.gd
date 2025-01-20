@@ -15,8 +15,6 @@ func add_words(new_words: Array, tag = null):
 	if tag != null:
 		tagged_words[tag] = new_words
 	
-	print(tag, new_words)
-
 func remove_words_less(char_count: int):
 	for w in words:
 		if w.length() < char_count:
