@@ -1602,6 +1602,7 @@ script = ExtResource("55_fen05")
 weight = 2.0
 
 [node name="Note" type="Sprite2D" parent="Desk/Items"]
+visible = false
 position = Vector2(-63, -21)
 texture = ExtResource("49_bjcyb")
 script = ExtResource("55_fen05")

@@ -58,8 +58,6 @@ func set_difficulty(v: float):
 	else:
 		word_type_chance = {WordManager.Type.EASY: 0.1, WordManager.Type.MEDIUM: 0.5, WordManager.Type.HARD: 0.4, }
 	
-	print(word_type_chance)
-	
 func add_words_from_group():
 	for type in [WordManager.Type.EASY, WordManager.Type.MEDIUM, WordManager.Type.HARD]:
 		var words = WordManager.get_words(word_type, type)
@@ -88,7 +86,7 @@ func add_hard():
 	if mode >= WordManager.Type.HARD or GameManager.is_intern(): return
 	
 	var words = WordManager.get_words(WordManager.WORK_GROUP, WordManager.Type.HARD)
-	word_generator.add_words(words, WordManager.Type.MEDIUM)
+	word_generator.add_words(words, WordManager.Type.HARD)
 	mode = WordManager.Type.HARD
 
 enum InvalidType {

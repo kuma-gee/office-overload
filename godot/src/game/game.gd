@@ -12,11 +12,11 @@ extends Node2D
 
 @export_category("Boss")
 @export var min_documents := 2
-@export var boss_process_speed := 2.2
-@export var boss_process_speed_variation := 0.3
+@export var boss_process_speed := 1.8
+@export var boss_process_speed_variation := 0.2
 @export var boss_max_combo_count := 15
-@export var boss_min_combo_count := 6
-@export var boss_combo_failure_rate := 0.2
+@export var boss_min_combo_count := 5
+@export var boss_combo_failure_rate := 0.15
 
 @export var boss_doc_label: Label
 @export var boss_combo_label: Label
@@ -26,10 +26,10 @@ extends Node2D
 
 @export_category("Boss Attack")
 @export var boss_document_max_diff_timer := 100
-@export var boss_max_attack_time := 10.0
-@export var boss_min_attack_time := 5.0
+@export var boss_max_attack_time := 8.0
+@export var boss_min_attack_time := 4.0
 @export var boss_attack_count_min := 2
-@export var boss_attack_count_max := 5
+@export var boss_attack_count_max := 6
 @export var spill_mug_chance := 0.3
 @export var boss_hit_sound: AudioStreamPlayer
 @export var spill_mug: SpillMug
@@ -84,7 +84,7 @@ func _ready():
 	GameManager.pay_assistant()
 
 	for i in range(items_root.get_child_count()):
-		items_root.get_child(i).visible = (GameManager.is_item_used(i) and not GameManager.is_crunch_mode()) or i >= Shop.Items.size()
+		items_root.get_child(i).visible = (GameManager.is_item_used(i) and not GameManager.is_crunch_mode()) #or i >= Shop.Items.size()
 	
 	boss_combo = 0
 	overload_progress.game = self
@@ -180,9 +180,6 @@ func _on_day_finished():
 	else:
 		bgm.pitch_scale = 1.0
 	
-	#if GameManager.day >= 1 and GameManager.is_work_mode():
-		#_start_game()
-	#else:
 	_spawn_document(true)
 
 func _start_game():
@@ -269,7 +266,7 @@ func _spawn_document(await_start = false):
 			if boss_attack_documents <= 0:
 				_start_boss_attack_timer()
 		else:
-			var doc = doc_spawner.spawn_document(invalid_chance) as Document
+			var doc = doc_spawner.spawn_document(invalid_chance if not await_start else 0.0) as Document
 			_add_document(doc, await_start)
 
 func _update_score():

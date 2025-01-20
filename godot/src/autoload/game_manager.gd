@@ -91,6 +91,11 @@ func _load_data():
 	if data:
 		cache_properties.load_data(data)
 	
+	difficulty_level = DifficultyResource.Level.CEO
+	money = 1246
+	bought_items = []
+	finished_game = false
+	
 	_logger.info("Game initialized")
 	init = true
 	initialized.emit()

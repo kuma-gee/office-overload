@@ -32,7 +32,6 @@ func _process(delta: float) -> void:
 	if not loading_scene: return
 	
 	if loaded:
-		logger.info("Checking game init: %s, %s" % [GameManager.init, start_timer.is_stopped()])
 		if start_timer.is_stopped() and GameManager.init:
 			start_timer.start()
 		

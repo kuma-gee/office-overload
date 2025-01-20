@@ -7,13 +7,15 @@ extends Node
 var last_words := []
 var tagged_words = {}
 
-func add_words(words: Array, tag = null):
-	for w in _normalize(words):
+func add_words(new_words: Array, tag = null):
+	for w in _normalize(new_words):
 		if not w in self.words:
 			self.words.append(w)
 	
 	if tag != null:
-		tagged_words[tag] = words
+		tagged_words[tag] = new_words
+	
+	print(tag, new_words)
 
 func remove_words_less(char_count: int):
 	for w in words:
