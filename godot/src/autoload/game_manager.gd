@@ -227,9 +227,9 @@ func calculate_score(wpm: float = average_wpm, acc: float = average_accuracy, le
 	if level == DifficultyResource.Level.CEO and not finished_game:
 		lvl = DifficultyResource.Level.MANAGER
 
-	return wpm * acc * lvl * (log(day+1)/log(10)) # +1 in log, so it doesn't return 0
+	return wpm * acc * lvl + day
 
-func finished_crunch(tasks: int, hours: int, combo: int):
+func finished_crunch(tasks: int, hours: int, _combo: int):
 	var data = {}
 	data["wpm"] = wpm_calculator.get_average_wpm()
 	data["acc"] = wpm_calculator.get_average_accuracy()
