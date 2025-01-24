@@ -11,21 +11,21 @@ var _live := true
 var _enable_steam := false
 
 func _ready():
-	if is_prod():
-		log_level = Logger.Level.INFO
-	
 	var args = _args_dictionary()
 	print(args)
 	
 	if args.has("debug") or is_editor():
 		log_level = Logger.Level.DEBUG
+	else:
+		log_level = Logger.Level.INFO
 	
 	if args.has("steam"):
 		_enable_steam = true
 		
+	_live = false
 	if "live" in args:
 		var hash = args["live"].sha256_text()
-		_logger.debug("Using hash %s" % hash)
+		_logger.debug("Checking hash %s is equal %s" % [hash, Build.GAME_HASH])
 		_live = hash == Build.GAME_HASH
 	
 	if _enable_steam and Build.STEAM_APP != APP_ID and not is_editor():
@@ -41,14 +41,11 @@ func _ready():
 func is_editor():
 	return OS.is_debug_build()
 
-func is_prod() -> bool:
-	return true
-
 func is_web() -> bool:
 	return OS.has_feature("web")
 
 func is_demo() -> bool:
-	return not _live and is_prod()
+	return not _live
 
 func is_steam() -> bool:
 	return _enable_steam
