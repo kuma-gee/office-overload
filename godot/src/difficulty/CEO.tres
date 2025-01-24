@@ -6,8 +6,8 @@
 script = ExtResource("1_wndy8")
 level = 4
 bgm_speed = 2.0
-money_multiplier = 3.0
-max_performance = 80
+money_multiplier = 2.0
+max_performance = 50
 base_document_time = 1.0
 distractions = 0.2
 invalid_word_chance = 0.1

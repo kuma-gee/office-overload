@@ -1766,11 +1766,12 @@ texture = ExtResource("24_g7dws")
 wait_time = 0.1
 one_shot = true
 
-[node name="ShiftOverlay" type="Node" parent="." node_paths=PackedStringArray("game", "overlay", "delegator")]
+[node name="ShiftOverlay" type="Node" parent="." node_paths=PackedStringArray("game", "overlay", "delegator", "distractions")]
 script = ExtResource("59_nhn8c")
 game = NodePath("..")
 overlay = NodePath("../Overlay")
 delegator = NodePath("ShiftDelegator")
+distractions = NodePath("../CanvasLayer/Distractions")
 
 [node name="ShiftDelegator" type="Node" parent="ShiftOverlay" node_paths=PackedStringArray("nodes")]
 script = ExtResource("20_tcix1")

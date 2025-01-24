@@ -4,6 +4,7 @@ extends Node
 @export var game: Game
 @export var overlay: ColorRect
 @export var delegator: Delegator
+@export var distractions: Distraction
 
 var tw: Tween
 
@@ -13,6 +14,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if not event is InputEventKey or not (GameManager.is_manager() or GameManager.is_ceo()): return
 	if game.is_gameover: return
+	if not distractions.get_active_words().is_empty(): return
 
 	var key_ev = event as InputEventKey
 	if key_ev.is_action_released("special_mode"):

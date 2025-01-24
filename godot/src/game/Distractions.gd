@@ -117,7 +117,7 @@ func _get_random_distraction_word(type: Type):
 	var gen = TYPE_MAP[type]
 	return gen.get_random_word()
 
-func _get_active_words():
+func get_active_words():
 	var result = []
 	for m in menus:
 		if m.is_open:
