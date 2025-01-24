@@ -39,7 +39,7 @@ var skipped_since_last_distraction := 0
 
 # Min range: 1 - 2
 # Max range: 8 - 10
-@onready var min_count = clamp(remap(GameManager.performance, GameManager.get_min_performance(), GameManager.get_max_performance() * 0.7, 1, 8), 1, 8)
+@onready var min_count = clamp(remap(GameManager.performance, GameManager.get_min_performance(), GameManager.get_max_performance() * 0.7, 1, 8), 1, 8) if GameManager.is_senior() else 5
 @onready var max_count = min_count + (1 if min_count < 3 else 2)
 
 func _ready():
@@ -102,7 +102,7 @@ func show_distraction():
 		available.erase(junior)
 	
 	_logger.debug("Showing distraction: %s, %s" % [available, menus.map(func(x): return x.get_word())])
-	if available.is_empty() or GameManager.is_manager(): return
+	if available.is_empty() or GameManager.is_ceo(): return
 	shown += 1
 	
 	var distraction = available.pick_random()

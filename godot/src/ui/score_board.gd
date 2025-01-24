@@ -122,6 +122,6 @@ func _get_recursive(dict: Dictionary, key: String, details: Array):
 		if idx >= 0 and idx < details.size():
 			var value = details[idx]
 			if int(value) < 0:
-				return GameManager.get_level_text(-int(value), 6)
+				return GameManager.get_level_text(-int(value), 8)
 			return details[idx]
 	return dict.get(key, "")
