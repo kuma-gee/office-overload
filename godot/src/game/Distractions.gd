@@ -139,10 +139,13 @@ func _hide_overlay():
 	
 func _show_overlay():
 	if tw and tw.is_running() or overlay.modulate == Color.WHITE:
+		print("Is already running: %s, or active %s" % [tw.is_running(), overlay.modulate])
 		return
 	
+	print("Show overlay")
 	tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tw.tween_property(overlay, "modulate", Color.WHITE, 0.5)
+	overlay.show()
 	
 	for m in menus:
 		if m.is_open:

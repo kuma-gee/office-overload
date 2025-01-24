@@ -104,13 +104,16 @@ func add_document(mistake := 0, wrong := false, is_discarded := false, word := "
 	if is_discarded:
 		return
 	
-	var doc = _create_doc(" " if wrong else " ".repeat(mistake))
+	var doc = _create_doc(" " if wrong else " ".repeat(min(mistake, 1)))
 	_move_in_doc(doc)
 
-	if wrong:
+	if wrong or mistake > 0:
 		wrong_tasks += 1 #word.length()
 		combo_count = 0
-		SoundManager.play_type_mistake()
+		if wrong:
+			SoundManager.play_type_mistake()
+		elif mistake > 0:
+			tasks += 1
 	else:
 		tasks += 1
 		total_points += 1 + 1 * combo_count

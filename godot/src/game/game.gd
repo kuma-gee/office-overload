@@ -26,10 +26,10 @@ extends Node2D
 
 @export_category("Boss Attack")
 @export var boss_document_max_diff_timer := 100
-@export var boss_max_attack_time := 8.0
-@export var boss_min_attack_time := 4.0
+@export var boss_max_attack_time := 9.0
+@export var boss_min_attack_time := 5.0
 @export var boss_attack_count_min := 2
-@export var boss_attack_count_max := 6
+@export var boss_attack_count_max := 5
 @export var spill_mug_chance := 0.3
 @export var boss_hit_sound: AudioStreamPlayer
 @export var spill_mug: SpillMug
@@ -146,7 +146,7 @@ func _ready():
 			return
 
 		if get_label():
-			document_stack.add_mistake()
+			#document_stack.add_mistake()
 			_update_score()
 	)
 	key_reader.pressed_key.connect(func(key, _shift):
@@ -154,7 +154,7 @@ func _ready():
 			if documents[0].handle_key(key):
 				document_stack.add_combo()
 			elif not work_time.stopped:
-				document_stack.add_mistake()
+				#document_stack.add_mistake()
 				_update_score()
 	)
 	key_reader.pressed_cancel.connect(func(_shift):
@@ -390,17 +390,11 @@ func _setup_boss_attack():
 	await _slam_desk()
 
 	if not spill_mug.active and boss_attacked != 0 and (boss_attacked == 1 or randf() <= spill_mug_chance):
-		_spill_boss_attack()
-		boss_attack_documents = 0
-		_start_boss_attack_timer()
+		await _spill_boss_attack()
+		boss_attack_documents = _random_boss_attack_count()
+		_spawn_boss_attack()
 	else:
-		var min = boss_attack_count_min
-		var max = boss_attack_count_max * GameManager.get_distraction_reduction()
-		var p = _get_attack_percentage()
-		min += (max - min) * p
-
-		boss_attack_documents = randf_range(min, max)
-		boss_attack_documents = floor(boss_attack_documents)
+		boss_attack_documents = _random_boss_attack_count()
 		_spawn_boss_attack()
 	
 	boss_attacked += 1
@@ -413,8 +407,18 @@ func _slam_desk():
 		item.slammed()
 	await get_tree().create_timer(0.5).timeout
 
+func _random_boss_attack_count():
+	var min = boss_attack_count_min
+	var max = boss_attack_count_max * GameManager.get_distraction_reduction()
+	var p = _get_attack_percentage()
+	min += (max - min) * p
+
+	var docs = randf_range(min, max)
+	return floor(docs)
+
 func _spill_boss_attack():
-	spill_mug.spill()
+	await spill_mug.spill()
+	await get_tree().create_timer(0.5).timeout
 
 func _spawn_boss_attack():
 	if boss_attack_documents <= 0: return
