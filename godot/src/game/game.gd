@@ -12,11 +12,11 @@ extends Node2D
 
 @export_category("Boss")
 @export var min_documents := 2
-@export var boss_process_speed := 2.0
+@export var boss_process_speed := 2.4
 @export var boss_process_speed_variation := 0.2
-@export var boss_max_combo_count := 15
-@export var boss_min_combo_count := 5
-@export var boss_combo_failure_rate := 0.15
+@export var boss_max_combo_count := 10
+@export var boss_min_combo_count := 4
+@export var boss_combo_failure_rate := 0.2
 
 @export var boss_doc_label: Label
 @export var boss_combo_label: Label
@@ -366,10 +366,9 @@ func _on_crunch_ended():
 
 
 #region CEO
-var boss_documents := 0
-var boss_points := 0:
+var boss_documents := 0:
 	set(v):
-		boss_points = v
+		boss_documents = v
 		boss_doc_label.text = "%s" % boss_documents
 var boss_combo := 0:
 	set(v):
@@ -450,20 +449,30 @@ func _process(delta: float) -> void:
 	
 	boss_processing += delta
 	if boss_processing >= boss_current_speed: #and start_stack.has_documents():
+		var user_points = document_stack.tasks - document_stack.wrong_tasks
+		var boss_points = boss_documents - boss_mistakes
+		if user_points < 0:
+			boss_points += abs(user_points)
+			user_points = 0
+		
+		var boss_lead = (boss_points - user_points) >= 6
+		
 		var failed = false
-		if boss_combo > boss_min_combo_count:
+		if boss_combo > boss_min_combo_count: # * 0.5 if boss_lead else 1.0:
 			var diff = max(boss_max_combo_count - boss_combo, 0)
 			failed = randf() < boss_combo_failure_rate / (diff + 1)
 			if failed:
 				boss_combo = 0
-				boss_mistakes += randi_range(1, 10)
+				boss_mistakes += randi_range(2, min(10, boss_documents)) # + randf_range(1, 4) * 1.0 if boss_lead else 0.0
 		
 		boss_processing = 0
-		boss_points += 1 + 1 * boss_combo
 		boss_documents += 1
 		
 		if not failed:
 			boss_combo += 1
 
 		boss_current_speed = randf_range(boss_process_speed * (1 - boss_process_speed_variation), boss_process_speed * (1 + boss_process_speed_variation))
+		if boss_lead:
+			boss_current_speed *= 2
+		
 #endregion

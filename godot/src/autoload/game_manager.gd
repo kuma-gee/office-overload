@@ -94,7 +94,7 @@ func _load_data():
 	if day == 0:
 		reset_values()
 	
-	# difficulty_level = DifficultyResource.Level.CEO
+	difficulty_level = DifficultyResource.Level.CEO
 	# money = 1246
 	# bought_items = []
 	# finished_game = false
@@ -475,7 +475,9 @@ func lost_ceo():
 	#var max = get_max_performance()
 	#performance = min + (max - min) / 2
 	
-	reset_values()
+	if not finished_game:
+		reset_values()
+	
 	_save_data()
 	round_ended.emit()
 
