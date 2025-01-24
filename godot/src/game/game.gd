@@ -12,7 +12,7 @@ extends Node2D
 
 @export_category("Boss")
 @export var min_documents := 2
-@export var boss_process_speed := 1.8
+@export var boss_process_speed := 2.0
 @export var boss_process_speed_variation := 0.2
 @export var boss_max_combo_count := 15
 @export var boss_min_combo_count := 5
@@ -317,7 +317,7 @@ func _add_document(doc: Document, await_start := false):
 				spawn_timer.stop()
 				_spawn()
 			
-		if Input.is_action_pressed("special_mode"):
+		if Input.is_action_pressed("special_mode") and distractions.get_active_words().is_empty():
 			shift_overlay.add_highlight()
 		
 		if documents.size() > 0 and doc_spawner.is_invalid_word(documents[0].word):
@@ -461,11 +461,9 @@ func _process(delta: float) -> void:
 		boss_processing = 0
 		boss_points += 1 + 1 * boss_combo
 		boss_documents += 1
-		#start_stack.remove_document()
 		
 		if not failed:
 			boss_combo += 1
 
 		boss_current_speed = randf_range(boss_process_speed * (1 - boss_process_speed_variation), boss_process_speed * (1 + boss_process_speed_variation))
-		#print("Boss Finished, next speed %s" % boss_current_speed)
 #endregion

@@ -10,6 +10,7 @@ var tw: Tween
 
 func _ready() -> void:
 	_hide_overlay()
+	distractions.distraction_shown.connect(func(): _remove_highlight()) # just highlight because they are sharing the overlay node
 
 func _input(event: InputEvent) -> void:
 	if not event is InputEventKey or not (GameManager.is_manager() or GameManager.is_ceo()): return
@@ -33,7 +34,6 @@ func _hide_overlay():
 	
 	tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tw.tween_property(overlay, "modulate", Color.TRANSPARENT, 0.5)
-	#delegator.reset()
 	_remove_highlight()
 
 func _remove_highlight():

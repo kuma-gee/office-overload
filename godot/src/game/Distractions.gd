@@ -1,6 +1,8 @@
 class_name Distraction
 extends Control
 
+signal distraction_shown()
+
 enum Type {
 	EMAIL,
 	PHONE,
@@ -74,9 +76,6 @@ func slide_all_out():
 	_hide_overlay()
 
 func maybe_show_distraction():
-	if GameManager.is_ceo():
-		return
-	
 	if shown >= max_count:
 		_logger.debug("Max distractions shown, not showing more")
 		return
@@ -102,7 +101,7 @@ func show_distraction():
 		available.erase(junior)
 	
 	_logger.debug("Showing distraction: %s, %s" % [available, menus.map(func(x): return x.get_word())])
-	if available.is_empty() or GameManager.is_ceo(): return
+	if available.is_empty(): return
 	shown += 1
 	
 	var distraction = available.pick_random()
@@ -112,6 +111,7 @@ func show_distraction():
 	if word:
 		distraction.set_word(word)
 		_show_overlay()
+		distraction_shown.emit()
 	
 func _get_random_distraction_word(type: Type):
 	var gen = TYPE_MAP[type]
