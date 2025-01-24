@@ -94,8 +94,8 @@ func _load_data():
 	if day == 0:
 		reset_values()
 	
-	#if Env.is_editor():
-		#difficulty_level = DifficultyResource.Level.CEO
+	if Env.is_editor():
+		difficulty_level = DifficultyResource.Level.CEO
 		# money = 1246
 		# bought_items = []
 		# finished_game = false
@@ -378,11 +378,11 @@ func get_money_bonus():
 	multiplier += get_item_value(Shop.Items.MONEY_CAT)
 	return multiplier
 
-func get_distraction_reduction():
-	if is_crunch_mode(): return 1.0
+func get_distraction_reduction(invert = false):
+	if is_crunch_mode(): return 1.0 if not invert else 0.0
 	
 	var reduction = get_item_value(Shop.Items.ASSISTANT)
-	return 1.0 - reduction
+	return 1.0 - reduction if not invert else reduction
 
 func has_coffee():
 	if is_crunch_mode(): return false

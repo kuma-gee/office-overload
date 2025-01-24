@@ -12,7 +12,7 @@ extends Node2D
 
 @export_category("Boss")
 @export var min_documents := 2
-@export var boss_process_speed := 2.4
+@export var boss_process_speed := 2.2
 @export var boss_process_speed_variation := 0.2
 @export var boss_max_combo_count := 10
 @export var boss_min_combo_count := 4
@@ -463,7 +463,7 @@ func _process(delta: float) -> void:
 			failed = randf() < boss_combo_failure_rate / (diff + 1)
 			if failed:
 				boss_combo = 0
-				boss_mistakes += randi_range(2, min(10, boss_documents)) # + randf_range(1, 4) * 1.0 if boss_lead else 0.0
+				boss_mistakes += randi_range(1, min(8, boss_documents)) # + randf_range(1, 4) * 1.0 if boss_lead else 0.0
 		
 		boss_processing = 0
 		boss_documents += 1
@@ -472,6 +472,8 @@ func _process(delta: float) -> void:
 			boss_combo += 1
 
 		boss_current_speed = randf_range(boss_process_speed * (1 - boss_process_speed_variation), boss_process_speed * (1 + boss_process_speed_variation))
+		boss_current_speed *= 1 + GameManager.get_distraction_reduction(true)
+		
 		if boss_lead:
 			boss_current_speed *= 2
 		
