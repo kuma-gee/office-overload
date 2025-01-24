@@ -9,15 +9,18 @@ var _logger := Logger.new("Env")
 
 var _live := true
 var _enable_steam := false
+var _default_log_level := Logger.Level.INFO
 
 func _ready():
 	var args = _args_dictionary()
 	print(args)
 	
-	if args.has("debug") or is_editor():
-		log_level = Logger.Level.DEBUG
+	if "logging" in args:
+		var lvl_str = args["logging"].to_upper()
+		log_level = Logger.Level[lvl_str] if lvl_str in Logger.Level else _default_log_level
+		_logger.info("Setting log level to %s" % Logger.Level.keys()[log_level])
 	else:
-		log_level = Logger.Level.INFO
+		log_level = _default_log_level
 	
 	if args.has("steam"):
 		_enable_steam = true

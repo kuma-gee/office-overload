@@ -25,7 +25,7 @@ func load_file(path: String):
 func load_csv(path: String, column_names: Array[String]) -> Array[Dictionary]:
 	var file = load_file(path)
 	if not file:
-		print("Failed to open file %s" % path)
+		_logger.error("Failed to open file %s" % path)
 		return []
 	
 	var data: Array[Dictionary] = []
