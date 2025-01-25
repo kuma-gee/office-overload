@@ -69,7 +69,6 @@ var is_shop := false:
 var is_starting := false
 
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	start()
 	
 	if GameManager.finished_game:

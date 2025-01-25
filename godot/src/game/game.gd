@@ -75,8 +75,6 @@ var documents = []
 var day_ended := false
 
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	
 	randomize()
 	get_tree().paused = false
 	_update_score()
@@ -204,8 +202,6 @@ func _start_game():
 	_spawn()
 	
 func _finished(is_burn_out = false, is_fired = false):
-	#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	
 	if GameManager.is_work_mode():
 		distractions.slide_all_out()
 		

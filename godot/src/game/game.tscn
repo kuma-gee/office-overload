@@ -1,8 +1,9 @@
-[gd_scene load_steps=104 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=105 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/game/document.tscn" id="2_35x6g"]
 [ext_resource type="Script" path="res://src/base-system/CameraShake.gd" id="2_40dk3"]
+[ext_resource type="Script" path="res://src/mouse_input.gd" id="2_a2wq4"]
 [ext_resource type="Texture2D" uid="uid://h14bp6b8w6i8" path="res://assets/sprites/Progress_Under.png" id="2_s1wqh"]
 [ext_resource type="PackedScene" uid="uid://dffjinparflk0" path="res://src/ui/day.tscn" id="3_4j615"]
 [ext_resource type="Texture2D" uid="uid://df8a7xriw1acm" path="res://assets/sprites/Progress_Fill.png" id="3_6o0s1"]
@@ -788,6 +789,9 @@ player_combo_label = NodePath("Desk/Computer/BossUI/VBoxContainer/HBoxContainer/
 boss_hit_sound = NodePath("HitTableSound")
 spill_mug = NodePath("Desk/SpillMug")
 crunch_documents = NodePath("Desk/Computer/CrunchUI/PlayerDocuments")
+
+[node name="MouseInput" type="Node" parent="."]
+script = ExtResource("2_a2wq4")
 
 [node name="CameraShake" type="Node" parent="."]
 process_mode = 3

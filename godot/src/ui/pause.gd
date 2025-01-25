@@ -22,13 +22,11 @@ func _on_focused():
 	effect_root.do_effect()
 	panel_container.open()
 	show()
-	#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 func _on_focus_exited():
 	get_tree().paused = false
 	effect_root.reverse_effect()
 	panel_container.close()
-	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 func _gui_input(event: InputEvent) -> void:
 	delegator.handle_event(event)
