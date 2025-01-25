@@ -586,7 +586,6 @@ layout_mode = 2
 word = "Next Day"
 
 [node name="Crunch" type="MarginContainer" parent="CenterContainer/PanelContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
@@ -704,6 +703,7 @@ text = "123021"
 horizontal_alignment = 1
 
 [node name="SteamOffline" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 5
@@ -712,7 +712,6 @@ for highscores"
 horizontal_alignment = 1
 
 [node name="Control" type="Control" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -733,6 +732,7 @@ layout_mode = 2
 word = "retry"
 
 [node name="Ceo" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8

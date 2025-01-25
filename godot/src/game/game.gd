@@ -39,7 +39,7 @@ extends Node2D
 @export var max_bgm_pitch_time := 0.4
 @export var crunch_start_spawn_time := 4.
 @export var crunch_min_spawn_time := 0.5
-@export var crunch_max_difficulty_count := 80
+@export var crunch_max_difficulty_count := 50
 @export var crunch_documents: Label
 
 @onready var doc_spawner = $DocSpawner
@@ -124,22 +124,23 @@ func _ready():
 			_finished(true)
 		)
 
-		if not GameManager.is_ceo():
-			spawn_timer.timeout.connect(func(): _spawn())
+		spawn_timer.timeout.connect(func(): _spawn())
 	else:
 		overload_progress.hide()
 
-	work_time.next_work_day.connect(func(): _finished(false, true))
-	work_time.day_ended.connect(func():
-		if documents.is_empty() or GameManager.is_ceo():
-			_finished()
-		day_ended = true
-	)
-	work_time.time_changed.connect(func(_t):
-		if GameManager.is_crunch_mode(): return
-		if day_ended and work_time.is_day_ended() and GameManager.is_intern():
-			_finished()
-	)
+	if GameManager.is_work_mode():
+		work_time.next_work_day.connect(func():
+			_finished(false, true)
+		)
+		work_time.day_ended.connect(func():
+			if documents.is_empty() or GameManager.is_ceo():
+				_finished()
+			day_ended = true
+		)
+		work_time.time_changed.connect(func(_t):
+			if day_ended and work_time.is_day_ended() and GameManager.is_intern():
+				_finished()
+		)
 	
 	shift_delegator.unhandled_key.connect(func(_key):
 		if not is_time_running():
@@ -343,7 +344,6 @@ func get_label():
 func _update_crunch_values():
 	var t = _crunch_mode_spawn_time()
 	spawn_timer.start(t)
-	print("Time: %s" % t)
 
 	var d = _crunch_difficulty()
 	doc_spawner.set_difficulty(d)
@@ -354,10 +354,10 @@ func _update_crunch_values():
 
 func _crunch_mode_spawn_time(doc_count: int = document_stack.actual_document_count):
 	var x = max(doc_count, 1)
-	return max(crunch_start_spawn_time - (log(x) / log(10)) * 1.5, crunch_min_spawn_time)
+	return max(crunch_start_spawn_time - (log(x) / log(10)) * 2, crunch_min_spawn_time)
 
 func _crunch_difficulty(doc_count: int = document_stack.actual_document_count):
-	return clamp(float(doc_count) / crunch_max_difficulty_count, 0.0, 1.0)
+	return float(doc_count) / crunch_max_difficulty_count
 
 func _on_crunch_ended():
 	var data = GameManager.finished_crunch(document_stack.actual_document_count, work_time.hours_passed, document_stack.highest_streak)

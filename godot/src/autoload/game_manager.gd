@@ -167,22 +167,9 @@ func finished_day(data: Dictionary):
 	### Calculate WPM ###
 	var wpm = wpm_calculator.get_average_wpm()
 	var acc = wpm_calculator.get_average_accuracy()
-	var current_size = wpm_calculator.get_total_size()
-	var previous_size = total_completed_words * 0.5 # count previous wpm less than the current one
+	_update_speed_values(wpm, acc)
 	data["wpm"] = wpm
 	data["acc"] = acc
-
-	average_wpm = roundf(((average_wpm * previous_size) + (wpm * current_size)) / (previous_size + current_size))
-	average_accuracy = ((average_accuracy * previous_size) + (acc * current_size)) / (previous_size + current_size)
-	average_accuracy = snappedf(average_accuracy, 0.01)
-	
-	past_wpms.append(average_wpm)
-	if past_wpms.size() > keep_past_wpms:
-		past_wpms.pop_front()
-	
-	wpm_calculator.reset()
-	total_completed_words += current_size # For calculating WPM
-	_logger.info("New Average WPM %s and Accuracy %s with %s words" % [average_wpm, average_accuracy, total_completed_words])
 	
 	### Calculate Performance ###
 	var grade = get_grade_for(data)
@@ -203,6 +190,22 @@ func finished_day(data: Dictionary):
 	_save_data()
 	round_ended.emit()
 
+func _update_speed_values(wpm, acc):
+	var current_size = wpm_calculator.get_total_size()
+	var previous_size = total_completed_words * 0.5 # count previous wpm less than the current one
+	average_wpm = roundf(((average_wpm * previous_size) + (wpm * current_size)) / (previous_size + current_size))
+	average_accuracy = ((average_accuracy * previous_size) + (acc * current_size)) / (previous_size + current_size)
+	average_accuracy = snappedf(average_accuracy, 0.01)
+
+	past_wpms.append(average_wpm)
+	if past_wpms.size() > keep_past_wpms:
+		past_wpms.pop_front()
+	
+	wpm_calculator.reset()
+	total_completed_words += current_size # For calculating WPM
+	
+	_logger.info("New Average WPM %s and Accuracy %s with %s words" % [average_wpm, average_accuracy, total_completed_words])
+
 func get_grade_for(data: Dictionary):
 	var wrong = data["wrong"]
 	var overtime = data["overtime"]
@@ -220,15 +223,14 @@ func upload_work_scores(wpm: float = average_wpm, acc: float = average_accuracy,
 	if is_intern(): return
 	
 	var score = calculate_score(wpm, acc, level)
-	var board = get_leaderboard_for_mode(GameManager.Mode.Work)
-	SteamLeaderboard.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], day, -level]))
+	SteamLeaderboard.upload_score(SteamLeaderboard.STORY_BOARD, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], day, -level]))
 
 func calculate_score(wpm: float = average_wpm, acc: float = average_accuracy, level: int = difficulty_level):
 	var lvl = level
 	if level == DifficultyResource.Level.CEO and not finished_game:
 		lvl = DifficultyResource.Level.MANAGER
 
-	return wpm * acc * lvl + day
+	return wpm * acc * lvl + (day / 10.)
 
 func finished_crunch(tasks: int, hours: int, _combo: int):
 	var data = {}
@@ -247,12 +249,37 @@ func finished_crunch(tasks: int, hours: int, _combo: int):
 	return data
 
 func _upload_endless_scores(wpm: float, acc: float, count: int, hours: int):
-	var score = int(floor(wpm * acc * count))
+	var score = int(floor(wpm * acc * count) - hours)
 	if not Env.is_demo():
-		var board = get_leaderboard_for_mode(GameManager.Mode.Crunch)
-		SteamLeaderboard.upload_score(board, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count, hours]))
+		SteamLeaderboard.upload_score(SteamLeaderboard.ENDLESS_BOARD, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count, hours]))
 	
 	return score
+	
+func lost_ceo():
+	#difficulty_level = DifficultyResource.Level.SENIOR
+	#var min = get_min_performance()
+	#var max = get_max_performance()
+	#performance = min + (max - min) / 2
+	
+	if not finished_game:
+		reset_values()
+	
+	_save_data()
+	round_ended.emit()
+
+func won_ceo():
+	finished_game = true
+	unlock_mode(Mode.Multiplayer)
+	
+	var wpm = wpm_calculator.get_average_wpm()
+	var acc = wpm_calculator.get_average_accuracy()
+	_update_speed_values(wpm, acc)
+	upload_work_scores()
+	
+	round_ended.emit()
+
+	SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.CEO)
+
 
 func _upload_existing_unsaved_crunch():
 	pass
@@ -470,25 +497,6 @@ func get_level_text(lvl = difficulty_level, abbreviate = -1):
 		txt = txt.substr(0, abbreviate) + "."
 	return txt
 
-func lost_ceo():
-	#difficulty_level = DifficultyResource.Level.SENIOR
-	#var min = get_min_performance()
-	#var max = get_max_performance()
-	#performance = min + (max - min) / 2
-	
-	if not finished_game:
-		reset_values()
-	
-	_save_data()
-	round_ended.emit()
-
-func won_ceo():
-	finished_game = true
-	unlock_mode(Mode.Multiplayer)
-	round_ended.emit()
-
-	SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.CEO)
-
 #endregion
 
 #region MODES
@@ -552,9 +560,9 @@ func get_leaderboard_for_mode(mode = GameManager.current_mode):
 	if Env.is_demo():
 		return SteamLeaderboard.DEMO_BOARD
 
-	match mode:
-		GameManager.Mode.Crunch: return SteamLeaderboard.ENDLESS_BOARD
-		GameManager.Mode.Multiplayer: return SteamLeaderboard.MULTIPLAYER_BOARD
+	#match mode:
+		#GameManager.Mode.Crunch: return SteamLeaderboard.ENDLESS_BOARD
+		#GameManager.Mode.Multiplayer: return SteamLeaderboard.MULTIPLAYER_BOARD
 	
 	return SteamLeaderboard.STORY_BOARD
 	

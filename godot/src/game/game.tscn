@@ -1640,7 +1640,7 @@ libraries = {
 }
 
 [node name="Lifetime" type="Timer" parent="Desk/SpillMug"]
-wait_time = 6.0
+wait_time = 10.0
 one_shot = true
 
 [node name="DocumentStack" type="Node2D" parent="." node_paths=PackedStringArray("doc_count_label", "combo_label", "combo_particles01", "combo_particles02")]

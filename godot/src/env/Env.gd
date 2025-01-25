@@ -8,19 +8,22 @@ var version := Build.VERSION
 var _logger := Logger.new("Env")
 
 var _live := true
-var _enable_steam := false
+var _enable_steam := true
 var _default_log_level := Logger.Level.INFO
 
 func _ready():
 	var args = _args_dictionary()
 	print(args)
 	
+	if not is_editor():
+		_live = false
+		_enable_steam = false
+		log_level = _default_log_level
+	
 	if "logging" in args:
 		var lvl_str = args["logging"].to_upper()
 		log_level = Logger.Level[lvl_str] if lvl_str in Logger.Level else _default_log_level
 		_logger.info("Setting log level to %s" % Logger.Level.keys()[log_level])
-	elif not is_editor():
-		log_level = _default_log_level
 	
 	if args.has("steam"):
 		_enable_steam = true

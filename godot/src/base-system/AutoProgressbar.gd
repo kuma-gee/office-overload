@@ -34,6 +34,8 @@ var noise_i: float = 0.0
 var total := 0.0
 var total_time := 0.0
 
+var tw: Tween
+
 func _ready():
 	value = 0.0
 	pivot_offset = size / 2
@@ -104,10 +106,13 @@ func stop_blink():
 func _blink(duration := 0.3):
 	if not running: return
 	
+	if tw and tw.is_running():
+		tw.kill()
+	
 	beep_sound.play()
 	rotation_strength = 0.5
 	noise_i = 0
-	var tw = create_tween()
+	tw = create_tween()
 	tw.tween_method(_set_blink_color, blink_color, color, duration).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	await tw.finished
 	

@@ -159,7 +159,7 @@ func crunch_ended(data: Dictionary):
 	crunch_acc.text = "%.0f%%" % [data["acc"] * 100]
 	crunch_score.text = "%s" % data["score"]
 	
-	crunch_offline.visible = false #not GameManager.unsaved_crunch_score.is_empty()
+	#crunch_offline.visible = false #not GameManager.unsaved_crunch_score.is_empty()
 	
 	_do_open(crunch_container, gameover_sound)
 
