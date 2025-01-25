@@ -927,6 +927,7 @@ visible = false
 [node name="Delegator" type="Node" parent="CanvasLayer" node_paths=PackedStringArray("nodes")]
 script = ExtResource("20_tcix1")
 nodes = [NodePath("../..")]
+ignore_errors = false
 
 [node name="Distractions" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "work_time")]
 layout_mode = 3
@@ -969,6 +970,7 @@ node = NodePath("../../Email/Email")
 [node name="Delegator" type="Node" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("nodes")]
 script = ExtResource("20_tcix1")
 nodes = [NodePath("../Email"), NodePath("../Phone"), NodePath("../Junior")]
+ignore_errors = false
 
 [node name="Email" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "sounds")]
 layout_mode = 1
@@ -1183,6 +1185,7 @@ horizontal_alignment = 1
 layout_mode = 2
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("37_b7g85")]
+visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false

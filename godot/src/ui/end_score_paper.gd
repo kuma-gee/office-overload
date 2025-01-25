@@ -18,11 +18,6 @@ func _ready() -> void:
 			slide_in()
 	)
 
-#func _gui_input(event: InputEvent) -> void:
-	#super._gui_input(event)
-	#if event.is_action_pressed("clear_word"):
-		#board.load_data(SteamLeaderboard.ENDLESS_BOARD)
-
 func slide_in(delay := 0.0):
 	position = original_pos - slide_dir 
 	

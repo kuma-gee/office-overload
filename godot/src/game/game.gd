@@ -16,7 +16,7 @@ extends Node2D
 @export var boss_process_speed_variation := 0.2
 @export var boss_max_combo_count := 10
 @export var boss_min_combo_count := 4
-@export var boss_combo_failure_rate := 0.2
+@export var boss_combo_failure_rate := 0.25
 
 @export var boss_doc_label: Label
 @export var boss_combo_label: Label
@@ -467,7 +467,7 @@ func _process(delta: float) -> void:
 			failed = randf() < boss_combo_failure_rate / (diff + 1)
 			if failed:
 				boss_combo = 0
-				boss_mistakes += randi_range(1, min(8, boss_documents)) # + randf_range(1, 4) * 1.0 if boss_lead else 0.0
+				boss_mistakes += randi_range(1, min(5, boss_documents)) # + randf_range(1, 4) * 1.0 if boss_lead else 0.0
 		
 		boss_processing = 0
 		boss_documents += 1

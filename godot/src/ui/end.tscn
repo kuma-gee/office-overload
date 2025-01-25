@@ -332,7 +332,6 @@ script = ExtResource("16_8aqif")
 nodes = [NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/NextDayButton"), NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Retry"), NodePath("../../../Control/MenuPaper/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel")]
 
 [node name="Work" type="MarginContainer" parent="CenterContainer/PanelContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
@@ -511,7 +510,6 @@ grow_vertical = 2
 theme = ExtResource("1_80w1y")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 5
-text = "end of demo"
 horizontal_alignment = 1
 
 [node name="VBoxContainer5" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
@@ -586,6 +584,7 @@ layout_mode = 2
 word = "Next Day"
 
 [node name="Crunch" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
