@@ -8,6 +8,7 @@ var slide_tw: Tween
 
 func _ready() -> void:
 	connect_focus()
+	board.score_type = SteamManager.steam.LEADERBOARD_DATA_REQUEST_GLOBAL
 	
 	for n in board.buttons:
 		delegator.nodes.append(n)
@@ -29,10 +30,9 @@ func slide_in(delay := 0.0):
 	slide_tw.tween_property(self, "position", original_pos, 0.5).set_delay(delay)
 	show()
 	
-	#board.load_data()
+	board.load_data(SteamLeaderboard.ENDLESS_BOARD)
 
 func focused():
-	board.load_data(SteamLeaderboard.ENDLESS_BOARD)
 	board.active()
 	super.focused()
 

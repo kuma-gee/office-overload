@@ -94,8 +94,8 @@ func _load_data():
 	if day == 0:
 		reset_values()
 	
-	if Env.is_editor():
-		difficulty_level = DifficultyResource.Level.CEO
+	#if Env.is_editor():
+		#difficulty_level = DifficultyResource.Level.CEO
 		# money = 1246
 		# bought_items = []
 		# finished_game = false

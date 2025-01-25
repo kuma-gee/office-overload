@@ -112,6 +112,7 @@ func load_score(board: String, type: int):
 		start = ceil(-mid)
 		end = floor(mid-1)
 	
+	_logger.info("Loading scores for %s using range %s - %s for board %s" % [type, start, end, board])
 	SteamManager.steam.downloadLeaderboardEntries(start, end, type, leaderboard_handles[board])
 	await leaderboard_loaded
 
