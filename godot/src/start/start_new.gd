@@ -116,9 +116,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if game_modes_key.visible:
 		if event.is_action_pressed("special_mode") and mode != DelegateMode.Shift:
+			animation_player.speed_scale = 1.0 if GameManager.is_motion else 1000.
 			animation_player.play("alt_page")
 			mode = DelegateMode.Shift
 		elif event.is_action_released("special_mode") and mode == DelegateMode.Shift:
+			animation_player.speed_scale = 1.0 if GameManager.is_motion else 1000.
 			animation_player.play_backwards("alt_page")
 			mode = DelegateMode.Default
 	

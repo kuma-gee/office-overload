@@ -21,11 +21,18 @@ func _ready() -> void:
 	focus_entered.connect(func():
 		if focus_tw and focus_tw.is_running():
 			focus_tw.kill()
-			
-		focus_tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
-		focus_tw.tween_property(self, "position", Vector2(-size.x / 2, -(size.y / 2) + offset_y), 0.5)
-		focus_tw.tween_property(self, "rotation", 0, 0.5)
-		focus_tw.tween_callback(func(): z_index = 10)
+		
+		var pos = Vector2(-size.x / 2, -(size.y / 2) + offset_y)
+		if not GameManager.is_motion:
+			position = pos
+			rotation = 0
+			z_index = 10
+		else:
+			focus_tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
+			focus_tw.tween_property(self, "position", pos, 0.5)
+			focus_tw.tween_property(self, "rotation", 0, 0.5)
+			focus_tw.tween_callback(func(): z_index = 10)
+		
 		title_button.get_label().fill_all = true
 		delegator.focus()
 		opened.emit()
@@ -35,10 +42,16 @@ func _ready() -> void:
 		if focus_tw and focus_tw.is_running():
 			focus_tw.kill()
 			
-		focus_tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
-		focus_tw.tween_property(self, "global_position", _get_final_pos(), 0.5)
-		focus_tw.tween_property(self, "rotation", orig_rot, 0.5)
-		focus_tw.tween_callback(func(): z_index = 0)
+		if not GameManager.is_motion:
+			global_position = _get_final_pos()
+			rotation = orig_rot
+			z_index = 0
+		else:
+			focus_tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
+			focus_tw.tween_property(self, "global_position", _get_final_pos(), 0.5)
+			focus_tw.tween_property(self, "rotation", orig_rot, 0.5)
+			focus_tw.tween_callback(func(): z_index = 0)
+		
 		title_button.get_label().fill_all = false
 		delegator.unfocus()
 		closed.emit()

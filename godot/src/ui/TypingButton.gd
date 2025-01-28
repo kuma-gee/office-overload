@@ -3,6 +3,7 @@ extends Control
 
 signal finished()
 
+@export var center := true
 @export var word := ""
 @export var typing_label: TypedWord
 #@export var button: TextureButton
@@ -27,8 +28,9 @@ var disabled := false:
 
 func _ready():
 	update()
-	#typing_label.typing.connect(func(): _press_effect())
+	typing_label.center = center
 	typing_label.type_finish.connect(func(): _on_finished())
+	#typing_label.typing.connect(func(): _press_effect())
 	#button.pressed.connect(func(): _on_finished())
 	
 	if reset_on_finished:

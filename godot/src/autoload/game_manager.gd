@@ -28,6 +28,7 @@ const DIFFICULTIES = {
 @onready var save_manager: SaveManager = $SaveManager
 @onready var cache_properties: CacheProperties = $CacheProperties
 
+var is_motion := true
 var init := false
 
 ### Persisted ###

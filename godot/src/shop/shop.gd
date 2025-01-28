@@ -35,10 +35,19 @@ func handle_input(event: InputEvent) -> void:
 	delegator.handle_event(event)
 
 func open() -> void:
+	_init_papers()
+	if not GameManager.is_motion:
+		camera.position_smoothing_enabled = false
+		camera.global_position = global_position
+		light.global_position = global_position
+		return
+	
+	camera.position_smoothing_enabled = true
 	tw = create_tween().set_ease(Tween.EaseType.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	tw.tween_property(camera, "global_position", global_position, 0.5)
 	tw.tween_property(light, "global_position", global_position, 0.6).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
-	
+
+func _init_papers():
 	if not init:
 		var delays = [0.5, 0.7, 0.7, 1.0, 0.9]
 		for c in paper_container.get_children():
@@ -57,6 +66,13 @@ func open() -> void:
 		init = true
 
 func close() -> void:
+	if not GameManager.is_motion:
+		camera.position_smoothing_enabled = false
+		camera.global_position = Vector2.ZERO
+		light.global_position = light_orig_pos
+		return
+	
+	camera.position_smoothing_enabled = true
 	tw = create_tween().set_ease(Tween.EaseType.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	tw.tween_property(camera, "global_position", Vector2.ZERO, 0.5)
 	tw.tween_property(light, "global_position", light_orig_pos, 0.6).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)

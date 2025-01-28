@@ -34,6 +34,10 @@ func do_effect(kill_previous = true):
 			var cb = eff.apply(tw)
 			if cb:
 				finish_cb.append(cb)
+	
+	if not GameManager.is_motion:
+		tw.tw.set_speed_scale(1000.)
+	
 	return true
 
 func _do_callbacks(cbs: Array):
@@ -50,6 +54,9 @@ func reverse_effect():
 			var cb = eff.reverse(tw)
 			if cb:
 				finish_cb.append(cb)
+	
+	if not GameManager.is_motion:
+		tw.tw.set_speed_scale(1000.)
 
 func stop():
 	tw.kill()

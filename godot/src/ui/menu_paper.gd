@@ -37,12 +37,18 @@ func close():
 	tw = _create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	tw.tween_property(self, "rotation", 0, 0.5)
 	tw.tween_property(self, "position", -size / 2 + offset, 0.5)
+	if not GameManager.is_motion:
+		tw.set_speed_scale(1000.)
+		
 	await tw.finished
 		
 func open():
 	tw = _create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
 	tw.tween_property(self, "rotation", original_rot, 0.5)
 	tw.tween_property(self, "position", original_pos, 0.5)
+	if not GameManager.is_motion:
+		tw.set_speed_scale(1000.)
+	
 	await tw.finished
 
 func focused():
@@ -52,6 +58,9 @@ func focused():
 	tw.parallel().tween_property(self, "position", -size/2 + move_dir, t)
 	tw.parallel().tween_callback(func(): z_index = 100).set_delay(t / 2)
 	SoundManager.play_paper_open()
+	
+	if not GameManager.is_motion:
+		tw.set_speed_scale(1000.)
 	
 	tw.tween_property(self, "position", -size/2, 0.5)
 	label.highlight_first = false
@@ -68,6 +77,9 @@ func defocused():
 	tw.parallel().tween_property(self, "position", original_pos, t)
 	SoundManager.play_paper_close()
 	
+	if not GameManager.is_motion:
+		tw.set_speed_scale(1000.)
+	
 	label.highlight_first = true
 	label.focused = false
 	label.active = false
@@ -75,6 +87,10 @@ func defocused():
 func send():
 	tw = _create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	tw.tween_property(self, "position", position + Vector2.UP * 200, 0.5)
+	
+	if not GameManager.is_motion:
+		tw.set_speed_scale(1000.)
+	
 	await tw.finished
 	hide()
 	

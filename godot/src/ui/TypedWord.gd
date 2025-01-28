@@ -19,8 +19,12 @@ signal type_wrong()
 @export var untyped_outline_size := 2
 #@export var untyped_color := Color.BLACK
 @export var play_sound := true
-@export var center := true
 @export var enable_mistake_effect := true
+
+@export var center := true:
+	set(v):
+		center = v
+		update_word()
 
 @onready var shake_timer: Timer = $ShakeTimer
 
@@ -116,11 +120,11 @@ func get_remaining_word():
 
 func update_word():
 	if active:
-		text = "[outline_color=%s][color=%s]%s[/color][/outline_color]" % [highlight_color.to_html(), typed_color.to_html(), word]
+		text = _wrap_center("[outline_color=%s][color=%s]%s[/color][/outline_color]" % [highlight_color.to_html(), typed_color.to_html(), word])
 		return
 	
 	if fill_all:
-		text = "[color=%s]%s[/color]" % [typed_color.to_html(), word]
+		text = _wrap_center("[color=%s]%s[/color]" % [typed_color.to_html(), word])
 		return
 	
 	var until = typed.length()
@@ -169,7 +173,7 @@ func _wrap_typed(until: int, w: String, highlight = false):
 	if highlight:
 		highlight_text = "highlight_falloff=%s highlight_normal=%s" % [20., typed_color.to_html()]
 	
-	return "[typed until=%s height=%s frequency=%s %s]%s[/typed]" % [until, height, frequency, highlight_text, w]
+	return "[typed until=%s height=%s frequency=%s %s]%s[/typed]" % [until, height if GameManager.is_motion else 0, frequency, highlight_text, w]
 
 func _wrap_center(w: String):
 	if not center: return w
