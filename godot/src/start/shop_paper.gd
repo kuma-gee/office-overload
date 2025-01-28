@@ -30,6 +30,7 @@ func _ready() -> void:
 	var type_str = Shop.Items.keys()[item.type]
 	title_button.update(tr(type_str))
 	desc_label.text = tr("%s_DESC" % type_str)
+	ctrl_hint.visible = item.type == Shop.Items.COFFEE
 	
 	focus_entered.connect(func(): esc_tex.show())
 	focus_exited.connect(func(): esc_tex.hide())
@@ -56,4 +57,4 @@ func _update():
 	
 	var is_coffee = item.type == Shop.Items.COFFEE
 	sold_out.visible = is_max #and not is_coffee
-	ctrl_hint.visible = is_max and is_coffee
+	#ctrl_hint.visible = is_max and is_coffee

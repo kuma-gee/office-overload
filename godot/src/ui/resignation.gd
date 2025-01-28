@@ -17,6 +17,7 @@ func _ready() -> void:
 	focus_entered.connect(func(): _update_sign())
 	_update_sign()
 
+
 func _update_sign():
 	if SteamManager.is_steam_available():
 		signature.word = SteamManager.get_username()

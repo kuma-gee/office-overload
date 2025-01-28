@@ -29,7 +29,7 @@ desc_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContaine
 price_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Price")
 value_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Value")
 icon_tex = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/TextureRect")
-ctrl_hint = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CtrlHint")
+ctrl_hint = NodePath("PanelContainer/MarginContainer/VBoxContainer/CtrlHint")
 sold_out = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/TextureRect/SoldOut")
 no_money = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer/NoMoney")
 esc_tex = NodePath("PanelContainer/Esc")
@@ -126,6 +126,23 @@ text = "-20%"
 horizontal_alignment = 1
 autowrap_mode = 3
 
+[node name="Control2" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CtrlHint" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/CtrlHint"]
+layout_mode = 2
+text = "Use with"
+
+[node name="CtrlKey" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/CtrlHint"]
+layout_mode = 2
+texture = ExtResource("5_50sr6")
+stretch_mode = 3
+
 [node name="Control" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -142,20 +159,6 @@ show_underline = false
 layout_mode = 2
 text = "out of budget"
 horizontal_alignment = 1
-
-[node name="CtrlHint" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CtrlHint"]
-layout_mode = 2
-text = "Use with"
-
-[node name="CtrlKey" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CtrlHint"]
-layout_mode = 2
-texture = ExtResource("5_50sr6")
-stretch_mode = 3
 
 [node name="Esc" type="MarginContainer" parent="PanelContainer"]
 visible = false
