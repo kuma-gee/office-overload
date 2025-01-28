@@ -185,6 +185,9 @@ func _next_char():
 	return word[typed.length()]
 
 func handle_key(key: String, ignore_error = false):
+	if not is_visible_in_tree():
+		return false
+	
 	var next_word_char = _next_char()
 	if next_word_char == key.to_lower():
 		if typed.length() == 0:
