@@ -9,6 +9,7 @@ signal closed()
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var delegator: Delegator = $Delegator
 @onready var panel_container: PanelContainer = $TextureRect/PanelContainer
+@onready var color_rect: ColorRect = $TextureRect/ColorRect
 
 func _ready() -> void:
 	panel_container.show()
@@ -45,6 +46,15 @@ func _gui_input(event: InputEvent) -> void:
 	
 	delegator.handle_event(event)
 	get_viewport().set_input_as_handled()
+
+func make_sure_closed():
+	if position.y > 100 or color_rect.color == Color.WHITE or animation_player.is_playing():
+		return
+	
+	animation_player.speed_scale = 1000.
+	animation_player.play_backwards("show_overlay")
+	await animation_player.animation_finished
+	animation_player.play("close_folder")
 
 func close_finished():
 	closed.emit()
