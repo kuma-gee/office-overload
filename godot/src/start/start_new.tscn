@@ -1254,8 +1254,6 @@ word = "CEO"
 
 [node name="Team" parent="CanvasLayer/Control" node_paths=PackedStringArray("user_board", "friends_board", "global_board", "steam_offline") instance=ExtResource("29_t2y1x")]
 layout_mode = 1
-offset_top = 82.0
-offset_bottom = 82.0
 script = ExtResource("30_m1awn")
 user_board = NodePath("TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/UserScore")
 friends_board = NodePath("TextureRect/Papers/Team2/MarginContainer/VBoxContainer/FriendsScore")
@@ -1391,8 +1389,6 @@ grow_vertical = 1
 [node name="Report" parent="CanvasLayer/Control" instance=ExtResource("29_t2y1x")]
 light_mask = 0
 layout_mode = 1
-offset_top = 82.0
-offset_bottom = 82.0
 
 [node name="TextureRect" parent="CanvasLayer/Control/Report" index="2"]
 light_mask = 0
@@ -1643,9 +1639,12 @@ word = "resignation"
 
 [node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2
-text = "Dear Boss,
+bbcode_enabled = true
+text = "Dear %s,
 
-I regret to inform you that I am resigning from my position as %s at the company, effective immediately."
+I hereby resign from my position as %s, effective immediately.
+
+[outline_size=3]PS:[/outline_size] you will restart as intern"
 fit_content = true
 autowrap_mode = 2
 
