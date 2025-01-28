@@ -6,6 +6,7 @@ extends Control
 @export var extra_distance := 0.0
 @export var original_pos_offset_y := 0.0
 @export var play_sound := true
+@export var fix_paper_size := false
 
 @onready var orig_pos := global_position
 
@@ -17,6 +18,10 @@ func _ready() -> void:
 
 func _get_final_pos():
 	return orig_pos + Vector2(0, original_pos_offset_y)
+
+func _process(delta: float) -> void:
+	if fix_paper_size:
+		size.y = 140
 
 func is_open():
 	return was_opened

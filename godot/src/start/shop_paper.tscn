@@ -108,6 +108,7 @@ pivot_offset = Vector2(19, 5)
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/TextureRect/SoldOut/Control/PanelContainer"]
 layout_mode = 2
 text = "Sold out"
+horizontal_alignment = 1
 
 [node name="Desc" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2

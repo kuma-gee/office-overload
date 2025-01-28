@@ -326,7 +326,7 @@ func get_max_performance():
 const PLANT_STRESS_REDUCTION = [0.1, 0.2, 0.25]
 const MONEY_INCREASE = [0.1, 0.2]
 const ASSISTANT_REDUCTION = [0.1, 0.25]
-const ASSISTANT_COST = 150
+const ASSISTANT_COST = 100
 const DEMO_ITEMS = [Shop.Items.PLANT, Shop.Items.COFFEE]
 
 func is_item_available(item: Shop.Items):

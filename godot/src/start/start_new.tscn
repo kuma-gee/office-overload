@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://cdafk4ywr2fbg"]
+[gd_scene load_steps=64 format=3 uid="uid://cdafk4ywr2fbg"]
 
 [ext_resource type="Script" path="res://src/ui/Stats.gd" id="1_1pk7f"]
 [ext_resource type="Script" path="res://src/start/start_new.gd" id="1_25sst"]
@@ -141,6 +141,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(110, 140)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PointLight2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(56, 48)]
+}
 
 [sub_resource type="Animation" id="Animation_6fel6"]
 resource_name = "alt_page"
@@ -206,10 +218,27 @@ tracks/4/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_0wq2u"]
+resource_name = "move_shop"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(56, 48), Vector2(355, 10)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bge4k"]
 _data = {
 "RESET": SubResource("Animation_6q6rn"),
-"alt_page": SubResource("Animation_6fel6")
+"alt_page": SubResource("Animation_6fel6"),
+"move_shop": SubResource("Animation_0wq2u")
 }
 
 [node name="StartNew" type="Node2D" node_paths=PackedStringArray("work_label", "settings_label", "exit_label", "crunch_mode", "multiplayer_mode", "files", "team", "shop_button", "teams_node", "files_node", "settings", "folder", "teams", "shop", "game_modes_key", "crunch_mode_container", "multiplayer_mode_container", "ceo_level_select", "delegator", "shift_delegator")]
@@ -268,7 +297,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.929412, 0.894118, 0.854902, 1)
 
-[node name="ItemsPaper" type="Control" parent="." node_paths=PackedStringArray("container", "title_button", "delegator")]
+[node name="ItemsPaper" type="Control" parent="." node_paths=PackedStringArray("container", "esc", "title_button", "delegator")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -285,6 +314,7 @@ pivot_offset = Vector2(60, 80)
 theme = ExtResource("2_xj832")
 script = ExtResource("6_q1q4c")
 container = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer")
+esc = NodePath("MarginContainer2")
 title_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/Items")
 delegator = NodePath("Delegator")
 play_sound = false
@@ -344,6 +374,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="ItemsPaper"]
+layout_mode = 0
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="EscButton" type="TextureRect" parent="ItemsPaper/MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("25_pu2hv")
+stretch_mode = 2
 
 [node name="Stats" type="PanelContainer" parent="." node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy", "score_points")]
 custom_minimum_size = Vector2(110, 140)
@@ -674,7 +716,7 @@ word = "report"
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
-[node name="Shop" type="Control" parent="." node_paths=PackedStringArray("delegator", "paper_container", "money_container")]
+[node name="Shop" type="Control" parent="." node_paths=PackedStringArray("delegator", "paper_container", "money_container", "light")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 355.0
@@ -684,11 +726,13 @@ script = ExtResource("23_rmsxi")
 delegator = NodePath("ShopDelegator")
 paper_container = NodePath("Papers")
 money_container = NodePath("Money")
+light = NodePath("../PointLight2D")
 
 [node name="ShopDelegator" type="Node" parent="Shop"]
 script = ExtResource("7_pvyq5")
 
 [node name="PointLight2D2" type="PointLight2D" parent="Shop"]
+visible = false
 position = Vector2(2, 4)
 blend_mode = 2
 texture = ExtResource("3_ep5ga")
@@ -1600,6 +1644,35 @@ offset_bottom = 10.0
 
 [node name="PanelContainer" parent="CanvasLayer/Control/Report/TextureRect" index="4"]
 visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 0
+offset_left = 262.0
+offset_top = -6.0
+offset_right = 310.0
+offset_bottom = 18.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+text = "$100"
+horizontal_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 0
+offset_left = 10.0
+offset_top = -3.0
+offset_right = 46.0
+offset_bottom = 15.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/PanelContainer2"]
+layout_mode = 2
+texture = ExtResource("25_pu2hv")
+stretch_mode = 3
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("46_0cyp8")

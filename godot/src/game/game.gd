@@ -37,9 +37,10 @@ extends Node2D
 @export_category("Crunch")
 @export var max_bgm_pitch := 2.0
 @export var max_bgm_pitch_time := 0.4
+@export var max_crunch_documents := 30
 @export var crunch_start_spawn_time := 4.
 @export var crunch_min_spawn_time := 0.5
-@export var crunch_max_difficulty_count := 50
+@export var crunch_max_difficulty_count := 60
 @export var crunch_documents: Label
 
 @onready var doc_spawner = $DocSpawner
@@ -349,6 +350,10 @@ func _update_crunch_values():
 	bgm.pitch_scale = snappedf(pitch, 0.25)
 
 func _crunch_mode_spawn_time(doc_count: int = document_stack.actual_document_count):
+	if documents.size() > max_crunch_documents:
+		var diff = documents.size() - max_crunch_documents
+		return 5.0 + diff
+	
 	var x = max(doc_count, 1)
 	return max(crunch_start_spawn_time - (log(x) / log(10)) * 2, crunch_min_spawn_time)
 
