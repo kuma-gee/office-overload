@@ -121,7 +121,7 @@ func day_ended(data: Dictionary):
 	wpm_label.text = "%0.f" % data["wpm"]
 	bonus_label.text = "x%s" % GameManager.difficulty.money_multiplier
 	
-	money_used.visible = GameManager.get_assistant_cost() > 0
+	money_used.visible = GameManager.get_assistant_cost() > 0 and GameManager.is_item_used(Shop.Items.ASSISTANT)
 	money_used.text = "-$%s" % GameManager.get_assistant_cost()
 	
 	performance_progress.min_value = GameManager.get_min_performance()
