@@ -760,6 +760,18 @@ theme = ExtResource("2_xj832")
 [node name="Money" type="PanelContainer" parent="Shop/Money"]
 layout_mode = 2
 
+[node name="MarginContainer2" type="MarginContainer" parent="Shop/Money/Money"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="EscButton" type="TextureRect" parent="Shop/Money/Money/MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("25_pu2hv")
+stretch_mode = 2
+
 [node name="MarginContainer" type="MarginContainer" parent="Shop/Money/Money"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
@@ -773,10 +785,12 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Shop/Money/Money/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Budget"
+horizontal_alignment = 2
 
 [node name="Label2" type="Label" parent="Shop/Money/Money/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "$100"
+horizontal_alignment = 2
 script = ExtResource("34_06bnc")
 
 [node name="Papers" type="Control" parent="Shop"]
