@@ -20,7 +20,7 @@ func _ready() -> void:
 
 func _update_sign():
 	if SteamManager.is_steam_available():
-		signature.word = SteamManager.get_username()
+		signature.word = SteamManager.get_username().to_lower()
 		if signature.word.length() > max_length:
 			signature.word = signature.word.substr(0, max_length) + "..."
 	else:
