@@ -251,7 +251,7 @@ crunch_mode = NodePath("AltPage/MarginContainer/VBoxContainer/Crunch/Crunch")
 multiplayer_mode = NodePath("AltPage/MarginContainer/VBoxContainer/Multiplayer/Multiplayer")
 files = NodePath("Files/Report")
 team = NodePath("Rankings/Team")
-shop_button = NodePath("ShopButton/Sprite2D/ShopButton")
+shop_button = NodePath("ShopButton2/Money/MarginContainer/ShopButton")
 teams_node = NodePath("Rankings")
 files_node = NodePath("Files")
 settings = NodePath("CanvasLayer/Control/Settings")
@@ -270,7 +270,7 @@ script = ExtResource("2_406xc")
 
 [node name="Delegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("7_pvyq5")
-nodes = [NodePath("../WorkDocument/MarginContainer/VBoxContainer/Work"), NodePath("../WorkDocument/MarginContainer/VBoxContainer/Settings"), NodePath("../WorkDocument/MarginContainer/VBoxContainer/Exit"), NodePath("../Rankings/Team"), NodePath("../Files/Report"), NodePath("../ShopButton/Sprite2D/ShopButton"), NodePath("../ItemsPaper/PanelContainer/MarginContainer/VBoxContainer/Items")]
+nodes = [NodePath("../WorkDocument/MarginContainer/VBoxContainer/Work"), NodePath("../WorkDocument/MarginContainer/VBoxContainer/Settings"), NodePath("../WorkDocument/MarginContainer/VBoxContainer/Exit"), NodePath("../Rankings/Team"), NodePath("../Files/Report"), NodePath("../ShopButton2/Money/MarginContainer/ShopButton"), NodePath("../ItemsPaper/PanelContainer/MarginContainer/VBoxContainer/Items")]
 
 [node name="ShiftDelegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("7_pvyq5")
@@ -297,6 +297,31 @@ offset_bottom = 116.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="ShopButton2" type="MarginContainer" parent="."]
+offset_left = 95.0
+offset_top = -72.0
+offset_right = 137.0
+offset_bottom = -46.0
+rotation = -0.0698132
+pivot_offset = Vector2(30, 17)
+theme = ExtResource("2_xj832")
+
+[node name="Money" type="PanelContainer" parent="ShopButton2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ShopButton2/Money"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 5
+
+[node name="ShopButton" parent="ShopButton2/Money/MarginContainer" instance=ExtResource("11_cjr5n")]
+layout_mode = 2
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]s[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]hop[/outline_size][/outline_color][/color][/center][/outline_color]"
+reset_on_finish = true
+word = "shop"
 
 [node name="ItemsPaper" type="Control" parent="." node_paths=PackedStringArray("container", "esc", "title_button", "delegator")]
 layout_mode = 3
@@ -841,20 +866,11 @@ rotation = 0.0872665
 item = ExtResource("19_nxoxl")
 
 [node name="ShopButton" type="Node2D" parent="."]
+visible = false
 position = Vector2(133, -76)
 
 [node name="Sprite2D" type="Sprite2D" parent="ShopButton"]
 texture = ExtResource("5_gs4c1")
-
-[node name="ShopButton" parent="ShopButton/Sprite2D" instance=ExtResource("11_cjr5n")]
-offset_left = -33.5
-offset_top = -13.0
-offset_right = -3.5
-offset_bottom = 3.0
-theme_override_font_sizes/normal_font_size = 8
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]s[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]hop[/outline_size][/outline_color][/color][/center][/outline_color]"
-reset_on_finish = true
-word = "shop"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
