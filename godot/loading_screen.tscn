@@ -50,3 +50,7 @@ custom_effects = [ExtResource("2_5s7em")]
 
 [node name="StartTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="BackupTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true

@@ -3,6 +3,7 @@ extends Control
 signal scene_load_finished(scene: String)
 
 @onready var start_timer: Timer = $StartTimer
+@onready var backup_timer: Timer = $BackupTimer
 
 @onready var SCENES_TO_LOAD = [GameManager.START_SCENE, GameManager.GAME_SCENE]
 
@@ -12,6 +13,10 @@ var loaded := false
 
 func _ready() -> void:
 	start_timer.timeout.connect(func(): start_game())
+	backup_timer.timeout.connect(func():
+		if start_timer.is_stopped(): # Force load the game, sometimes it gets stuck
+			start_game()
+	)
 
 	_start_load_scene(SCENES_TO_LOAD.pop_front())
 	scene_load_finished.connect(func(_s):
