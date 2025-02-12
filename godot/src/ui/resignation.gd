@@ -20,8 +20,19 @@ func _ready() -> void:
 
 func _update_sign():
 	if SteamManager.is_steam_available():
-		signature.word = SteamManager.get_username().to_lower()
-		if signature.word.length() > max_length:
-			signature.word = signature.word.substr(0, max_length) + "..."
+		var username = SteamManager.get_username().to_lower()
+		signature.word = username if not _contains_special_characters(username) else "Anonymous"
 	else:
 		signature.word = "Anonymous"
+	
+	if signature.word.length() > max_length:
+		signature.word = signature.word.substr(0, max_length) + "..."
+
+func _contains_special_characters(word: String):
+	for c in word.to_lower():
+		var code = c.unicode_at(0)
+		if code >= 33 and code <= 126: continue
+		
+		return true
+	
+	return false
