@@ -12,21 +12,23 @@ var loading_scene := ""
 var loaded := false
 
 func _ready() -> void:
-	start_timer.timeout.connect(func(): start_game())
-	backup_timer.timeout.connect(func():
-		if start_timer.is_stopped(): # Force load the game, sometimes it gets stuck
-			start_game()
-	)
-
-	_start_load_scene(SCENES_TO_LOAD.pop_front())
-	scene_load_finished.connect(func(_s):
-		if SCENES_TO_LOAD.is_empty():
-			loaded = true
-			logger.info("All scenes loaded")
-			return
-
-		_start_load_scene(SCENES_TO_LOAD.pop_front())
-	)
+	start_game()
+	
+	#start_timer.timeout.connect(func(): start_game())
+	#backup_timer.timeout.connect(func():
+		#if start_timer.is_stopped(): # Force load the game, sometimes it gets stuck
+			#start_game()
+	#)
+#
+	#_start_load_scene(SCENES_TO_LOAD.pop_front())
+	#scene_load_finished.connect(func(_s):
+		#if SCENES_TO_LOAD.is_empty():
+			#loaded = true
+			#logger.info("All scenes loaded")
+			#return
+#
+		#_start_load_scene(SCENES_TO_LOAD.pop_front())
+	#)
 
 func _start_load_scene(scene: String):
 	ResourceLoader.load_threaded_request(scene)
