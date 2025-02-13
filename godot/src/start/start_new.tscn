@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://cdafk4ywr2fbg"]
+[gd_scene load_steps=67 format=3 uid="uid://cdafk4ywr2fbg"]
 
 [ext_resource type="Script" path="res://src/ui/Stats.gd" id="1_1pk7f"]
 [ext_resource type="Script" path="res://src/start/start_new.gd" id="1_25sst"]
@@ -38,6 +38,8 @@
 [ext_resource type="Script" path="res://src/ui/cloud_settings.gd" id="24_6ge0a"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="25_pu2hv"]
 [ext_resource type="Script" path="res://src/ui/LevelSelectButton.gd" id="26_lp1fu"]
+[ext_resource type="Script" path="res://src/start/multiplayer/multiplayer.gd" id="27_catvw"]
+[ext_resource type="PackedScene" uid="uid://6uw2hbbgw3s0" path="res://src/start/multiplayer/player_paper.tscn" id="28_y3ndp"]
 [ext_resource type="PackedScene" uid="uid://bevwwvcqg3xhh" path="res://src/ui/folder.tscn" id="29_t2y1x"]
 [ext_resource type="Script" path="res://src/start/ceo_level_select.gd" id="30_ctfxw"]
 [ext_resource type="Script" path="res://src/ui/leaderboad.gd" id="30_m1awn"]
@@ -242,7 +244,7 @@ _data = {
 "move_shop": SubResource("Animation_0wq2u")
 }
 
-[node name="StartNew" type="Node2D" node_paths=PackedStringArray("work_label", "settings_label", "exit_label", "crunch_mode", "multiplayer_mode", "files", "team", "shop_button", "teams_node", "files_node", "settings", "folder", "teams", "shop", "game_modes_key", "crunch_mode_container", "multiplayer_mode_container", "ceo_level_select", "delegator", "shift_delegator")]
+[node name="StartNew" type="Node2D" node_paths=PackedStringArray("work_label", "settings_label", "exit_label", "crunch_mode", "multiplayer_mode", "files", "team", "shop_button", "teams_node", "files_node", "settings", "folder", "teams", "shop", "multiplayer_view", "game_modes_key", "crunch_mode_container", "multiplayer_mode_container", "ceo_level_select", "delegator", "shift_delegator")]
 script = ExtResource("1_25sst")
 work_label = NodePath("WorkDocument/MarginContainer/VBoxContainer/Work")
 settings_label = NodePath("WorkDocument/MarginContainer/VBoxContainer/Settings")
@@ -258,6 +260,7 @@ settings = NodePath("CanvasLayer/Control/Settings")
 folder = NodePath("CanvasLayer/Control/Report")
 teams = NodePath("CanvasLayer/Control/Team")
 shop = NodePath("Shop")
+multiplayer_view = NodePath("Multiplayer")
 game_modes_key = NodePath("WorkDocument/MarginContainer/VBoxContainer/GameModesKey")
 crunch_mode_container = NodePath("AltPage/MarginContainer/VBoxContainer/Crunch")
 multiplayer_mode_container = NodePath("AltPage/MarginContainer/VBoxContainer/Multiplayer")
@@ -742,16 +745,16 @@ word = "report"
 position_smoothing_enabled = true
 position_smoothing_speed = 12.0
 
-[node name="Shop" type="Control" parent="." node_paths=PackedStringArray("delegator", "paper_container", "money_container", "light")]
+[node name="Shop" type="Control" parent="." node_paths=PackedStringArray("paper_container", "money_container", "delegator", "light")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 355.0
 offset_right = 355.0
 theme = ExtResource("2_xj832")
 script = ExtResource("23_rmsxi")
-delegator = NodePath("ShopDelegator")
 paper_container = NodePath("Papers")
 money_container = NodePath("Money")
+delegator = NodePath("ShopDelegator")
 light = NodePath("../PointLight2D")
 
 [node name="ShopDelegator" type="Node" parent="Shop"]
@@ -864,6 +867,91 @@ offset_right = 86.0
 offset_bottom = 140.0
 rotation = 0.0872665
 item = ExtResource("19_nxoxl")
+
+[node name="Multiplayer" type="Control" parent="." node_paths=PackedStringArray("host_paper", "join_paper", "delegator", "light")]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -213.0
+offset_bottom = -213.0
+theme = ExtResource("2_xj832")
+script = ExtResource("27_catvw")
+host_paper = NodePath("Papers/HostPlayer")
+join_paper = NodePath("Papers/JoinedPlayer")
+delegator = NodePath("Delegator")
+light = NodePath("../PointLight2D")
+
+[node name="Delegator" type="Node" parent="Multiplayer" node_paths=PackedStringArray("nodes")]
+script = ExtResource("7_pvyq5")
+nodes = [null]
+
+[node name="ColorRect" type="ColorRect" parent="Multiplayer"]
+layout_mode = 2
+offset_left = -160.0
+offset_top = -97.0
+offset_right = 160.0
+offset_bottom = 97.0
+color = Color(0.929412, 0.894118, 0.854902, 1)
+
+[node name="Money" type="MarginContainer" parent="Multiplayer"]
+custom_minimum_size = Vector2(60, 34)
+layout_mode = 0
+offset_left = -154.0
+offset_top = -94.0
+offset_right = -94.0
+offset_bottom = -60.0
+rotation = -0.174533
+pivot_offset = Vector2(30, 17)
+theme = ExtResource("2_xj832")
+
+[node name="Money" type="PanelContainer" parent="Multiplayer/Money"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Multiplayer/Money/Money"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="EscButton" type="TextureRect" parent="Multiplayer/Money/Money/MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("25_pu2hv")
+stretch_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Multiplayer/Money/Money"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Multiplayer/Money/Money/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Multiplayer/Money/Money/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Multiplayer"
+horizontal_alignment = 2
+
+[node name="Papers" type="Control" parent="Multiplayer"]
+anchors_preset = 0
+
+[node name="HostPlayer" parent="Multiplayer/Papers" instance=ExtResource("28_y3ndp")]
+layout_mode = 1
+offset_left = -130.0
+offset_top = -61.0
+offset_right = -30.0
+offset_bottom = 74.0
+rotation = -0.10472
+
+[node name="JoinedPlayer" parent="Multiplayer/Papers" instance=ExtResource("28_y3ndp")]
+layout_mode = 1
+offset_left = 29.0
+offset_top = -62.0
+offset_right = 129.0
+offset_bottom = 73.0
+rotation = 0.10472
+move_dir = Vector2(-1, 0)
 
 [node name="ShopButton" type="Node2D" parent="."]
 visible = false

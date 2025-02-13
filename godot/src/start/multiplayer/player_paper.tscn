@@ -1,0 +1,127 @@
+[gd_scene load_steps=7 format=3 uid="uid://6uw2hbbgw3s0"]
+
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_fhvyu"]
+[ext_resource type="Script" path="res://src/start/multiplayer/player_paper.gd" id="2_lkk40"]
+[ext_resource type="Texture2D" uid="uid://t0vtdco1mbgy" path="res://assets/sprites/Icon_Assistant.png" id="3_01emi"]
+[ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="4_8p2y0"]
+[ext_resource type="Script" path="res://src/start/checkbox_button.gd" id="5_3vn4p"]
+[ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="6_2rbfh"]
+
+[node name="Player" type="Control" node_paths=PackedStringArray("username_label", "no_steam_label", "info_container", "days_label", "speed_label", "ready_button")]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -90.0
+offset_right = -60.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(60, 70)
+focus_mode = 2
+theme = ExtResource("1_fhvyu")
+script = ExtResource("2_lkk40")
+username_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Username")
+no_steam_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/NoSteam")
+info_container = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer")
+days_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Days")
+speed_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Speed")
+ready_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Ready")
+move_dir = Vector2(1, 0)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Username" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "USERNAME"
+horizontal_alignment = 1
+
+[node name="NoSteam" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 6
+text = "This mode only works with steam connected"
+autowrap_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+texture = ExtResource("3_01emi")
+stretch_mode = 3
+
+[node name="Days" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 6
+text = "Days 10"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Speed" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 6
+text = "Speed 100"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Control2" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Ready" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_8p2y0")]
+layout_mode = 2
+size_flags_horizontal = 3
+word = "ready"
+show_underline = false
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("button")]
+layout_mode = 2
+script = ExtResource("5_3vn4p")
+button = NodePath("../Ready")
+
+[node name="Esc" type="MarginContainer" parent="PanelContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/Esc"]
+layout_mode = 2
+texture = ExtResource("6_2rbfh")
+stretch_mode = 2
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

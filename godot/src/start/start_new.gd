@@ -19,6 +19,7 @@ extends Node2D
 @export var folder: Folder
 @export var teams: Folder
 @export var shop: Shop
+@export var multiplayer_view: Multiplayer
 @export var game_modes_key: Control
 @export var crunch_mode_container: Control
 @export var multiplayer_mode_container: Control
@@ -66,6 +67,15 @@ var is_shop := false:
 			if GameManager.bought_items.size() > 0 and not items_paper.is_open():
 				items_paper.open(0.9)
 
+var is_multiplayer := false:
+	set(v):
+		is_multiplayer = v
+		if v:
+			hide_shift_mode()
+			multiplayer_view.open()
+		else:
+			multiplayer_view.close()
+
 var is_starting := false
 
 func _ready() -> void:
@@ -80,6 +90,16 @@ func _ready() -> void:
 		else:
 			GameManager.start(GameManager.Mode.Work)
 	)
+	
+	multiplayer_mode.finished.connect(func():
+		if Input.is_key_pressed(KEY_CTRL) and Env.is_editor(): # For debugging locally
+			Networking.join_game("localhost")
+		else:
+			is_multiplayer = true
+	)
+	multiplayer_view.closed.connect(func(): is_multiplayer = false)
+	Networking.connection_success.connect(func(): is_multiplayer = true)
+	Networking.disconnected.connect(func(): is_multiplayer = false)
 	
 	crunch_mode.finished.connect(func(): GameManager.start(GameManager.Mode.Crunch))
 	exit_label.finished.connect(func(): GameManager.quit_game())
@@ -101,7 +121,7 @@ func _ready() -> void:
 	
 	game_modes_key.visible = GameManager.unlocked_modes.size() > 1 and not Env.is_demo()
 	crunch_mode_container.visible = GameManager.is_mode_unlocked(GameManager.Mode.Crunch)
-	multiplayer_mode_container.visible = GameManager.is_mode_unlocked(GameManager.Mode.Multiplayer) and false
+	multiplayer_mode_container.visible = GameManager.is_mode_unlocked(GameManager.Mode.Multiplayer)
 	
 	items_paper.opened.connect(func(): delegator.unfocus())
 	items_paper.closed.connect(func(): delegator.focus())
@@ -117,19 +137,29 @@ func _unhandled_input(event: InputEvent) -> void:
 		shop.handle_input(event)
 		return
 	
+	if is_multiplayer:
+		multiplayer_view.handle_input(event)
+		return
+	
 	if game_modes_key.visible:
 		if event.is_action_pressed("special_mode") and mode != DelegateMode.Shift:
-			animation_player.speed_scale = 1.0 if GameManager.is_motion else 1000.
-			animation_player.play("alt_page")
-			mode = DelegateMode.Shift
+			show_shift_mode()
 		elif event.is_action_released("special_mode") and mode == DelegateMode.Shift:
-			animation_player.speed_scale = 1.0 if GameManager.is_motion else 1000.
-			animation_player.play_backwards("alt_page")
-			mode = DelegateMode.Default
+			hide_shift_mode()
 	
 	var deleg = delegator_map[mode]
 	deleg.handle_event(event)
-	
+
+func show_shift_mode():
+	animation_player.speed_scale = 1.0 if GameManager.is_motion else 1000.
+	animation_player.play("alt_page")
+	mode = DelegateMode.Shift
+
+func hide_shift_mode():
+	animation_player.speed_scale = 1.0 if GameManager.is_motion else 1000.
+	animation_player.play_backwards("alt_page")
+	mode = DelegateMode.Default
+
 func start():
 	point_light_2d.enabled = false
 	get_tree().create_timer(0.8).timeout.connect(func():

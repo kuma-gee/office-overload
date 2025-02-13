@@ -6,15 +6,10 @@ signal finished()
 @export var center := true
 @export var word := ""
 @export var typing_label: TypedWord
-#@export var button: TextureButton
 @export var reset_on_finished := true
 
 @export var underline: Control
 @export var show_underline := true
-
-#@export var center_container: Control
-#@export var panel: Panel
-#@export var container: Control
 
 var tw: Tween
 var disabled := false:
@@ -30,29 +25,14 @@ func _ready():
 	update()
 	typing_label.center = center
 	typing_label.type_finish.connect(func(): _on_finished())
-	#typing_label.typing.connect(func(): _press_effect())
-	#button.pressed.connect(func(): _on_finished())
 	
 	if reset_on_finished:
 		finished.connect(func(): reset())
 
 	underline.visible = show_underline
 
-#func _press_effect():
-	#center_container.pivot_offset = center_container.size / 2
-	#if tw and tw.is_running():
-		#tw.kill()
-		#center_container.scale = Vector2.ONE
-	#
-	#tw = create_tween()
-	#tw.tween_property(center_container, "scale", Vector2(0.99, 0.99), 0.05).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	#tw.tween_property(center_container, "scale", Vector2.ONE, 0.05).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
-
 func _on_finished():
 	finished.emit()
-
-#func _process(delta: float) -> void:
-	#panel.custom_minimum_size = container.size
 
 func update(w = word):
 	typing_label.word = w

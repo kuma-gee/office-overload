@@ -95,11 +95,12 @@ func _load_data():
 	if day == 0:
 		reset_values()
 	
-	#if Env.is_editor():
-		#difficulty_level = DifficultyResource.Level.CEO
+	if Env.is_editor():
+		difficulty_level = DifficultyResource.Level.CEO
+		finished_game = true
+		unlocked_modes = [Mode.Crunch, Mode.Multiplayer]
 		# money = 1246
 		# bought_items = []
-		# finished_game = false
 	
 	_logger.info("Game initialized")
 	init = true

@@ -34,6 +34,7 @@ SteamManager="*res://src/steam/steam_manager.gd"
 FeedbackManager="*res://src/autoload/feedback_manager.tscn"
 WordManager="*res://src/autoload/word_manager.gd"
 DataLoader="*res://src/autoload/data_loader.gd"
+Networking="*res://src/steam/network/networking.gd"
 
 [debug]
 
