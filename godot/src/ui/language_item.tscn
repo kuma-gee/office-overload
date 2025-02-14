@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://bfgp007wcfa7s"]
+
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_5bvh8"]
+[ext_resource type="Script" path="res://src/ui/language_item.gd" id="2_2skwu"]
+[ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="2_ympop"]
+[ext_resource type="Texture2D" uid="uid://bpe4oixf0fc3f" path="res://assets/sprites/Unchecked.png" id="3_6o77s"]
+[ext_resource type="Script" path="res://src/ui/checkbox_image.gd" id="4_yfxl6"]
+
+[node name="LanguageItem" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 17.0
+theme = ExtResource("1_5bvh8")
+script = ExtResource("2_2skwu")
+
+[node name="TypingButton" parent="." instance=ExtResource("2_ympop")]
+layout_mode = 2
+center = false
+show_underline = false
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Checkbox" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("3_6o77s")
+stretch_mode = 5
+script = ExtResource("4_yfxl6")
+
+[node name="TextureRect" type="TextureRect" parent="Checkbox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Checkbox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 4.5
+offset_right = -2.0
+offset_bottom = -4.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.207843, 0.207843, 0.25098, 1)

@@ -5,8 +5,11 @@ const CONFIG_FILE = "user://settings.cfg"
 
 @export var overlay: ColorRect
 @export var sliders: Array[TypingSlider] = []
+
 @export var help_title: TypingButton
 @export var help_document: FocusedDocument
+@export var lang_title: TypingButton
+@export var lang_document: FocusedDocument
 @export var level_desc: LevelDesc
 @export var papers_container: Control
 
@@ -37,6 +40,7 @@ func _ready():
 	_load_settings()
 
 	help_title.finished.connect(func(): help_document.focus_open())
+	lang_title.finished.connect(func(): lang_document.focus_open())
 	effect_root.finished.connect(func(): if not is_closing: _to_orig_pos())
 	
 	visibility_changed.connect(func(): if not visible: _save_config())
@@ -48,7 +52,10 @@ func _ready():
 			display_settings.set_active(not active)
 		)
 	
-	focus_entered.connect(func(): is_closing = false)
+	focus_entered.connect(func():
+		is_closing = false
+		#lang_document.update_languages()
+	)
 	focus_exited.connect(func():
 		is_closing = true
 		_to_center()
@@ -96,6 +103,9 @@ func _gui_input(event: InputEvent):
 	elif level_desc.feature_open:
 		if event.is_action_pressed("ui_cancel"):
 			level_desc.close_feature()
+	elif lang_document.is_focus_open:
+		if not lang_document.handle_input(event):
+			lang_document.focus_close()
 	elif help_document.is_focus_open:
 		if not help_document.handle_input(event):
 			help_document.focus_close()

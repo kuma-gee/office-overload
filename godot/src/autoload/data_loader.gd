@@ -12,6 +12,14 @@ var items = []
 # 		trans.add_message(line["key"], line["value"])
 # 	TranslationServer.add_translation(trans)
 
+func list_csv_files(path = ""):
+	var result = []
+	for file in DirAccess.get_files_at(LOCAL_FORMAT % path):
+		if file.ends_with(".csv"):
+			result.append(file)
+	
+	return result
+
 func load_file(path: String):
 	var local = LOCAL_FORMAT % path
 	if FileAccess.file_exists(local):
@@ -19,8 +27,11 @@ func load_file(path: String):
 		return FileAccess.open(local, FileAccess.READ)
 	
 	var res = RES_FORMAT % path
-	_logger.info("Loading default word file %s" % res)
-	return FileAccess.open(res, FileAccess.READ)
+	if FileAccess.file_exists(res):
+		_logger.info("Loading default word file %s" % res)
+		return FileAccess.open(res, FileAccess.READ)
+	
+	return null
 
 func load_csv(path: String, column_names: Array[String]) -> Array[Dictionary]:
 	var file = load_file(path)

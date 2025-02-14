@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://dskcudu4jbs6x" path="res://assets/sound/目覚まし時計のアラーム.mp3" id="5_k8sob"]
 [ext_resource type="PackedScene" uid="uid://y8oomkooawo2" path="res://src/ui/level_desc.tscn" id="7_wsm4p"]
 
-[node name="Day" type="Control" node_paths=PackedStringArray("day_label", "level_label")]
+[node name="Day" type="Control" node_paths=PackedStringArray("day_label", "level_label", "level_desc")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,6 +18,7 @@ theme = ExtResource("1_hcfjt")
 script = ExtResource("1_ilfqg")
 day_label = NodePath("Day/VBoxContainer/Label")
 level_label = NodePath("Day/VBoxContainer/Level")
+level_desc = NodePath("LevelDesc")
 
 [node name="EffectRoot" type="Node" parent="."]
 script = ExtResource("3_1tsnh")

@@ -9,6 +9,7 @@ signal mode_unlocked(mode)
 signal item_purchased()
 signal item_used_toggled(item: Shop.Items)
 signal coffee_used()
+signal language_changed()
 
 const GAME_SCENE = "res://src/game/game.tscn"
 const START_SCENE = "res://src/start/start_new.tscn"
@@ -69,6 +70,11 @@ var bought_items: Array[Shop.Items] = []
 var used_items: Array[Shop.Items] = []
 var money := 0
 
+var language := "":
+	set(v):
+		language = v
+		language_changed.emit()
+
 #var unsaved_crunch_score: Dictionary = {}
 
 ### Dynamic ###
@@ -91,14 +97,18 @@ func _load_data():
 	var data = save_manager.load_from_slot(0)
 	if data:
 		cache_properties.load_data(data)
-		
+	
+	if language == "":
+		language = WordManager.DEFAULT_WORD_FILE
+	elif not language in WordManager.available_files or language != WordManager.DEFAULT_WORD_FILE:
+		language = WordManager.DEFAULT_WORD_FILE
+	
 	if day == 0:
 		reset_values()
 	
 	if Env.is_editor():
 		difficulty_level = DifficultyResource.Level.CEO
 		shown_distraction_tutorial = true
-		
 	
 	_logger.info("Game initialized")
 	init = true
@@ -126,6 +136,8 @@ func start(mode: Mode = current_mode, lvl = difficulty_level):
 	if Env.is_demo():
 		current_mode = Mode.Work
 
+	WordManager.load_words(language + ".csv")
+	
 	if current_mode != Mode.Work and not is_mode_unlocked(current_mode):
 		_logger.warn("Mode %s not unlocked" % [Mode.keys()[mode]])
 		return

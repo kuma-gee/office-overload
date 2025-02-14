@@ -818,7 +818,6 @@ theme = ExtResource("10_am0oy")
 
 [node name="Day" parent="CanvasLayer/HUD" instance=ExtResource("3_4j615")]
 layout_mode = 1
-display_time = 1.5
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD"]
 layout_mode = 1

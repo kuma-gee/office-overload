@@ -25,6 +25,10 @@ signal type_wrong()
 	set(v):
 		center = v
 		update_word()
+@export var right := false:
+	set(v):
+		right = v
+		update_word()
 
 @onready var shake_timer: Timer = $ShakeTimer
 
@@ -176,6 +180,9 @@ func _wrap_typed(until: int, w: String, highlight = false):
 	return "[typed until=%s height=%s frequency=%s %s]%s[/typed]" % [until, height if GameManager.is_motion else 0, frequency, highlight_text, w]
 
 func _wrap_center(w: String):
+	if right:
+		return "[right]%s[/right]" % w
+	
 	if not center: return w
 	return "[center]%s[/center]" % w
 
@@ -183,6 +190,29 @@ func _next_char():
 	if typed.length() >= word.length():
 		return null
 	return word[typed.length()]
+
+const MAPPING = {
+	"à": "a",
+	"á": "a",
+	"ǎ": "a",
+	"ā": "a",
+	"ì": "i",
+	"í": "i",
+	"ǐ": "i",
+	"ī": "i",
+	"ò": "o",
+	"ó": "o",
+	"ǒ": "o",
+	"ō": "o",
+	"ù": "u",
+	"ú": "u",
+	"ū": "u",
+	"ǔ": "u",
+	"ē": "e",
+	"è": "e",
+	"é": "e",
+	"ě": "e",
+}
 
 func handle_key(key: String, ignore_error = false):
 	if not is_visible_in_tree():

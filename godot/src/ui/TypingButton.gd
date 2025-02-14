@@ -4,6 +4,7 @@ extends Control
 signal finished()
 
 @export var center := true
+@export var right := false
 @export var word := ""
 @export var typing_label: TypedWord
 @export var reset_on_finished := true
@@ -24,6 +25,7 @@ var disabled := false:
 func _ready():
 	update()
 	typing_label.center = center
+	typing_label.right = right
 	typing_label.type_finish.connect(func(): _on_finished())
 	
 	if reset_on_finished:
