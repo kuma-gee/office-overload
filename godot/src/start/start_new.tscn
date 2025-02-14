@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://cdafk4ywr2fbg"]
+[gd_scene load_steps=67 format=3 uid="uid://cdafk4ywr2fbg"]
 
 [ext_resource type="Script" path="res://src/ui/Stats.gd" id="1_1pk7f"]
 [ext_resource type="Script" path="res://src/start/start_new.gd" id="1_25sst"]
@@ -41,6 +41,7 @@
 [ext_resource type="PackedScene" uid="uid://bevwwvcqg3xhh" path="res://src/ui/folder.tscn" id="29_t2y1x"]
 [ext_resource type="Script" path="res://src/start/ceo_level_select.gd" id="30_ctfxw"]
 [ext_resource type="Script" path="res://src/ui/leaderboad.gd" id="30_m1awn"]
+[ext_resource type="Script" path="res://src/start/help.gd" id="32_c2no7"]
 [ext_resource type="Script" path="res://src/shop/money_label.gd" id="34_06bnc"]
 [ext_resource type="PackedScene" uid="uid://du0v5of5joaem" path="res://src/ui/menu_paper.tscn" id="34_wy63k"]
 [ext_resource type="Script" path="res://src/ui/score_paper.gd" id="35_whsqs"]
@@ -52,6 +53,7 @@
 [ext_resource type="Script" path="res://src/ui/resignation.gd" id="39_cuxap"]
 [ext_resource type="Script" path="res://addons/graph_2d/graph_2d.gd" id="40_i77at"]
 [ext_resource type="Script" path="res://addons/graph_2d/custom_nodes/coordinate.gd" id="41_f7xlp"]
+[ext_resource type="PackedScene" uid="uid://y8oomkooawo2" path="res://src/ui/level_desc.tscn" id="41_qnfro"]
 [ext_resource type="AudioStream" uid="uid://7ix2fpbkls0p" path="res://assets/sound/Talk_with_me.mp3" id="46_0cyp8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pnf0e"]
@@ -299,10 +301,10 @@ grow_vertical = 2
 color = Color(0.929412, 0.894118, 0.854902, 1)
 
 [node name="ShopButton2" type="MarginContainer" parent="."]
-offset_left = 95.0
-offset_top = -72.0
-offset_right = 137.0
-offset_bottom = -46.0
+offset_left = 122.0
+offset_top = -41.0
+offset_right = 164.0
+offset_bottom = -15.0
 rotation = -0.0698132
 pivot_offset = Vector2(30, 17)
 theme = ExtResource("2_xj832")
@@ -775,9 +777,9 @@ color = Color(0.929412, 0.894118, 0.854902, 1)
 custom_minimum_size = Vector2(60, 34)
 layout_mode = 0
 offset_left = -154.0
-offset_top = -94.0
+offset_top = -89.0
 offset_right = -94.0
-offset_bottom = -60.0
+offset_bottom = -55.0
 rotation = -0.174533
 pivot_offset = Vector2(30, 17)
 theme = ExtResource("2_xj832")
@@ -894,7 +896,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.588235)
 
-[node name="Settings" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("overlay", "sliders", "display_settings", "_audio", "delegator")]
+[node name="Settings" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("overlay", "sliders", "help_title", "help_document", "level_desc", "papers_container", "display_settings", "_audio", "delegator")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -906,13 +908,17 @@ mouse_filter = 2
 script = ExtResource("14_efhj6")
 overlay = NodePath("Audio/Overlay")
 sliders = [NodePath("Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterSlider"), NodePath("Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXSlider"), NodePath("Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMSlider")]
+help_title = NodePath("Center/Help/MarginContainer/VBoxContainer/TypingButton")
+help_document = NodePath("Center/Help")
+level_desc = NodePath("LevelDesc")
+papers_container = NodePath("Center")
 display_settings = NodePath("Audio/MarginContainer/DisplaySettings")
 _audio = NodePath("Audio")
 delegator = NodePath("Delegator")
 
 [node name="Delegator" type="Node" parent="CanvasLayer/Control/Settings" node_paths=PackedStringArray("nodes")]
 script = ExtResource("7_pvyq5")
-nodes = [NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterVolume"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXVolume"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMVolume"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/FullScreen"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/ReduceMotion")]
+nodes = [NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/MasterVolume"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/SFXVolume"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/BGMVolume"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/FullScreen"), NodePath("../Audio/MarginContainer/DisplaySettings/VBoxContainer/ReduceMotion"), NodePath("../Center/Help/MarginContainer/VBoxContainer/TypingButton")]
 
 [node name="EffectRoot" type="Node" parent="CanvasLayer/Control/Settings"]
 script = ExtResource("15_17vat")
@@ -927,6 +933,115 @@ node = NodePath("../..")
 script = ExtResource("17_s6hs1")
 node = NodePath("../../../MenuOverlay")
 
+[node name="Center" type="Control" parent="CanvasLayer/Control/Settings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Help" type="PanelContainer" parent="CanvasLayer/Control/Settings/Center" node_paths=PackedStringArray("junior_button", "senior_button", "manager_button", "ceo_button", "level_desc", "title_button", "delegator")]
+custom_minimum_size = Vector2(130, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.0
+offset_top = -63.0
+offset_right = 6.99999
+offset_bottom = 87.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.139626
+pivot_offset = Vector2(65, 75)
+script = ExtResource("32_c2no7")
+junior_button = NodePath("MarginContainer/VBoxContainer/VBoxContainer/TypingButton")
+senior_button = NodePath("MarginContainer/VBoxContainer/VBoxContainer/TypingButton2")
+manager_button = NodePath("MarginContainer/VBoxContainer/VBoxContainer/TypingButton3")
+ceo_button = NodePath("MarginContainer/VBoxContainer/VBoxContainer/TypingButton4")
+level_desc = NodePath("../../LevelDesc")
+title_button = NodePath("MarginContainer/VBoxContainer/TypingButton")
+delegator = NodePath("Delegator")
+start_center = true
+use_focus = false
+
+[node name="Delegator" type="Node" parent="CanvasLayer/Control/Settings/Center/Help" node_paths=PackedStringArray("nodes")]
+script = ExtResource("7_pvyq5")
+nodes = [NodePath("../MarginContainer/VBoxContainer/VBoxContainer/TypingButton"), NodePath("../MarginContainer/VBoxContainer/VBoxContainer/TypingButton2"), NodePath("../MarginContainer/VBoxContainer/VBoxContainer/TypingButton3"), NodePath("../MarginContainer/VBoxContainer/VBoxContainer/TypingButton4")]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Settings/Center/Help"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Settings/Center/Help/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TypingButton" parent="CanvasLayer/Control/Settings/Center/Help/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
+layout_mode = 2
+center = false
+word = "Help"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Settings/Center/Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Settings/Center/Help/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Level Explanations"
+
+[node name="TypingButton" parent="CanvasLayer/Control/Settings/Center/Help/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("7_plxua")]
+layout_mode = 2
+center = false
+word = "junior"
+show_underline = false
+
+[node name="TypingButton2" parent="CanvasLayer/Control/Settings/Center/Help/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("7_plxua")]
+layout_mode = 2
+center = false
+word = "senior"
+show_underline = false
+
+[node name="TypingButton3" parent="CanvasLayer/Control/Settings/Center/Help/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("7_plxua")]
+layout_mode = 2
+center = false
+word = "manager"
+show_underline = false
+
+[node name="TypingButton4" parent="CanvasLayer/Control/Settings/Center/Help/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("7_plxua")]
+layout_mode = 2
+center = false
+word = "ceo"
+show_underline = false
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/Settings/Center/Help"]
+layout_mode = 2
+
+[node name="Overlay" type="ColorRect" parent="CanvasLayer/Control/Settings/Center/Help"]
+visible = false
+layout_mode = 2
+color = Color(0, 0, 0, 0.313726)
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/Settings/Center/Help"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="EscButton" type="TextureRect" parent="CanvasLayer/Control/Settings/Center/Help/MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("25_pu2hv")
+stretch_mode = 2
+
 [node name="Audio" type="PanelContainer" parent="CanvasLayer/Control/Settings"]
 custom_minimum_size = Vector2(130, 150)
 layout_mode = 1
@@ -936,9 +1051,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -78.0
-offset_top = -73.0
+offset_top = -78.0
 offset_right = 81.0
-offset_bottom = 67.0
+offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("18_ikgcj")
@@ -1082,17 +1197,21 @@ show_underline = false
 layout_mode = 2
 size_flags_vertical = 4
 script = ExtResource("22_jx87d")
-checkbox = NodePath("../CheckBox")
+checkbox = NodePath("../MarginContainer2/CheckBox")
 center = false
 word = "fullscreen"
 show_underline = false
 
-[node name="CheckBox" type="CheckBox" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("display_settings")]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 0
+
+[node name="CheckBox" type="CheckBox" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/MarginContainer2" node_paths=PackedStringArray("display_settings")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("23_xaoub")
-display_settings = NodePath("../..")
+display_settings = NodePath("../../..")
 
 [node name="ReduceMotion" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" instance=ExtResource("7_plxua")]
 layout_mode = 2
@@ -1101,13 +1220,17 @@ center = false
 word = "motion"
 show_underline = false
 
-[node name="NoMotionCheckbox" type="CheckBox" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer" node_paths=PackedStringArray("display_settings", "button")]
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = -4
+
+[node name="NoMotionCheckbox" type="CheckBox" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/VBoxContainer/MarginContainer3" node_paths=PackedStringArray("display_settings", "button")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("38_4i0f3")
-display_settings = NodePath("../..")
-button = NodePath("../ReduceMotion")
+display_settings = NodePath("../../..")
+button = NodePath("../../ReduceMotion")
 
 [node name="CloudSettings" type="MarginContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings"]
 visible = false
@@ -1122,7 +1245,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 4
 script = ExtResource("22_jx87d")
-checkbox = NodePath("../../../VBoxContainer/CheckBox")
+checkbox = NodePath("../../../VBoxContainer/MarginContainer2/CheckBox")
 word = "cloud"
 
 [node name="CheckBox" type="CheckBox" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings/CloudSettings/HBoxContainer"]
@@ -1164,6 +1287,9 @@ theme_override_constants/margin_bottom = 3
 layout_mode = 2
 texture = ExtResource("25_pu2hv")
 stretch_mode = 2
+
+[node name="LevelDesc" parent="CanvasLayer/Control/Settings" instance=ExtResource("41_qnfro")]
+layout_mode = 1
 
 [node name="CeoLevelSelect" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("delegator")]
 visible = false
@@ -1573,7 +1699,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_yd0ux")
 word = "H"
 show_underline = false
 
-[node name="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton" index="0"]
+[node name="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton" index="1"]
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 
@@ -1586,7 +1712,7 @@ theme_override_constants/margin_right = 1
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer/VBoxContainer/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=2][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2]sd[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=2][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2][/outline_size][/outline_color][/color][/center][/outline_color]"
 untyped_outline_size = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"]
@@ -1615,7 +1741,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_tpjge")
 word = "L"
 show_underline = false
 
-[node name="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton" index="0"]
+[node name="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton" index="1"]
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 
@@ -1628,7 +1754,7 @@ theme_override_constants/margin_right = 1
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton/MarginContainer/VBoxContainer/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=2][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2]sd[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=2][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2][/outline_size][/outline_color][/color][/center][/outline_color]"
 untyped_outline_size = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton"]

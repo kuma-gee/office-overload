@@ -43,12 +43,13 @@ func do_effect(kill_previous = true):
 func _do_callbacks(cbs: Array):
 	for cb in cbs:
 		cb.call()
+	finished.emit()
 
 func reverse_effect():
 	if tw.is_running():
 		tw.kill()
 	
-	var finish_cb = [func(): finished.emit()]
+	var finish_cb = [] #[func(): finished.emit()]
 	if tw.new_tween(func(): _do_callbacks(finish_cb)):
 		for eff in effects:
 			var cb = eff.reverse(tw)

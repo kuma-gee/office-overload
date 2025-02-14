@@ -95,11 +95,10 @@ func _load_data():
 	if day == 0:
 		reset_values()
 	
-	#if Env.is_editor():
-		#difficulty_level = DifficultyResource.Level.CEO
-		# money = 1246
-		# bought_items = []
-		# finished_game = false
+	if Env.is_editor():
+		difficulty_level = DifficultyResource.Level.CEO
+		shown_distraction_tutorial = true
+		
 	
 	_logger.info("Game initialized")
 	init = true
@@ -127,7 +126,8 @@ func start(mode: Mode = current_mode, lvl = difficulty_level):
 	if Env.is_demo():
 		current_mode = Mode.Work
 
-	if not is_mode_unlocked(current_mode):
+	if current_mode != Mode.Work and not is_mode_unlocked(current_mode):
+		_logger.warn("Mode %s not unlocked" % [Mode.keys()[mode]])
 		return
 	
 	difficulty_level = lvl

@@ -8,7 +8,7 @@ extends Control
 @export var play_sound := true
 @export var fix_paper_size := false
 
-@onready var orig_pos := global_position
+@onready var orig_pos := position
 
 var tw: Tween
 var was_opened := false
@@ -28,17 +28,17 @@ func is_open():
 
 func open(delay = 0.0):
 	if not GameManager.is_motion:
-		global_position = _get_final_pos()
+		position = _get_final_pos()
 	else:
 		var dir = move_dir * size.y
 		if include_rotation:
 			dir = dir.rotated(rotation)
 		dir += Vector2.UP * extra_distance
 		
-		global_position = _get_final_pos() - dir
+		position = _get_final_pos() - dir
 		
 		tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).set_parallel()
-		tw.tween_property(self, "global_position", _get_final_pos(), 1.0).set_delay(delay)
+		tw.tween_property(self, "position", _get_final_pos(), 1.0).set_delay(delay)
 		if play_sound:
 			tw.tween_callback(func(): SoundManager.play_paper_move()).set_delay(delay)
 	
@@ -47,11 +47,11 @@ func open(delay = 0.0):
 
 func close():
 	if not GameManager.is_motion:
-		global_position = _close_position()
+		position = _close_position()
 		return
 	
 	tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
-	tw.tween_property(self, "global_position", _close_position(), 1.0)
+	tw.tween_property(self, "position", _close_position(), 1.0)
 
 func _close_position():
 	return _get_final_pos() - move_dir * size.y + Vector2.DOWN * extra_distance

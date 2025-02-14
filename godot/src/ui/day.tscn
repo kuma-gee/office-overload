@@ -1,15 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://dffjinparflk0"]
+[gd_scene load_steps=7 format=3 uid="uid://dffjinparflk0"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_hcfjt"]
 [ext_resource type="Script" path="res://src/ui/day.gd" id="1_ilfqg"]
 [ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="3_1tsnh"]
 [ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="4_0nvsa"]
 [ext_resource type="AudioStream" uid="uid://dskcudu4jbs6x" path="res://assets/sound/目覚まし時計のアラーム.mp3" id="5_k8sob"]
-[ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="6_gya1h"]
-[ext_resource type="Texture2D" uid="uid://bstvwnc3xppv1" path="res://assets/sprites/Shift.png" id="7_a3yhm"]
-[ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="7_odetu"]
+[ext_resource type="PackedScene" uid="uid://y8oomkooawo2" path="res://src/ui/level_desc.tscn" id="7_wsm4p"]
 
-[node name="Day" type="Control" node_paths=PackedStringArray("day_label", "level_label", "feature_container", "feature_title", "feature_text", "shift_tex")]
+[node name="Day" type="Control" node_paths=PackedStringArray("day_label", "level_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,10 +18,6 @@ theme = ExtResource("1_hcfjt")
 script = ExtResource("1_ilfqg")
 day_label = NodePath("Day/VBoxContainer/Label")
 level_label = NodePath("Day/VBoxContainer/Level")
-feature_container = NodePath("CenterContainer")
-feature_title = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/FeatureTitle")
-feature_text = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/FeatureText")
-shift_tex = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TextureRect")
 
 [node name="EffectRoot" type="Node" parent="."]
 script = ExtResource("3_1tsnh")
@@ -67,82 +61,5 @@ volume_db = -20.0
 autoplay = true
 bus = &"SFX"
 
-[node name="FeatureEffect" type="Node" parent="."]
-script = ExtResource("3_1tsnh")
-trans = 10
-ease = 1
-duration = 0.8
-
-[node name="Fade" type="Node" parent="FeatureEffect" node_paths=PackedStringArray("node")]
-script = ExtResource("6_gya1h")
-node = NodePath("../../ColorRect")
-
-[node name="Slide" type="Node" parent="FeatureEffect" node_paths=PackedStringArray("node")]
-script = ExtResource("4_0nvsa")
-node = NodePath("../../CenterContainer")
-
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="LevelDesc" parent="." instance=ExtResource("7_wsm4p")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.588235)
-
-[node name="CenterContainer" type="CenterContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-
-[node name="MarginContainer2" type="MarginContainer" parent="CenterContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="TextureButton" type="TextureButton" parent="CenterContainer/PanelContainer/MarginContainer2"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-texture_normal = ExtResource("7_odetu")
-
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="FeatureTitle" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 10
-text = "INVALID words"
-horizontal_alignment = 2
-
-[node name="FeatureText" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "As a manager, you need to deal with invalid or wrong words. Discard them using"
-horizontal_alignment = 2
-autowrap_mode = 3
-
-[node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 12)
-layout_mode = 2
-size_flags_horizontal = 8
-texture = ExtResource("7_a3yhm")
-expand_mode = 3
-stretch_mode = 3

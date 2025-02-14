@@ -1,0 +1,105 @@
+[gd_scene load_steps=8 format=3 uid="uid://y8oomkooawo2"]
+
+[ext_resource type="Script" path="res://src/ui/level_desc.gd" id="1_0rjrg"]
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_avsxb"]
+[ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="1_dh52b"]
+[ext_resource type="Texture2D" uid="uid://bstvwnc3xppv1" path="res://assets/sprites/Shift.png" id="2_xml2c"]
+[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="5_jwbvh"]
+[ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="6_f8lep"]
+[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="7_445gd"]
+
+[node name="Control" type="Control" node_paths=PackedStringArray("feature_title", "feature_text", "shift_tex", "effect", "feature_container")]
+z_index = 100
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0rjrg")
+feature_title = NodePath("CenterContainer/LevelDesc/MarginContainer/VBoxContainer/FeatureTitle")
+feature_text = NodePath("CenterContainer/LevelDesc/MarginContainer/VBoxContainer/FeatureText")
+shift_tex = NodePath("CenterContainer/LevelDesc/MarginContainer/VBoxContainer/TextureRect")
+effect = NodePath("FeatureEffect")
+feature_container = NodePath("CenterContainer")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelDesc" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme = ExtResource("1_avsxb")
+
+[node name="MarginContainer2" type="MarginContainer" parent="CenterContainer/LevelDesc"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="TextureButton" type="TextureButton" parent="CenterContainer/LevelDesc/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("1_dh52b")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/LevelDesc"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/LevelDesc/MarginContainer"]
+layout_mode = 2
+
+[node name="FeatureTitle" type="Label" parent="CenterContainer/LevelDesc/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 10
+text = "INVALID words"
+horizontal_alignment = 2
+
+[node name="FeatureText" type="Label" parent="CenterContainer/LevelDesc/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "As a manager, you need to deal with invalid or wrong words. Discard them using"
+horizontal_alignment = 2
+autowrap_mode = 3
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/LevelDesc/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("2_xml2c")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="FeatureEffect" type="Node" parent="."]
+script = ExtResource("5_jwbvh")
+trans = 10
+ease = 1
+duration = 0.8
+
+[node name="Fade" type="Node" parent="FeatureEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("6_f8lep")
+node = NodePath("../../ColorRect")
+
+[node name="Slide" type="Node" parent="FeatureEffect" node_paths=PackedStringArray("node")]
+script = ExtResource("7_445gd")
+node = NodePath("../../CenterContainer")
