@@ -8,8 +8,6 @@ extends Marker2D
 @export var verfical_offset := 0.0
 @export var move_back := false
 
-@export_enum(WordManager.WORK_GROUP, WordManager.AFTERWORK_GROUP, WordManager.MEETING_GROUP) var word_type := WordManager.WORK_GROUP
-
 @export var spawn_vertical_offset := 0
 @export var positions: Array[Node2D] = []
 
@@ -23,7 +21,7 @@ var last_position: Node2D
 var word_type_chance := {}
 
 func _ready():
-	if word_type == WordManager.WORK_GROUP and GameManager.is_work_mode():
+	if GameManager.is_work_mode():
 		word_type_chance = {
 			WordManager.Type.EASY: GameManager.difficulty.easy_words,
 			WordManager.Type.MEDIUM: GameManager.difficulty.medium_words,
@@ -62,7 +60,7 @@ func set_difficulty(v: float):
 	
 func add_words_from_group():
 	for type in [WordManager.Type.EASY, WordManager.Type.MEDIUM, WordManager.Type.HARD]:
-		var words = WordManager.get_words(word_type, type)
+		var words = WordManager.get_words(WordManager.WORK_GROUP, type)
 		word_generator.add_words(words, type)
 	
 	mode = WordManager.Type.ALL
