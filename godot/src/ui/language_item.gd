@@ -11,6 +11,7 @@ func _ready() -> void:
 	
 	typing_button.finished.connect(func():
 		GameManager.language = "" if file == GameManager.language else file
+		GameManager.save_data()
 	)
 	_update()
 

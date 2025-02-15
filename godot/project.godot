@@ -26,14 +26,14 @@ driver/mix_rate=48000
 Env="*res://src/env/Env.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 SoundManager="*res://src/autoload/sound_manager.tscn"
+DataLoader="*res://src/autoload/data_loader.gd"
+WordManager="*res://src/autoload/word_manager.gd"
 GameManager="*res://src/autoload/game_manager.tscn"
 SteamAchievements="*res://src/steam/steam_achievements.gd"
 SteamLeaderboard="*res://src/steam/steam_leaderboard.gd"
 SteamCloud="*res://src/steam/steam_cloud.gd"
 SteamManager="*res://src/steam/steam_manager.gd"
 FeedbackManager="*res://src/autoload/feedback_manager.tscn"
-WordManager="*res://src/autoload/word_manager.gd"
-DataLoader="*res://src/autoload/data_loader.gd"
 
 [debug]
 

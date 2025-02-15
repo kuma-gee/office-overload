@@ -100,24 +100,24 @@ func _load_data():
 	
 	if language == "":
 		language = WordManager.DEFAULT_WORD_FILE
-	elif not language in WordManager.available_files or language != WordManager.DEFAULT_WORD_FILE:
+	elif not WordManager.is_valid_language(language):
 		language = WordManager.DEFAULT_WORD_FILE
 	
 	if day == 0:
 		reset_values()
 	
-	if Env.is_editor():
-		difficulty_level = DifficultyResource.Level.CEO
-		shown_distraction_tutorial = true
+	#if Env.is_editor():
+		#difficulty_level = DifficultyResource.Level.CEO
+		#shown_distraction_tutorial = true
 	
 	_logger.info("Game initialized")
 	init = true
 	initialized.emit()
 
 func _exit_tree() -> void:
-	_save_data(true)
+	save_data(true)
 
-func _save_data(await_finished = false):
+func save_data(await_finished = false):
 	var data = cache_properties.save_data()
 	save_manager.save_to_slot(0, data)
 	if await_finished:
@@ -136,7 +136,7 @@ func start(mode: Mode = current_mode, lvl = difficulty_level):
 	if Env.is_demo():
 		current_mode = Mode.Work
 
-	WordManager.load_words(language + ".csv")
+	WordManager.load_words(language)
 	
 	if current_mode != Mode.Work and not is_mode_unlocked(current_mode):
 		_logger.warn("Mode %s not unlocked" % [Mode.keys()[mode]])
@@ -171,7 +171,7 @@ func reset_values():
 	finished_game = false
 	
 	job_quited.emit()
-	_save_data()
+	save_data()
 
 func has_current_job():
 	return day > 0
@@ -200,7 +200,7 @@ func finished_day(data: Dictionary):
 	if is_work_mode():
 		day += 1
 
-	_save_data()
+	save_data()
 	round_ended.emit()
 
 func _update_speed_values(wpm, acc):
@@ -277,7 +277,7 @@ func lost_ceo():
 	if not finished_game:
 		reset_values()
 	
-	_save_data()
+	save_data()
 	round_ended.emit()
 
 func won_ceo():
@@ -361,13 +361,13 @@ func buy_item(item: ShopResource):
 		used_items.append(item.type)
 	
 	item_purchased.emit()
-	_save_data()
+	save_data()
 	return true
 
 func pay_assistant():
 	if is_item_used(Shop.Items.ASSISTANT):
 		money -= get_assistant_cost()
-		_save_data()
+		save_data()
 
 func is_item_used(item: Shop.Items):
 	return item in used_items and item in bought_items and is_item_available(item)
@@ -435,7 +435,7 @@ func use_coffee():
 	bought_items.erase(Shop.Items.COFFEE)
 	used_items.erase(Shop.Items.COFFEE)
 	
-	_save_data()
+	save_data()
 	coffee_used.emit()
 	return 100.0
 #endregion
@@ -459,7 +459,7 @@ func take_promotion():
 	_logger.info("Promoted to %s" % DifficultyResource.Level.keys()[difficulty_level])
 	
 	_check_achievements()
-	_save_data()
+	save_data()
 	
 func _check_achievements():
 	if is_junior():
@@ -471,7 +471,7 @@ func _check_achievements():
 
 func demote():
 	difficulty_level -= 1
-	_save_data()
+	save_data()
 
 func is_max_promotion():
 	if Env.is_demo() and is_senior():
@@ -567,16 +567,12 @@ func unlock_mode(mode: Mode):
 	unlocked_modes.append(mode)
 	mode_unlocked.emit(mode)
 	_logger.info("Unlocked Mode %s" % Mode.keys()[mode])
-	_save_data()
+	save_data()
 
 func get_leaderboard_for_mode(mode = GameManager.current_mode):
 	if Env.is_demo():
 		return SteamLeaderboard.DEMO_BOARD
 
-	#match mode:
-		#GameManager.Mode.Crunch: return SteamLeaderboard.ENDLESS_BOARD
-		#GameManager.Mode.Multiplayer: return SteamLeaderboard.MULTIPLAYER_BOARD
-	
 	return SteamLeaderboard.STORY_BOARD
 	
 #endregion

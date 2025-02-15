@@ -75,8 +75,12 @@ func is_valid_language_file(file: String):
 func _build_path(file: String):
 	return DEFAULT_FOLDER + "/" + file + ".csv"
 
+func is_valid_language(lang: String):
+	return lang in available_files or lang == DEFAULT_WORD_FILE
+
 func load_words(file: String):
-	if not file in available_files or file != DEFAULT_WORD_FILE:
+	if not is_valid_language(file):
+		_logger.warn("Language %s does not exist anymore. Using default file %s" % [file, DEFAULT_WORD_FILE])
 		file = DEFAULT_WORD_FILE
 	
 	var grouped_words = {}
