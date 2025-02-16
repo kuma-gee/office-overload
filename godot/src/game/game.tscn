@@ -142,7 +142,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-30.0]
+"values": [-50.0]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -538,7 +538,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-40.0]
+"values": [-80.0]
 }
 
 [sub_resource type="Animation" id="Animation_c5ajb"]
@@ -553,7 +553,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-60.0, -30.0]
+"values": [-80.0, -50.0]
 }
 
 [sub_resource type="Animation" id="Animation_c62e5"]
@@ -569,7 +569,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-30.0, -60.0]
+"values": [-50.0, -80.0]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -1889,7 +1889,7 @@ script = ExtResource("10_sr2sn")
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("39_xwwgs")
-volume_db = -30.0
+volume_db = -50.0
 bus = &"BGM"
 script = ExtResource("18_f0kcb")
 
