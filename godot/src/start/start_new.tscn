@@ -947,7 +947,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Help" type="PanelContainer" parent="CanvasLayer/Control/Settings/Center" node_paths=PackedStringArray("junior_button", "senior_button", "manager_button", "ceo_button", "level_desc", "title_button", "delegator")]
+[node name="Help" type="PanelContainer" parent="CanvasLayer/Control/Settings/Center" node_paths=PackedStringArray("junior_button", "senior_button", "manager_button", "ceo_button", "level_desc", "overlay", "title_button", "delegator")]
 custom_minimum_size = Vector2(130, 150)
 layout_mode = 1
 anchors_preset = 8
@@ -969,6 +969,7 @@ senior_button = NodePath("MarginContainer/VBoxContainer/VBoxContainer/TypingButt
 manager_button = NodePath("MarginContainer/VBoxContainer/VBoxContainer/TypingButton3")
 ceo_button = NodePath("MarginContainer/VBoxContainer/VBoxContainer/TypingButton4")
 level_desc = NodePath("../../LevelDesc")
+overlay = NodePath("Overlay")
 title_button = NodePath("MarginContainer/VBoxContainer/TypingButton")
 delegator = NodePath("Delegator")
 start_center = true
@@ -1035,7 +1036,6 @@ show_underline = false
 layout_mode = 2
 
 [node name="Overlay" type="ColorRect" parent="CanvasLayer/Control/Settings/Center/Help"]
-visible = false
 layout_mode = 2
 color = Color(0, 0, 0, 0.313726)
 
@@ -1052,7 +1052,7 @@ layout_mode = 2
 texture = ExtResource("25_pu2hv")
 stretch_mode = 2
 
-[node name="Languages" type="PanelContainer" parent="CanvasLayer/Control/Settings/Center" node_paths=PackedStringArray("container", "title_button", "delegator")]
+[node name="Languages" type="PanelContainer" parent="CanvasLayer/Control/Settings/Center" node_paths=PackedStringArray("container", "overlay", "title_button", "delegator")]
 custom_minimum_size = Vector2(130, 150)
 layout_mode = 1
 anchors_preset = 8
@@ -1071,6 +1071,7 @@ pivot_offset = Vector2(65, 75)
 script = ExtResource("33_61pqy")
 container = NodePath("MarginContainer/VBoxContainer/VBoxContainer")
 button_scene = ExtResource("34_8hjbw")
+overlay = NodePath("Overlay")
 title_button = NodePath("MarginContainer/VBoxContainer/TypingButton")
 delegator = NodePath("Delegator")
 start_center = true
@@ -1114,7 +1115,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Overlay" type="ColorRect" parent="CanvasLayer/Control/Settings/Center/Languages"]
-visible = false
 layout_mode = 2
 color = Color(0, 0, 0, 0.313726)
 
@@ -1154,11 +1154,12 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="DisplaySettings" type="VBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer" node_paths=PackedStringArray("fullscreen_button")]
+[node name="DisplaySettings" type="VBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer" node_paths=PackedStringArray("fullscreen_button", "motion_button")]
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("19_t18oa")
 fullscreen_button = NodePath("VBoxContainer/FullScreen")
+motion_button = NodePath("VBoxContainer/ReduceMotion")
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings"]
 layout_mode = 2

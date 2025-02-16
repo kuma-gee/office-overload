@@ -5,6 +5,7 @@ signal loaded()
 signal is_motion_changed()
 
 @export var fullscreen_button: TypingButton
+@export var motion_button: TypingButton
 
 const SECTION = "display"
 const FULLSCREEN = "fullscreen"
@@ -30,3 +31,4 @@ func set_fullscreen(fullscreen: bool):
 
 func set_active(v: bool):
 	fullscreen_button.get_label().highlight_first = v
+	motion_button.get_label().highlight_first = v

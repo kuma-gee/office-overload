@@ -50,11 +50,12 @@ func _ready():
 			for other_s in sliders:
 				other_s.set_active(not active)
 			display_settings.set_active(not active)
+			help_document.set_active(not active)
+			lang_document.set_active(not active)
 		)
 	
 	focus_entered.connect(func():
 		is_closing = false
-		#lang_document.update_languages()
 	)
 	focus_exited.connect(func():
 		is_closing = true

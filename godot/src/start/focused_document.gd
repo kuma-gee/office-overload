@@ -4,6 +4,7 @@ extends DocumentUI
 signal opened()
 signal closed()
 
+@export var overlay: ColorRect
 @export var title_button: TypingButton
 @export var delegator: Delegator
 @export var offset_y := 0
@@ -15,10 +16,17 @@ signal closed()
 var focus_tw: Tween
 var is_focus_open := false
 
+func set_active(v: bool):
+	title_button.get_label().highlight_first = v
+	if overlay:
+		overlay.visible = not v
+
 func _ready() -> void:
 	super._ready()
 	focus_mode = FOCUS_ALL
 	mouse_filter = MOUSE_FILTER_IGNORE
+	if overlay:
+		overlay.hide()
 	
 	if title_button and use_focus:
 		title_button.finished.connect(func(): grab_focus())
