@@ -24,7 +24,6 @@ driver/mix_rate=48000
 [autoload]
 
 Env="*res://src/env/Env.gd"
-SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 SoundManager="*res://src/autoload/sound_manager.tscn"
 DataLoader="*res://src/autoload/data_loader.gd"
 WordManager="*res://src/autoload/word_manager.gd"
@@ -34,6 +33,7 @@ SteamLeaderboard="*res://src/steam/steam_leaderboard.gd"
 SteamCloud="*res://src/steam/steam_cloud.gd"
 SteamManager="*res://src/steam/steam_manager.gd"
 FeedbackManager="*res://src/autoload/feedback_manager.tscn"
+SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 
 [debug]
 
@@ -56,7 +56,7 @@ export/convert_text_resources_to_binary=false
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/graph_2d/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/graph_2d/plugin.cfg")
 
 [gui]
 
