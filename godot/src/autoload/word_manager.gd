@@ -4,12 +4,11 @@ const DEFAULT_WORD_FILE := "english"
 const DEFAULT_FOLDER := "languages"
 
 const WORK_GROUP = "WORK"
-const INVALID_GROUP = "INVALID"
 const EMAIL_GROUP = "EMAIL"
 const PHONE_GROUP = "PHONE"
 const JUNIOR_GROUP = "JUNIOR"
 
-const VALID_GROUPS = [WORK_GROUP, INVALID_GROUP, EMAIL_GROUP, PHONE_GROUP, JUNIOR_GROUP]
+const VALID_GROUPS = [WORK_GROUP, EMAIL_GROUP, PHONE_GROUP, JUNIOR_GROUP]
 
 enum Type {
 	EASY,
@@ -118,11 +117,3 @@ func get_words(group: String, type: Type = Type.ALL) -> Array:
 	
 	var words = all_words[group]
 	return words[type]
-	# if type == Type.EASY:
-	# 	return words.filter(func(w): return w.length() < medium_word_length)
-	# elif type == Type.MEDIUM:
-	# 	return words.filter(func(w): return w.length() >= medium_word_length and w.length() < hard_word_length)
-	# elif type == Type.HARD:
-	# 	return words.filter(func(w): return w.length() >= hard_word_length)
-
-	# return words

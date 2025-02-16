@@ -112,34 +112,25 @@ func get_invalid_type():
 
 	return InvalidType.INVALID
 
-func _set_invalid_word(doc: Document, word: String, invalid_type = get_invalid_type()):
-	var original_word = word
-	match invalid_type:
-		InvalidType.INVALID:
-			var invalid = WordManager.get_words(WordManager.INVALID_GROUP)
-			if invalid.size() > 0:
-				word = invalid.pick_random()
-			else:
-				_logger.warn("No invalid words available")
-		InvalidType.SWAP:
-			for _x in randi_range(2, 5):
-				var swap_idx = randi_range(1, word.length() - 1)
-				
-				if randf() < 0.3:
-					word.erase(swap_idx)
-				else:
-					var target_idx = swap_idx
-					while target_idx == swap_idx:
-						target_idx = randi_range(1, word.length() - 1)
+func _set_invalid_word(doc: Document, word: String):
+	for _x in randi_range(2, 4):
+		var swap_idx = randi_range(1, word.length() - 1)
+		
+		if randf() < 0.3:
+			word.erase(swap_idx)
+		else:
+			var target_idx = swap_idx
+			while target_idx == swap_idx:
+				target_idx = randi_range(1, word.length() - 1)
 
-					var temp = word[target_idx]
-					word[target_idx] = word[swap_idx]
-					word[swap_idx] = temp
+			var temp = word[target_idx]
+			word[target_idx] = word[swap_idx]
+			word[swap_idx] = temp
 
 	doc.word = word
 
 func spawn_boss_document(invalid_word_chance := 0.0):
-	return spawn_document(invalid_word_chance, WordManager.Type.HARD, InvalidType.INVALID)
+	return spawn_document(invalid_word_chance, WordManager.Type.HARD)
 
 func get_word_tag():
 	var r = randf()
@@ -152,7 +143,7 @@ func get_word_tag():
 	
 	return WordManager.Type.ALL
 
-func spawn_document(invalid_word_chance := 0.0, tag = get_word_tag(), invalid_type = get_invalid_type()):
+func spawn_document(invalid_word_chance := 0.0, tag = get_word_tag()):
 	var doc = document_scene.instantiate()
 	var word = word_generator.get_random_word(tag)
 	if word == "":
@@ -161,7 +152,7 @@ func spawn_document(invalid_word_chance := 0.0, tag = get_word_tag(), invalid_ty
 	
 	doc.original_word = word
 	if randf() < invalid_word_accum and invalid_skipped > 0:
-		_set_invalid_word(doc, word, invalid_type)
+		_set_invalid_word(doc, word)
 		invalid_word_accum = 0.0
 		invalid_spawned += 1
 		invalid_skipped = 0

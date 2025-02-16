@@ -106,9 +106,8 @@ func _load_data():
 	if day == 0:
 		reset_values()
 	
-	#if Env.is_editor():
-		#difficulty_level = DifficultyResource.Level.CEO
-		#shown_distraction_tutorial = true
+	if Env.is_editor():
+		difficulty_level = DifficultyResource.Level.MANAGER
 	
 	_logger.info("Game initialized")
 	init = true
