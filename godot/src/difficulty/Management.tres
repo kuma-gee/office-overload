@@ -6,7 +6,7 @@
 script = ExtResource("1_frd3g")
 level = 3
 bgm_speed = 2.0
-money_multiplier = 1.5
+money_multiplier = 1.7
 max_performance = 35
 base_document_time = 1.4
 distractions = 0.5

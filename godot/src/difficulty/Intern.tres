@@ -6,7 +6,7 @@
 script = ExtResource("1_602ph")
 level = 0
 bgm_speed = 1.0
-money_multiplier = 0.5
+money_multiplier = 0.7
 max_performance = 8
 base_document_time = 1.0
 distractions = 0.0

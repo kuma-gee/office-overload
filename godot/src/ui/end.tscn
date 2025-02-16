@@ -521,7 +521,7 @@ layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 6
-text = "Bonus"
+text = "Money Bonus"
 label_settings = ExtResource("12_wqs3t")
 
 [node name="Bonus" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5"]
