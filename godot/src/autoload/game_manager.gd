@@ -411,7 +411,7 @@ func get_stress_reduction():
 	if is_crunch_mode(): return 1.0
 	
 	var reduction = get_item_value(Shop.Items.PLANT)
-	return 1.0 - reduction
+	return clamp(1.0 - reduction, 0.0, 1.0)
 
 func get_money_bonus():
 	var multiplier = difficulty.money_multiplier

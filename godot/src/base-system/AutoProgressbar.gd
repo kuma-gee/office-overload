@@ -71,7 +71,7 @@ func _process(delta):
 	
 	var was_full = is_full()
 	var increase = pow(base, value) - max_increase
-	value += clamp(increase, min_increase, max_increase) * multiplier * GameManager.get_stress_reduction()
+	value += clamp(increase, min_increase, max_increase) * min(multiplier, 4) * GameManager.get_stress_reduction()
 	if value > max_value:
 		value = max_value
 
