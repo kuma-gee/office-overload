@@ -107,7 +107,8 @@ func _load_data():
 		reset_values()
 	
 	if Env.is_editor():
-		difficulty_level = DifficultyResource.Level.MANAGER
+		shown_stress_tutorial = false
+		#difficulty_level = DifficultyResource.Level.MANAGER
 	
 	_logger.info("Game initialized")
 	init = true

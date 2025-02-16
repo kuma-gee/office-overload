@@ -12,13 +12,13 @@ func _ready() -> void:
 	junior_button.finished.connect(func(): level_desc.show_for_level(DifficultyResource.Level.JUNIOR))
 
 	senior_button.visible = GameManager.shown_distraction_tutorial
-	senior_button.finished.connect(func(): level_desc.show_for_level(DifficultyResource.Level.JUNIOR))
+	senior_button.finished.connect(func(): level_desc.show_for_level(DifficultyResource.Level.SENIOR))
 
 	manager_button.visible = GameManager.shown_discard_tutorial
-	manager_button.finished.connect(func(): level_desc.show_for_level(DifficultyResource.Level.JUNIOR))
+	manager_button.finished.connect(func(): level_desc.show_for_level(DifficultyResource.Level.MANAGER))
 
 	ceo_button.visible = GameManager.shown_ceo_tutorial
-	ceo_button.finished.connect(func(): level_desc.show_for_level(DifficultyResource.Level.JUNIOR))
+	ceo_button.finished.connect(func(): level_desc.show_for_level(DifficultyResource.Level.CEO))
 
 	hide()
 	for c in [junior_button, senior_button, manager_button, ceo_button]:
