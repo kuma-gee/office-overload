@@ -17,7 +17,6 @@ signal type_wrong()
 @export var typed_color := Color.WHITE
 @export var untyped_outline_color := Color.WHITE
 @export var untyped_outline_size := 2
-#@export var untyped_color := Color.BLACK
 @export var play_sound := true
 @export var enable_mistake_effect := true
 
@@ -54,7 +53,7 @@ signal type_wrong()
 	set(v):
 		word = v.to_lower().strip_edges()
 		#if remove_spaces:
-		word = word.replace(" ", "")
+		#word = word.replace(" ", "")
 		typed = ""
 		update_word()
 
@@ -215,7 +214,7 @@ const MAPPING = {
 }
 
 func handle_key(key: String, ignore_error = false):
-	if not is_visible_in_tree():
+	if not is_visible_in_tree() or key == " ":
 		return false
 	
 	var next_word_char = _next_char()

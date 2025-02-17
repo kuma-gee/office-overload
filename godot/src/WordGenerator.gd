@@ -23,7 +23,7 @@ func remove_words_less(char_count: int):
 func _normalize(words: Array):
 	var result = []
 	for w in words:
-		result.append(w.replace(" ", "").to_lower())
+		result.append(w.to_lower())
 	return result
 
 func get_random_word(tag = null):
