@@ -41,7 +41,7 @@ func update_languages():
 		var file_name = WordManager.available_files[i]
 		add_language(file_name)
 	
-	visible = not WordManager.available_files.is_empty()
+	visible = not WordManager.available_files.is_empty() and not Env.is_demo()
 	unfocus()
 
 func add_language(file: String):
