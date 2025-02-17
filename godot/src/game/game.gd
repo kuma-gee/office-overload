@@ -168,6 +168,8 @@ func _ready():
 	key_reader.use_coffee.connect(func():
 		var reduction = GameManager.use_coffee()
 		overload_progress.reduce(reduction)
+		overload_timer.stop()
+
 		drink_sound.play_random_pitched()
 	)
 

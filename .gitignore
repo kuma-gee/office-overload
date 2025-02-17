@@ -6,3 +6,4 @@ node_modules
 
 godot/assets/**/*.*
 !godot/assets/**/*.import
+*.zip
