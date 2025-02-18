@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://kdu7e637eapn"]
+[gd_scene load_steps=36 format=3 uid="uid://kdu7e637eapn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_80w1y"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_ox4yy"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://hst0o23h0h88" path="res://assets/sprites/ProgressSmall_Fill.png" id="16_cvyoc"]
 [ext_resource type="Script" path="res://src/ui/unlocked_mode.gd" id="16_hp113"]
 [ext_resource type="Script" path="res://src/ui/challenge_paper.gd" id="17_xva3p"]
+[ext_resource type="Script" path="res://src/ui/retry_button.gd" id="23_e37q1"]
 [ext_resource type="PackedScene" uid="uid://du0v5of5joaem" path="res://src/ui/menu_paper.tscn" id="25_u5ul4"]
 [ext_resource type="PackedScene" uid="uid://cmu36xk8jw0u8" path="res://src/ui/interview_score.tscn" id="26_rlygb"]
 
@@ -67,7 +68,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/enable = true
 
-[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "performance_progress", "level_label", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_acc", "crunch_score", "retry_button", "highscore_board", "crunch_offline", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "bonus_label", "money_used", "ceo_player_tasks", "ceo_boss_tasks", "ceo_player_mistakes", "ceo_boss_mistakes", "ceo_player_score", "ceo_boss_score", "ceo_win_status", "promotion_delegator", "work_container", "ceo_container", "unlocked_container", "crunch_container")]
+[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "performance_progress", "level_label", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_acc", "crunch_score", "retry_button", "highscore_board", "crunch_offline", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "bonus_label", "money_used", "ceo_player_tasks", "ceo_boss_tasks", "ceo_player_mistakes", "ceo_boss_mistakes", "ceo_player_score", "ceo_boss_score", "ceo_win_status", "ceo_retry", "promotion_delegator", "work_container", "ceo_container", "unlocked_container", "crunch_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -109,6 +110,7 @@ ceo_boss_mistakes = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/V
 ceo_player_score = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/PlayerScore")
 ceo_boss_score = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/BossScore")
 ceo_win_status = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/WinLost")
+ceo_retry = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay/Retry")
 promotion_delegator = NodePath("PromotionDelegator")
 work_container = NodePath("CenterContainer/PanelContainer/Work")
 ceo_container = NodePath("CenterContainer/PanelContainer/Ceo")
@@ -332,6 +334,7 @@ script = ExtResource("16_8aqif")
 nodes = [NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/NextDayButton"), NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Retry"), NodePath("../../../Control/MenuPaper/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel")]
 
 [node name="Work" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
@@ -731,7 +734,6 @@ layout_mode = 2
 word = "retry"
 
 [node name="Ceo" type="MarginContainer" parent="CenterContainer/PanelContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
@@ -884,6 +886,14 @@ layout_mode = 2
 layout_mode = 2
 script = ExtResource("7_mgfnm")
 word = "Home"
+
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Retry" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+script = ExtResource("23_e37q1")
 
 [node name="PromotionDelegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_8aqif")

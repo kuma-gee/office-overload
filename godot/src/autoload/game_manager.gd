@@ -268,13 +268,18 @@ func lost_ceo():
 	
 	if not finished_game:
 		reset_values()
+	elif is_work_mode():
+		day += 1
 	
 	save_data()
 	round_ended.emit()
 
 func won_ceo():
 	finished_game = true
-	unlock_mode(Mode.Multiplayer)
+	#unlock_mode(Mode.Multiplayer)
+	
+	if is_work_mode():
+		day += 1
 	
 	var wpm = wpm_calculator.get_average_wpm()
 	var acc = wpm_calculator.get_average_accuracy()
@@ -282,7 +287,6 @@ func won_ceo():
 	upload_work_scores()
 	
 	round_ended.emit()
-
 	SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.CEO)
 
 

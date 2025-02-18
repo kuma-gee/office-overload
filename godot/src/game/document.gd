@@ -68,6 +68,7 @@ func _ready():
 	stain_detector.stained.connect(func():
 		if original_word != word and original_word != "":
 			typing_label.word = original_word
+			word = original_word
 		
 		if typing_label.censored.size() > 0 or word.length() < 4:
 			return

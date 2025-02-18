@@ -92,29 +92,6 @@ func add_hard():
 	word_generator.add_words(words, WordManager.Type.HARD)
 	mode = WordManager.Type.HARD
 
-enum InvalidType {
-	INVALID,
-	SWAP,
-}
-
-var invalid_chances = {
-	InvalidType.INVALID: 0.5,
-	InvalidType.SWAP: 0.3,
-}
-
-func get_invalid_type():
-	var available = [InvalidType.INVALID]
-	if GameManager.get_performance_within_level() >= 5 or (GameManager.is_ceo() and not spill_mug.active):
-		available.append(InvalidType.SWAP)
-	
-	var r = randf()
-	for type in available:
-		if r < invalid_chances[type]:
-			return type
-		r -= invalid_chances[type]
-
-	return InvalidType.INVALID
-
 func _set_invalid_word(doc: Document, word: String):
 	for _x in randi_range(2, 4):
 		var swap_idx = randi_range(1, word.length() - 1)

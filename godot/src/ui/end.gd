@@ -40,6 +40,7 @@ extends Control
 @export var ceo_player_score: Label
 @export var ceo_boss_score: Label
 @export var ceo_win_status: Label
+@export var ceo_retry: TypingButton
 
 @export_category("Promotion")
 @export var promotion_delegator: Delegator
@@ -101,6 +102,7 @@ func ceo_ended(user: Dictionary, boss: Dictionary):
 		
 	_do_open(ceo_container)
 	
+	#ceo_retry.visible = not win
 	if win:
 		GameManager.won_ceo()
 	else:
