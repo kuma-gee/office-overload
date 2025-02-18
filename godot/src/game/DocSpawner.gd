@@ -10,6 +10,7 @@ extends Marker2D
 
 @export var spawn_vertical_offset := 0
 @export var positions: Array[Node2D] = []
+@export var center_position: Node2D
 
 var mode = -1
 var invalid_word_accum := 0.0
@@ -172,18 +173,21 @@ func _move_document_in(doc: Document):
 	doc.global_position.y += spawn_vertical_offset
 	doc.global_position.y += y_offset
 	
-	var target = _get_target_position()
+	var target = _get_target_position(doc.word)
 	
 	add_child(doc)
 	move_child(doc, 0)
 	doc.move_to(target, true, global_position if move_back else null)
 
-func _get_target_position():
+func _get_target_position(word = ""):
 	if positions.is_empty():
 		var x = abs(global_position.x)
 		return global_position + Vector2.RIGHT * randi_range(x - center_offset, x + center_offset)
 	
 	var node = positions.filter(func(p): return p != last_position).pick_random()
+	if center_position and word.length() > 14:
+		node = center_position
+
 	last_position = node
 	
 	var pos = node.global_position
