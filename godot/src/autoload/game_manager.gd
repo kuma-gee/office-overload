@@ -70,8 +70,6 @@ var bought_items: Array[Shop.Items] = []
 var used_items: Array[Shop.Items] = []
 var money := 0
 
-#var unsaved_crunch_score: Dictionary = {}
-
 ### Dynamic ###
 var difficulty: DifficultyResource
 var next_difficulty: DifficultyResource
@@ -86,7 +84,6 @@ func _ready():
 	SteamCloud.initialized.connect(_load_data)
 	SteamManager.init_successful.connect(func():
 		_check_achievements()
-		_upload_existing_unsaved_crunch()
 	)
 	
 func _load_data():
@@ -186,9 +183,6 @@ func finished_day(data: Dictionary):
 	
 	_logger.debug("Performance: %s with %s" % [performance, data])
 	
-	# completed_documents += tasks
-	# total_overtime += overtime
-	
 	if is_work_mode():
 		day += 1
 
@@ -247,9 +241,6 @@ func finished_crunch(tasks: int, hours: int, _combo: int):
 	data["tasks"] = tasks
 	data["score"] = _upload_endless_scores(data["wpm"], data["acc"], data["tasks"], data["hours"])
 	
-	#if not SteamManager.is_steam_available():
-		#unsaved_crunch_score = data
-	
 	round_ended.emit()
 	return data
 
@@ -261,11 +252,6 @@ func _upload_endless_scores(wpm: float, acc: float, count: int, hours: int):
 	return score
 	
 func lost_ceo():
-	#difficulty_level = DifficultyResource.Level.SENIOR
-	#var min = get_min_performance()
-	#var max = get_max_performance()
-	#performance = min + (max - min) / 2
-	
 	if not finished_game:
 		reset_values()
 	elif is_work_mode():
@@ -289,19 +275,19 @@ func won_ceo():
 	round_ended.emit()
 	SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.CEO)
 
+func update_game_status(lobby = false):
+	if lobby:
+		SteamManager.set_rich_presence("#Prepare")
+		return
+	
+	if is_work_mode():
+		SteamManager.set_rich_presence("#Working", { "level": get_level_text(), "day": day+1 })
+	elif is_crunch_mode():
+		SteamManager.set_rich_presence("#Crunching")
+	else:
+		SteamManager.set_rich_presence("")
 
-func _upload_existing_unsaved_crunch():
-	pass
-	#var data = unsaved_crunch_score
-	#if not data.is_empty():
-		#_upload_endless_scores(data["wpm"], data["acc"], data["tasks"], data["hours"])
-		#var success = await SteamLeaderboard.leaderboard_uploaded
-		#if success:
-			#unsaved_crunch_score = {}
-			#_logger.info("Previous crunch score uploadaed successfully!")
-		#else:
-			#_logger.error("Failed to upload previous crunch score")
-
+#region PERFORMANCE
 func start_type():
 	wpm_calculator.start_type()
 
@@ -315,7 +301,6 @@ func get_wpm():
 func get_accuracy():
 	return average_accuracy * 100
 
-### Performance
 func get_until_max_performance():
 	return get_max_performance() - performance
 
@@ -329,6 +314,7 @@ func get_min_performance():
 	
 func get_max_performance():
 	return difficulty.max_performance
+#endregion
 
 
 #region ITEMS
@@ -504,7 +490,7 @@ func get_level_text(lvl = difficulty_level, abbreviate = -1):
 	var txt = DifficultyResource.Level.keys()[lvl] as String
 	if abbreviate > 0 and txt.length() > abbreviate:
 		txt = txt.substr(0, abbreviate) + "."
-	return txt
+	return txt.to_lower()
 
 #endregion
 

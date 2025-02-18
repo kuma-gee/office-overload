@@ -1,0 +1,15 @@
+"lang"
+{
+	"Language"	"english"
+	"Tokens"
+	{
+		"#Working"	"Working as {#Level_%level%} at day %day%"
+		"#Crunching"	"Crunching at work"
+		"#Prepare"	"Preparing for work"
+		"#Level_intern"	"intern"
+		"#Level_junior"	"junior"
+		"#Level_senior"	"senior"
+		"#Level_manager"	"manager"
+		"#Level_ceo"	"CEO"
+	}
+}

@@ -48,3 +48,16 @@ func get_steam_username(id: int):
 func get_steam_id():
 	if not is_steam_available(): return 0
 	return steam.getSteamID()
+
+func set_rich_presence(token: String, dict: Dictionary = {}) -> void:
+	steam.clearRichPresence()
+	
+	if token == "":
+		return
+	
+	for key in dict:
+		var s = steam.setRichPresence(key, "%s" % dict[key])
+		_logger.debug("Setting rich presence arg \"%s\" to \"%s\": %s" % [key, dict[key], s])
+	
+	var setting = steam.setRichPresence("steam_display", token)
+	_logger.debug("Setting rich presence display to %s: %s" % [token, setting])

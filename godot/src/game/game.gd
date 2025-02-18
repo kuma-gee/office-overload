@@ -80,6 +80,7 @@ func _ready():
 	get_tree().paused = false
 	_update_score()
 	
+	GameManager.update_game_status()
 	GameManager.pay_assistant()
 
 	for i in range(items_root.get_child_count()):
