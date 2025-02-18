@@ -1,3 +1,4 @@
+class_name StartNew
 extends Node2D
 
 @export var work_label: TypingButton
@@ -23,6 +24,7 @@ extends Node2D
 @export var crunch_mode_container: Control
 @export var multiplayer_mode_container: Control
 @export var ceo_level_select: Control
+@export var languages: Languages
 
 @export_category("Delegators")
 @export var delegator: Delegator
@@ -78,10 +80,10 @@ func _ready() -> void:
 		if GameManager.finished_game:
 			ceo_level_select.grab_focus()
 		else:
-			GameManager.start(GameManager.Mode.Work)
+			GameManager.start(GameManager.Mode.Work, languages.language)
 	)
 	
-	crunch_mode.finished.connect(func(): GameManager.start(GameManager.Mode.Crunch))
+	crunch_mode.finished.connect(func(): GameManager.start(GameManager.Mode.Crunch, languages.language))
 	exit_label.finished.connect(func(): GameManager.quit_game())
 	
 	settings_label.finished.connect(func(): settings.grab_focus())

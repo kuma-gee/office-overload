@@ -70,11 +70,6 @@ var bought_items: Array[Shop.Items] = []
 var used_items: Array[Shop.Items] = []
 var money := 0
 
-var language := "":
-	set(v):
-		language = v
-		language_changed.emit()
-
 #var unsaved_crunch_score: Dictionary = {}
 
 ### Dynamic ###
@@ -82,6 +77,7 @@ var difficulty: DifficultyResource
 var next_difficulty: DifficultyResource
 var prev_difficulty: DifficultyResource
 var current_mode: Mode
+var language := ""
 
 var _logger = Logger.new("GameManager")
 
@@ -98,17 +94,12 @@ func _load_data():
 	if data:
 		cache_properties.load_data(data)
 	
-	if language == "":
-		language = WordManager.DEFAULT_WORD_FILE
-	elif not WordManager.is_valid_language(language):
-		language = WordManager.DEFAULT_WORD_FILE
-	
 	if day == 0:
 		reset_values()
 	
 	if Env.is_editor():
-		shown_stress_tutorial = false
-		#difficulty_level = DifficultyResource.Level.MANAGER
+		difficulty_level = DifficultyResource.Level.CEO
+		finished_game = true
 	
 	_logger.info("Game initialized")
 	init = true
@@ -131,11 +122,12 @@ func quit_game():
 	await SceneManager.fade_complete
 	get_tree().quit()
 
-func start(mode: Mode = current_mode, lvl = difficulty_level):
+func start(mode: Mode = current_mode, lang = language, lvl = difficulty_level):
 	current_mode = mode
 	if Env.is_demo():
 		current_mode = Mode.Work
 
+	language = lang
 	WordManager.load_words(language)
 	
 	if current_mode != Mode.Work and not is_mode_unlocked(current_mode):

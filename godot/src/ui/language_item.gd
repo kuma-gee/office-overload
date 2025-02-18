@@ -1,22 +1,23 @@
 extends HBoxContainer
 
+signal typed()
+
 @onready var typing_button: TypingButton = $TypingButton
 @onready var checkbox: CheckboxImage = $Checkbox
 
 var file := ""
 
+var current_lang := "":
+	set(v):
+		current_lang = v
+		update(current_lang)
+
 func _ready() -> void:
 	get_label().word = file
-	GameManager.language_changed.connect(func(): _update())
-	
-	typing_button.finished.connect(func():
-		GameManager.language = "" if file == GameManager.language else file
-		GameManager.save_data()
-	)
-	_update()
+	typing_button.finished.connect(func(): typed.emit())
 
-func _update():
-	checkbox.value = file == GameManager.language
+func update(lang):
+	checkbox.value = file == lang
 
 func get_label():
 	return typing_button.get_label()

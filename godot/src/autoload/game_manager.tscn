@@ -24,5 +24,5 @@ script = ExtResource("3_q0li8")
 
 [node name="CacheProperties" type="Node" parent="." node_paths=PackedStringArray("node")]
 script = ExtResource("4_dfh4s")
-properties = Array[String](["day", "total_overtime", "difficulty_level", "unlocked_modes", "total_completed_words", "average_wpm", "average_accuracy", "past_wpms", "has_played", "performance", "money", "bought_items", "shown_discard_tutorial", "shown_distraction_tutorial", "shown_stress_tutorial", "shown_ceo_tutorial", "finished_game", "used_items", "language"])
+properties = Array[String](["day", "total_overtime", "difficulty_level", "unlocked_modes", "total_completed_words", "average_wpm", "average_accuracy", "past_wpms", "has_played", "performance", "money", "bought_items", "shown_discard_tutorial", "shown_distraction_tutorial", "shown_stress_tutorial", "shown_ceo_tutorial", "finished_game", "used_items"])
 node = NodePath("..")

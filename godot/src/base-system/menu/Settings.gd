@@ -39,8 +39,18 @@ func _ready():
 	overlay.hide()
 	_load_settings()
 
-	help_title.finished.connect(func(): help_document.focus_open())
-	lang_title.finished.connect(func(): lang_document.focus_open())
+	help_title.finished.connect(func():
+		help_document.focus_open()
+		delegator.unfocus()
+	)
+	lang_title.finished.connect(func():
+		lang_document.focus_open()
+		delegator.unfocus()
+	)
+	
+	for doc in [lang_document, help_document]:
+		doc.closed.connect(func(): delegator.focus())
+	
 	effect_root.finished.connect(func(): if not is_closing: _to_orig_pos())
 	
 	visibility_changed.connect(func(): if not visible: _save_config())

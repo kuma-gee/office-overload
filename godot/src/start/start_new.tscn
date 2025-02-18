@@ -246,7 +246,7 @@ _data = {
 "move_shop": SubResource("Animation_0wq2u")
 }
 
-[node name="StartNew" type="Node2D" node_paths=PackedStringArray("work_label", "settings_label", "exit_label", "crunch_mode", "multiplayer_mode", "files", "team", "shop_button", "teams_node", "files_node", "settings", "folder", "teams", "shop", "game_modes_key", "crunch_mode_container", "multiplayer_mode_container", "ceo_level_select", "delegator", "shift_delegator")]
+[node name="StartNew" type="Node2D" node_paths=PackedStringArray("work_label", "settings_label", "exit_label", "crunch_mode", "multiplayer_mode", "files", "team", "shop_button", "teams_node", "files_node", "settings", "folder", "teams", "shop", "game_modes_key", "crunch_mode_container", "multiplayer_mode_container", "ceo_level_select", "languages", "delegator", "shift_delegator")]
 script = ExtResource("1_25sst")
 work_label = NodePath("WorkDocument/MarginContainer/VBoxContainer/Work")
 settings_label = NodePath("WorkDocument/MarginContainer/VBoxContainer/Settings")
@@ -266,6 +266,7 @@ game_modes_key = NodePath("WorkDocument/MarginContainer/VBoxContainer/GameModesK
 crunch_mode_container = NodePath("AltPage/MarginContainer/VBoxContainer/Crunch")
 multiplayer_mode_container = NodePath("AltPage/MarginContainer/VBoxContainer/Multiplayer")
 ceo_level_select = NodePath("CanvasLayer/Control/CeoLevelSelect")
+languages = NodePath("CanvasLayer/Control/Settings/Center/Languages")
 delegator = NodePath("Delegator")
 shift_delegator = NodePath("ShiftDelegator")
 
@@ -1154,12 +1155,13 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="DisplaySettings" type="VBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer" node_paths=PackedStringArray("fullscreen_button", "motion_button")]
+[node name="DisplaySettings" type="VBoxContainer" parent="CanvasLayer/Control/Settings/Audio/MarginContainer" node_paths=PackedStringArray("fullscreen_button", "motion_button", "languages")]
 layout_mode = 2
 theme_override_constants/separation = 10
 script = ExtResource("19_t18oa")
 fullscreen_button = NodePath("VBoxContainer/FullScreen")
 motion_button = NodePath("VBoxContainer/ReduceMotion")
+languages = NodePath("../../../Center/Languages")
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/Settings/Audio/MarginContainer/DisplaySettings"]
 layout_mode = 2
@@ -1469,33 +1471,38 @@ theme_override_constants/margin_bottom = 5
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Intern" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
+[node name="Intern" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("game") instance=ExtResource("7_plxua")]
 layout_mode = 2
 script = ExtResource("26_lp1fu")
 level = 0
+game = NodePath("../../../../../../../../..")
 
-[node name="Junior" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
+[node name="Junior" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("game") instance=ExtResource("7_plxua")]
 layout_mode = 2
 script = ExtResource("26_lp1fu")
 level = 1
+game = NodePath("../../../../../../../../..")
 word = "junior"
 
-[node name="Senior" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
+[node name="Senior" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("game") instance=ExtResource("7_plxua")]
 layout_mode = 2
 script = ExtResource("26_lp1fu")
 level = 2
+game = NodePath("../../../../../../../../..")
 word = "senior"
 
-[node name="Manager" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
+[node name="Manager" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("game") instance=ExtResource("7_plxua")]
 layout_mode = 2
 script = ExtResource("26_lp1fu")
 level = 3
+game = NodePath("../../../../../../../../..")
 word = "manager"
 
-[node name="CEO" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("7_plxua")]
+[node name="CEO" parent="CanvasLayer/Control/CeoLevelSelect/CeoLevelSelect/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("game") instance=ExtResource("7_plxua")]
 layout_mode = 2
 script = ExtResource("26_lp1fu")
 level = 4
+game = NodePath("../../../../../../../../..")
 word = "CEO"
 
 [node name="Team" parent="CanvasLayer/Control" node_paths=PackedStringArray("user_board", "friends_board", "global_board", "steam_offline") instance=ExtResource("29_t2y1x")]
