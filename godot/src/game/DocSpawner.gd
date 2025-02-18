@@ -56,8 +56,10 @@ func set_difficulty(v: float):
 		word_type_chance = {WordManager.Type.EASY: 0.2, WordManager.Type.MEDIUM: 0.5, WordManager.Type.HARD: 0.3, }
 	elif v <= 1.3:
 		word_type_chance = {WordManager.Type.EASY: 0.1, WordManager.Type.MEDIUM: 0.4, WordManager.Type.HARD: 0.5, }
-	else:
+	elif v <= 1.5:
 		word_type_chance = {WordManager.Type.EASY: 0.0, WordManager.Type.MEDIUM: 0.3, WordManager.Type.HARD: 0.7, }
+	else:
+		word_type_chance = {WordManager.Type.EASY: 0.0, WordManager.Type.MEDIUM: 0.0, WordManager.Type.HARD: 1, }
 	
 func add_words_from_group():
 	for type in [WordManager.Type.EASY, WordManager.Type.MEDIUM, WordManager.Type.HARD]:

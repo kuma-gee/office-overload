@@ -352,12 +352,14 @@ func _update_crunch_values():
 	bgm.pitch_scale = snappedf(pitch, 0.25)
 
 func _crunch_mode_spawn_time(doc_count: int = document_stack.actual_document_count):
-	if documents.size() > max_crunch_documents:
-		var diff = documents.size() - max_crunch_documents
-		return 5.0 + diff
-	
 	var x = max(doc_count, 1)
-	return max(crunch_start_spawn_time - (log(x) / log(10)) * 2, crunch_min_spawn_time)
+	var time = max(crunch_start_spawn_time - (log(x) / log(10)) * 2, crunch_min_spawn_time)
+
+	if documents.size() > max_crunch_documents:
+		var diff = max(documents.size() - max_crunch_documents, 0)
+		time *= 1 + (diff / 2.0)
+	
+	return time
 
 func _crunch_difficulty(doc_count: int = document_stack.actual_document_count):
 	return float(doc_count) / crunch_max_difficulty_count
