@@ -870,13 +870,6 @@ offset_bottom = 140.0
 rotation = 0.0872665
 item = ExtResource("19_nxoxl")
 
-[node name="ShopButton" type="Node2D" parent="."]
-visible = false
-position = Vector2(133, -76)
-
-[node name="Sprite2D" type="Sprite2D" parent="ShopButton"]
-texture = ExtResource("5_gs4c1")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]

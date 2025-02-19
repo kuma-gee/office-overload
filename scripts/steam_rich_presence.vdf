@@ -1,0 +1,31 @@
+"lang"
+{
+	"english"
+	{
+		"tokens"
+		{
+			"#Working"	"Working as {#Level_%level%} at day %day%"
+			"#Crunching"	"Crunching at work"
+			"#Prepare"	"Preparing for work"
+			"#Level_intern"	"intern"
+			"#Level_junior"	"junior"
+			"#Level_senior"	"senior"
+			"#Level_manager"	"manager"
+			"#Level_ceo"	"CEO"
+		}
+	}
+    "schinese"
+    {
+		"tokens"
+		{
+			"#Working" "在第%day%天以{#Level_%level%}的身份工作"
+			"#Crunching" "工作中加班"
+			"#Prepare" "准备工作"
+			"#Level_intern" "实习生"
+			"#Level_junior" "初级员工"
+			"#Level_senior" "高级员工"
+			"#Level_manager" "经理"
+			"#Level_ceo" "老板"
+		}
+    }
+}
