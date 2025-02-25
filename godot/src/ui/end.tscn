@@ -331,7 +331,7 @@ layout_mode = 2
 
 [node name="DayDelegator" type="Node" parent="CenterContainer/PanelContainer" node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_8aqif")
-nodes = [NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/NextDayButton"), NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Retry"), NodePath("../../../Control/MenuPaper/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel")]
+nodes = [NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/NextDayButton"), NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Retry"), NodePath("../../../Control/MenuPaper/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/Retry")]
 
 [node name="Work" type="MarginContainer" parent="CenterContainer/PanelContainer"]
 visible = false
