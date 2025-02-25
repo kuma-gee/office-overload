@@ -116,6 +116,7 @@ func focus_close():
 func _gui_input(event: InputEvent) -> void:
 	if not handle_input(event):
 		get_viewport().gui_release_focus()
+		get_viewport().set_input_as_handled()
 
 func handle_input(event: InputEvent):
 	if focus_tw and focus_tw.is_running():
