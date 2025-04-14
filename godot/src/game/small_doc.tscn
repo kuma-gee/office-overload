@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/sprites/Document.png" id="1_w15tr"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="2_0b47e"]
-[ext_resource type="Script" path="res://src/game/small_doc.gd" id="2_tjlr8"]
+[ext_resource type="Script" uid="uid://cn2fco7y64dp2" path="res://src/game/small_doc.gd" id="2_tjlr8"]
 
 [node name="SmallDoc" type="Sprite2D"]
 scale = Vector2(0.7, 0.7)

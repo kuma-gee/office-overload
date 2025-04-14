@@ -1,60 +1,60 @@
 [gd_scene load_steps=69 format=3 uid="uid://cdafk4ywr2fbg"]
 
-[ext_resource type="Script" path="res://src/ui/Stats.gd" id="1_1pk7f"]
-[ext_resource type="Script" path="res://src/start/start_new.gd" id="1_25sst"]
-[ext_resource type="Script" path="res://src/mouse_input.gd" id="2_406xc"]
+[ext_resource type="Script" uid="uid://cv72l3wfr12k0" path="res://src/ui/Stats.gd" id="1_1pk7f"]
+[ext_resource type="Script" uid="uid://br2il4noito2l" path="res://src/start/start_new.gd" id="1_25sst"]
+[ext_resource type="Script" uid="uid://dfgidd3j3dech" path="res://src/mouse_input.gd" id="2_406xc"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="2_xj832"]
 [ext_resource type="LabelSettings" uid="uid://uctt264dd2ni" path="res://theme/text_small.tres" id="3_0j057"]
 [ext_resource type="Texture2D" uid="uid://de38c2uof5d55" path="res://assets/sprites/LightLarge.png" id="3_ep5ga"]
 [ext_resource type="Texture2D" uid="uid://cjlwhavnsncw5" path="res://assets/sprites/Title.png" id="4_h3t2k"]
 [ext_resource type="Texture2D" uid="uid://qpujdmcko0bu" path="res://assets/sprites/Arrow.png" id="5_gs4c1"]
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="5_qryb2"]
-[ext_resource type="Script" path="res://src/start/items_paper.gd" id="6_q1q4c"]
+[ext_resource type="Script" uid="uid://btx37iv62ngpi" path="res://src/start/items_paper.gd" id="6_q1q4c"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="7_plxua"]
-[ext_resource type="Script" path="res://src/delegator.gd" id="7_pvyq5"]
-[ext_resource type="Script" path="res://src/start/DocumentUI.gd" id="8_4jrgk"]
+[ext_resource type="Script" uid="uid://s0nbpnxj5anl" path="res://src/delegator.gd" id="7_pvyq5"]
+[ext_resource type="Script" uid="uid://i7eyd5gt6ua5" path="res://src/start/DocumentUI.gd" id="8_4jrgk"]
 [ext_resource type="Texture2D" uid="uid://bl06rcj3vftvg" path="res://assets/sprites/Folder.png" id="9_h10wu"]
 [ext_resource type="PackedScene" uid="uid://cdstvuujt4uj1" path="res://src/start/item_list.tscn" id="9_l0av4"]
-[ext_resource type="Script" path="res://src/start/desk_item.gd" id="10_vvvnb"]
+[ext_resource type="Script" uid="uid://ci1qsj5pm1oc7" path="res://src/start/desk_item.gd" id="10_vvvnb"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="11_cjr5n"]
 [ext_resource type="Texture2D" uid="uid://bstvwnc3xppv1" path="res://assets/sprites/Shift.png" id="13_eyssn"]
-[ext_resource type="Script" path="res://src/base-system/menu/Settings.gd" id="14_efhj6"]
-[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="15_17vat"]
-[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="16_xmdsl"]
-[ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="17_s6hs1"]
-[ext_resource type="Script" path="res://src/base-system/menu/AudioSettings.gd" id="18_ikgcj"]
+[ext_resource type="Script" uid="uid://5svff4e4c7ux" path="res://src/base-system/menu/Settings.gd" id="14_efhj6"]
+[ext_resource type="Script" uid="uid://cksqq540jqppy" path="res://src/base-system/effect/EffectRoot.gd" id="15_17vat"]
+[ext_resource type="Script" uid="uid://du7faux5svp1d" path="res://src/base-system/effect/Slide.gd" id="16_xmdsl"]
+[ext_resource type="Script" uid="uid://clfc0mgso3q2b" path="res://src/base-system/effect/Fade.gd" id="17_s6hs1"]
+[ext_resource type="Script" uid="uid://bfq06o6r02uvn" path="res://src/base-system/menu/AudioSettings.gd" id="18_ikgcj"]
 [ext_resource type="PackedScene" uid="uid://dbph2sk0jrwh7" path="res://src/start/shop_paper.tscn" id="18_ui332"]
 [ext_resource type="Resource" uid="uid://dp0o71wq7b1ck" path="res://src/shop/items/ShopPlant.tres" id="19_nxoxl"]
-[ext_resource type="Script" path="res://src/base-system/menu/DisplaySettings.gd" id="19_t18oa"]
+[ext_resource type="Script" uid="uid://bj5qml8jbxjqb" path="res://src/base-system/menu/DisplaySettings.gd" id="19_t18oa"]
 [ext_resource type="Resource" uid="uid://d1psgsomevtk1" path="res://src/shop/items/ShopRubberDuck.tres" id="20_jt336"]
-[ext_resource type="Script" path="res://src/ui/typing_slider.gd" id="20_yx3sx"]
-[ext_resource type="Script" path="res://src/base-system/menu/AudioSlider.gd" id="21_44ua4"]
+[ext_resource type="Script" uid="uid://7h05bci1uqjd" path="res://src/ui/typing_slider.gd" id="20_yx3sx"]
+[ext_resource type="Script" uid="uid://bnt0xlsrkewh" path="res://src/base-system/menu/AudioSlider.gd" id="21_44ua4"]
 [ext_resource type="Resource" uid="uid://c26iy7v60mwce" path="res://src/shop/items/ShopCoffee.tres" id="21_cmmll"]
-[ext_resource type="Script" path="res://src/ui/fullscreen_button.gd" id="22_jx87d"]
+[ext_resource type="Script" uid="uid://bl2yu7ph17k8i" path="res://src/ui/fullscreen_button.gd" id="22_jx87d"]
 [ext_resource type="Resource" uid="uid://xxpklh6gysxc" path="res://src/shop/items/ShopAssistant.tres" id="22_kdipq"]
 [ext_resource type="Resource" uid="uid://cknbhy310c08l" path="res://src/shop/items/ShopMoneyCat.tres" id="23_hhmej"]
-[ext_resource type="Script" path="res://src/shop/shop.gd" id="23_rmsxi"]
-[ext_resource type="Script" path="res://src/ui/fullscreen_checkbox.gd" id="23_xaoub"]
-[ext_resource type="Script" path="res://src/ui/cloud_settings.gd" id="24_6ge0a"]
+[ext_resource type="Script" uid="uid://ikt8x7c2jayq" path="res://src/shop/shop.gd" id="23_rmsxi"]
+[ext_resource type="Script" uid="uid://df4867536ysp6" path="res://src/ui/fullscreen_checkbox.gd" id="23_xaoub"]
+[ext_resource type="Script" uid="uid://bu4fagemkuwm3" path="res://src/ui/cloud_settings.gd" id="24_6ge0a"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="25_pu2hv"]
-[ext_resource type="Script" path="res://src/ui/LevelSelectButton.gd" id="26_lp1fu"]
+[ext_resource type="Script" uid="uid://db7kriw5tud3n" path="res://src/ui/LevelSelectButton.gd" id="26_lp1fu"]
 [ext_resource type="PackedScene" uid="uid://bevwwvcqg3xhh" path="res://src/ui/folder.tscn" id="29_t2y1x"]
-[ext_resource type="Script" path="res://src/start/ceo_level_select.gd" id="30_ctfxw"]
-[ext_resource type="Script" path="res://src/ui/leaderboad.gd" id="30_m1awn"]
-[ext_resource type="Script" path="res://src/start/help.gd" id="32_c2no7"]
-[ext_resource type="Script" path="res://src/start/languages.gd" id="33_61pqy"]
-[ext_resource type="Script" path="res://src/shop/money_label.gd" id="34_06bnc"]
+[ext_resource type="Script" uid="uid://crwpwa0f7p0ap" path="res://src/start/ceo_level_select.gd" id="30_ctfxw"]
+[ext_resource type="Script" uid="uid://k8d1ftqgymrh" path="res://src/ui/leaderboad.gd" id="30_m1awn"]
+[ext_resource type="Script" uid="uid://7tupgfk7l5b8" path="res://src/start/help.gd" id="32_c2no7"]
+[ext_resource type="Script" uid="uid://cnelbikqovh31" path="res://src/start/languages.gd" id="33_61pqy"]
+[ext_resource type="Script" uid="uid://dy2fbrkltuq6y" path="res://src/shop/money_label.gd" id="34_06bnc"]
 [ext_resource type="PackedScene" uid="uid://bfgp007wcfa7s" path="res://src/ui/language_item.tscn" id="34_8hjbw"]
 [ext_resource type="PackedScene" uid="uid://du0v5of5joaem" path="res://src/ui/menu_paper.tscn" id="34_wy63k"]
-[ext_resource type="Script" path="res://src/ui/score_paper.gd" id="35_whsqs"]
+[ext_resource type="Script" uid="uid://eqm4tteo1chw" path="res://src/ui/score_paper.gd" id="35_whsqs"]
 [ext_resource type="PackedScene" uid="uid://cmu36xk8jw0u8" path="res://src/ui/interview_score.tscn" id="36_vfedp"]
-[ext_resource type="Script" path="res://src/ui/feedback.gd" id="37_u2so1"]
-[ext_resource type="Script" path="res://src/start/no_motion_checkbox.gd" id="38_4i0f3"]
+[ext_resource type="Script" uid="uid://cf2n72f01sml7" path="res://src/ui/feedback.gd" id="37_u2so1"]
+[ext_resource type="Script" uid="uid://but24dsrlu323" path="res://src/start/no_motion_checkbox.gd" id="38_4i0f3"]
 [ext_resource type="RichTextEffect" uid="uid://d0psnm1eyw40x" path="res://src/text-effect/typed_effect.tres" id="38_trre5"]
-[ext_resource type="Script" path="res://src/ui/performance_graph.gd" id="38_u842k"]
-[ext_resource type="Script" path="res://src/ui/resignation.gd" id="39_cuxap"]
-[ext_resource type="Script" path="res://addons/graph_2d/graph_2d.gd" id="40_i77at"]
-[ext_resource type="Script" path="res://addons/graph_2d/custom_nodes/coordinate.gd" id="41_f7xlp"]
+[ext_resource type="Script" uid="uid://ddo6yusjwhuj2" path="res://src/ui/performance_graph.gd" id="38_u842k"]
+[ext_resource type="Script" uid="uid://dj1uk8ouc4wbs" path="res://src/ui/resignation.gd" id="39_cuxap"]
+[ext_resource type="Script" uid="uid://bcyp0estgfaj4" path="res://addons/graph_2d/graph_2d.gd" id="40_i77at"]
+[ext_resource type="Script" uid="uid://0mhr2jcr3jt3" path="res://addons/graph_2d/custom_nodes/coordinate.gd" id="41_f7xlp"]
 [ext_resource type="PackedScene" uid="uid://y8oomkooawo2" path="res://src/ui/level_desc.tscn" id="41_qnfro"]
 [ext_resource type="AudioStream" uid="uid://7ix2fpbkls0p" path="res://assets/sound/Talk_with_me.mp3" id="46_0cyp8"]
 
@@ -241,9 +241,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bge4k"]
 _data = {
-"RESET": SubResource("Animation_6q6rn"),
-"alt_page": SubResource("Animation_6fel6"),
-"move_shop": SubResource("Animation_0wq2u")
+&"RESET": SubResource("Animation_6q6rn"),
+&"alt_page": SubResource("Animation_6fel6"),
+&"move_shop": SubResource("Animation_0wq2u")
 }
 
 [node name="StartNew" type="Node2D" node_paths=PackedStringArray("work_label", "settings_label", "exit_label", "crunch_mode", "multiplayer_mode", "files", "team", "shop_button", "teams_node", "files_node", "settings", "folder", "teams", "shop", "game_modes_key", "crunch_mode_container", "multiplayer_mode_container", "ceo_level_select", "languages", "delegator", "shift_delegator")]
@@ -324,7 +324,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="ShopButton" parent="ShopButton2/Money/MarginContainer" instance=ExtResource("11_cjr5n")]
 layout_mode = 2
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]s[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]hop[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]s[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]hop[/outline_size][/outline_color][/color][/center][/outline_color]"
 reset_on_finish = true
 word = "shop"
 
@@ -724,7 +724,7 @@ offset_left = -45.5
 offset_top = -20.5
 offset_right = -3.5
 offset_bottom = -3.5
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]t[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eams[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]t[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eams[/outline_size][/outline_color][/color][/center][/outline_color]"
 reset_on_finish = true
 word = "teams"
 
@@ -739,7 +739,7 @@ offset_left = -45.5
 offset_top = -20.5
 offset_right = -3.5
 offset_bottom = -3.5
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]r[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eport[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]r[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eport[/outline_size][/outline_color][/color][/center][/outline_color]"
 reset_on_finish = true
 word = "report"
 
@@ -1553,7 +1553,7 @@ script = ExtResource("35_whsqs")
 board = NodePath("MarginContainer/VBoxContainer/UserScore")
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]f[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]ellows[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]f[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]ellows[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "fellows"
 
 [node name="UserScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Fellows3/MarginContainer/VBoxContainer" index="1" instance=ExtResource("36_vfedp")]
@@ -1573,7 +1573,7 @@ script = ExtResource("35_whsqs")
 board = NodePath("MarginContainer/VBoxContainer/GlobalScore")
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Top1/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]l[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eaders[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]l[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eaders[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "leaders"
 
 [node name="GlobalScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Top1/MarginContainer/VBoxContainer" index="1" instance=ExtResource("36_vfedp")]
@@ -1593,7 +1593,7 @@ script = ExtResource("35_whsqs")
 board = NodePath("MarginContainer/VBoxContainer/FriendsScore")
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Team/TextureRect/Papers/Team2/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]t[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eammates[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]t[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eammates[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "teammates"
 
 [node name="FriendsScore" parent="CanvasLayer/Control/Team/TextureRect/Papers/Team2/MarginContainer/VBoxContainer" index="1" instance=ExtResource("36_vfedp")]
@@ -1658,7 +1658,7 @@ status_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxConta
 loading_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/Loading2")
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]f[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eedback[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]f[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]eedback[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "feedback"
 
 [node name="Limit" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Feedback1/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
@@ -1739,7 +1739,7 @@ right_button = NodePath("MarginContainer/VBoxContainer/Graph2D/HBoxContainer/Rig
 nodes = [NodePath("../MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"), NodePath("../MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton")]
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]p[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]erformance[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]p[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]erformance[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "performance"
 
 [node name="Graph2D" type="Control" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer" index="1" node_paths=PackedStringArray("coordinate")]
@@ -1802,7 +1802,7 @@ theme_override_constants/margin_right = 1
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton/MarginContainer/VBoxContainer/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=2][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2]asd[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=2][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2]asd[/outline_size][/outline_color][/color][/center][/outline_color]"
 untyped_outline_size = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/LeftButton"]
@@ -1844,7 +1844,7 @@ theme_override_constants/margin_right = 1
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton/MarginContainer/VBoxContainer/MarginContainer" index="0"]
 theme_override_font_sizes/normal_font_size = 6
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=2][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2]asd[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=2][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=2]asd[/outline_size][/outline_color][/color][/center][/outline_color]"
 untyped_outline_size = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Performance2/MarginContainer/VBoxContainer/Graph2D/HBoxContainer/RightButton"]
@@ -1880,7 +1880,7 @@ max_length = 20
 nodes = [NodePath("../MarginContainer/VBoxContainer/VBoxContainer/Signature")]
 
 [node name="TypingLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]r[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]esignation[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]r[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]esignation[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "resignation"
 
 [node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="1"]
@@ -1910,6 +1910,7 @@ fit_content = true
 [node name="Signature" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("11_cjr5n")]
 layout_mode = 2
 size_flags_horizontal = 0
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]asd[/outline_size][/outline_color][/color][/center][/outline_color]"
 
 [node name="TextureRect2" parent="CanvasLayer/Control/Report/TextureRect" index="2"]
 light_mask = 0
@@ -1955,7 +1956,7 @@ bus = &"BGM"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_bge4k")
+&"": SubResource("AnimationLibrary_bge4k")
 }
 
 [editable path="CanvasLayer/Control/Team"]

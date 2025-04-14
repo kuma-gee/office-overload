@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=3 uid="uid://cwb2bomvrxmul"]
 
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="1_brac4"]
-[ext_resource type="Script" path="res://src/ui/leaderboad.gd" id="1_l151m"]
+[ext_resource type="Script" uid="uid://k8d1ftqgymrh" path="res://src/ui/leaderboad.gd" id="1_l151m"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_tr223"]
 [ext_resource type="PackedScene" uid="uid://cmu36xk8jw0u8" path="res://src/ui/interview_score.tscn" id="4_tc631"]
-[ext_resource type="Script" path="res://src/delegator.gd" id="5_dsyjy"]
+[ext_resource type="Script" uid="uid://s0nbpnxj5anl" path="res://src/delegator.gd" id="5_dsyjy"]
 [ext_resource type="LabelSettings" uid="uid://uctt264dd2ni" path="res://theme/text_small.tres" id="6_3awih"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="6_s33vv"]
-[ext_resource type="Script" path="res://src/ui/esc_button.gd" id="7_6qirp"]
+[ext_resource type="Script" uid="uid://cvcvmfkjv7b2s" path="res://src/ui/esc_button.gd" id="7_6qirp"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_qqxj0"]
 

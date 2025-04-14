@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=3 uid="uid://dw4ed4dspm22v"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_t4bof"]
-[ext_resource type="Script" path="res://src/ui/gameover.gd" id="2_biwr8"]
+[ext_resource type="Script" uid="uid://cmva6kgxjoxuk" path="res://src/ui/gameover.gd" id="2_biwr8"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_s2nja"]
-[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_ekemn"]
+[ext_resource type="Script" uid="uid://cksqq540jqppy" path="res://src/base-system/effect/EffectRoot.gd" id="4_ekemn"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="4_vuj6l"]
-[ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="7_chtch"]
+[ext_resource type="Script" uid="uid://clfc0mgso3q2b" path="res://src/base-system/effect/Fade.gd" id="7_chtch"]
 [ext_resource type="AudioStream" uid="uid://ctlbf2imxt5tn" path="res://assets/sound/呪いの旋律.mp3" id="7_fg57t"]
-[ext_resource type="Script" path="res://src/ui/end_paper.gd" id="7_jgrif"]
-[ext_resource type="Script" path="res://src/delegator.gd" id="12_m587a"]
+[ext_resource type="Script" uid="uid://cxd5ocxyt0svt" path="res://src/ui/end_paper.gd" id="7_jgrif"]
+[ext_resource type="Script" uid="uid://s0nbpnxj5anl" path="res://src/delegator.gd" id="12_m587a"]
 
 [node name="Gameover" type="Control" node_paths=PackedStringArray("restart", "menu", "ceo_quit", "ceo_keep", "default_options", "ceo_options", "title", "desc", "days", "level", "speed", "acc")]
 process_mode = 3

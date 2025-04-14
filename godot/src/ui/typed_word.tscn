@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_16exh"]
 [ext_resource type="RichTextEffect" uid="uid://d0psnm1eyw40x" path="res://src/text-effect/typed_effect.tres" id="2_ggsoe"]
-[ext_resource type="Script" path="res://src/ui/TypedWord.gd" id="3_dhe6d"]
+[ext_resource type="Script" uid="uid://d3te0dok2w2r7" path="res://src/ui/TypedWord.gd" id="3_dhe6d"]
 
 [node name="TypingLabel" type="RichTextLabel"]
 anchors_preset = 8
@@ -22,7 +22,7 @@ theme_override_colors/font_outline_color = Color(1, 1, 1, 0)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]asd[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]asd[/outline_size][/outline_color][/color][/center][/outline_color]"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0

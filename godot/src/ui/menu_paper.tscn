@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://du0v5of5joaem"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_puvxf"]
-[ext_resource type="Script" path="res://src/ui/menu_paper.gd" id="2_peyro"]
+[ext_resource type="Script" uid="uid://rhh2sgbqiyny" path="res://src/ui/menu_paper.gd" id="2_peyro"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="3_rij8d"]
-[ext_resource type="Script" path="res://src/delegator.gd" id="4_u2m0v"]
+[ext_resource type="Script" uid="uid://s0nbpnxj5anl" path="res://src/delegator.gd" id="4_u2m0v"]
 
 [node name="MenuPaper" type="PanelContainer" node_paths=PackedStringArray("label")]
 custom_minimum_size = Vector2(150, 170)

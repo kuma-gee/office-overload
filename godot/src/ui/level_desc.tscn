@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://y8oomkooawo2"]
 
-[ext_resource type="Script" path="res://src/ui/level_desc.gd" id="1_0rjrg"]
+[ext_resource type="Script" uid="uid://c7f2esl8krckk" path="res://src/ui/level_desc.gd" id="1_0rjrg"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_avsxb"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="1_dh52b"]
 [ext_resource type="Texture2D" uid="uid://bstvwnc3xppv1" path="res://assets/sprites/Shift.png" id="2_xml2c"]
-[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="5_jwbvh"]
-[ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="6_f8lep"]
-[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="7_445gd"]
+[ext_resource type="Script" uid="uid://cksqq540jqppy" path="res://src/base-system/effect/EffectRoot.gd" id="5_jwbvh"]
+[ext_resource type="Script" uid="uid://clfc0mgso3q2b" path="res://src/base-system/effect/Fade.gd" id="6_f8lep"]
+[ext_resource type="Script" uid="uid://du7faux5svp1d" path="res://src/base-system/effect/Slide.gd" id="7_445gd"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("feature_title", "feature_text", "shift_tex", "effect", "feature_container")]
 z_index = 100

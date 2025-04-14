@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://d0gtt2fgdaddt"]
 
 [ext_resource type="Texture2D" uid="uid://c7bni1sdaaaqn" path="res://assets/sprites/Desk_Keyboard.png" id="1_wrklc"]
-[ext_resource type="Script" path="res://src/game/keyboard.gd" id="2_d6cy8"]
-[ext_resource type="Script" path="res://src/game/cover_keys.gd" id="3_j7gvb"]
+[ext_resource type="Script" uid="uid://cq14gs8hvrfi4" path="res://src/game/keyboard.gd" id="2_d6cy8"]
+[ext_resource type="Script" uid="uid://bg7jk14ljibvd" path="res://src/game/cover_keys.gd" id="3_j7gvb"]
 
 [node name="Keyboard" type="Sprite2D"]
 position = Vector2(0, -33)

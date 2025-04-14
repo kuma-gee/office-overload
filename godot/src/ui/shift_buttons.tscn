@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://holl57dpr32j"]
 
-[ext_resource type="Script" path="res://src/ui/shift_buttons.gd" id="1_4yaks"]
-[ext_resource type="Script" path="res://src/delegator.gd" id="2_r3tnl"]
+[ext_resource type="Script" uid="uid://3avnwm7qo8un" path="res://src/ui/shift_buttons.gd" id="1_4yaks"]
+[ext_resource type="Script" uid="uid://s0nbpnxj5anl" path="res://src/delegator.gd" id="2_r3tnl"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="3_qpn0p"]
 [ext_resource type="Texture2D" uid="uid://bstvwnc3xppv1" path="res://assets/sprites/Shift.png" id="4_nv8rh"]
-[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="5_7wmiy"]
-[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="6_y20uf"]
+[ext_resource type="Script" uid="uid://cksqq540jqppy" path="res://src/base-system/effect/EffectRoot.gd" id="5_7wmiy"]
+[ext_resource type="Script" uid="uid://du7faux5svp1d" path="res://src/base-system/effect/Slide.gd" id="6_y20uf"]
 
 [node name="ShiftButtons" type="Control"]
 layout_mode = 3

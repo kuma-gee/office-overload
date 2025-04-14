@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cmu36xk8jw0u8"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_1wirg"]
-[ext_resource type="Script" path="res://src/ui/score_board.gd" id="2_hvdfi"]
+[ext_resource type="Script" uid="uid://b73y4h7cai44n" path="res://src/ui/score_board.gd" id="2_hvdfi"]
 [ext_resource type="LabelSettings" uid="uid://uctt264dd2ni" path="res://theme/text_small.tres" id="3_jt1on"]
 [ext_resource type="RichTextEffect" uid="uid://d0psnm1eyw40x" path="res://src/text-effect/typed_effect.tres" id="3_vpmc6"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="4_5kh8s"]

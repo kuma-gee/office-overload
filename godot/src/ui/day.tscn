@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://dffjinparflk0"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_hcfjt"]
-[ext_resource type="Script" path="res://src/ui/day.gd" id="1_ilfqg"]
-[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="3_1tsnh"]
-[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="4_0nvsa"]
+[ext_resource type="Script" uid="uid://dqruqphh8r0vo" path="res://src/ui/day.gd" id="1_ilfqg"]
+[ext_resource type="Script" uid="uid://cksqq540jqppy" path="res://src/base-system/effect/EffectRoot.gd" id="3_1tsnh"]
+[ext_resource type="Script" uid="uid://du7faux5svp1d" path="res://src/base-system/effect/Slide.gd" id="4_0nvsa"]
 [ext_resource type="AudioStream" uid="uid://dskcudu4jbs6x" path="res://assets/sound/目覚まし時計のアラーム.mp3" id="5_k8sob"]
 [ext_resource type="PackedScene" uid="uid://y8oomkooawo2" path="res://src/ui/level_desc.tscn" id="7_wsm4p"]
 

@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://dbph2sk0jrwh7"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_vkbbw"]
-[ext_resource type="Script" path="res://src/start/shop_paper.gd" id="2_ipdik"]
+[ext_resource type="Script" uid="uid://bfmcbeoad03ir" path="res://src/start/shop_paper.gd" id="2_ipdik"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="3_8orlk"]
 [ext_resource type="Texture2D" uid="uid://btpfvi2cluwcj" path="res://assets/sprites/Icon_Plant.png" id="4_ia1nw"]
 [ext_resource type="Texture2D" uid="uid://dmrxb8h6ge88v" path="res://assets/sprites/Ctrl.png" id="5_50sr6"]
-[ext_resource type="Script" path="res://src/delegator.gd" id="6_ebu83"]
+[ext_resource type="Script" uid="uid://s0nbpnxj5anl" path="res://src/delegator.gd" id="6_ebu83"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="7_tygfg"]
 
 [node name="ShopPaper" type="Control" node_paths=PackedStringArray("desc_label", "price_label", "value_label", "icon_tex", "ctrl_hint", "sold_out", "no_money", "esc_tex", "buy_button", "title_button", "delegator")]

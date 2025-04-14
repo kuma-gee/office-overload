@@ -1,12 +1,12 @@
 [gd_scene load_steps=14 format=3 uid="uid://bevwwvcqg3xhh"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_eb7yf"]
-[ext_resource type="Script" path="res://src/ui/folder.gd" id="1_pv7op"]
+[ext_resource type="Script" uid="uid://i4qavwpxv5u4" path="res://src/ui/folder.gd" id="1_pv7op"]
 [ext_resource type="Texture2D" uid="uid://b86s2s2gagfk4" path="res://assets/sprites/Menu_FrontBack.png" id="2_co0qb"]
-[ext_resource type="Script" path="res://src/ui/papers.gd" id="3_l8ihl"]
+[ext_resource type="Script" uid="uid://ds031ee537u3v" path="res://src/ui/papers.gd" id="3_l8ihl"]
 [ext_resource type="Texture2D" uid="uid://01dnhf4fl7y7" path="res://assets/sprites/Escape.png" id="5_3scs5"]
 [ext_resource type="Texture2D" uid="uid://c5kug4qan8fud" path="res://assets/sprites/Menu_FolderFront.png" id="5_s5drs"]
-[ext_resource type="Script" path="res://src/delegator.gd" id="5_xfvoj"]
+[ext_resource type="Script" uid="uid://s0nbpnxj5anl" path="res://src/delegator.gd" id="5_xfvoj"]
 [ext_resource type="AudioStream" uid="uid://4fnv3b5m30j5" path="res://assets/sound/folder_open.mp3" id="8_xu26d"]
 
 [sub_resource type="Animation" id="Animation_xpunr"]
@@ -270,10 +270,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pnlba"]
 _data = {
-"RESET": SubResource("Animation_xpunr"),
-"close_folder": SubResource("Animation_om7um"),
-"open_folder": SubResource("Animation_gi17e"),
-"show_overlay": SubResource("Animation_ebrw4")
+&"RESET": SubResource("Animation_xpunr"),
+&"close_folder": SubResource("Animation_om7um"),
+&"open_folder": SubResource("Animation_gi17e"),
+&"show_overlay": SubResource("Animation_ebrw4")
 }
 
 [node name="Folder" type="Control" node_paths=PackedStringArray("papers", "overlay")]

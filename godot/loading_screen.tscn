@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://7s5w5v7jmf30"]
 
-[ext_resource type="Script" path="res://loading_screen.gd" id="1_e2e0k"]
+[ext_resource type="Script" uid="uid://bd2th0v4vvniv" path="res://loading_screen.gd" id="1_e2e0k"]
 [ext_resource type="RichTextEffect" uid="uid://d0psnm1eyw40x" path="res://src/text-effect/typed_effect.tres" id="2_5s7em"]
 
 [node name="LoadingScreen" type="Control"]

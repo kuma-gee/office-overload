@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://j20v4cg7v8m1"]
 
-[ext_resource type="Script" path="res://addons/scene_manager/SceneManager.gd" id="1_22br8"]
+[ext_resource type="Script" uid="uid://u68stb7txg8e" path="res://addons/scene_manager/SceneManager.gd" id="1_22br8"]
 
 [sub_resource type="Animation" id="Animation_05cna"]
 length = 0.001
@@ -34,8 +34,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8p08m"]
 _data = {
-"RESET": SubResource("Animation_05cna"),
-"ShaderFade": SubResource("Animation_hqs0c")
+&"RESET": SubResource("Animation_05cna"),
+&"ShaderFade": SubResource("Animation_hqs0c")
 }
 
 [node name="SceneManager" type="Node2D"]
@@ -55,6 +55,6 @@ color = Color(0, 0, 0, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_8p08m")
+&"": SubResource("AnimationLibrary_8p08m")
 }
 speed_scale = 2.0

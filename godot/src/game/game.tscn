@@ -1,48 +1,48 @@
 [gd_scene load_steps=105 format=3 uid="uid://di8g8e6s34cik"]
 
-[ext_resource type="Script" path="res://src/game/game.gd" id="1_ptsas"]
+[ext_resource type="Script" uid="uid://cnd6nnfhonksh" path="res://src/game/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/game/document.tscn" id="2_35x6g"]
-[ext_resource type="Script" path="res://src/base-system/CameraShake.gd" id="2_40dk3"]
-[ext_resource type="Script" path="res://src/mouse_input.gd" id="2_a2wq4"]
+[ext_resource type="Script" uid="uid://cxcpmafgn0yt0" path="res://src/base-system/CameraShake.gd" id="2_40dk3"]
+[ext_resource type="Script" uid="uid://dfgidd3j3dech" path="res://src/mouse_input.gd" id="2_a2wq4"]
 [ext_resource type="Texture2D" uid="uid://h14bp6b8w6i8" path="res://assets/sprites/Progress_Under.png" id="2_s1wqh"]
 [ext_resource type="PackedScene" uid="uid://dffjinparflk0" path="res://src/ui/day.tscn" id="3_4j615"]
 [ext_resource type="Texture2D" uid="uid://df8a7xriw1acm" path="res://assets/sprites/Progress_Fill.png" id="3_6o0s1"]
-[ext_resource type="Script" path="res://src/base-system/FrameFreeze.gd" id="3_o6tfp"]
-[ext_resource type="Script" path="res://src/game/DocSpawner.gd" id="4_macw6"]
+[ext_resource type="Script" uid="uid://dvvwlfh5128i8" path="res://src/base-system/FrameFreeze.gd" id="3_o6tfp"]
+[ext_resource type="Script" uid="uid://qskswbwr6qj7" path="res://src/game/DocSpawner.gd" id="4_macw6"]
 [ext_resource type="Texture2D" uid="uid://wg2sutgl31vb" path="res://assets/sprites/Progress_Break.png" id="4_nv7v1"]
-[ext_resource type="Shader" path="res://src/base-system/shaders/hit.gdshader" id="4_tfr35"]
-[ext_resource type="Script" path="res://src/game/ProgressBroken.gd" id="5_b1x4w"]
+[ext_resource type="Shader" uid="uid://c2fpiuyd8xsku" path="res://src/base-system/shaders/hit.gdshader" id="4_tfr35"]
+[ext_resource type="Script" uid="uid://b8wkm8fhocbeu" path="res://src/game/ProgressBroken.gd" id="5_b1x4w"]
 [ext_resource type="AudioStream" uid="uid://wbinc813ks6f" path="res://assets/sound/ガラスが割れる3.mp3" id="6_g6nin"]
 [ext_resource type="Texture2D" uid="uid://mgxmnunxgvxi" path="res://assets/sprites/Progress_Front.png" id="7_8fqhj"]
-[ext_resource type="Script" path="res://src/game/WorkTime.gd" id="7_ruuy4"]
+[ext_resource type="Script" uid="uid://dl2jrcwwkxomu" path="res://src/game/WorkTime.gd" id="7_ruuy4"]
 [ext_resource type="PackedScene" uid="uid://dw4ed4dspm22v" path="res://src/ui/gameover.tscn" id="8_lpofg"]
 [ext_resource type="PackedScene" uid="uid://kdu7e637eapn" path="res://src/ui/end.tscn" id="9_dbvje"]
-[ext_resource type="Script" path="res://src/base-system/AutoProgressbar.gd" id="9_ul3fx"]
+[ext_resource type="Script" uid="uid://dw4qpqmxharyj" path="res://src/base-system/AutoProgressbar.gd" id="9_ul3fx"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="10_am0oy"]
-[ext_resource type="Script" path="res://src/base-system/ExtendedTimer.gd" id="10_sr2sn"]
+[ext_resource type="Script" uid="uid://bs7l6thbjo7vr" path="res://src/base-system/ExtendedTimer.gd" id="10_sr2sn"]
 [ext_resource type="AudioStream" uid="uid://cbl54cvxxt3ij" path="res://src/game/beep.mp3" id="12_6mlls"]
-[ext_resource type="Script" path="res://src/game/DocumentStack.gd" id="12_n73rb"]
+[ext_resource type="Script" uid="uid://cnblq000c45nb" path="res://src/game/DocumentStack.gd" id="12_n73rb"]
 [ext_resource type="AudioStream" uid="uid://dykrksjnisr7f" path="res://assets/sound/柱時計の鐘.mp3" id="12_y1afc"]
 [ext_resource type="Texture2D" uid="uid://b3m7b3wyx4tpw" path="res://assets/sprites/Clock.png" id="13_dyrwf"]
-[ext_resource type="Script" path="res://src/game/Distractions.gd" id="14_s1o3m"]
-[ext_resource type="Script" path="res://src/game/Clock.gd" id="14_stuan"]
+[ext_resource type="Script" uid="uid://bhv57eohxfjcq" path="res://src/game/Distractions.gd" id="14_s1o3m"]
+[ext_resource type="Script" uid="uid://gj7n12cc2na6" path="res://src/game/Clock.gd" id="14_stuan"]
 [ext_resource type="Texture2D" uid="uid://c7y3y52oh6sbg" path="res://assets/sprites/MonitorLight.png" id="14_uyjhq"]
-[ext_resource type="Script" path="res://src/ui/DistractionWindow.gd" id="15_ffym8"]
+[ext_resource type="Script" uid="uid://ds05gnpm2lay1" path="res://src/ui/DistractionWindow.gd" id="15_ffym8"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="15_r4fui"]
 [ext_resource type="LabelSettings" uid="uid://bsk404a5n517i" path="res://theme/text_normal.tres" id="16_3sqd2"]
 [ext_resource type="Texture2D" uid="uid://bikrg3yecci4h" path="res://assets/sprites/ClockLight.png" id="17_b6uxm"]
 [ext_resource type="AudioStream" uid="uid://cg3y8tqu354up" path="res://assets/sound/決定ボタンを押す53.mp3" id="17_xms1k"]
 [ext_resource type="Texture2D" uid="uid://fk36xs2n3q4o" path="res://assets/sprites/Phone.png" id="18_3w3fn"]
 [ext_resource type="Texture2D" uid="uid://dg4t2u4r7tk5d" path="res://assets/sprites/SpeechBubble.png" id="18_51hqv"]
-[ext_resource type="Script" path="res://src/ManualLoopAudio.gd" id="18_f0kcb"]
+[ext_resource type="Script" uid="uid://bsvfpdifuin8m" path="res://src/ManualLoopAudio.gd" id="18_f0kcb"]
 [ext_resource type="AudioStream" uid="uid://dc1fhbgjs375l" path="res://assets/sound/携帯電話のバイブレーション1.mp3" id="19_5t58c"]
 [ext_resource type="AudioStream" uid="uid://bpxm5pscsli23" path="res://assets/sound/鳩時計1.mp3" id="19_mkiih"]
-[ext_resource type="Script" path="res://src/game/BlinkText.gd" id="20_0ygyh"]
+[ext_resource type="Script" uid="uid://c7062lv1dpg6n" path="res://src/game/BlinkText.gd" id="20_0ygyh"]
 [ext_resource type="AudioStream" uid="uid://bmtpsyxjqkjxv" path="res://assets/sound/携帯電話の着信音1.mp3" id="20_2av8q"]
 [ext_resource type="Texture2D" uid="uid://7rmhhytuv24r" path="res://assets/sprites/Email.png" id="20_hn5id"]
-[ext_resource type="Script" path="res://src/delegator.gd" id="20_tcix1"]
-[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="20_u0r5t"]
-[ext_resource type="Script" path="res://src/base-system/effect/Shake.gd" id="21_os6oe"]
+[ext_resource type="Script" uid="uid://s0nbpnxj5anl" path="res://src/delegator.gd" id="20_tcix1"]
+[ext_resource type="Script" uid="uid://cksqq540jqppy" path="res://src/base-system/effect/EffectRoot.gd" id="20_u0r5t"]
+[ext_resource type="Script" uid="uid://df6tjx44qcbqb" path="res://src/base-system/effect/Shake.gd" id="21_os6oe"]
 [ext_resource type="Texture2D" uid="uid://r6b75n40gyxy" path="res://assets/sprites/Desk_Computer.png" id="21_tywuk"]
 [ext_resource type="Curve" uid="uid://c5dolop3rdetn" path="res://src/dust_damp.tres" id="24_ecpli"]
 [ext_resource type="Texture2D" uid="uid://bi677bl6yv3en" path="res://assets/sprites/Document.png" id="24_g7dws"]
@@ -51,25 +51,25 @@
 [ext_resource type="Texture2D" uid="uid://ctoyv3g7nvrwf" path="res://assets/sprites/Desk_Coffee.png" id="28_i6mjb"]
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="32_eoisl"]
 [ext_resource type="PackedScene" uid="uid://cuh77fo8okhk7" path="res://src/ui/pause.tscn" id="37_b7g85"]
-[ext_resource type="Script" path="res://src/KeyReader.gd" id="39_lfd1g"]
+[ext_resource type="Script" uid="uid://4nlmepo747ct" path="res://src/KeyReader.gd" id="39_lfd1g"]
 [ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
 [ext_resource type="Texture2D" uid="uid://cahg70l0ct3i3" path="res://assets/sprites/Desk_Duck.png" id="47_0m5o6"]
-[ext_resource type="Script" path="res://src/game/duck.gd" id="47_m6qb4"]
+[ext_resource type="Script" uid="uid://cki8be2ycaa7n" path="res://src/game/duck.gd" id="47_m6qb4"]
 [ext_resource type="Texture2D" uid="uid://dl1vy7elnxhrw" path="res://assets/sprites/Desk_Mouse.png" id="48_edn0k"]
 [ext_resource type="Texture2D" uid="uid://busfi7fbj5jtp" path="res://assets/sprites/Desk_Cat.png" id="48_ic7kw"]
 [ext_resource type="AudioStream" uid="uid://dl0dmhy7ucodo" path="res://assets/sound/カモ.mp3" id="49_0opw7"]
 [ext_resource type="Texture2D" uid="uid://gxkl3pcqm8ch" path="res://assets/sprites/Desk_Note.png" id="49_bjcyb"]
-[ext_resource type="Script" path="res://src/RandomPitchShift.gd" id="50_j4bts"]
-[ext_resource type="Script" path="res://src/game/plant.gd" id="52_ck1lt"]
-[ext_resource type="Script" path="res://src/game/coffee.gd" id="53_ngmm3"]
+[ext_resource type="Script" uid="uid://c6dft6284gyaa" path="res://src/RandomPitchShift.gd" id="50_j4bts"]
+[ext_resource type="Script" uid="uid://4x8h2lso6nen" path="res://src/game/plant.gd" id="52_ck1lt"]
+[ext_resource type="Script" uid="uid://fg0ks034schg" path="res://src/game/coffee.gd" id="53_ngmm3"]
 [ext_resource type="Texture2D" uid="uid://t0vtdco1mbgy" path="res://assets/sprites/Icon_Assistant.png" id="54_ppwkm"]
-[ext_resource type="Script" path="res://src/game/desk_item.gd" id="55_fen05"]
-[ext_resource type="Script" path="res://src/WordGenerator.gd" id="55_o651g"]
-[ext_resource type="Script" path="res://src/game/assistant.gd" id="55_y6wgh"]
+[ext_resource type="Script" uid="uid://byikoarcsabif" path="res://src/game/desk_item.gd" id="55_fen05"]
+[ext_resource type="Script" uid="uid://bn8jf4fg7xkfy" path="res://src/WordGenerator.gd" id="55_o651g"]
+[ext_resource type="Script" uid="uid://d2uoyrpqqklpr" path="res://src/game/assistant.gd" id="55_y6wgh"]
 [ext_resource type="PackedScene" uid="uid://d0gtt2fgdaddt" path="res://src/game/keyboard.tscn" id="59_jp8mc"]
-[ext_resource type="Script" path="res://src/game/shift_overlay.gd" id="59_nhn8c"]
+[ext_resource type="Script" uid="uid://1x5g4wswre62" path="res://src/game/shift_overlay.gd" id="59_nhn8c"]
 [ext_resource type="Texture2D" uid="uid://cvwxs4si2hdv8" path="res://assets/sprites/CoffeeSpill_Mug.png" id="60_ulb8c"]
-[ext_resource type="Script" path="res://src/game/spill_mug.gd" id="61_ng12r"]
+[ext_resource type="Script" uid="uid://b314g8y62as8b" path="res://src/game/spill_mug.gd" id="61_ng12r"]
 [ext_resource type="Texture2D" uid="uid://bu18gjh2nloqs" path="res://assets/sprites/CoffeeSpill_Stain.png" id="61_xrrf4"]
 [ext_resource type="PackedScene" uid="uid://ck21swdujwmuh" path="res://src/game/small_doc.tscn" id="63_mwduc"]
 [ext_resource type="AudioStream" uid="uid://c46f8lfm4voiy" path="res://assets/sound/hit_table.mp3" id="69_pgfnx"]
@@ -628,17 +628,17 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vs0lt"]
 _data = {
-"RESET": SubResource("Animation_mdfl2"),
-"ceo": SubResource("Animation_y2k32"),
-"crunch": SubResource("Animation_027j0"),
-"littered": SubResource("Animation_qam2k"),
-"messy": SubResource("Animation_if3j8"),
-"no_mess": SubResource("Animation_rls1u"),
-"normal": SubResource("Animation_ijo53"),
-"silent_bgm": SubResource("Animation_0rw6j"),
-"start_bgm": SubResource("Animation_c5ajb"),
-"stop_bgm": SubResource("Animation_c62e5"),
-"tutorial": SubResource("Animation_5s4dq")
+&"RESET": SubResource("Animation_mdfl2"),
+&"ceo": SubResource("Animation_y2k32"),
+&"crunch": SubResource("Animation_027j0"),
+&"littered": SubResource("Animation_qam2k"),
+&"messy": SubResource("Animation_if3j8"),
+&"no_mess": SubResource("Animation_rls1u"),
+&"normal": SubResource("Animation_ijo53"),
+&"silent_bgm": SubResource("Animation_0rw6j"),
+&"start_bgm": SubResource("Animation_c5ajb"),
+&"stop_bgm": SubResource("Animation_c62e5"),
+&"tutorial": SubResource("Animation_5s4dq")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhwaj"]
@@ -725,12 +725,12 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3a6b2"]
 _data = {
-"RESET": SubResource("Animation_sjn3n"),
-"spill": SubResource("Animation_sywm1")
+&"RESET": SubResource("Animation_sjn3n"),
+&"spill": SubResource("Animation_sywm1")
 }
 
 [sub_resource type="Curve" id="Curve_bp2je"]
-max_value = 5.0
+_limits = [0.0, 5.0, 0.0, 1.0]
 _data = [Vector2(0, 2.36264), 0.0, 0.0, 0, 0, Vector2(1, 5), -1.99979, 0.0, 0, 0]
 point_count = 2
 
@@ -1054,6 +1054,7 @@ layout_mode = 2
 
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]asd[/outline_size][/outline_color][/color][/center][/outline_color]"
 
 [node name="Phone" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "effect_root", "sounds")]
 layout_mode = 1
@@ -1128,7 +1129,7 @@ theme_override_constants/separation = 15
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Phone/Phone/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
 size_flags_horizontal = 1
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]v[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]oicemail[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]v[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]oicemail[/outline_size][/outline_color][/color][/center][/outline_color]"
 autowrap_mode = 3
 word = "voicemail"
 
@@ -1187,6 +1188,7 @@ horizontal_alignment = 1
 
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]asd[/outline_size][/outline_color][/color][/center][/outline_color]"
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("37_b7g85")]
 visible = false
@@ -1205,7 +1207,7 @@ color = Color(0.929412, 0.894118, 0.854902, 1)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Desk")
 libraries = {
-"": SubResource("AnimationLibrary_vs0lt")
+&"": SubResource("AnimationLibrary_vs0lt")
 }
 autoplay = "normal"
 
@@ -1643,7 +1645,7 @@ shape = SubResource("RectangleShape2D_qhwaj")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Desk/SpillMug"]
 libraries = {
-"": SubResource("AnimationLibrary_3a6b2")
+&"": SubResource("AnimationLibrary_3a6b2")
 }
 
 [node name="Lifetime" type="Timer" parent="Desk/SpillMug"]
@@ -1817,15 +1819,15 @@ vertical_alignment = 1
 visible = false
 position = Vector2(3.5, 15)
 scale = Vector2(1, -1)
-process_material = SubResource("ParticleProcessMaterial_ll7l4")
 randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ll7l4")
 
 [node name="ComboParticles2" type="GPUParticles2D" parent="MarginContainer/HBoxContainer"]
 visible = false
 position = Vector2(8.5, 15)
 scale = Vector2(1, -1)
-process_material = SubResource("ParticleProcessMaterial_ll7l4")
 randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ll7l4")
 
 [node name="Combo" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2

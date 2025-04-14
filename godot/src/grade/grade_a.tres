@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="GradeResource" load_steps=2 format=3 uid="uid://wssn7mvoubcw"]
 
-[ext_resource type="Script" path="res://src/grade/GradeResource.gd" id="1_q2nte"]
+[ext_resource type="Script" uid="uid://befx1inlrp18m" path="res://src/grade/GradeResource.gd" id="1_q2nte"]
 
 [resource]
 script = ExtResource("1_q2nte")

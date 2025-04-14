@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="DifficultyResource" load_steps=2 format=3 uid="uid://caey5n60blc07"]
 
-[ext_resource type="Script" path="res://src/difficulty/DifficultyResource.gd" id="1_602ph"]
+[ext_resource type="Script" uid="uid://bkqb134y34pg0" path="res://src/difficulty/DifficultyResource.gd" id="1_602ph"]
 
 [resource]
 script = ExtResource("1_602ph")

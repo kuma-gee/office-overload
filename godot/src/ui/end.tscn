@@ -2,30 +2,30 @@
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_80w1y"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_ox4yy"]
-[ext_resource type="Script" path="res://src/ui/end.gd" id="2_oxc1v"]
-[ext_resource type="Script" path="res://src/ui/promotion_status.gd" id="3_dapla"]
+[ext_resource type="Script" uid="uid://c5evd3t376tp4" path="res://src/ui/end.gd" id="2_oxc1v"]
+[ext_resource type="Script" uid="uid://dbcskvmj332a8" path="res://src/ui/promotion_status.gd" id="3_dapla"]
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="4_0mkg1"]
-[ext_resource type="Script" path="res://src/base-system/effect/EffectRoot.gd" id="4_j7irx"]
-[ext_resource type="Script" path="res://src/base-system/effect/Slide.gd" id="5_d7wj0"]
+[ext_resource type="Script" uid="uid://cksqq540jqppy" path="res://src/base-system/effect/EffectRoot.gd" id="4_j7irx"]
+[ext_resource type="Script" uid="uid://du7faux5svp1d" path="res://src/base-system/effect/Slide.gd" id="5_d7wj0"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="5_rckpx"]
-[ext_resource type="Script" path="res://src/ui/break_button.gd" id="7_mgfnm"]
-[ext_resource type="Script" path="res://src/base-system/effect/Fade.gd" id="8_f3tsx"]
+[ext_resource type="Script" uid="uid://5ystqpved52k" path="res://src/ui/break_button.gd" id="7_mgfnm"]
+[ext_resource type="Script" uid="uid://clfc0mgso3q2b" path="res://src/base-system/effect/Fade.gd" id="8_f3tsx"]
 [ext_resource type="Texture2D" uid="uid://c0ufovhq76t52" path="res://assets/sprites/Grade.png" id="8_fgvoi"]
-[ext_resource type="Script" path="res://src/ui/end_score_paper.gd" id="8_gotkn"]
+[ext_resource type="Script" uid="uid://dj3r73s3rjqga" path="res://src/ui/end_score_paper.gd" id="8_gotkn"]
 [ext_resource type="AudioStream" uid="uid://e82h4pq7oib4" path="res://assets/sound/金額表示.mp3" id="8_i0k3p"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="8_whfhi"]
-[ext_resource type="Shader" path="res://src/base-system/shaders/outline.gdshader" id="8_yhc58"]
+[ext_resource type="Shader" uid="uid://jhh0dknyi4wo" path="res://src/base-system/shaders/outline.gdshader" id="8_yhc58"]
 [ext_resource type="LabelSettings" uid="uid://uctt264dd2ni" path="res://theme/text_small.tres" id="9_e1gla"]
-[ext_resource type="Script" path="res://src/ui/promotion_paper.gd" id="11_r0shu"]
+[ext_resource type="Script" uid="uid://bwxide2vfdqm2" path="res://src/ui/promotion_paper.gd" id="11_r0shu"]
 [ext_resource type="LabelSettings" uid="uid://fiyuuqq6ppow" path="res://theme/text_small_outline.tres" id="12_wqs3t"]
 [ext_resource type="AudioStream" uid="uid://ctlbf2imxt5tn" path="res://assets/sound/呪いの旋律.mp3" id="13_26xkb"]
 [ext_resource type="Texture2D" uid="uid://cs3vlokhe6yqh" path="res://assets/sprites/ProgressSmall_Under.png" id="14_3eu2v"]
 [ext_resource type="Texture2D" uid="uid://bh7sul5xxqc3x" path="res://assets/sprites/ProgressSmall_Front.png" id="15_m5sj3"]
-[ext_resource type="Script" path="res://src/delegator.gd" id="16_8aqif"]
+[ext_resource type="Script" uid="uid://s0nbpnxj5anl" path="res://src/delegator.gd" id="16_8aqif"]
 [ext_resource type="Texture2D" uid="uid://hst0o23h0h88" path="res://assets/sprites/ProgressSmall_Fill.png" id="16_cvyoc"]
-[ext_resource type="Script" path="res://src/ui/unlocked_mode.gd" id="16_hp113"]
-[ext_resource type="Script" path="res://src/ui/challenge_paper.gd" id="17_xva3p"]
-[ext_resource type="Script" path="res://src/ui/retry_button.gd" id="23_e37q1"]
+[ext_resource type="Script" uid="uid://bt0a6unts337g" path="res://src/ui/unlocked_mode.gd" id="16_hp113"]
+[ext_resource type="Script" uid="uid://qvj4atgpib1d" path="res://src/ui/challenge_paper.gd" id="17_xva3p"]
+[ext_resource type="Script" uid="uid://c3r6nj6ocm2vi" path="res://src/ui/retry_button.gd" id="23_e37q1"]
 [ext_resource type="PackedScene" uid="uid://du0v5of5joaem" path="res://src/ui/menu_paper.tscn" id="25_u5ul4"]
 [ext_resource type="PackedScene" uid="uid://cmu36xk8jw0u8" path="res://src/ui/interview_score.tscn" id="26_rlygb"]
 
@@ -212,7 +212,7 @@ move_dir = Vector2(-100, 0)
 duration = 0.8
 
 [node name="TypingLabel" parent="Control/MenuPaper/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]h[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]ighscores[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]h[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]ighscores[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "highscores"
 
 [node name="MarginContainer" parent="Control/MenuPaper/MarginContainer/VBoxContainer" index="1" instance=ExtResource("26_rlygb")]
@@ -280,10 +280,10 @@ size_flags_horizontal = 4
 position = Vector2(6, 8)
 emitting = false
 amount = 6
-process_material = SubResource("ParticleProcessMaterial_6w7w2")
 lifetime = 0.8
 one_shot = true
 explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_6w7w2")
 
 [node name="TypingLabel" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer" instance=ExtResource("8_whfhi")]
 layout_mode = 2
@@ -302,10 +302,10 @@ position = Vector2(-7, 8)
 rotation = 1.5708
 emitting = false
 amount = 6
-process_material = SubResource("ParticleProcessMaterial_6w7w2")
 lifetime = 0.8
 one_shot = true
 explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_6w7w2")
 
 [node name="EndEffect" type="Node" parent="PromotionStatus"]
 script = ExtResource("4_j7irx")
