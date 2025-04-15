@@ -6,6 +6,7 @@ extends MenuPaper
 
 func _ready() -> void:
 	super._ready()
+	text.text = text.text.replace("\r\n", "\n")
 	
 	visible = GameManager.has_current_job()
 	text.text = text.text % ["Me" if GameManager.is_finished_game() else "Boss", GameManager.get_level_text()]

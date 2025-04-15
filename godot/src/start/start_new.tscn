@@ -1885,6 +1885,7 @@ word = "resignation"
 
 [node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2
+bbcode_enabled = true
 text = "Dear %s,
 
 I hereby resign from my position as %s, effective immediately.
