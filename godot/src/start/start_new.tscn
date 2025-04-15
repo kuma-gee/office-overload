@@ -1858,7 +1858,7 @@ texture = ExtResource("5_gs4c1")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Resignation3" parent="CanvasLayer/Control/Report/TextureRect/Papers" index="2" node_paths=PackedStringArray("signature", "text") instance=ExtResource("34_wy63k")]
+[node name="Resignation3" parent="CanvasLayer/Control/Report/TextureRect/Papers" index="2" node_paths=PackedStringArray("signature", "greeting", "text") instance=ExtResource("34_wy63k")]
 light_mask = 0
 layout_mode = 1
 anchors_preset = 8
@@ -1866,14 +1866,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -36.0
-offset_right = 118.0
-offset_bottom = 134.0
+offset_left = -31.0
+offset_top = -29.0
+offset_right = 119.0
+offset_bottom = 141.0
 rotation = 0.174533
 script = ExtResource("39_cuxap")
 signature = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Signature")
-text = NodePath("MarginContainer/VBoxContainer/Text")
+greeting = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxContainer2/Label")
+text = NodePath("MarginContainer/VBoxContainer/MarginContainer/VBoxContainer2/Label2")
 max_length = 20
 
 [node name="Delegator" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3" index="0" node_paths=PackedStringArray("nodes")]
@@ -1883,18 +1884,35 @@ nodes = [NodePath("../MarginContainer/VBoxContainer/VBoxContainer/Signature")]
 text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]r[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]esignation[/outline_size][/outline_color][/color][/center][/outline_color]"
 word = "resignation"
 
-[node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="1"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2
-bbcode_enabled = true
-text = "Dear %s,
+size_flags_vertical = 3
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
 
-I hereby resign from my position as %s, effective immediately.
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
 
-PS: you will restart as intern"
-fit_content = true
-autowrap_mode = 2
+[node name="Label" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Dear %s"
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+text = "I hereby resign from my
+position as %s,
+effective immediately."
+
+[node name="Label3" type="Label" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+text = "PS: you will restart as intern"
 
 [node name="Control" type="Control" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="2"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 

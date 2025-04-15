@@ -1,12 +1,14 @@
 extends MenuPaper
 
 @export var signature: TypedWord
-@export var text: RichTextLabel
+@export var greeting: Label
+@export var text: Label
 @export var max_length := 20
 
 func _ready() -> void:
 	super._ready()
-	text.text = "Dear %s,\n\nI hereby resign from my position as %s, effective immediately.\n\nPS: you will restart as intern" % ["Me" if GameManager.is_finished_game() else "Boss", GameManager.get_level_text()]
+	greeting.text = greeting.text % ["Me" if GameManager.is_finished_game() else "Boss"]
+	text.text = text.text % [GameManager.get_level_text()]
 	
 	visible = GameManager.has_current_job()
 	signature.type_finish.connect(func():
@@ -16,7 +18,6 @@ func _ready() -> void:
 
 	focus_entered.connect(func(): _update_sign())
 	_update_sign()
-
 
 func _update_sign():
 	if SteamManager.is_steam_available():
