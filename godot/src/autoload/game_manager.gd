@@ -276,6 +276,8 @@ func won_ceo():
 	SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.CEO)
 
 func update_game_status(lobby = false):
+	if not SteamManager.is_successful_initialized: return
+	
 	if lobby:
 		SteamManager.set_rich_presence("#Prepare")
 		return

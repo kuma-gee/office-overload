@@ -1885,12 +1885,11 @@ word = "resignation"
 
 [node name="Text" type="RichTextLabel" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2
-bbcode_enabled = true
 text = "Dear %s,
 
 I hereby resign from my position as %s, effective immediately.
 
-[outline_size=3]PS:[/outline_size] you will restart as intern"
+PS: you will restart as intern"
 fit_content = true
 autowrap_mode = 2
 
@@ -1910,7 +1909,6 @@ fit_content = true
 [node name="Signature" parent="CanvasLayer/Control/Report/TextureRect/Papers/Resignation3/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("11_cjr5n")]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]asd[/outline_size][/outline_color][/color][/center][/outline_color]"
 
 [node name="TextureRect2" parent="CanvasLayer/Control/Report/TextureRect" index="2"]
 light_mask = 0

@@ -22,8 +22,8 @@ func _load_steam():
 		steam_loaded.emit()
 		return
 	
-	var init = steam.steamInit(false, Build.STEAM_APP)
-	is_successful_initialized = init.status == 1
+	var init = steam.steamInit(Build.STEAM_APP, false)
+	is_successful_initialized = init
 	_logger.info("Steam App %s initialized? %s" % [Build.STEAM_APP, init])
 	
 	if is_successful_initialized:
