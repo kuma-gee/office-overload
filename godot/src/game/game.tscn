@@ -553,7 +553,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-80.0, -50.0]
+"values": [-80.0, -15.0]
 }
 
 [sub_resource type="Animation" id="Animation_c62e5"]
@@ -569,7 +569,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-50.0, -80.0]
+"values": [-15.0, -80.0]
 }
 tracks/1/type = "method"
 tracks/1/imported = false

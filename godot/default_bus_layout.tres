@@ -1,7 +1,7 @@
 [gd_resource type="AudioBusLayout" format=3 uid="uid://bge2y0qw1dhqw"]
 
 [resource]
-bus/0/volume_db = -5.5
+bus/0/volume_db = -2.91905
 bus/1/name = &"BGM"
 bus/1/solo = false
 bus/1/mute = false
