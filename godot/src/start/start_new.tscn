@@ -969,7 +969,7 @@ layout_mode = 2
 texture = ExtResource("25_pu2hv")
 stretch_mode = 2
 
-[node name="LobbyOffice" type="PanelContainer" parent="Multiplayer/Papers" node_paths=PackedStringArray("player_container", "lobby_container", "closed_label", "failed_label", "start_btn", "loading", "delegator")]
+[node name="LobbyOffice" type="PanelContainer" parent="Multiplayer/Papers" node_paths=PackedStringArray("player_container", "lobby_container", "title_label", "closed_label", "failed_label", "start_btn", "loading", "delegator")]
 custom_minimum_size = Vector2(120, 150)
 layout_mode = 1
 anchors_preset = 8
@@ -990,12 +990,13 @@ script = ExtResource("29_qgfb0")
 row_scene = ExtResource("31_5dy66")
 player_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Players")
 lobby_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer")
+title_label = NodePath("MarginContainer/VBoxContainer/Office")
 closed_label = NodePath("MarginContainer/VBoxContainer/Closed")
 failed_label = NodePath("MarginContainer/VBoxContainer/Failed")
 start_btn = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Start")
 loading = NodePath("MarginContainer/VBoxContainer/Loading")
 delegator = NodePath("Delegator")
-move_dir = Vector2(-1, 0)
+move_dir = Vector2(-1.5, 0)
 
 [node name="Delegator" type="Node" parent="Multiplayer/Papers/LobbyOffice" node_paths=PackedStringArray("nodes")]
 script = ExtResource("7_pvyq5")

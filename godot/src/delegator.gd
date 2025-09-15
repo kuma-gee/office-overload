@@ -9,19 +9,19 @@ signal unhandled_key(key)
 var last_event: InputEvent
 
 func unfocus():
-	for node in nodes:
+	for node in _get_valid_nodes():
 		if node and node.has_method("get_label") and node.get_label():
 			node.get_label().highlight_first = false
 			node.get_label().reset()
 
 func focus():
-	for node in nodes:
+	for node in _get_valid_nodes():
 		if node and node.has_method("get_label") and node.get_label():
 			if not node.get_label().disabled:
 				node.get_label().highlight_first = true
 
 func reset():
-	for node in nodes:
+	for node in _get_valid_nodes():
 		if node and node.has_method("get_label") and node.get_label():
 			node.get_label().reset()
 
@@ -39,7 +39,7 @@ func handle_event(event: InputEvent):
 
 		var focused = _get_focused_label()
 		if focused.is_empty():
-			focused = nodes.filter(func(n): return not n.get_label().disabled)
+			focused = _get_valid_nodes().filter(func(n): return not n.get_label().disabled)
 		
 		var not_handled = []
 		for node in focused:
@@ -73,13 +73,18 @@ func has_focused():
 #
 	#return labels
 
+func _get_valid_nodes():
+	var result = []
+	for m in nodes:
+		if not is_instance_valid(m) or not _is_valid_node(m.get_label()): continue
+		result.append(m)
+	return result
+
 func _get_focused_label():
 	var labels = []
-	for m in nodes:
-		if not is_instance_valid(m): continue
-		
+	for m in _get_valid_nodes():
 		var lbl = m.get_label()
-		if _is_valid_node(lbl) and lbl.focused:
+		if lbl.focused:
 			labels.append(lbl)
 	
 	return labels

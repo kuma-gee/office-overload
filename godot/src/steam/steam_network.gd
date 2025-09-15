@@ -47,10 +47,13 @@ func _player_disconnected(id):
 func get_player_id(id):
 	return multiplayer.multiplayer_peer.get_steam64_from_peer_id(id)
 
-func host_game(friends_only := true):
+func host_game(public := false):
 	if not steam: return
-	lobby_type = steam.LOBBY_TYPE_FRIENDS_ONLY if friends_only else steam.LOBBY_TYPE_PUBLIC
+	lobby_type = steam.LOBBY_TYPE_FRIENDS_ONLY if not public else steam.LOBBY_TYPE_PUBLIC
 	steam.createLobby(lobby_type, max_peers)
+
+func is_public():
+	return lobby_type == steam.LOBBY_TYPE_PUBLIC
 
 func join_game(id):
 	if not steam: return

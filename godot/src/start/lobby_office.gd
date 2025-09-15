@@ -4,8 +4,11 @@ extends DocumentUI
 @export var row_scene: PackedScene
 @export var player_container: Control
 @export var lobby_container: Control
+
+@export var title_label: Label
 @export var closed_label: Label
 @export var failed_label: Label
+
 @export var start_btn: TypingButton
 @export var loading: RichTextLabel
 @export var delegator: Delegator
@@ -26,11 +29,13 @@ func _ready() -> void:
 	
 	failed_label.hide()
 	is_closed = false
+	_clean_up_nodes()
 	
-	for c in player_container.get_children():
-		c.queue_free()
-	
-	focus_entered.connect(func(): open())
+	focus_entered.connect(func():
+		open()
+		_ready_updated()
+		title_label.text = "%s Office" % ("Public" if Networking.network.is_public() else "Private")
+	)
 	focus_exited.connect(func(): close())
 	
 	_ready_updated()
@@ -44,18 +49,12 @@ func _ready() -> void:
 
 func _clean_up_nodes():
 	for c in player_container.get_children():
-		c.queue_free()
-	
-	var remove := []
-	for n in delegator.nodes:
-		if not is_instance_valid(n):
-			remove.append(n)
-			
-	for n in remove:
-		delegator.nodes.erase(n)
+		c.free()
+		
+	delegator.nodes = [start_btn]
 
 func _ready_updated():
-	start_btn.visible = is_owner and _is_everyone_ready()
+	start_btn.disabled = not (is_owner and _is_everyone_ready())
 
 func _is_everyone_ready():
 	if player_container.get_child_count() == 0:
@@ -71,6 +70,7 @@ func _gui_input(event: InputEvent) -> void:
 	if not handle_input(event):
 		get_viewport().gui_release_focus()
 		get_viewport().set_input_as_handled()
+		_clean_up_nodes()
 
 func handle_input(event: InputEvent):
 	if event.is_action_pressed("ui_cancel") and not delegator.has_focused():
@@ -111,7 +111,7 @@ func _add_player(id):
 	var row = row_scene.instantiate()
 	row.name = "%s" % Networking.get_player_id(id)
 	row.ready_changed.connect(func(): _ready_updated())
-	player_container.add_child(row)
+	player_container.add_child(row, true)
 	
 	if id == multiplayer.get_unique_id():
 		delegator.nodes.append(row)

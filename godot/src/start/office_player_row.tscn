@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjdtbmfsgkevt"]
+[gd_scene load_steps=5 format=3 uid="uid://cjdtbmfsgkevt"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_sajwm"]
 [ext_resource type="Script" uid="uid://c5ugb4m10g4al" path="res://src/start/office_player_row.gd" id="2_axicb"]
-[ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="3_odtw0"]
+[ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="3_gptt8"]
+[ext_resource type="PackedScene" uid="uid://bo63dnc4q3cw8" path="res://src/start/checkbox_texture.tscn" id="4_gptt8"]
 
-[node name="OfficePlayerRow" type="MarginContainer" node_paths=PackedStringArray("player_name", "player_stats", "ready_label")]
+[node name="OfficePlayerRow" type="MarginContainer" node_paths=PackedStringArray("player_name", "player_stats", "ready_label", "checkbox")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -14,7 +15,8 @@ theme = ExtResource("1_sajwm")
 script = ExtResource("2_axicb")
 player_name = NodePath("HBoxContainer2/HBoxContainer/Name")
 player_stats = NodePath("HBoxContainer2/HBoxContainer/WPM")
-ready_label = NodePath("HBoxContainer2/Ready")
+ready_label = NodePath("HBoxContainer2/HBoxContainer2/TypingButton")
+checkbox = NodePath("HBoxContainer2/HBoxContainer2/Checkbox")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -36,11 +38,24 @@ text_overrun_behavior = 3
 layout_mode = 2
 text = "CEO / 100 WPM"
 
-[node name="Ready" parent="HBoxContainer2" instance=ExtResource("3_odtw0")]
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_font_sizes/normal_font_size = 8
-text = "[center][color=353540ff][outline_color=ffffffff][outline_size=4][/outline_size][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=4][color=353540ff]r[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=4]eady[/outline_size][/outline_color][/color][/center]"
-reset_on_finish = true
-highlight_first = false
-word = "ready"
+
+[node name="TypingButton" parent="HBoxContainer2/HBoxContainer2" instance=ExtResource("3_gptt8")]
+layout_mode = 2
+size_flags_vertical = 4
+word = "Ready"
+show_underline = false
+
+[node name="TypingLabel" parent="HBoxContainer2/HBoxContainer2/TypingButton/MarginContainer/VBoxContainer/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 6
+
+[node name="Checkbox" parent="HBoxContainer2/HBoxContainer2" instance=ExtResource("4_gptt8")]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[editable path="HBoxContainer2/HBoxContainer2/TypingButton"]
