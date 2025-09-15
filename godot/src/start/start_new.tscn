@@ -1125,7 +1125,7 @@ layout_mode = 2
 texture = ExtResource("25_pu2hv")
 stretch_mode = 2
 
-[node name="Audio" type="PanelContainer" parent="CanvasLayer/Control/Settings"]
+[node name="Audio" type="PanelContainer" parent="CanvasLayer/Control/Settings" node_paths=PackedStringArray("bgm")]
 custom_minimum_size = Vector2(130, 150)
 layout_mode = 1
 anchors_preset = 8
@@ -1140,6 +1140,7 @@ offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("18_ikgcj")
+bgm = NodePath("../../../../BGM")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Settings/Audio"]
 layout_mode = 2
@@ -1964,7 +1965,6 @@ stretch_mode = 3
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("46_0cyp8")
 volume_db = -20.0
-autoplay = true
 bus = &"BGM"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

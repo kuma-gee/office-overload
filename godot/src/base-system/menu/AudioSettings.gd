@@ -3,9 +3,14 @@ extends Control
 
 signal loaded()
 
+@export var bgm: AudioStreamPlayer
+
 const AUDIO_SECTION = "audio"
 
 var _logger = Logger.new("AudioSettings")
+
+func _ready() -> void:
+	loaded.connect(func(): bgm.play())
 
 func load_settings(config: ConfigFile):
 	for i in range(0, AudioServer.bus_count):
