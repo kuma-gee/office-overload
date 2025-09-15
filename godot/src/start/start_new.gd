@@ -103,8 +103,6 @@ func _ready() -> void:
 	shop.closed.connect(func(): is_shop = false)
 	
 	game_modes_key.visible = GameManager.unlocked_modes.size() > 1 and not Env.is_demo()
-	crunch_mode_container.visible = GameManager.is_mode_unlocked(GameManager.Mode.Crunch)
-	multiplayer_mode_container.visible = GameManager.is_mode_unlocked(GameManager.Mode.Multiplayer) and false
 	
 	items_paper.opened.connect(func(): delegator.unfocus())
 	items_paper.closed.connect(func(): delegator.focus())

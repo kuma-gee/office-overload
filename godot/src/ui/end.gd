@@ -75,9 +75,12 @@ func _ready():
 	
 	retry_button.finished.connect(func(): GameManager.start())
 
-func _unlock_crunch_mode():
+func _unlock_modes():
 	if GameManager.is_senior() or GameManager.is_manager() or GameManager.is_ceo():
 		GameManager.unlock_mode(GameManager.Mode.Crunch)
+	
+	if GameManager.is_finished_game():
+		GameManager.unlock_mode(GameManager.Mode.Multiplayer)
 
 func ceo_ended(user: Dictionary, boss: Dictionary):
 	var user_tasks = user["tasks"]
@@ -152,7 +155,7 @@ func day_ended(data: Dictionary):
 func _work_day_finished():
 	if GameManager.is_work_mode():
 		GameManager.upload_work_scores()
-		_unlock_crunch_mode()
+		_unlock_modes()
 
 func crunch_ended(data: Dictionary):
 	crunch_tasks.text = "%s" % data["tasks"]

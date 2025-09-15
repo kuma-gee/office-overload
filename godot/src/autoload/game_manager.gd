@@ -261,7 +261,7 @@ func lost_ceo():
 
 func won_ceo():
 	finished_game = true
-	#unlock_mode(Mode.Multiplayer)
+	unlock_mode(Mode.Multiplayer)
 	
 	if is_work_mode():
 		day += 1
@@ -499,7 +499,7 @@ func get_level_text(lvl = difficulty_level, abbreviate = -1):
 enum Mode {
 	Work,
 	Crunch,
-	Multiplayer, # TODO: add multiplayer, after release?
+	Multiplayer,
 }
 
 
@@ -542,11 +542,6 @@ func unlock_mode(mode: Mode):
 	
 	if mode in unlocked_modes: return
 	
-	if mode == Mode.Multiplayer:
-		_logger.warn("Multiplayer not implemented yet.")
-		unlocked_modes.append(mode)
-		return
-
 	unlocked_modes.append(mode)
 	mode_unlocked.emit(mode)
 	_logger.info("Unlocked Mode %s" % Mode.keys()[mode])
