@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cmu36xk8jw0u8"]
+[gd_scene load_steps=9 format=3 uid="uid://cmu36xk8jw0u8"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_1wirg"]
 [ext_resource type="Script" uid="uid://b73y4h7cai44n" path="res://src/ui/score_board.gd" id="2_hvdfi"]
+[ext_resource type="Script" uid="uid://n0hp74nuud0s" path="res://src/ui/typed_scroll_container.gd" id="3_bnfoe"]
 [ext_resource type="LabelSettings" uid="uid://uctt264dd2ni" path="res://theme/text_small.tres" id="3_jt1on"]
 [ext_resource type="RichTextEffect" uid="uid://d0psnm1eyw40x" path="res://src/text-effect/typed_effect.tres" id="3_vpmc6"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="4_5kh8s"]
@@ -10,7 +11,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0niil"]
 
-[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("detail_labels", "container", "scroll_container", "up_scroll", "down_scroll", "scroll_button_container", "loading_label", "empty_label")]
+[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("detail_labels", "container", "scroll_container", "loading_label", "empty_label")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -23,9 +24,6 @@ script = ExtResource("2_hvdfi")
 detail_labels = [NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore/Wpm"), NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore/DocsDays"), NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore/Level")]
 container = NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore")
 scroll_container = NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer")
-up_scroll = NodePath("VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer/UpScroll")
-down_scroll = NodePath("VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2/DownScroll")
-scroll_button_container = NodePath("VBoxContainer/HBoxContainer/ScrollButtons")
 loading_label = NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Loading")
 empty_label = NodePath("VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Empty")
 
@@ -42,10 +40,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_right = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/MarginContainer" node_paths=PackedStringArray("scroll_button_container", "up_scroll", "down_scroll")]
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_scroll_mode = 0
+script = ExtResource("3_bnfoe")
+scroll_button_container = NodePath("../../ScrollButtons")
+up_scroll = NodePath("../../ScrollButtons/MarginContainer/UpScroll")
+down_scroll = NodePath("../../ScrollButtons/MarginContainer2/DownScroll")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer"]
 layout_mode = 2

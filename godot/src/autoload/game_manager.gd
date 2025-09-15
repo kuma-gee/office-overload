@@ -95,7 +95,8 @@ func _load_data():
 	if Env.is_editor():
 		difficulty_level = DifficultyResource.Level.CEO
 		finished_game = true
-		unlocked_modes = [Mode.Work, Mode.Crunch]
+		unlocked_modes = [Mode.Work, Mode.Crunch, Mode.Multiplayer]
+		bought_items = []
 	
 	_logger.info("Game initialized")
 	init = true
@@ -285,6 +286,8 @@ func update_game_status(lobby = false):
 		SteamManager.set_rich_presence("#Working", { "level": get_level_text(), "day": day+1 })
 	elif is_crunch_mode():
 		SteamManager.set_rich_presence("#Crunching")
+	elif is_multiplayer_mode():
+		SteamManager.set_rich_presence("#Competing")
 	else:
 		SteamManager.set_rich_presence("")
 
@@ -514,6 +517,9 @@ func is_work_mode():
 	
 func is_crunch_mode():
 	return current_mode == Mode.Crunch
+
+func is_multiplayer_mode():
+	return current_mode == Mode.Multiplayer
 
 func is_mode_unlocked(mode: Mode):
 	if Env.is_demo():

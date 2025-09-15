@@ -15,13 +15,9 @@ const TEXT_OUTLINE = preload("res://theme/text_outline.tres")
 @export var detail_labels: Array[Label] = []
 
 @export var container: GridContainer
-@export var scroll_container: ScrollContainer
-@export var up_scroll: TypingButton
-@export var down_scroll: TypingButton
-@export var scroll_step := 20
-@export var scroll_button_container: Control
+@export var scroll_container: TypedScrollContainer
 
-@onready var buttons: Array[TypingButton] = [up_scroll, down_scroll]
+@onready var buttons: Array[TypingButton] = [scroll_container.up_scroll, scroll_container.down_scroll]
 
 @export var loading_label: Control
 @export var empty_label: Control
@@ -31,9 +27,6 @@ var score_type: int = SteamManager.steam.LEADERBOARD_DATA_REQUEST_USERS
 var loaded_board: String = ""
 
 func _ready() -> void:
-	up_scroll.finished.connect(func(): scroll_container.scroll_vertical -= scroll_step)
-	down_scroll.finished.connect(func(): scroll_container.scroll_vertical += scroll_step)
-	scroll_button_container.hide()
 	empty_label.hide()
 	
 	for i in container.get_child_count():
@@ -45,19 +38,16 @@ func _ready() -> void:
 		lbl.text = "%s" % details_title[i]
 
 func active():
-	up_scroll.get_label().highlight_first = true
-	down_scroll.get_label().highlight_first = true
+	scroll_container.active()
 
 func reset():
-	scroll_container.scroll_vertical = 0
-	up_scroll.get_label().highlight_first = false
-	down_scroll.get_label().highlight_first = false
+	scroll_container.reset()
 
-func _update_scrollbar():
-	var bar = scroll_container.get_v_scroll_bar()
-	bar.size_flags_horizontal = Control.SIZE_SHRINK_END
-	bar.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	bar.update_minimum_size()
+#func _update_scrollbar():
+	#var bar = scroll_container.get_v_scroll_bar()
+	#bar.size_flags_horizontal = Control.SIZE_SHRINK_END
+	#bar.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	#bar.update_minimum_size()
 
 func is_friends_board():
 	return score_type == SteamManager.steam.LEADERBOARD_DATA_REQUEST_FRIENDS
@@ -114,7 +104,7 @@ func show_data(data: Array):
 			container.add_child(label)
 	
 	await get_tree().physics_frame
-	scroll_button_container.visible = scroll_container.get_v_scroll_bar().visible and not data.is_empty()
+	scroll_container.update(data)
 
 func _get_recursive(dict: Dictionary, key: String, details: Array):
 	if key.begins_with("details."):

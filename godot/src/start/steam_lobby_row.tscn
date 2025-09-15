@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://5ysxobrgqisd"]
+
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_52ani"]
+[ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="1_hq1un"]
+[ext_resource type="Script" uid="uid://bvmyyy1bsbi1r" path="res://src/start/steam_lobby_row.gd" id="1_nwkpw"]
+
+[node name="SteamLobbyRow" type="MarginContainer" node_paths=PackedStringArray("typing_label", "lobby_label", "count_label")]
+offset_right = 68.0
+offset_bottom = 16.0
+theme = ExtResource("1_52ani")
+script = ExtResource("1_nwkpw")
+typing_label = NodePath("HBoxContainer2/TypingLabel")
+lobby_label = NodePath("HBoxContainer2/Label")
+count_label = NodePath("HBoxContainer2/Count")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TypingLabel" parent="HBoxContainer2" instance=ExtResource("1_hq1un")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "'s lobby"
+
+[node name="Count" type="Label" parent="HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "0/5"

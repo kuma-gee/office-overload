@@ -76,6 +76,8 @@ func has_focused():
 func _get_focused_label():
 	var labels = []
 	for m in nodes:
+		if not is_instance_valid(m): continue
+		
 		var lbl = m.get_label()
 		if _is_valid_node(lbl) and lbl.focused:
 			labels.append(lbl)
