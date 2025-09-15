@@ -13,7 +13,7 @@ var _default_log_level := Logger.Level.INFO
 
 func _ready():
 	var args = _args_dictionary()
-	print(args)
+	_logger.info("Args: %s" % args)
 	
 	if not is_editor():
 		_live = false

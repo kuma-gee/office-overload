@@ -15,8 +15,13 @@ signal type_wrong()
 @export var untyped_color := Color.BLACK
 @export var highlight_color := Color.WHITE
 @export var typed_color := Color.WHITE
-@export var untyped_outline_color := Color.WHITE
-@export var untyped_outline_size := 2
+#@export var untyped_outline_color := Color.WHITE
+
+@export var outline_size := 2:
+	set(v):
+		outline_size = v
+		update_word()
+
 @export var play_sound := true
 @export var enable_mistake_effect := true
 
@@ -103,7 +108,7 @@ var censored := []:
 
 func _ready():
 	self.focused = false
-	add_theme_constant_override("outline_size", 5)
+	#add_theme_constant_override("outline_size", 5)
 	shake_timer.timeout.connect(func(): self.current_shake = 0)
 	
 	if reset_on_finish:
@@ -132,13 +137,13 @@ func update_word():
 	
 	var until = typed.length()
 	if highlight_first and until == 0:
-		text = _outline(_wrap_center(_wrap_word(0, true)))
+		text = _wrap_center(_wrap_word(0, true))
 	elif highlight_all:
-		text = _outline(_wrap_center(_wrap_typed(word.length(), _wrap_word(0))))
+		text = _wrap_center(_wrap_typed(word.length(), _wrap_word(0)))
 	else:
-		text = _outline(_wrap_center(_wrap_typed(until, _wrap_word(until), true)))
+		text = _wrap_center(_wrap_typed(until, _wrap_word(until), true))
 
-func _outline(w: String, color: Color = untyped_outline_color):
+func _outline(w: String, color: Color = highlight_color):
 	return "[outline_color=%s]%s[/outline_color]" % [color.to_html(), w]
 
 func _outline_size(w: String, i: int):
@@ -156,19 +161,19 @@ func _wrap_word(until: int, highlight_letter = false):
 	#var highlight_start = "[outline_color=%s][color=%s]" % [Color.TRANSPARENT.to_html(), typed_color.to_html()]
 	#var highlight_end = "[/color][/outline_color]"
 	
-	var not_highlight_char = _outline(_outline_size(censored_word.substr(until, 1), untyped_outline_size), highlight_color if highlight_first else Color.TRANSPARENT)
-	var first_highlight = _outline(_outline_size(_color(censored_word.substr(until, 1), typed_color), untyped_outline_size), highlight_color)
+	var not_highlight_char = _outline(_outline_size(censored_word.substr(until, 1), outline_size), highlight_color if highlight_first or locked else Color.TRANSPARENT)
+	var first_highlight = _outline(_outline_size(_color(censored_word.substr(until, 1), typed_color), outline_size), highlight_color)
 	var first_jump = _wrap_typed(1, first_highlight)
 	return "[color=%s]%s[/color][color=%s][shake rate=%s level=%s]%s[/shake]%s[/color]" % [
 		typed_color.to_html(),
-		_outline(censored_word.substr(0, until), highlight_color),
+		_outline(_outline_size(censored_word.substr(0, until), outline_size), highlight_color),
 		#untyped_color.to_html() if typed.length() > 0 else text_color.to_html(),
 		untyped_color.to_html(),
 		#highlight_start if highlight_letter else "",
 		current_shake, 10 if current_shake > 0 else 0,
 		first_jump if jump_first and until == 0 else (first_highlight if highlight_first and until == 0 else not_highlight_char),
 		#highlight_end if highlight_letter else "",
-		_outline(_outline_size(censored_word.substr(until + 1), untyped_outline_size), untyped_outline_color if locked else Color.TRANSPARENT)
+		_outline(_outline_size(censored_word.substr(until + 1), outline_size), highlight_color if locked else Color.TRANSPARENT)
 	]
 
 func _wrap_typed(until: int, w: String, highlight = false):

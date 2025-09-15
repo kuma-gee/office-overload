@@ -1128,7 +1128,7 @@ theme_override_constants/separation = 15
 [node name="TypingLabel" parent="CanvasLayer/Distractions/Phone/Phone/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
 layout_mode = 2
 size_flags_horizontal = 1
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]v[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]oicemail[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[center][color=353540ff][outline_color=ffffffff][outline_size=4][/outline_size][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=4][color=353540ff]v[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=4]oicemail[/outline_size][/outline_color][/color][/center]"
 autowrap_mode = 3
 word = "voicemail"
 
@@ -1846,6 +1846,7 @@ document_scene = ExtResource("2_35x6g")
 word_generator = NodePath("WordGenerator")
 spill_mug = NodePath("../Desk/SpillMug")
 center_offset = 10
+verfical_offset = 8.0
 positions = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3")]
 
 [node name="WordGenerator" type="Node" parent="DocSpawner"]

@@ -212,7 +212,7 @@ move_dir = Vector2(-100, 0)
 duration = 0.8
 
 [node name="TypingLabel" parent="Control/MenuPaper/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-text = "[outline_color=ffffffff][center][color=353540ff][outline_color=ffffffff][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=5][color=353540ff]h[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=5]ighscores[/outline_size][/outline_color][/color][/center][/outline_color]"
+text = "[center][color=353540ff][outline_color=ffffffff][outline_size=4][/outline_size][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=4][color=353540ff]h[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=4]ighscores[/outline_size][/outline_color][/color][/center]"
 word = "highscores"
 
 [node name="MarginContainer" parent="Control/MenuPaper/MarginContainer/VBoxContainer" index="1" instance=ExtResource("26_rlygb")]

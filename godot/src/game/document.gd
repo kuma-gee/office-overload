@@ -23,6 +23,16 @@ signal typed()
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 
 var is_discarded := false
+var order := -1:
+	set(v):
+		order = v
+		typing_label.highlight_color = Color.WHITE
+		typing_label.outline_size = 8
+		
+		if order == 1:
+			typing_label.locked = true
+			typing_label.highlight_color = Color(.8, .8, .8)
+			typing_label.outline_size = 5
 
 var mistakes := 0:
 	set(v):

@@ -296,6 +296,7 @@ func _add_document(doc: Document, await_start := false):
 		
 		document_stack.add_document(doc.mistakes, doc_spawner.is_invalid_word(doc.word), doc.is_discarded, doc.word)
 		documents.erase(doc)
+		_update_document_orders()
 		
 		_update_score()
 		
@@ -327,14 +328,23 @@ func _add_document(doc: Document, await_start := false):
 
 	if documents.is_empty():
 		doc.highlight()
-		
-	if await_start or documents.size() == 0:
+	
+	documents.append(doc)
+	_update_document_orders()
+	
+	if await_start or documents.size() == 1:
 		doc.show_tutorial()
 	
 	if await_start and not GameManager.has_played:
 		keyboard.highlight_key(OS.find_keycode_from_string(doc.word[0]))
 	
-	documents.append(doc)
+
+func _update_document_orders():
+	for i in documents.size():
+		var doc = documents[i]
+		doc.order = i
+		if i > 2:
+			break
 
 func get_label():
 	if documents.is_empty(): return null

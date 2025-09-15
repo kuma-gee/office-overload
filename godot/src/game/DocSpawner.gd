@@ -8,7 +8,6 @@ extends Marker2D
 @export var verfical_offset := 0.0
 @export var move_back := false
 
-@export var spawn_vertical_offset := 0
 @export var positions: Array[Node2D] = []
 @export var center_position: Node2D
 
@@ -149,10 +148,10 @@ func spawn_document(invalid_word_chance := 0.0, tag = get_word_tag()):
 func _move_document_in(doc: Document):
 	var y_offset = randf_range(-verfical_offset, verfical_offset)
 	doc.global_position = global_position
-	doc.global_position.y += spawn_vertical_offset
 	doc.global_position.y += y_offset
 	
 	var target = _get_target_position(doc.word)
+	target.y = doc.global_position.y
 	
 	add_child(doc)
 	move_child(doc, 0)

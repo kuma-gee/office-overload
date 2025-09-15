@@ -97,6 +97,7 @@ func _load_data():
 	if Env.is_editor():
 		difficulty_level = DifficultyResource.Level.CEO
 		finished_game = true
+		unlocked_modes = [Mode.Work, Mode.Crunch]
 	
 	_logger.info("Game initialized")
 	init = true
