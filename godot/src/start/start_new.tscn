@@ -1034,6 +1034,7 @@ text = "Failed to join the office"
 autowrap_mode = 2
 
 [node name="Loading" type="RichTextLabel" parent="Multiplayer/Papers/LobbyOffice/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/normal_font_size = 6

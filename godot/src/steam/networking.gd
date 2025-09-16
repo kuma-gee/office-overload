@@ -17,6 +17,20 @@ var logger = Logger.new("Networking")
 
 var players := {}
 var connected := false
+var last_ping_time: float  
+
+@rpc("any_peer")
+func ping(target_id: int = multiplayer.get_unique_id(), iam_asking: bool = true):  
+	if iam_asking:  
+		last_ping_time = Time.get_unix_time_from_system()
+		ping.rpc(target_id, false)  
+	else:  
+		var sender_id: int = multiplayer.get_remote_sender_id()
+		print_ping.rpc_id(sender_id)
+
+@rpc("any_peer")      
+func print_ping():
+	logger.debug("Ping delay for %s: %s" % [multiplayer.get_remote_sender_id(), Time.get_unix_time_from_system() - last_ping_time]) 
 
 func _ready():
 	add_child(network)
@@ -84,8 +98,12 @@ func get_player_name(id):
 	var player_id = get_player_id(id)
 	return network.get_player_name(player_id)
 
+func close_network():
+	logger.info("Network closed")
+	network.close_game()
+
 func reset_network():
 	logger.info("Connection reset")
-	network.close_game()
+	close_network()
 	multiplayer.multiplayer_peer = null
 	players = {}

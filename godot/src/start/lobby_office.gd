@@ -93,11 +93,12 @@ func _on_start():
 			logger.warn("Cannot start game. Not all players are ready")
 			return
 
-	_start_game.rpc(GameManager.difficulty_level)
+	_start_game.rpc()
 
 @rpc("call_local", "reliable")
-func _start_game(level: DifficultyResource.Level):
-	GameManager.start(GameManager.Mode.Multiplayer, GameManager.language, level)
+func _start_game():
+	Networking.close_network()
+	GameManager.start(GameManager.Mode.Multiplayer, GameManager.language)
 
 func _on_connection_failed():
 	failed_label.show()

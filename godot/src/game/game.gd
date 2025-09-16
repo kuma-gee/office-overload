@@ -43,6 +43,12 @@ extends Node2D
 @export var crunch_max_difficulty_count := 60
 @export var crunch_documents: Label
 
+@export_category("Multiplayer")
+@export var special_container: Control
+@export var special_ready_container: Control
+@export var special_charge_amount := 0.1
+@export var special_progress_bar: TextureProgressBar
+
 @onready var doc_spawner = $DocSpawner
 @onready var spawn_timer = $SpawnTimer
 @onready var document_stack = $DocumentStack
@@ -75,16 +81,27 @@ var is_gameover = false:
 var documents = []
 var day_ended := false
 
+var special_charge := 0.0:
+	set(v):
+		special_charge = clamp(v, 0.0, special_progress_bar.max_value)
+		special_progress_bar.value = special_charge
+		special_ready_container.visible = special_charge >= special_progress_bar.max_value
+
 func _ready():
 	randomize()
 	get_tree().paused = false
 	_update_score()
 	
-	GameManager.update_game_status()
-	GameManager.pay_assistant()
+	self.special_charge = 0.0
+	special_container.visible = GameManager.is_multiplayer_mode()
 
-	for i in range(items_root.get_child_count()):
-		items_root.get_child(i).visible = (GameManager.is_item_used(i) and not GameManager.is_crunch_mode()) #or i >= Shop.Items.size()
+	GameManager.update_game_status()
+
+	if GameManager.is_work_mode():
+		GameManager.pay_assistant()
+
+		for i in range(items_root.get_child_count()):
+			items_root.get_child(i).visible = GameManager.is_item_used(i)
 	
 	boss_combo = 0
 	overload_progress.game = self
@@ -99,9 +116,7 @@ func _ready():
 		key_reader.process_mode = Node.PROCESS_MODE_DISABLED
 	)
 	
-	if GameManager.is_crunch_mode():
-		animation_player.play("crunch")
-	else:
+	if GameManager.is_work_mode():
 		if GameManager.is_ceo():
 			animation_player.play("ceo")
 			work_time.hour_in_seconds = 5
@@ -111,8 +126,12 @@ func _ready():
 			animation_player.play("littered")
 		else:
 			animation_player.play("no_mess")
+	else:
+		animation_player.play("crunch")
 	
-	if not GameManager.is_intern() or GameManager.is_crunch_mode():
+	if GameManager.is_intern() and GameManager.is_work_mode():
+		overload_progress.hide()
+	else:
 		overload_progress.filled.connect(func(): overload_timer.start())
 		overload_timer.started.connect(func(): overload_progress.start_blink())
 		overload_timer.stopped.connect(func(): overload_progress.stop_blink())
@@ -125,8 +144,6 @@ func _ready():
 		)
 
 		spawn_timer.timeout.connect(func(): _spawn())
-	else:
-		overload_progress.hide()
 
 	if GameManager.is_work_mode():
 		work_time.next_work_day.connect(func():
@@ -140,6 +157,20 @@ func _ready():
 		work_time.time_changed.connect(func(_t):
 			if day_ended and work_time.is_day_ended() and GameManager.is_intern():
 				_finished()
+		)
+		key_reader.use_coffee.connect(func():
+			var reduction = GameManager.use_coffee()
+			if reduction <= 0: return
+
+			overload_progress.reduce(reduction)
+			overload_timer.stop()
+			drink_sound.play_random_pitched()
+		)
+	elif GameManager.is_multiplayer_mode():
+		key_reader.use_coffee.connect(func():
+			if is_time_running() and special_charge >= 1.0:
+				send_random_distractions.rpc()
+				special_charge = 0.0
 		)
 	
 	shift_delegator.unhandled_key.connect(func(_key):
@@ -166,13 +197,26 @@ func _ready():
 		if not is_gameover and not day.visible:
 			pause.grab_focus()
 	)
-	key_reader.use_coffee.connect(func():
-		var reduction = GameManager.use_coffee()
-		overload_progress.reduce(reduction)
-		overload_timer.stop()
+	
+func _process(delta: float) -> void:
+	if not is_time_running(): return
+	
+	if GameManager.is_multiplayer_mode():
+		special_charge += special_charge_amount
+		return
+	
+	if GameManager.is_work_mode() and GameManager.is_ceo():
+		_process_boss_documents(delta)
+		return
 
-		drink_sound.play_random_pitched()
-	)
+@rpc("any_peer", "reliable")
+func send_random_distractions():
+	if not GameManager.is_work_mode() or not is_time_running(): return
+
+	distractions.maybe_show_distraction(true)
+	# Spawn more documents
+	# Spill coffee
+	# Invalid words
 
 func is_time_running():
 	return not work_time.stopped and not is_gameover
@@ -183,7 +227,7 @@ func _on_day_finished():
 	else:
 		bgm.pitch_scale = 1.0
 	
-	_spawn_document(true)
+	_spawn_document(not GameManager.is_multiplayer_mode())
 
 func _start_game():
 	if not GameManager.is_ceo() and GameManager.is_work_mode():
@@ -230,7 +274,11 @@ func _finished(is_burn_out = false, is_fired = false):
 				end.day_ended(data)
 			
 	elif GameManager.is_crunch_mode():
-		_on_crunch_ended()
+		var data = GameManager.finished_crunch(document_stack.actual_document_count, work_time.hours_passed, document_stack.highest_streak)
+		end.crunch_ended(data)
+	elif GameManager.is_multiplayer_mode():
+		var data = GameManager.finished_multiplayer(document_stack.actual_document_count, work_time.hours_passed)
+		end.multiplayer_ended(data)
 		
 func _spawn():
 	if (work_time.is_day_ended() and GameManager.is_work_mode()) or is_gameover:
@@ -251,7 +299,7 @@ func _spawn():
 		_update_crunch_values()
 
 func _spawn_document(await_start = false):
-	if GameManager.is_crunch_mode():
+	if not GameManager.is_work_mode():
 		var doc = doc_spawner.spawn_document() as Document
 		_add_document(doc, await_start)
 		return
@@ -374,10 +422,6 @@ func _crunch_mode_spawn_time(doc_count: int = document_stack.actual_document_cou
 
 func _crunch_difficulty(doc_count: int = document_stack.actual_document_count):
 	return float(doc_count) / crunch_max_difficulty_count
-
-func _on_crunch_ended():
-	var data = GameManager.finished_crunch(document_stack.actual_document_count, work_time.hours_passed, document_stack.highest_streak)
-	end.crunch_ended(data)
 #endregion
 
 
@@ -458,17 +502,15 @@ func _get_attack_percentage():
 func _start_boss_attack_timer():
 	var p = _get_attack_percentage()
 	var time_diff = boss_max_attack_time - boss_min_attack_time
-	var time = boss_min_attack_time + time_diff * (1-p)
+	var time = boss_min_attack_time + time_diff * (1 - p)
 	boss_attack_timer.start(time)
 
 func _ceo_game_ended():
 	end.ceo_ended({"tasks": document_stack.tasks, "mistakes": document_stack.wrong_tasks}, {"tasks": boss_documents, "mistakes": boss_mistakes})
 
-func _process(delta: float) -> void:
-	if is_gameover or not GameManager.is_ceo() or not is_time_running(): return
-	
+func _process_boss_documents(delta: float):
 	boss_processing += delta
-	if boss_processing >= boss_current_speed: #and start_stack.has_documents():
+	if boss_processing >= boss_current_speed: # and start_stack.has_documents():
 		var user_points = document_stack.tasks - document_stack.wrong_tasks
 		var boss_points = boss_documents - boss_mistakes
 		if user_points < 0:

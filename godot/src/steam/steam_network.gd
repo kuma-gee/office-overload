@@ -3,10 +3,6 @@ extends Node
 
 signal connection_success(peer)
 signal connection_failed
-signal connection_closed
-
-signal player_joined(id)
-signal player_left(id)
 signal lobby_loaded(data)
 
 var owner_id := -1
@@ -33,16 +29,6 @@ func _ready():
 		steam.lobby_joined.connect(_on_lobby_joined)
 		steam.lobby_match_list.connect(_on_lobby_match_list)
 	)
-	
-func _player_connected(id):
-	players[id] = get_player_id(id)
-	player_joined.emit(id)
-	logger.info("Client Connected: %s" % id)
-
-func _player_disconnected(id):
-	players.erase(id)
-	player_left.emit(id)
-	logger.info("Client Disconnected: %s" % id)
 	
 func get_player_id(id):
 	return multiplayer.multiplayer_peer.get_steam64_from_peer_id(id)
@@ -76,7 +62,6 @@ func close_game():
 	lobby_type = 0
 
 func _create_server():
-	SteamMultiplayerPeer
 	var peer = _create_multiplayer_class()
 	if peer:
 		peer.create_host(port)

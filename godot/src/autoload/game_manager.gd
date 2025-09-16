@@ -244,6 +244,18 @@ func finished_crunch(tasks: int, hours: int, _combo: int):
 	round_ended.emit()
 	return data
 
+func finished_multiplayer(tasks: int, hours: int):
+	var data = {}
+	data["wpm"] = wpm_calculator.get_average_wpm()
+	data["acc"] = wpm_calculator.get_average_accuracy()
+	wpm_calculator.reset()
+	
+	data["hours"] = hours
+	data["tasks"] = tasks
+	
+	round_ended.emit()
+	return data
+
 func _upload_endless_scores(wpm: float, acc: float, count: int, hours: int):
 	var score = int(floor(wpm * acc * count) - hours)
 	if not Env.is_demo():
@@ -394,7 +406,7 @@ func get_item_value(item: Shop.Items, count = item_count(item)):
 	return arr[i]
 
 func get_stress_reduction():
-	if is_crunch_mode(): return 1.0
+	if not is_work_mode(): return 1.0
 	
 	var reduction = get_item_value(Shop.Items.PLANT)
 	return clamp(1.0 - reduction, 0.0, 1.0)
@@ -405,13 +417,13 @@ func get_money_bonus():
 	return multiplier
 
 func get_distraction_reduction(invert = false):
-	if is_crunch_mode(): return 1.0 if not invert else 0.0
+	if not is_work_mode(): return 1.0 if not invert else 0.0
 	
 	var reduction = get_item_value(Shop.Items.ASSISTANT)
 	return 1.0 - reduction if not invert else reduction
 
 func has_coffee():
-	if is_crunch_mode(): return false
+	if not is_work_mode(): return false
 	return Shop.Items.COFFEE in bought_items and Shop.Items.COFFEE in used_items
 
 func use_coffee():

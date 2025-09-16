@@ -138,7 +138,7 @@ func _move_in_doc(doc):
 	tw.parallel().tween_callback(_emit_particles).set_delay(0.2)
 	
 	# keep documents for work mode, because it needs to show the number of mistakes
-	if GameManager.is_crunch_mode():
+	if not GameManager.is_work_mode():
 		var should_remove = not (actual_document_count % stack_count == 0 and actual_document_count <= (max_stacks * stack_count))
 		tw.finished.connect(func(): if should_remove: doc.queue_free())
 

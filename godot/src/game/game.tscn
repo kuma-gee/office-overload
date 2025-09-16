@@ -1,4 +1,4 @@
-[gd_scene load_steps=105 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=111 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" uid="uid://cnd6nnfhonksh" path="res://src/game/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/game/document.tscn" id="2_35x6g"]
@@ -31,11 +31,14 @@
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="15_r4fui"]
 [ext_resource type="LabelSettings" uid="uid://bsk404a5n517i" path="res://theme/text_normal.tres" id="16_3sqd2"]
 [ext_resource type="Texture2D" uid="uid://bikrg3yecci4h" path="res://assets/sprites/ClockLight.png" id="17_b6uxm"]
+[ext_resource type="Texture2D" uid="uid://cs3vlokhe6yqh" path="res://assets/sprites/ProgressSmall_Under.png" id="17_m34kf"]
 [ext_resource type="AudioStream" uid="uid://cg3y8tqu354up" path="res://assets/sound/決定ボタンを押す53.mp3" id="17_xms1k"]
 [ext_resource type="Texture2D" uid="uid://fk36xs2n3q4o" path="res://assets/sprites/Phone.png" id="18_3w3fn"]
+[ext_resource type="Texture2D" uid="uid://bh7sul5xxqc3x" path="res://assets/sprites/ProgressSmall_Front.png" id="18_7s3c0"]
 [ext_resource type="Texture2D" uid="uid://dg4t2u4r7tk5d" path="res://assets/sprites/SpeechBubble.png" id="18_51hqv"]
 [ext_resource type="Script" uid="uid://bsvfpdifuin8m" path="res://src/ManualLoopAudio.gd" id="18_f0kcb"]
 [ext_resource type="AudioStream" uid="uid://dc1fhbgjs375l" path="res://assets/sound/携帯電話のバイブレーション1.mp3" id="19_5t58c"]
+[ext_resource type="Texture2D" uid="uid://hst0o23h0h88" path="res://assets/sprites/ProgressSmall_Fill.png" id="19_2681l"]
 [ext_resource type="AudioStream" uid="uid://bpxm5pscsli23" path="res://assets/sound/鳩時計1.mp3" id="19_mkiih"]
 [ext_resource type="Script" uid="uid://c7062lv1dpg6n" path="res://src/game/BlinkText.gd" id="20_0ygyh"]
 [ext_resource type="AudioStream" uid="uid://bmtpsyxjqkjxv" path="res://assets/sound/携帯電話の着信音1.mp3" id="20_2av8q"]
@@ -50,9 +53,12 @@
 [ext_resource type="Texture2D" uid="uid://fhvvkmwkvr5c" path="res://assets/sprites/Desk_Plant.png" id="27_1a3yr"]
 [ext_resource type="Texture2D" uid="uid://ctoyv3g7nvrwf" path="res://assets/sprites/Desk_Coffee.png" id="28_i6mjb"]
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="32_eoisl"]
+[ext_resource type="Script" uid="uid://ohlp8kxv0mth" path="res://src/game/multiplayer_hud.gd" id="34_i62sg"]
+[ext_resource type="PackedScene" uid="uid://bv6y77ijhcbcn" path="res://src/game/player_game_view.tscn" id="35_xk33u"]
 [ext_resource type="PackedScene" uid="uid://cuh77fo8okhk7" path="res://src/ui/pause.tscn" id="37_b7g85"]
 [ext_resource type="Script" uid="uid://4nlmepo747ct" path="res://src/KeyReader.gd" id="39_lfd1g"]
 [ext_resource type="AudioStream" uid="uid://b42rb56q641vs" path="res://assets/sound/靴下片っぽ行方不明事件.mp3" id="39_xwwgs"]
+[ext_resource type="Texture2D" uid="uid://dmrxb8h6ge88v" path="res://assets/sprites/Ctrl.png" id="40_ohxrb"]
 [ext_resource type="Texture2D" uid="uid://cahg70l0ct3i3" path="res://assets/sprites/Desk_Duck.png" id="47_0m5o6"]
 [ext_resource type="Script" uid="uid://cki8be2ycaa7n" path="res://src/game/duck.gd" id="47_m6qb4"]
 [ext_resource type="Texture2D" uid="uid://dl1vy7elnxhrw" path="res://assets/sprites/Desk_Mouse.png" id="48_edn0k"]
@@ -773,7 +779,7 @@ glow_enabled = true
 glow_bloom = 0.05
 glow_blend_mode = 0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound", "spill_mug", "crunch_documents")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound", "spill_mug", "crunch_documents", "special_container", "special_ready_container", "special_progress_bar")]
 top_level = true
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
@@ -789,6 +795,9 @@ player_combo_label = NodePath("Desk/Computer/BossUI/VBoxContainer/HBoxContainer/
 boss_hit_sound = NodePath("HitTableSound")
 spill_mug = NodePath("Desk/SpillMug")
 crunch_documents = NodePath("Desk/Computer/CrunchUI/PlayerDocuments")
+special_container = NodePath("CanvasLayer/HUD/SpecialChargeContainer")
+special_ready_container = NodePath("CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/SpecialCharged")
+special_progress_bar = NodePath("CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/Control/TextureProgressBar")
 
 [node name="MouseInput" type="Node" parent="."]
 script = ExtResource("2_a2wq4")
@@ -817,6 +826,7 @@ mouse_filter = 2
 theme = ExtResource("10_am0oy")
 
 [node name="Day" parent="CanvasLayer/HUD" instance=ExtResource("3_4j615")]
+visible = false
 layout_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD"]
@@ -909,7 +919,7 @@ stream = ExtResource("12_6mlls")
 volume_db = -15.0
 bus = &"SFX"
 
-[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/HUD"]
+[node name="SpecialChargeContainer" type="MarginContainer" parent="CanvasLayer/HUD"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -921,6 +931,50 @@ theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/SpecialChargeContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 46.0
+offset_top = 5.0
+offset_right = -33.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5708
+step = 0.1
+value = 30.0
+fill_mode = 3
+texture_under = ExtResource("17_m34kf")
+texture_over = ExtResource("18_7s3c0")
+texture_progress = ExtResource("19_2681l")
+
+[node name="SpecialCharged" type="VBoxContainer" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/SpecialCharged"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 6
+text = "disrupt other co-workers"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/SpecialCharged"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("40_ohxrb")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Gameover" parent="CanvasLayer" instance=ExtResource("8_lpofg")]
 visible = false
@@ -934,6 +988,7 @@ nodes = [NodePath("../..")]
 ignore_errors = false
 
 [node name="Distractions" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "work_time")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1191,6 +1246,36 @@ layout_mode = 2
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("37_b7g85")]
 visible = false
 
+[node name="Multiplayer" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overload_update_timer", "overload_progress")]
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(0.8, 0.8)
+theme = ExtResource("10_am0oy")
+script = ExtResource("34_i62sg")
+player_panel_scene = ExtResource("35_xk33u")
+overload_update_timer = NodePath("Timer")
+overload_progress = NodePath("../HUD/MarginContainer/OverloadProgress")
+
+[node name="Timer" type="Timer" parent="CanvasLayer/Multiplayer"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Multiplayer"]
+layout_mode = 1
+offset_right = 125.0
+offset_bottom = 44.0
+theme_override_constants/separation = -1
+
+[node name="PlayerGameView" parent="CanvasLayer/Multiplayer/HBoxContainer" instance=ExtResource("35_xk33u")]
+layout_mode = 2
+
+[node name="PlayerGameView2" parent="CanvasLayer/Multiplayer/HBoxContainer" instance=ExtResource("35_xk33u")]
+layout_mode = 2
+
+[node name="PlayerGameView3" parent="CanvasLayer/Multiplayer/HBoxContainer" instance=ExtResource("35_xk33u")]
+layout_mode = 2
+
+[node name="PlayerGameView4" parent="CanvasLayer/Multiplayer/HBoxContainer" instance=ExtResource("35_xk33u")]
+layout_mode = 2
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
 color = Color(0.2, 0.2, 0.2, 1)
@@ -1349,16 +1434,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -53.5
-offset_top = -37.5
-offset_right = -45.5
-offset_bottom = -17.5
+offset_left = -54.5
+offset_top = -36.5
+offset_right = -43.5
+offset_bottom = -25.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 0
+theme = ExtResource("10_am0oy")
+theme_override_constants/separation = 3
 
 [node name="PlayerDocuments" type="Label" parent="Desk/Computer/CrunchUI"]
 layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("10_am0oy")
 theme_override_font_sizes/font_size = 12
 text = "0"

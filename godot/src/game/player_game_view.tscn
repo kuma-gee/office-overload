@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://bv6y77ijhcbcn"]
+
+[ext_resource type="Texture2D" uid="uid://t0vtdco1mbgy" path="res://assets/sprites/Icon_Assistant.png" id="1_11n6e"]
+[ext_resource type="Script" uid="uid://dy4bkfhuimiuk" path="res://src/game/player_game_view.gd" id="1_dho1o"]
+[ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_p2t5x"]
+[ext_resource type="Texture2D" uid="uid://cs3vlokhe6yqh" path="res://assets/sprites/ProgressSmall_Under.png" id="4_3rk3x"]
+[ext_resource type="Texture2D" uid="uid://hst0o23h0h88" path="res://assets/sprites/ProgressSmall_Fill.png" id="5_mvrru"]
+[ext_resource type="Texture2D" uid="uid://bh7sul5xxqc3x" path="res://assets/sprites/ProgressSmall_Front.png" id="5_na5if"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_mvrru"]
+grow_begin = 0.0
+grow_end = 0.0
+
+[node name="PlayerGameView" type="PanelContainer" node_paths=PackedStringArray("name_label", "count_label", "progress_bar")]
+custom_minimum_size = Vector2(32, 0)
+offset_right = 32.0
+offset_bottom = 44.0
+theme = ExtResource("1_p2t5x")
+script = ExtResource("1_dho1o")
+name_label = NodePath("MarginContainer/VBoxContainer/Label")
+count_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/TextureRect/Label")
+progress_bar = NodePath("MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/TextureProgressBar")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_11n6e")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "123456"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = -1
+theme_override_constants/margin_right = -1
+theme_override_constants/margin_bottom = -1
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+step = 0.1
+fill_mode = 3
+texture_under = ExtResource("4_3rk3x")
+texture_over = ExtResource("5_na5if")
+texture_progress = ExtResource("5_mvrru")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxLine_mvrru")
+text = "ASDSDSASDA"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3

@@ -7,6 +7,14 @@ extends Control
 @export var performance_progress: TextureProgressBar
 @export var level_label: Label
 
+@export_category("Multiplayer")
+@export var multiplayer_container: Control
+@export var multiplayer_tasks: Label
+@export var multiplayer_time: Label
+@export var multiplayer_wpm: Label
+@export var multiplayer_winner_label: Label
+@export var leave_button: TypingButton
+
 @export_category("Crunch Mode")
 @export var crunch_tasks: Label
 @export var crunch_time: Label
@@ -167,6 +175,16 @@ func crunch_ended(data: Dictionary):
 	#crunch_offline.visible = false #not GameManager.unsaved_crunch_score.is_empty()
 	
 	_do_open(crunch_container, gameover_sound)
+
+func multiplayer_ended(data: Dictionary):
+	multiplayer_tasks.text = "%s" % data["tasks"]
+	multiplayer_time.text = "%sh" % data["hours"]
+	multiplayer_wpm.text = "%.0f / %.0f%%" % [data["wpm"], data["acc"] * 100]
+
+	_do_open(multiplayer_container, gameover_sound)
+
+func multiplayer_game_finished(other_data: Dictionary):
+	pass
 
 func _do_open(container: Control, sound = open_sound):
 	container.show()
