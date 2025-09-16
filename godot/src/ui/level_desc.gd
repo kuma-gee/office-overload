@@ -37,7 +37,7 @@ func show_for_level(lvl: DifficultyResource.Level, once = false):
 			GameManager.shown_distraction_tutorial = true
 		DifficultyResource.Level.MANAGER:
 			feature_title.text = "Invalid Words"
-			feature_text.text = "As a manager, you need to sort out invalid documents\nDiscard them by holding"
+			feature_text.text = "As a manager, you need to sort out invalid documents\nDiscard them typing it while holding"
 			shift_tex.show()
 			GameManager.shown_discard_tutorial = true
 		DifficultyResource.Level.CEO:
