@@ -671,9 +671,10 @@ theme_override_font_sizes/font_size = 10
 text = "Game modes"
 horizontal_alignment = 1
 
-[node name="Crunch" type="VBoxContainer" parent="AltPage/MarginContainer/VBoxContainer"]
+[node name="Crunch" type="VBoxContainer" parent="AltPage/MarginContainer/VBoxContainer" node_paths=PackedStringArray("button")]
 layout_mode = 2
 script = ExtResource("23_56typ")
+button = NodePath("Crunch")
 
 [node name="Crunch" parent="AltPage/MarginContainer/VBoxContainer/Crunch" instance=ExtResource("7_plxua")]
 layout_mode = 2
@@ -682,13 +683,15 @@ word = "crunch"
 [node name="Label" type="Label" parent="AltPage/MarginContainer/VBoxContainer/Crunch"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
-text = "Work endlessly until you burn out without the items"
-autowrap_mode = 3
+text = "Work endlessly until
+you burn out without
+your items"
 
-[node name="Multiplayer" type="VBoxContainer" parent="AltPage/MarginContainer/VBoxContainer"]
+[node name="Multiplayer" type="VBoxContainer" parent="AltPage/MarginContainer/VBoxContainer" node_paths=PackedStringArray("button")]
 layout_mode = 2
 script = ExtResource("23_56typ")
 mode = 2
+button = NodePath("Multiplayer")
 
 [node name="Multiplayer" parent="AltPage/MarginContainer/VBoxContainer/Multiplayer" instance=ExtResource("7_plxua")]
 layout_mode = 2
@@ -696,8 +699,9 @@ word = "multiplayer"
 
 [node name="Label" type="Label" parent="AltPage/MarginContainer/VBoxContainer/Multiplayer"]
 layout_mode = 2
-text = "Challenge other co-workers"
-autowrap_mode = 3
+text = "Challenge other
+co-workers in the
+crunch mode"
 
 [node name="Rankings" type="Sprite2D" parent="."]
 position = Vector2(-32, 68)
@@ -850,7 +854,7 @@ offset_bottom = 140.0
 rotation = 0.0872665
 item = ExtResource("19_nxoxl")
 
-[node name="Multiplayer" type="Control" parent="." node_paths=PackedStringArray("start_doc", "steam_label", "buttons_container", "open_office_btn", "join_office_btn", "public_checkbox", "lobbies_paper", "office_doc", "delegator", "light")]
+[node name="Multiplayer" type="Control" parent="." node_paths=PackedStringArray("start_doc", "steam_label", "buttons_container", "private_office_btn", "public_office_btn", "join_office_btn", "public_checkbox", "title", "lobbies_paper", "office_doc", "delegator", "light")]
 layout_mode = 3
 anchors_preset = 0
 offset_top = -213.0
@@ -860,9 +864,11 @@ script = ExtResource("28_j1bh7")
 start_doc = NodePath("Papers/Multiplayer")
 steam_label = NodePath("Papers/Multiplayer/MarginContainer/VBoxContainer/SteamNeeded")
 buttons_container = NodePath("Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons")
-open_office_btn = NodePath("Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/Start")
+private_office_btn = NodePath("Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/Private")
+public_office_btn = NodePath("Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/Public")
 join_office_btn = NodePath("Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/List")
 public_checkbox = NodePath("Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/HBoxContainer/CheckBox")
+title = NodePath("Papers/Multiplayer/MarginContainer/VBoxContainer/Multiplayer")
 lobbies_paper = NodePath("../CanvasLayer/Control/SteamLobbies")
 office_doc = NodePath("Papers/LobbyOffice")
 delegator = NodePath("Delegator")
@@ -870,7 +876,7 @@ light = NodePath("../PointLight2D")
 
 [node name="Delegator" type="Node" parent="Multiplayer" node_paths=PackedStringArray("nodes")]
 script = ExtResource("7_pvyq5")
-nodes = [NodePath("../Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/Start"), NodePath("../Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/List"), NodePath("../Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/HBoxContainer/Public")]
+nodes = [NodePath("../Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/Private"), NodePath("../Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/List"), NodePath("../Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/HBoxContainer/Public")]
 
 [node name="ColorRect" type="ColorRect" parent="Multiplayer"]
 layout_mode = 2
@@ -931,11 +937,16 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Start" parent="Multiplayer/Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons" instance=ExtResource("7_plxua")]
+[node name="Private" parent="Multiplayer/Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons" instance=ExtResource("7_plxua")]
 layout_mode = 2
-word = "Open Office"
+word = "private Office"
+
+[node name="Public" parent="Multiplayer/Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons" instance=ExtResource("7_plxua")]
+layout_mode = 2
+word = "public Office"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Multiplayer/Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons"]
+visible = false
 layout_mode = 2
 
 [node name="CheckBox" type="CheckBox" parent="Multiplayer/Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/HBoxContainer"]
@@ -970,6 +981,7 @@ texture = ExtResource("25_pu2hv")
 stretch_mode = 2
 
 [node name="LobbyOffice" type="PanelContainer" parent="Multiplayer/Papers" node_paths=PackedStringArray("player_container", "lobby_container", "title_label", "closed_label", "failed_label", "start_btn", "loading", "delegator")]
+visible = false
 custom_minimum_size = Vector2(120, 150)
 layout_mode = 1
 anchors_preset = 8

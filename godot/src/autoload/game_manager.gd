@@ -521,7 +521,7 @@ enum Mode {
 var MODE_TITLE = {
 	Mode.Work: "Work Day",
 	Mode.Crunch: "Crunch Time",
-	Mode.Multiplayer: "Multiplayer",
+	Mode.Multiplayer: "Compete",
 }
 
 func is_work_mode():

@@ -4,25 +4,24 @@ extends WorkSpace
 
 @export var steam_label: Label
 @export var buttons_container: Control
-@export var open_office_btn: TypingButton
+@export var private_office_btn: TypingButton
+@export var public_office_btn: TypingButton
 @export var join_office_btn: TypingButton
 @export var public_checkbox: CheckBox
+@export var title: Label
 
 @export_category("Lobby")
 @export var lobbies_paper: SteamLobbies
 @export var office_doc: LobbyOffice
 
 func _ready() -> void:
+	title.text = GameManager.get_mode_title(GameManager.Mode.Multiplayer)
 	steam_label.visible = not SteamManager.is_steam_available()
 	buttons_container.visible = not steam_label.visible
 	opening.connect(func(): start_doc.open(0.5))
 	
-	open_office_btn.finished.connect(func():
-		Networking.network.host_game(public_checkbox.button_pressed)
-		office_doc.is_owner = true
-		office_doc.grab_focus()
-	)
-	
+	private_office_btn.finished.connect(func(): _open_office(false))
+	public_office_btn.finished.connect(func(): _open_office(true))
 	office_doc.focus_exited.connect(func():
 		Networking.reset_network()
 		office_doc.is_owner = false
@@ -34,3 +33,8 @@ func _ready() -> void:
 		Networking.join_game(id)
 		office_doc.grab_focus()
 	)
+
+func _open_office(public: bool):
+	Networking.network.host_game(public)
+	office_doc.is_owner = true
+	office_doc.grab_focus()
