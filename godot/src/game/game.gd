@@ -222,10 +222,16 @@ func _process(delta: float) -> void:
 func send_random_distractions():
 	if not GameManager.is_multiplayer_mode() or not is_time_running(): return
 
-	distractions.show_distraction()
-	# Spawn more documents
-	# Spill coffee
-	# Invalid words
+	if randf() < 0.5:
+		distractions.show_distraction(true)
+	else:
+		await spill_mug.spill()
+
+	_spawn_documents(randi_range(2, 4), 0.2)
+
+func _spawn_documents(count: int, invalid_chance := 0.0):
+	for _i in range(count):
+		_spawn(invalid_chance)
 
 func is_time_running():
 	return not work_time.stopped and not is_gameover
@@ -293,11 +299,11 @@ func _finished(is_burn_out = false, is_fired = false):
 		var data = GameManager.finished_multiplayer(document_stack.actual_document_count, work_time.hours_passed)
 		end.multiplayer_ended(data)
 		
-func _spawn():
+func _spawn(non_work_invalid_chance := 0.0):
 	if (work_time.is_day_ended() and GameManager.is_work_mode()) or is_gameover:
 		return
 	
-	_spawn_document()
+	_spawn_document(non_work_invalid_chance)
 	
 	if GameManager.is_work_mode():
 		if not GameManager.is_intern() and not GameManager.is_ceo():
@@ -311,9 +317,9 @@ func _spawn():
 	else:
 		_update_crunch_values()
 
-func _spawn_document(await_start = false):
+func _spawn_document(await_start = false, non_work_invalid_chance := 0.0):
 	if not GameManager.is_work_mode():
-		var doc = doc_spawner.spawn_document() as Document
+		var doc = doc_spawner.spawn_document(non_work_invalid_chance) as Document
 		_add_document(doc, await_start)
 		return
 
