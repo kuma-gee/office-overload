@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=21 format=3 uid="uid://7qw6fd3hy4kc"]
+[gd_resource type="Theme" load_steps=26 format=3 uid="uid://7qw6fd3hy4kc"]
 
 [ext_resource type="Texture2D" uid="uid://chmd6sucigiwx" path="res://assets/sprites/Checked.png" id="1_8nifx"]
 [ext_resource type="FontFile" uid="uid://b1rtxlfrxj7kh" path="res://assets/theme/upheavtt.ttf" id="1_awq77"]
@@ -10,6 +10,10 @@
 [ext_resource type="StyleBox" uid="uid://dra7y8fr8f0ov" path="res://theme/scroll.tres" id="5_mr7nn"]
 [ext_resource type="StyleBox" uid="uid://qe5xtyk0085i" path="res://theme/progress_bg.tres" id="7_a0mhf"]
 [ext_resource type="StyleBox" uid="uid://cfwsda12km0ql" path="res://theme/progress_fill.tres" id="8_letq3"]
+[ext_resource type="FontFile" uid="uid://bhmi5v3g2xyrb" path="res://assets/theme/fusion-pixel-10px-monospaced-ja.ttf" id="10_fppmr"]
+[ext_resource type="FontFile" uid="uid://culbed1g5tply" path="res://assets/theme/fusion-pixel-10px-monospaced-zh_hans.ttf" id="12_iwsu2"]
+[ext_resource type="FontFile" uid="uid://uihm833j17hg" path="res://assets/theme/fusion-pixel-10px-monospaced-zh_hant.ttf" id="13_mm6bo"]
+[ext_resource type="FontFile" uid="uid://ca6yivn2kmco5" path="res://assets/theme/fusion-pixel-10px-monospaced-ko.ttf" id="14_jjfh6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k038n"]
 content_margin_left = 4.0
@@ -77,8 +81,12 @@ content_margin_bottom = 3.0
 
 [sub_resource type="ImageTexture" id="ImageTexture_loay3"]
 
+[sub_resource type="FontVariation" id="FontVariation_5p4dt"]
+fallbacks = Array[Font]([ExtResource("10_fppmr"), ExtResource("12_iwsu2"), ExtResource("13_mm6bo"), ExtResource("14_jjfh6")])
+base_font = ExtResource("1_awq77")
+
 [resource]
-default_font = ExtResource("1_awq77")
+default_font = SubResource("FontVariation_5p4dt")
 default_font_size = 8
 Button/colors/font_color = Color(0.207843, 0.207843, 0.25098, 1)
 Button/colors/font_color_focus = Color(0.929412, 0.894118, 0.854902, 1)
