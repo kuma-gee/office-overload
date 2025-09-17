@@ -15,7 +15,7 @@ shader = ExtResource("3_k0t8n")
 shader_parameter/lod = 1.0
 shader_parameter/mix_percentage = 0.5
 
-[node name="Pause" type="Control" node_paths=PackedStringArray("quit_btn", "continue_btn")]
+[node name="Pause" type="Control" node_paths=PackedStringArray("quit_btn", "continue_btn", "label", "title_label")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -28,6 +28,8 @@ theme = ExtResource("1_71maj")
 script = ExtResource("2_m8npc")
 quit_btn = NodePath("PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay/Quit")
 continue_btn = NodePath("PanelContainer/Interview/VBoxContainer/VBoxContainer/NextDay/Continue")
+label = NodePath("PanelContainer/Interview/VBoxContainer/VBoxContainer/FinishedTasks")
+title_label = NodePath("PanelContainer/Interview/VBoxContainer/Title")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_6q17f")
@@ -84,9 +86,9 @@ theme_override_constants/separation = 5
 
 [node name="FinishedTasks" type="Label" parent="PanelContainer/Interview/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "I'm on a coffee break.
-I'll be back in a
-minute"
+text = "Your co-workers are
+stillcompeting with
+you"
 
 [node name="Control" type="Control" parent="PanelContainer/Interview/VBoxContainer/VBoxContainer"]
 layout_mode = 2

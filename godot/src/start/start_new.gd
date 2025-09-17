@@ -78,6 +78,7 @@ var is_starting := false
 func _ready() -> void:
 	start()
 	GameManager.update_game_status(true)
+	Networking.reset_network()
 	
 	if GameManager.finished_game:
 		GameManager.difficulty_level = DifficultyResource.Level.CEO

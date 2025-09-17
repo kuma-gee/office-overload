@@ -12,6 +12,8 @@ extends Control
 @export var multiplayer_tasks: Label
 @export var multiplayer_time: Label
 @export var multiplayer_wpm: Label
+@export var multiplayer_acc: Label
+@export var multiplayer_score: Label
 @export var multiplayer_winner_label: Label
 @export var leave_button: TypingButton
 
@@ -179,7 +181,10 @@ func crunch_ended(data: Dictionary):
 func multiplayer_ended(data: Dictionary):
 	multiplayer_tasks.text = "%s" % data["tasks"]
 	multiplayer_time.text = "%sh" % data["hours"]
-	multiplayer_wpm.text = "%.0f / %.0f%%" % [data["wpm"], data["acc"] * 100]
+	multiplayer_wpm.text = "%.0f" % data["wpm"]
+	multiplayer_acc.text = "%.0f%%" % (data["acc"] * 100)
+	multiplayer_score.text = "%s" % data["score"]
+	multiplayer_winner_label.text = "Co-workers are still competing..."
 
 	_do_open(multiplayer_container, gameover_sound)
 

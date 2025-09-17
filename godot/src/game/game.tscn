@@ -779,7 +779,7 @@ glow_enabled = true
 glow_bloom = 0.05
 glow_blend_mode = 0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound", "spill_mug", "crunch_documents", "special_container", "special_ready_container", "special_progress_bar")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound", "spill_mug", "crunch_documents", "special_container", "special_ready_container", "special_progress_bar", "special_charge_combo_label")]
 top_level = true
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
@@ -797,7 +797,8 @@ spill_mug = NodePath("Desk/SpillMug")
 crunch_documents = NodePath("Desk/Computer/CrunchUI/PlayerDocuments")
 special_container = NodePath("CanvasLayer/HUD/SpecialChargeContainer")
 special_ready_container = NodePath("CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/SpecialCharged")
-special_progress_bar = NodePath("CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/Control/TextureProgressBar")
+special_progress_bar = NodePath("CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer/Control/MarginContainer/TextureProgressBar")
+special_charge_combo_label = NodePath("CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer/ChargeCombo")
 
 [node name="MouseInput" type="Node" parent="."]
 script = ExtResource("2_a2wq4")
@@ -924,8 +925,8 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -31.0
-offset_bottom = 19.0
+offset_left = -90.0
+offset_bottom = 26.0
 grow_horizontal = 0
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
@@ -935,22 +936,37 @@ theme_override_constants/margin_bottom = 3
 [node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/SpecialChargeContainer"]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer"]
-custom_minimum_size = Vector2(0, 4)
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="ChargeCombo" type="Label" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 6
+text = "20x"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 4)
 layout_mode = 2
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer/Control"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 46.0
-offset_top = 5.0
-offset_right = -33.0
-offset_bottom = 38.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -2.5
+offset_right = 2.5
+offset_bottom = 37.0
 grow_horizontal = 2
-grow_vertical = 2
 rotation = -1.5708
+theme_override_constants/margin_left = -5
+theme_override_constants/margin_top = -16
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer/Control/MarginContainer"]
+layout_mode = 2
 step = 0.1
 value = 30.0
 fill_mode = 3
@@ -965,6 +981,8 @@ theme_override_constants/separation = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/SpecialCharged"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 6
 text = "disrupt other co-workers"
 
@@ -1246,12 +1264,13 @@ layout_mode = 2
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("37_b7g85")]
 visible = false
 
-[node name="Multiplayer" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overload_update_timer", "overload_progress")]
+[node name="Multiplayer" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("player_container", "overload_update_timer", "overload_progress")]
 layout_mode = 3
 anchors_preset = 0
 scale = Vector2(0.8, 0.8)
 theme = ExtResource("10_am0oy")
 script = ExtResource("34_i62sg")
+player_container = NodePath("HBoxContainer")
 player_panel_scene = ExtResource("35_xk33u")
 overload_update_timer = NodePath("Timer")
 overload_progress = NodePath("../HUD/MarginContainer/OverloadProgress")

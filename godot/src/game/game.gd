@@ -46,8 +46,9 @@ extends Node2D
 @export_category("Multiplayer")
 @export var special_container: Control
 @export var special_ready_container: Control
-@export var special_charge_amount := 0.1
+@export var special_charge_amount := 0.01
 @export var special_progress_bar: TextureProgressBar
+@export var special_charge_combo_label: Label
 
 @onready var doc_spawner = $DocSpawner
 @onready var spawn_timer = $SpawnTimer
@@ -100,8 +101,8 @@ func _ready():
 	if GameManager.is_work_mode():
 		GameManager.pay_assistant()
 
-		for i in range(items_root.get_child_count()):
-			items_root.get_child(i).visible = GameManager.is_item_used(i)
+	for i in range(items_root.get_child_count()):
+		items_root.get_child(i).visible = GameManager.is_item_used(i) and GameManager.is_work_mode()
 	
 	boss_combo = 0
 	overload_progress.game = self
@@ -172,6 +173,11 @@ func _ready():
 				send_random_distractions.rpc()
 				special_charge = 0.0
 		)
+		document_stack.combo_changed.connect(func():
+			special_charge_combo_label.text = "%.0fx" % document_stack.combo_count
+			special_charge_combo_label.visible = document_stack.combo_count > 0
+		)
+		special_charge_combo_label.hide()
 	
 	shift_delegator.unhandled_key.connect(func(_key):
 		if not is_time_running():
@@ -211,9 +217,9 @@ func _process(delta: float) -> void:
 
 @rpc("any_peer", "reliable")
 func send_random_distractions():
-	if not GameManager.is_work_mode() or not is_time_running(): return
+	if not GameManager.is_multiplayer_mode() or not is_time_running(): return
 
-	distractions.maybe_show_distraction(true)
+	distractions.show_distraction()
 	# Spawn more documents
 	# Spill coffee
 	# Invalid words
@@ -227,7 +233,11 @@ func _on_day_finished():
 	else:
 		bgm.pitch_scale = 1.0
 	
-	_spawn_document(not GameManager.is_multiplayer_mode())
+	if GameManager.is_multiplayer_mode():
+		_spawn_document(false)
+		_start_game()
+	else:
+		_spawn_document(true)
 
 func _start_game():
 	if not GameManager.is_ceo() and GameManager.is_work_mode():
@@ -345,8 +355,10 @@ func _add_document(doc: Document, await_start := false):
 		document_stack.add_document(doc.mistakes, doc_spawner.is_invalid_word(doc.word), doc.is_discarded, doc.word)
 		documents.erase(doc)
 		_update_document_orders()
-		
 		_update_score()
+
+		if GameManager.is_multiplayer_mode() and document_stack.combo_count > 0:
+			special_charge += special_charge_amount * document_stack.combo_count
 		
 		if not work_time.is_day_ended() and GameManager.is_work_mode():
 			distractions.maybe_show_distraction()

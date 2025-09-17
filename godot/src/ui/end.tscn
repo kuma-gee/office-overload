@@ -68,7 +68,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/enable = true
 
-[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "performance_progress", "level_label", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_acc", "crunch_score", "retry_button", "highscore_board", "crunch_offline", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "bonus_label", "money_used", "ceo_player_tasks", "ceo_boss_tasks", "ceo_player_mistakes", "ceo_boss_mistakes", "ceo_player_score", "ceo_boss_score", "ceo_win_status", "ceo_retry", "promotion_delegator", "work_container", "ceo_container", "unlocked_container", "crunch_container")]
+[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "performance_progress", "level_label", "multiplayer_container", "multiplayer_tasks", "multiplayer_time", "multiplayer_wpm", "multiplayer_acc", "multiplayer_score", "multiplayer_winner_label", "leave_button", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_acc", "crunch_score", "retry_button", "highscore_board", "crunch_offline", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "bonus_label", "money_used", "ceo_player_tasks", "ceo_boss_tasks", "ceo_player_mistakes", "ceo_boss_mistakes", "ceo_player_score", "ceo_boss_score", "ceo_win_status", "ceo_retry", "promotion_delegator", "work_container", "ceo_container", "unlocked_container", "crunch_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -82,6 +82,14 @@ open_sound = NodePath("OpenSound")
 gameover_sound = NodePath("GameoverSound")
 performance_progress = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D/Progress")
 level_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D/LevelText")
+multiplayer_container = NodePath("CenterContainer/PanelContainer/Multiplayer")
+multiplayer_tasks = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer/Tasks")
+multiplayer_time = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5/Time")
+multiplayer_wpm = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2/Speed")
+multiplayer_acc = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3/Acc")
+multiplayer_score = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/VBoxContainer/Score2")
+multiplayer_winner_label = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/Winner")
+leave_button = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/NextDay/Break")
 crunch_tasks = NodePath("CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer/Tasks")
 crunch_time = NodePath("CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5/Time")
 crunch_wpm = NodePath("CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2/Speed")
@@ -733,7 +741,154 @@ size_flags_horizontal = 3
 layout_mode = 2
 word = "retry"
 
+[node name="Multiplayer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer"]
+layout_mode = 2
+text = "Report"
+label_settings = ExtResource("2_ox4yy")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+text = "Tasks"
+label_settings = ExtResource("12_wqs3t")
+
+[node name="Tasks" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
+text = "100"
+label_settings = ExtResource("9_e1gla")
+
+[node name="VBoxContainer5" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 6
+text = "Hours"
+label_settings = ExtResource("12_wqs3t")
+
+[node name="Time" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
+text = "12h"
+label_settings = ExtResource("9_e1gla")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+text = "Speed"
+label_settings = ExtResource("12_wqs3t")
+
+[node name="Speed" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
+text = "100"
+label_settings = ExtResource("9_e1gla")
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+text = "Accuracy"
+label_settings = ExtResource("12_wqs3t")
+
+[node name="Acc" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
+text = "87%"
+label_settings = ExtResource("9_e1gla")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Score" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 10
+text = "Score"
+horizontal_alignment = 1
+
+[node name="Score2" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "123021"
+horizontal_alignment = 1
+
+[node name="Winner" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 5
+text = "Co-workers are still competing..."
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Break" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+layout_mode = 2
+script = ExtResource("7_mgfnm")
+word = "leave"
+
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/NextDay"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Retry" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+visible = false
+layout_mode = 2
+word = "retry"
+
 [node name="Ceo" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8

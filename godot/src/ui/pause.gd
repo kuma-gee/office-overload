@@ -7,6 +7,8 @@ extends Control
 
 @export var quit_btn: TypingButton
 @export var continue_btn: TypingButton
+@export var label: Label
+@export var title_label: Label
 
 func _ready() -> void:
 	hide()
@@ -18,7 +20,22 @@ func _ready() -> void:
 	)
 
 func _on_focused():
-	get_tree().paused = true
+	# Using text wrap makes the dialog longer for some reason
+	# So we add line breaks ourselves
+	if not GameManager.is_multiplayer_mode():
+		title_label.text = "Break"
+		label.text = "I'm on a coffee break.
+I'll be back in a
+minute"
+		quit_btn.word = "home"
+		get_tree().paused = true
+	else:
+		title_label.text = "No Break!"
+		label.text = "Your co-workers are
+stillcompeting with
+you"
+		quit_btn.word = "leave"
+	
 	effect_root.do_effect()
 	panel_container.open()
 	show()
@@ -29,4 +46,7 @@ func _on_focus_exited():
 	panel_container.close()
 
 func _gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") and not delegator.has_focused() and not effect_root.is_running():
+		get_viewport().gui_release_focus()
+	
 	delegator.handle_event(event)

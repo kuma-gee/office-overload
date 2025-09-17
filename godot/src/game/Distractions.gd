@@ -66,6 +66,8 @@ func _ready():
 
 	_logger.info("Showing %s - %s number of distractions today" % [min_count, max_count])
 
+	distraction_shown.connect(func(): shown += 1)
+
 func _close_all():
 	for x in menus:
 		x.hide()
@@ -102,7 +104,6 @@ func show_distraction():
 	
 	_logger.debug("Showing distraction: %s, %s" % [available, menus.map(func(x): return x.get_word())])
 	if available.is_empty(): return
-	shown += 1
 	
 	var distraction = available.pick_random()
 	last_menu = distraction

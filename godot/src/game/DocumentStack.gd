@@ -3,6 +3,7 @@ extends Node2D
 
 signal document_added()
 signal document_emptied()
+signal combo_changed()
 
 @export var initial_doc_count := 0
 @export var stack_count := 10
@@ -23,6 +24,7 @@ var combo_count := 0:
 	set(v):
 		combo_count = v
 		highest_streak = max(combo_count, highest_streak)
+		combo_changed.emit()
 		
 		if not combo_label: return
 		

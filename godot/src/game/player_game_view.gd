@@ -9,6 +9,8 @@ var steam_id := -1
 var tw: Tween
 
 func _ready() -> void:
+	if not name.is_valid_int(): return
+	
 	steam_id = int(name)
 	name_label.text = SteamManager.get_steam_username(steam_id)
 
