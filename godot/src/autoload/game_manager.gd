@@ -246,12 +246,13 @@ func finished_crunch(tasks: int, hours: int, _combo: int):
 
 func finished_multiplayer(tasks: int, hours: int):
 	var data = {}
-	data["wpm"] = wpm_calculator.get_average_wpm()
-	data["acc"] = wpm_calculator.get_average_accuracy()
+	data["wpm"] = int(wpm_calculator.get_average_wpm())
+	data["acc"] = int(wpm_calculator.get_average_accuracy())
 	wpm_calculator.reset()
 	
 	data["hours"] = hours
 	data["tasks"] = tasks
+	data["time"] = Time.get_unix_time_from_system()
 	
 	round_ended.emit()
 	return data

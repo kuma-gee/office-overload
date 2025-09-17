@@ -779,7 +779,7 @@ glow_enabled = true
 glow_bloom = 0.05
 glow_blend_mode = 0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound", "spill_mug", "crunch_documents", "special_container", "special_ready_container", "special_progress_bar", "special_charge_combo_label")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound", "spill_mug", "crunch_documents", "special_container", "special_ready_container", "special_progress_bar", "special_charge_combo_label", "multiplayer_hud")]
 top_level = true
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
@@ -799,6 +799,7 @@ special_container = NodePath("CanvasLayer/HUD/SpecialChargeContainer")
 special_ready_container = NodePath("CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/SpecialCharged")
 special_progress_bar = NodePath("CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer/Control/MarginContainer/TextureProgressBar")
 special_charge_combo_label = NodePath("CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer/ChargeCombo")
+multiplayer_hud = NodePath("CanvasLayer/Multiplayer")
 
 [node name="MouseInput" type="Node" parent="."]
 script = ExtResource("2_a2wq4")

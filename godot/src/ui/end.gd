@@ -1,5 +1,7 @@
 extends Control
 
+signal multiplayer_data_received()
+
 @onready var end_effect = $EndEffect
 
 @export var open_sound: AudioStreamPlayer
@@ -13,8 +15,8 @@ extends Control
 @export var multiplayer_time: Label
 @export var multiplayer_wpm: Label
 @export var multiplayer_acc: Label
-@export var multiplayer_score: Label
 @export var multiplayer_winner_label: Label
+@export var multiplayer_rankings: LocalRanking
 @export var leave_button: TypingButton
 
 @export_category("Crunch Mode")
@@ -24,7 +26,6 @@ extends Control
 @export var crunch_acc: Label
 @export var crunch_score: Label
 @export var retry_button: TypingButton
-@export var highscore_board: Control
 @export var crunch_offline: Control
 
 @export_category("Work Mode")
@@ -64,13 +65,12 @@ extends Control
 @onready var promotion_paper: PromotionPaper = $PromotionPaper
 @onready var promotion_status: PromotionStatus = $PromotionStatus
 @onready var challenge_paper: ChallengePaper = $ChallengePaper
-@onready var menu_paper: EndScorePaper = $Control/MenuPaper
 
 func _ready():
 	work_container.hide()
 	ceo_container.hide()
 	crunch_container.hide()
-	highscore_board.hide()
+	multiplayer_container.hide()
 	
 	hide()
 	next_day.finished.connect(func(): GameManager.start())
@@ -84,6 +84,8 @@ func _ready():
 	)
 	
 	retry_button.finished.connect(func(): GameManager.start())
+	multiplayer_rankings.received_all.connect(multiplayer_game_finished)
+	multiplayer_rankings.received_data.connect(func(is_last, steam_id): multiplayer_data_received.emit(is_last, steam_id))
 
 func _unlock_modes():
 	if GameManager.is_senior() or GameManager.is_manager() or GameManager.is_ceo():
@@ -183,13 +185,14 @@ func multiplayer_ended(data: Dictionary):
 	multiplayer_time.text = "%sh" % data["hours"]
 	multiplayer_wpm.text = "%.0f" % data["wpm"]
 	multiplayer_acc.text = "%.0f%%" % (data["acc"] * 100)
-	multiplayer_score.text = "%s" % data["score"]
 	multiplayer_winner_label.text = "Co-workers are still competing..."
 
 	_do_open(multiplayer_container, gameover_sound)
+	multiplayer_rankings.push_local_ranking(data)
+	multiplayer_rankings.slide_in(0.5)
 
-func multiplayer_game_finished(other_data: Dictionary):
-	pass
+func multiplayer_game_finished():
+	multiplayer_winner_label.text = "Competition finished!"
 
 func _do_open(container: Control, sound = open_sound):
 	container.show()

@@ -49,6 +49,7 @@ extends Node2D
 @export var special_charge_amount := 0.01
 @export var special_progress_bar: TextureProgressBar
 @export var special_charge_combo_label: Label
+@export var multiplayer_hud: MultiplayerHUD
 
 @onready var doc_spawner = $DocSpawner
 @onready var spawn_timer = $SpawnTimer
@@ -171,6 +172,7 @@ func _ready():
 		key_reader.use_coffee.connect(func():
 			if is_time_running() and special_charge >= 1.0:
 				send_random_distractions.rpc()
+				multiplayer_hud.distracted_others()
 				special_charge = 0.0
 		)
 		document_stack.combo_changed.connect(func():
@@ -178,6 +180,7 @@ func _ready():
 			special_charge_combo_label.visible = document_stack.combo_count > 0
 		)
 		special_charge_combo_label.hide()
+		end.multiplayer_data_received.connect(func(is_last, steam_id): multiplayer_hud.end_data_received(steam_id, is_last))
 	
 	shift_delegator.unhandled_key.connect(func(_key):
 		if not is_time_running():

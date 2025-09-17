@@ -87,7 +87,7 @@ func _player_disconnected(id):
 	player_disconnected.emit(id)
 	logger.info("Client Disconnected: %s" % id)
 
-func get_player_count():
+func get_player_count() -> int:
 	return players.size()
 
 func get_player_id(id = multiplayer.get_unique_id()):

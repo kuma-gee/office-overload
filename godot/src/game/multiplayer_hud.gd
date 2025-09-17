@@ -1,3 +1,4 @@
+class_name MultiplayerHUD
 extends Control
 
 @export var player_container: Control
@@ -31,3 +32,16 @@ func _add_player(steam_id: int):
 	if steam_id == Networking.get_player_id():
 		current_player_view = row
 		current_player_view.visible = false
+
+func end_data_received(from: int, is_last: bool):
+	for c in player_container.get_children():
+		var view = c as PlayerGameView
+		if view and view.visible and view.steam_id == from:
+			view.set_win_state(is_last)
+			break
+
+func distracted_others():
+	for c in player_container.get_children():
+		var view = c as PlayerGameView
+		if view and view != current_player_view:
+			view.got_distracted()
