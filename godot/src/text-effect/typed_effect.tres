@@ -1,6 +1,6 @@
 [gd_resource type="RichTextEffect" script_class="TypedEffect" load_steps=2 format=3 uid="uid://d0psnm1eyw40x"]
 
-[ext_resource type="Script" path="res://src/text-effect/typed_effect.gd" id="1_uxqlr"]
+[ext_resource type="Script" uid="uid://cmdprt6qeh6o7" path="res://src/text-effect/typed_effect.gd" id="1_uxqlr"]
 
 [resource]
 script = ExtResource("1_uxqlr")

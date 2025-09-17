@@ -82,9 +82,7 @@ var _logger = Logger.new("GameManager")
 func _ready():
 	self.difficulty_level = difficulty_level
 	SteamCloud.initialized.connect(_load_data)
-	SteamManager.init_successful.connect(func():
-		_check_achievements()
-	)
+	SteamManager.init_successful.connect(func(): _check_achievements())
 	
 func _load_data():
 	var data = save_manager.load_from_slot(0)

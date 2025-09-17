@@ -14,26 +14,13 @@ var _default_log_level := Logger.Level.INFO
 func _ready():
 	var args = _args_dictionary()
 	_logger.info("Args: %s" % args)
-	
-	if not is_editor():
-		_live = false
-		_enable_steam = false
-		log_level = _default_log_level
-	
-	if "logging" in args:
-		var lvl_str = args["logging"].to_upper()
-		log_level = Logger.Level[lvl_str] if lvl_str in Logger.Level else _default_log_level
-		_logger.info("Setting log level to %s" % Logger.Level.keys()[log_level])
+
+	_reset_values()
+	_parse_logging_arg(args)
+	_parse_live_arg(args)
 	
 	if args.has("steam"):
 		_enable_steam = true
-		
-	if "live" in args:
-		var hash = args["live"].sha256_text()
-		_logger.debug("Checking hash %s is equal %s" % [hash, Build.GAME_HASH])
-		_live = hash == Build.GAME_HASH
-	elif not is_editor():
-		_live = false
 	
 	if _enable_steam and Build.STEAM_APP != APP_ID and not is_editor():
 		_live = false
@@ -45,6 +32,24 @@ func _ready():
 		"log_level": Logger.Level.keys()[log_level],
 	}])
 
+func _reset_values():
+	if not is_editor():
+		_live = false
+		_enable_steam = false
+		log_level = _default_log_level
+
+func _parse_logging_arg(args):
+	if "logging" in args:
+		var lvl_str = args["logging"].to_upper()
+		log_level = Logger.Level[lvl_str] if lvl_str in Logger.Level else _default_log_level
+		_logger.info("Setting log level to %s" % Logger.Level.keys()[log_level])
+
+func _parse_live_arg(args):
+	if "live" in args:
+		var used_hash = args["live"].sha256_text()
+		_logger.debug("Checking hash %s is equal %s" % [used_hash, Build.GAME_HASH])
+		_live = used_hash == Build.GAME_HASH or is_editor()
+	
 func is_editor():
 	return OS.is_debug_build()
 

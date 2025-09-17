@@ -27,6 +27,7 @@ func _load_steam():
 	_logger.info("Steam App %s initialized? %s" % [Build.STEAM_APP, init])
 	
 	if is_successful_initialized:
+		_logger.debug("Logged in as %s(%s)" % [SteamManager.get_username(), SteamManager.get_steam_id()])
 		init_successful.emit()
 		GameManager.exiting_game.connect(func(): steam.steamShutdown())
 	
