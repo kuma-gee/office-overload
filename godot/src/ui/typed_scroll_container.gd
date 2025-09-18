@@ -21,4 +21,5 @@ func reset():
 	down_scroll.get_label().highlight_first = false
 
 func update(data: Array):
+	await get_tree().physics_frame
 	scroll_button_container.visible = get_v_scroll_bar().visible and not data.is_empty()

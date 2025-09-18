@@ -103,7 +103,6 @@ func show_data(data: Array):
 			label.tooltip_text = label.text
 			container.add_child(label)
 	
-	await get_tree().physics_frame
 	scroll_container.update(data)
 
 func _get_recursive(dict: Dictionary, key: String, details: Array):

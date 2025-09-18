@@ -14,41 +14,47 @@ func _ready() -> void:
 	super()
 	
 	focus_entered.connect(func():
-		empty_label.hide()
-		loading_label.show()
+		_reset()
 		SteamLobby.load_lobbies()
 	)
 	SteamLobby.lobby_loaded.connect(_add_lobbies)
-	
-func _add_lobbies(lobbies: Array):
+
+func _reset():
+	empty_label.hide()
+	loading_label.show()
 	scroll_container.reset()
 	for c in container.get_children():
 		c.queue_free()
 		delegator.nodes.erase(c)
 
-	scroll_container.update(lobbies)
+func _add_lobbies(lobbies: Array):
 	empty_label.visible = lobbies.is_empty()
 	loading_label.hide()
 	
 	if lobbies.is_empty():
 		return
 
-	scroll_container.active()
 	for lobby in lobbies:
-		var alphabet_id = _generate_unique_id(lobby["id"])
-		var btn = button_scene.instantiate() as SteamLobbyRow
-		btn.word = alphabet_id
-		btn.lobby = lobby
-		btn.finished.connect(func(): requested_join.emit(lobby["id"]))
-		container.add_child(btn)
-		delegator.nodes.append(btn)
+		_add_lobby(lobby)
+	
+	scroll_container.active()
+	scroll_container.update(lobbies)
+
+func _add_lobby(lobby):
+	var alphabet_id = _generate_unique_id(lobby["id"])
+	var btn = button_scene.instantiate() as SteamLobbyRow
+	btn.word = alphabet_id
+	btn.lobby = lobby
+	btn.finished.connect(func(): requested_join.emit(lobby["id"]))
+	container.add_child(btn)
+	delegator.nodes.append(btn)
 
 func _generate_unique_id(lobby_id: int) -> String:
 	var alphabet := "ABCDEFGHILMNOPQRSTUVWXYZ" # Exclude J/K for scrolling
 	var unique_id := ""
 	var id := lobby_id
 
-	while unique_id.length() < id_length:
+	while id > 0:
 		unique_id = alphabet[id % alphabet.length()] + unique_id
 		id = id / alphabet.length()
 

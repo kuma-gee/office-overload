@@ -15,6 +15,7 @@ var multiplayer_class = "SteamMultiplayerPeer"
 var logger = Logger.new("SteamNetwork")
 
 var players := {}
+var lobby_data := {}
 
 func _init(p: int, max_p: int) -> void:
 	port = p
@@ -31,9 +32,13 @@ func _ready():
 func get_player_id(id):
 	return multiplayer.multiplayer_peer.get_steam64_from_peer_id(id)
 
-func host_game(public := false):
+func host_game(data = {}):
 	if not steam: return
-	lobby_type = steam.LOBBY_TYPE_FRIENDS_ONLY if not public else steam.LOBBY_TYPE_PUBLIC
+	lobby_type = steam.LOBBY_TYPE_FRIENDS_ONLY
+	if "public" in data and data["public"]:
+		lobby_type = steam.LOBBY_TYPE_PUBLIC
+	
+	lobby_data = data
 	steam.createLobby(lobby_type, max_peers)
 
 func is_public():
@@ -79,19 +84,25 @@ func _on_lobby_created(_connect: int, _lobby_id: int):
 	if _connect == 1:
 		lobby_id = _lobby_id
 		steam.setLobbyData(_lobby_id, "mode", str(lobby_type))
+		steam.setLobbyData(_lobby_id, "creator", str(SteamManager.get_steam_id()))
+		
+		logger.debug("Setting lobby data: %s" % lobby_data)
+		for key in lobby_data:
+			steam.setLobbyData(_lobby_id, key, str(lobby_data[key]))
+		
 		logger.info("Lobby Created: %s" % _lobby_id)
 		_create_server()
 	else:
-		connection_failed.emit()
 		logger.info("Error creating lobby")
+		connection_failed.emit()
 
 func _on_lobby_joined(_lobby_id: int, _permissions: int, _locked: bool, response: int):
 	if response == 1:
 		var id = steam.getLobbyOwner(_lobby_id)
 		if id != steam.getSteamID():
 			lobby_id = _lobby_id
-			logger.info("Joined Lobby")
-
+			lobby_type = int(steam.getLobbyData(_lobby_id, "mode"))
+			logger.info("Joined Lobby: %s" % lobby_type)
 			_create_client(id)
 	else:
 		var FAIL_REASON: String

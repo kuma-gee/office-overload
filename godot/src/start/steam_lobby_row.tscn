@@ -6,25 +6,40 @@
 
 [node name="SteamLobbyRow" type="MarginContainer" node_paths=PackedStringArray("typing_label", "lobby_label", "count_label")]
 offset_right = 68.0
-offset_bottom = 16.0
+offset_bottom = 12.0
 theme = ExtResource("1_52ani")
 script = ExtResource("1_nwkpw")
-typing_label = NodePath("HBoxContainer2/TypingLabel")
-lobby_label = NodePath("HBoxContainer2/Label")
-count_label = NodePath("HBoxContainer2/Count")
+typing_label = NodePath("HBoxContainer2/MarginContainer/TypingLabel")
+lobby_label = NodePath("HBoxContainer2/HBoxContainer/Label")
+count_label = NodePath("HBoxContainer2/HBoxContainer/Count")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
 layout_mode = 2
+theme_override_constants/separation = 4
 
-[node name="TypingLabel" parent="HBoxContainer2" instance=ExtResource("1_hq1un")]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer2"]
 layout_mode = 2
+theme_override_constants/margin_bottom = 2
 
-[node name="Label" type="Label" parent="HBoxContainer2"]
+[node name="TypingLabel" parent="HBoxContainer2/MarginContainer" instance=ExtResource("1_hq1un")]
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "'s lobby"
+theme_override_font_sizes/normal_font_size = 6
 
-[node name="Count" type="Label" parent="HBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer2"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="Label" type="Label" parent="HBoxContainer2/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 6
+text = "Lobby"
+text_overrun_behavior = 3
+
+[node name="Count" type="Label" parent="HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 6
 text = "0/5"

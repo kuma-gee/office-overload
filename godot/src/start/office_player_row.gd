@@ -14,22 +14,35 @@ var is_ready := false:
 		checkbox.is_checked = is_ready
 		ready_changed.emit()
 
-var steam_id := -1
+var steam_id = null
 
 func is_self():
 	return steam_id == Networking.get_player_id()
 
 func _ready() -> void:
-	steam_id = int(name)
-	if not name.is_valid_int() or steam_id <= 0: return
+	steam_id = Networking.get_player_id(int(name))
+	if steam_id == null: return
 
-	if is_self():
-		player_name.text = "%s" % SteamManager.get_username()
-		set_stats.rpc(GameManager.difficulty_level, GameManager.get_wpm())
-		ready_label.finished.connect(func(): toggle_ready())
-	else:
-		player_name.text = "%s" % SteamManager.get_steam_username(steam_id)
-		ready_label.hide()
+	if not is_self():
+		_set_remote_user_data()
+		return
+
+	_set_own_user_data()
+	ready_label.finished.connect(func(): toggle_ready())
+
+func _set_own_user_data():
+	player_name.text = "%s" % SteamManager.get_username()
+	set_stats(GameManager.difficulty_level, GameManager.get_wpm())
+
+func _set_remote_user_data():
+	player_name.text = "%s" % SteamManager.get_steam_username(steam_id)
+	player_stats.text = ""
+	_request_remote_user_data.rpc_id(int(name))
+	ready_label.hide()
+
+@rpc("any_peer", "reliable")
+func _request_remote_user_data():
+	set_stats.rpc_id(multiplayer.get_remote_sender_id(), GameManager.difficulty_level, GameManager.get_wpm())
 
 func toggle_ready():
 	set_ready.rpc(not is_ready)
@@ -37,13 +50,6 @@ func toggle_ready():
 @rpc("any_peer", "call_local", "reliable")
 func set_ready(rdy: bool):
 	is_ready = rdy
-
-# func request_player_stats():
-# 	pass
-
-# @rpc("any_peer", "reliable")
-# func send_player_stats():
-# 	pass
 
 @rpc("any_peer", "call_local", "reliable")
 func set_stats(lvl: DifficultyResource.Level, wpm: int):

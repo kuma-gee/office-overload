@@ -981,7 +981,6 @@ texture = ExtResource("25_pu2hv")
 stretch_mode = 2
 
 [node name="LobbyOffice" type="PanelContainer" parent="Multiplayer/Papers" node_paths=PackedStringArray("player_container", "lobby_container", "title_label", "closed_label", "failed_label", "start_btn", "loading", "delegator")]
-visible = false
 custom_minimum_size = Vector2(120, 150)
 layout_mode = 1
 anchors_preset = 8
@@ -1762,7 +1761,7 @@ script = ExtResource("17_s6hs1")
 node = NodePath("../../../MenuOverlay")
 
 [node name="CeoLevelSelect" type="PanelContainer" parent="CanvasLayer/Control/SteamLobbies"]
-custom_minimum_size = Vector2(130, 150)
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1817,9 +1816,9 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/margin_left = 5
+theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
+theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 5
 
 [node name="Empty" type="Label" parent="CanvasLayer/Control/SteamLobbies/CeoLevelSelect/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
@@ -1863,7 +1862,7 @@ offset_left = -10.0
 offset_bottom = 2.0
 grow_horizontal = 0
 theme_override_constants/margin_top = -8
-theme_override_constants/margin_right = -3
+theme_override_constants/margin_right = -1
 
 [node name="UpScroll" parent="CanvasLayer/Control/SteamLobbies/CeoLevelSelect/MarginContainer/VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer" instance=ExtResource("7_plxua")]
 layout_mode = 2
@@ -1894,7 +1893,7 @@ offset_bottom = 13.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/margin_top = -8
-theme_override_constants/margin_right = -3
+theme_override_constants/margin_right = -1
 
 [node name="DownScroll" parent="CanvasLayer/Control/SteamLobbies/CeoLevelSelect/MarginContainer/VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2" instance=ExtResource("7_plxua")]
 layout_mode = 2

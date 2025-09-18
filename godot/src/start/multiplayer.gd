@@ -35,6 +35,6 @@ func _ready() -> void:
 	)
 
 func _open_office(public: bool):
-	Networking.host_game(public)
+	Networking.host_game({"public": public})
 	office_doc.is_owner = true
 	office_doc.grab_focus()
