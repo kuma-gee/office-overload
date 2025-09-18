@@ -38,7 +38,7 @@ jobs:
         run: |
           STEAM_ID=${STEAM_APP:-430}
           IS_DEMO=${DEMO:-false}
-          CHANNELS='"windows", "linux"'
+          CHANNELS='"windows", "linux", "macos"'
 
           if [ $RELEASE_STEAM = false ] && [ $RELEASE_GITHUB = false ]; then
             CHANNELS=''
