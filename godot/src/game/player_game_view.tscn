@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bv6y77ijhcbcn"]
+[gd_scene load_steps=11 format=3 uid="uid://bv6y77ijhcbcn"]
 
-[ext_resource type="Texture2D" uid="uid://t0vtdco1mbgy" path="res://assets/sprites/Icon_Assistant.png" id="1_11n6e"]
 [ext_resource type="Script" uid="uid://dy4bkfhuimiuk" path="res://src/game/player_game_view.gd" id="1_dho1o"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_p2t5x"]
+[ext_resource type="Texture2D" uid="uid://bvtbsaappbakk" path="res://assets/sprites/Person.png" id="3_mvrru"]
 [ext_resource type="Texture2D" uid="uid://cs3vlokhe6yqh" path="res://assets/sprites/ProgressSmall_Under.png" id="4_3rk3x"]
 [ext_resource type="Texture2D" uid="uid://hst0o23h0h88" path="res://assets/sprites/ProgressSmall_Fill.png" id="5_mvrru"]
 [ext_resource type="Texture2D" uid="uid://bh7sul5xxqc3x" path="res://assets/sprites/ProgressSmall_Front.png" id="5_na5if"]
@@ -11,15 +11,59 @@
 grow_begin = 0.0
 grow_end = 0.0
 
-[node name="PlayerGameView" type="PanelContainer" node_paths=PackedStringArray("name_label", "count_label", "progress_bar")]
+[sub_resource type="Animation" id="Animation_mvrru"]
+resource_name = "move"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Control/CenterContainer/MarginContainer2/Control/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(0, -1)]
+}
+
+[sub_resource type="Animation" id="Animation_na5if"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Control/CenterContainer/MarginContainer2/Control/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_na5if"]
+_data = {
+&"RESET": SubResource("Animation_na5if"),
+&"move": SubResource("Animation_mvrru")
+}
+
+[node name="PlayerGameView" type="PanelContainer" node_paths=PackedStringArray("name_label", "count_label", "progress_bar", "anim", "profile_icon")]
 custom_minimum_size = Vector2(32, 0)
 offset_right = 32.0
 offset_bottom = 44.0
 theme = ExtResource("1_p2t5x")
 script = ExtResource("1_dho1o")
 name_label = NodePath("MarginContainer/VBoxContainer/Label")
-count_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/TextureRect/MarginContainer/Label")
+count_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Control/MarginContainer/Label")
 progress_bar = NodePath("MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/TextureProgressBar")
+anim = NodePath("AnimationPlayer")
+profile_icon = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Control/CenterContainer/MarginContainer2/Control/Sprite2D")
+distress_frame = 2
+distracted_frame = 1
+lose_frame = 3
+win_frame = 4
+disconnected_frame = 6
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -32,24 +76,43 @@ theme_override_constants/separation = 0
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("1_11n6e")
-expand_mode = 5
-stretch_mode = 6
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/TextureRect"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/Control/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = -2
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer/Control/CenterContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/VBoxContainer/HBoxContainer/Control/CenterContainer/MarginContainer2/Control"]
+texture = ExtResource("3_mvrru")
+hframes = 7
+frame = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/Control"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -8.0
+offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_bottom = -1
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/TextureRect/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Control/MarginContainer"]
 layout_mode = 2
 text = "123456"
 horizontal_alignment = 1
@@ -78,3 +141,8 @@ text = "ASDSDSASDA"
 horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_na5if")
+}
