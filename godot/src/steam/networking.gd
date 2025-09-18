@@ -32,6 +32,9 @@ func ping(target_id: int = multiplayer.get_unique_id(), iam_asking: bool = true)
 func print_ping():
 	logger.debug("Ping delay for %s: %s" % [multiplayer.get_remote_sender_id(), Time.get_unix_time_from_system() - last_ping_time]) 
 
+func _exit_tree():
+	reset_network()
+
 func _ready():
 	add_child(network)
 

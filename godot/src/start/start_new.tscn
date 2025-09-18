@@ -876,7 +876,7 @@ light = NodePath("../PointLight2D")
 
 [node name="Delegator" type="Node" parent="Multiplayer" node_paths=PackedStringArray("nodes")]
 script = ExtResource("7_pvyq5")
-nodes = [NodePath("../Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/Private"), NodePath("../Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/List"), NodePath("../Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/HBoxContainer/Public")]
+nodes = [NodePath("../Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/Private"), NodePath("../Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/List"), NodePath("../Papers/Multiplayer/MarginContainer/VBoxContainer/Buttons/Public")]
 
 [node name="ColorRect" type="ColorRect" parent="Multiplayer"]
 layout_mode = 2
@@ -2345,35 +2345,6 @@ offset_bottom = 10.0
 
 [node name="PanelContainer" parent="CanvasLayer/Control/Report/TextureRect" index="4"]
 visible = false
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
-visible = false
-layout_mode = 0
-offset_left = 262.0
-offset_top = -6.0
-offset_right = 310.0
-offset_bottom = 18.0
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PanelContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/PanelContainer/MarginContainer"]
-layout_mode = 2
-text = "$100"
-horizontal_alignment = 1
-
-[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/Control"]
-visible = false
-layout_mode = 0
-offset_left = 10.0
-offset_top = -3.0
-offset_right = 46.0
-offset_bottom = 15.0
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/PanelContainer2"]
-layout_mode = 2
-texture = ExtResource("25_pu2hv")
-stretch_mode = 3
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("46_0cyp8")

@@ -46,10 +46,11 @@ extends Node2D
 @export_category("Multiplayer")
 @export var special_container: Control
 @export var special_ready_container: Control
-@export var special_charge_amount := 0.01
+@export var special_charge_amount := 0.05
 @export var special_progress_bar: TextureProgressBar
 @export var special_charge_combo_label: Label
 @export var multiplayer_hud: MultiplayerHUD
+@export var special_attack_sound: AudioStreamPlayer
 
 @onready var doc_spawner = $DocSpawner
 @onready var spawn_timer = $SpawnTimer
@@ -170,10 +171,11 @@ func _ready():
 		)
 	elif GameManager.is_multiplayer_mode():
 		key_reader.use_coffee.connect(func():
-			if is_time_running() and special_charge >= 1.0:
+			if is_time_running() and special_charge >= special_progress_bar.max_value:
 				send_random_distractions.rpc()
 				multiplayer_hud.distracted_others()
 				special_charge = 0.0
+				special_attack_sound.play() # TODO: add the sound
 		)
 		document_stack.combo_changed.connect(func():
 			special_charge_combo_label.text = "%.0fx" % document_stack.combo_count
@@ -222,10 +224,12 @@ func _process(delta: float) -> void:
 func send_random_distractions():
 	if not GameManager.is_multiplayer_mode() or not is_time_running(): return
 
+	# TODO: indicate incoming distraction
+	await get_tree().create_timer(0.5).timeout
 	if randf() < 0.5:
 		distractions.show_distraction(true)
-	else:
-		await spill_mug.spill()
+	# else:
+	# 	await spill_mug.spill()
 
 	_spawn_documents(randi_range(2, 4), 0.2)
 
@@ -367,7 +371,7 @@ func _add_document(doc: Document, await_start := false):
 		_update_score()
 
 		if GameManager.is_multiplayer_mode() and document_stack.combo_count > 0:
-			special_charge += special_charge_amount * document_stack.combo_count
+			special_charge += special_charge_amount * 100
 		
 		if not work_time.is_day_ended() and GameManager.is_work_mode():
 			distractions.maybe_show_distraction()

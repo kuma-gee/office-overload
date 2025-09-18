@@ -779,7 +779,7 @@ glow_enabled = true
 glow_bloom = 0.05
 glow_blend_mode = 0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound", "spill_mug", "crunch_documents", "special_container", "special_ready_container", "special_progress_bar", "special_charge_combo_label", "multiplayer_hud")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound", "spill_mug", "crunch_documents", "special_container", "special_ready_container", "special_progress_bar", "special_charge_combo_label", "multiplayer_hud", "special_attack_sound")]
 top_level = true
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
@@ -800,6 +800,7 @@ special_ready_container = NodePath("CanvasLayer/HUD/SpecialChargeContainer/HBoxC
 special_progress_bar = NodePath("CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer/Control/MarginContainer/TextureProgressBar")
 special_charge_combo_label = NodePath("CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer/ChargeCombo")
 multiplayer_hud = NodePath("CanvasLayer/Multiplayer")
+special_attack_sound = NodePath("CanvasLayer/HUD/SpecialChargeContainer/Attack")
 
 [node name="MouseInput" type="Node" parent="."]
 script = ExtResource("2_a2wq4")
@@ -933,6 +934,9 @@ theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
+
+[node name="Attack" type="AudioStreamPlayer" parent="CanvasLayer/HUD/SpecialChargeContainer"]
+bus = &"SFX"
 
 [node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/SpecialChargeContainer"]
 layout_mode = 2
