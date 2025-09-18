@@ -3,7 +3,6 @@ extends Node
 
 signal connection_success(peer)
 signal connection_failed
-signal lobby_loaded(data)
 
 var owner_id := -1
 var lobby_id := -1
@@ -24,10 +23,9 @@ func _init(p: int, max_p: int) -> void:
 func _ready():
 	SteamManager.init_successful.connect(func():
 		steam = Engine.get_singleton("Steam")
-		steam.join_requested.connect(_on_lobby_join_requested)
 		steam.lobby_created.connect(_on_lobby_created)
 		steam.lobby_joined.connect(_on_lobby_joined)
-		steam.lobby_match_list.connect(_on_lobby_match_list)
+		steam.join_requested.connect(_on_lobby_join_requested)
 	)
 	
 func get_player_id(id):
@@ -45,15 +43,6 @@ func join_game(id):
 	if not steam: return
 	lobby_id = id
 	steam.joinLobby(lobby_id)
-
-func load_lobbies():
-	if not steam: return
-
-	steam.addRequestLobbyListDistanceFilter(steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
-	steam.addRequestLobbyListFilterSlotsAvailable(1)
-	steam.addRequestLobbyListResultCountFilter(30)
-	steam.requestLobbyList()
-	logger.info("Loading lobbies...")
 
 func close_game():
 	if not steam or lobby_id == 0: return
@@ -121,34 +110,3 @@ func _on_lobby_joined(_lobby_id: int, _permissions: int, _locked: bool, response
 		connection_failed.emit()
 		logger.info("Failed to join lobby: %s" % [FAIL_REASON])
 		
-func _on_lobby_match_list(these_lobbies: Array) -> void:
-	var result = []
-	var existing_names = []
-
-	for this_lobby in these_lobbies:
-		var id = this_lobby
-		var mode = int(steam.getLobbyData(id, "mode"))
-		var owner = steam.getLobbyOwner(id)
-		var owner_name = steam.getFriendPersonaName(owner)
-		var count = steam.getNumLobbyMembers(id)
-		var max = steam.getLobbyMemberLimit(id)
-		
-		var data = {
-			"id": id,
-			"mode": mode,
-			"owner": owner,
-			"owner_name": owner_name,
-			"count": count,
-			"max": max,
-		}
-		
-		# Possible?
-		if owner_name in existing_names:
-			logger.warn("Skipping duplicate lobby from %s" % owner_name)
-			continue
-
-		existing_names.append(owner_name)
-		result.append(data)
-	
-	logger.info("Loaded %s lobbies" % result.size())
-	lobby_loaded.emit(result)

@@ -64,9 +64,12 @@ func _ready():
 	)
 	network.connection_failed.connect(func(): connection_failed.emit())
 
-func host_game():
-	network.host_game()
+func host_game(x):
+	network.host_game(x)
 	logger.info("Hosting server")
+
+func is_public():
+	return network.is_public()
 
 func join_game(id):
 	network.join_game(id)

@@ -34,7 +34,7 @@ func _ready() -> void:
 	focus_entered.connect(func():
 		open()
 		_ready_updated()
-		title_label.text = "%s Office" % ("Public" if Networking.network.is_public() else "Private")
+		title_label.text = "%s Office" % ("Public" if Networking.is_public() else "Private")
 	)
 	focus_exited.connect(func(): close())
 	

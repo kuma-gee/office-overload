@@ -16,9 +16,9 @@ func _ready() -> void:
 	focus_entered.connect(func():
 		empty_label.hide()
 		loading_label.show()
-		Networking.network.load_lobbies()
+		SteamLobby.load_lobbies()
 	)
-	Networking.network.lobby_loaded.connect(_add_lobbies)
+	SteamLobby.lobby_loaded.connect(_add_lobbies)
 	
 func _add_lobbies(lobbies: Array):
 	scroll_container.reset()
