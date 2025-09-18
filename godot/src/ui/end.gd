@@ -188,8 +188,8 @@ func multiplayer_ended(data: Dictionary):
 	multiplayer_winner_label.text = "Co-workers are still competing..."
 
 	_do_open(multiplayer_container, gameover_sound)
-	multiplayer_rankings.push_local_ranking(data)
 	multiplayer_rankings.slide_in(0.5)
+	multiplayer_rankings.push_local_ranking(data)
 
 func multiplayer_game_finished():
 	multiplayer_winner_label.text = "Competition finished!"

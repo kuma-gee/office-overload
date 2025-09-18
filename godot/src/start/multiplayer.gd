@@ -14,17 +14,22 @@ extends WorkSpace
 @export var lobbies_paper: SteamLobbies
 @export var office_doc: LobbyOffice
 
+var is_starting := false
+
 func _ready() -> void:
 	title.text = GameManager.get_mode_title(GameManager.Mode.Multiplayer)
 	steam_label.visible = not SteamManager.is_steam_available()
 	buttons_container.visible = not steam_label.visible
 	opening.connect(func(): start_doc.open(0.5))
 	
+	GameManager.game_started.connect(func(): is_starting = true)
+	
 	private_office_btn.finished.connect(func(): _open_office(false))
 	public_office_btn.finished.connect(func(): _open_office(true))
 	office_doc.focus_exited.connect(func():
-		Networking.reset_network()
-		office_doc.is_owner = false
+		if not is_starting:
+			Networking.reset_network()
+			office_doc.is_owner = false
 	)
 
 	join_office_btn.finished.connect(func(): lobbies_paper.grab_focus())

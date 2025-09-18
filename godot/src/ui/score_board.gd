@@ -73,6 +73,10 @@ func parse_data(data: Dictionary, key: String, details: Array):
 	else:
 		return "%s" % _get_recursive(data, key, details)
 
+func clear_data():
+	for c in container.get_children():
+		c.queue_free()
+
 func show_data(data: Array):
 	loading_label.hide()
 	empty_label.visible = data.is_empty()

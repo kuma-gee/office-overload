@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=112 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" uid="uid://cnd6nnfhonksh" path="res://src/game/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/game/document.tscn" id="2_35x6g"]
@@ -30,6 +30,7 @@
 [ext_resource type="Script" uid="uid://ds05gnpm2lay1" path="res://src/ui/DistractionWindow.gd" id="15_ffym8"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="15_r4fui"]
 [ext_resource type="LabelSettings" uid="uid://bsk404a5n517i" path="res://theme/text_normal.tres" id="16_3sqd2"]
+[ext_resource type="AudioStream" uid="uid://dqqi2hss7sue2" path="res://assets/sound/special.wav" id="16_7s3c0"]
 [ext_resource type="Texture2D" uid="uid://bikrg3yecci4h" path="res://assets/sprites/ClockLight.png" id="17_b6uxm"]
 [ext_resource type="Texture2D" uid="uid://cs3vlokhe6yqh" path="res://assets/sprites/ProgressSmall_Under.png" id="17_m34kf"]
 [ext_resource type="AudioStream" uid="uid://cg3y8tqu354up" path="res://assets/sound/決定ボタンを押す53.mp3" id="17_xms1k"]
@@ -936,6 +937,8 @@ theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
 [node name="Attack" type="AudioStreamPlayer" parent="CanvasLayer/HUD/SpecialChargeContainer"]
+stream = ExtResource("16_7s3c0")
+volume_db = -10.0
 bus = &"SFX"
 
 [node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/SpecialChargeContainer"]
@@ -1281,6 +1284,7 @@ overload_update_timer = NodePath("Timer")
 overload_progress = NodePath("../HUD/MarginContainer/OverloadProgress")
 
 [node name="Timer" type="Timer" parent="CanvasLayer/Multiplayer"]
+wait_time = 0.5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Multiplayer"]
 layout_mode = 1

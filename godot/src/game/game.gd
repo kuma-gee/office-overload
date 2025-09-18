@@ -175,7 +175,7 @@ func _ready():
 				send_random_distractions.rpc()
 				multiplayer_hud.distracted_others()
 				special_charge = 0.0
-				special_attack_sound.play() # TODO: add the sound
+				special_attack_sound.play()
 		)
 		document_stack.combo_changed.connect(func():
 			special_charge_combo_label.text = "%.0fx" % document_stack.combo_count
@@ -183,6 +183,8 @@ func _ready():
 		)
 		special_charge_combo_label.hide()
 		end.multiplayer_data_received.connect(func(is_last, steam_id): multiplayer_hud.end_data_received(steam_id, is_last))
+		
+		Networking.connection_closed.connect(func(): pause.grab_focus())
 	
 	shift_delegator.unhandled_key.connect(func(_key):
 		if not is_time_running():
@@ -226,8 +228,7 @@ func send_random_distractions():
 
 	# TODO: indicate incoming distraction
 	await get_tree().create_timer(0.5).timeout
-	if randf() < 0.5:
-		distractions.show_distraction(true)
+	distractions.show_distraction(true)
 	# else:
 	# 	await spill_mug.spill()
 
@@ -369,9 +370,11 @@ func _add_document(doc: Document, await_start := false):
 		documents.erase(doc)
 		_update_document_orders()
 		_update_score()
-
-		if GameManager.is_multiplayer_mode() and document_stack.combo_count > 0:
-			special_charge += special_charge_amount * 100
+		
+		if GameManager.is_multiplayer_mode():
+			multiplayer_hud.update_document_count(document_stack.actual_document_count)
+			if document_stack.combo_count > 0:
+				special_charge += special_charge_amount * 100
 		
 		if not work_time.is_day_ended() and GameManager.is_work_mode():
 			distractions.maybe_show_distraction()

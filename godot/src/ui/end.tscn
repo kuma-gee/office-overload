@@ -69,7 +69,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/enable = true
 
-[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "performance_progress", "level_label", "multiplayer_container", "multiplayer_tasks", "multiplayer_time", "multiplayer_wpm", "multiplayer_acc", "multiplayer_winner_label", "leave_button", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_acc", "crunch_score", "retry_button", "crunch_offline", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "bonus_label", "money_used", "ceo_player_tasks", "ceo_boss_tasks", "ceo_player_mistakes", "ceo_boss_mistakes", "ceo_player_score", "ceo_boss_score", "ceo_win_status", "ceo_retry", "promotion_delegator", "work_container", "ceo_container", "unlocked_container", "crunch_container")]
+[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "performance_progress", "level_label", "multiplayer_container", "multiplayer_tasks", "multiplayer_time", "multiplayer_wpm", "multiplayer_acc", "multiplayer_winner_label", "multiplayer_rankings", "leave_button", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_acc", "crunch_score", "retry_button", "crunch_offline", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "bonus_label", "money_used", "ceo_player_tasks", "ceo_boss_tasks", "ceo_player_mistakes", "ceo_boss_mistakes", "ceo_player_score", "ceo_boss_score", "ceo_win_status", "ceo_retry", "promotion_delegator", "work_container", "ceo_container", "unlocked_container", "crunch_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -89,6 +89,7 @@ multiplayer_time = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxCont
 multiplayer_wpm = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2/Speed")
 multiplayer_acc = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3/Acc")
 multiplayer_winner_label = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/Winner")
+multiplayer_rankings = NodePath("Control/CompetitionRanks")
 leave_button = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/NextDay/Break")
 crunch_tasks = NodePath("CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer/Tasks")
 crunch_time = NodePath("CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5/Time")
@@ -372,7 +373,7 @@ layout_mode = 2
 
 [node name="DayDelegator" type="Node" parent="CenterContainer/PanelContainer" node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_8aqif")
-nodes = [NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/NextDayButton"), NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Retry"), NodePath("../../../Control/MenuPaper/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/Retry")]
+nodes = [NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/NextDayButton"), NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Retry"), NodePath("../../../Control/MenuPaper/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/Retry"), NodePath("../Multiplayer/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../../../Control/CompetitionRanks/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel")]
 
 [node name="Work" type="MarginContainer" parent="CenterContainer/PanelContainer"]
 visible = false
@@ -617,6 +618,7 @@ layout_mode = 2
 [node name="Break" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
 layout_mode = 2
 script = ExtResource("7_mgfnm")
+wording = "Home"
 word = "home"
 
 [node name="Control" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay"]
@@ -764,6 +766,7 @@ layout_mode = 2
 [node name="Break" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
 layout_mode = 2
 script = ExtResource("7_mgfnm")
+wording = "Home"
 word = "home"
 
 [node name="Control" type="Control" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/NextDay"]
@@ -892,6 +895,7 @@ layout_mode = 2
 [node name="Break" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
 layout_mode = 2
 script = ExtResource("7_mgfnm")
+wording = "leave"
 word = "leave"
 
 [node name="Control" type="Control" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/NextDay"]
@@ -1057,6 +1061,7 @@ layout_mode = 2
 [node name="Break" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
 layout_mode = 2
 script = ExtResource("7_mgfnm")
+wording = "Home"
 word = "Home"
 
 [node name="Control" type="Control" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay"]

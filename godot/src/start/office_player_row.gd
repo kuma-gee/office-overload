@@ -43,6 +43,7 @@ func _set_remote_user_data():
 @rpc("any_peer", "reliable")
 func _request_remote_user_data():
 	set_stats.rpc_id(multiplayer.get_remote_sender_id(), GameManager.difficulty_level, GameManager.get_wpm())
+	set_ready.rpc(is_ready)
 
 func toggle_ready():
 	set_ready.rpc(not is_ready)

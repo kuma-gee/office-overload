@@ -97,7 +97,7 @@ func _on_start():
 
 @rpc("call_local", "reliable")
 func _start_game():
-	Networking.close_network()
+	#Networking.close_network()
 	GameManager.start(GameManager.Mode.Multiplayer, GameManager.language)
 
 

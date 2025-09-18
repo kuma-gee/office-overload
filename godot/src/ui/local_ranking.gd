@@ -30,8 +30,9 @@ func _send_ranking(data):
 	var is_last = ranking_data.size() >= expected_player_size
 	received_data.emit(is_last, Networking.get_player_id(data["sender"]))
 
+	_show_ranking()
+	
 	if is_last:
-		_show_ranking()
 		received_all.emit()
 
 func _show_ranking():
@@ -44,7 +45,7 @@ func _show_ranking():
 		result.append({
 			"global_rank": i + 1,
 			"steam_id": Networking.get_player_id(player_data["sender"]),
-			"details": details,
+			"details": var_to_bytes(details).to_int32_array(),
 		})
 	
 	board.show_data(result)
@@ -55,9 +56,6 @@ func slide_in(delay := 0.0):
 	slide_tw = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	slide_tw.tween_property(self, "position", original_pos, 0.5).set_delay(delay)
 	show()
-	
-	board.empty_label.text = "Waiting for competition to end"
-	board.show_data([])
 
 func focused():
 	board.active()

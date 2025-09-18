@@ -29,11 +29,17 @@ I'll be back in a
 minute"
 		quit_btn.word = "home"
 		get_tree().paused = true
-	else:
+	elif Networking.is_status_connected():
 		title_label.text = "No Break!"
 		label.text = "Your co-workers are
 stillcompeting with
 you"
+		quit_btn.word = "leave"
+	else:
+		get_tree().paused = true
+		title_label.text = "Disconnected!"
+		label.text = "The owner left the
+office"
 		quit_btn.word = "leave"
 	
 	effect_root.do_effect()

@@ -15,22 +15,22 @@ extends Control
 @export var win_frame := 0
 @export var disconnected_frame := 0
 
-var steam_id := -1
+var steam_id = null
 var tw: Tween
 
 func _ready() -> void:
 	if not name.is_valid_int(): return
 	
-	steam_id = int(name)
+	steam_id = Networking.get_player_id(int(name))
+	if steam_id == null: return
+	
 	name_label.text = SteamManager.get_steam_username(steam_id)
-
 	profile_icon.modulate = Color.WHITE
-	Networking.player_disconnected.connect(func(id):
-		if Networking.get_player_id(id) == steam_id:
-			profile_icon.frame = disconnected_frame
-			profile_icon.modulate = Color(1, 1, 1, 0.75)
-			count_label.text = "Left"
-	)
+
+func disconnected():
+	profile_icon.frame = disconnected_frame
+	profile_icon.modulate = Color(1, 1, 1, 0.75)
+	count_label.text = "Left"
 
 @rpc("any_peer", "reliable")
 func set_count(count: int):

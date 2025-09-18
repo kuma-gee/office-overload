@@ -86,9 +86,8 @@ theme_override_constants/separation = 5
 
 [node name="FinishedTasks" type="Label" parent="PanelContainer/Interview/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Your co-workers are
-stillcompeting with
-you"
+text = "The owner left the
+office"
 
 [node name="Control" type="Control" parent="PanelContainer/Interview/VBoxContainer/VBoxContainer"]
 layout_mode = 2
