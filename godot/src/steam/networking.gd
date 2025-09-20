@@ -67,8 +67,18 @@ func _disconnected():
 
 func _player_connected(id):
 	logger.info("Client Connected: %s" % id)
-	players[id] = network.get_player_id(id)
-	player_connected.emit(id)
+	if id == multiplayer.get_unique_id():
+		players[id] = network.get_interal_player_id(id)
+		player_connected.emit(id)
+	else:
+		_send_internal_id.rpc_id(id, network.get_player_id())
+
+# Manage our own steam ids, library does not work for client<->client
+@rpc("any_peer", "reliable")
+func _send_internal_id(id):
+	var sender = multiplayer.get_remote_sender_id()
+	players[sender] = id
+	player_connected.emit(sender)
 
 func _player_disconnected(id):
 	logger.info("Client Disconnected: %s" % id)

@@ -24,6 +24,7 @@ theme_override_constants/margin_bottom = 2
 [node name="TypingLabel" parent="HBoxContainer2/MarginContainer" instance=ExtResource("1_hq1un")]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 6
+vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer2"]
 layout_mode = 2
@@ -31,7 +32,6 @@ size_flags_horizontal = 3
 alignment = 2
 
 [node name="Label" type="Label" parent="HBoxContainer2/HBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 6

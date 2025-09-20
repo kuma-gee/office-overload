@@ -17,9 +17,11 @@ var is_ready := false:
 var steam_id = null
 
 func is_self():
-	return steam_id == Networking.get_player_id()
+	return steam_id == SteamManager.get_steam_id()
 
 func _ready() -> void:
+	if not name.is_valid_int(): return
+	
 	steam_id = Networking.get_player_id(int(name))
 	if steam_id == null: return
 

@@ -40,6 +40,7 @@ func _ready() -> void:
 	)
 
 func _open_office(public: bool):
-	Networking.host_game({"public": public})
+	var lobby_name = "%s / %.0f WPM" % [GameManager.get_level_text(), GameManager.get_wpm()]
+	Networking.host_game({"public": public, "name": lobby_name})
 	office_doc.is_owner = true
 	office_doc.grab_focus()

@@ -60,7 +60,7 @@ func _add_player(id):
 	var row = row_scene.instantiate()
 	row.name = "%s" % id
 	row.ready_changed.connect(func(): _ready_updated())
-	player_container.add_child(row, true)
+	player_container.add_child(row)
 	
 	if id == multiplayer.get_unique_id():
 		delegator.nodes.append(row)

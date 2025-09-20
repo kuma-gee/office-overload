@@ -17,6 +17,7 @@ extends Control
 
 var steam_id = null
 var tw: Tween
+var finished := false
 
 func _ready() -> void:
 	if not name.is_valid_int(): return
@@ -50,6 +51,9 @@ func set_progress(value: float):
 		profile_icon.frame = default_frame
 
 func set_win_state(won: bool):
+	finished = true
+	set_progress.rpc(100)
+	
 	if won:
 		profile_icon.frame = win_frame
 		anim.play("move")
@@ -57,4 +61,5 @@ func set_win_state(won: bool):
 		profile_icon.frame = lose_frame
 
 func got_distracted():
-	profile_icon.frame = distracted_frame
+	if not finished:
+		profile_icon.frame = distracted_frame

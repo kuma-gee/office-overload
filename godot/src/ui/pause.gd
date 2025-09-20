@@ -32,7 +32,7 @@ minute"
 	elif Networking.is_status_connected():
 		title_label.text = "No Break!"
 		label.text = "Your co-workers are
-stillcompeting with
+still competing with
 you"
 		quit_btn.word = "leave"
 	else:

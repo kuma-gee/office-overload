@@ -29,8 +29,14 @@ func _ready():
 		steam.join_requested.connect(_on_lobby_join_requested)
 	)
 	
-func get_player_id(id):
-	return multiplayer.multiplayer_peer.get_steam64_from_peer_id(id)
+func get_player_id():
+	return SteamManager.get_steam_id()
+
+func get_interal_player_id(id = multiplayer.get_unique_id()):
+	var internal_id = multiplayer.multiplayer_peer.get_steam64_from_peer_id(id)
+	if internal_id == -1:
+		return null
+	return internal_id
 
 func host_game(data = {}):
 	if not steam: return

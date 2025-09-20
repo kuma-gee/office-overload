@@ -37,14 +37,16 @@ func _send_ranking(data):
 
 func _show_ranking():
 	var result = []
+	board.clear_data()
 	
-	ranking_data.sort_custom(func(a, b): return b["time"] - a["time"])
+	ranking_data.sort_custom(func(a, b): return b["score"] - a["score"])
 	for i in ranking_data.size():
 		var player_data = ranking_data[i]
-		var details = ";".join(["%.0f/%.0f%%" % [player_data["wpm"], player_data["acc"]], player_data["tasks"], "%sh" % player_data["hours"]])
+		var details = ";".join(["%.0f/%.0f%%" % [player_data["wpm"], player_data["acc"] * 100], player_data["tasks"], "%sh" % player_data["hours"]])
 		result.append({
 			"global_rank": i + 1,
 			"steam_id": Networking.get_player_id(player_data["sender"]),
+			"score": player_data["score"],
 			"details": var_to_bytes(details).to_int32_array(),
 		})
 	

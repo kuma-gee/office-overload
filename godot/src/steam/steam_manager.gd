@@ -44,6 +44,7 @@ func get_username():
 	return steam.getPersonaName()
 
 func get_steam_username(id: int):
+	Steam.getPersonaName()
 	return steam.getFriendPersonaName(id)
 
 func get_steam_id():

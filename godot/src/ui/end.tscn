@@ -69,7 +69,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/enable = true
 
-[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "performance_progress", "level_label", "multiplayer_container", "multiplayer_tasks", "multiplayer_time", "multiplayer_wpm", "multiplayer_acc", "multiplayer_winner_label", "multiplayer_rankings", "leave_button", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_acc", "crunch_score", "retry_button", "crunch_offline", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "bonus_label", "money_used", "ceo_player_tasks", "ceo_boss_tasks", "ceo_player_mistakes", "ceo_boss_mistakes", "ceo_player_score", "ceo_boss_score", "ceo_win_status", "ceo_retry", "promotion_delegator", "work_container", "ceo_container", "unlocked_container", "crunch_container")]
+[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "performance_progress", "level_label", "multiplayer_tasks", "multiplayer_time", "multiplayer_wpm", "multiplayer_acc", "multiplayer_score", "multiplayer_winner_label", "multiplayer_rankings", "leave_button", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_acc", "crunch_score", "retry_button", "crunch_offline", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "bonus_label", "money_used", "ceo_player_tasks", "ceo_boss_tasks", "ceo_player_mistakes", "ceo_boss_mistakes", "ceo_player_score", "ceo_boss_score", "ceo_win_status", "ceo_retry", "promotion_delegator", "work_container", "ceo_container", "crunch_container", "multiplayer_container", "unlocked_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -83,11 +83,11 @@ open_sound = NodePath("OpenSound")
 gameover_sound = NodePath("GameoverSound")
 performance_progress = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D/Progress")
 level_label = NodePath("CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D/LevelText")
-multiplayer_container = NodePath("CenterContainer/PanelContainer/Multiplayer")
 multiplayer_tasks = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer/Tasks")
 multiplayer_time = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5/Time")
 multiplayer_wpm = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2/Speed")
 multiplayer_acc = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3/Acc")
+multiplayer_score = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/Score2")
 multiplayer_winner_label = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/Winner")
 multiplayer_rankings = NodePath("Control/CompetitionRanks")
 leave_button = NodePath("CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/NextDay/Break")
@@ -122,8 +122,9 @@ ceo_retry = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxConta
 promotion_delegator = NodePath("PromotionDelegator")
 work_container = NodePath("CenterContainer/PanelContainer/Work")
 ceo_container = NodePath("CenterContainer/PanelContainer/Ceo")
-unlocked_container = NodePath("GameMode")
 crunch_container = NodePath("CenterContainer/PanelContainer/Crunch")
+multiplayer_container = NodePath("CenterContainer/PanelContainer/Multiplayer")
+unlocked_container = NodePath("GameMode")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -252,11 +253,7 @@ word = "ranking"
 
 [node name="MarginContainer" parent="Control/CompetitionRanks/MarginContainer/VBoxContainer" index="1" instance=ExtResource("26_rlygb")]
 layout_mode = 2
-keys = Array[String](["global_rank", "steam_id", "details.0", "details.1", "details.2"])
 details_title = Array[String](["WPM", "Docs", "Hours"])
-
-[node name="Score" parent="Control/CompetitionRanks/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore" index="1"]
-visible = false
 
 [node name="DocsDays" parent="Control/CompetitionRanks/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore" index="4"]
 text = "Time"
@@ -878,14 +875,23 @@ theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "87%"
 label_settings = ExtResource("9_e1gla")
 
+[node name="Score2" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Score 123021"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Winner" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 5
-text = "Co-workers are still competing..."
+theme_override_font_sizes/font_size = 6
+text = "Co-workers are
+still competing..."
 horizontal_alignment = 1
 
 [node name="Control" type="Control" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 

@@ -75,6 +75,7 @@ func parse_data(data: Dictionary, key: String, details: Array):
 
 func clear_data():
 	for c in container.get_children():
+		if c is Header: continue
 		c.queue_free()
 
 func show_data(data: Array):

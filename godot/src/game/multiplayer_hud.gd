@@ -23,10 +23,13 @@ func _ready() -> void:
 			overload_update_timer.timeout.connect(func(): current_player_view.set_progress.rpc(ceilf(overload_progress.value)))
 			
 		Networking.player_disconnected.connect(func(id):
-			if id == multiplayer.get_unique_id():
-				overload_update_timer.stop()
-				current_player_view.disconnected()
+			var node = _get_player_node(id)
+			node.disconnected()
 		)
+		Networking.connection_closed.connect(func(): overload_update_timer.stop())
+
+func _get_player_node(id: int):
+	return player_container.get_node_or_null("%s" % id)
 
 func _add_player(id: int):
 	var row = player_panel_scene.instantiate()

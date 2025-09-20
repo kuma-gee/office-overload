@@ -95,6 +95,7 @@ func _load_data():
 	if Env.is_editor():
 		difficulty_level = DifficultyResource.Level.CEO
 		finished_game = true
+		has_played = true
 		unlocked_modes = [Mode.Work, Mode.Crunch, Mode.Multiplayer]
 		bought_items = []
 	
@@ -252,13 +253,16 @@ func finished_multiplayer(tasks: int, hours: int):
 	
 	data["hours"] = hours
 	data["tasks"] = tasks
-	data["time"] = Time.get_unix_time_from_system()
+	data["score"] = _calc_crunch_score(data["wpm"], data["acc"], tasks, hours)
 	
 	round_ended.emit()
 	return data
 
+func _calc_crunch_score(wpm: float, acc: float, count: int, hours: int):
+	return int(floor(wpm * acc * count) - hours)
+
 func _upload_endless_scores(wpm: float, acc: float, count: int, hours: int):
-	var score = int(floor(wpm * acc * count) - hours)
+	var score = _calc_crunch_score(wpm, acc, count, hours)
 	if not Env.is_demo():
 		SteamLeaderboard.upload_score(SteamLeaderboard.ENDLESS_BOARD, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count, hours]))
 	

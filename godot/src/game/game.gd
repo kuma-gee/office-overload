@@ -184,7 +184,10 @@ func _ready():
 		special_charge_combo_label.hide()
 		end.multiplayer_data_received.connect(func(is_last, steam_id): multiplayer_hud.end_data_received(steam_id, is_last))
 		
-		Networking.connection_closed.connect(func(): pause.grab_focus())
+		Networking.connection_closed.connect(func():
+			if is_time_running():
+				pause.grab_focus()
+		)
 	
 	shift_delegator.unhandled_key.connect(func(_key):
 		if not is_time_running():
@@ -274,9 +277,9 @@ func _start_game():
 	_spawn()
 	
 func _finished(is_burn_out = false, is_fired = false):
+	distractions.slide_all_out()
+	
 	if GameManager.is_work_mode():
-		distractions.slide_all_out()
-		
 		if GameManager.is_ceo():
 			_ceo_game_ended()
 		else:
