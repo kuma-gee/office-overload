@@ -66,6 +66,8 @@ func _ready():
 
 	_logger.info("Showing %s - %s number of distractions today" % [min_count, max_count])
 
+	distraction_shown.connect(func(): shown += 1)
+
 func _close_all():
 	for x in menus:
 		x.hide()
@@ -95,14 +97,13 @@ func maybe_show_distraction():
 		distraction_accumulator += (GameManager.difficulty.distractions / 10.0) * distractions_left_to_show
 		skipped_since_last_distraction += 1
 
-func show_distraction():
+func show_distraction(all = false):
 	var available = menus.filter(func(m): return not m.is_open and (m != last_menu or randf() > 0.7))
-	if not GameManager.is_senior():
+	if not GameManager.is_senior() and not all:
 		available.erase(junior)
 	
 	_logger.debug("Showing distraction: %s, %s" % [available, menus.map(func(x): return x.get_word())])
 	if available.is_empty(): return
-	shown += 1
 	
 	var distraction = available.pick_random()
 	last_menu = distraction

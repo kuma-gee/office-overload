@@ -3,12 +3,12 @@ extends Node
 const DEMO_BOARD = "demo_mode"
 const ENDLESS_BOARD = "endless_mode"
 const STORY_BOARD = "story_mode"
-const MULTIPLAYER_BOARD = "multiplayer_mode"
+# const MULTIPLAYER_BOARD = "multiplayer_mode"
 
 const DEFAULT_LEADERBOARDS = [
 	ENDLESS_BOARD,
 	STORY_BOARD,
-	MULTIPLAYER_BOARD,
+	# MULTIPLAYER_BOARD,
 ]
 const DEMO_LEADERBOARDS = [
 	DEMO_BOARD,

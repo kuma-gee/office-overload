@@ -17,6 +17,7 @@ func _ready():
 	level_label.hide()
 	level_desc.finished.connect(func(): _start_day())
 	
+	show()
 	if not GameManager.is_work_mode():
 		_start_day()
 		return

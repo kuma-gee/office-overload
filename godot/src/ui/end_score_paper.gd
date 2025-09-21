@@ -7,6 +7,7 @@ extends MenuPaper
 var slide_tw: Tween
 
 func _ready() -> void:
+	hide()
 	connect_focus()
 	board.score_type = SteamManager.steam.LEADERBOARD_DATA_REQUEST_GLOBAL
 	

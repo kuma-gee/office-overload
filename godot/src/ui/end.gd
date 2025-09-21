@@ -1,11 +1,23 @@
 extends Control
 
+signal multiplayer_data_received()
+
 @onready var end_effect = $EndEffect
 
 @export var open_sound: AudioStreamPlayer
 @export var gameover_sound: AudioStreamPlayer
 @export var performance_progress: TextureProgressBar
 @export var level_label: Label
+
+@export_category("Multiplayer")
+@export var multiplayer_tasks: Label
+@export var multiplayer_time: Label
+@export var multiplayer_wpm: Label
+@export var multiplayer_acc: Label
+@export var multiplayer_score: Label
+@export var multiplayer_winner_label: Label
+@export var multiplayer_rankings: LocalRanking
+@export var leave_button: TypingButton
 
 @export_category("Crunch Mode")
 @export var crunch_tasks: Label
@@ -14,7 +26,6 @@ extends Control
 @export var crunch_acc: Label
 @export var crunch_score: Label
 @export var retry_button: TypingButton
-@export var highscore_board: Control
 @export var crunch_offline: Control
 
 @export_category("Work Mode")
@@ -48,19 +59,20 @@ extends Control
 @export_category("Mode Container")
 @export var work_container: Control
 @export var ceo_container: Control
-@export var unlocked_container: UnlockedMode
 @export var crunch_container: Control
+@export var multiplayer_container: Control
+
+@export var unlocked_container: UnlockedMode
 
 @onready var promotion_paper: PromotionPaper = $PromotionPaper
 @onready var promotion_status: PromotionStatus = $PromotionStatus
 @onready var challenge_paper: ChallengePaper = $ChallengePaper
-@onready var menu_paper: EndScorePaper = $Control/MenuPaper
+
+@onready var containers := [work_container, ceo_container, multiplayer_container, crunch_container]
 
 func _ready():
-	work_container.hide()
-	ceo_container.hide()
-	crunch_container.hide()
-	highscore_board.hide()
+	for c in containers:
+		c.hide()
 	
 	hide()
 	next_day.finished.connect(func(): GameManager.start())
@@ -74,10 +86,15 @@ func _ready():
 	)
 	
 	retry_button.finished.connect(func(): GameManager.start())
+	multiplayer_rankings.received_all.connect(multiplayer_game_finished)
+	multiplayer_rankings.received_data.connect(func(is_last, steam_id): multiplayer_data_received.emit(is_last, steam_id))
 
-func _unlock_crunch_mode():
+func _unlock_modes():
 	if GameManager.is_senior() or GameManager.is_manager() or GameManager.is_ceo():
 		GameManager.unlock_mode(GameManager.Mode.Crunch)
+	
+	if GameManager.is_finished_game():
+		GameManager.unlock_mode(GameManager.Mode.Multiplayer)
 
 func ceo_ended(user: Dictionary, boss: Dictionary):
 	var user_tasks = user["tasks"]
@@ -152,7 +169,7 @@ func day_ended(data: Dictionary):
 func _work_day_finished():
 	if GameManager.is_work_mode():
 		GameManager.upload_work_scores()
-		_unlock_crunch_mode()
+		_unlock_modes()
 
 func crunch_ended(data: Dictionary):
 	crunch_tasks.text = "%s" % data["tasks"]
@@ -165,6 +182,21 @@ func crunch_ended(data: Dictionary):
 	
 	_do_open(crunch_container, gameover_sound)
 
+func multiplayer_ended(data: Dictionary):
+	multiplayer_tasks.text = "%s" % data["tasks"]
+	multiplayer_time.text = "%sh" % data["hours"]
+	multiplayer_wpm.text = "%.0f" % data["wpm"]
+	multiplayer_acc.text = "%.0f%%" % data["acc"]
+	multiplayer_score.text = "Score %.0f" % data["score"]
+	multiplayer_winner_label.text = "Co-workers are\nstill competing..."
+
+	_do_open(multiplayer_container, gameover_sound)
+	multiplayer_rankings.slide_in(0.5)
+	multiplayer_rankings.push_local_ranking(data)
+
+func multiplayer_game_finished():
+	multiplayer_winner_label.text = "Competition finished!"
+
 func _do_open(container: Control, sound = open_sound):
 	container.show()
 	end_effect.do_effect()
@@ -176,7 +208,7 @@ func _on_back_pressed():
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if work_container.visible or ceo_container.visible or crunch_container.visible:
+	if not containers.filter(func(c): return c.visible).is_empty():
 		if promotion_paper.visible or challenge_paper.visible:
 			promotion_delegator.handle_event(event)
 		else:

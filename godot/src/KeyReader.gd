@@ -12,7 +12,7 @@ func _unhandled_input(event: InputEvent):
 		pressed_cancel.emit(event.shift_pressed)
 		return
 	
-	if event.is_action_pressed("coffee_action") and GameManager.item_count(Shop.Items.COFFEE) > 0:
+	if event.is_action_pressed("coffee_action"):
 		use_coffee.emit()
 		return
 	

@@ -7,6 +7,7 @@
 			"#Working"	"Working as {#Level_%level%} at day %day%"
 			"#Crunching"	"Crunching at work"
 			"#Prepare"	"Preparing for work"
+			"#Competing" "Competing with co-workers"
 			"#Level_intern"	"intern"
 			"#Level_junior"	"junior"
 			"#Level_senior"	"senior"
@@ -21,6 +22,7 @@
 			"#Working" "在第%day%天以{#Level_%level%}的身份工作"
 			"#Crunching" "工作中加班"
 			"#Prepare" "准备工作"
+			"#Competing" "与同事竞争"
 			"#Level_intern" "实习生"
 			"#Level_junior" "初级员工"
 			"#Level_senior" "高级员工"
@@ -28,4 +30,19 @@
 			"#Level_ceo" "老板"
 		}
     }
+	"japanese"
+	{
+		"tokens"
+		{
+			"#Working" "{#Level_%level%}として働く%day%日目"
+			"#Crunching" "工作中加班"
+			"#Prepare" "仕事の準備"
+			"#Competing" "同僚との競争"
+			"#Level_intern" "インターン"
+			"#Level_junior" "新入社員"
+			"#Level_senior" "上級社員"
+			"#Level_manager" "監督"
+			"#Level_ceo" "社長"
+		}
+	}
 }

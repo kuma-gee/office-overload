@@ -20,8 +20,7 @@ func _input(event: InputEvent) -> void:
 	var key_ev = event as InputEventKey
 	if key_ev.is_action_released("special_mode"):
 		_hide_overlay()
-	
-	if key_ev.is_action_pressed("special_mode"):
+	elif key_ev.is_action_pressed("special_mode"):
 		_show_overlay()
 	
 	if not Input.is_action_pressed("special_mode"): return

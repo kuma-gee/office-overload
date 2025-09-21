@@ -95,7 +95,9 @@ func _load_data():
 	if Env.is_editor():
 		difficulty_level = DifficultyResource.Level.CEO
 		finished_game = true
-		unlocked_modes = [Mode.Work, Mode.Crunch]
+		has_played = true
+		unlocked_modes = [Mode.Work, Mode.Crunch, Mode.Multiplayer]
+		bought_items = []
 	
 	_logger.info("Game initialized")
 	init = true
@@ -243,8 +245,24 @@ func finished_crunch(tasks: int, hours: int, _combo: int):
 	round_ended.emit()
 	return data
 
+func finished_multiplayer(tasks: int, hours: int):
+	var data = {}
+	data["wpm"] = int(wpm_calculator.get_average_wpm())
+	data["acc"] = int(wpm_calculator.get_average_accuracy() * 100)
+	wpm_calculator.reset()
+	
+	data["hours"] = hours
+	data["tasks"] = tasks
+	data["score"] = _calc_crunch_score(data["wpm"], data["acc"], tasks, hours)
+	
+	round_ended.emit()
+	return data
+
+func _calc_crunch_score(wpm: float, acc: float, count: int, hours: int):
+	return max(int(floor(wpm * acc * count) - hours), 0)
+
 func _upload_endless_scores(wpm: float, acc: float, count: int, hours: int):
-	var score = int(floor(wpm * acc * count) - hours)
+	var score = _calc_crunch_score(wpm, acc, count, hours)
 	if not Env.is_demo():
 		SteamLeaderboard.upload_score(SteamLeaderboard.ENDLESS_BOARD, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count, hours]))
 	
@@ -261,7 +279,7 @@ func lost_ceo():
 
 func won_ceo():
 	finished_game = true
-	#unlock_mode(Mode.Multiplayer)
+	unlock_mode(Mode.Multiplayer)
 	
 	if is_work_mode():
 		day += 1
@@ -285,6 +303,8 @@ func update_game_status(lobby = false):
 		SteamManager.set_rich_presence("#Working", { "level": get_level_text(), "day": day+1 })
 	elif is_crunch_mode():
 		SteamManager.set_rich_presence("#Crunching")
+	elif is_multiplayer_mode():
+		SteamManager.set_rich_presence("#Competing")
 	else:
 		SteamManager.set_rich_presence("")
 
@@ -391,7 +411,7 @@ func get_item_value(item: Shop.Items, count = item_count(item)):
 	return arr[i]
 
 func get_stress_reduction():
-	if is_crunch_mode(): return 1.0
+	if not is_work_mode(): return 1.0
 	
 	var reduction = get_item_value(Shop.Items.PLANT)
 	return clamp(1.0 - reduction, 0.0, 1.0)
@@ -402,13 +422,13 @@ func get_money_bonus():
 	return multiplier
 
 func get_distraction_reduction(invert = false):
-	if is_crunch_mode(): return 1.0 if not invert else 0.0
+	if not is_work_mode(): return 1.0 if not invert else 0.0
 	
 	var reduction = get_item_value(Shop.Items.ASSISTANT)
 	return 1.0 - reduction if not invert else reduction
 
 func has_coffee():
-	if is_crunch_mode(): return false
+	if not is_work_mode(): return false
 	return Shop.Items.COFFEE in bought_items and Shop.Items.COFFEE in used_items
 
 func use_coffee():
@@ -499,14 +519,14 @@ func get_level_text(lvl = difficulty_level, abbreviate = -1):
 enum Mode {
 	Work,
 	Crunch,
-	Multiplayer, # TODO: add multiplayer, after release?
+	Multiplayer,
 }
 
 
 var MODE_TITLE = {
 	Mode.Work: "Work Day",
 	Mode.Crunch: "Crunch Time",
-	Mode.Multiplayer: "Multiplayer",
+	Mode.Multiplayer: "Compete",
 }
 
 func is_work_mode():
@@ -514,6 +534,9 @@ func is_work_mode():
 	
 func is_crunch_mode():
 	return current_mode == Mode.Crunch
+
+func is_multiplayer_mode():
+	return current_mode == Mode.Multiplayer
 
 func is_mode_unlocked(mode: Mode):
 	if Env.is_demo():
@@ -542,11 +565,6 @@ func unlock_mode(mode: Mode):
 	
 	if mode in unlocked_modes: return
 	
-	if mode == Mode.Multiplayer:
-		_logger.warn("Multiplayer not implemented yet.")
-		unlocked_modes.append(mode)
-		return
-
 	unlocked_modes.append(mode)
 	mode_unlocked.emit(mode)
 	_logger.info("Unlocked Mode %s" % Mode.keys()[mode])
