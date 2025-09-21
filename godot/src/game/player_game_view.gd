@@ -38,13 +38,15 @@ func set_count(count: int):
 	count_label.text = "%d" % count
 
 @rpc("any_peer")
-func set_progress(value: float):
+func set_progress(value: float, update_profile = true):
 	if tw and tw.is_running():
 		tw.kill()
 
 	tw = create_tween()
 	tw.tween_property(progress_bar, "value", value, 0.5)
 
+	if not update_profile: return
+	
 	if value >= 90:
 		profile_icon.frame = distress_frame
 	else:
@@ -52,7 +54,7 @@ func set_progress(value: float):
 
 func set_win_state(won: bool):
 	finished = true
-	set_progress.rpc(100)
+	set_progress.rpc(100, false)
 	
 	if won:
 		profile_icon.frame = win_frame

@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bh7sul5xxqc3x" path="res://assets/sprites/ProgressSmall_Front.png" id="5_na5if"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_mvrru"]
+color = Color(0.207843, 0.207843, 0.25098, 1)
 grow_begin = 0.0
 grow_end = 0.0
 

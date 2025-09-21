@@ -186,7 +186,7 @@ func multiplayer_ended(data: Dictionary):
 	multiplayer_tasks.text = "%s" % data["tasks"]
 	multiplayer_time.text = "%sh" % data["hours"]
 	multiplayer_wpm.text = "%.0f" % data["wpm"]
-	multiplayer_acc.text = "%.0f%%" % (data["acc"] * 100)
+	multiplayer_acc.text = "%.0f%%" % data["acc"]
 	multiplayer_score.text = "Score %.0f" % data["score"]
 	multiplayer_winner_label.text = "Co-workers are\nstill competing..."
 

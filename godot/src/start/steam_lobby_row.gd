@@ -14,7 +14,7 @@ func _ready() -> void:
 	typing_label.type_finish.connect(func(): finished.emit())
 	typing_label.word = word
 	lobby_label.text = lobby["name"]
-	count_label.text = "%s / %s" % [lobby["count"], lobby["max"]]
+	count_label.text = "%s/%s" % [lobby["count"], lobby["max"]]
 
 func get_label():
 	return typing_label

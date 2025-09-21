@@ -27,6 +27,7 @@ func _ready() -> void:
 			node.disconnected()
 		)
 		Networking.connection_closed.connect(func(): overload_update_timer.stop())
+		GameManager.round_ended.connect(func(): overload_update_timer.stop())
 
 func _get_player_node(id: int):
 	return player_container.get_node_or_null("%s" % id)
@@ -41,8 +42,6 @@ func _add_player(id: int):
 		current_player_view.hide()
 
 func end_data_received(from: int, is_last: bool):
-	overload_update_timer.stop()
-	
 	for c in player_container.get_children():
 		var view = c as PlayerGameView
 		if view and view.visible and view.steam_id == from:

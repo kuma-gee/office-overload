@@ -248,7 +248,7 @@ func finished_crunch(tasks: int, hours: int, _combo: int):
 func finished_multiplayer(tasks: int, hours: int):
 	var data = {}
 	data["wpm"] = int(wpm_calculator.get_average_wpm())
-	data["acc"] = int(wpm_calculator.get_average_accuracy())
+	data["acc"] = int(wpm_calculator.get_average_accuracy() * 100)
 	wpm_calculator.reset()
 	
 	data["hours"] = hours
@@ -259,7 +259,7 @@ func finished_multiplayer(tasks: int, hours: int):
 	return data
 
 func _calc_crunch_score(wpm: float, acc: float, count: int, hours: int):
-	return int(floor(wpm * acc * count) - hours)
+	return max(int(floor(wpm * acc * count) - hours), 0)
 
 func _upload_endless_scores(wpm: float, acc: float, count: int, hours: int):
 	var score = _calc_crunch_score(wpm, acc, count, hours)
