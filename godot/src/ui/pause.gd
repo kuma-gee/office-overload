@@ -24,9 +24,8 @@ func _on_focused():
 	# So we add line breaks ourselves
 	if not GameManager.is_multiplayer_mode():
 		title_label.text = "Break"
-		label.text = "I'm on a coffee break.
-I'll be back in a
-minute"
+		label.text = "You are taking a
+coffee break"
 		quit_btn.word = "home"
 		get_tree().paused = true
 	elif Networking.is_status_connected():

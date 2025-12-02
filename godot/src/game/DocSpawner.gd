@@ -19,6 +19,7 @@ var _logger = Logger.new("DocSpawner")
 
 var last_position: Node2D
 var word_type_chance := {}
+var difficulty_value := 0.0
 
 func _ready():
 	if GameManager.is_work_mode():
@@ -45,6 +46,8 @@ func _ready():
 		set_difficulty(0.0)
 
 func set_difficulty(v: float):
+	difficulty_value = v
+
 	if v < 0.1:
 		word_type_chance = {WordManager.Type.EASY: 1.0, WordManager.Type.MEDIUM: 0.0, WordManager.Type.HARD: 0.0, }
 	elif v < 0.3:

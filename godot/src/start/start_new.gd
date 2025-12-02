@@ -6,6 +6,7 @@ extends Node2D
 @export var exit_label: TypingButton
 @export var crunch_mode: TypingButton
 @export var multiplayer_mode: TypingButton
+@export var zen_mode: TypingButton
 
 @export var files: TypedWord
 @export var team: TypedWord
@@ -89,7 +90,7 @@ func _ready() -> void:
 		else:
 			GameManager.start(GameManager.Mode.Work, languages.language)
 	)
-	
+	zen_mode.finished.connect(func(): GameManager.start(GameManager.Mode.Zen, languages.language))
 	crunch_mode.finished.connect(func(): GameManager.start(GameManager.Mode.Crunch, languages.language))
 	exit_label.finished.connect(func(): GameManager.quit_game())
 	

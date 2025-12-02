@@ -70,6 +70,9 @@ var bought_items: Array[Shop.Items] = []
 var used_items: Array[Shop.Items] = []
 var money := 0
 
+var zen_total_documents := 0
+var zen_total_hours := 0
+
 ### Dynamic ###
 var difficulty: DifficultyResource
 var next_difficulty: DifficultyResource
@@ -83,7 +86,7 @@ func _ready():
 	self.difficulty_level = difficulty_level
 	SteamCloud.initialized.connect(_load_data)
 	SteamManager.init_successful.connect(func(): _check_achievements())
-	
+
 func _load_data():
 	var data = save_manager.load_from_slot(0)
 	if data:
@@ -96,7 +99,7 @@ func _load_data():
 		difficulty_level = DifficultyResource.Level.CEO
 		finished_game = true
 		has_played = true
-		unlocked_modes = [Mode.Work, Mode.Crunch, Mode.Multiplayer]
+		unlocked_modes = Mode.values()
 		bought_items = []
 	
 	_logger.info("Game initialized")

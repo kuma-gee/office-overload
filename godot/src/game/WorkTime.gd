@@ -5,6 +5,7 @@ signal started()
 signal day_ended()
 signal next_work_day()
 signal time_changed()
+signal tick()
 
 const EVENING_TIME = 18
 const MORNING_TIME = 8
@@ -34,6 +35,7 @@ func _ready():
 		
 		self.hour += 1
 		hours_passed += 1
+		tick.emit()
 
 		if is_day_ended() and overtime_sound and GameManager.is_work_mode():
 			overtime_sound.play()
