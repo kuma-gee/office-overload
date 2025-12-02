@@ -105,6 +105,9 @@ func _ready():
 	self.special_charge = 0.0
 	special_container.visible = GameManager.is_multiplayer_mode()
 
+	tree_exiting.connect(func(): GameManager.finished_zen())
+	pause.quit.connect(func(): GameManager.back_to_menu())
+
 	GameManager.update_game_status()
 
 	if GameManager.is_work_mode():
@@ -197,7 +200,7 @@ func _ready():
 		
 		Networking.connection_closed.connect(func():
 			if is_time_running():
-				pause.grab_focus()
+				pause.open()
 		)
 	
 	shift_delegator.unhandled_key.connect(func(_key):
@@ -222,7 +225,7 @@ func _ready():
 			return
 		
 		if not is_gameover and not day.visible:
-			pause.grab_focus()
+			pause.open()
 	)
 	
 func _process(delta: float) -> void:

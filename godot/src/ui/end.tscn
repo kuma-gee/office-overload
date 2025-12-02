@@ -215,10 +215,8 @@ offset_bottom = 120.0
 rotation = -0.139626
 pivot_offset = Vector2(86, 85)
 script = ExtResource("8_gotkn")
-slide_dir = Vector2(0, -200)
+slide_dir = Vector2(0, -1)
 board = NodePath("MarginContainer/VBoxContainer/MarginContainer")
-move_dir = Vector2(-100, 0)
-duration = 0.8
 
 [node name="TypingLabel" parent="Control/MenuPaper/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
 text = "[center][color=353540ff][outline_color=ffffffff][outline_size=4][/outline_size][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=4][color=353540ff]h[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=4]ighscores[/outline_size][/outline_color][/color][/center]"
@@ -229,6 +227,7 @@ layout_mode = 2
 details_title = Array[String](["WPM", "Docs", "Hours"])
 
 [node name="CompetitionRanks" parent="Control" node_paths=PackedStringArray("board") instance=ExtResource("25_u5ul4")]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

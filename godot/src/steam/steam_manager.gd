@@ -9,6 +9,7 @@ var is_successful_initialized = false
 var _logger = Logger.new("SteamManager")
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	if Engine.has_singleton("Steam"):
 		steam = Engine.get_singleton("Steam")
 	if not steam:

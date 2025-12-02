@@ -52,9 +52,14 @@ func reset():
 func is_friends_board():
 	return score_type == SteamManager.steam.LEADERBOARD_DATA_REQUEST_FRIENDS
 
-func load_data(board: String = GameManager.get_leaderboard_for_mode()):
-	if loaded: return
+func load_data(board: String = GameManager.get_leaderboard_for_mode(), force_reload := false):
+	if loaded and not force_reload: return
 	loaded = true
+	
+	if force_reload:
+		for i in container.get_child_count():
+			if i >= keys.size():
+				container.get_child(i).queue_free()
 	
 	loading_label.show()
 	var result = await SteamLeaderboard.load_score(board, score_type)

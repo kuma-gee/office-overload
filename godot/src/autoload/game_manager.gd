@@ -270,6 +270,20 @@ func _upload_endless_scores(wpm: float, acc: float, count: int, hours: int):
 		SteamLeaderboard.upload_score(SteamLeaderboard.ENDLESS_BOARD, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count, hours]))
 	
 	return score
+
+func finished_zen(documents: int = zen_total_documents, hours: int = zen_total_hours):
+	if not GameManager.is_zen_mode(): return
+
+	var wpm = int(wpm_calculator.get_average_wpm())
+	var acc = int(wpm_calculator.get_average_accuracy() * 100)
+	wpm_calculator.reset()
+	_upload_zen_scores(wpm, acc, documents, hours)
+
+func _upload_zen_scores(wpm: float, acc: float, documents: int, hours: int):
+	if not Env.is_demo():
+		SteamLeaderboard.upload_score(SteamLeaderboard.ZEN_BOARD, documents, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], documents, hours]))
+	
+	return documents
 	
 func lost_ceo():
 	if not finished_game:

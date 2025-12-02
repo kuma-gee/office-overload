@@ -78,6 +78,7 @@ var is_starting := false
 
 func _ready() -> void:
 	start()
+	get_tree().paused = false
 	GameManager.update_game_status(true)
 	Networking.reset_network()
 	
