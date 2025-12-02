@@ -671,6 +671,24 @@ theme_override_font_sizes/font_size = 10
 text = "Game modes"
 horizontal_alignment = 1
 
+[node name="Zen" type="VBoxContainer" parent="AltPage/MarginContainer/VBoxContainer" node_paths=PackedStringArray("button")]
+layout_mode = 2
+script = ExtResource("23_56typ")
+mode = 3
+button = NodePath("Multiplayer")
+
+[node name="Multiplayer" parent="AltPage/MarginContainer/VBoxContainer/Zen" instance=ExtResource("7_plxua")]
+layout_mode = 2
+word = "multiplayer"
+
+[node name="TypingLabel" parent="AltPage/MarginContainer/VBoxContainer/Zen/Multiplayer/MarginContainer/VBoxContainer/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 8
+
+[node name="Label" type="Label" parent="AltPage/MarginContainer/VBoxContainer/Zen"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 6
+text = "work without any pressure"
+
 [node name="Crunch" type="VBoxContainer" parent="AltPage/MarginContainer/VBoxContainer" node_paths=PackedStringArray("button")]
 layout_mode = 2
 script = ExtResource("23_56typ")
@@ -680,12 +698,13 @@ button = NodePath("Crunch")
 layout_mode = 2
 word = "crunch"
 
+[node name="TypingLabel" parent="AltPage/MarginContainer/VBoxContainer/Crunch/Crunch/MarginContainer/VBoxContainer/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 8
+
 [node name="Label" type="Label" parent="AltPage/MarginContainer/VBoxContainer/Crunch"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "Work endlessly until
-you burn out without
-your items"
+theme_override_font_sizes/font_size = 6
+text = "Work until you burn out"
 
 [node name="Multiplayer" type="VBoxContainer" parent="AltPage/MarginContainer/VBoxContainer" node_paths=PackedStringArray("button")]
 layout_mode = 2
@@ -697,11 +716,13 @@ button = NodePath("Multiplayer")
 layout_mode = 2
 word = "multiplayer"
 
+[node name="TypingLabel" parent="AltPage/MarginContainer/VBoxContainer/Multiplayer/Multiplayer/MarginContainer/VBoxContainer/MarginContainer" index="0"]
+theme_override_font_sizes/normal_font_size = 8
+
 [node name="Label" type="Label" parent="AltPage/MarginContainer/VBoxContainer/Multiplayer"]
 layout_mode = 2
-text = "Challenge other
-co-workers in the
-crunch mode"
+theme_override_font_sizes/font_size = 6
+text = "Challenge other co-workers"
 
 [node name="Rankings" type="Sprite2D" parent="."]
 position = Vector2(-32, 68)
@@ -2355,6 +2376,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_bge4k")
 }
 
+[editable path="AltPage/MarginContainer/VBoxContainer/Zen/Multiplayer"]
+[editable path="AltPage/MarginContainer/VBoxContainer/Crunch/Crunch"]
+[editable path="AltPage/MarginContainer/VBoxContainer/Multiplayer/Multiplayer"]
 [editable path="CanvasLayer/Control/SteamLobbies/CeoLevelSelect/MarginContainer/VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer/UpScroll"]
 [editable path="CanvasLayer/Control/SteamLobbies/CeoLevelSelect/MarginContainer/VBoxContainer/HBoxContainer/ScrollButtons/MarginContainer2/DownScroll"]
 [editable path="CanvasLayer/Control/Team"]

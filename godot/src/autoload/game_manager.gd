@@ -305,6 +305,8 @@ func update_game_status(lobby = false):
 		SteamManager.set_rich_presence("#Crunching")
 	elif is_multiplayer_mode():
 		SteamManager.set_rich_presence("#Competing")
+	elif is_zen_mode():
+		SteamManager.set_rich_presence("#Zen")
 	else:
 		SteamManager.set_rich_presence("")
 
@@ -489,6 +491,9 @@ func is_max_promotion():
 func is_level_greater_or_eq(diff: DifficultyResource.Level):
 	return difficulty_level >= diff
 
+func is_at_least(level: DifficultyResource.Level):
+	return difficulty_level >= level
+
 func is_intern():
 	return difficulty_level == DifficultyResource.Level.INTERN
 
@@ -520,6 +525,7 @@ enum Mode {
 	Work,
 	Crunch,
 	Multiplayer,
+	Zen,
 }
 
 
@@ -527,6 +533,7 @@ var MODE_TITLE = {
 	Mode.Work: "Work Day",
 	Mode.Crunch: "Crunch Time",
 	Mode.Multiplayer: "Compete",
+	Mode.Zen: "Zen",
 }
 
 func is_work_mode():
@@ -537,6 +544,9 @@ func is_crunch_mode():
 
 func is_multiplayer_mode():
 	return current_mode == Mode.Multiplayer
+	
+func is_zen_mode():
+	return current_mode == Mode.Zen
 
 func is_mode_unlocked(mode: Mode):
 	if Env.is_demo():
