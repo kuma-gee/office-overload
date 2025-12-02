@@ -267,7 +267,7 @@ func _calc_crunch_score(wpm: float, acc: float, count: int, hours: int):
 func _upload_endless_scores(wpm: float, acc: float, count: int, hours: int):
 	var score = _calc_crunch_score(wpm, acc, count, hours)
 	if not Env.is_demo():
-		SteamLeaderboard.upload_score(SteamLeaderboard.ENDLESS_BOARD, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count, hours]))
+		SteamLeaderboard.upload_score(SteamLeaderboard.ENDLESS_BOARD, score, ";".join(["%.0f/%.0f%%" % [wpm, acc], count, hours]))
 	
 	return score
 
