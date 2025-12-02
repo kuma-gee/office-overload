@@ -1,32 +1,36 @@
 class_name Pause
 extends Control
 
+signal quit()
+
 @onready var effect_root: EffectRoot = $EffectRoot
 @onready var delegator: Delegator = $Delegator
 @onready var panel_container: EndPaper = $PanelContainer
 
+@export var zen_scores: ZenScores
 @export var quit_btn: TypingButton
 @export var continue_btn: TypingButton
 @export var label: Label
 @export var title_label: Label
 
+var is_open := false
+
 func _ready() -> void:
 	hide()
-	focus_entered.connect(func(): _on_focused())
-	focus_exited.connect(func(): _on_focus_exited())
-	continue_btn.finished.connect(func(): get_viewport().gui_release_focus())
-	quit_btn.finished.connect(func():
-		GameManager.back_to_menu()
-	)
+	#focus_entered.connect(func(): _on_focused())
+	#focus_exited.connect(func(): _on_focus_exited())
+	continue_btn.finished.connect(func(): close())
+	quit_btn.finished.connect(func(): quit.emit())
 
-func _on_focused():
+func open():
+	if is_open: return
+	is_open = true
 	# Using text wrap makes the dialog longer for some reason
 	# So we add line breaks ourselves
 	if not GameManager.is_multiplayer_mode():
 		title_label.text = "Break"
-		label.text = "I'm on a coffee break.
-I'll be back in a
-minute"
+		label.text = "You are taking a
+coffee break"
 		quit_btn.word = "home"
 		get_tree().paused = true
 	elif Networking.is_status_connected():
@@ -46,13 +50,27 @@ office"
 	panel_container.open()
 	show()
 	
-func _on_focus_exited():
+	if GameManager.is_zen_mode():
+		zen_scores.slide_in(0.2)
+	
+func close():
+	if not is_open: return
+	is_open = false
+	
 	get_tree().paused = false
 	effect_root.reverse_effect()
 	panel_container.close()
 
-func _gui_input(event: InputEvent) -> void:
+	if GameManager.is_zen_mode():
+		zen_scores.slide_out(0.1)
+
+func _input(event: InputEvent) -> void:
+	if not is_open: return
+	
+	if get_viewport().gui_get_focus_owner() != null: return
+	
 	if event.is_action_pressed("ui_cancel") and not delegator.has_focused() and not effect_root.is_running():
-		get_viewport().gui_release_focus()
+		close()
 	
 	delegator.handle_event(event)
+	get_viewport().set_input_as_handled()

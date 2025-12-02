@@ -70,6 +70,9 @@ var bought_items: Array[Shop.Items] = []
 var used_items: Array[Shop.Items] = []
 var money := 0
 
+var zen_total_documents := 0
+var zen_total_hours := 0
+
 ### Dynamic ###
 var difficulty: DifficultyResource
 var next_difficulty: DifficultyResource
@@ -83,7 +86,7 @@ func _ready():
 	self.difficulty_level = difficulty_level
 	SteamCloud.initialized.connect(_load_data)
 	SteamManager.init_successful.connect(func(): _check_achievements())
-	
+
 func _load_data():
 	var data = save_manager.load_from_slot(0)
 	if data:
@@ -96,7 +99,7 @@ func _load_data():
 		difficulty_level = DifficultyResource.Level.CEO
 		finished_game = true
 		has_played = true
-		unlocked_modes = [Mode.Work, Mode.Crunch, Mode.Multiplayer]
+		unlocked_modes = Mode.values()
 		bought_items = []
 	
 	_logger.info("Game initialized")
@@ -264,9 +267,23 @@ func _calc_crunch_score(wpm: float, acc: float, count: int, hours: int):
 func _upload_endless_scores(wpm: float, acc: float, count: int, hours: int):
 	var score = _calc_crunch_score(wpm, acc, count, hours)
 	if not Env.is_demo():
-		SteamLeaderboard.upload_score(SteamLeaderboard.ENDLESS_BOARD, score, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], count, hours]))
+		SteamLeaderboard.upload_score(SteamLeaderboard.ENDLESS_BOARD, score, ";".join(["%.0f/%.0f%%" % [wpm, acc], count, hours]))
 	
 	return score
+
+func finished_zen(documents: int = zen_total_documents, hours: int = zen_total_hours):
+	if not GameManager.is_zen_mode(): return
+
+	var wpm = int(wpm_calculator.get_average_wpm())
+	var acc = int(wpm_calculator.get_average_accuracy() * 100)
+	wpm_calculator.reset()
+	_upload_zen_scores(wpm, acc, documents, hours)
+
+func _upload_zen_scores(wpm: float, acc: float, documents: int, hours: int):
+	if not Env.is_demo():
+		SteamLeaderboard.upload_score(SteamLeaderboard.ZEN_BOARD, documents, ";".join(["%.0f/%.0f%%" % [wpm, acc * 100], documents, hours]))
+	
+	return documents
 	
 func lost_ceo():
 	if not finished_game:
@@ -305,6 +322,8 @@ func update_game_status(lobby = false):
 		SteamManager.set_rich_presence("#Crunching")
 	elif is_multiplayer_mode():
 		SteamManager.set_rich_presence("#Competing")
+	elif is_zen_mode():
+		SteamManager.set_rich_presence("#Zen")
 	else:
 		SteamManager.set_rich_presence("")
 
@@ -489,6 +508,9 @@ func is_max_promotion():
 func is_level_greater_or_eq(diff: DifficultyResource.Level):
 	return difficulty_level >= diff
 
+func is_at_least(level: DifficultyResource.Level):
+	return difficulty_level >= level
+
 func is_intern():
 	return difficulty_level == DifficultyResource.Level.INTERN
 
@@ -520,6 +542,7 @@ enum Mode {
 	Work,
 	Crunch,
 	Multiplayer,
+	Zen,
 }
 
 
@@ -527,6 +550,7 @@ var MODE_TITLE = {
 	Mode.Work: "Work Day",
 	Mode.Crunch: "Crunch Time",
 	Mode.Multiplayer: "Compete",
+	Mode.Zen: "Zen",
 }
 
 func is_work_mode():
@@ -537,6 +561,9 @@ func is_crunch_mode():
 
 func is_multiplayer_mode():
 	return current_mode == Mode.Multiplayer
+	
+func is_zen_mode():
+	return current_mode == Mode.Zen
 
 func is_mode_unlocked(mode: Mode):
 	if Env.is_demo():

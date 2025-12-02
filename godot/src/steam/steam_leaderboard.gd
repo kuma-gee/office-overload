@@ -3,12 +3,12 @@ extends Node
 const DEMO_BOARD = "demo_mode"
 const ENDLESS_BOARD = "endless_mode"
 const STORY_BOARD = "story_mode"
-# const MULTIPLAYER_BOARD = "multiplayer_mode"
+const ZEN_BOARD = "zen_mode"
 
 const DEFAULT_LEADERBOARDS = [
 	ENDLESS_BOARD,
 	STORY_BOARD,
-	# MULTIPLAYER_BOARD,
+	ZEN_BOARD,
 ]
 const DEMO_LEADERBOARDS = [
 	DEMO_BOARD,
@@ -28,6 +28,7 @@ var score_range := 30
 var _logger = Logger.new("SteamLeaderboard")
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	SteamManager.init_successful.connect(func():
 		SteamManager.steam.leaderboard_find_result.connect(_on_leaderboard_find_result)
 		SteamManager.steam.leaderboard_score_uploaded.connect(_on_leaderboard_score_uploaded)
@@ -74,7 +75,7 @@ func upload_score(board: String, score: int, details: String, keep_best = true):
 
 	var detail_array = var_to_bytes(details).to_int32_array()
 	SteamManager.steam.uploadLeaderboardScore(score, keep_best, detail_array, leaderboard_handles[board])
-	_logger.info("Uploading score %s to %s with details of size %s" % [score, board, detail_array.size()])
+	_logger.info("Uploading score %s to %s with details %s" % [score, board, details])
 	is_uploading = true
 
 func _on_leaderboard_score_uploaded(success: int, this_handle: int, this_score: Dictionary) -> void:

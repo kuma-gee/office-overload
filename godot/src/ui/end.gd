@@ -90,7 +90,10 @@ func _ready():
 	multiplayer_rankings.received_data.connect(func(is_last, steam_id): multiplayer_data_received.emit(is_last, steam_id))
 
 func _unlock_modes():
-	if GameManager.is_senior() or GameManager.is_manager() or GameManager.is_ceo():
+	if GameManager.is_at_least(DifficultyResource.Level.JUNIOR):
+		GameManager.unlock_mode(GameManager.Mode.Zen)
+	
+	if GameManager.is_at_least(DifficultyResource.Level.SENIOR):
 		GameManager.unlock_mode(GameManager.Mode.Crunch)
 	
 	if GameManager.is_finished_game():

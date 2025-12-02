@@ -52,6 +52,9 @@ extends Node2D
 @export var multiplayer_hud: MultiplayerHUD
 @export var special_attack_sound: AudioStreamPlayer
 
+@export_category("Zen")
+@export var zen_max_documents := 4
+
 @onready var doc_spawner = $DocSpawner
 @onready var spawn_timer = $SpawnTimer
 @onready var document_stack = $DocumentStack
@@ -90,6 +93,10 @@ var special_charge := 0.0:
 		special_progress_bar.value = special_charge
 		special_ready_container.visible = special_charge >= special_progress_bar.max_value
 
+var time := 0.0
+var time_since_last_finish := 10.0
+var logger := Logger.new("Game")
+
 func _ready():
 	randomize()
 	get_tree().paused = false
@@ -97,6 +104,9 @@ func _ready():
 	
 	self.special_charge = 0.0
 	special_container.visible = GameManager.is_multiplayer_mode()
+
+	tree_exiting.connect(func(): GameManager.finished_zen())
+	pause.quit.connect(func(): GameManager.back_to_menu())
 
 	GameManager.update_game_status()
 
@@ -134,6 +144,10 @@ func _ready():
 	
 	if GameManager.is_intern() and GameManager.is_work_mode():
 		overload_progress.hide()
+	elif GameManager.is_zen_mode():
+		overload_progress.hide()
+		spawn_timer.timeout.connect(func(): _spawn())
+		work_time.tick.connect(func(): GameManager.zen_total_hours += 1)
 	else:
 		overload_progress.filled.connect(func(): overload_timer.start())
 		overload_timer.started.connect(func(): overload_progress.start_blink())
@@ -186,7 +200,7 @@ func _ready():
 		
 		Networking.connection_closed.connect(func():
 			if is_time_running():
-				pause.grab_focus()
+				pause.open()
 		)
 	
 	shift_delegator.unhandled_key.connect(func(_key):
@@ -211,19 +225,18 @@ func _ready():
 			return
 		
 		if not is_gameover and not day.visible:
-			pause.grab_focus()
+			pause.open()
 	)
 	
 func _process(delta: float) -> void:
 	if not is_time_running(): return
-	
-	if GameManager.is_multiplayer_mode():
+
+	if GameManager.is_zen_mode():
+		time += delta
+	elif GameManager.is_multiplayer_mode():
 		special_charge += special_charge_amount
-		return
-	
-	if GameManager.is_work_mode() and GameManager.is_ceo():
+	elif GameManager.is_work_mode() and GameManager.is_ceo():
 		_process_boss_documents(delta)
-		return
 
 @rpc("any_peer", "reliable")
 func send_random_distractions():
@@ -322,6 +335,8 @@ func _spawn(non_work_invalid_chance := 0.0):
 		if (GameManager.is_ceo() or (GameManager.is_intern() and GameManager.get_until_max_performance() <= 5)) and documents.size() < min_documents:
 			await get_tree().create_timer(0.5).timeout
 			_spawn()
+	elif GameManager.is_zen_mode():
+		_update_zen_values()
 	else:
 		_update_crunch_values()
 
@@ -359,6 +374,11 @@ func _update_score():
 func _add_document(doc: Document, await_start := false):
 	doc.started.connect(func(): GameManager.start_type())
 	doc.finished.connect(func():
+		if GameManager.is_zen_mode():
+			time_since_last_finish = time
+			time = 0.0
+			GameManager.zen_total_documents += 1
+
 		GameManager.finish_type(doc.word, doc.mistakes)
 		
 		if doc.is_discarded:
@@ -386,7 +406,7 @@ func _add_document(doc: Document, await_start := false):
 			documents[0].highlight()
 			documents[0].show_tutorial()
 			
-			if documents.size() < min_documents:
+			if documents.size() < min_documents or (GameManager.is_zen_mode() and documents.size() < zen_max_documents):
 				_spawn()
 		elif work_time.is_day_ended() and GameManager.is_work_mode():
 			_finished()
@@ -417,7 +437,6 @@ func _add_document(doc: Document, await_start := false):
 	if await_start and not GameManager.has_played:
 		keyboard.highlight_key(OS.find_keycode_from_string(doc.word[0]))
 	
-
 func _update_document_orders():
 	for i in documents.size():
 		var doc = documents[i]
@@ -428,6 +447,29 @@ func _update_document_orders():
 func get_label():
 	if documents.is_empty(): return null
 	return documents[0].get_label()
+
+#region ZEN
+func _update_zen_values():
+	var t = _zen_mode_spawn_time()
+	if t > 0:
+		spawn_timer.start(t)
+	
+	var d = 0.1 / min(time_since_last_finish / 10.0, 2)
+	if time_since_last_finish <= 0.0:
+		d = 0.0
+
+	logger.debug("Zen mode difficulty: %s (time since last finish: %s)" % [d, time_since_last_finish])
+	doc_spawner.set_difficulty(d)
+
+func _zen_mode_spawn_time(max_doc_count := zen_max_documents):
+	var x = max(documents.size(), 1)
+	var diff = max_doc_count - x
+	if diff <= 0:
+		return 0.0
+
+	return max(1.5 - (diff / float(max_doc_count)), 0.1)
+
+#endregion
 
 #region CRUNCH
 func _update_crunch_values():
@@ -443,13 +485,13 @@ func _update_crunch_values():
 
 func _crunch_mode_spawn_time(doc_count: int = document_stack.actual_document_count):
 	var x = max(doc_count, 1)
-	var time = max(crunch_start_spawn_time - (log(x) / log(10)) * 2, crunch_min_spawn_time)
+	var t = max(crunch_start_spawn_time - (log(x) / log(10)) * 2, crunch_min_spawn_time)
 
 	if documents.size() > max_crunch_documents:
 		var diff = max(documents.size() - max_crunch_documents, 0)
-		time *= 1 + (diff / 2.0)
+		t *= 1 + (diff / 2.0)
 	
-	return time
+	return t
 
 func _crunch_difficulty(doc_count: int = document_stack.actual_document_count):
 	return float(doc_count) / crunch_max_difficulty_count
