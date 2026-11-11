@@ -18,7 +18,7 @@ const CONFIG_FILE = "user://settings.cfg"
 
 @onready var settings := [_audio, display_settings]
 
-var _logger = Logger.new("Settings")
+var _logger = KumaLog.new("Settings")
 var _config = ConfigFile.new()
 
 var active_slider: TypingSlider:

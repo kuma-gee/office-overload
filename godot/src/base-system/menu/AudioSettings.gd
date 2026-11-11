@@ -7,7 +7,7 @@ signal loaded()
 
 const AUDIO_SECTION = "audio"
 
-var _logger = Logger.new("AudioSettings")
+var _logger = KumaLog.new("AudioSettings")
 
 func _ready() -> void:
 	loaded.connect(func(): bgm.play())

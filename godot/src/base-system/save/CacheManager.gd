@@ -3,7 +3,7 @@ extends Node
 
 const PERSIST_GROUP = "Persist"
 
-var logger = Logger.new("CacheManager")
+var logger = KumaLog.new("CacheManager")
 var scene_data = {}
 
 

@@ -25,7 +25,7 @@ var is_uploading := false
 var handler_loaded := false
 var score_range := 30
 
-var _logger = Logger.new("SteamLeaderboard")
+var _logger = KumaLog.new("SteamLeaderboard")
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS

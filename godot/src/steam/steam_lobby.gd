@@ -2,7 +2,7 @@ extends Node
 
 signal lobby_loaded(data)
 
-var logger = Logger.new("SteamLobby")
+var logger = KumaLog.new("SteamLobby")
 
 func _ready():
 	SteamManager.init_successful.connect(func():

@@ -15,7 +15,7 @@ var mode = -1
 var invalid_word_accum := 0.0
 var invalid_spawned := 0
 var invalid_skipped := 0
-var _logger = Logger.new("DocSpawner")
+var _logger = KumaLog.new("DocSpawner")
 
 var last_position: Node2D
 var word_type_chance := {}

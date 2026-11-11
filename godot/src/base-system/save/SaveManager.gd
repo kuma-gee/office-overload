@@ -4,7 +4,7 @@ extends Node
 const SAVES_FOLDER = "user://saves"
 const SAVE_FILE = SAVES_FOLDER + "/save_%s.dat"
 
-var logger = Logger.new("SaveManager")
+var logger = KumaLog.new("SaveManager")
 
 
 func _ready():

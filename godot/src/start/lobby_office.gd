@@ -20,7 +20,7 @@ var is_closed := false:
 		lobby_container.visible = not v
 
 var is_owner := false
-var logger := Logger.new("LobbyOffice")
+var logger := KumaLog.new("LobbyOffice")
 
 func _ready() -> void:
 	super()

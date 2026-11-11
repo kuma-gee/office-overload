@@ -80,7 +80,7 @@ var prev_difficulty: DifficultyResource
 var current_mode: Mode
 var language := ""
 
-var _logger = Logger.new("GameManager")
+var _logger = KumaLog.new("GameManager")
 
 func _ready():
 	self.difficulty_level = difficulty_level

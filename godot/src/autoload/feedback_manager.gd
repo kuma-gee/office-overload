@@ -19,7 +19,7 @@ signal request_throttled(time_left: float)
 @onready var http_request: HTTPRequest = $HTTPRequest
 @onready var throttle_timer: Timer = $ThrottleTimer
 
-var _logger = Logger.new("FeedbackManager")
+var _logger = KumaLog.new("FeedbackManager")
 var _is_sending := false
 
 func _ready() -> void:

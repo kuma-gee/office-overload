@@ -1,6 +1,6 @@
 extends Control
 
-var logger := Logger.new("Loading")
+var logger := KumaLog.new("Loading")
 
 func _ready() -> void:
 	logger.info("Starting game")

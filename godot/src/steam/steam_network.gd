@@ -12,7 +12,7 @@ var max_peers := 5
 var port := 14420
 var steam = {}
 var multiplayer_class = "SteamMultiplayerPeer"
-var logger = Logger.new("SteamNetwork")
+var logger = KumaLog.new("SteamNetwork")
 
 var players := {}
 var lobby_data := {}

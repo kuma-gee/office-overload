@@ -27,7 +27,7 @@ const ACHIEVEMENT = {
 var achievements: Dictionary = {}
 
 var _steam_update_timer: Timer
-var _logger = Logger.new("SteamAchievements")
+var _logger = KumaLog.new("SteamAchievements")
 
 func _ready():
 	SteamManager.init_successful.connect(func():

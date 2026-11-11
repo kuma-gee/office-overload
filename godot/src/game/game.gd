@@ -95,7 +95,7 @@ var special_charge := 0.0:
 
 var time := 0.0
 var time_since_last_finish := 10.0
-var logger := Logger.new("Game")
+var logger := KumaLog.new("Game")
 
 func _ready():
 	randomize()

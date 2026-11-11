@@ -5,7 +5,7 @@ extends FocusedDocument
 @export var button_scene: PackedScene
 @export var max_files := 5
 
-var logger = Logger.new("Languages")
+var logger = KumaLog.new("Languages")
 var language := "":
 	set(v):
 		if not WordManager.is_valid_language(v):

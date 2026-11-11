@@ -6,7 +6,7 @@ signal steam_loaded()
 var steam
 var is_successful_initialized = false
 
-var _logger = Logger.new("SteamManager")
+var _logger = KumaLog.new("SteamManager")
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS

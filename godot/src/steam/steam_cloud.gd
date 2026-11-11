@@ -5,7 +5,7 @@ signal write_finished()
 
 const CLOUD_FILE = "save.dat"
 
-var logger := Logger.new("SteamCloud")
+var logger := KumaLog.new("SteamCloud")
 var usage_feedback_sent := false
 
 func _ready() -> void:

@@ -4,7 +4,7 @@ extends Node
 @export var properties: Array[String]
 @export var node: Node
 
-var logger = Logger.new("SaveProperties")
+var logger = KumaLog.new("SaveProperties")
 
 
 func _ready():

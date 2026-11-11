@@ -45,7 +45,7 @@ var mistakes := 0:
 
 var word := ""
 var target_position := Vector2.ZERO
-var _logger = Logger.new("Document")
+var _logger = KumaLog.new("Document")
 var move_out_pos
 var original_word = ""
 

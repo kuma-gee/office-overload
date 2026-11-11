@@ -24,7 +24,7 @@ enum Type {
 @export var min_group_size := 10
 
 var all_words := {}
-var _logger = Logger.new("WordManager")
+var _logger = KumaLog.new("WordManager")
 var available_files = []
 
 func _ready():

@@ -12,7 +12,7 @@ signal connection_closed()
 signal game_error(err)
 
 var network := SteamNetwork.new(DEFAULT_PORT, MAX_PEERS)
-var logger = Logger.new("Networking")
+var logger = KumaLog.new("Networking")
 
 var players := {}
 var is_connecting := false

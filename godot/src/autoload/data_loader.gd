@@ -3,7 +3,7 @@ extends Node
 const LOCAL_FORMAT = "./%s"
 const RES_FORMAT = "res://%s"
 
-var _logger = Logger.new("DataLoader")
+var _logger = KumaLog.new("DataLoader")
 var items = []
 
 # func _ready() -> void:

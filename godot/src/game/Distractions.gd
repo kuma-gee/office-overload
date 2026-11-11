@@ -29,7 +29,7 @@ enum Type {
 @onready var junior = $Junior
 @onready var menus: Array[Node] = [email, phone, junior]
 
-var _logger = Logger.new("Distraction")
+var _logger = KumaLog.new("Distraction")
 
 var tw: Tween
 var distraction_accumulator = 0.0
