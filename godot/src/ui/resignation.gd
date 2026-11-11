@@ -12,6 +12,7 @@ func _ready() -> void:
 	
 	visible = GameManager.has_current_job()
 	signature.type_finish.connect(func():
+		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.RESIGNED)
 		GameManager.reset_values()
 		send()
 	)

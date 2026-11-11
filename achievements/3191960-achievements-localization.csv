@@ -1,0 +1,39 @@
+﻿api_name (required; must match an api_name from the definitions CSV),field (name or description),english,german,japanese,schinese
+CEO,name,CEO,CEO,社長,老板
+CEO,description,You became the CEO!,Du wurdest zum CEO!,社長になった！,你成为老板了！
+JUNIOR,name,Junior,Junior,新入社員,初级员工
+JUNIOR,description,You reached junior!,Du hast den Rang Junior erreicht!,新入社員になった！,你升到初级员工了！
+SENIOR,name,Senior,Senior,上級社員,高级员工
+SENIOR,description,You reached senior!,Du hast den Rang Senior erreicht!,上級社員になった！,你升到高级员工了！
+MANAGER,name,Manager,Manager,監督,经理
+MANAGER,description,You reached manager!,Du hast den Rang Manager erreicht!,監督になった！,你升到经理了！
+FIRST_DAY,name,First Day,Erster Tag,初日,第一天
+FIRST_DAY,description,Finish your first day,Schließe deinen ersten Arbeitstag ab,最初の一日を終えよう,完成你的第一个工作日
+WORKAHOLIC,name,Workaholic,Workaholic,ワーカホリック,工作狂
+WORKAHOLIC,description,Reach day 10 at the office,Erreiche Tag 10 im Büro,オフィスで10日目に到達しよう,在办公室坚持到第10天
+OVERTIME,name,Overtime,Überstunden,残業,加班
+OVERTIME,description,Work overtime,Mache Überstunden,残業をしよう,加班一次
+RESIGNED,name,Two Weeks' Notice,Kündigungsfrist,退職届,辞职信
+RESIGNED,description,Hand in your resignation,Reiche deine Kündigung ein,辞表を提出しよう,递交辞职信
+BURNOUT,name,Burnout,Burnout,バーンアウト,燃尽
+BURNOUT,description,Burn out at the end of a day,Erleide am Tagesende einen Burnout,一日の終わりに燃え尽きろ,在一天结束时精疲力竭
+FIRED,name,You're Fired!,Du bist gefeuert!,クビだ！,你被解雇了！
+FIRED,description,Get fired from your job,Lass dich feuern,クビになろう,被公司开除
+FLAWLESS,name,Flawless,Makellos,完璧,完美无瑕
+FLAWLESS,description,Finish a day with 100% accuracy and no mistakes,Beende einen Tag mit 100% Genauigkeit und ohne Fehler,ミスなし100%で一日を終えよう,以零失误和100%准确率完成一天
+TOP_GRADE,name,Straight A's,Bestnoten,オールA,全优
+TOP_GRADE,description,Earn an S grade in a day,Erziele an einem Tag die Note S,一日でS評価を取ろう,单日获得S评级
+COMBO_25,name,On a Roll,In Fahrt,ノリノリ！,停不下来！
+COMBO_25,description,Reach a combo of 25,Erreiche einen Combo von 25,コンボ25を達成しよう,连击达到25
+WORDS_1K,name,Wordsmith,Wortschmied,ワードスミス,文字匠
+WORDS_1K,description,"Type 1,000 words in total",Tippe insgesamt 1.000 Wörter,合計1000語をタイプしよう,累计打出1000个单词
+WORDS_10K,name,Novelist,Schriftsteller,小説家,小说家
+WORDS_10K,description,"Type 10,000 words in total",Tippe insgesamt 10.000 Wörter,合計10000語をタイプしよう,累计打出10000个单词
+FIRST_BUY,name,Big Spender,Großspender,ビッグスペンダー,大土豪
+FIRST_BUY,description,Buy your first item in the shop,Kaufe deinen ersten Gegenstand im Shop,ショップで最初のアイテムを買おう,在商店购买第一件物品
+FULLY_EQUIPPED,name,Office Upgrade,Büro-Upgrade,オフィス強化,办公室升级
+FULLY_EQUIPPED,description,Buy every item in the shop,Kaufe alle Gegenstände im Shop,ショップの全アイテムを買おう,买下商店的所有物品
+RICH,name,Money Bags,Geldsack,大金持ち,大富翁
+RICH,description,"Have 10,000 money or more","Habe 10.000 Geld oder mehr",お金を10000以上持とう,拥有10000以上的金钱
+CAFFEINE,name,Caffeinated,Koffeiniert,カフェイン漬け,咖啡因上瘾
+CAFFEINE,description,Drink a coffee at work,Trinke bei der Arbeit einen Kaffee,仕事中にコーヒーを飲もう,工作时喝一杯咖啡

@@ -7,6 +7,21 @@ const ACHIEVEMENT = {
 	MANAGER = "MANAGER", # MGR
 	SENIOR = "SENIOR", # SR
 	JUNIOR = "JUNIOR", # JR
+	FIRST_DAY = "FIRST_DAY", # New Hire
+	WORKAHOLIC = "WORKAHOLIC", # Workaholic
+	OVERTIME = "OVERTIME", # Overtime
+	RESIGNED = "RESIGNED", # Two Weeks' Notice
+	BURNOUT = "BURNOUT", # Burnout
+	FIRED = "FIRED", # You're Fired!
+	FLAWLESS = "FLAWLESS", # Flawless
+	TOP_GRADE = "TOP_GRADE", # Straight A's
+	COMBO_25 = "COMBO_25", # On a Roll
+	WORDS_1K = "WORDS_1K", # Wordsmith
+	WORDS_10K = "WORDS_10K", # Novelist
+	FIRST_BUY = "FIRST_BUY", # Big Spender
+	FULLY_EQUIPPED = "FULLY_EQUIPPED", # Office Upgrade
+	RICH = "RICH", # Money Bags
+	CAFFEINE = "CAFFEINE", # Caffeinated
 }
 
 var achievements: Dictionary = {}
@@ -37,6 +52,9 @@ func _create_one_shot_timer():
 
 func unlock(achieve: String):
 	if Env.is_demo():
+		return
+	
+	if not SteamManager.is_steam_available():
 		return
 	
 	if achieve in achievements and achievements[achieve]:

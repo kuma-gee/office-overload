@@ -125,6 +125,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if is_starting: return
 	if get_viewport().gui_get_focus_owner() != null: return
 	
+	if event is InputEventKey and event.keycode == KEY_F1 and Env.is_editor():
+		GameManager.money += 1000
+	
 	folder.make_sure_closed()
 	teams.make_sure_closed()
 	

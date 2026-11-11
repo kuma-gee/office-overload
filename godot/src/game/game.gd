@@ -307,8 +307,10 @@ func _finished(is_burn_out = false, is_fired = false):
 			GameManager.finished_day(data)
 			
 			if is_burn_out:
+				SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.BURNOUT)
 				gameover.burnout()
 			elif is_fired:
+				SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.FIRED)
 				gameover.fired()
 			else:
 				end.day_ended(data)

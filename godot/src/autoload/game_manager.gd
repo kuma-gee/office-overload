@@ -100,7 +100,7 @@ func _load_data():
 		finished_game = true
 		has_played = true
 		unlocked_modes = Mode.values()
-		bought_items = []
+		#bought_items = []
 	
 	_logger.info("Game initialized")
 	init = true
@@ -189,9 +189,33 @@ func finished_day(data: Dictionary):
 	
 	if is_work_mode():
 		day += 1
+	
+	_check_day_achievements(data)
 
 	save_data()
 	round_ended.emit()
+
+func _check_day_achievements(data: Dictionary):
+	if data["overtime"] > 0:
+		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.OVERTIME)
+	
+	if data["tasks"] > 0 and data["wrong"] == 0 and data["acc"] >= 1.0:
+		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.FLAWLESS)
+	
+	if data["grade"].grade == "S":
+		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.TOP_GRADE)
+	
+	if data["combo"] >= 25:
+		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.COMBO_25)
+	
+	if money >= 10000:
+		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.RICH)
+	
+	if is_work_mode():
+		if day == 1:
+			SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.FIRST_DAY)
+		elif day >= 10:
+			SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.WORKAHOLIC)
 
 func _update_speed_values(wpm, acc):
 	var current_size = wpm_calculator.get_total_size()
@@ -206,6 +230,11 @@ func _update_speed_values(wpm, acc):
 	
 	wpm_calculator.reset()
 	total_completed_words += current_size # For calculating WPM
+	
+	if total_completed_words >= 1000:
+		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.WORDS_1K)
+	if total_completed_words >= 10000:
+		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.WORDS_10K)
 	
 	_logger.info("New Average WPM %s and Accuracy %s with %s words" % [average_wpm, average_accuracy, total_completed_words])
 
@@ -286,6 +315,8 @@ func _upload_zen_scores(wpm: float, acc: float, documents: int, hours: int):
 	return documents
 	
 func lost_ceo():
+	SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.FIRED)
+	
 	if not finished_game:
 		reset_values()
 	elif is_work_mode():
@@ -383,6 +414,9 @@ func buy_item(item: ShopResource):
 		used_items.append(item.type)
 	
 	item_purchased.emit()
+	SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.FIRST_BUY)
+	if Shop.Items.values().all(func(item): return item in bought_items):
+		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.FULLY_EQUIPPED)
 	save_data()
 	return true
 
@@ -459,6 +493,7 @@ func use_coffee():
 	
 	save_data()
 	coffee_used.emit()
+	SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.CAFFEINE)
 	return 100.0
 #endregion
 
