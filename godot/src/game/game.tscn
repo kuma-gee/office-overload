@@ -1,4 +1,4 @@
-[gd_scene load_steps=112 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" uid="uid://cnd6nnfhonksh" path="res://src/game/game.gd" id="1_ptsas"]
 [ext_resource type="PackedScene" uid="uid://d4l3bh8sq5hjr" path="res://src/game/document.tscn" id="2_35x6g"]
@@ -780,7 +780,7 @@ glow_enabled = true
 glow_bloom = 0.05
 glow_blend_mode = 0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "mutators_label", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound", "spill_mug", "crunch_documents", "special_container", "special_ready_container", "special_progress_bar", "special_charge_combo_label", "multiplayer_hud", "special_attack_sound")]
+[node name="Game" type="Node2D" unique_id=501603896 node_paths=PackedStringArray("work_time", "items_root", "mutators_label", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound", "spill_mug", "crunch_documents", "special_container", "special_ready_container", "special_progress_bar", "special_charge_combo_label", "multiplayer_hud", "special_attack_sound")]
 top_level = true
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
@@ -804,23 +804,23 @@ special_charge_combo_label = NodePath("CanvasLayer/HUD/SpecialChargeContainer/HB
 multiplayer_hud = NodePath("CanvasLayer/Multiplayer")
 special_attack_sound = NodePath("CanvasLayer/HUD/SpecialChargeContainer/Attack")
 
-[node name="MouseInput" type="Node" parent="."]
+[node name="MouseInput" type="Node" parent="." unique_id=810144826]
 script = ExtResource("2_a2wq4")
 
-[node name="CameraShake" type="Node" parent="."]
+[node name="CameraShake" type="Node" parent="." unique_id=1388795791]
 process_mode = 3
 script = ExtResource("2_40dk3")
 noise_shake_speed = 40.0
 noise_shake_strength = 20.0
 shake_decay_rate = 40.0
 
-[node name="FrameFreeze" type="Node" parent="."]
+[node name="FrameFreeze" type="Node" parent="." unique_id=2130888858]
 process_mode = 3
 script = ExtResource("3_o6tfp")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=951374095]
 
-[node name="HUD" type="Control" parent="CanvasLayer"]
+[node name="HUD" type="Control" parent="CanvasLayer" unique_id=1809830189]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -830,14 +830,13 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("10_am0oy")
 
-[node name="Day" parent="CanvasLayer/HUD" instance=ExtResource("3_4j615")]
+[node name="Day" parent="CanvasLayer/HUD" unique_id=1854298463 instance=ExtResource("3_4j615")]
 visible = false
 layout_mode = 1
 
-[node name="MutatorsLabel" type="Label" parent="CanvasLayer/HUD"]
+[node name="MutatorsLabel" type="Label" parent="CanvasLayer/HUD" unique_id=820007154]
 visible = false
 layout_mode = 1
-anchors_preset = 0
 offset_left = 5.0
 offset_top = 5.0
 offset_right = 220.0
@@ -845,9 +844,8 @@ offset_bottom = 20.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 8
-text = ""
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD" unique_id=376243573]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -863,7 +861,7 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ProgressBroken" type="TextureRect" parent="CanvasLayer/HUD/MarginContainer"]
+[node name="ProgressBroken" type="TextureRect" parent="CanvasLayer/HUD/MarginContainer" unique_id=955946186]
 visible = false
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
@@ -873,7 +871,7 @@ expand_mode = 3
 stretch_mode = 4
 script = ExtResource("5_b1x4w")
 
-[node name="BurstParticles" type="CPUParticles2D" parent="CanvasLayer/HUD/MarginContainer/ProgressBroken"]
+[node name="BurstParticles" type="CPUParticles2D" parent="CanvasLayer/HUD/MarginContainer/ProgressBroken" unique_id=1376619663]
 process_mode = 3
 position = Vector2(9, 42)
 emitting = false
@@ -895,7 +893,7 @@ scale_amount_max = 8.0
 scale_amount_curve = SubResource("Curve_m11kp")
 color_ramp = SubResource("Gradient_vka2m")
 
-[node name="ShardParticles" type="CPUParticles2D" parent="CanvasLayer/HUD/MarginContainer/ProgressBroken"]
+[node name="ShardParticles" type="CPUParticles2D" parent="CanvasLayer/HUD/MarginContainer/ProgressBroken" unique_id=1259578878]
 position = Vector2(9.24707, 42)
 emitting = false
 amount = 12
@@ -913,12 +911,12 @@ damping_min = 50.0
 damping_max = 50.0
 color = Color(0.207843, 0.207843, 0.25098, 1)
 
-[node name="BreakSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/MarginContainer/ProgressBroken"]
+[node name="BreakSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/MarginContainer/ProgressBroken" unique_id=1650295495]
 stream = ExtResource("6_g6nin")
 volume_db = 5.0
 bus = &"SFX"
 
-[node name="OverloadProgress" type="TextureProgressBar" parent="CanvasLayer/HUD/MarginContainer" node_paths=PackedStringArray("blink_timer_reference", "beep_sound")]
+[node name="OverloadProgress" type="TextureProgressBar" parent="CanvasLayer/HUD/MarginContainer" unique_id=93576248 node_paths=PackedStringArray("blink_timer_reference", "beep_sound")]
 material = SubResource("ShaderMaterial_kfp76")
 layout_mode = 2
 size_flags_horizontal = 8
@@ -932,12 +930,12 @@ script = ExtResource("9_ul3fx")
 blink_timer_reference = NodePath("../../../../OverloadTimer")
 beep_sound = NodePath("OverloadSound")
 
-[node name="OverloadSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/MarginContainer/OverloadProgress"]
+[node name="OverloadSound" type="AudioStreamPlayer" parent="CanvasLayer/HUD/MarginContainer/OverloadProgress" unique_id=558826114]
 stream = ExtResource("12_6mlls")
 volume_db = -15.0
 bus = &"SFX"
 
-[node name="SpecialChargeContainer" type="MarginContainer" parent="CanvasLayer/HUD"]
+[node name="SpecialChargeContainer" type="MarginContainer" parent="CanvasLayer/HUD" unique_id=2078824744]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -950,31 +948,31 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="Attack" type="AudioStreamPlayer" parent="CanvasLayer/HUD/SpecialChargeContainer"]
+[node name="Attack" type="AudioStreamPlayer" parent="CanvasLayer/HUD/SpecialChargeContainer" unique_id=1888191983]
 stream = ExtResource("16_7s3c0")
 volume_db = -10.0
 bus = &"SFX"
 
-[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/SpecialChargeContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/SpecialChargeContainer" unique_id=613308439]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer" unique_id=1049653697]
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 2
 
-[node name="ChargeCombo" type="Label" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer"]
+[node name="ChargeCombo" type="Label" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer" unique_id=1117188320]
 layout_mode = 2
 theme_override_font_sizes/font_size = 6
 text = "20x"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer" unique_id=1909686791]
 custom_minimum_size = Vector2(40, 4)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer/Control" unique_id=131764616]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -987,7 +985,7 @@ rotation = -1.5708
 theme_override_constants/margin_left = -5
 theme_override_constants/margin_top = -16
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer/Control/MarginContainer"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/HBoxContainer/Control/MarginContainer" unique_id=1427230653]
 layout_mode = 2
 step = 0.1
 value = 30.0
@@ -996,19 +994,19 @@ texture_under = ExtResource("17_m34kf")
 texture_over = ExtResource("18_7s3c0")
 texture_progress = ExtResource("19_2681l")
 
-[node name="SpecialCharged" type="VBoxContainer" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer"]
+[node name="SpecialCharged" type="VBoxContainer" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer" unique_id=1813966507]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/SpecialCharged"]
+[node name="Label" type="Label" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/SpecialCharged" unique_id=1714119477]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 6
 text = "disrupt other co-workers"
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/SpecialCharged"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD/SpecialChargeContainer/HBoxContainer/SpecialCharged" unique_id=541376365]
 custom_minimum_size = Vector2(0, 4)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -1016,18 +1014,18 @@ texture = ExtResource("40_ohxrb")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Gameover" parent="CanvasLayer" instance=ExtResource("8_lpofg")]
+[node name="Gameover" parent="CanvasLayer" unique_id=1614000592 instance=ExtResource("8_lpofg")]
 visible = false
 
-[node name="End" parent="CanvasLayer" instance=ExtResource("9_dbvje")]
+[node name="End" parent="CanvasLayer" unique_id=1156851016 instance=ExtResource("9_dbvje")]
 visible = false
 
-[node name="Delegator" type="Node" parent="CanvasLayer" node_paths=PackedStringArray("nodes")]
+[node name="Delegator" type="Node" parent="CanvasLayer" unique_id=803183534 node_paths=PackedStringArray("nodes")]
 script = ExtResource("20_tcix1")
 nodes = [NodePath("../..")]
 ignore_errors = false
 
-[node name="Distractions" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("overlay", "work_time")]
+[node name="Distractions" type="Control" parent="CanvasLayer" unique_id=799758079 node_paths=PackedStringArray("overlay", "work_time")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1041,37 +1039,37 @@ script = ExtResource("14_s1o3m")
 overlay = NodePath("../../Overlay")
 work_time = NodePath("../../Desk/Clock/HBoxContainer/WorkTime")
 
-[node name="EmailWords" type="Node" parent="CanvasLayer/Distractions"]
+[node name="EmailWords" type="Node" parent="CanvasLayer/Distractions" unique_id=1072991328]
 script = ExtResource("55_o651g")
 
-[node name="PhoneWords" type="Node" parent="CanvasLayer/Distractions"]
+[node name="PhoneWords" type="Node" parent="CanvasLayer/Distractions" unique_id=74842392]
 script = ExtResource("55_o651g")
 
-[node name="JuniorWords" type="Node" parent="CanvasLayer/Distractions"]
+[node name="JuniorWords" type="Node" parent="CanvasLayer/Distractions" unique_id=609311402]
 script = ExtResource("55_o651g")
 
-[node name="ShakeEffect" type="Node" parent="CanvasLayer/Distractions"]
+[node name="ShakeEffect" type="Node" parent="CanvasLayer/Distractions" unique_id=1091631444]
 script = ExtResource("20_u0r5t")
 duration = 0.5
 
-[node name="Shake" type="Node" parent="CanvasLayer/Distractions/ShakeEffect" node_paths=PackedStringArray("node")]
+[node name="Shake" type="Node" parent="CanvasLayer/Distractions/ShakeEffect" unique_id=479007785 node_paths=PackedStringArray("node")]
 script = ExtResource("21_os6oe")
 node = NodePath("../../Junior")
 
-[node name="Shake2" type="Node" parent="CanvasLayer/Distractions/ShakeEffect" node_paths=PackedStringArray("node")]
+[node name="Shake2" type="Node" parent="CanvasLayer/Distractions/ShakeEffect" unique_id=752402300 node_paths=PackedStringArray("node")]
 script = ExtResource("21_os6oe")
 node = NodePath("../../Phone")
 
-[node name="Shake3" type="Node" parent="CanvasLayer/Distractions/ShakeEffect" node_paths=PackedStringArray("node")]
+[node name="Shake3" type="Node" parent="CanvasLayer/Distractions/ShakeEffect" unique_id=551779511 node_paths=PackedStringArray("node")]
 script = ExtResource("21_os6oe")
 node = NodePath("../../Email/Email")
 
-[node name="Delegator" type="Node" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("nodes")]
+[node name="Delegator" type="Node" parent="CanvasLayer/Distractions" unique_id=1180345484 node_paths=PackedStringArray("nodes")]
 script = ExtResource("20_tcix1")
 nodes = [NodePath("../Email"), NodePath("../Phone"), NodePath("../Junior")]
 ignore_errors = false
 
-[node name="Email" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "sounds")]
+[node name="Email" type="Control" parent="CanvasLayer/Distractions" unique_id=174498978 node_paths=PackedStringArray("label", "sounds")]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -1083,7 +1081,7 @@ label = NodePath("Email/MarginContainer/VBoxContainer/HBoxContainer/VBoxContaine
 slide_dir = Vector2(0, 100)
 sounds = [NodePath("Email/Notification")]
 
-[node name="Email" type="PanelContainer" parent="CanvasLayer/Distractions/Email"]
+[node name="Email" type="PanelContainer" parent="CanvasLayer/Distractions/Email" unique_id=744170303]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 1
 anchors_preset = 7
@@ -1100,57 +1098,57 @@ grow_vertical = 0
 theme = ExtResource("10_am0oy")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_e6mqw")
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Distractions/Email/Email"]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Distractions/Email/Email" unique_id=1564307582]
 layout_mode = 2
 theme_override_constants/margin_top = -30
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Email/Email/MarginContainer2"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Email/Email/MarginContainer2" unique_id=254871168]
 layout_mode = 2
 texture = ExtResource("20_hn5id")
 stretch_mode = 2
 
-[node name="Notification" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Email/Email"]
+[node name="Notification" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Email/Email" unique_id=1645542238]
 stream = ExtResource("17_xms1k")
 volume_db = -10.0
 pitch_scale = 0.8
 bus = &"SFX"
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Email/Email"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Email/Email" unique_id=574677584]
 layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Email/Email/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Email/Email/MarginContainer" unique_id=780446918]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Label" type="Label" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer" unique_id=1375960065]
 visible = false
 layout_mode = 2
 text = "Email"
 label_settings = ExtResource("16_3sqd2")
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer" unique_id=1903815910]
 layout_mode = 2
 alignment = 1
 
-[node name="Label2" type="Label" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer/HBoxContainer" unique_id=872129078]
 visible = false
 layout_mode = 2
 text = "Subject:"
 label_settings = ExtResource("16_3sqd2")
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer/HBoxContainer" unique_id=539501101]
 layout_mode = 2
 
-[node name="TypingLabel" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
+[node name="TypingLabel" parent="CanvasLayer/Distractions/Email/Email/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=796373382 instance=ExtResource("15_r4fui")]
 layout_mode = 2
 
-[node name="Phone" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "effect_root", "sounds")]
+[node name="Phone" type="Control" parent="CanvasLayer/Distractions" unique_id=365896122 node_paths=PackedStringArray("label", "effect_root", "sounds")]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1168,26 +1166,26 @@ effect_root = NodePath("EffectRoot")
 slide_dir = Vector2(0, -120)
 sounds = [NodePath("Vibrate"), NodePath("Ring")]
 
-[node name="Vibrate" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Phone"]
+[node name="Vibrate" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Phone" unique_id=941628685]
 stream = ExtResource("19_5t58c")
 volume_db = -20.0
 bus = &"SFX"
 
-[node name="Ring" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Phone"]
+[node name="Ring" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Phone" unique_id=578544646]
 stream = ExtResource("20_2av8q")
 volume_db = -10.0
 bus = &"SFX"
 
-[node name="EffectRoot" type="Node" parent="CanvasLayer/Distractions/Phone"]
+[node name="EffectRoot" type="Node" parent="CanvasLayer/Distractions/Phone" unique_id=602731696]
 script = ExtResource("20_u0r5t")
 duration = 0.5
 loop = true
 
-[node name="Shake" type="Node" parent="CanvasLayer/Distractions/Phone/EffectRoot" node_paths=PackedStringArray("node")]
+[node name="Shake" type="Node" parent="CanvasLayer/Distractions/Phone/EffectRoot" unique_id=1464345757 node_paths=PackedStringArray("node")]
 script = ExtResource("21_os6oe")
 node = NodePath("../../Phone")
 
-[node name="Phone" type="PanelContainer" parent="CanvasLayer/Distractions/Phone"]
+[node name="Phone" type="PanelContainer" parent="CanvasLayer/Distractions/Phone" unique_id=941528448]
 custom_minimum_size = Vector2(20, 80)
 layout_mode = 1
 anchors_preset = 7
@@ -1204,30 +1202,30 @@ grow_vertical = 0
 theme = ExtResource("10_am0oy")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_1mklb")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Phone/Phone"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Phone/Phone" unique_id=1738203176]
 layout_mode = 2
 texture = ExtResource("18_3w3fn")
 stretch_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Phone/Phone"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Phone/Phone" unique_id=559259060]
 layout_mode = 2
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Phone/Phone/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Phone/Phone/MarginContainer" unique_id=109906841]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="TypingLabel" parent="CanvasLayer/Distractions/Phone/Phone/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
+[node name="TypingLabel" parent="CanvasLayer/Distractions/Phone/Phone/MarginContainer/VBoxContainer" unique_id=430454896 instance=ExtResource("15_r4fui")]
 layout_mode = 2
 size_flags_horizontal = 1
 text = "[center][color=353540ff][outline_color=ffffffff][outline_size=4][/outline_size][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=4][color=353540ff]v[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=4]oicemail[/outline_size][/outline_color][/color][/center]"
 autowrap_mode = 3
 word = "voicemail"
 
-[node name="Junior" type="Control" parent="CanvasLayer/Distractions" node_paths=PackedStringArray("label", "sounds")]
+[node name="Junior" type="Control" parent="CanvasLayer/Distractions" unique_id=442199135 node_paths=PackedStringArray("label", "sounds")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -1239,12 +1237,12 @@ type = 2
 slide_dir = Vector2(0, -100)
 sounds = [NodePath("Popup")]
 
-[node name="Popup" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Junior"]
+[node name="Popup" type="AudioStreamPlayer" parent="CanvasLayer/Distractions/Junior" unique_id=1208033628]
 stream = ExtResource("25_k4kvb")
 volume_db = -10.0
 bus = &"SFX"
 
-[node name="Junior" type="PanelContainer" parent="CanvasLayer/Distractions/Junior"]
+[node name="Junior" type="PanelContainer" parent="CanvasLayer/Distractions/Junior" unique_id=67005216]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
 anchors_preset = 4
@@ -1257,36 +1255,36 @@ grow_vertical = 2
 theme = ExtResource("10_am0oy")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_o0ctv")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Junior/Junior"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Distractions/Junior/Junior" unique_id=1822190940]
 layout_mode = 2
 texture = ExtResource("18_51hqv")
 stretch_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Junior/Junior"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Distractions/Junior/Junior" unique_id=2048343984]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer" unique_id=728187894]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer/VBoxContainer" unique_id=1047864070]
 layout_mode = 2
 text = "Junior"
 label_settings = ExtResource("16_3sqd2")
 horizontal_alignment = 1
 
-[node name="TypingLabel" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer/VBoxContainer" instance=ExtResource("15_r4fui")]
+[node name="TypingLabel" parent="CanvasLayer/Distractions/Junior/Junior/MarginContainer/VBoxContainer" unique_id=932531964 instance=ExtResource("15_r4fui")]
 layout_mode = 2
 
-[node name="Pause" parent="CanvasLayer" instance=ExtResource("37_b7g85")]
+[node name="Pause" parent="CanvasLayer" unique_id=847915371 instance=ExtResource("37_b7g85")]
 visible = false
 
-[node name="Multiplayer" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("player_container", "overload_update_timer", "overload_progress")]
+[node name="Multiplayer" type="Control" parent="CanvasLayer" unique_id=815117432 node_paths=PackedStringArray("player_container", "overload_update_timer", "overload_progress")]
 layout_mode = 3
 anchors_preset = 0
 scale = Vector2(0.8, 0.8)
@@ -1297,151 +1295,149 @@ player_panel_scene = ExtResource("35_xk33u")
 overload_update_timer = NodePath("Timer")
 overload_progress = NodePath("../HUD/MarginContainer/OverloadProgress")
 
-[node name="Timer" type="Timer" parent="CanvasLayer/Multiplayer"]
+[node name="Timer" type="Timer" parent="CanvasLayer/Multiplayer" unique_id=868021076]
 wait_time = 0.5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Multiplayer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Multiplayer" unique_id=453396534]
 layout_mode = 1
 offset_right = 125.0
 offset_bottom = 44.0
 theme_override_constants/separation = -1
 
-[node name="PlayerGameView" parent="CanvasLayer/Multiplayer/HBoxContainer" instance=ExtResource("35_xk33u")]
+[node name="PlayerGameView" parent="CanvasLayer/Multiplayer/HBoxContainer" unique_id=2144443568 instance=ExtResource("35_xk33u")]
 layout_mode = 2
 
-[node name="PlayerGameView2" parent="CanvasLayer/Multiplayer/HBoxContainer" instance=ExtResource("35_xk33u")]
+[node name="PlayerGameView2" parent="CanvasLayer/Multiplayer/HBoxContainer" unique_id=1839805080 instance=ExtResource("35_xk33u")]
 layout_mode = 2
 
-[node name="PlayerGameView3" parent="CanvasLayer/Multiplayer/HBoxContainer" instance=ExtResource("35_xk33u")]
+[node name="PlayerGameView3" parent="CanvasLayer/Multiplayer/HBoxContainer" unique_id=87189242 instance=ExtResource("35_xk33u")]
 layout_mode = 2
 
-[node name="PlayerGameView4" parent="CanvasLayer/Multiplayer/HBoxContainer" instance=ExtResource("35_xk33u")]
+[node name="PlayerGameView4" parent="CanvasLayer/Multiplayer/HBoxContainer" unique_id=173323658 instance=ExtResource("35_xk33u")]
 layout_mode = 2
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1592648356]
 visible = false
 color = Color(0.2, 0.2, 0.2, 1)
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2133129389]
 offset_left = -187.0
 offset_top = -114.0
 offset_right = 203.0
 offset_bottom = 116.0
 color = Color(0.929412, 0.894118, 0.854902, 1)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=758000719]
 root_node = NodePath("../Desk")
-libraries = {
-&"": SubResource("AnimationLibrary_vs0lt")
-}
-autoplay = "normal"
+libraries/ = SubResource("AnimationLibrary_vs0lt")
+autoplay = &"normal"
 
-[node name="Desk" type="Sprite2D" parent="."]
+[node name="Desk" type="Sprite2D" parent="." unique_id=1443564467]
 
-[node name="PointLight2D" type="PointLight2D" parent="Desk"]
+[node name="PointLight2D" type="PointLight2D" parent="Desk" unique_id=1510085966]
 position = Vector2(0.5, 0.5)
 blend_mode = 2
 texture = ExtResource("14_uyjhq")
 
-[node name="Messy" type="Node2D" parent="Desk"]
+[node name="Messy" type="Node2D" parent="Desk" unique_id=521961563]
 visible = false
 
-[node name="Document" type="Sprite2D" parent="Desk/Messy"]
+[node name="Document" type="Sprite2D" parent="Desk/Messy" unique_id=1263017122]
 position = Vector2(-139, -92)
 rotation = 0.829031
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
-[node name="Document2" type="Sprite2D" parent="Desk/Messy"]
+[node name="Document2" type="Sprite2D" parent="Desk/Messy" unique_id=1364063629]
 position = Vector2(-94, -83)
 rotation = 1.65981
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
-[node name="Document6" type="Sprite2D" parent="Desk/Messy"]
+[node name="Document6" type="Sprite2D" parent="Desk/Messy" unique_id=937259521]
 position = Vector2(-47, -76)
 rotation = 3.40339
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
-[node name="Document3" type="Sprite2D" parent="Desk/Messy"]
+[node name="Document3" type="Sprite2D" parent="Desk/Messy" unique_id=448011403]
 position = Vector2(124, -88)
 rotation = -1.57079
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
-[node name="Document4" type="Sprite2D" parent="Desk/Messy"]
+[node name="Document4" type="Sprite2D" parent="Desk/Messy" unique_id=178688106]
 position = Vector2(27, -76)
 rotation = -0.785397
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
-[node name="Document5" type="Sprite2D" parent="Desk/Messy"]
+[node name="Document5" type="Sprite2D" parent="Desk/Messy" unique_id=392582171]
 position = Vector2(159, -92)
 rotation = -0.785397
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
-[node name="Coffee2" type="Sprite2D" parent="Desk/Messy"]
+[node name="Coffee2" type="Sprite2D" parent="Desk/Messy" unique_id=697817543]
 visible = false
 position = Vector2(65, -49)
 texture = ExtResource("28_i6mjb")
 hframes = 2
 frame = 1
 
-[node name="Littered" type="Node2D" parent="Desk"]
+[node name="Littered" type="Node2D" parent="Desk" unique_id=830246077]
 visible = false
 
-[node name="Document5" type="Sprite2D" parent="Desk/Littered"]
+[node name="Document5" type="Sprite2D" parent="Desk/Littered" unique_id=1822956053]
 position = Vector2(-126, -83)
 rotation = 2.11359
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
-[node name="Document9" type="Sprite2D" parent="Desk/Littered"]
+[node name="Document9" type="Sprite2D" parent="Desk/Littered" unique_id=960363264]
 position = Vector2(-59, -94)
 rotation = 0.561996
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
-[node name="Document6" type="Sprite2D" parent="Desk/Littered"]
+[node name="Document6" type="Sprite2D" parent="Desk/Littered" unique_id=164023797]
 position = Vector2(-154, -51)
 rotation = -2.77333
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
-[node name="Document8" type="Sprite2D" parent="Desk/Littered"]
+[node name="Document8" type="Sprite2D" parent="Desk/Littered" unique_id=702246208]
 position = Vector2(76, -94)
 rotation = -1.23395
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
-[node name="Document4" type="Sprite2D" parent="Desk/Littered"]
+[node name="Document4" type="Sprite2D" parent="Desk/Littered" unique_id=303209133]
 position = Vector2(48, -82)
 rotation = 0.5044
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
-[node name="Document7" type="Sprite2D" parent="Desk/Littered"]
+[node name="Document7" type="Sprite2D" parent="Desk/Littered" unique_id=500688621]
 position = Vector2(112, -96)
 rotation = 0.959931
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
-[node name="Coffee3" type="Sprite2D" parent="Desk/Littered"]
+[node name="Coffee3" type="Sprite2D" parent="Desk/Littered" unique_id=327954700]
 visible = false
 position = Vector2(90, -56)
 texture = ExtResource("28_i6mjb")
 hframes = 2
 frame = 1
 
-[node name="Computer" type="Sprite2D" parent="Desk"]
+[node name="Computer" type="Sprite2D" parent="Desk" unique_id=1576528562]
 position = Vector2(0, -80)
 texture = ExtResource("21_tywuk")
 hframes = 2
 frame = 1
 
-[node name="SingleUI" type="VBoxContainer" parent="Desk/Computer"]
+[node name="SingleUI" type="VBoxContainer" parent="Desk/Computer" unique_id=872924171]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -1455,21 +1451,21 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="PlayerDocuments" type="Label" parent="Desk/Computer/SingleUI"]
+[node name="PlayerDocuments" type="Label" parent="Desk/Computer/SingleUI" unique_id=442121092]
 layout_mode = 2
 theme = ExtResource("10_am0oy")
 theme_override_font_sizes/font_size = 12
 text = "0"
 horizontal_alignment = 1
 
-[node name="PlayerCombo" type="Label" parent="Desk/Computer/SingleUI"]
+[node name="PlayerCombo" type="Label" parent="Desk/Computer/SingleUI" unique_id=1331648479]
 layout_mode = 2
 theme = ExtResource("10_am0oy")
 theme_override_font_sizes/font_size = 8
 text = "0"
 horizontal_alignment = 1
 
-[node name="CrunchUI" type="VBoxContainer" parent="Desk/Computer"]
+[node name="CrunchUI" type="VBoxContainer" parent="Desk/Computer" unique_id=1365040937]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -1485,7 +1481,7 @@ grow_vertical = 2
 theme = ExtResource("10_am0oy")
 theme_override_constants/separation = 3
 
-[node name="PlayerDocuments" type="Label" parent="Desk/Computer/CrunchUI"]
+[node name="PlayerDocuments" type="Label" parent="Desk/Computer/CrunchUI" unique_id=295594036]
 custom_minimum_size = Vector2(92, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1495,7 +1491,7 @@ text = "0"
 horizontal_alignment = 1
 clip_text = true
 
-[node name="TutorialUI" type="VBoxContainer" parent="Desk/Computer"]
+[node name="TutorialUI" type="VBoxContainer" parent="Desk/Computer" unique_id=430080049]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -1510,14 +1506,14 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="PlayerDocuments" type="Label" parent="Desk/Computer/TutorialUI"]
+[node name="PlayerDocuments" type="Label" parent="Desk/Computer/TutorialUI" unique_id=152263167]
 layout_mode = 2
 theme = ExtResource("10_am0oy")
 theme_override_font_sizes/font_size = 10
 text = "Type the word"
 horizontal_alignment = 1
 
-[node name="BossUI" type="HBoxContainer" parent="Desk/Computer"]
+[node name="BossUI" type="HBoxContainer" parent="Desk/Computer" unique_id=1422645691]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -1532,27 +1528,27 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Desk/Computer/BossUI"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Desk/Computer/BossUI" unique_id=1781193493]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="Desk/Computer/BossUI/VBoxContainer"]
+[node name="Label" type="Label" parent="Desk/Computer/BossUI/VBoxContainer" unique_id=1496332801]
 layout_mode = 2
 theme = ExtResource("10_am0oy")
 theme_override_font_sizes/font_size = 10
 text = "You"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Desk/Computer/BossUI/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Desk/Computer/BossUI/VBoxContainer" unique_id=240274811]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="PlayerDocuments" type="Label" parent="Desk/Computer/BossUI/VBoxContainer/HBoxContainer"]
+[node name="PlayerDocuments" type="Label" parent="Desk/Computer/BossUI/VBoxContainer/HBoxContainer" unique_id=1184175978]
 layout_mode = 2
 theme = ExtResource("10_am0oy")
 theme_override_font_sizes/font_size = 10
 text = "0"
 
-[node name="PlayerCombo" type="Label" parent="Desk/Computer/BossUI/VBoxContainer/HBoxContainer"]
+[node name="PlayerCombo" type="Label" parent="Desk/Computer/BossUI/VBoxContainer/HBoxContainer" unique_id=968673047]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
@@ -1561,27 +1557,27 @@ theme_override_font_sizes/font_size = 8
 text = "0"
 horizontal_alignment = 2
 
-[node name="Control" type="Control" parent="Desk/Computer/BossUI"]
+[node name="Control" type="Control" parent="Desk/Computer/BossUI" unique_id=824118772]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Desk/Computer/BossUI"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Desk/Computer/BossUI" unique_id=282379613]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="Desk/Computer/BossUI/VBoxContainer2"]
+[node name="Label" type="Label" parent="Desk/Computer/BossUI/VBoxContainer2" unique_id=134458825]
 layout_mode = 2
 theme = ExtResource("10_am0oy")
 theme_override_font_sizes/font_size = 10
 text = "Boss"
 horizontal_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Desk/Computer/BossUI/VBoxContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Desk/Computer/BossUI/VBoxContainer2" unique_id=689884104]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 
-[node name="Combo" type="Label" parent="Desk/Computer/BossUI/VBoxContainer2/HBoxContainer2"]
+[node name="Combo" type="Label" parent="Desk/Computer/BossUI/VBoxContainer2/HBoxContainer2" unique_id=1670770428]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
@@ -1589,14 +1585,14 @@ theme = ExtResource("10_am0oy")
 theme_override_font_sizes/font_size = 8
 text = "0"
 
-[node name="Doc" type="Label" parent="Desk/Computer/BossUI/VBoxContainer2/HBoxContainer2"]
+[node name="Doc" type="Label" parent="Desk/Computer/BossUI/VBoxContainer2/HBoxContainer2" unique_id=1831238224]
 layout_mode = 2
 theme = ExtResource("10_am0oy")
 theme_override_font_sizes/font_size = 10
 text = "0"
 horizontal_alignment = 2
 
-[node name="Clock" type="Sprite2D" parent="Desk" node_paths=PackedStringArray("worktime", "point_light", "canvas_modulate", "overload_progress")]
+[node name="Clock" type="Sprite2D" parent="Desk" unique_id=1303930356 node_paths=PackedStringArray("worktime", "point_light", "canvas_modulate", "overload_progress")]
 position = Vector2(88, -74)
 texture = ExtResource("13_dyrwf")
 hframes = 2
@@ -1606,27 +1602,27 @@ point_light = NodePath("../PointLight2D")
 canvas_modulate = NodePath("../../CanvasModulate")
 overload_progress = NodePath("../../CanvasLayer/HUD/MarginContainer/OverloadProgress")
 
-[node name="ClockLight1" type="PointLight2D" parent="Desk/Clock"]
+[node name="ClockLight1" type="PointLight2D" parent="Desk/Clock" unique_id=1472703153]
 position = Vector2(-10.5, 2.25806)
 blend_mode = 2
 texture = ExtResource("17_b6uxm")
 
-[node name="ClockLight2" type="PointLight2D" parent="Desk/Clock"]
+[node name="ClockLight2" type="PointLight2D" parent="Desk/Clock" unique_id=212278]
 position = Vector2(-4.5, 2.2)
 blend_mode = 2
 texture = ExtResource("17_b6uxm")
 
-[node name="ClockLight3" type="PointLight2D" parent="Desk/Clock"]
+[node name="ClockLight3" type="PointLight2D" parent="Desk/Clock" unique_id=508637013]
 position = Vector2(3.5, 2.25806)
 blend_mode = 2
 texture = ExtResource("17_b6uxm")
 
-[node name="ClockLight4" type="PointLight2D" parent="Desk/Clock"]
+[node name="ClockLight4" type="PointLight2D" parent="Desk/Clock" unique_id=504573944]
 position = Vector2(9, 2.25806)
 blend_mode = 2
 texture = ExtResource("17_b6uxm")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Desk/Clock"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Desk/Clock" unique_id=1517760134]
 light_mask = 2
 visibility_layer = 2
 anchors_preset = 8
@@ -1644,7 +1640,7 @@ theme = ExtResource("10_am0oy")
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="WorkTime" type="Label" parent="Desk/Clock/HBoxContainer" node_paths=PackedStringArray("timer", "day_end_sound", "overtime_sound")]
+[node name="WorkTime" type="Label" parent="Desk/Clock/HBoxContainer" unique_id=1028353930 node_paths=PackedStringArray("timer", "day_end_sound", "overtime_sound")]
 layout_mode = 2
 theme = ExtResource("10_am0oy")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -1656,25 +1652,25 @@ timer = NodePath("Timer")
 day_end_sound = NodePath("End")
 overtime_sound = NodePath("Overtime")
 
-[node name="End" type="AudioStreamPlayer" parent="Desk/Clock/HBoxContainer/WorkTime"]
+[node name="End" type="AudioStreamPlayer" parent="Desk/Clock/HBoxContainer/WorkTime" unique_id=1845275073]
 process_mode = 3
 stream = ExtResource("19_mkiih")
 volume_db = -10.0
 bus = &"SFX"
 
-[node name="Overtime" type="AudioStreamPlayer" parent="Desk/Clock/HBoxContainer/WorkTime"]
+[node name="Overtime" type="AudioStreamPlayer" parent="Desk/Clock/HBoxContainer/WorkTime" unique_id=7189533]
 process_mode = 3
 stream = ExtResource("12_y1afc")
 volume_db = -20.0
 bus = &"SFX"
 
-[node name="Timer" type="Timer" parent="Desk/Clock/HBoxContainer/WorkTime"]
+[node name="Timer" type="Timer" parent="Desk/Clock/HBoxContainer/WorkTime" unique_id=1831079231]
 
-[node name="MarginContainer" type="MarginContainer" parent="Desk/Clock/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Desk/Clock/HBoxContainer" unique_id=140732306]
 layout_mode = 2
 theme_override_constants/margin_top = 0
 
-[node name="Colon" type="Label" parent="Desk/Clock/HBoxContainer/MarginContainer" node_paths=PackedStringArray("blink_timer")]
+[node name="Colon" type="Label" parent="Desk/Clock/HBoxContainer/MarginContainer" unique_id=935883112 node_paths=PackedStringArray("blink_timer")]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = ":"
@@ -1682,18 +1678,18 @@ script = ExtResource("20_0ygyh")
 blink_timer = NodePath("BlinkTimer")
 blink_duration = 0.5
 
-[node name="BlinkTimer" type="Timer" parent="Desk/Clock/HBoxContainer/MarginContainer/Colon"]
+[node name="BlinkTimer" type="Timer" parent="Desk/Clock/HBoxContainer/MarginContainer/Colon" unique_id=579384651]
 one_shot = true
 
-[node name="Minutes" type="Label" parent="Desk/Clock/HBoxContainer"]
+[node name="Minutes" type="Label" parent="Desk/Clock/HBoxContainer" unique_id=1034285336]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 10
 text = "00"
 
-[node name="Items" type="Node2D" parent="Desk"]
+[node name="Items" type="Node2D" parent="Desk" unique_id=1837616048]
 
-[node name="Duck" type="Sprite2D" parent="Desk/Items" node_paths=PackedStringArray("sound")]
+[node name="Duck" type="Sprite2D" parent="Desk/Items" unique_id=701966921 node_paths=PackedStringArray("sound")]
 position = Vector2(94, -36)
 texture = ExtResource("47_0m5o6")
 hframes = 2
@@ -1701,12 +1697,12 @@ script = ExtResource("47_m6qb4")
 sound = NodePath("AudioStreamPlayer")
 weight = 0.5
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Desk/Items/Duck"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Desk/Items/Duck" unique_id=116216219]
 stream = ExtResource("49_0opw7")
 bus = &"SFX"
 script = ExtResource("50_j4bts")
 
-[node name="Plant" type="Sprite2D" parent="Desk/Items"]
+[node name="Plant" type="Sprite2D" parent="Desk/Items" unique_id=859714617]
 position = Vector2(-115, -50)
 texture = ExtResource("27_1a3yr")
 hframes = 3
@@ -1714,74 +1710,72 @@ frame = 1
 script = ExtResource("52_ck1lt")
 weight = 1.5
 
-[node name="Coffee" type="Sprite2D" parent="Desk/Items"]
+[node name="Coffee" type="Sprite2D" parent="Desk/Items" unique_id=1743770980]
 position = Vector2(69, -22)
 texture = ExtResource("28_i6mjb")
 hframes = 2
 script = ExtResource("53_ngmm3")
 
-[node name="Assistant" type="Sprite2D" parent="Desk/Items"]
+[node name="Assistant" type="Sprite2D" parent="Desk/Items" unique_id=1019662536]
 position = Vector2(132, -75)
 texture = ExtResource("54_ppwkm")
 script = ExtResource("55_y6wgh")
 weight = 1.3
 
-[node name="SecondAssistant" type="Sprite2D" parent="Desk/Items/Assistant"]
+[node name="SecondAssistant" type="Sprite2D" parent="Desk/Items/Assistant" unique_id=1583032822]
 position = Vector2(14, 4)
 texture = ExtResource("54_ppwkm")
 script = ExtResource("55_fen05")
 weight = 1.6
 
-[node name="Cat" type="Sprite2D" parent="Desk/Items"]
+[node name="Cat" type="Sprite2D" parent="Desk/Items" unique_id=1883218762]
 position = Vector2(-74, -66)
 texture = ExtResource("48_ic7kw")
 hframes = 2
 script = ExtResource("55_fen05")
 weight = 2.0
 
-[node name="Note" type="Sprite2D" parent="Desk/Items"]
+[node name="Note" type="Sprite2D" parent="Desk/Items" unique_id=21694161]
 visible = false
 position = Vector2(-63, -21)
 texture = ExtResource("49_bjcyb")
 script = ExtResource("55_fen05")
 
-[node name="Keyboard" parent="Desk" instance=ExtResource("59_jp8mc")]
+[node name="Keyboard" parent="Desk" unique_id=1351788269 instance=ExtResource("59_jp8mc")]
 
-[node name="Mouse" type="Sprite2D" parent="Desk"]
+[node name="Mouse" type="Sprite2D" parent="Desk" unique_id=1734570766]
 position = Vector2(41, -25)
 texture = ExtResource("48_edn0k")
 script = ExtResource("55_fen05")
 
-[node name="SpillMug" type="Node2D" parent="Desk"]
+[node name="SpillMug" type="Node2D" parent="Desk" unique_id=1190030031]
 position = Vector2(-89, 31)
 script = ExtResource("61_ng12r")
 
-[node name="Mug" type="Sprite2D" parent="Desk/SpillMug"]
+[node name="Mug" type="Sprite2D" parent="Desk/SpillMug" unique_id=973225353]
 texture = ExtResource("60_ulb8c")
 script = ExtResource("55_fen05")
 
-[node name="SpillStain" type="Sprite2D" parent="Desk/SpillMug"]
+[node name="SpillStain" type="Sprite2D" parent="Desk/SpillMug" unique_id=139196406]
 texture = ExtResource("61_xrrf4")
 hframes = 4
 
-[node name="StainArea" type="Area2D" parent="Desk/SpillMug"]
+[node name="StainArea" type="Area2D" parent="Desk/SpillMug" unique_id=545917642]
 position = Vector2(1, 9)
 collision_layer = 0
 monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Desk/SpillMug/StainArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Desk/SpillMug/StainArea" unique_id=1030340227]
 shape = SubResource("RectangleShape2D_qhwaj")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Desk/SpillMug"]
-libraries = {
-&"": SubResource("AnimationLibrary_3a6b2")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Desk/SpillMug" unique_id=1359342377]
+libraries/ = SubResource("AnimationLibrary_3a6b2")
 
-[node name="Lifetime" type="Timer" parent="Desk/SpillMug"]
+[node name="Lifetime" type="Timer" parent="Desk/SpillMug" unique_id=1387388688]
 wait_time = 10.0
 one_shot = true
 
-[node name="DocumentStack" type="Node2D" parent="." node_paths=PackedStringArray("doc_count_label", "combo_label", "combo_particles01", "combo_particles02")]
+[node name="DocumentStack" type="Node2D" parent="." unique_id=517815636 node_paths=PackedStringArray("doc_count_label", "combo_label", "combo_particles01", "combo_particles02")]
 position = Vector2(133, -44)
 script = ExtResource("12_n73rb")
 stack_count = 5
@@ -1792,7 +1786,7 @@ doc_scene = ExtResource("63_mwduc")
 combo_particles01 = NodePath("../MarginContainer/HBoxContainer/ComboParticles")
 combo_particles02 = NodePath("../MarginContainer/HBoxContainer/ComboParticles2")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="DocumentStack"]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="DocumentStack" unique_id=42528920]
 position = Vector2(-10, 0)
 emitting = false
 amount = 2
@@ -1812,7 +1806,7 @@ damping_curve = ExtResource("24_ecpli")
 scale_amount_curve = SubResource("Curve_bp2je")
 color_ramp = SubResource("Gradient_ar5ax")
 
-[node name="CPUParticles2D2" type="CPUParticles2D" parent="DocumentStack"]
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="DocumentStack" unique_id=1314781848]
 position = Vector2(10, 0)
 scale = Vector2(-1, 1)
 emitting = false
@@ -1833,7 +1827,7 @@ damping_curve = ExtResource("24_ecpli")
 scale_amount_curve = SubResource("Curve_bp2je")
 color_ramp = SubResource("Gradient_ar5ax")
 
-[node name="CPUParticles2D3" type="CPUParticles2D" parent="DocumentStack"]
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="DocumentStack" unique_id=770307033]
 position = Vector2(0, -15)
 emitting = false
 amount = 2
@@ -1853,7 +1847,7 @@ damping_curve = ExtResource("24_ecpli")
 scale_amount_curve = SubResource("Curve_bp2je")
 color_ramp = SubResource("Gradient_ar5ax")
 
-[node name="CPUParticles2D4" type="CPUParticles2D" parent="DocumentStack"]
+[node name="CPUParticles2D4" type="CPUParticles2D" parent="DocumentStack" unique_id=285156715]
 position = Vector2(0, 15)
 scale = Vector2(1, -1)
 emitting = false
@@ -1874,7 +1868,7 @@ damping_curve = ExtResource("24_ecpli")
 scale_amount_curve = SubResource("Curve_bp2je")
 color_ramp = SubResource("Gradient_ar5ax")
 
-[node name="CPUParticles2D5" type="CPUParticles2D" parent="DocumentStack"]
+[node name="CPUParticles2D5" type="CPUParticles2D" parent="DocumentStack" unique_id=1381917815]
 position = Vector2(0, 15)
 scale = Vector2(1, -1)
 emitting = false
@@ -1895,28 +1889,28 @@ damping_curve = ExtResource("24_ecpli")
 scale_amount_curve = SubResource("Curve_bp2je")
 color_ramp = SubResource("Gradient_ar5ax")
 
-[node name="Sprite2D" type="Sprite2D" parent="DocumentStack"]
+[node name="Sprite2D" type="Sprite2D" parent="DocumentStack" unique_id=394095565]
 visible = false
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("24_g7dws")
 
-[node name="MistakeDebounce" type="Timer" parent="DocumentStack"]
+[node name="MistakeDebounce" type="Timer" parent="DocumentStack" unique_id=1963607758]
 wait_time = 0.1
 one_shot = true
 
-[node name="ShiftOverlay" type="Node" parent="." node_paths=PackedStringArray("game", "overlay", "delegator", "distractions")]
+[node name="ShiftOverlay" type="Node" parent="." unique_id=1563191643 node_paths=PackedStringArray("game", "overlay", "delegator", "distractions")]
 script = ExtResource("59_nhn8c")
 game = NodePath("..")
 overlay = NodePath("../Overlay")
 delegator = NodePath("ShiftDelegator")
 distractions = NodePath("../CanvasLayer/Distractions")
 
-[node name="ShiftDelegator" type="Node" parent="ShiftOverlay" node_paths=PackedStringArray("nodes")]
+[node name="ShiftDelegator" type="Node" parent="ShiftOverlay" unique_id=484415054 node_paths=PackedStringArray("nodes")]
 script = ExtResource("20_tcix1")
 nodes = [NodePath("../..")]
 ignore_errors = false
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=790369829]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -1931,11 +1925,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_top = 6
 
-[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=284812472]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="DocCount" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="DocCount" type="Label" parent="MarginContainer/HBoxContainer" unique_id=897534689]
 z_index = 1
 layout_mode = 2
 theme = ExtResource("10_am0oy")
@@ -1944,21 +1938,21 @@ label_settings = ExtResource("32_eoisl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ComboParticles" type="GPUParticles2D" parent="MarginContainer/HBoxContainer"]
+[node name="ComboParticles" type="GPUParticles2D" parent="MarginContainer/HBoxContainer" unique_id=287382105]
 visible = false
 position = Vector2(3.5, 15)
 scale = Vector2(1, -1)
 randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_ll7l4")
 
-[node name="ComboParticles2" type="GPUParticles2D" parent="MarginContainer/HBoxContainer"]
+[node name="ComboParticles2" type="GPUParticles2D" parent="MarginContainer/HBoxContainer" unique_id=792207892]
 visible = false
 position = Vector2(8.5, 15)
 scale = Vector2(1, -1)
 randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_ll7l4")
 
-[node name="Combo" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="Combo" type="Label" parent="MarginContainer/HBoxContainer" unique_id=2020584834]
 layout_mode = 2
 theme = ExtResource("10_am0oy")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -1968,9 +1962,9 @@ text = "2x"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=86842025]
 
-[node name="DocSpawner" type="Marker2D" parent="." node_paths=PackedStringArray("word_generator", "spill_mug", "positions")]
+[node name="DocSpawner" type="Marker2D" parent="." unique_id=548925857 node_paths=PackedStringArray("word_generator", "spill_mug", "positions")]
 position = Vector2(-232, 22)
 script = ExtResource("4_macw6")
 document_scene = ExtResource("2_35x6g")
@@ -1980,19 +1974,19 @@ center_offset = 10
 verfical_offset = 8.0
 positions = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3")]
 
-[node name="WordGenerator" type="Node" parent="DocSpawner"]
+[node name="WordGenerator" type="Node" parent="DocSpawner" unique_id=396963900]
 script = ExtResource("55_o651g")
 
-[node name="Marker2D" type="Marker2D" parent="DocSpawner"]
+[node name="Marker2D" type="Marker2D" parent="DocSpawner" unique_id=2108113157]
 position = Vector2(188, 0)
 
-[node name="Marker2D2" type="Marker2D" parent="DocSpawner"]
+[node name="Marker2D2" type="Marker2D" parent="DocSpawner" unique_id=1916167990]
 position = Vector2(232, 0)
 
-[node name="Marker2D3" type="Marker2D" parent="DocSpawner"]
+[node name="Marker2D3" type="Marker2D" parent="DocSpawner" unique_id=1569237774]
 position = Vector2(281, 0)
 
-[node name="Overlay" type="ColorRect" parent="."]
+[node name="Overlay" type="ColorRect" parent="." unique_id=317147199]
 visible = false
 custom_minimum_size = Vector2(100, 100)
 anchors_preset = 15
@@ -2006,39 +2000,39 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.5)
 
-[node name="SpawnTimer" type="Timer" parent="."]
+[node name="SpawnTimer" type="Timer" parent="." unique_id=964369836]
 wait_time = 2.0
 one_shot = true
 
-[node name="BossAttackTimer" type="Timer" parent="."]
+[node name="BossAttackTimer" type="Timer" parent="." unique_id=1227192605]
 wait_time = 8.0
 one_shot = true
 
-[node name="OverloadTimer" type="Timer" parent="."]
+[node name="OverloadTimer" type="Timer" parent="." unique_id=625741096]
 wait_time = 2.5
 one_shot = true
 script = ExtResource("10_sr2sn")
 
-[node name="BGM" type="AudioStreamPlayer" parent="."]
+[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=245935719]
 stream = ExtResource("39_xwwgs")
 volume_db = -50.0
 bus = &"BGM"
 script = ExtResource("18_f0kcb")
 
-[node name="KeyReader" type="Node" parent="."]
+[node name="KeyReader" type="Node" parent="." unique_id=727675802]
 script = ExtResource("39_lfd1g")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1574428902]
 environment = SubResource("Environment_cpt0l")
 
-[node name="HitTableSound" type="AudioStreamPlayer" parent="."]
+[node name="HitTableSound" type="AudioStreamPlayer" parent="." unique_id=1256422210]
 stream = ExtResource("69_pgfnx")
 volume_db = -10.0
 pitch_scale = 0.8
 bus = &"SFX"
 script = ExtResource("50_j4bts")
 
-[node name="DrinkSound" type="AudioStreamPlayer" parent="."]
+[node name="DrinkSound" type="AudioStreamPlayer" parent="." unique_id=1378380079]
 stream = ExtResource("73_2e4bi")
 volume_db = -10.0
 bus = &"SFX"

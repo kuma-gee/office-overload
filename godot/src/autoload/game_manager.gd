@@ -45,15 +45,15 @@ const MUTATOR_NAME = {
 }
 
 const MUTATOR_DESC = {
-	Mutator.PAPER_JAM: "Documents spawn 30% faster, but hazard pay +25% salary",
-	Mutator.CRUNCH: "Stress builds 40% faster, but piece-rate pay: every document is worth +1 point",
-	Mutator.PART_TIME: "Workday ends at 14:00, but +30% salary",
-	Mutator.OPEN_OFFICE: "Twice as many distractions, but handling one drains 25 stress",
-	Mutator.AFTER_HOURS: "Documents keep coming for 3 hours of overtime, but each overtime hour pays $100",
-	Mutator.TYPO_TAX: "Every typo adds 5 stress, but +25% salary",
+	Mutator.PAPER_JAM: "Documents +30%\nsalary +20%",
+	Mutator.CRUNCH: "Stress +30%\ndocument +1 point",
+	Mutator.PART_TIME: "Workday ends at 14:00\nsalary -20%",
+	Mutator.OPEN_OFFICE: "Double distractions\nfinish one -25 stress",
+	Mutator.AFTER_HOURS: "Work +2h overtime\n+2 performance",
+	Mutator.TYPO_TAX: "Typo +5 stress\nsalary +20%",
 }
 
-const OVERTIME_PAY_PER_HOUR := 100
+const OVERTIME_GRIT := 2
 
 @export var keep_past_wpms := 50
 @export var grades: Array[GradeResource] = []
@@ -138,8 +138,8 @@ func _load_data():
 		has_played = true
 		unlocked_modes = Mode.values()
 		new_game_plus = 1
-		unlocked_mutators = [Mutator.values()[0]]
-		active_mutators = [Mutator.values()[0]]
+		unlocked_mutators = [Mutator.PAPER_JAM]
+		active_mutators = [Mutator.PAPER_JAM]
 		#bought_items = []
 	
 	_logger.info("Game initialized")
@@ -312,7 +312,7 @@ func get_spawn_time_multiplier() -> float:
 
 func get_stress_multiplier() -> float:
 	if not is_work_mode(): return 1.0
-	return 1.4 if has_mutator(Mutator.CRUNCH) else 1.0
+	return 1.3 if has_mutator(Mutator.CRUNCH) else 1.0
 
 func get_document_point_bonus() -> int:
 	if not is_work_mode(): return 0
@@ -324,7 +324,7 @@ func get_end_hour() -> int:
 
 func get_overtime_spawn_hours() -> int:
 	if not is_work_mode(): return 0
-	return 3 if has_mutator(Mutator.AFTER_HOURS) else 0
+	return 2 if has_mutator(Mutator.AFTER_HOURS) else 0
 
 func get_distraction_frequency_multiplier() -> float:
 	if not is_work_mode(): return 1.0
@@ -346,12 +346,11 @@ func finished_day(data: Dictionary):
 	### Calculate Performance ###
 	var grade = get_grade_for(data)
 	data["money"] = int(ceil(data["total"] * get_money_bonus()))
-	if has_mutator(Mutator.AFTER_HOURS):
-		data["money"] += data["overtime"] * OVERTIME_PAY_PER_HOUR
 	data["grade"] = grade
 	
 	money += data["money"]
-	performance = clamp(performance + grade.points, 0, difficulty.max_performance)
+	var grit: int = OVERTIME_GRIT if has_mutator(Mutator.AFTER_HOURS) and data["overtime"] > 0 else 0
+	performance = clamp(performance + grade.points + grit, 0, difficulty.max_performance)
 	
 	_logger.debug("Performance: %s with %s" % [performance, data])
 	
@@ -668,11 +667,11 @@ func get_money_bonus():
 	multiplier += get_item_value(Shop.Items.MONEY_CAT)
 	if is_work_mode():
 		if has_mutator(Mutator.PAPER_JAM):
-			multiplier += 0.25
+			multiplier += 0.20
 		if has_mutator(Mutator.PART_TIME):
-			multiplier += 0.30
+			multiplier -= 0.20
 		if has_mutator(Mutator.TYPO_TAX):
-			multiplier += 0.25
+			multiplier += 0.20
 	return multiplier
 
 func get_distraction_reduction(invert = false):

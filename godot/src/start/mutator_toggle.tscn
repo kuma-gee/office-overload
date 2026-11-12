@@ -1,22 +1,48 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://bb0d8xf42jfdm"]
 
+[ext_resource type="Script" uid="uid://calvpqchinpcl" path="res://src/start/mutator_toggle.gd" id="1_mtog"]
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_theme"]
-[ext_resource type="Script" path="res://src/start/mutator_toggle.gd" id="1_mtog"]
 [ext_resource type="PackedScene" uid="uid://bsqd2cat5u4yp" path="res://src/ui/typed_word.tscn" id="2_tw"]
+[ext_resource type="LabelSettings" uid="uid://mb7fuca21340" path="res://theme/text_small_tight.tres" id="3_small"]
 
-[node name="MutatorToggle" type="HBoxContainer" node_paths=PackedStringArray("label", "checkbox")]
+[node name="MutatorToggle" type="HBoxContainer" unique_id=1525553129 node_paths=PackedStringArray("label", "checkbox", "desc_label")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 24.0
+grow_horizontal = 2
+size_flags_horizontal = 3
 theme = ExtResource("1_theme")
-theme_override_constants/separation = 4
+theme_override_constants/separation = 1
 script = ExtResource("1_mtog")
-label = NodePath("TypingLabel")
+label = NodePath("VBoxContainer/TypingLabel")
 checkbox = NodePath("CheckBox")
+desc_label = NodePath("VBoxContainer/MarginContainer/Desc")
 
-[node name="TypingLabel" parent="." instance=ExtResource("2_tw")]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1850522622]
 layout_mode = 2
-highlight_first = false
+size_flags_horizontal = 3
+theme_override_constants/separation = -4
+
+[node name="TypingLabel" parent="VBoxContainer" unique_id=1975255083 instance=ExtResource("2_tw")]
+layout_mode = 2
+size_flags_horizontal = 1
+text = "[color=353540ff][outline_color=ffffffff][outline_size=4][/outline_size][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=4][color=353540ff]a[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=4]asd[/outline_size][/outline_color][/color]"
 reset_on_finish = true
+center = false
+highlight_first = false
 word = ""
 
-[node name="CheckBox" type="CheckBox" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=415536753]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+
+[node name="Desc" type="Label" parent="VBoxContainer/MarginContainer" unique_id=1383583522]
+layout_mode = 2
+text = "Test"
+label_settings = ExtResource("3_small")
+autowrap_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="." unique_id=1739341036]
 layout_mode = 2
 focus_mode = 0
+disabled = true
