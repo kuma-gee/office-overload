@@ -312,6 +312,9 @@ func _finished(is_burn_out = false, is_fired = false):
 			elif is_fired:
 				SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.FIRED)
 				gameover.fired()
+			elif GameManager.is_below_firing_threshold():
+				SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.FIRED)
+				gameover.fired_performance()
 			else:
 				end.day_ended(data)
 			

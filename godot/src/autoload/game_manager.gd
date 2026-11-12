@@ -359,6 +359,14 @@ func update_game_status(lobby = false):
 		SteamManager.set_rich_presence("")
 
 #region PERFORMANCE
+const FIRING_PERFORMANCE_RATIO := 0.75
+
+func get_firing_threshold() -> int:
+	return floori(get_min_performance() * FIRING_PERFORMANCE_RATIO)
+
+func is_below_firing_threshold() -> bool:
+	return is_work_mode() and performance < get_firing_threshold()
+
 func start_type():
 	wpm_calculator.start_type()
 

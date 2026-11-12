@@ -54,6 +54,11 @@ func fired():
 	title.text = "Fired!"
 	desc.text = "You didn't finish your\ntasks on time."
 	set_fields()
+
+func fired_performance():
+	title.text = "Fired!"
+	desc.text = "Your performance\nwas too poor."
+	set_fields()
 	
 func set_fields():
 	level.text = "%s" % GameManager.get_level_text()
