@@ -6,6 +6,8 @@ signal round_ended()
 signal job_quited()
 signal exiting_game()
 signal mode_unlocked(mode)
+signal mutator_unlocked(mutator)
+signal mutator_toggled(mutator)
 signal item_purchased()
 signal item_used_toggled(item: Shop.Items)
 signal coffee_used()
@@ -21,6 +23,37 @@ const DIFFICULTIES = {
 	DifficultyResource.Level.MANAGER: preload("res://src/difficulty/Management.tres"),
 	DifficultyResource.Level.CEO: preload("res://src/difficulty/CEO.tres"),
 }
+
+enum Mutator {
+	PAPER_JAM,
+	CRUNCH,
+	PART_TIME,
+	OPEN_OFFICE,
+	AFTER_HOURS,
+	TYPO_TAX,
+}
+
+const NG_PLUS_TITLE = "New Contract"
+
+const MUTATOR_NAME = {
+	Mutator.PAPER_JAM: "Paper Jam",
+	Mutator.CRUNCH: "Crunch",
+	Mutator.PART_TIME: "Part Time",
+	Mutator.OPEN_OFFICE: "Open Office",
+	Mutator.AFTER_HOURS: "After Hours",
+	Mutator.TYPO_TAX: "Typo Tax",
+}
+
+const MUTATOR_DESC = {
+	Mutator.PAPER_JAM: "Documents spawn 30% faster, but hazard pay +25% salary",
+	Mutator.CRUNCH: "Stress builds 40% faster, but piece-rate pay: every document is worth +1 point",
+	Mutator.PART_TIME: "Workday ends at 14:00, but +30% salary",
+	Mutator.OPEN_OFFICE: "Twice as many distractions, but handling one drains 25 stress",
+	Mutator.AFTER_HOURS: "Documents keep coming for 3 hours of overtime, but each overtime hour pays $100",
+	Mutator.TYPO_TAX: "Every typo adds 5 stress, but +25% salary",
+}
+
+const OVERTIME_PAY_PER_HOUR := 100
 
 @export var keep_past_wpms := 50
 @export var grades: Array[GradeResource] = []
@@ -73,6 +106,10 @@ var money := 0
 var zen_total_documents := 0
 var zen_total_hours := 0
 
+var new_game_plus := 0
+var unlocked_mutators = []
+var active_mutators = []
+
 ### Dynamic ###
 var difficulty: DifficultyResource
 var next_difficulty: DifficultyResource
@@ -100,6 +137,9 @@ func _load_data():
 		finished_game = true
 		has_played = true
 		unlocked_modes = Mode.values()
+		new_game_plus = 1
+		unlocked_mutators = [Mutator.values()[0]]
+		active_mutators = [Mutator.values()[0]]
 		#bought_items = []
 	
 	_logger.info("Game initialized")
@@ -169,6 +209,132 @@ func reset_values():
 func has_current_job():
 	return day > 0
 
+#region NEW GAME+ / MUTATORS
+func is_new_game_plus():
+	return new_game_plus > 0
+
+func has_mutators_unlocked():
+	return not unlocked_mutators.is_empty()
+
+func has_mutator(mutator: Mutator):
+	return is_mutator_active(mutator)
+
+func is_mutator_active(mutator: Mutator):
+	return mutator in unlocked_mutators and mutator in active_mutators
+
+func has_all_mutators_active() -> bool:
+	return unlocked_mutators.all(func(m): return m in active_mutators)
+
+func toggle_mutator(mutator: Mutator):
+	if mutator not in unlocked_mutators:
+		return
+
+	if mutator in active_mutators:
+		active_mutators.erase(mutator)
+	else:
+		active_mutators.append(mutator)
+
+	mutator_toggled.emit(mutator)
+	save_data()
+	_logger.info("Mutator %s toggled: active=%s" % [Mutator.keys()[mutator], is_mutator_active(mutator)])
+
+func get_mutator_name(mutator: Mutator):
+	return MUTATOR_NAME.get(mutator, "?")
+
+func get_mutator_desc(mutator: Mutator):
+	return MUTATOR_DESC.get(mutator, "")
+
+func get_active_mutator_names():
+	return _mutator_names(active_mutators)
+
+func get_policies_summary() -> String:
+	return "%s/%s policies active" % [active_mutators.size(), Mutator.values().size()]
+
+func get_unlocked_mutator_names():
+	return _mutator_names(unlocked_mutators)
+
+func get_mutator_info(mutator: Mutator) -> String:
+	return "%s: %s" % [get_mutator_name(mutator), get_mutator_desc(mutator)]
+
+func get_active_mutator_infos() -> String:
+	return _mutator_infos(active_mutators)
+
+func get_unlocked_mutator_infos() -> String:
+	return _mutator_infos(unlocked_mutators)
+
+func _mutator_infos(mutators: Array) -> String:
+	var parts: Array[String] = []
+	for m in mutators:
+		parts.append(get_mutator_info(m))
+	return "\n".join(parts)
+
+func _mutator_names(mutators: Array) -> String:
+	var parts: Array[String] = []
+	for m in mutators:
+		parts.append(get_mutator_name(m))
+	return ", ".join(parts)
+
+func grant_random_mutator() -> int:
+	var locked = Mutator.values().filter(func(m): return m not in unlocked_mutators)
+	if locked.is_empty():
+		return -1
+
+	var m: int = locked.pick_random()
+	unlocked_mutators.append(m)
+	if m not in active_mutators:
+		active_mutators.append(m)
+	mutator_unlocked.emit(m)
+	save_data()
+	_logger.info("Unlocked mutator %s" % Mutator.keys()[m])
+	return m
+
+func sign_new_contract():
+	if Env.is_demo():
+		_logger.warn("New Contract is not available in the demo")
+		return
+
+	active_mutators = active_mutators.filter(func(m): return m in unlocked_mutators)
+	new_game_plus += 1
+	reset_all()
+	_logger.info("Signed %s #%s with policies: %s" % [NG_PLUS_TITLE, new_game_plus, get_active_mutator_names()])
+	back_to_menu()
+
+func reset_all():
+	reset_values()
+	money = 0
+	bought_items = []
+	used_items = []
+	save_data()
+
+func get_spawn_time_multiplier() -> float:
+	if not is_work_mode(): return 1.0
+	return 0.7 if has_mutator(Mutator.PAPER_JAM) else 1.0
+
+func get_stress_multiplier() -> float:
+	if not is_work_mode(): return 1.0
+	return 1.4 if has_mutator(Mutator.CRUNCH) else 1.0
+
+func get_document_point_bonus() -> int:
+	if not is_work_mode(): return 0
+	return 1 if has_mutator(Mutator.CRUNCH) else 0
+
+func get_end_hour() -> int:
+	if not is_work_mode() or is_ceo(): return 18
+	return 14 if has_mutator(Mutator.PART_TIME) else 18
+
+func get_overtime_spawn_hours() -> int:
+	if not is_work_mode(): return 0
+	return 3 if has_mutator(Mutator.AFTER_HOURS) else 0
+
+func get_distraction_frequency_multiplier() -> float:
+	if not is_work_mode(): return 1.0
+	return 2.0 if has_mutator(Mutator.OPEN_OFFICE) else 1.0
+
+func get_sharp_eyes_stress() -> float:
+	if not is_work_mode(): return 0.0
+	return 5.0 if has_mutator(Mutator.TYPO_TAX) else 0.0
+#endregion
+
 func finished_day(data: Dictionary):
 	### Calculate WPM ###
 	var wpm = wpm_calculator.get_average_wpm()
@@ -180,6 +346,8 @@ func finished_day(data: Dictionary):
 	### Calculate Performance ###
 	var grade = get_grade_for(data)
 	data["money"] = int(ceil(data["total"] * get_money_bonus()))
+	if has_mutator(Mutator.AFTER_HOURS):
+		data["money"] += data["overtime"] * OVERTIME_PAY_PER_HOUR
 	data["grade"] = grade
 	
 	money += data["money"]
@@ -325,20 +493,26 @@ func lost_ceo():
 	save_data()
 	round_ended.emit()
 
-func won_ceo():
+func won_ceo() -> int:
+	var was_finished = finished_game
 	finished_game = true
 	unlock_mode(Mode.Multiplayer)
-	
+
 	if is_work_mode():
 		day += 1
-	
+
+	var granted := -1
+	if not was_finished and has_all_mutators_active():
+		granted = grant_random_mutator()
+
 	var wpm = wpm_calculator.get_average_wpm()
 	var acc = wpm_calculator.get_average_accuracy()
 	_update_speed_values(wpm, acc)
 	upload_work_scores()
-	
+
 	round_ended.emit()
 	SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.CEO)
+	return granted
 
 func update_game_status(lobby = false):
 	if not SteamManager.is_successful_initialized: return
@@ -397,11 +571,18 @@ func get_max_performance():
 
 
 #region ITEMS
-const PLANT_STRESS_REDUCTION = [0.1, 0.2, 0.25]
-const MONEY_INCREASE = [0.1, 0.2]
-const ASSISTANT_REDUCTION = [0.1, 0.25]
+const PLANT_STRESS_REDUCTION = [0.1, 0.2, 0.25, 0.3, 0.35]
+const MONEY_INCREASE = [0.1, 0.2, 0.3, 0.4]
+const ASSISTANT_REDUCTION = [0.1, 0.25, 0.35]
 const ASSISTANT_COST = 100
 const DEMO_ITEMS = [Shop.Items.PLANT, Shop.Items.COFFEE]
+const BASE_ITEM_TIERS = {
+	Shop.Items.PLANT: 3,
+	Shop.Items.COFFEE: 1,
+	Shop.Items.ASSISTANT: 2,
+	Shop.Items.MONEY_CAT: 2,
+	Shop.Items.RUBBER_DUCK: 1,
+}
 
 func is_item_available(item: Shop.Items):
 	return not Env.is_demo() or item in DEMO_ITEMS
@@ -444,8 +625,13 @@ func toggle_item_used(item: Shop.Items):
 	
 	item_used_toggled.emit(item)
 
+func get_max_item_tiers(item: ShopResource):
+	if is_new_game_plus():
+		return item.prices.size()
+	return min(item.prices.size(), BASE_ITEM_TIERS.get(item.type, item.prices.size()))
+
 func is_item_max(item: ShopResource):
-	return item_count(item.type) >= item.prices.size()
+	return item_count(item.type) >= get_max_item_tiers(item)
 
 func item_count(item: Shop.Items):
 	if not is_item_available(item): return 0
@@ -453,7 +639,7 @@ func item_count(item: Shop.Items):
 
 func item_price(item: ShopResource):
 	var item_bought = item_count(item.type)
-	return item.prices[min(item_bought, item.prices.size() - 1)]
+	return item.prices[min(item_bought, get_max_item_tiers(item) - 1)]
 
 func get_assistant_cost():
 	return item_count(Shop.Items.ASSISTANT) * ASSISTANT_COST
@@ -480,6 +666,13 @@ func get_stress_reduction():
 func get_money_bonus():
 	var multiplier = difficulty.money_multiplier
 	multiplier += get_item_value(Shop.Items.MONEY_CAT)
+	if is_work_mode():
+		if has_mutator(Mutator.PAPER_JAM):
+			multiplier += 0.25
+		if has_mutator(Mutator.PART_TIME):
+			multiplier += 0.30
+		if has_mutator(Mutator.TYPO_TAX):
+			multiplier += 0.25
 	return multiplier
 
 func get_distraction_reduction(invert = false):

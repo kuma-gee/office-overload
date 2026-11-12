@@ -2,6 +2,7 @@ class_name Distraction
 extends Control
 
 signal distraction_shown()
+signal distraction_handled()
 
 enum Type {
 	EMAIL,
@@ -41,7 +42,7 @@ var skipped_since_last_distraction := 0
 
 # Min range: 1 - 2
 # Max range: 8 - 10
-@onready var min_count = clamp(remap(GameManager.performance, GameManager.get_min_performance(), GameManager.get_max_performance() * 0.7, 1, 8), 1, 8) if GameManager.is_senior() else 5
+@onready var min_count = clamp(remap(GameManager.performance, GameManager.get_min_performance(), GameManager.get_max_performance() * 0.7, 1, 8), 1, 8) if GameManager.is_senior() or GameManager.has_mutator(GameManager.Mutator.OPEN_OFFICE) else 5
 @onready var max_count = min_count + (1 if min_count < 3 else 2)
 
 func _ready():
@@ -58,6 +59,7 @@ func _ready():
 	
 	for m in menus:
 		m.finished.connect(func():
+			distraction_handled.emit()
 			if not _has_active_distraction():
 				_hide_overlay()
 			delegator.reset()
@@ -87,19 +89,19 @@ func maybe_show_distraction():
 
 	var skip_count = [4, 3, 2, 2, 1, 0, 0, 0, 0] if GameManager.get_performance_within_level() == 0 else [3, 2, 2, 1, 1, 0, 0, 0, 0]
 	var distraction_random = randf() - distraction_accumulator
-	var chance = GameManager.difficulty.distractions * GameManager.get_distraction_reduction()
+	var chance = GameManager.difficulty.distractions * GameManager.get_distraction_reduction() * GameManager.get_distraction_frequency_multiplier()
 	if distraction_random < chance and skipped_since_last_distraction >= skip_count[min(shown, skip_count.size() - 1)]:
 		show_distraction()
 		distraction_accumulator = 0.0
 		skipped_since_last_distraction = 0
 	else:
 		# Increase distraction chance, otherwise it's too random and can take too long
-		distraction_accumulator += (GameManager.difficulty.distractions / 10.0) * distractions_left_to_show
+		distraction_accumulator += (GameManager.difficulty.distractions / 10.0) * GameManager.get_distraction_frequency_multiplier() * distractions_left_to_show
 		skipped_since_last_distraction += 1
 
 func show_distraction(all = false):
 	var available = menus.filter(func(m): return not m.is_open and (m != last_menu or randf() > 0.7))
-	if not GameManager.is_senior() and not all:
+	if not GameManager.is_senior() and not all and not GameManager.has_mutator(GameManager.Mutator.OPEN_OFFICE):
 		available.erase(junior)
 	
 	_logger.debug("Showing distraction: %s, %s" % [available, menus.map(func(x): return x.get_word())])

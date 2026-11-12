@@ -116,10 +116,10 @@ func add_document(mistake := 0, wrong := false, is_discarded := false, word := "
 			SoundManager.play_type_mistake()
 		elif mistake > 0:
 			tasks += 1
-			total_points += 1
+			total_points += 1 + GameManager.get_document_point_bonus()
 	else:
 		tasks += 1
-		total_points += 1 + 1 * combo_count
+		total_points += 1 + 1 * combo_count + GameManager.get_document_point_bonus()
 		combo_count += 1
 
 	actual_document_count += 1

@@ -11,6 +11,7 @@ extends Node2D
 @export var files: TypedWord
 @export var team: TypedWord
 @export var shop_button: TypedWord
+@export var contract_paper: ContractDocument
 
 @export_category("Items")
 @export var teams_node: DeskItem
@@ -117,6 +118,11 @@ func _ready() -> void:
 	multiplayer_space.closed.connect(func(): work_space = null)
 	
 	game_modes_key.visible = GameManager.unlocked_modes.size() > 1 and not Env.is_demo()
+
+	if GameManager.has_mutators_unlocked() and not Env.is_demo():
+		contract_paper.open(0.9)
+	contract_paper.opened.connect(func(): delegator.unfocus())
+	contract_paper.closed.connect(func(): delegator.focus())
 	
 	items_paper.opened.connect(func(): delegator.unfocus())
 	items_paper.closed.connect(func(): delegator.focus())

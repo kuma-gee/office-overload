@@ -40,7 +40,7 @@ func _ready() -> void:
 
 func _update():
 	var count = GameManager.item_count(item.type)
-	var value = GameManager.get_item_value(item.type, count + 1)
+	var value = GameManager.get_item_value(item.type, min(count + 1, GameManager.get_max_item_tiers(item)))
 	value_label.visible = value > 0
 	if value > 0:
 		var sign = "+" if item.type in [Shop.Items.MONEY_CAT] else "-"

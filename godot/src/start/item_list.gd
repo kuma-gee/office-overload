@@ -9,7 +9,8 @@ extends Control
 
 func _ready() -> void:
 	label.type_finish.connect(func(): GameManager.toggle_item_used(item.type))
-	value_label.hide() 
+	value_label.hide()
+	label.highlight_first = false
 
 	var type_str = Shop.Items.keys()[item.type]
 	label.word = tr(type_str)
@@ -29,7 +30,7 @@ func _update_checkbox():
 
 func _update_status():
 	visible = GameManager.item_count(item.type) > 0
-	count.text = "%s/%s" % [GameManager.item_count(item.type), item.prices.size()]
+	count.text = "%s/%s" % [GameManager.item_count(item.type), GameManager.get_max_item_tiers(item)]
 	
 	if _is_assistant():
 		value_label.text = "-$%s" % [GameManager.get_assistant_cost()]

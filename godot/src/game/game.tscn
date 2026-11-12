@@ -780,11 +780,12 @@ glow_enabled = true
 glow_bloom = 0.05
 glow_blend_mode = 0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound", "spill_mug", "crunch_documents", "special_container", "special_ready_container", "special_progress_bar", "special_charge_combo_label", "multiplayer_hud", "special_attack_sound")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("work_time", "items_root", "mutators_label", "single_player_doc_label", "single_player_combo_label", "duck", "boss_doc_label", "boss_combo_label", "boss_attack_timer", "player_doc_label", "player_combo_label", "boss_hit_sound", "spill_mug", "crunch_documents", "special_container", "special_ready_container", "special_progress_bar", "special_charge_combo_label", "multiplayer_hud", "special_attack_sound")]
 top_level = true
 script = ExtResource("1_ptsas")
 work_time = NodePath("Desk/Clock/HBoxContainer/WorkTime")
 items_root = NodePath("Desk/Items")
+mutators_label = NodePath("CanvasLayer/HUD/MutatorsLabel")
 single_player_doc_label = NodePath("Desk/Computer/SingleUI/PlayerDocuments")
 single_player_combo_label = NodePath("Desk/Computer/SingleUI/PlayerCombo")
 duck = NodePath("Desk/Items/Duck")
@@ -832,6 +833,19 @@ theme = ExtResource("10_am0oy")
 [node name="Day" parent="CanvasLayer/HUD" instance=ExtResource("3_4j615")]
 visible = false
 layout_mode = 1
+
+[node name="MutatorsLabel" type="Label" parent="CanvasLayer/HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 220.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = ""
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD"]
 layout_mode = 1

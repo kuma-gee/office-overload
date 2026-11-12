@@ -4,6 +4,7 @@ extends Node2D
 @export var overload_reduce := 20.0
 @export var work_time: WorkTime
 @export var items_root: Node
+@export var mutators_label: Label
 
 @export_category("Work Mode")
 @export var single_player_doc_label: Label
@@ -110,6 +111,15 @@ func _ready():
 
 	GameManager.update_game_status()
 
+	work_time.end_hour = GameManager.get_end_hour()
+	mutators_label.text = GameManager.get_policies_summary()
+	mutators_label.visible = not GameManager.active_mutators.is_empty()
+	distractions.distraction_handled.connect(func():
+		if GameManager.has_mutator(GameManager.Mutator.OPEN_OFFICE):
+			overload_progress.reduce(25.0)
+			overload_timer.stop()
+	)
+
 	if GameManager.is_work_mode():
 		GameManager.pay_assistant()
 
@@ -167,12 +177,14 @@ func _ready():
 			_finished(false, true)
 		)
 		work_time.day_ended.connect(func():
-			if documents.is_empty() or GameManager.is_ceo():
+			if (documents.is_empty() and not _in_overtime_spawn_window()) or GameManager.is_ceo():
 				_finished()
 			day_ended = true
+			if _in_overtime_spawn_window():
+				_spawn()
 		)
 		work_time.time_changed.connect(func(_t):
-			if day_ended and work_time.is_day_ended() and GameManager.is_intern():
+			if day_ended and work_time.is_day_ended() and GameManager.is_intern() and not _in_overtime_spawn_window():
 				_finished()
 		)
 		key_reader.use_coffee.connect(func():
@@ -216,7 +228,7 @@ func _ready():
 			if documents[0].handle_key(key):
 				document_stack.add_combo()
 			elif not work_time.stopped:
-				#document_stack.add_mistake()
+				overload_progress.value += GameManager.get_sharp_eyes_stress()
 				_update_score()
 	)
 	key_reader.pressed_cancel.connect(func(_shift):
@@ -325,8 +337,15 @@ func _finished(is_burn_out = false, is_fired = false):
 		var data = GameManager.finished_multiplayer(document_stack.actual_document_count, work_time.hours_passed)
 		end.multiplayer_ended(data)
 		
+func _in_overtime_spawn_window() -> bool:
+	return GameManager.has_mutator(GameManager.Mutator.AFTER_HOURS) \
+		and work_time.hour >= work_time.end_hour \
+		and work_time.get_overtime() < GameManager.get_overtime_spawn_hours()
+
 func _spawn(non_work_invalid_chance := 0.0):
-	if (work_time.is_day_ended() and GameManager.is_work_mode()) or is_gameover:
+	if is_gameover:
+		return
+	if work_time.is_day_ended() and GameManager.is_work_mode() and not _in_overtime_spawn_window():
 		return
 	
 	_spawn_document(non_work_invalid_chance)
@@ -335,10 +354,10 @@ func _spawn(non_work_invalid_chance := 0.0):
 		if not GameManager.is_intern() and not GameManager.is_ceo():
 			var day_multipler = min(remap(GameManager.performance, GameManager.get_min_performance(), GameManager.get_max_performance(), 1.0, 0.5), 1.0)
 			var document_multipler = max(remap(documents.size(), 2, 15, 1.0, 5.0), 1.0)
-			spawn_timer.start(GameManager.difficulty.base_document_time * day_multipler * document_multipler)
+			spawn_timer.start(GameManager.difficulty.base_document_time * day_multipler * document_multipler * GameManager.get_spawn_time_multiplier())
 			
 		if (GameManager.is_ceo() or (GameManager.is_intern() and GameManager.get_until_max_performance() <= 5)) and documents.size() < min_documents:
-			await get_tree().create_timer(0.5).timeout
+			await get_tree().create_timer(0.5 * GameManager.get_spawn_time_multiplier()).timeout
 			_spawn()
 	elif GameManager.is_zen_mode():
 		_update_zen_values()
@@ -413,7 +432,7 @@ func _add_document(doc: Document, await_start := false):
 			
 			if documents.size() < min_documents or (GameManager.is_zen_mode() and documents.size() < zen_max_documents):
 				_spawn()
-		elif work_time.is_day_ended() and GameManager.is_work_mode():
+		elif work_time.is_day_ended() and GameManager.is_work_mode() and not _in_overtime_spawn_window():
 			_finished()
 		else:
 			if await_start:
