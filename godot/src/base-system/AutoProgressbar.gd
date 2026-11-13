@@ -25,6 +25,7 @@ signal filled()
 var _logger = KumaLog.new("AutoProgressbar")
 var multiplier := 1.0
 var running := false
+var _was_full := false
 
 var game: Game
 
@@ -40,6 +41,7 @@ var tw: Tween
 func _ready():
 	value = 0.0
 	pivot_offset = size / 2
+	value_changed.connect(_on_value_changed)
 	
 	noise.seed = randi()
 	noise.frequency = 2
@@ -72,17 +74,13 @@ func _process(delta):
 	if GameManager.is_work_mode():
 		multiplier = min(multiplier, 2)
 	
-	var was_full = is_full()
 	var increase = pow(base, value) - max_increase
 	var applied_increase = clamp(increase, min_increase, max_increase)
 	value += applied_increase * multiplier * GameManager.get_stress_reduction() * GameManager.get_stress_multiplier()
-	_logger.debug("increase: %.4f, applied: %.4f, multiplier: %.2f, value: %.2f" % [increase, applied_increase, multiplier, value])
+	#_logger.debug("increase: %.4f, applied: %.4f, multiplier: %.2f, value: %.2f" % [increase, applied_increase, multiplier, value])
 	if value > max_value:
 		value = max_value
 
-	if not was_full and is_full():
-		filled.emit()
-	
 	rotation_strength = lerp(rotation_strength, 0.0, rotation_decay * delta)
 	if rotation_strength != 0:
 		noise_i += delta * 5
@@ -93,6 +91,11 @@ func _process(delta):
 
 func is_full():
 	return value >= max_value
+
+func _on_value_changed(_new_value):
+	if running and not _was_full and is_full():
+		filled.emit()
+	_was_full = is_full()
 
 func reduce(amount: float):
 	value -= amount

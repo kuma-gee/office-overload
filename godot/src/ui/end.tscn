@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://kdu7e637eapn"]
+[gd_scene format=3 uid="uid://kdu7e637eapn"]
 
 [ext_resource type="Theme" uid="uid://7qw6fd3hy4kc" path="res://theme/theme.tres" id="1_80w1y"]
 [ext_resource type="LabelSettings" uid="uid://tpgtuioqqmmp" path="res://theme/title.tres" id="2_ox4yy"]
@@ -27,7 +27,6 @@
 [ext_resource type="Script" uid="uid://bt0a6unts337g" path="res://src/ui/unlocked_mode.gd" id="16_hp113"]
 [ext_resource type="Script" uid="uid://qvj4atgpib1d" path="res://src/ui/challenge_paper.gd" id="17_xva3p"]
 [ext_resource type="Script" uid="uid://c3r6nj6ocm2vi" path="res://src/ui/retry_button.gd" id="23_e37q1"]
-[ext_resource type="Script" path="res://src/ui/contract_paper.gd" id="27_cppr"]
 [ext_resource type="PackedScene" uid="uid://du0v5of5joaem" path="res://src/ui/menu_paper.tscn" id="25_u5ul4"]
 [ext_resource type="PackedScene" uid="uid://cmu36xk8jw0u8" path="res://src/ui/interview_score.tscn" id="26_rlygb"]
 
@@ -70,7 +69,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 shader_parameter/enable = true
 
-[node name="End" type="Control" node_paths=PackedStringArray("open_sound", "gameover_sound", "performance_progress", "level_label", "multiplayer_tasks", "multiplayer_time", "multiplayer_wpm", "multiplayer_acc", "multiplayer_score", "multiplayer_winner_label", "multiplayer_rankings", "leave_button", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_acc", "crunch_score", "retry_button", "crunch_offline", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "bonus_label", "money_used", "ceo_player_tasks", "ceo_boss_tasks", "ceo_player_mistakes", "ceo_boss_mistakes", "ceo_player_score", "ceo_boss_score", "ceo_win_status", "ceo_retry", "ng_plus_button", "contract_paper", "mutators_label", "promotion_delegator", "work_container", "ceo_container", "crunch_container", "multiplayer_container", "unlocked_container")]
+[node name="End" type="Control" unique_id=1096013000 node_paths=PackedStringArray("open_sound", "gameover_sound", "performance_progress", "level_label", "multiplayer_tasks", "multiplayer_time", "multiplayer_wpm", "multiplayer_acc", "multiplayer_score", "multiplayer_winner_label", "multiplayer_rankings", "leave_button", "crunch_tasks", "crunch_time", "crunch_wpm", "crunch_acc", "crunch_score", "retry_button", "crunch_offline", "next_day", "next_day_container", "title", "finished_tasks", "day_delegator", "promotion_tip_text", "perfect_tasks_label", "distraction_label", "grade_label", "wpm_label", "money_label", "bonus_label", "money_used", "ceo_player_tasks", "ceo_boss_tasks", "ceo_player_mistakes", "ceo_boss_mistakes", "ceo_player_score", "ceo_boss_score", "ceo_win_status", "ceo_retry", "promotion_delegator", "work_container", "ceo_container", "crunch_container", "multiplayer_container", "unlocked_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -120,9 +119,6 @@ ceo_player_score = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VB
 ceo_boss_score = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/BossScore")
 ceo_win_status = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/WinLost")
 ceo_retry = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay/Retry")
-ng_plus_button = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay/NewGamePlus")
-contract_paper = NodePath("ContractPaper")
-mutators_label = NodePath("CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/Mutators")
 promotion_delegator = NodePath("PromotionDelegator")
 work_container = NodePath("CenterContainer/PanelContainer/Work")
 ceo_container = NodePath("CenterContainer/PanelContainer/Ceo")
@@ -130,7 +126,7 @@ crunch_container = NodePath("CenterContainer/PanelContainer/Crunch")
 multiplayer_container = NodePath("CenterContainer/PanelContainer/Multiplayer")
 unlocked_container = NodePath("GameMode")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=556883626]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -139,7 +135,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.588235)
 
-[node name="GameMode" type="PanelContainer" parent="." node_paths=PackedStringArray("label")]
+[node name="GameMode" type="PanelContainer" parent="." unique_id=1632515336 node_paths=PackedStringArray("label")]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 1
 anchors_preset = 3
@@ -158,44 +154,44 @@ pivot_offset = Vector2(50, 40)
 script = ExtResource("16_hp113")
 label = NodePath("Work/VBoxContainer/PromotionTextContainer/Promotion")
 
-[node name="Work" type="MarginContainer" parent="GameMode"]
+[node name="Work" type="MarginContainer" parent="GameMode" unique_id=1132985528]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameMode/Work"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameMode/Work" unique_id=784252420]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Title" type="Label" parent="GameMode/Work/VBoxContainer"]
+[node name="Title" type="Label" parent="GameMode/Work/VBoxContainer" unique_id=1438086387]
 layout_mode = 2
 text = "New GameMode"
 label_settings = ExtResource("2_ox4yy")
 horizontal_alignment = 1
 
-[node name="PromotionTextContainer" type="VBoxContainer" parent="GameMode/Work/VBoxContainer"]
+[node name="PromotionTextContainer" type="VBoxContainer" parent="GameMode/Work/VBoxContainer" unique_id=2034342069]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 0
 
-[node name="Promotion" type="Label" parent="GameMode/Work/VBoxContainer/PromotionTextContainer"]
+[node name="Promotion" type="Label" parent="GameMode/Work/VBoxContainer/PromotionTextContainer" unique_id=1163216960]
 layout_mode = 2
 text = "multiplayer"
 horizontal_alignment = 1
 
-[node name="EndEffect" type="Node" parent="GameMode"]
+[node name="EndEffect" type="Node" parent="GameMode" unique_id=1957164459]
 script = ExtResource("4_j7irx")
 trans = 10
 ease = 1
 duration = 0.8
 
-[node name="Slide3" type="Node" parent="GameMode/EndEffect" node_paths=PackedStringArray("node")]
+[node name="Slide3" type="Node" parent="GameMode/EndEffect" unique_id=785127115 node_paths=PackedStringArray("node")]
 script = ExtResource("5_d7wj0")
 node = NodePath("../..")
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=428253532]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -205,7 +201,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MenuPaper" parent="Control" node_paths=PackedStringArray("board") instance=ExtResource("25_u5ul4")]
+[node name="MenuPaper" parent="Control" unique_id=917505438 node_paths=PackedStringArray("board") instance=ExtResource("25_u5ul4")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -226,11 +222,11 @@ board = NodePath("MarginContainer/VBoxContainer/MarginContainer")
 text = "[center][color=353540ff][outline_color=ffffffff][outline_size=4][/outline_size][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=4][color=353540ff]h[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=4]ighscores[/outline_size][/outline_color][/color][/center]"
 word = "highscores"
 
-[node name="MarginContainer" parent="Control/MenuPaper/MarginContainer/VBoxContainer" index="1" instance=ExtResource("26_rlygb")]
+[node name="MarginContainer" parent="Control/MenuPaper/MarginContainer/VBoxContainer" index="1" unique_id=1924704650 instance=ExtResource("26_rlygb")]
 layout_mode = 2
 details_title = Array[String](["WPM", "Docs", "Hours"])
 
-[node name="CompetitionRanks" parent="Control" node_paths=PackedStringArray("board") instance=ExtResource("25_u5ul4")]
+[node name="CompetitionRanks" parent="Control" unique_id=728897125 node_paths=PackedStringArray("board") instance=ExtResource("25_u5ul4")]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -254,14 +250,14 @@ duration = 0.8
 text = "[center][color=353540ff][outline_color=ffffffff][outline_size=4][/outline_size][/outline_color][/color][color=6f6c70ff][shake rate=0.0 level=0][outline_color=ffffffff][outline_size=4][color=353540ff]r[/color][/outline_size][/outline_color][/shake][outline_color=ffffff00][outline_size=4]anking[/outline_size][/outline_color][/color][/center]"
 word = "ranking"
 
-[node name="MarginContainer" parent="Control/CompetitionRanks/MarginContainer/VBoxContainer" index="1" instance=ExtResource("26_rlygb")]
+[node name="MarginContainer" parent="Control/CompetitionRanks/MarginContainer/VBoxContainer" index="1" unique_id=1029724465 instance=ExtResource("26_rlygb")]
 layout_mode = 2
 details_title = Array[String](["WPM", "Docs", "Hours"])
 
 [node name="DocsDays" parent="Control/CompetitionRanks/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/InterviewScore" index="4"]
 text = "Time"
 
-[node name="PromotionStatus" type="PanelContainer" parent="." node_paths=PackedStringArray("promotion_text", "promotion_sound")]
+[node name="PromotionStatus" type="PanelContainer" parent="." unique_id=1571354863 node_paths=PackedStringArray("promotion_text", "promotion_sound")]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 1
 anchors_preset = 3
@@ -281,44 +277,44 @@ script = ExtResource("3_dapla")
 promotion_text = NodePath("Work/VBoxContainer/PromotionTextContainer/Promotion")
 promotion_sound = NodePath("../PromotionSound")
 
-[node name="Work" type="MarginContainer" parent="PromotionStatus"]
+[node name="Work" type="MarginContainer" parent="PromotionStatus" unique_id=1005994142]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PromotionStatus/Work"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PromotionStatus/Work" unique_id=498909650]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Title" type="Label" parent="PromotionStatus/Work/VBoxContainer"]
+[node name="Title" type="Label" parent="PromotionStatus/Work/VBoxContainer" unique_id=1858501530]
 layout_mode = 2
 text = "Promotion"
 label_settings = ExtResource("2_ox4yy")
 horizontal_alignment = 1
 
-[node name="PromotionTextContainer" type="VBoxContainer" parent="PromotionStatus/Work/VBoxContainer"]
+[node name="PromotionTextContainer" type="VBoxContainer" parent="PromotionStatus/Work/VBoxContainer" unique_id=1932441470]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 0
 
-[node name="Promotion" type="Label" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer"]
+[node name="Promotion" type="Label" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer" unique_id=976682058]
 layout_mode = 2
 text = "Promoted to"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer" unique_id=2035948285]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Control2" type="Control" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer"]
+[node name="Control2" type="Control" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer" unique_id=348978661]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer/Control2" unique_id=1684238302]
 position = Vector2(6, 8)
 emitting = false
 amount = 6
@@ -327,19 +323,19 @@ one_shot = true
 explosiveness = 0.9
 process_material = SubResource("ParticleProcessMaterial_6w7w2")
 
-[node name="TypingLabel" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer" instance=ExtResource("8_whfhi")]
+[node name="TypingLabel" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer" unique_id=540337727 instance=ExtResource("8_whfhi")]
 layout_mode = 2
 size_flags_horizontal = 6
 frequency = 0.0
 height = 0.0
 enable_mistake_effect = false
 
-[node name="Control3" type="Control" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer"]
+[node name="Control3" type="Control" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer" unique_id=807416657]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer/Control3"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="PromotionStatus/Work/VBoxContainer/PromotionTextContainer/HBoxContainer/Control3" unique_id=902961610]
 position = Vector2(-7, 8)
 rotation = 1.5708
 emitting = false
@@ -349,17 +345,17 @@ one_shot = true
 explosiveness = 0.9
 process_material = SubResource("ParticleProcessMaterial_6w7w2")
 
-[node name="EndEffect" type="Node" parent="PromotionStatus"]
+[node name="EndEffect" type="Node" parent="PromotionStatus" unique_id=595602646]
 script = ExtResource("4_j7irx")
 trans = 10
 ease = 1
 duration = 0.8
 
-[node name="Slide3" type="Node" parent="PromotionStatus/EndEffect" node_paths=PackedStringArray("node")]
+[node name="Slide3" type="Node" parent="PromotionStatus/EndEffect" unique_id=906716069 node_paths=PackedStringArray("node")]
 script = ExtResource("5_d7wj0")
 node = NodePath("../..")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1392161810]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -367,122 +363,123 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=1074942552]
 custom_minimum_size = Vector2(120, 160)
 layout_mode = 2
 
-[node name="DayDelegator" type="Node" parent="CenterContainer/PanelContainer" node_paths=PackedStringArray("nodes")]
+[node name="DayDelegator" type="Node" parent="CenterContainer/PanelContainer" unique_id=142581872 node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_8aqif")
-nodes = [NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/NextDayButton"), NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/NewGamePlus"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Retry"), NodePath("../../../Control/MenuPaper/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/Retry"), NodePath("../Multiplayer/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../../../Control/CompetitionRanks/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel")]
+nodes = [NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/NextDayButton"), NodePath("../Work/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath(""), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../Crunch/VBoxContainer/VBoxContainer/NextDay/Retry"), NodePath("../../../Control/MenuPaper/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel"), NodePath("../Ceo/VBoxContainer/VBoxContainer/NextDay/Retry"), NodePath("../Multiplayer/VBoxContainer/VBoxContainer/NextDay/Break"), NodePath("../../../Control/CompetitionRanks/MarginContainer/VBoxContainer/HBoxContainer/TypingLabel")]
 
-[node name="Work" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+[node name="Work" type="MarginContainer" parent="CenterContainer/PanelContainer" unique_id=1157231877]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work" unique_id=527289077]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Title" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer"]
+[node name="Title" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer" unique_id=1487406368]
 layout_mode = 2
 text = "daily report"
 label_settings = ExtResource("2_ox4yy")
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer" unique_id=467780345]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 5
 
-[node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer" unique_id=118031496]
 layout_mode = 2
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer" unique_id=212324911]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer" unique_id=1434844929]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "Tasks"
 label_settings = ExtResource("12_wqs3t")
 
-[node name="Tasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer"]
+[node name="Tasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer" unique_id=309691894]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
 label_settings = ExtResource("9_e1gla")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer" unique_id=1089923223]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2" unique_id=1006491965]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "Max Combo"
 label_settings = ExtResource("12_wqs3t")
 
-[node name="MaxCombo" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2"]
+[node name="MaxCombo" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2" unique_id=1714708989]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
 label_settings = ExtResource("9_e1gla")
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer" unique_id=331290117]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3" unique_id=1846087811]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "Mistakes"
 label_settings = ExtResource("12_wqs3t")
 
-[node name="Mistakes" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3"]
+[node name="Mistakes" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3" unique_id=37505814]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
 label_settings = ExtResource("9_e1gla")
 
-[node name="VBoxContainer4" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer4" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer" unique_id=1692404951]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4" unique_id=1615801722]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "Speed"
 label_settings = ExtResource("12_wqs3t")
 
-[node name="WPM" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4"]
+[node name="WPM" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4" unique_id=1226888374]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
 label_settings = ExtResource("9_e1gla")
 
-[node name="Grade" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="Grade" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer" unique_id=711001383]
 custom_minimum_size = Vector2(34.135, 15)
 layout_mode = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade"]
+[node name="Sprite2D" type="Sprite2D" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade" unique_id=364012935]
 material = SubResource("ShaderMaterial_w53bh")
 position = Vector2(20, 23)
 texture = ExtResource("8_fgvoi")
 
-[node name="GradeLabel" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D"]
+[node name="GradeLabel" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D" unique_id=1912754005]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -500,7 +497,7 @@ text = "A"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Progress" type="TextureProgressBar" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D"]
+[node name="Progress" type="TextureProgressBar" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D" unique_id=1264013150]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -523,7 +520,7 @@ texture_under = ExtResource("14_3eu2v")
 texture_over = ExtResource("15_m5sj3")
 texture_progress = ExtResource("16_cvyoc")
 
-[node name="Label" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D"]
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D" unique_id=2076996205]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -539,7 +536,7 @@ grow_vertical = 2
 theme = ExtResource("1_80w1y")
 text = "end of demo"
 
-[node name="LevelText" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D"]
+[node name="LevelText" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/Grade/Sprite2D" unique_id=662868461]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -556,11 +553,11 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 5
 horizontal_alignment = 1
 
-[node name="VBoxContainer5" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer5" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer" unique_id=343771891]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5" unique_id=1942914920]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
@@ -568,67 +565,67 @@ theme_override_font_sizes/font_size = 6
 text = "Money Bonus"
 label_settings = ExtResource("12_wqs3t")
 
-[node name="Bonus" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5"]
+[node name="Bonus" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5" unique_id=2127047710]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "x1.5"
 label_settings = ExtResource("9_e1gla")
 
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer" unique_id=661586424]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/MarginContainer" unique_id=1444124727]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Money" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Money" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=641317724]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "$100"
 horizontal_alignment = 2
 
-[node name="MoneyUsed" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="MoneyUsed" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1310306998]
 layout_mode = 2
 text = "-$100"
 horizontal_alignment = 2
 
-[node name="Control2" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+[node name="Control2" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer" unique_id=1377844855]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PromotionTip" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+[node name="PromotionTip" type="Label" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer" unique_id=461822640]
 visible = false
 layout_mode = 2
 text = "PROMOTION_TIP"
 label_settings = ExtResource("4_0mkg1")
 horizontal_alignment = 1
 
-[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer" unique_id=1485332266]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer"]
+[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer" unique_id=573509306]
 layout_mode = 2
 
-[node name="Break" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+[node name="Break" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay" unique_id=1872694046 instance=ExtResource("5_rckpx")]
 layout_mode = 2
 script = ExtResource("7_mgfnm")
 wording = "Home"
 word = "home"
 
-[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay"]
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay" unique_id=1564869822]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NextDayButton" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+[node name="NextDayButton" parent="CenterContainer/PanelContainer/Work/VBoxContainer/VBoxContainer/NextDay" unique_id=1729724321 instance=ExtResource("5_rckpx")]
 layout_mode = 2
 word = "Next Day"
 
-[node name="Crunch" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+[node name="Crunch" type="MarginContainer" parent="CenterContainer/PanelContainer" unique_id=371946716]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
@@ -636,51 +633,51 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch" unique_id=1037623331]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Title" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer"]
+[node name="Title" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer" unique_id=778214625]
 layout_mode = 2
 text = "Crunch Report"
 label_settings = ExtResource("2_ox4yy")
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer" unique_id=1171637671]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer" unique_id=219148853]
 layout_mode = 2
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer" unique_id=2050425463]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer" unique_id=1005876768]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "Tasks"
 label_settings = ExtResource("12_wqs3t")
 
-[node name="Tasks" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer"]
+[node name="Tasks" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer" unique_id=1727914457]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
 label_settings = ExtResource("9_e1gla")
 
-[node name="VBoxContainer5" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer5" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer" unique_id=636323367]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5" unique_id=366131829]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
@@ -688,52 +685,52 @@ theme_override_font_sizes/font_size = 6
 text = "Hours"
 label_settings = ExtResource("12_wqs3t")
 
-[node name="Time" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5"]
+[node name="Time" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5" unique_id=572224381]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "12h"
 label_settings = ExtResource("9_e1gla")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer" unique_id=511874169]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2" unique_id=877812393]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "Speed"
 label_settings = ExtResource("12_wqs3t")
 
-[node name="Speed" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2"]
+[node name="Speed" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2" unique_id=1624549122]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
 label_settings = ExtResource("9_e1gla")
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer" unique_id=865314183]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3" unique_id=1554511397]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "Accuracy"
 label_settings = ExtResource("12_wqs3t")
 
-[node name="Acc" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3"]
+[node name="Acc" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3" unique_id=1752612716]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "87%"
 label_settings = ExtResource("9_e1gla")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer" unique_id=878578726]
 layout_mode = 2
 
-[node name="Score" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="Score" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=980775131]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 4
@@ -741,12 +738,12 @@ theme_override_font_sizes/font_size = 10
 text = "Score"
 horizontal_alignment = 1
 
-[node name="Score2" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="Score2" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=1625012487]
 layout_mode = 2
 text = "123021"
 horizontal_alignment = 1
 
-[node name="SteamOffline" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
+[node name="SteamOffline" type="Label" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer" unique_id=482583304]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
@@ -755,79 +752,80 @@ text = "Steam not available
 for highscores"
 horizontal_alignment = 1
 
-[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer" unique_id=995177191]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer"]
+[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer" unique_id=314895856]
 layout_mode = 2
 
-[node name="Break" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+[node name="Break" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/NextDay" unique_id=971306035 instance=ExtResource("5_rckpx")]
 layout_mode = 2
 script = ExtResource("7_mgfnm")
 wording = "Home"
 word = "home"
 
-[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/NextDay"]
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/NextDay" unique_id=868507824]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Retry" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+[node name="Retry" parent="CenterContainer/PanelContainer/Crunch/VBoxContainer/VBoxContainer/NextDay" unique_id=47520266 instance=ExtResource("5_rckpx")]
 layout_mode = 2
 word = "retry"
 
-[node name="Multiplayer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+[node name="Multiplayer" type="MarginContainer" parent="CenterContainer/PanelContainer" unique_id=342949040]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer" unique_id=894763896]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Title" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer"]
+[node name="Title" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer" unique_id=1676594856]
 layout_mode = 2
 text = "Report"
 label_settings = ExtResource("2_ox4yy")
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer" unique_id=9037405]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer" unique_id=1109656938]
 layout_mode = 2
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer" unique_id=276628796]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer" unique_id=1427911533]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "Tasks"
 label_settings = ExtResource("12_wqs3t")
 
-[node name="Tasks" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer"]
+[node name="Tasks" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer" unique_id=1488270645]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
 label_settings = ExtResource("9_e1gla")
 
-[node name="VBoxContainer5" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer5" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer" unique_id=1968655478]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5" unique_id=387549419]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
@@ -835,56 +833,56 @@ theme_override_font_sizes/font_size = 6
 text = "Hours"
 label_settings = ExtResource("12_wqs3t")
 
-[node name="Time" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5"]
+[node name="Time" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer5" unique_id=151344786]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "12h"
 label_settings = ExtResource("9_e1gla")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer" unique_id=1613652314]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2" unique_id=1885339649]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "Speed"
 label_settings = ExtResource("12_wqs3t")
 
-[node name="Speed" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2"]
+[node name="Speed" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2" unique_id=619295623]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
 label_settings = ExtResource("9_e1gla")
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer" unique_id=949414968]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3" unique_id=2075747548]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "Accuracy"
 label_settings = ExtResource("12_wqs3t")
 
-[node name="Acc" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3"]
+[node name="Acc" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3" unique_id=1640894666]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "87%"
 label_settings = ExtResource("9_e1gla")
 
-[node name="Score2" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer"]
+[node name="Score2" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer" unique_id=102026155]
 layout_mode = 2
 size_flags_vertical = 1
 text = "Score 123021"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Winner" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer"]
+[node name="Winner" type="Label" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer" unique_id=2117281256]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 6
@@ -892,96 +890,95 @@ text = "Co-workers are
 still competing..."
 horizontal_alignment = 1
 
-[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer" unique_id=1187598349]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer"]
+[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer" unique_id=495147485]
 layout_mode = 2
 
-[node name="Break" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+[node name="Break" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/NextDay" unique_id=516837301 instance=ExtResource("5_rckpx")]
 layout_mode = 2
 script = ExtResource("7_mgfnm")
 wording = "leave"
 word = "leave"
 
-[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/NextDay"]
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/NextDay" unique_id=1708367134]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Retry" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+[node name="Retry" parent="CenterContainer/PanelContainer/Multiplayer/VBoxContainer/VBoxContainer/NextDay" unique_id=1085184219 instance=ExtResource("5_rckpx")]
 visible = false
 layout_mode = 2
 word = "retry"
 
-[node name="Ceo" type="MarginContainer" parent="CenterContainer/PanelContainer"]
-visible = false
+[node name="Ceo" type="MarginContainer" parent="CenterContainer/PanelContainer" unique_id=1986585384]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Ceo"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Ceo" unique_id=680518723]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Title" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer"]
+[node name="Title" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer" unique_id=1718696957]
 layout_mode = 2
 text = "CEO"
 label_settings = ExtResource("2_ox4yy")
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer" unique_id=1983933077]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 5
 
-[node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer" unique_id=1181969252]
 layout_mode = 2
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 2
 
-[node name="You" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="You" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer" unique_id=181405930]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "You"
 
-[node name="Boss" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="Boss" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer" unique_id=626852774]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "Boss"
 horizontal_alignment = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer" unique_id=863135349]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 3
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer" unique_id=79801185]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "Tasks"
 label_settings = ExtResource("12_wqs3t")
 
-[node name="Tasks" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer"]
+[node name="Tasks" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer" unique_id=125708356]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
 label_settings = ExtResource("9_e1gla")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer" unique_id=818950002]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 3
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2" unique_id=1676269379]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
@@ -989,56 +986,56 @@ text = "  "
 label_settings = ExtResource("12_wqs3t")
 horizontal_alignment = 1
 
-[node name="BossTasks" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2"]
+[node name="BossTasks" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer2" unique_id=1292548180]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
 label_settings = ExtResource("9_e1gla")
 horizontal_alignment = 2
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer" unique_id=1530369252]
 layout_mode = 2
 theme_override_constants/separation = 3
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3" unique_id=939411543]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "Mistakes"
 label_settings = ExtResource("12_wqs3t")
 
-[node name="Mistakes" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3"]
+[node name="Mistakes" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer3" unique_id=379100904]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
 label_settings = ExtResource("9_e1gla")
 
-[node name="VBoxContainer4" type="VBoxContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="VBoxContainer4" type="VBoxContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer" unique_id=2034473231]
 layout_mode = 2
 theme_override_constants/separation = 3
 
-[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4"]
+[node name="FinishedTasks" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4" unique_id=1597271758]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "  "
 label_settings = ExtResource("12_wqs3t")
 
-[node name="BossMistakes" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4"]
+[node name="BossMistakes" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer/VBoxContainer4" unique_id=1077098641]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxLine_k1u62")
 text = "100"
 label_settings = ExtResource("9_e1gla")
 horizontal_alignment = 2
 
-[node name="PlayerScore" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="PlayerScore" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer" unique_id=758756712]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 8
 text = "100"
 
-[node name="BossScore" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="BossScore" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/GridContainer" unique_id=1293309553]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
@@ -1046,11 +1043,11 @@ theme_override_font_sizes/font_size = 8
 text = "100"
 horizontal_alignment = 2
 
-[node name="Control3" type="Control" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer"]
+[node name="Control3" type="Control" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer" unique_id=72892915]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="WinLost" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer"]
+[node name="WinLost" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer" unique_id=1506899357]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
@@ -1059,48 +1056,43 @@ text = "Congratulations!
 You proved your CEO skills!"
 horizontal_alignment = 1
 
-[node name="Mutators" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer"]
+[node name="Mutators" type="Label" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer" unique_id=1309325953]
 visible = false
-layout_mode = 2
 custom_minimum_size = Vector2(220, 0)
-autowrap_mode = 2
+layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 8
 text = "Mutators"
 horizontal_alignment = 1
+autowrap_mode = 2
 
-[node name="Control2" type="Control" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer"]
+[node name="Control2" type="Control" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer" unique_id=370763364]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer"]
+[node name="NextDay" type="HBoxContainer" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer" unique_id=548532810]
 layout_mode = 2
 
-[node name="NewGamePlus" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
-visible = false
-layout_mode = 2
-word = "new contract"
-
-[node name="Break" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+[node name="Break" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay" unique_id=1093869887 instance=ExtResource("5_rckpx")]
 layout_mode = 2
 script = ExtResource("7_mgfnm")
 wording = "Home"
 word = "Home"
 
-[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay"]
+[node name="Control" type="Control" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay" unique_id=100856155]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Retry" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay" instance=ExtResource("5_rckpx")]
+[node name="Retry" parent="CenterContainer/PanelContainer/Ceo/VBoxContainer/VBoxContainer/NextDay" unique_id=1227325443 instance=ExtResource("5_rckpx")]
 layout_mode = 2
 script = ExtResource("23_e37q1")
 
-[node name="PromotionDelegator" type="Node" parent="." node_paths=PackedStringArray("nodes")]
+[node name="PromotionDelegator" type="Node" parent="." unique_id=2008254227 node_paths=PackedStringArray("nodes")]
 script = ExtResource("16_8aqif")
-nodes = [NodePath("../PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionYes"), NodePath("../PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionNo"), NodePath("../ChallengePaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionYes"), NodePath("../ChallengePaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionNo"), NodePath("../ContractPaper/Work/VBoxContainer/Contract/MarginContainer/HBoxContainer2/Sign"), NodePath("../ContractPaper/Work/VBoxContainer/Contract/MarginContainer/HBoxContainer2/Cancel")]
+nodes = [NodePath("../PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionYes"), NodePath("../PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionNo"), NodePath("../ChallengePaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionYes"), NodePath("../ChallengePaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionNo")]
 
-[node name="PromotionPaper" type="PanelContainer" parent="." node_paths=PackedStringArray("yes_button", "no_button")]
+[node name="PromotionPaper" type="PanelContainer" parent="." unique_id=1514227507 node_paths=PackedStringArray("yes_button", "no_button")]
 visible = false
 custom_minimum_size = Vector2(120, 160)
 layout_mode = 1
@@ -1121,62 +1113,62 @@ script = ExtResource("11_r0shu")
 yes_button = NodePath("Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionYes")
 no_button = NodePath("Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionNo")
 
-[node name="Work" type="MarginContainer" parent="PromotionPaper"]
+[node name="Work" type="MarginContainer" parent="PromotionPaper" unique_id=791402679]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PromotionPaper/Work"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PromotionPaper/Work" unique_id=1707646952]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Title" type="Label" parent="PromotionPaper/Work/VBoxContainer"]
+[node name="Title" type="Label" parent="PromotionPaper/Work/VBoxContainer" unique_id=1844751006]
 layout_mode = 2
 text = "Promotion"
 label_settings = ExtResource("2_ox4yy")
 horizontal_alignment = 1
 
-[node name="Promotion" type="VBoxContainer" parent="PromotionPaper/Work/VBoxContainer"]
+[node name="Promotion" type="VBoxContainer" parent="PromotionPaper/Work/VBoxContainer" unique_id=2023201711]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="PromotionPaper/Work/VBoxContainer/Promotion"]
+[node name="Label" type="Label" parent="PromotionPaper/Work/VBoxContainer/Promotion" unique_id=631298522]
 layout_mode = 2
 text = "We have been impressed
 by your performance"
 
-[node name="Label2" type="Label" parent="PromotionPaper/Work/VBoxContainer/Promotion"]
+[node name="Label2" type="Label" parent="PromotionPaper/Work/VBoxContainer/Promotion" unique_id=2044802473]
 layout_mode = 2
 text = "Would you like
 a promotion?"
 
-[node name="Control" type="Control" parent="PromotionPaper/Work/VBoxContainer/Promotion"]
+[node name="Control" type="Control" parent="PromotionPaper/Work/VBoxContainer/Promotion" unique_id=1142430014]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="PromotionPaper/Work/VBoxContainer/Promotion"]
+[node name="MarginContainer" type="MarginContainer" parent="PromotionPaper/Work/VBoxContainer/Promotion" unique_id=1693663444]
 layout_mode = 2
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer" unique_id=623001956]
 layout_mode = 2
 
-[node name="PromotionYes" parent="PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2" instance=ExtResource("5_rckpx")]
+[node name="PromotionYes" parent="PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2" unique_id=956457657 instance=ExtResource("5_rckpx")]
 layout_mode = 2
 word = "Yes"
 
-[node name="Control" type="Control" parent="PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2"]
+[node name="Control" type="Control" parent="PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2" unique_id=2002414300]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PromotionNo" parent="PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2" instance=ExtResource("5_rckpx")]
+[node name="PromotionNo" parent="PromotionPaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2" unique_id=2048362053 instance=ExtResource("5_rckpx")]
 layout_mode = 2
 word = "No"
 
-[node name="ChallengePaper" type="PanelContainer" parent="." node_paths=PackedStringArray("yes_button", "no_button")]
+[node name="ChallengePaper" type="PanelContainer" parent="." unique_id=2001116911 node_paths=PackedStringArray("yes_button", "no_button")]
 visible = false
 custom_minimum_size = Vector2(120, 160)
 layout_mode = 1
@@ -1197,158 +1189,86 @@ script = ExtResource("17_xva3p")
 yes_button = NodePath("Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionYes")
 no_button = NodePath("Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2/PromotionNo")
 
-[node name="Work" type="MarginContainer" parent="ChallengePaper"]
+[node name="Work" type="MarginContainer" parent="ChallengePaper" unique_id=646941806]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ChallengePaper/Work"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ChallengePaper/Work" unique_id=33647711]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Title" type="Label" parent="ChallengePaper/Work/VBoxContainer"]
+[node name="Title" type="Label" parent="ChallengePaper/Work/VBoxContainer" unique_id=1363298158]
 layout_mode = 2
 text = "Challenge"
 label_settings = ExtResource("2_ox4yy")
 horizontal_alignment = 1
 
-[node name="Promotion" type="VBoxContainer" parent="ChallengePaper/Work/VBoxContainer"]
+[node name="Promotion" type="VBoxContainer" parent="ChallengePaper/Work/VBoxContainer" unique_id=368386025]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="ChallengePaper/Work/VBoxContainer/Promotion"]
+[node name="Label" type="Label" parent="ChallengePaper/Work/VBoxContainer/Promotion" unique_id=1191075650]
 layout_mode = 2
 text = "Your performance is
 astonishing"
 
-[node name="Label2" type="Label" parent="ChallengePaper/Work/VBoxContainer/Promotion"]
+[node name="Label2" type="Label" parent="ChallengePaper/Work/VBoxContainer/Promotion" unique_id=922125740]
 layout_mode = 2
 text = "Do you want to risk the
 challenge against the
 boss?"
 
-[node name="Control" type="Control" parent="ChallengePaper/Work/VBoxContainer/Promotion"]
+[node name="Control" type="Control" parent="ChallengePaper/Work/VBoxContainer/Promotion" unique_id=574708606]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="ChallengePaper/Work/VBoxContainer/Promotion"]
+[node name="MarginContainer" type="MarginContainer" parent="ChallengePaper/Work/VBoxContainer/Promotion" unique_id=348032998]
 layout_mode = 2
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ChallengePaper/Work/VBoxContainer/Promotion/MarginContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ChallengePaper/Work/VBoxContainer/Promotion/MarginContainer" unique_id=632455915]
 layout_mode = 2
 
-[node name="PromotionYes" parent="ChallengePaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2" instance=ExtResource("5_rckpx")]
+[node name="PromotionYes" parent="ChallengePaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2" unique_id=642516574 instance=ExtResource("5_rckpx")]
 layout_mode = 2
 word = "Yes"
 
-[node name="Control" type="Control" parent="ChallengePaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2"]
+[node name="Control" type="Control" parent="ChallengePaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2" unique_id=658175358]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PromotionNo" parent="ChallengePaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2" instance=ExtResource("5_rckpx")]
+[node name="PromotionNo" parent="ChallengePaper/Work/VBoxContainer/Promotion/MarginContainer/HBoxContainer2" unique_id=167197752 instance=ExtResource("5_rckpx")]
 layout_mode = 2
 word = "No"
 
-[node name="ContractPaper" type="PanelContainer" parent="." node_paths=PackedStringArray("sign_button", "cancel_button")]
-visible = false
-custom_minimum_size = Vector2(150, 170)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -55.0
-offset_top = -70.0
-offset_right = 65.0
-offset_bottom = 90.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.0872665
-pivot_offset = Vector2(60, 80)
-script = ExtResource("27_cppr")
-sign_button = NodePath("Work/VBoxContainer/Contract/MarginContainer/HBoxContainer2/Sign")
-cancel_button = NodePath("Work/VBoxContainer/Contract/MarginContainer/HBoxContainer2/Cancel")
-
-[node name="Work" type="MarginContainer" parent="ContractPaper"]
-layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ContractPaper/Work"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="Title" type="Label" parent="ContractPaper/Work/VBoxContainer"]
-layout_mode = 2
-text = "New Contract"
-label_settings = ExtResource("2_ox4yy")
-horizontal_alignment = 1
-
-[node name="Contract" type="VBoxContainer" parent="ContractPaper/Work/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 10
-
-[node name="Desc" type="Label" parent="ContractPaper/Work/VBoxContainer/Contract"]
-layout_mode = 2
-custom_minimum_size = Vector2(130, 0)
-autowrap_mode = 2
-text = "Sign a new contract: start over as an intern losing all your items and money, working under new policies. Beat the CEO with all policies enabled to unlock a new one."
-
-[node name="Control" type="Control" parent="ContractPaper/Work/VBoxContainer/Contract"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="ContractPaper/Work/VBoxContainer/Contract"]
-layout_mode = 2
-theme_override_constants/margin_bottom = 10
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="ContractPaper/Work/VBoxContainer/Contract/MarginContainer"]
-layout_mode = 2
-
-[node name="Sign" parent="ContractPaper/Work/VBoxContainer/Contract/MarginContainer/HBoxContainer2" instance=ExtResource("5_rckpx")]
-layout_mode = 2
-word = "Sign"
-
-[node name="Control" type="Control" parent="ContractPaper/Work/VBoxContainer/Contract/MarginContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Cancel" parent="ContractPaper/Work/VBoxContainer/Contract/MarginContainer/HBoxContainer2" instance=ExtResource("5_rckpx")]
-layout_mode = 2
-word = "Cancel"
-
-[node name="EndEffect" type="Node" parent="."]
+[node name="EndEffect" type="Node" parent="." unique_id=1898303908]
 script = ExtResource("4_j7irx")
 trans = 5
 ease = 1
 
-[node name="Slide2" type="Node" parent="EndEffect" node_paths=PackedStringArray("node")]
+[node name="Slide2" type="Node" parent="EndEffect" unique_id=331293053 node_paths=PackedStringArray("node")]
 script = ExtResource("5_d7wj0")
 node = NodePath("../../CenterContainer")
 
-[node name="Fade" type="Node" parent="EndEffect" node_paths=PackedStringArray("node")]
+[node name="Fade" type="Node" parent="EndEffect" unique_id=1549808058 node_paths=PackedStringArray("node")]
 script = ExtResource("8_f3tsx")
 node = NodePath("../../ColorRect")
 
-[node name="PromotionSound" type="AudioStreamPlayer" parent="."]
+[node name="PromotionSound" type="AudioStreamPlayer" parent="." unique_id=766534537]
 volume_db = -10.0
 pitch_scale = 0.9
 bus = &"SFX"
 
-[node name="OpenSound" type="AudioStreamPlayer" parent="."]
+[node name="OpenSound" type="AudioStreamPlayer" parent="." unique_id=1660042836]
 stream = ExtResource("8_i0k3p")
 volume_db = -10.0
 bus = &"SFX"
 
-[node name="GameoverSound" type="AudioStreamPlayer" parent="."]
+[node name="GameoverSound" type="AudioStreamPlayer" parent="." unique_id=981002817]
 stream = ExtResource("13_26xkb")
 volume_db = -10.0
 pitch_scale = 1.2

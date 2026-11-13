@@ -52,9 +52,6 @@ signal multiplayer_data_received()
 @export var ceo_boss_score: Label
 @export var ceo_win_status: Label
 @export var ceo_retry: TypingButton
-@export var ng_plus_button: TypingButton
-@export var contract_paper: ContractPaper
-@export var mutators_label: Label
 
 @export_category("Promotion")
 @export var promotion_delegator: Delegator
@@ -89,7 +86,6 @@ func _ready():
 	)
 	
 	retry_button.finished.connect(func(): GameManager.start())
-	ng_plus_button.finished.connect(func(): contract_paper.open(0.2))
 	multiplayer_rankings.received_all.connect(multiplayer_game_finished)
 	multiplayer_rankings.received_data.connect(func(is_last, steam_id): multiplayer_data_received.emit(is_last, steam_id))
 
@@ -127,21 +123,10 @@ func ceo_ended(user: Dictionary, boss: Dictionary):
 	_do_open(ceo_container)
 
 	#ceo_retry.visible = not win
-	var granted := -1
 	if win:
-		granted = GameManager.won_ceo()
+		GameManager.won_ceo()
 	else:
 		GameManager.lost_ceo()
-
-	ng_plus_button.visible = win and GameManager.has_mutators_unlocked()
-	mutators_label.visible = GameManager.has_mutators_unlocked()
-	if mutators_label.visible:
-		var label_text = "%s policies:\n%s" % [GameManager.NG_PLUS_TITLE, GameManager.get_unlocked_mutator_infos()]
-		if win and granted >= 0:
-			label_text = "New office policy: %s\n%s" % [GameManager.get_mutator_info(granted), label_text]
-		elif win and GameManager.has_mutators_unlocked() and not GameManager.has_all_mutators_active():
-			label_text = "Enable all policies to unlock a new one\n%s" % label_text
-		mutators_label.text = label_text
 
 
 func day_ended(data: Dictionary):
@@ -227,7 +212,7 @@ func _on_back_pressed():
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not containers.filter(func(c): return c.visible).is_empty():
-		if promotion_paper.visible or challenge_paper.visible or contract_paper.visible:
+		if promotion_paper.visible or challenge_paper.visible:
 			promotion_delegator.handle_event(event)
 		else:
 			day_delegator.handle_event(event)

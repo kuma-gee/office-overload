@@ -7,6 +7,7 @@ extends Node2D
 @export var crunch_mode: TypingButton
 @export var multiplayer_mode: TypingButton
 @export var zen_mode: TypingButton
+@export var new_contract_button: TypingButton
 
 @export var files: TypedWord
 @export var team: TypedWord
@@ -28,6 +29,7 @@ extends Node2D
 @export var ceo_level_select: Control
 @export var languages: Languages
 @export var multiplayer_space: WorkSpace
+@export var new_contract_dialog: NewContractPaper
 
 @export_category("Delegators")
 @export var delegator: Delegator
@@ -96,6 +98,7 @@ func _ready() -> void:
 	crunch_mode.finished.connect(func(): GameManager.start(GameManager.Mode.Crunch, languages.language))
 	exit_label.finished.connect(func(): GameManager.quit_game())
 	
+	new_contract_button.finished.connect(func(): new_contract_dialog.grab_focus())
 	settings_label.finished.connect(func(): settings.grab_focus())
 	folder.closed.connect(func(): files_node.move_in())
 	teams.closed.connect(func(): teams_node.move_in())
@@ -121,6 +124,7 @@ func _ready() -> void:
 
 	if GameManager.has_mutators_unlocked() and not Env.is_demo():
 		contract_paper.open(0.9)
+	
 	contract_paper.opened.connect(func(): delegator.unfocus())
 	contract_paper.closed.connect(func(): delegator.focus())
 	

@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://qpujdmcko0bu" path="res://assets/sprites/Arrow.png" id="5_gs4c1"]
 [ext_resource type="LabelSettings" uid="uid://bkph6n3e468da" path="res://theme/text_outline.tres" id="5_qryb2"]
 [ext_resource type="Script" uid="uid://btx37iv62ngpi" path="res://src/start/items_paper.gd" id="6_q1q4c"]
+[ext_resource type="Script" uid="uid://kjg1t860nx0f" path="res://src/ui/contract_paper.gd" id="7_3myy8"]
 [ext_resource type="PackedScene" uid="uid://cgwassol31f0l" path="res://src/ui/typing_button.tscn" id="7_plxua"]
 [ext_resource type="Script" uid="uid://s0nbpnxj5anl" path="res://src/delegator.gd" id="7_pvyq5"]
 [ext_resource type="Script" uid="uid://i7eyd5gt6ua5" path="res://src/start/DocumentUI.gd" id="8_4jrgk"]
@@ -231,7 +232,7 @@ _data = {
 &"alt_page": SubResource("Animation_6fel6")
 }
 
-[node name="StartNew" type="Node2D" unique_id=1308402508 node_paths=PackedStringArray("work_label", "settings_label", "exit_label", "crunch_mode", "multiplayer_mode", "zen_mode", "files", "team", "shop_button", "contract_paper", "teams_node", "files_node", "settings", "folder", "teams", "shop", "game_modes_key", "crunch_mode_container", "multiplayer_mode_container", "ceo_level_select", "languages", "multiplayer_space", "delegator", "shift_delegator")]
+[node name="StartNew" type="Node2D" unique_id=1308402508 node_paths=PackedStringArray("work_label", "settings_label", "exit_label", "crunch_mode", "multiplayer_mode", "zen_mode", "new_contract_button", "files", "team", "shop_button", "contract_paper", "teams_node", "files_node", "settings", "folder", "teams", "shop", "game_modes_key", "crunch_mode_container", "multiplayer_mode_container", "ceo_level_select", "languages", "multiplayer_space", "new_contract_dialog", "delegator", "shift_delegator")]
 script = ExtResource("1_25sst")
 work_label = NodePath("WorkDocument/MarginContainer/VBoxContainer/Work")
 settings_label = NodePath("WorkDocument/MarginContainer/VBoxContainer/Settings")
@@ -239,6 +240,7 @@ exit_label = NodePath("WorkDocument/MarginContainer/VBoxContainer/Exit")
 crunch_mode = NodePath("AltPage/MarginContainer/VBoxContainer/Crunch/Crunch")
 multiplayer_mode = NodePath("AltPage/MarginContainer/VBoxContainer/Multiplayer/Multiplayer")
 zen_mode = NodePath("AltPage/MarginContainer/VBoxContainer/Zen/Zen")
+new_contract_button = NodePath("Stats/MarginContainer/VBoxContainer/NewContractButton")
 files = NodePath("Files/Report")
 team = NodePath("Rankings/Team")
 shop_button = NodePath("ShopButton2/Money/MarginContainer/ShopButton")
@@ -255,6 +257,7 @@ multiplayer_mode_container = NodePath("AltPage/MarginContainer/VBoxContainer/Mul
 ceo_level_select = NodePath("CanvasLayer/Control/CeoLevelSelect")
 languages = NodePath("CanvasLayer/Control/Settings/Center/Languages")
 multiplayer_space = NodePath("Multiplayer")
+new_contract_dialog = NodePath("CanvasLayer/Control/NewContractPaper")
 delegator = NodePath("Delegator")
 shift_delegator = NodePath("ShiftDelegator")
 
@@ -263,7 +266,7 @@ script = ExtResource("2_406xc")
 
 [node name="Delegator" type="Node" parent="." unique_id=23433012 node_paths=PackedStringArray("nodes")]
 script = ExtResource("7_pvyq5")
-nodes = [NodePath("../WorkDocument/MarginContainer/VBoxContainer/Work"), NodePath("../WorkDocument/MarginContainer/VBoxContainer/Settings"), NodePath("../WorkDocument/MarginContainer/VBoxContainer/Exit"), NodePath("../ContractPaper/PanelContainer/MarginContainer/VBoxContainer/Contract"), NodePath("../Rankings/Team"), NodePath("../Files/Report"), NodePath("../ShopButton2/Money/MarginContainer/ShopButton"), NodePath("../ItemsPaper/PanelContainer/MarginContainer/VBoxContainer/Items")]
+nodes = [NodePath("../WorkDocument/MarginContainer/VBoxContainer/Work"), NodePath("../WorkDocument/MarginContainer/VBoxContainer/Settings"), NodePath("../WorkDocument/MarginContainer/VBoxContainer/Exit"), NodePath("../ContractPaper/PanelContainer/MarginContainer/VBoxContainer/Contract"), NodePath("../Rankings/Team"), NodePath("../Files/Report"), NodePath("../ShopButton2/Money/MarginContainer/ShopButton"), NodePath("../ItemsPaper/PanelContainer/MarginContainer/VBoxContainer/Items"), NodePath("../Stats/MarginContainer/VBoxContainer/NewContractButton")]
 
 [node name="ShiftDelegator" type="Node" parent="." unique_id=1775686980 node_paths=PackedStringArray("nodes")]
 script = ExtResource("7_pvyq5")
@@ -323,13 +326,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -158.0
-offset_top = -88.0
-offset_right = -38.0
-offset_bottom = 80.0
+offset_left = -144.00002
+offset_top = -89.99999
+offset_right = -24.000015
+offset_bottom = 78.00001
 grow_horizontal = 2
 grow_vertical = 2
-rotation = -0.12
+rotation = -0.06981317
 pivot_offset = Vector2(60, 85)
 theme = ExtResource("2_xj832")
 script = ExtResource("51_cdoc")
@@ -375,6 +378,7 @@ theme_override_constants/separation = -2
 
 [node name="RushHour" parent="ContractPaper/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1494113079 instance=ExtResource("50_mtog")]
 layout_mode = 2
+mutator = null
 
 [node name="OverloadOverride" parent="ContractPaper/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=2138010992 instance=ExtResource("50_mtog")]
 layout_mode = 2
@@ -498,7 +502,7 @@ layout_mode = 2
 texture = ExtResource("25_pu2hv")
 stretch_mode = 2
 
-[node name="Stats" type="PanelContainer" parent="." unique_id=2009991721 node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy", "score_points")]
+[node name="Stats" type="PanelContainer" parent="." unique_id=2009991721 node_paths=PackedStringArray("job_container", "day", "level", "documents", "skill_container", "wpm", "accuracy", "score_points", "new_contract")]
 custom_minimum_size = Vector2(110, 140)
 anchors_preset = 12
 anchor_top = 1.0
@@ -519,10 +523,11 @@ job_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer")
 day = NodePath("MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Day")
 level = NodePath("MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Level")
 documents = NodePath("MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/Documents")
-skill_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer2")
-wpm = NodePath("MarginContainer/VBoxContainer/VBoxContainer2/WPM")
-accuracy = NodePath("MarginContainer/VBoxContainer/VBoxContainer2/Accuracy")
-score_points = NodePath("MarginContainer/VBoxContainer/VBoxContainer2/ScorePoints")
+skill_container = NodePath("MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2")
+wpm = NodePath("MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/WPM")
+accuracy = NodePath("MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/Accuracy")
+score_points = NodePath("MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ScorePoints")
+new_contract = NodePath("MarginContainer/VBoxContainer/NewContractButton")
 move_dir = Vector2(-0.2, -1)
 extra_distance = 10.0
 
@@ -535,7 +540,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Stats/MarginContainer" unique_id=854551937]
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Stats/MarginContainer/VBoxContainer" unique_id=934123947]
 layout_mode = 2
@@ -578,58 +583,69 @@ theme_override_font_sizes/font_size = 8
 text = "Doc"
 label_settings = ExtResource("3_0j057")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Stats/MarginContainer/VBoxContainer" unique_id=1930668039]
+[node name="HBoxContainer" type="HBoxContainer" parent="Stats/MarginContainer/VBoxContainer" unique_id=453245828]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Stats/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1930668039]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="Skill" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=685754014]
+[node name="Skill" type="Label" parent="Stats/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=685754014]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Skill"
 
-[node name="WPM" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=991962824]
+[node name="WPM" type="Label" parent="Stats/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=991962824]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Words/m"
 label_settings = ExtResource("3_0j057")
 
-[node name="Accuracy" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=1457588999]
+[node name="Accuracy" type="Label" parent="Stats/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1457588999]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Accuracy"
 label_settings = ExtResource("3_0j057")
 
-[node name="ScorePoints" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=1597421044]
+[node name="ScorePoints" type="Label" parent="Stats/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1597421044]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "123"
 label_settings = ExtResource("3_0j057")
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="Stats/MarginContainer/VBoxContainer" unique_id=1205201663]
+[node name="VBoxContainer3" type="VBoxContainer" parent="Stats/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1205201663]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 2
 
-[node name="Score" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer3" unique_id=434689131]
+[node name="Score" type="Label" parent="Stats/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=434689131]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Score"
 
-[node name="ScoreWPM" type="Label" parent="Stats/MarginContainer/VBoxContainer/VBoxContainer3" unique_id=1041588365]
+[node name="ScoreWPM" type="Label" parent="Stats/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=1041588365]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Words/m"
 label_settings = ExtResource("3_0j057")
 
+[node name="Control" type="Control" parent="Stats/MarginContainer/VBoxContainer" unique_id=87509450]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NewContractButton" parent="Stats/MarginContainer/VBoxContainer" unique_id=1556346743 instance=ExtResource("7_plxua")]
+layout_mode = 2
+word = "New Contract"
+
 [node name="MainMoney" type="MarginContainer" parent="." unique_id=908171081]
 custom_minimum_size = Vector2(60, 34)
-offset_left = -151.0
-offset_top = 47.0
-offset_right = -91.0
-offset_bottom = 81.0
-rotation = -0.174533
+offset_left = 114.0
+offset_top = -87.00001
+offset_right = 174.0
+offset_bottom = -53.000004
+rotation = 0.21478166
 pivot_offset = Vector2(30, 17)
 theme = ExtResource("2_xj832")
 script = ExtResource("8_4jrgk")
@@ -655,7 +671,7 @@ text = "Saving"
 
 [node name="Money" type="Label" parent="MainMoney/Money/MarginContainer/VBoxContainer" unique_id=598287024]
 layout_mode = 2
-text = "$100"
+text = "$10000000"
 script = ExtResource("34_06bnc")
 
 [node name="WorkDocument" type="PanelContainer" parent="." unique_id=1568435998]
@@ -822,7 +838,7 @@ theme_override_font_sizes/font_size = 6
 text = "Challenge other co-workers"
 
 [node name="Rankings" type="Sprite2D" parent="." unique_id=920930085]
-position = Vector2(-32, 68)
+position = Vector2(-17, 68)
 rotation = 0.139626
 texture = ExtResource("9_h10wu")
 script = ExtResource("10_vvvnb")
@@ -1844,7 +1860,112 @@ level = 4
 game = NodePath("../../../../../../../../..")
 word = "CEO"
 
+[node name="NewContractPaper" type="Control" parent="CanvasLayer/Control" unique_id=1550936538 node_paths=PackedStringArray("sign_button", "delegator")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+mouse_filter = 2
+script = ExtResource("7_3myy8")
+sign_button = NodePath("NewContract/MarginContainer/VBoxContainer/Contract/MarginContainer/HBoxContainer2/Sign")
+delegator = NodePath("NewContractDelegator")
+
+[node name="NewContractDelegator" type="Node" parent="CanvasLayer/Control/NewContractPaper" unique_id=861179728 node_paths=PackedStringArray("nodes")]
+script = ExtResource("7_pvyq5")
+nodes = [NodePath("../NewContract/MarginContainer/VBoxContainer/Contract/MarginContainer/HBoxContainer2/Sign")]
+
+[node name="EffectRoot" type="Node" parent="CanvasLayer/Control/NewContractPaper" unique_id=1550558529]
+script = ExtResource("15_17vat")
+ease = 1
+duration = 0.5
+
+[node name="Slide" type="Node" parent="CanvasLayer/Control/NewContractPaper/EffectRoot" unique_id=805402823 node_paths=PackedStringArray("node")]
+script = ExtResource("16_xmdsl")
+node = NodePath("../..")
+
+[node name="Fade" type="Node" parent="CanvasLayer/Control/NewContractPaper/EffectRoot" unique_id=2047836591 node_paths=PackedStringArray("node")]
+script = ExtResource("17_s6hs1")
+node = NodePath("../../../MenuOverlay")
+
+[node name="NewContract" type="PanelContainer" parent="CanvasLayer/Control/NewContractPaper" unique_id=1108226582]
+custom_minimum_size = Vector2(130, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -75.0
+offset_right = 65.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(60, 80)
+theme = ExtResource("2_xj832")
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/NewContractPaper/NewContract" unique_id=940932879]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="EscButton" type="TextureRect" parent="CanvasLayer/Control/NewContractPaper/NewContract/MarginContainer2" unique_id=204103658]
+layout_mode = 2
+texture = ExtResource("25_pu2hv")
+stretch_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/NewContractPaper/NewContract" unique_id=566292552]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/NewContractPaper/NewContract/MarginContainer" unique_id=270580424]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/NewContractPaper/NewContract/MarginContainer/VBoxContainer" unique_id=592982771]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 10
+text = "New Contract"
+horizontal_alignment = 1
+
+[node name="Contract" type="VBoxContainer" parent="CanvasLayer/Control/NewContractPaper/NewContract/MarginContainer/VBoxContainer" unique_id=127296831]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Desc" type="Label" parent="CanvasLayer/Control/NewContractPaper/NewContract/MarginContainer/VBoxContainer/Contract" unique_id=1923828256]
+layout_mode = 2
+text = "Start over as an intern losing all your items and money.
+
+Work under new challenging policies."
+autowrap_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/NewContractPaper/NewContract/MarginContainer/VBoxContainer/Contract" unique_id=867507785]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/NewContractPaper/NewContract/MarginContainer/VBoxContainer/Contract" unique_id=1927776922]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/NewContractPaper/NewContract/MarginContainer/VBoxContainer/Contract/MarginContainer" unique_id=686789029]
+layout_mode = 2
+
+[node name="Sign" parent="CanvasLayer/Control/NewContractPaper/NewContract/MarginContainer/VBoxContainer/Contract/MarginContainer/HBoxContainer2" unique_id=214537302 instance=ExtResource("7_plxua")]
+layout_mode = 2
+word = "Sign"
+
 [node name="SteamLobbies" type="Control" parent="CanvasLayer/Control" unique_id=1251668624 node_paths=PackedStringArray("container", "scroll_container", "empty_label", "loading_label", "delegator")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

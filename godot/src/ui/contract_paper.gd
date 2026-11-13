@@ -1,21 +1,12 @@
-class_name ContractPaper
-extends EndPaper
-
-signal accepted()
-signal declined()
+class_name NewContractPaper
+extends FocusedDialog
 
 @export var sign_button: TypingButton
-@export var cancel_button: TypingButton
 
 func _ready() -> void:
-	hide()
+	super._ready()
 
 	sign_button.finished.connect(func():
-		GameManager.sign_new_contract()
-		accepted.emit()
-		close()
-	)
-	cancel_button.finished.connect(func():
-		declined.emit()
-		close()
+		if GameManager.sign_new_contract():
+			SceneManager.reload_scene()
 	)

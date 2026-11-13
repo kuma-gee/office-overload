@@ -48,7 +48,7 @@ const MUTATOR_DESC = {
 	Mutator.PAPER_JAM: "Documents +30%\nsalary +20%",
 	Mutator.CRUNCH: "Stress +30%\ndocument +1 point",
 	Mutator.PART_TIME: "Workday ends at 14:00\nsalary -20%",
-	Mutator.OPEN_OFFICE: "Double distractions\nfinish one -25 stress",
+	Mutator.OPEN_OFFICE: "Double distractions\nfinish one -20 stress",
 	Mutator.AFTER_HOURS: "Work +2h overtime\n+2 performance",
 	Mutator.TYPO_TAX: "Typo +5 stress\nsalary +20%",
 }
@@ -97,6 +97,7 @@ var shown_discard_tutorial := false # manager
 var shown_distraction_tutorial := false # senior
 var shown_stress_tutorial := false # junior
 
+var can_sign_new_contract := false
 var finished_game := false
 var unlocked_modes = [Mode.Work]
 var bought_items: Array[Shop.Items] = []
@@ -134,14 +135,14 @@ func _load_data():
 	
 	if Env.is_editor():
 		finished_game = false
-		difficulty_level = DifficultyResource.Level.MANAGER
+		difficulty_level = DifficultyResource.Level.SENIOR
 		has_played = true
 		unlocked_modes = Mode.values()
 		new_game_plus = 0
-		unlocked_mutators = []
-		active_mutators = []
-		performance = DIFFICULTIES[DifficultyResource.Level.MANAGER].max_performance
-		#bought_items = []
+		unlocked_mutators = Mutator.values()
+		active_mutators = Mutator.values()
+		performance = DIFFICULTIES[DifficultyResource.Level.SENIOR].max_performance
+		bought_items = []
 	
 	_logger.info("Game initialized")
 	init = true
@@ -292,19 +293,26 @@ func grant_random_mutator() -> int:
 func sign_new_contract():
 	if Env.is_demo():
 		_logger.warn("New Contract is not available in the demo")
-		return
-
+		return false
+		
+	if not can_sign_new_contract:
+		_logger.warn("New Contract not allowed")
+		return false
+		
+	var _grant = grant_random_mutator()
 	active_mutators = active_mutators.filter(func(m): return m in unlocked_mutators)
 	new_game_plus += 1
+
 	reset_all()
 	_logger.info("Signed %s #%s with policies: %s" % [NG_PLUS_TITLE, new_game_plus, get_active_mutator_names()])
-	back_to_menu()
+	return true
 
 func reset_all():
 	reset_values()
 	money = 0
 	bought_items = []
 	used_items = []
+	can_sign_new_contract = false
 	save_data()
 
 func get_spawn_time_multiplier() -> float:
@@ -493,18 +501,15 @@ func lost_ceo():
 	save_data()
 	round_ended.emit()
 
-func won_ceo() -> int:
-	var was_finished = finished_game
+func won_ceo():
 	finished_game = true
 	unlock_mode(Mode.Multiplayer)
 
 	if is_work_mode():
 		day += 1
-
-	var granted := -1
-	if not was_finished and has_all_mutators_active():
-		granted = grant_random_mutator()
-
+		if has_all_mutators_active():
+			can_sign_new_contract = true
+	
 	var wpm = wpm_calculator.get_average_wpm()
 	var acc = wpm_calculator.get_average_accuracy()
 	_update_speed_values(wpm, acc)
@@ -512,7 +517,6 @@ func won_ceo() -> int:
 
 	round_ended.emit()
 	SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.CEO)
-	return granted
 
 func update_game_status(lobby = false):
 	if not SteamManager.is_successful_initialized: return

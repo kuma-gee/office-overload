@@ -13,6 +13,7 @@ extends DocumentUI
 
 @export_category("Score")
 @export var score_points: Label
+@export var new_contract: TypingButton
 
 func _ready():
 	visibility_changed.connect(func(): _update())
@@ -34,3 +35,5 @@ func _update():
 	var score = GameManager.calculate_score()
 	score_points.visible = score > 0
 	score_points.text = "%.0f Score" % score
+	
+	new_contract.visible = GameManager.can_sign_new_contract

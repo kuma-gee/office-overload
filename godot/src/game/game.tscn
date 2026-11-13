@@ -834,17 +834,6 @@ theme = ExtResource("10_am0oy")
 visible = false
 layout_mode = 1
 
-[node name="MutatorsLabel" type="Label" parent="CanvasLayer/HUD" unique_id=820007154]
-visible = false
-layout_mode = 1
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 220.0
-offset_bottom = 20.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 8
-
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD" unique_id=376243573]
 layout_mode = 1
 anchors_preset = 3
@@ -1013,6 +1002,17 @@ size_flags_horizontal = 8
 texture = ExtResource("40_ohxrb")
 expand_mode = 3
 stretch_mode = 5
+
+[node name="MutatorsLabel" type="Label" parent="CanvasLayer/HUD" unique_id=820007154]
+layout_mode = 1
+offset_left = 3.0
+offset_top = 1.0
+offset_right = 218.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+text = "asd"
 
 [node name="Gameover" parent="CanvasLayer" unique_id=1614000592 instance=ExtResource("8_lpofg")]
 visible = false
@@ -1285,6 +1285,7 @@ layout_mode = 2
 visible = false
 
 [node name="Multiplayer" type="Control" parent="CanvasLayer" unique_id=815117432 node_paths=PackedStringArray("player_container", "overload_update_timer", "overload_progress")]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 scale = Vector2(0.8, 0.8)

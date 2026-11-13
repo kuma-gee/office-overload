@@ -116,7 +116,7 @@ func _ready():
 	mutators_label.visible = not GameManager.active_mutators.is_empty()
 	distractions.distraction_handled.connect(func():
 		if GameManager.has_mutator(GameManager.Mutator.OPEN_OFFICE):
-			overload_progress.reduce(25.0)
+			overload_progress.reduce(20.0)
 			overload_timer.stop()
 	)
 
