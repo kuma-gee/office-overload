@@ -47,7 +47,7 @@ const MUTATOR_NAME = {
 const MUTATOR_DESC = {
 	Mutator.PAPER_JAM: "Documents +30%\nsalary +20%",
 	Mutator.CRUNCH: "Stress +30%\ndocument +1 point",
-	Mutator.PART_TIME: "Workday ends at 14:00\nsalary -20%",
+	Mutator.PART_TIME: "Workday ends at 14\nsalary -20%",
 	Mutator.OPEN_OFFICE: "Double distractions\nfinish one -20 stress",
 	Mutator.AFTER_HOURS: "Work +2h overtime\n+2 performance",
 	Mutator.TYPO_TAX: "Typo +5 stress\nsalary +20%",
@@ -224,8 +224,11 @@ func has_mutator(mutator: Mutator):
 func is_mutator_active(mutator: Mutator):
 	return mutator in unlocked_mutators and mutator in active_mutators
 
+func has_all_mutators_unlocked() -> bool:
+	return unlocked_mutators.size() == Mutator.values().size()
+
 func has_all_mutators_active() -> bool:
-	return unlocked_mutators.all(func(m): return m in active_mutators)
+	return has_all_mutators_unlocked() and unlocked_mutators.all(func(m): return m in active_mutators)
 
 func toggle_mutator(mutator: Mutator):
 	if mutator not in unlocked_mutators:
@@ -517,6 +520,9 @@ func won_ceo():
 
 	round_ended.emit()
 	SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.CEO)
+
+	if has_all_mutators_active():
+		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.HARDCORE)
 
 func update_game_status(lobby = false):
 	if not SteamManager.is_successful_initialized: return

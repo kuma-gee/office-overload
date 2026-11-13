@@ -22,6 +22,7 @@ const ACHIEVEMENT = {
 	FULLY_EQUIPPED = "FULLY_EQUIPPED", # Office Upgrade
 	RICH = "RICH", # Money Bags
 	CAFFEINE = "CAFFEINE", # Caffeinated
+	HARDCORE = "HARDCORE", # Hardcore
 }
 
 var achievements: Dictionary = {}

@@ -37,3 +37,5 @@ RICH,name,Money Bags,Geldsack,大金持ち,大富翁
 RICH,description,"Have 10,000 money or more","Habe 10.000 Geld oder mehr",お金を10000以上持とう,拥有10000以上的金钱
 CAFFEINE,name,Caffeinated,Koffeiniert,カフェイン漬け,咖啡因上瘾
 CAFFEINE,description,Drink a coffee at work,Trinke bei der Arbeit einen Kaffee,仕事中にコーヒーを飲もう,工作时喝一杯咖啡
+HARDCORE,name,Hardcore,Hardcore,ハードコア,硬核
+HARDCORE,description,Beat the CEO with every policy unlocked and active,Besiege den CEO mit allen Richtlinien freigeschaltet und aktiv,すべてのポリシーを解放して有効にした状態でCEOに勝とう,在解锁并激活所有策略的情况下击败老板
