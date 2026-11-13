@@ -133,13 +133,14 @@ func _load_data():
 		reset_values()
 	
 	if Env.is_editor():
-		difficulty_level = DifficultyResource.Level.CEO
-		finished_game = true
+		finished_game = false
+		difficulty_level = DifficultyResource.Level.MANAGER
 		has_played = true
 		unlocked_modes = Mode.values()
-		new_game_plus = 1
-		unlocked_mutators = [Mutator.PAPER_JAM]
-		active_mutators = [Mutator.PAPER_JAM]
+		new_game_plus = 0
+		unlocked_mutators = []
+		active_mutators = []
+		performance = DIFFICULTIES[DifficultyResource.Level.MANAGER].max_performance
 		#bought_items = []
 	
 	_logger.info("Game initialized")
@@ -238,10 +239,10 @@ func toggle_mutator(mutator: Mutator):
 	save_data()
 	_logger.info("Mutator %s toggled: active=%s" % [Mutator.keys()[mutator], is_mutator_active(mutator)])
 
-func get_mutator_name(mutator: Mutator):
+func get_mutator_name(mutator: Mutator) -> String:
 	return MUTATOR_NAME.get(mutator, "?")
 
-func get_mutator_desc(mutator: Mutator):
+func get_mutator_desc(mutator: Mutator) -> String:
 	return MUTATOR_DESC.get(mutator, "")
 
 func get_active_mutator_names():

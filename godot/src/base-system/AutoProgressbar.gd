@@ -4,11 +4,11 @@ extends TextureProgressBar
 signal filled()
 
 # Exponential increase
-@export var max_increase := 0.5
-@export var min_increase := 0.05
-@export var base := 0.994 # sqrt(max_increase + min_increase, 100)
+@export var max_increase := 0.4
+@export var min_increase := 0.04
+@export var base := 0.9915 # sqrt(max_increase + min_increase, 100)
 
-@export var max_documents = 5.0
+@export var max_documents = 8.0
 
 @export var blink_start_time := 0.5
 @export var blink_timer_reference: Timer
@@ -22,6 +22,7 @@ signal filled()
 @export var blink_color := Color.WHITE
 
 @export var color = original_color
+var _logger = KumaLog.new("AutoProgressbar")
 var multiplier := 1.0
 var running := false
 
@@ -69,11 +70,13 @@ func _process(delta):
 	var workload = game.documents.size() / max_documents
 	multiplier = max(workload, 0.5)
 	if GameManager.is_work_mode():
-		multiplier = min(multiplier, 5)
+		multiplier = min(multiplier, 2)
 	
 	var was_full = is_full()
 	var increase = pow(base, value) - max_increase
-	value += clamp(increase, min_increase, max_increase) * multiplier * GameManager.get_stress_reduction() * GameManager.get_stress_multiplier()
+	var applied_increase = clamp(increase, min_increase, max_increase)
+	value += applied_increase * multiplier * GameManager.get_stress_reduction() * GameManager.get_stress_multiplier()
+	_logger.debug("increase: %.4f, applied: %.4f, multiplier: %.2f, value: %.2f" % [increase, applied_increase, multiplier, value])
 	if value > max_value:
 		value = max_value
 
