@@ -39,6 +39,10 @@ static func get_key_of_event(ev: InputEvent):
 	key.alt_pressed = false
 	key.meta_pressed = false
 	
+	# modifier-only presses (shift, ctrl, ...) have no unicode character
+	if key.unicode <= 0:
+		return null
+	
 	var text = char(key.unicode).to_lower()
 	if text.length() != 1:
 		return null
