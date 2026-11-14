@@ -230,6 +230,9 @@ func has_all_mutators_unlocked() -> bool:
 func has_all_mutators_active() -> bool:
 	return has_all_mutators_unlocked() and unlocked_mutators.all(func(m): return m in active_mutators)
 
+func has_all_unlocked_mutators_active() -> bool:
+	return unlocked_mutators.all(func(m): return m in active_mutators)
+
 func toggle_mutator(mutator: Mutator):
 	if mutator not in unlocked_mutators:
 		return
@@ -510,7 +513,7 @@ func won_ceo():
 
 	if is_work_mode():
 		day += 1
-		if has_all_mutators_active():
+		if has_all_unlocked_mutators_active():
 			can_sign_new_contract = true
 	
 	var wpm = wpm_calculator.get_average_wpm()
