@@ -135,12 +135,12 @@ func _load_data():
 	
 	if Env.is_editor():
 		finished_game = false
-		difficulty_level = DifficultyResource.Level.SENIOR
+		difficulty_level = DifficultyResource.Level.CEO
 		has_played = true
 		unlocked_modes = Mode.values()
 		new_game_plus = 0
-		unlocked_mutators = Mutator.values()
-		active_mutators = Mutator.values()
+		unlocked_mutators = [Mutator.PAPER_JAM]
+		active_mutators = [Mutator.PAPER_JAM]
 		performance = DIFFICULTIES[DifficultyResource.Level.SENIOR].max_performance
 		bought_items = []
 	
@@ -350,7 +350,7 @@ func get_sharp_eyes_stress() -> float:
 	return 5.0 if has_mutator(Mutator.TYPO_TAX) else 0.0
 #endregion
 
-func finished_day(data: Dictionary):
+func finished_day(data: Dictionary, lost := false):
 	### Calculate WPM ###
 	var wpm = wpm_calculator.get_average_wpm()
 	var acc = wpm_calculator.get_average_accuracy()
@@ -372,16 +372,16 @@ func finished_day(data: Dictionary):
 	if is_work_mode():
 		day += 1
 	
-	_check_day_achievements(data)
+	_check_day_achievements(data, lost or is_below_firing_threshold())
 
 	save_data()
 	round_ended.emit()
 
-func _check_day_achievements(data: Dictionary):
+func _check_day_achievements(data: Dictionary, lost := false):
 	if data["overtime"] > 0:
 		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.OVERTIME)
 	
-	if data["tasks"] > 0 and data["wrong"] == 0 and data["acc"] >= 1.0:
+	if not lost and data["tasks"] > 0 and data["wrong"] == 0 and data["acc"] >= 1.0:
 		SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.FLAWLESS)
 	
 	if data["grade"].grade == "S":

@@ -316,7 +316,7 @@ func _finished(is_burn_out = false, is_fired = false):
 				"overtime": work_time.get_overtime(),
 				"stress": overload_progress.get_average(),
 			}
-			GameManager.finished_day(data)
+			GameManager.finished_day(data, is_burn_out or is_fired)
 			
 			if is_burn_out:
 				SteamAchievements.unlock(SteamAchievements.ACHIEVEMENT.BURNOUT)
