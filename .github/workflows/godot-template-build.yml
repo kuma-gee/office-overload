@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: [linux, windows, web]
+        platform: [linux, windows]
     steps:
       - uses: kuma-gee/action-godot-template@v1
         with:
